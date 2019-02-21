@@ -241,6 +241,7 @@
     <Compile Include="Business\System.Web.Mvc\CacheAttribute.cs" />
     <Compile Include="Business\System.Web.Mvc\PermissonAttribute.cs" />
     <Compile Include="Business\Utilities\PDFHelper.cs" />
+    <Compile Include="Controllers\DecalreMaterial.cs" />
     <Compile Include="Controllers\ProfileModifyPeriodController.cs" />
     <Compile Include="Controllers\ExpManageController.cs" />
     <Compile Include="Controllers\ChartController.cs" />

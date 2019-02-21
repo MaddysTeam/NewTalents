@@ -317,28 +317,29 @@
 
 
 			<!-- 权限体系 -->
-      <table name="BzPermission" comment="权限">
-        <columns>
+			
+			<table name="BzPermission" comment="权限">
+			  <columns>
           
-          <add name="PermissionId" type="long" propertyName="Id" identityType="Provider" primaryKey="true" display="权限ID" />
-          <add name="Name" type="string" dataLength="255" required="true" display="权限名称" />
-          <add name="Status" type="int" defaultValue="0" display="权限状态"/>
+				 <add name="PermissionId" type="long" propertyName="Id" identityType="Provider" primaryKey="true" display="权限ID" />
+				 <add name="Name" type="string" dataLength="255" required="true" display="权限名称" />
+				 <add name="Status" type="int" defaultValue="0" display="权限状态"/>
         
-        </columns>
-      </table>
+			  </columns>
+			</table>
 
-      <table name="BzRolePermission" comment="角色权限">
-        <columns>
+			<table name="BzRolePermission" comment="角色权限">
+			  <columns>
 
-          <add name="RolePermissionId" type="long" identityType="Provider" primaryKey="true" display="ID" />
-          <add name="RoleId" type="long" display="角色ID"/>
-          <add name="PermissionId" type="long" display="权限ID"/>
-          <add name="IsGrant" type="bool" defaultValue="true" display="是否授权"/>
+				 <add name="RolePermissionId" type="long" identityType="Provider" primaryKey="true" display="ID" />
+				 <add name="RoleId" type="long" display="角色ID"/>
+				 <add name="PermissionId" type="long" display="权限ID"/>
+				 <add name="IsGrant" type="bool" defaultValue="true" display="是否授权"/>
           
-        </columns>
-      </table>
-     
-	
+			  </columns>
+			</table>
+
+			
 			<!-- 申报.基本情况 -->
 
 			<table name="DeclareBase" comment="申报">
@@ -375,6 +376,7 @@
 					<add name="DateRegion" type="string" dataLength="100" display="时间区间"/>
 					<add name="Company" type="string" dataLength="100" display="单位"/>
 					<add name="Title" type="string" dataLength="100" display="职称、职务"/>
+					<add name="IsDeclare" type="bool" display="是否申报"/>
 					<!-- Record Information -->
 					<add name="CreateDate" type="DateTime" display="创建时间"/>
 					<add name="Creator" type="long" display="创建人"/>
@@ -393,6 +395,7 @@
 					<add name="ContentKey" type="string" dataLength="200" display="内容类别" comment="用点分符做完字符串分割"/>
 					<add name="ContentValue" type="string" dataLength="30000" display="内容" />
 					<add name="ContentDataType" type="string" dataLength="100" display="内容数据类型" comment="内容的数据类型，String，DateTime等"/>
+					<add name="IsDeclare" type="bool" display="是否申报"/>
 					
 					<!-- Record Information -->
 					<add name="CreateDate" type="DateTime" display="创建时间"/>
@@ -424,7 +427,7 @@
 					<add name="Dynamic8" type="string" dataLength="2000" display="动态内容8"/>
 					<add name="Dynamic9" type="long" display="动态内容9" comment="PickList - "/>
 					<add name="IsShare" type="bool" display="是否共享"/>
-					
+					<add name="IsDeclare" type="bool" display="是否申报"/>
 					<!-- Record Information -->
 					<add name="CreateDate" type="DateTime" display="创建时间"/>
 					<add name="Creator" type="long" display="创建人"/>
@@ -453,6 +456,7 @@
 					<add name="Dynamic5" type="string" dataLength="2000" display="动态内容5"/>
 					<add name="Dynamic6" type="long" display="动态内容9" comment="PickList - "/>
 					<add name="IsShare" type="bool" display="是否共享"/>
+					<add name="IsDeclare" type="bool" display="是否申报"/>
 					<!-- Record Information -->
 					<add name="CreateDate" type="DateTime" display="创建时间"/>
 					<add name="Creator" type="long" display="创建人"/>
@@ -472,11 +476,28 @@
 					<add name="Work" type="string" dataLength="2000" display="开展情况"/>
 					<add name="Remark" type="string" dataLength="2000" display="备注"/>
 					<add name="IsShare" type="bool" display="是否共享"/>
+					<add name="IsDeclare" type="bool" display="是否申报"/>
 					<!-- Record Information -->
 					<add name="CreateDate" type="DateTime" display="创建时间"/>
 					<add name="Creator" type="long" display="创建人"/>
 					<add name="ModifyDate" type="DateTime?" isNullable="true" display="修改时间"/>
 					<add name="Modifier" type="long" display="修改人"/>
+				</columns>
+			</table>
+
+
+			<table name="DeclareMaterial" comment="申报材料，用于申报流程">
+				<columns>
+
+					<add name="MaterialId" type="long" primaryKey="true" identityType="Provider" display="梯队共享ID"/>
+					<add name="UserId" type="long" display="申报者ID"/>
+					<add name="ItemId" type="long" display="申报项ID"/>
+					<add name="Title" type="string" dataLength="1000" display="标题/内容"/>
+					<!--<add name="ParentType" type="string" dataLength="255"  display="父共享类型"/>
+					<add name="Type" type="string" dataLength="255" display="共享类型"/>-->
+					<add name="CreateDate" type="DateTime" display="创建时间"/>
+					<add name="PubishDate" type="DateTime" display="发布时间"/>
+
 				</columns>
 			</table>
 

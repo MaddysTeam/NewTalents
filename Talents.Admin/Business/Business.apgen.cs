@@ -69,6 +69,8 @@ namespace Business {
         
         private static DeclareOrgConstTableDef _declareOrgConst;
         
+        private static DeclareMaterialTableDef _declareMaterial;
+        
         private static TeamMemberTableDef _teamMember;
         
         private static TeamContentTableDef _teamContent;
@@ -166,6 +168,8 @@ namespace Business {
         private APDalDef.DeclareAchievementDal _declareAchievementDal;
         
         private APDalDef.DeclareOrgConstDal _declareOrgConstDal;
+        
+        private APDalDef.DeclareMaterialDal _declareMaterialDal;
         
         private APDalDef.TeamMemberDal _teamMemberDal;
         
@@ -498,6 +502,18 @@ namespace Business {
                     _declareOrgConst = new DeclareOrgConstTableDef("DeclareOrgConst");
                 }
                 return _declareOrgConst;
+            }
+        }
+        
+        /// <summary>
+        /// 申报材料，用于申报流程 TableDef
+        /// </summary>
+        public static DeclareMaterialTableDef DeclareMaterial {
+            get {
+                if ((_declareMaterial == null)) {
+                    _declareMaterial = new DeclareMaterialTableDef("DeclareMaterial");
+                }
+                return _declareMaterial;
             }
         }
         
@@ -1078,6 +1094,18 @@ namespace Business {
         }
         
         /// <summary>
+        /// 申报材料，用于申报流程 Dal
+        /// </summary>
+        public virtual APDalDef.DeclareMaterialDal DeclareMaterialDal {
+            get {
+                if ((_declareMaterialDal == null)) {
+                    _declareMaterialDal = new APDalDef.DeclareMaterialDal(this);
+                }
+                return _declareMaterialDal;
+            }
+        }
+        
+        /// <summary>
         /// 梯队-学员 Dal
         /// </summary>
         public virtual APDalDef.TeamMemberDal TeamMemberDal {
@@ -1415,6 +1443,7 @@ namespace Business {
                 db.DeclareActiveDal.InitData(db);
                 db.DeclareAchievementDal.InitData(db);
                 db.DeclareOrgConstDal.InitData(db);
+                db.DeclareMaterialDal.InitData(db);
                 db.TeamMemberDal.InitData(db);
                 db.TeamContentDal.InitData(db);
                 db.TeamActiveDal.InitData(db);
@@ -5447,6 +5476,8 @@ namespace Business {
             
             private StringAPColumnDef _title;
             
+            private BooleanAPColumnDef _isDeclare;
+            
             private DateTimeAPColumnDef _createDate;
             
             private Int64APColumnDef _creator;
@@ -5529,6 +5560,19 @@ namespace Business {
             }
             
             /// <summary>
+            /// IsDeclare ColumnDef
+            /// </summary>
+            public virtual BooleanAPColumnDef IsDeclare {
+                get {
+                    if (Object.ReferenceEquals(_isDeclare, null)) {
+                        _isDeclare = new BooleanAPColumnDef(this, "IsDeclare", false);
+                        _isDeclare.Display = "是否申报";
+                    }
+                    return _isDeclare;
+                }
+            }
+            
+            /// <summary>
             /// CreateDate ColumnDef
             /// </summary>
             public virtual DateTimeAPColumnDef CreateDate {
@@ -5605,6 +5649,7 @@ namespace Business {
                 data.DateRegion = DateRegion.GetValue<string>(reader, throwIfValidColumnName);
                 data.Company = Company.GetValue<string>(reader, throwIfValidColumnName);
                 data.Title = Title.GetValue<string>(reader, throwIfValidColumnName);
+                data.IsDeclare = IsDeclare.GetValue<bool>(reader, throwIfValidColumnName);
                 data.CreateDate = CreateDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
                 data.Creator = Creator.GetValue<long>(reader, throwIfValidColumnName);
                 data.ModifyDate = ModifyDate.GetValue<System.Nullable<System.DateTime>>(reader, throwIfValidColumnName);
@@ -5674,6 +5719,8 @@ namespace Business {
             private StringAPColumnDef _contentValue;
             
             private StringAPColumnDef _contentDataType;
+            
+            private BooleanAPColumnDef _isDeclare;
             
             private DateTimeAPColumnDef _createDate;
             
@@ -5757,6 +5804,19 @@ namespace Business {
             }
             
             /// <summary>
+            /// IsDeclare ColumnDef
+            /// </summary>
+            public virtual BooleanAPColumnDef IsDeclare {
+                get {
+                    if (Object.ReferenceEquals(_isDeclare, null)) {
+                        _isDeclare = new BooleanAPColumnDef(this, "IsDeclare", false);
+                        _isDeclare.Display = "是否申报";
+                    }
+                    return _isDeclare;
+                }
+            }
+            
+            /// <summary>
             /// CreateDate ColumnDef
             /// </summary>
             public virtual DateTimeAPColumnDef CreateDate {
@@ -5833,6 +5893,7 @@ namespace Business {
                 data.ContentKey = ContentKey.GetValue<string>(reader, throwIfValidColumnName);
                 data.ContentValue = ContentValue.GetValue<string>(reader, throwIfValidColumnName);
                 data.ContentDataType = ContentDataType.GetValue<string>(reader, throwIfValidColumnName);
+                data.IsDeclare = IsDeclare.GetValue<bool>(reader, throwIfValidColumnName);
                 data.CreateDate = CreateDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
                 data.Creator = Creator.GetValue<long>(reader, throwIfValidColumnName);
                 data.ModifyDate = ModifyDate.GetValue<System.Nullable<System.DateTime>>(reader, throwIfValidColumnName);
@@ -5926,6 +5987,8 @@ namespace Business {
             private Int64APColumnDef _dynamic9;
             
             private BooleanAPColumnDef _isShare;
+            
+            private BooleanAPColumnDef _isDeclare;
             
             private DateTimeAPColumnDef _createDate;
             
@@ -6165,6 +6228,19 @@ namespace Business {
             }
             
             /// <summary>
+            /// IsDeclare ColumnDef
+            /// </summary>
+            public virtual BooleanAPColumnDef IsDeclare {
+                get {
+                    if (Object.ReferenceEquals(_isDeclare, null)) {
+                        _isDeclare = new BooleanAPColumnDef(this, "IsDeclare", false);
+                        _isDeclare.Display = "是否申报";
+                    }
+                    return _isDeclare;
+                }
+            }
+            
+            /// <summary>
             /// CreateDate ColumnDef
             /// </summary>
             public virtual DateTimeAPColumnDef CreateDate {
@@ -6253,6 +6329,7 @@ namespace Business {
                 data.Dynamic8 = Dynamic8.GetValue<string>(reader, throwIfValidColumnName);
                 data.Dynamic9 = Dynamic9.GetValue<long>(reader, throwIfValidColumnName);
                 data.IsShare = IsShare.GetValue<bool>(reader, throwIfValidColumnName);
+                data.IsDeclare = IsDeclare.GetValue<bool>(reader, throwIfValidColumnName);
                 data.CreateDate = CreateDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
                 data.Creator = Creator.GetValue<long>(reader, throwIfValidColumnName);
                 data.ModifyDate = ModifyDate.GetValue<System.Nullable<System.DateTime>>(reader, throwIfValidColumnName);
@@ -6342,6 +6419,8 @@ namespace Business {
             private Int64APColumnDef _dynamic6;
             
             private BooleanAPColumnDef _isShare;
+            
+            private BooleanAPColumnDef _isDeclare;
             
             private DateTimeAPColumnDef _createDate;
             
@@ -6555,6 +6634,19 @@ namespace Business {
             }
             
             /// <summary>
+            /// IsDeclare ColumnDef
+            /// </summary>
+            public virtual BooleanAPColumnDef IsDeclare {
+                get {
+                    if (Object.ReferenceEquals(_isDeclare, null)) {
+                        _isDeclare = new BooleanAPColumnDef(this, "IsDeclare", false);
+                        _isDeclare.Display = "是否申报";
+                    }
+                    return _isDeclare;
+                }
+            }
+            
+            /// <summary>
             /// CreateDate ColumnDef
             /// </summary>
             public virtual DateTimeAPColumnDef CreateDate {
@@ -6641,6 +6733,7 @@ namespace Business {
                 data.Dynamic5 = Dynamic5.GetValue<string>(reader, throwIfValidColumnName);
                 data.Dynamic6 = Dynamic6.GetValue<long>(reader, throwIfValidColumnName);
                 data.IsShare = IsShare.GetValue<bool>(reader, throwIfValidColumnName);
+                data.IsDeclare = IsDeclare.GetValue<bool>(reader, throwIfValidColumnName);
                 data.CreateDate = CreateDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
                 data.Creator = Creator.GetValue<long>(reader, throwIfValidColumnName);
                 data.ModifyDate = ModifyDate.GetValue<System.Nullable<System.DateTime>>(reader, throwIfValidColumnName);
@@ -6712,6 +6805,8 @@ namespace Business {
             private StringAPColumnDef _remark;
             
             private BooleanAPColumnDef _isShare;
+            
+            private BooleanAPColumnDef _isDeclare;
             
             private DateTimeAPColumnDef _createDate;
             
@@ -6808,6 +6903,19 @@ namespace Business {
             }
             
             /// <summary>
+            /// IsDeclare ColumnDef
+            /// </summary>
+            public virtual BooleanAPColumnDef IsDeclare {
+                get {
+                    if (Object.ReferenceEquals(_isDeclare, null)) {
+                        _isDeclare = new BooleanAPColumnDef(this, "IsDeclare", false);
+                        _isDeclare.Display = "是否申报";
+                    }
+                    return _isDeclare;
+                }
+            }
+            
+            /// <summary>
             /// CreateDate ColumnDef
             /// </summary>
             public virtual DateTimeAPColumnDef CreateDate {
@@ -6885,6 +6993,7 @@ namespace Business {
                 data.Work = Work.GetValue<string>(reader, throwIfValidColumnName);
                 data.Remark = Remark.GetValue<string>(reader, throwIfValidColumnName);
                 data.IsShare = IsShare.GetValue<bool>(reader, throwIfValidColumnName);
+                data.IsDeclare = IsDeclare.GetValue<bool>(reader, throwIfValidColumnName);
                 data.CreateDate = CreateDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
                 data.Creator = Creator.GetValue<long>(reader, throwIfValidColumnName);
                 data.ModifyDate = ModifyDate.GetValue<System.Nullable<System.DateTime>>(reader, throwIfValidColumnName);
@@ -6930,6 +7039,186 @@ namespace Business {
             /// </summary>
             public virtual List<DeclareOrgConst> TolerantMapList(IDataReader reader) {
                 List<DeclareOrgConst> list = new List<DeclareOrgConst>();
+                try {
+                    for (; reader.Read(); ) {
+                        list.Add(TolerantMap(reader));
+                    }
+                }
+                finally {
+                    reader.Close();
+                }
+                return list;
+            }
+        }
+        
+        [Serializable()]
+        public partial class DeclareMaterialTableDef : APTableDef {
+            
+            private Int64APColumnDef _materialId;
+            
+            private Int64APColumnDef _userId;
+            
+            private Int64APColumnDef _itemId;
+            
+            private StringAPColumnDef _title;
+            
+            private DateTimeAPColumnDef _createDate;
+            
+            private DateTimeAPColumnDef _pubishDate;
+            
+            public DeclareMaterialTableDef(string tableName) : 
+                    base(tableName) {
+            }
+            
+            protected DeclareMaterialTableDef(string tableName, string alias) : 
+                    base(tableName, alias) {
+            }
+            
+            /// <summary>
+            /// MaterialId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef MaterialId {
+                get {
+                    if (Object.ReferenceEquals(_materialId, null)) {
+                        _materialId = new Int64APColumnDef(this, "MaterialId", false);
+                        _materialId.Display = "梯队共享ID";
+                    }
+                    return _materialId;
+                }
+            }
+            
+            /// <summary>
+            /// UserId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef UserId {
+                get {
+                    if (Object.ReferenceEquals(_userId, null)) {
+                        _userId = new Int64APColumnDef(this, "UserId", false);
+                        _userId.Display = "申报者ID";
+                    }
+                    return _userId;
+                }
+            }
+            
+            /// <summary>
+            /// ItemId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef ItemId {
+                get {
+                    if (Object.ReferenceEquals(_itemId, null)) {
+                        _itemId = new Int64APColumnDef(this, "ItemId", false);
+                        _itemId.Display = "申报项ID";
+                    }
+                    return _itemId;
+                }
+            }
+            
+            /// <summary>
+            /// Title ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef Title {
+                get {
+                    if (Object.ReferenceEquals(_title, null)) {
+                        _title = new StringAPColumnDef(this, "Title", false, 1000);
+                        _title.Display = "标题/内容";
+                    }
+                    return _title;
+                }
+            }
+            
+            /// <summary>
+            /// CreateDate ColumnDef
+            /// </summary>
+            public virtual DateTimeAPColumnDef CreateDate {
+                get {
+                    if (Object.ReferenceEquals(_createDate, null)) {
+                        _createDate = new DateTimeAPColumnDef(this, "CreateDate", false);
+                        _createDate.Display = "创建时间";
+                    }
+                    return _createDate;
+                }
+            }
+            
+            /// <summary>
+            /// PubishDate ColumnDef
+            /// </summary>
+            public virtual DateTimeAPColumnDef PubishDate {
+                get {
+                    if (Object.ReferenceEquals(_pubishDate, null)) {
+                        _pubishDate = new DateTimeAPColumnDef(this, "PubishDate", false);
+                        _pubishDate.Display = "发布时间";
+                    }
+                    return _pubishDate;
+                }
+            }
+            
+            /// <summary>
+            /// Default Index
+            /// </summary>
+            public virtual APSqlOrderPhrase DefaultOrder {
+                get {
+                    return null;
+                }
+            }
+            
+            /// <summary>
+            /// Create a alias table
+            /// </summary>
+            public virtual DeclareMaterialTableDef As(string name) {
+                return new DeclareMaterialTableDef("DeclareMaterial", name);
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual void Fullup(IDataReader reader, DeclareMaterial data, bool throwIfValidColumnName) {
+                data.MaterialId = MaterialId.GetValue<long>(reader, throwIfValidColumnName);
+                data.UserId = UserId.GetValue<long>(reader, throwIfValidColumnName);
+                data.ItemId = ItemId.GetValue<long>(reader, throwIfValidColumnName);
+                data.Title = Title.GetValue<string>(reader, throwIfValidColumnName);
+                data.CreateDate = CreateDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
+                data.PubishDate = PubishDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual DeclareMaterial Map(IDataReader reader) {
+                DeclareMaterial data = new DeclareMaterial();
+                Fullup(reader, data, true);
+                return data;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual DeclareMaterial TolerantMap(IDataReader reader) {
+                DeclareMaterial data = new DeclareMaterial();
+                Fullup(reader, data, false);
+                return data;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual List<DeclareMaterial> MapList(IDataReader reader) {
+                List<DeclareMaterial> list = new List<DeclareMaterial>();
+                try {
+                    for (; reader.Read(); ) {
+                        list.Add(Map(reader));
+                    }
+                }
+                finally {
+                    reader.Close();
+                }
+                return list;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual List<DeclareMaterial> TolerantMapList(IDataReader reader) {
+                List<DeclareMaterial> list = new List<DeclareMaterial>();
                 try {
                     for (; reader.Read(); ) {
                         list.Add(TolerantMap(reader));
@@ -14744,7 +15033,7 @@ namespace Business {
                 if ((data.DeclareResumeId == 0)) {
                     data.DeclareResumeId = ((long)(GetNewId(APDBDef.DeclareResume.DeclareResumeId)));
                 }
-                var query = APQuery.insert(APDBDef.DeclareResume).values(APDBDef.DeclareResume.DeclareResumeId.SetValue(data.DeclareResumeId), APDBDef.DeclareResume.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareResume.DateRegion.SetValue(data.DateRegion), APDBDef.DeclareResume.Company.SetValue(data.Company), APDBDef.DeclareResume.Title.SetValue(data.Title), APDBDef.DeclareResume.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareResume.Creator.SetValue(data.Creator), APDBDef.DeclareResume.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareResume.Modifier.SetValue(data.Modifier));
+                var query = APQuery.insert(APDBDef.DeclareResume).values(APDBDef.DeclareResume.DeclareResumeId.SetValue(data.DeclareResumeId), APDBDef.DeclareResume.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareResume.DateRegion.SetValue(data.DateRegion), APDBDef.DeclareResume.Company.SetValue(data.Company), APDBDef.DeclareResume.Title.SetValue(data.Title), APDBDef.DeclareResume.IsDeclare.SetValue(data.IsDeclare), APDBDef.DeclareResume.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareResume.Creator.SetValue(data.Creator), APDBDef.DeclareResume.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareResume.Modifier.SetValue(data.Modifier));
                 ExecuteNonQuery(query);
             }
             
@@ -14752,7 +15041,7 @@ namespace Business {
             /// 更新数据。
             /// </summary>
             public virtual void Update(DeclareResume data) {
-                var query = APQuery.update(APDBDef.DeclareResume).values(APDBDef.DeclareResume.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareResume.DateRegion.SetValue(data.DateRegion), APDBDef.DeclareResume.Company.SetValue(data.Company), APDBDef.DeclareResume.Title.SetValue(data.Title), APDBDef.DeclareResume.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareResume.Creator.SetValue(data.Creator), APDBDef.DeclareResume.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareResume.Modifier.SetValue(data.Modifier)).where((APDBDef.DeclareResume.DeclareResumeId == data.DeclareResumeId));
+                var query = APQuery.update(APDBDef.DeclareResume).values(APDBDef.DeclareResume.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareResume.DateRegion.SetValue(data.DateRegion), APDBDef.DeclareResume.Company.SetValue(data.Company), APDBDef.DeclareResume.Title.SetValue(data.Title), APDBDef.DeclareResume.IsDeclare.SetValue(data.IsDeclare), APDBDef.DeclareResume.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareResume.Creator.SetValue(data.Creator), APDBDef.DeclareResume.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareResume.Modifier.SetValue(data.Modifier)).where((APDBDef.DeclareResume.DeclareResumeId == data.DeclareResumeId));
                 ExecuteNonQuery(query);
             }
             
@@ -14880,7 +15169,7 @@ namespace Business {
                 if ((data.DeclareContentId == 0)) {
                     data.DeclareContentId = ((long)(GetNewId(APDBDef.DeclareContent.DeclareContentId)));
                 }
-                var query = APQuery.insert(APDBDef.DeclareContent).values(APDBDef.DeclareContent.DeclareContentId.SetValue(data.DeclareContentId), APDBDef.DeclareContent.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareContent.ContentKey.SetValue(data.ContentKey), APDBDef.DeclareContent.ContentValue.SetValue(data.ContentValue), APDBDef.DeclareContent.ContentDataType.SetValue(data.ContentDataType), APDBDef.DeclareContent.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareContent.Creator.SetValue(data.Creator), APDBDef.DeclareContent.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareContent.Modifier.SetValue(data.Modifier));
+                var query = APQuery.insert(APDBDef.DeclareContent).values(APDBDef.DeclareContent.DeclareContentId.SetValue(data.DeclareContentId), APDBDef.DeclareContent.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareContent.ContentKey.SetValue(data.ContentKey), APDBDef.DeclareContent.ContentValue.SetValue(data.ContentValue), APDBDef.DeclareContent.ContentDataType.SetValue(data.ContentDataType), APDBDef.DeclareContent.IsDeclare.SetValue(data.IsDeclare), APDBDef.DeclareContent.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareContent.Creator.SetValue(data.Creator), APDBDef.DeclareContent.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareContent.Modifier.SetValue(data.Modifier));
                 ExecuteNonQuery(query);
             }
             
@@ -14888,7 +15177,7 @@ namespace Business {
             /// 更新数据。
             /// </summary>
             public virtual void Update(DeclareContent data) {
-                var query = APQuery.update(APDBDef.DeclareContent).values(APDBDef.DeclareContent.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareContent.ContentKey.SetValue(data.ContentKey), APDBDef.DeclareContent.ContentValue.SetValue(data.ContentValue), APDBDef.DeclareContent.ContentDataType.SetValue(data.ContentDataType), APDBDef.DeclareContent.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareContent.Creator.SetValue(data.Creator), APDBDef.DeclareContent.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareContent.Modifier.SetValue(data.Modifier)).where((APDBDef.DeclareContent.DeclareContentId == data.DeclareContentId));
+                var query = APQuery.update(APDBDef.DeclareContent).values(APDBDef.DeclareContent.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareContent.ContentKey.SetValue(data.ContentKey), APDBDef.DeclareContent.ContentValue.SetValue(data.ContentValue), APDBDef.DeclareContent.ContentDataType.SetValue(data.ContentDataType), APDBDef.DeclareContent.IsDeclare.SetValue(data.IsDeclare), APDBDef.DeclareContent.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareContent.Creator.SetValue(data.Creator), APDBDef.DeclareContent.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareContent.Modifier.SetValue(data.Modifier)).where((APDBDef.DeclareContent.DeclareContentId == data.DeclareContentId));
                 ExecuteNonQuery(query);
             }
             
@@ -15016,7 +15305,7 @@ namespace Business {
                 if ((data.DeclareActiveId == 0)) {
                     data.DeclareActiveId = ((long)(GetNewId(APDBDef.DeclareActive.DeclareActiveId)));
                 }
-                var query = APQuery.insert(APDBDef.DeclareActive).values(APDBDef.DeclareActive.DeclareActiveId.SetValue(data.DeclareActiveId), APDBDef.DeclareActive.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareActive.ActiveKey.SetValue(data.ActiveKey), APDBDef.DeclareActive.Date.SetValue(data.Date), APDBDef.DeclareActive.Location.SetValue(data.Location), APDBDef.DeclareActive.Level.SetValue(data.Level), APDBDef.DeclareActive.ContentValue.SetValue(data.ContentValue), APDBDef.DeclareActive.Dynamic1.SetValue(data.Dynamic1), APDBDef.DeclareActive.Dynamic2.SetValue(data.Dynamic2), APDBDef.DeclareActive.Dynamic3.SetValue(data.Dynamic3), APDBDef.DeclareActive.Dynamic4.SetValue(data.Dynamic4), APDBDef.DeclareActive.Dynamic5.SetValue(data.Dynamic5), APDBDef.DeclareActive.Dynamic6.SetValue(data.Dynamic6), APDBDef.DeclareActive.Dynamic7.SetValue(data.Dynamic7), APDBDef.DeclareActive.Dynamic8.SetValue(data.Dynamic8), APDBDef.DeclareActive.Dynamic9.SetValue(data.Dynamic9), APDBDef.DeclareActive.IsShare.SetValue(data.IsShare), APDBDef.DeclareActive.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareActive.Creator.SetValue(data.Creator), APDBDef.DeclareActive.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareActive.Modifier.SetValue(data.Modifier));
+                var query = APQuery.insert(APDBDef.DeclareActive).values(APDBDef.DeclareActive.DeclareActiveId.SetValue(data.DeclareActiveId), APDBDef.DeclareActive.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareActive.ActiveKey.SetValue(data.ActiveKey), APDBDef.DeclareActive.Date.SetValue(data.Date), APDBDef.DeclareActive.Location.SetValue(data.Location), APDBDef.DeclareActive.Level.SetValue(data.Level), APDBDef.DeclareActive.ContentValue.SetValue(data.ContentValue), APDBDef.DeclareActive.Dynamic1.SetValue(data.Dynamic1), APDBDef.DeclareActive.Dynamic2.SetValue(data.Dynamic2), APDBDef.DeclareActive.Dynamic3.SetValue(data.Dynamic3), APDBDef.DeclareActive.Dynamic4.SetValue(data.Dynamic4), APDBDef.DeclareActive.Dynamic5.SetValue(data.Dynamic5), APDBDef.DeclareActive.Dynamic6.SetValue(data.Dynamic6), APDBDef.DeclareActive.Dynamic7.SetValue(data.Dynamic7), APDBDef.DeclareActive.Dynamic8.SetValue(data.Dynamic8), APDBDef.DeclareActive.Dynamic9.SetValue(data.Dynamic9), APDBDef.DeclareActive.IsShare.SetValue(data.IsShare), APDBDef.DeclareActive.IsDeclare.SetValue(data.IsDeclare), APDBDef.DeclareActive.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareActive.Creator.SetValue(data.Creator), APDBDef.DeclareActive.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareActive.Modifier.SetValue(data.Modifier));
                 ExecuteNonQuery(query);
             }
             
@@ -15024,7 +15313,7 @@ namespace Business {
             /// 更新数据。
             /// </summary>
             public virtual void Update(DeclareActive data) {
-                var query = APQuery.update(APDBDef.DeclareActive).values(APDBDef.DeclareActive.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareActive.ActiveKey.SetValue(data.ActiveKey), APDBDef.DeclareActive.Date.SetValue(data.Date), APDBDef.DeclareActive.Location.SetValue(data.Location), APDBDef.DeclareActive.Level.SetValue(data.Level), APDBDef.DeclareActive.ContentValue.SetValue(data.ContentValue), APDBDef.DeclareActive.Dynamic1.SetValue(data.Dynamic1), APDBDef.DeclareActive.Dynamic2.SetValue(data.Dynamic2), APDBDef.DeclareActive.Dynamic3.SetValue(data.Dynamic3), APDBDef.DeclareActive.Dynamic4.SetValue(data.Dynamic4), APDBDef.DeclareActive.Dynamic5.SetValue(data.Dynamic5), APDBDef.DeclareActive.Dynamic6.SetValue(data.Dynamic6), APDBDef.DeclareActive.Dynamic7.SetValue(data.Dynamic7), APDBDef.DeclareActive.Dynamic8.SetValue(data.Dynamic8), APDBDef.DeclareActive.Dynamic9.SetValue(data.Dynamic9), APDBDef.DeclareActive.IsShare.SetValue(data.IsShare), APDBDef.DeclareActive.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareActive.Creator.SetValue(data.Creator), APDBDef.DeclareActive.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareActive.Modifier.SetValue(data.Modifier)).where((APDBDef.DeclareActive.DeclareActiveId == data.DeclareActiveId));
+                var query = APQuery.update(APDBDef.DeclareActive).values(APDBDef.DeclareActive.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareActive.ActiveKey.SetValue(data.ActiveKey), APDBDef.DeclareActive.Date.SetValue(data.Date), APDBDef.DeclareActive.Location.SetValue(data.Location), APDBDef.DeclareActive.Level.SetValue(data.Level), APDBDef.DeclareActive.ContentValue.SetValue(data.ContentValue), APDBDef.DeclareActive.Dynamic1.SetValue(data.Dynamic1), APDBDef.DeclareActive.Dynamic2.SetValue(data.Dynamic2), APDBDef.DeclareActive.Dynamic3.SetValue(data.Dynamic3), APDBDef.DeclareActive.Dynamic4.SetValue(data.Dynamic4), APDBDef.DeclareActive.Dynamic5.SetValue(data.Dynamic5), APDBDef.DeclareActive.Dynamic6.SetValue(data.Dynamic6), APDBDef.DeclareActive.Dynamic7.SetValue(data.Dynamic7), APDBDef.DeclareActive.Dynamic8.SetValue(data.Dynamic8), APDBDef.DeclareActive.Dynamic9.SetValue(data.Dynamic9), APDBDef.DeclareActive.IsShare.SetValue(data.IsShare), APDBDef.DeclareActive.IsDeclare.SetValue(data.IsDeclare), APDBDef.DeclareActive.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareActive.Creator.SetValue(data.Creator), APDBDef.DeclareActive.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareActive.Modifier.SetValue(data.Modifier)).where((APDBDef.DeclareActive.DeclareActiveId == data.DeclareActiveId));
                 ExecuteNonQuery(query);
             }
             
@@ -15152,7 +15441,7 @@ namespace Business {
                 if ((data.DeclareAchievementId == 0)) {
                     data.DeclareAchievementId = ((long)(GetNewId(APDBDef.DeclareAchievement.DeclareAchievementId)));
                 }
-                var query = APQuery.insert(APDBDef.DeclareAchievement).values(APDBDef.DeclareAchievement.DeclareAchievementId.SetValue(data.DeclareAchievementId), APDBDef.DeclareAchievement.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareAchievement.AchievementKey.SetValue(data.AchievementKey), APDBDef.DeclareAchievement.Date.SetValue(data.Date), APDBDef.DeclareAchievement.DateRegion.SetValue(data.DateRegion), APDBDef.DeclareAchievement.Location.SetValue(data.Location), APDBDef.DeclareAchievement.Level.SetValue(data.Level), APDBDef.DeclareAchievement.NameOrTitle.SetValue(data.NameOrTitle), APDBDef.DeclareAchievement.Dynamic1.SetValue(data.Dynamic1), APDBDef.DeclareAchievement.Dynamic2.SetValue(data.Dynamic2), APDBDef.DeclareAchievement.Dynamic3.SetValue(data.Dynamic3), APDBDef.DeclareAchievement.Dynamic4.SetValue(data.Dynamic4), APDBDef.DeclareAchievement.Dynamic5.SetValue(data.Dynamic5), APDBDef.DeclareAchievement.Dynamic6.SetValue(data.Dynamic6), APDBDef.DeclareAchievement.IsShare.SetValue(data.IsShare), APDBDef.DeclareAchievement.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareAchievement.Creator.SetValue(data.Creator), APDBDef.DeclareAchievement.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareAchievement.Modifier.SetValue(data.Modifier));
+                var query = APQuery.insert(APDBDef.DeclareAchievement).values(APDBDef.DeclareAchievement.DeclareAchievementId.SetValue(data.DeclareAchievementId), APDBDef.DeclareAchievement.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareAchievement.AchievementKey.SetValue(data.AchievementKey), APDBDef.DeclareAchievement.Date.SetValue(data.Date), APDBDef.DeclareAchievement.DateRegion.SetValue(data.DateRegion), APDBDef.DeclareAchievement.Location.SetValue(data.Location), APDBDef.DeclareAchievement.Level.SetValue(data.Level), APDBDef.DeclareAchievement.NameOrTitle.SetValue(data.NameOrTitle), APDBDef.DeclareAchievement.Dynamic1.SetValue(data.Dynamic1), APDBDef.DeclareAchievement.Dynamic2.SetValue(data.Dynamic2), APDBDef.DeclareAchievement.Dynamic3.SetValue(data.Dynamic3), APDBDef.DeclareAchievement.Dynamic4.SetValue(data.Dynamic4), APDBDef.DeclareAchievement.Dynamic5.SetValue(data.Dynamic5), APDBDef.DeclareAchievement.Dynamic6.SetValue(data.Dynamic6), APDBDef.DeclareAchievement.IsShare.SetValue(data.IsShare), APDBDef.DeclareAchievement.IsDeclare.SetValue(data.IsDeclare), APDBDef.DeclareAchievement.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareAchievement.Creator.SetValue(data.Creator), APDBDef.DeclareAchievement.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareAchievement.Modifier.SetValue(data.Modifier));
                 ExecuteNonQuery(query);
             }
             
@@ -15160,7 +15449,7 @@ namespace Business {
             /// 更新数据。
             /// </summary>
             public virtual void Update(DeclareAchievement data) {
-                var query = APQuery.update(APDBDef.DeclareAchievement).values(APDBDef.DeclareAchievement.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareAchievement.AchievementKey.SetValue(data.AchievementKey), APDBDef.DeclareAchievement.Date.SetValue(data.Date), APDBDef.DeclareAchievement.DateRegion.SetValue(data.DateRegion), APDBDef.DeclareAchievement.Location.SetValue(data.Location), APDBDef.DeclareAchievement.Level.SetValue(data.Level), APDBDef.DeclareAchievement.NameOrTitle.SetValue(data.NameOrTitle), APDBDef.DeclareAchievement.Dynamic1.SetValue(data.Dynamic1), APDBDef.DeclareAchievement.Dynamic2.SetValue(data.Dynamic2), APDBDef.DeclareAchievement.Dynamic3.SetValue(data.Dynamic3), APDBDef.DeclareAchievement.Dynamic4.SetValue(data.Dynamic4), APDBDef.DeclareAchievement.Dynamic5.SetValue(data.Dynamic5), APDBDef.DeclareAchievement.Dynamic6.SetValue(data.Dynamic6), APDBDef.DeclareAchievement.IsShare.SetValue(data.IsShare), APDBDef.DeclareAchievement.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareAchievement.Creator.SetValue(data.Creator), APDBDef.DeclareAchievement.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareAchievement.Modifier.SetValue(data.Modifier)).where((APDBDef.DeclareAchievement.DeclareAchievementId == data.DeclareAchievementId));
+                var query = APQuery.update(APDBDef.DeclareAchievement).values(APDBDef.DeclareAchievement.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareAchievement.AchievementKey.SetValue(data.AchievementKey), APDBDef.DeclareAchievement.Date.SetValue(data.Date), APDBDef.DeclareAchievement.DateRegion.SetValue(data.DateRegion), APDBDef.DeclareAchievement.Location.SetValue(data.Location), APDBDef.DeclareAchievement.Level.SetValue(data.Level), APDBDef.DeclareAchievement.NameOrTitle.SetValue(data.NameOrTitle), APDBDef.DeclareAchievement.Dynamic1.SetValue(data.Dynamic1), APDBDef.DeclareAchievement.Dynamic2.SetValue(data.Dynamic2), APDBDef.DeclareAchievement.Dynamic3.SetValue(data.Dynamic3), APDBDef.DeclareAchievement.Dynamic4.SetValue(data.Dynamic4), APDBDef.DeclareAchievement.Dynamic5.SetValue(data.Dynamic5), APDBDef.DeclareAchievement.Dynamic6.SetValue(data.Dynamic6), APDBDef.DeclareAchievement.IsShare.SetValue(data.IsShare), APDBDef.DeclareAchievement.IsDeclare.SetValue(data.IsDeclare), APDBDef.DeclareAchievement.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareAchievement.Creator.SetValue(data.Creator), APDBDef.DeclareAchievement.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareAchievement.Modifier.SetValue(data.Modifier)).where((APDBDef.DeclareAchievement.DeclareAchievementId == data.DeclareAchievementId));
                 ExecuteNonQuery(query);
             }
             
@@ -15288,7 +15577,7 @@ namespace Business {
                 if ((data.DeclareOrgConstId == 0)) {
                     data.DeclareOrgConstId = ((long)(GetNewId(APDBDef.DeclareOrgConst.DeclareOrgConstId)));
                 }
-                var query = APQuery.insert(APDBDef.DeclareOrgConst).values(APDBDef.DeclareOrgConst.DeclareOrgConstId.SetValue(data.DeclareOrgConstId), APDBDef.DeclareOrgConst.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareOrgConst.Content.SetValue(data.Content), APDBDef.DeclareOrgConst.Work.SetValue(data.Work), APDBDef.DeclareOrgConst.Remark.SetValue(data.Remark), APDBDef.DeclareOrgConst.IsShare.SetValue(data.IsShare), APDBDef.DeclareOrgConst.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareOrgConst.Creator.SetValue(data.Creator), APDBDef.DeclareOrgConst.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareOrgConst.Modifier.SetValue(data.Modifier));
+                var query = APQuery.insert(APDBDef.DeclareOrgConst).values(APDBDef.DeclareOrgConst.DeclareOrgConstId.SetValue(data.DeclareOrgConstId), APDBDef.DeclareOrgConst.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareOrgConst.Content.SetValue(data.Content), APDBDef.DeclareOrgConst.Work.SetValue(data.Work), APDBDef.DeclareOrgConst.Remark.SetValue(data.Remark), APDBDef.DeclareOrgConst.IsShare.SetValue(data.IsShare), APDBDef.DeclareOrgConst.IsDeclare.SetValue(data.IsDeclare), APDBDef.DeclareOrgConst.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareOrgConst.Creator.SetValue(data.Creator), APDBDef.DeclareOrgConst.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareOrgConst.Modifier.SetValue(data.Modifier));
                 ExecuteNonQuery(query);
             }
             
@@ -15296,7 +15585,7 @@ namespace Business {
             /// 更新数据。
             /// </summary>
             public virtual void Update(DeclareOrgConst data) {
-                var query = APQuery.update(APDBDef.DeclareOrgConst).values(APDBDef.DeclareOrgConst.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareOrgConst.Content.SetValue(data.Content), APDBDef.DeclareOrgConst.Work.SetValue(data.Work), APDBDef.DeclareOrgConst.Remark.SetValue(data.Remark), APDBDef.DeclareOrgConst.IsShare.SetValue(data.IsShare), APDBDef.DeclareOrgConst.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareOrgConst.Creator.SetValue(data.Creator), APDBDef.DeclareOrgConst.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareOrgConst.Modifier.SetValue(data.Modifier)).where((APDBDef.DeclareOrgConst.DeclareOrgConstId == data.DeclareOrgConstId));
+                var query = APQuery.update(APDBDef.DeclareOrgConst).values(APDBDef.DeclareOrgConst.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareOrgConst.Content.SetValue(data.Content), APDBDef.DeclareOrgConst.Work.SetValue(data.Work), APDBDef.DeclareOrgConst.Remark.SetValue(data.Remark), APDBDef.DeclareOrgConst.IsShare.SetValue(data.IsShare), APDBDef.DeclareOrgConst.IsDeclare.SetValue(data.IsDeclare), APDBDef.DeclareOrgConst.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareOrgConst.Creator.SetValue(data.Creator), APDBDef.DeclareOrgConst.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareOrgConst.Modifier.SetValue(data.Modifier)).where((APDBDef.DeclareOrgConst.DeclareOrgConstId == data.DeclareOrgConstId));
                 ExecuteNonQuery(query);
             }
             
@@ -15401,6 +15690,142 @@ namespace Business {
             }
             
             public DeclareOrgConstDal(APDatabase db) : 
+                    base(db) {
+            }
+        }
+        
+        /// <summary>
+        /// 申报材料，用于申报流程 DalBase
+        /// </summary>
+        public partial class DeclareMaterialDalBase : APDal {
+            
+            public DeclareMaterialDalBase() {
+            }
+            
+            public DeclareMaterialDalBase(APDatabase db) : 
+                    base(db) {
+            }
+            
+            /// <summary>
+            /// 添加数据。
+            /// </summary>
+            public virtual void Insert(DeclareMaterial data) {
+                if ((data.MaterialId == 0)) {
+                    data.MaterialId = ((long)(GetNewId(APDBDef.DeclareMaterial.MaterialId)));
+                }
+                var query = APQuery.insert(APDBDef.DeclareMaterial).values(APDBDef.DeclareMaterial.MaterialId.SetValue(data.MaterialId), APDBDef.DeclareMaterial.UserId.SetValue(data.UserId), APDBDef.DeclareMaterial.ItemId.SetValue(data.ItemId), APDBDef.DeclareMaterial.Title.SetValue(data.Title), APDBDef.DeclareMaterial.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareMaterial.PubishDate.SetValue(data.PubishDate));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public virtual void Update(DeclareMaterial data) {
+                var query = APQuery.update(APDBDef.DeclareMaterial).values(APDBDef.DeclareMaterial.UserId.SetValue(data.UserId), APDBDef.DeclareMaterial.ItemId.SetValue(data.ItemId), APDBDef.DeclareMaterial.Title.SetValue(data.Title), APDBDef.DeclareMaterial.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareMaterial.PubishDate.SetValue(data.PubishDate)).where((APDBDef.DeclareMaterial.MaterialId == data.MaterialId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public virtual void UpdatePartial(long materialId, Object metadata) {
+                var query = APQuery.update(APDBDef.DeclareMaterial).values(APSqlSetPhraseSelector.Select(APDBDef.DeclareMaterial, metadata)).where((APDBDef.DeclareMaterial.MaterialId == materialId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 删除数据。
+            /// </summary>
+            public virtual void PrimaryDelete(long materialId) {
+                var query = APQuery.delete(APDBDef.DeclareMaterial).where((APDBDef.DeclareMaterial.MaterialId == materialId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 条件删除数据。
+            /// </summary>
+            public virtual void ConditionDelete(APSqlWherePhrase condition) {
+                var query = APQuery.delete(APDBDef.DeclareMaterial).where(condition);
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 根据条件查询数量。
+            /// </summary>
+            public virtual int ConditionQueryCount(APSqlWherePhrase condition) {
+                var query = APQuery.select(APDBDef.DeclareMaterial.Asterisk.Count()).from(APDBDef.DeclareMaterial).where(condition);
+                return ExecuteCount(query);
+            }
+            
+            /// <summary>
+            /// 根据主键获取数据。
+            /// </summary>
+            public virtual DeclareMaterial PrimaryGet(long materialId) {
+                var query = APQuery.select(APDBDef.DeclareMaterial.Asterisk).from(APDBDef.DeclareMaterial).where((APDBDef.DeclareMaterial.MaterialId == materialId));
+                IDataReader reader = ExecuteReader(query);
+                try {
+                    if (reader.Read()) {
+                        return APDBDef.DeclareMaterial.Map(reader);
+                    }
+                    return null;
+                }
+                finally {
+                    reader.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public virtual List<DeclareMaterial> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+                var query = APQuery.select(APDBDef.DeclareMaterial.Asterisk).from(APDBDef.DeclareMaterial);
+                if ((condition != null)) {
+                    query.where(condition);
+                }
+                if ((orderBy != null)) {
+                    query.order_by(orderBy);
+                }
+                if ((take != null)) {
+                    query.take(take);
+                }
+                if ((skip != null)) {
+                    query.skip(skip);
+                }
+                query.primary(APDBDef.DeclareMaterial.MaterialId);
+                IDataReader reader = ExecuteReader(query);
+                return APDBDef.DeclareMaterial.MapList(reader);
+            }
+            
+            /// <summary>
+            /// 获得表的初始化数据。
+            /// </summary>
+            public virtual List<DeclareMaterial> GetInitData() {
+                return new List<DeclareMaterial>();
+            }
+            
+            /// <summary>
+            /// 初始化数据。
+            /// </summary>
+            public virtual void InitData(APDBDef db) {
+                List<DeclareMaterial> list = GetInitData();
+                for (int i = 0; (i < list.Count); i = (i + 1)) {
+                    DeclareMaterial data = list[i];
+                    if ((PrimaryGet(data.MaterialId) == null)) {
+                        Insert(data);
+                    }
+                }
+            }
+        }
+        
+        /// <summary>
+        /// 申报材料，用于申报流程 Dal
+        /// </summary>
+        public partial class DeclareMaterialDal : DeclareMaterialDalBase {
+            
+            public DeclareMaterialDal() {
+            }
+            
+            public DeclareMaterialDal(APDatabase db) : 
                     base(db) {
             }
         }
@@ -22224,6 +22649,155 @@ namespace Business {
         /// 申报-制度建设 Dal
         /// </summary>
         public partial class DeclareOrgConstBpl : DeclareOrgConstBplBase {
+        }
+        
+        /// <summary>
+        /// 申报材料，用于申报流程 BplBase
+        /// </summary>
+        public partial class DeclareMaterialBplBase {
+            
+            /// <summary>
+            /// 添加数据。
+            /// </summary>
+            public static void Insert(DeclareMaterial data) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareMaterialDal.Insert(data);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public static void Update(DeclareMaterial data) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareMaterialDal.Update(data);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public static void UpdatePartial(long materialId, Object metadata) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareMaterialDal.UpdatePartial(materialId, metadata);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 删除数据。
+            /// </summary>
+            public static void PrimaryDelete(long materialId) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareMaterialDal.PrimaryDelete(materialId);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 条件删除数据。
+            /// </summary>
+            public static void ConditionDelete(APSqlWherePhrase condition) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareMaterialDal.ConditionDelete(condition);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据条件查询数量。
+            /// </summary>
+            public static int ConditionQueryCount(APSqlWherePhrase condition) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareMaterialDal.ConditionQueryCount(condition);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据主键获取数据。
+            /// </summary>
+            public static DeclareMaterial PrimaryGet(long materialId) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareMaterialDal.PrimaryGet(materialId);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<DeclareMaterial> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareMaterialDal.ConditionQuery(condition, orderBy, take, skip);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<DeclareMaterial> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareMaterialDal.ConditionQuery(condition, orderBy, take, null);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<DeclareMaterial> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareMaterialDal.ConditionQuery(condition, orderBy, null, null);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 获取所有数据。
+            /// </summary>
+            public static List<DeclareMaterial> GetAll() {
+                return ConditionQuery(null, null);
+            }
+        }
+        
+        /// <summary>
+        /// 申报材料，用于申报流程 Dal
+        /// </summary>
+        public partial class DeclareMaterialBpl : DeclareMaterialBplBase {
         }
         
         /// <summary>
@@ -33740,6 +34314,11 @@ namespace Business {
         private string _title = string.Empty;
         
         /// <summary>
+        /// IsDeclare
+        /// </summary>
+        private bool _isDeclare;
+        
+        /// <summary>
         /// CreateDate
         /// </summary>
         private System.DateTime _createDate;
@@ -33768,12 +34347,13 @@ namespace Business {
         /// <summary>
         /// 初始化所有字段的构造函数。
         /// </summary>
-        public DeclareResumeBase(long declareResumeId, long teacherId, string dateRegion, string company, string title, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) {
+        public DeclareResumeBase(long declareResumeId, long teacherId, string dateRegion, string company, string title, bool isDeclare, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) {
             _declareResumeId = declareResumeId;
             _teacherId = teacherId;
             _dateRegion = dateRegion;
             _company = company;
             _title = title;
+            _isDeclare = isDeclare;
             _createDate = createDate;
             _creator = creator;
             _modifyDate = modifyDate;
@@ -33894,6 +34474,28 @@ namespace Business {
         }
         
         /// <summary>
+        /// IsDeclare
+        /// </summary>
+        [Display(Name="是否申报")]
+        public virtual bool IsDeclare {
+            get {
+                return _isDeclare;
+            }
+            set {
+                _isDeclare = value;
+            }
+        }
+        
+        /// <summary>
+        /// IsDeclare APColumnDef
+        /// </summary>
+        public static BooleanAPColumnDef IsDeclareDef {
+            get {
+                return APDBDef.DeclareResume.IsDeclare;
+            }
+        }
+        
+        /// <summary>
         /// CreateDate
         /// </summary>
         [Display(Name="创建时间")]
@@ -34008,6 +34610,7 @@ namespace Business {
             DateRegion = data.DateRegion;
             Company = data.Company;
             Title = data.Title;
+            IsDeclare = data.IsDeclare;
             CreateDate = data.CreateDate;
             Creator = data.Creator;
             ModifyDate = data.ModifyDate;
@@ -34031,6 +34634,9 @@ namespace Business {
                 return false;
             }
             if ((Title != data.Title)) {
+                return false;
+            }
+            if ((IsDeclare != data.IsDeclare)) {
                 return false;
             }
             if ((CreateDate != data.CreateDate)) {
@@ -34141,8 +34747,8 @@ namespace Business {
         /// <summary>
         /// 初始化所有字段的构造函数。
         /// </summary>
-        public DeclareResume(long declareResumeId, long teacherId, string dateRegion, string company, string title, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) : 
-                base(declareResumeId, teacherId, dateRegion, company, title, createDate, creator, modifyDate, modifier) {
+        public DeclareResume(long declareResumeId, long teacherId, string dateRegion, string company, string title, bool isDeclare, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) : 
+                base(declareResumeId, teacherId, dateRegion, company, title, isDeclare, createDate, creator, modifyDate, modifier) {
         }
     }
     
@@ -34178,6 +34784,11 @@ namespace Business {
         private string _contentDataType = string.Empty;
         
         /// <summary>
+        /// IsDeclare
+        /// </summary>
+        private bool _isDeclare;
+        
+        /// <summary>
         /// CreateDate
         /// </summary>
         private System.DateTime _createDate;
@@ -34206,12 +34817,13 @@ namespace Business {
         /// <summary>
         /// 初始化所有字段的构造函数。
         /// </summary>
-        public DeclareContentBase(long declareContentId, long teacherId, string contentKey, string contentValue, string contentDataType, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) {
+        public DeclareContentBase(long declareContentId, long teacherId, string contentKey, string contentValue, string contentDataType, bool isDeclare, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) {
             _declareContentId = declareContentId;
             _teacherId = teacherId;
             _contentKey = contentKey;
             _contentValue = contentValue;
             _contentDataType = contentDataType;
+            _isDeclare = isDeclare;
             _createDate = createDate;
             _creator = creator;
             _modifyDate = modifyDate;
@@ -34332,6 +34944,28 @@ namespace Business {
         }
         
         /// <summary>
+        /// IsDeclare
+        /// </summary>
+        [Display(Name="是否申报")]
+        public virtual bool IsDeclare {
+            get {
+                return _isDeclare;
+            }
+            set {
+                _isDeclare = value;
+            }
+        }
+        
+        /// <summary>
+        /// IsDeclare APColumnDef
+        /// </summary>
+        public static BooleanAPColumnDef IsDeclareDef {
+            get {
+                return APDBDef.DeclareContent.IsDeclare;
+            }
+        }
+        
+        /// <summary>
         /// CreateDate
         /// </summary>
         [Display(Name="创建时间")]
@@ -34446,6 +35080,7 @@ namespace Business {
             ContentKey = data.ContentKey;
             ContentValue = data.ContentValue;
             ContentDataType = data.ContentDataType;
+            IsDeclare = data.IsDeclare;
             CreateDate = data.CreateDate;
             Creator = data.Creator;
             ModifyDate = data.ModifyDate;
@@ -34469,6 +35104,9 @@ namespace Business {
                 return false;
             }
             if ((ContentDataType != data.ContentDataType)) {
+                return false;
+            }
+            if ((IsDeclare != data.IsDeclare)) {
                 return false;
             }
             if ((CreateDate != data.CreateDate)) {
@@ -34579,8 +35217,8 @@ namespace Business {
         /// <summary>
         /// 初始化所有字段的构造函数。
         /// </summary>
-        public DeclareContent(long declareContentId, long teacherId, string contentKey, string contentValue, string contentDataType, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) : 
-                base(declareContentId, teacherId, contentKey, contentValue, contentDataType, createDate, creator, modifyDate, modifier) {
+        public DeclareContent(long declareContentId, long teacherId, string contentKey, string contentValue, string contentDataType, bool isDeclare, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) : 
+                base(declareContentId, teacherId, contentKey, contentValue, contentDataType, isDeclare, createDate, creator, modifyDate, modifier) {
         }
     }
     
@@ -34676,6 +35314,11 @@ namespace Business {
         private bool _isShare;
         
         /// <summary>
+        /// IsDeclare
+        /// </summary>
+        private bool _isDeclare;
+        
+        /// <summary>
         /// CreateDate
         /// </summary>
         private System.DateTime _createDate;
@@ -34722,6 +35365,7 @@ namespace Business {
                     string dynamic8, 
                     long dynamic9, 
                     bool isShare, 
+                    bool isDeclare, 
                     System.DateTime createDate, 
                     long creator, 
                     System.Nullable<System.DateTime> modifyDate, 
@@ -34743,6 +35387,7 @@ namespace Business {
             _dynamic8 = dynamic8;
             _dynamic9 = dynamic9;
             _isShare = isShare;
+            _isDeclare = isDeclare;
             _createDate = createDate;
             _creator = creator;
             _modifyDate = modifyDate;
@@ -35136,6 +35781,28 @@ namespace Business {
         }
         
         /// <summary>
+        /// IsDeclare
+        /// </summary>
+        [Display(Name="是否申报")]
+        public virtual bool IsDeclare {
+            get {
+                return _isDeclare;
+            }
+            set {
+                _isDeclare = value;
+            }
+        }
+        
+        /// <summary>
+        /// IsDeclare APColumnDef
+        /// </summary>
+        public static BooleanAPColumnDef IsDeclareDef {
+            get {
+                return APDBDef.DeclareActive.IsDeclare;
+            }
+        }
+        
+        /// <summary>
         /// CreateDate
         /// </summary>
         [Display(Name="创建时间")]
@@ -35262,6 +35929,7 @@ namespace Business {
             Dynamic8 = data.Dynamic8;
             Dynamic9 = data.Dynamic9;
             IsShare = data.IsShare;
+            IsDeclare = data.IsDeclare;
             CreateDate = data.CreateDate;
             Creator = data.Creator;
             ModifyDate = data.ModifyDate;
@@ -35321,6 +35989,9 @@ namespace Business {
                 return false;
             }
             if ((IsShare != data.IsShare)) {
+                return false;
+            }
+            if ((IsDeclare != data.IsDeclare)) {
                 return false;
             }
             if ((CreateDate != data.CreateDate)) {
@@ -35449,11 +36120,12 @@ namespace Business {
                     string dynamic8, 
                     long dynamic9, 
                     bool isShare, 
+                    bool isDeclare, 
                     System.DateTime createDate, 
                     long creator, 
                     System.Nullable<System.DateTime> modifyDate, 
                     long modifier) : 
-                base(declareActiveId, teacherId, activeKey, date, location, level, contentValue, dynamic1, dynamic2, dynamic3, dynamic4, dynamic5, dynamic6, dynamic7, dynamic8, dynamic9, isShare, createDate, creator, modifyDate, modifier) {
+                base(declareActiveId, teacherId, activeKey, date, location, level, contentValue, dynamic1, dynamic2, dynamic3, dynamic4, dynamic5, dynamic6, dynamic7, dynamic8, dynamic9, isShare, isDeclare, createDate, creator, modifyDate, modifier) {
         }
     }
     
@@ -35539,6 +36211,11 @@ namespace Business {
         private bool _isShare;
         
         /// <summary>
+        /// IsDeclare
+        /// </summary>
+        private bool _isDeclare;
+        
+        /// <summary>
         /// CreateDate
         /// </summary>
         private System.DateTime _createDate;
@@ -35583,6 +36260,7 @@ namespace Business {
                     string dynamic5, 
                     long dynamic6, 
                     bool isShare, 
+                    bool isDeclare, 
                     System.DateTime createDate, 
                     long creator, 
                     System.Nullable<System.DateTime> modifyDate, 
@@ -35602,6 +36280,7 @@ namespace Business {
             _dynamic5 = dynamic5;
             _dynamic6 = dynamic6;
             _isShare = isShare;
+            _isDeclare = isDeclare;
             _createDate = createDate;
             _creator = creator;
             _modifyDate = modifyDate;
@@ -35950,6 +36629,28 @@ namespace Business {
         }
         
         /// <summary>
+        /// IsDeclare
+        /// </summary>
+        [Display(Name="是否申报")]
+        public virtual bool IsDeclare {
+            get {
+                return _isDeclare;
+            }
+            set {
+                _isDeclare = value;
+            }
+        }
+        
+        /// <summary>
+        /// IsDeclare APColumnDef
+        /// </summary>
+        public static BooleanAPColumnDef IsDeclareDef {
+            get {
+                return APDBDef.DeclareAchievement.IsDeclare;
+            }
+        }
+        
+        /// <summary>
         /// CreateDate
         /// </summary>
         [Display(Name="创建时间")]
@@ -36074,6 +36775,7 @@ namespace Business {
             Dynamic5 = data.Dynamic5;
             Dynamic6 = data.Dynamic6;
             IsShare = data.IsShare;
+            IsDeclare = data.IsDeclare;
             CreateDate = data.CreateDate;
             Creator = data.Creator;
             ModifyDate = data.ModifyDate;
@@ -36127,6 +36829,9 @@ namespace Business {
                 return false;
             }
             if ((IsShare != data.IsShare)) {
+                return false;
+            }
+            if ((IsDeclare != data.IsDeclare)) {
                 return false;
             }
             if ((CreateDate != data.CreateDate)) {
@@ -36253,11 +36958,12 @@ namespace Business {
                     string dynamic5, 
                     long dynamic6, 
                     bool isShare, 
+                    bool isDeclare, 
                     System.DateTime createDate, 
                     long creator, 
                     System.Nullable<System.DateTime> modifyDate, 
                     long modifier) : 
-                base(declareAchievementId, teacherId, achievementKey, date, dateRegion, location, level, nameOrTitle, dynamic1, dynamic2, dynamic3, dynamic4, dynamic5, dynamic6, isShare, createDate, creator, modifyDate, modifier) {
+                base(declareAchievementId, teacherId, achievementKey, date, dateRegion, location, level, nameOrTitle, dynamic1, dynamic2, dynamic3, dynamic4, dynamic5, dynamic6, isShare, isDeclare, createDate, creator, modifyDate, modifier) {
         }
     }
     
@@ -36298,6 +37004,11 @@ namespace Business {
         private bool _isShare;
         
         /// <summary>
+        /// IsDeclare
+        /// </summary>
+        private bool _isDeclare;
+        
+        /// <summary>
         /// CreateDate
         /// </summary>
         private System.DateTime _createDate;
@@ -36326,13 +37037,14 @@ namespace Business {
         /// <summary>
         /// 初始化所有字段的构造函数。
         /// </summary>
-        public DeclareOrgConstBase(long declareOrgConstId, long teacherId, string content, string work, string remark, bool isShare, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) {
+        public DeclareOrgConstBase(long declareOrgConstId, long teacherId, string content, string work, string remark, bool isShare, bool isDeclare, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) {
             _declareOrgConstId = declareOrgConstId;
             _teacherId = teacherId;
             _content = content;
             _work = work;
             _remark = remark;
             _isShare = isShare;
+            _isDeclare = isDeclare;
             _createDate = createDate;
             _creator = creator;
             _modifyDate = modifyDate;
@@ -36475,6 +37187,28 @@ namespace Business {
         }
         
         /// <summary>
+        /// IsDeclare
+        /// </summary>
+        [Display(Name="是否申报")]
+        public virtual bool IsDeclare {
+            get {
+                return _isDeclare;
+            }
+            set {
+                _isDeclare = value;
+            }
+        }
+        
+        /// <summary>
+        /// IsDeclare APColumnDef
+        /// </summary>
+        public static BooleanAPColumnDef IsDeclareDef {
+            get {
+                return APDBDef.DeclareOrgConst.IsDeclare;
+            }
+        }
+        
+        /// <summary>
         /// CreateDate
         /// </summary>
         [Display(Name="创建时间")]
@@ -36590,6 +37324,7 @@ namespace Business {
             Work = data.Work;
             Remark = data.Remark;
             IsShare = data.IsShare;
+            IsDeclare = data.IsDeclare;
             CreateDate = data.CreateDate;
             Creator = data.Creator;
             ModifyDate = data.ModifyDate;
@@ -36616,6 +37351,9 @@ namespace Business {
                 return false;
             }
             if ((IsShare != data.IsShare)) {
+                return false;
+            }
+            if ((IsDeclare != data.IsDeclare)) {
                 return false;
             }
             if ((CreateDate != data.CreateDate)) {
@@ -36726,8 +37464,348 @@ namespace Business {
         /// <summary>
         /// 初始化所有字段的构造函数。
         /// </summary>
-        public DeclareOrgConst(long declareOrgConstId, long teacherId, string content, string work, string remark, bool isShare, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) : 
-                base(declareOrgConstId, teacherId, content, work, remark, isShare, createDate, creator, modifyDate, modifier) {
+        public DeclareOrgConst(long declareOrgConstId, long teacherId, string content, string work, string remark, bool isShare, bool isDeclare, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) : 
+                base(declareOrgConstId, teacherId, content, work, remark, isShare, isDeclare, createDate, creator, modifyDate, modifier) {
+        }
+    }
+    
+    /// <summary>
+    /// 申报材料，用于申报流程 Base
+    /// </summary>
+    [Serializable()]
+    public abstract partial class DeclareMaterialBase {
+        
+        /// <summary>
+        /// MaterialId
+        /// </summary>
+        private long _materialId;
+        
+        /// <summary>
+        /// UserId
+        /// </summary>
+        private long _userId;
+        
+        /// <summary>
+        /// ItemId
+        /// </summary>
+        private long _itemId;
+        
+        /// <summary>
+        /// Title
+        /// </summary>
+        private string _title = string.Empty;
+        
+        /// <summary>
+        /// CreateDate
+        /// </summary>
+        private System.DateTime _createDate;
+        
+        /// <summary>
+        /// PubishDate
+        /// </summary>
+        private System.DateTime _pubishDate;
+        
+        /// <summary>
+        /// 默认构造函数。
+        /// </summary>
+        public DeclareMaterialBase() {
+        }
+        
+        /// <summary>
+        /// 初始化所有字段的构造函数。
+        /// </summary>
+        public DeclareMaterialBase(long materialId, long userId, long itemId, string title, System.DateTime createDate, System.DateTime pubishDate) {
+            _materialId = materialId;
+            _userId = userId;
+            _itemId = itemId;
+            _title = title;
+            _createDate = createDate;
+            _pubishDate = pubishDate;
+        }
+        
+        /// <summary>
+        /// MaterialId
+        /// </summary>
+        [Display(Name="梯队共享ID")]
+        public virtual long MaterialId {
+            get {
+                return _materialId;
+            }
+            set {
+                _materialId = value;
+            }
+        }
+        
+        /// <summary>
+        /// MaterialId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef MaterialIdDef {
+            get {
+                return APDBDef.DeclareMaterial.MaterialId;
+            }
+        }
+        
+        /// <summary>
+        /// UserId
+        /// </summary>
+        [Display(Name="申报者ID")]
+        public virtual long UserId {
+            get {
+                return _userId;
+            }
+            set {
+                _userId = value;
+            }
+        }
+        
+        /// <summary>
+        /// UserId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef UserIdDef {
+            get {
+                return APDBDef.DeclareMaterial.UserId;
+            }
+        }
+        
+        /// <summary>
+        /// ItemId
+        /// </summary>
+        [Display(Name="申报项ID")]
+        public virtual long ItemId {
+            get {
+                return _itemId;
+            }
+            set {
+                _itemId = value;
+            }
+        }
+        
+        /// <summary>
+        /// ItemId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef ItemIdDef {
+            get {
+                return APDBDef.DeclareMaterial.ItemId;
+            }
+        }
+        
+        /// <summary>
+        /// Title
+        /// </summary>
+        [Display(Name="标题/内容")]
+        [StringLength(1000)]
+        public virtual string Title {
+            get {
+                return _title;
+            }
+            set {
+                _title = value;
+            }
+        }
+        
+        /// <summary>
+        /// Title APColumnDef
+        /// </summary>
+        public static StringAPColumnDef TitleDef {
+            get {
+                return APDBDef.DeclareMaterial.Title;
+            }
+        }
+        
+        /// <summary>
+        /// CreateDate
+        /// </summary>
+        [Display(Name="创建时间")]
+        public virtual System.DateTime CreateDate {
+            get {
+                return _createDate;
+            }
+            set {
+                _createDate = value;
+            }
+        }
+        
+        /// <summary>
+        /// CreateDate APColumnDef
+        /// </summary>
+        public static DateTimeAPColumnDef CreateDateDef {
+            get {
+                return APDBDef.DeclareMaterial.CreateDate;
+            }
+        }
+        
+        /// <summary>
+        /// PubishDate
+        /// </summary>
+        [Display(Name="发布时间")]
+        public virtual System.DateTime PubishDate {
+            get {
+                return _pubishDate;
+            }
+            set {
+                _pubishDate = value;
+            }
+        }
+        
+        /// <summary>
+        /// PubishDate APColumnDef
+        /// </summary>
+        public static DateTimeAPColumnDef PubishDateDef {
+            get {
+                return APDBDef.DeclareMaterial.PubishDate;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareMaterialTableDef APTableDef
+        /// </summary>
+        public static APDBDef.DeclareMaterialTableDef TableDef {
+            get {
+                return APDBDef.DeclareMaterial;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareMaterialTableDef APSqlAsteriskExpr
+        /// </summary>
+        public static APSqlAsteriskExpr Asterisk {
+            get {
+                return APDBDef.DeclareMaterial.Asterisk;
+            }
+        }
+        
+        /// <summary>
+        /// 赋值。
+        /// </summary>
+        public virtual void Assignment(DeclareMaterial data) {
+            MaterialId = data.MaterialId;
+            UserId = data.UserId;
+            ItemId = data.ItemId;
+            Title = data.Title;
+            CreateDate = data.CreateDate;
+            PubishDate = data.PubishDate;
+        }
+        
+        /// <summary>
+        /// 比较。
+        /// </summary>
+        public virtual bool CompareEquals(DeclareMaterial data) {
+            if ((MaterialId != data.MaterialId)) {
+                return false;
+            }
+            if ((UserId != data.UserId)) {
+                return false;
+            }
+            if ((ItemId != data.ItemId)) {
+                return false;
+            }
+            if ((Title != data.Title)) {
+                return false;
+            }
+            if ((CreateDate != data.CreateDate)) {
+                return false;
+            }
+            if ((PubishDate != data.PubishDate)) {
+                return false;
+            }
+            return true;
+        }
+        
+        /// <summary>
+        /// 添加数据。
+        /// </summary>
+        public virtual void Insert() {
+            APBplDef.DeclareMaterialBpl.Insert(((DeclareMaterial)(this)));
+        }
+        
+        /// <summary>
+        /// 更新数据。
+        /// </summary>
+        public virtual void Update() {
+            APBplDef.DeclareMaterialBpl.Update(((DeclareMaterial)(this)));
+        }
+        
+        /// <summary>
+        /// 更新数据。
+        /// </summary>
+        public static void UpdatePartial(long materialId, Object metadata) {
+            APBplDef.DeclareMaterialBpl.UpdatePartial(materialId, metadata);
+        }
+        
+        /// <summary>
+        /// 删除数据。
+        /// </summary>
+        public static void PrimaryDelete(long materialId) {
+            APBplDef.DeclareMaterialBpl.PrimaryDelete(materialId);
+        }
+        
+        /// <summary>
+        /// 条件删除数据。
+        /// </summary>
+        public static void ConditionDelete(APSqlWherePhrase condition) {
+            APBplDef.DeclareMaterialBpl.ConditionDelete(condition);
+        }
+        
+        /// <summary>
+        /// 根据条件查询数量。
+        /// </summary>
+        public static int ConditionQueryCount(APSqlWherePhrase condition) {
+            return APBplDef.DeclareMaterialBpl.ConditionQueryCount(condition);
+        }
+        
+        /// <summary>
+        /// 根据主键获取数据。
+        /// </summary>
+        public static DeclareMaterial PrimaryGet(long materialId) {
+            return APBplDef.DeclareMaterialBpl.PrimaryGet(materialId);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<DeclareMaterial> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take, int skip) {
+            return APBplDef.DeclareMaterialBpl.ConditionQuery(condition, orderBy, take, skip);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<DeclareMaterial> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take) {
+            return APBplDef.DeclareMaterialBpl.ConditionQuery(condition, orderBy, take);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<DeclareMaterial> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+            return APBplDef.DeclareMaterialBpl.ConditionQuery(condition, orderBy);
+        }
+        
+        /// <summary>
+        /// 获取所有数据。
+        /// </summary>
+        public static List<DeclareMaterial> GetAll() {
+            return APBplDef.DeclareMaterialBpl.GetAll();
+        }
+    }
+    
+    /// <summary>
+    /// 申报材料，用于申报流程
+    /// </summary>
+    [Serializable()]
+    public partial class DeclareMaterial : DeclareMaterialBase {
+        
+        /// <summary>
+        /// 默认构造函数。
+        /// </summary>
+        public DeclareMaterial() {
+        }
+        
+        /// <summary>
+        /// 初始化所有字段的构造函数。
+        /// </summary>
+        public DeclareMaterial(long materialId, long userId, long itemId, string title, System.DateTime createDate, System.DateTime pubishDate) : 
+                base(materialId, userId, itemId, title, createDate, pubishDate) {
         }
     }
     
