@@ -1,0 +1,108 @@
+﻿@model TeamSpecialCourseItem
+@{
+	var pageTitle = ViewBag.Title = TeamKeys.KecShis_Anp;
+}
+<div class="modal-dialog modal-lg">
+
+	<!-- widget -->
+	<div class="widget">
+		<div class="widget-header">
+			<h3><i class="fa fa-edit"></i> @pageTitle </h3>
+			<div class="btn-group widget-header-toolbar">
+				<a href="#" title="关闭" class="btn-borderless" data-dismiss="modal"><i class="fa fa-close"></i></a>
+			</div>
+		</div>
+		<div class="widget-content">
+		@using (Html.BeginForm("KecShis_Anp", "TeamPop", Model.ItemId == 0 ? null : new { id = Model.ItemId }, FormMethod.Post, new { @class = "form-horizontal", data_after_success = "afterDialogSuccess()" }))
+		{
+			<div class="row">
+				<fieldset class="col-md-12">
+					@Html.HiddenFor(m => m.CourseId)
+					@Html.HiddenFor(m => m.TeamId)
+					<div class="form-group">
+						@Html.LabelFor(m => m.ItemDate, new { @class = "control-label col-md-3" })
+						<div class="col-md-9">
+							<div class="input-group date" data-provide="datepicker" data-date-language="zh-CN" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
+								@Html.TextBoxFor(m => m.ItemDate, "{0:yyyy-MM-dd}", new { @class = "form-control" })
+								<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+							</div>
+							@Html.ValidationMessageFor(m => m.ItemDate)
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.Title, new { @class = "control-label col-md-3" })
+						<div class="col-md-9">
+							@Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+							@Html.ValidationMessageFor(m => m.Title)
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.Location, new { @class = "control-label col-md-3" })
+						<div class="col-md-9">
+							@Html.TextBoxFor(m => m.Location, new { @class = "form-control" })
+							@Html.ValidationMessageFor(m => m.Location)
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.ActivityType, new { @class = "control-label col-md-3" })
+						<div class="col-md-9">
+							@Html.TextBoxFor(m => m.ActivityType, new { @class = "form-control" })
+							@Html.ValidationMessageFor(m => m.ActivityType)
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.Speaker, new { @class = "control-label col-md-3" })
+						<div class="col-md-9">
+							@Html.TextBoxFor(m => m.Speaker, new { @class = "form-control" })
+							@Html.ValidationMessageFor(m => m.Speaker)
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.Remark, new { @class = "control-label col-md-3" })
+						<div class="col-md-9">
+							@Html.TextAreaFor(m => m.Remark, 5, 5, new { @class = "form-control" })
+							@Html.ValidationMessageFor(m => m.Remark)
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.Content, new { @class = "control-label col-md-12" })
+						<div class="col-md-12">
+							@Html.TextAreaFor(m => m.Content, new { style = "visibility:hidden;position:absolute;", required = "required" })
+							<div class="summernote-frame no-padding">
+								<div id="sum" class="summernote required" data-whatever="Content"></div>
+							</div>
+							@Html.ValidationMessageFor(m => m.Content)
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-9 col-lg-offset-3">
+							<button type="submit" class="btn btn-primary btn-block-half"><i class="fa fa-check-circle"></i> 保存</button>
+							<button type="button" class="btn btn-default btn-block-half" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		}
+		</div>
+		
+	</div>
+	<!-- end widget -->
+
+</div>
+
+
+<script>
+
+	$(function () {
+
+		ajaxSubmitForm($('.modal-dialog form'));
+		insureSummernot($('#sum'));
+		
+	})
+
+	function afterDialogSuccess() {
+		$('#firstModal').modal('hide');
+		loadFrag()
+	}
+
+</script>

@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js ie lt-ie9 lt-ie8 lt-ie7" lang="en-US"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js ie lt-ie9 lt-ie8" lang="en-US"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js ie lt-ie9" lang="en-US"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js ie lt-ie10" lang="en-US"> <![endif]-->
+<!--[if gt IE 9]>      <html class="no-ie" lang="en-US"> <![endif]-->
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>@ViewBag.Title - 虹口教育</title>
+	<meta name="description" content="虹口教育">
+	<meta name="author" content="上海教育软件有限公司">
+	
+	<!-- Mobile Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	@Styles.Render("~/css/layerslider")
+	@Styles.Render("~/css/fontello")
+	@Styles.Render("~/css/font-awesome")
+
+
+	<link rel="stylesheet" href="~/assets/css/app/foundation.css">
+	<link rel="stylesheet" href="~/assets/css/app/style4.3.1.css">
+	<link rel="stylesheet" href="~/assets/css/app/public.1.0.0.css">
+	<link rel="stylesheet" href="~/assets/css/app/options.css">
+	<link rel="stylesheet" href="~/assets/css/app/app.css">
+	<link rel="stylesheet" href="~/assets/css/app/visual-composer.css">
+	<link rel="stylesheet" href="~/assets/css/app/optionsplus.css">
+	<link rel="stylesheet" href="~/assets/css/custom.css">
+	<link rel="stylesheet" href="~/assets/css/app/responsive.css">
+	<link href="~/assets/css/app/customizerpublic.1.0.0.css" rel="stylesheet" />
+	@*<link rel="stylesheet" href="~/assets/css/customizerpublic.1.0.0.css">*@
+
+	@RenderSection("css", required: false)
+</head>
+<body class="">
+	<section class="top-header">
+		<div class="wrap">
+			<div class="login-header">
+				<div class="avatar">
+					<i class="icon-user"></i>
+				</div>
+				<a href="@AppConfigHelper.LoginUrl" target="_blank">我的工作台</a>
+			</div>
+		</div>
+	</section>
+
+	<section id="header" class="horizontal" data-not-fixed="">
+		<div class="header-wrap">
+			<div class="row">
+				<div class="twelve columns">
+
+					<div id="logo">
+						<a href="@Url.Action("Index","Home")">
+							<img src="~/assets/img/logo_4.png" alt="虹口教育" />
+						</a>
+					</div>
+
+					<a href="#" class="top-menu-button "></a>
+
+					<ul class="tiled-menu ">
+						<li class="metro-menu-item main-menu-item  menu-item-even menu-item-depth-0 style-classic">
+							<a title="首页" href="@Url.Action("Index", "Home")" class="menu-link main-menu-link">
+								<span class="menu-tile" style="background-color:#ff6d6d;"><i class="tile-icon icon-home-1"></i></span>
+								<span class="item-title">首 页</span>
+							</a>
+						</li>
+						<li class="metro-menu-item main-menu-item  menu-item-even menu-item-depth-0 style-classic">
+							<a title="新闻动态" href="@Url.Action("NoticeList","Home")" class="menu-link main-menu-link">
+								<span class="menu-tile" style="background-color:rgb(20, 166, 214)"> <i class="tile-icon icon-mail"></i></span>
+								<span class="item-title">通知通告</span>
+							</a>
+						</li>
+						<li class="metro-menu-item main-menu-item  menu-item-even menu-item-depth-0 style-classic">
+							<a title="新闻动态" href="@Url.Action("News","Home")" class="menu-link main-menu-link">
+								<span class="menu-tile" style="background-color:#ff9a00;"> <i class="tile-icon icon-doc-text-1"></i></span>
+								<span class="item-title">新闻动态</span>
+							</a>
+						</li>
+						<li class="metro-menu-item main-menu-item  menu-item-even menu-item-depth-0 style-classic">
+							<a title="新闻动态" href="@Url.Action("Corps","Home")" class="menu-link main-menu-link">
+								<span class="menu-tile" style="background-color:#ff9a66;"> <i class="tile-icon icon-archive"></i></span>
+								<span class="item-title">梯队动态</span>
+							</a>
+						</li>
+						<li class="metro-menu-item main-menu-item  menu-item-even menu-item-depth-0 style-classic">
+							<a title="新闻动态" href="@Url.Action("Share","Home")" class="menu-link main-menu-link">
+								<span class="menu-tile" style="background-color:#56bbdd"> <i class="tile-icon icon-share"></i></span>
+								<span class="item-title">资源分享</span>
+							</a>
+						</li>
+						@*<li class="metro-menu-item main-menu-item  menu-item-even menu-item-depth-0 style-classic">
+							<a title="平台简介" href="@Url.Action("About", "Home")" class="menu-link main-menu-link">
+								<span class="menu-tile" style="background-color:#56bbdd;"><i class="tile-icon icon-location"></i></span>
+								<span class="item-title">平台简介</span>
+							</a>
+						</li>*@
+						<li class="metro-menu-item main-menu-item  menu-item-even menu-item-depth-0 style-classic ">
+							<a title="帮助中心" href="@AppConfigHelper.LoginUrl" target="_blank" class="menu-link main-menu-link">
+								<span class="menu-tile" style="background-color:#ff4a35;">
+									<i class="tile-icon icon-pencil"></i>
+								</span><span class="item-title">我的工作台</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="before-content-block"></section>
+
+	@RenderBody()
+
+	<section class="footer">
+		<div class="wrap">
+			<div class="row">
+				<div class="four columns">
+					<a href="#"><img src="~/assets/img/logo_2.png" class="logo" /></a>
+					<br />
+					<div style="text-align:center">
+						<span>支持热线：25653284-2010</span>
+					</div>
+				</div>
+				<div class="four columns">
+					<h3>友情链接</h3>
+					<div class="intagram-gallery">
+						<span class="big-item">
+							<a href="javascript:;">
+								<img src="~/assets/img/shcool_2015_12_17_3.jpg" />
+							</a>
+						</span>
+						<span class="normal-item">
+							<a href="javascript:;">
+								<img src="~/assets/img/school_12_17_5.jpg" />
+							</a>
+						</span>
+						<span class="normal-item">
+							<a href="javascript:;">
+								<img src="~/assets/img/school_15_12_6.jpg" />
+							</a>
+						</span>
+						<span class="normal-item">
+							<a href="javascript:;">
+								<img src="~/assets/img/shcool_15_12_7.jpg" />
+							</a>
+						</span>
+						<span class="normal-item">
+							<a href="javascript:;">
+								<img src="~/assets/img/shcool_15_12_8.jpg" />
+							</a>
+						</span>
+					</div>
+				</div>
+				<div class="four columns">
+					<section>
+						<h3>关于我们</h3>
+						<div class="">
+							<p>上海市虹口区教育局是虹口区人民政府下设的教育行政主管部门，负责管理本区学前教育、基础教育、职业技术教育、成人教育、特殊教育等工作，负责教育系统干部、教师队伍建设，负责教育系统的对外交流与合作等</p>
+							<p></p>
+							@*<address>
+		联系电话：65758796
+		传真电话: 65757111
+	,地址:上海市虹口区天宝路1058号 联系邮箱: <a href="hongkouxinxi@126.com">hongkouxinxi@126.com</a></address>*@
+							<p></p>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section id="sub-footer">
+		<div class="wrap">
+			<div class="copyr">
+				<a href="javascript:;">Copy right © 2015 上海开放大学 版权所有</a>
+			</div>
+		</div>
+	</section>
+
+	@Scripts.Render("~/js/jquery")
+	@Scripts.Render("~/js/layerslider")
+	@Scripts.Render("~/js/app")
+	@RenderSection("plugins", required: false)
+	@RenderSection("scripts", required: false)
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+</body>
+</html>

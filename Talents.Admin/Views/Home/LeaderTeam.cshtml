@@ -1,0 +1,27 @@
+﻿@model List<LeaderTeamViewModel>
+<div class="row">
+	<div class="col-md-12">
+		<div class="widget">
+			<div class="widget-header">
+				<h3><i class="fa fa-tasks"></i>辅导的梯队--活动进度</h3>
+			</div>
+			<div class="widget-content">
+
+				<ul class="task-list">
+
+					@foreach (var item in Model)
+					{
+						<li title="@item.ResultCount/@item.MemberCount">
+							<p>@item.Title <span class="label label-success">@item.Progress%</span></p>
+							<div class="progress progress-xs progress-bar-success">
+								<div class="progress-bar label-success" role="progressbar" aria-valuenow="@item.Progress" aria-valuemin="0" aria-valuemax="100" style="width: @item.Progress%">
+									<span class="sr-only">@item.Progress%</span>
+								</div>
+							</div>
+						</li>
+					}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

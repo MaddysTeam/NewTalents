@@ -1,0 +1,76 @@
+﻿@model List<MemberResultViewModel>
+@{
+	var pageTitle = ViewBag.Title = TeamKeys.DaijHuod_XueyChengg;
+	var userId = Html.GetUserProfile().UserId;
+}
+<div class="modal-dialog modal-lg">
+
+	<!-- widget -->
+	<div class="widget">
+		<div class="widget-header">
+			<h3><i class="fa fa-edit"></i> @pageTitle </h3>
+			<div class="btn-group widget-header-toolbar">
+				<a href="#" title="关闭" class="btn-borderless" data-dismiss="modal"><i class="fa fa-close"></i></a>
+			</div>
+		</div>
+		<div class="widget-content">
+
+			@foreach (var item in Model.GroupBy(m => m.ResultId))
+			{
+				var data = Model.Find(m => m.ResultId == item.Key);
+				var attaList = Model.FindAll(m => m.ResultId == item.Key);
+				<div class="media media-whosay">
+					<div class="media-body">
+						<h4 class="media-heading">@data.MemberName</h4>
+						<p class="pl-20">
+							@Html.Raw(data.ActiveResult)
+						</p>
+						<p class="pl-20">
+							
+							@foreach (var it in attaList)
+							{
+								<a href="@it.AttachmentUrl" target="_blank">@it.AttachmentName</a>
+							}
+						</p>
+					</div>
+					<div class="media-right">
+						@if (data.MemberId == userId || data.TeamId == userId)
+						{
+							<button class="btn form-padding btn-warning btn-remove-xueychengg btn-sm" data-url="@Url.Action("RemoveXueyChengg", "Team", new { id = data.ResultId })" title="删除">删除</button>
+						}
+					</div>
+				</div>
+			}
+
+		</div>
+		
+	</div>
+	<!-- end widget -->
+
+</div>
+
+
+<script>
+
+	$(function () {
+
+		$('.widget .btn-remove-xueychengg').click(function (e) {
+			e.preventDefault();
+
+			if (confirm("确定要执行删除操作吗？")) {
+				var $this = $(this);
+				var url = $this.data('url');
+
+				$.post(url, null, function (data, status) {
+					popupMessage(data, {
+						success: function () {
+							$('#firstModal').modal('hide');
+							loadFrag();
+						}
+					});
+				})
+			}
+		});
+	})
+
+</script>

@@ -1,0 +1,1354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.1.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.1.1\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7F8E5600-346E-474B-9183-24EC5E17B975}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TheSite</RootNamespace>
+    <AssemblyName>Talents.Admin</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Aspose.Cells, Version=8.7.1.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <HintPath>..\packages\Aspose.Cells.8.7.1\lib\net40\Aspose.Cells.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Camoran.GodLog, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Business\Log\dll\Camoran.GodLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Camoran.GodLog.DB, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Business\Log\dll\Camoran.GodLog.DB.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Business\Log\dll\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.PowerPoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.OOXML.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.OpenXml4Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="office, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Symber.Web.APQuery, Version=4.0.3.7, Culture=neutral, PublicKeyToken=5f8081ae21b51971, processorArchitecture=MSIL">
+      <HintPath>..\packages\Symber.Web.APQuery.4.0.3.7\lib\net40\Symber.Web.APQuery.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Webdiyer.MvcPager, Version=3.0.2015.802, Culture=neutral, PublicKeyToken=f6872c5a09aed72c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Webdiyer.MvcPager.3.0.1.1\lib\Webdiyer.MvcPager.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\CasAuthorizeAttribute.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Business\Business.apgen.cs" />
+    <Compile Include="Business\DataDef\BzPermissionCache.cs" />
+    <Compile Include="Business\DataDef\TeamActiveResult.cs" />
+    <Compile Include="Business\DataDef\EvalQualitySubmitResult.cs" />
+    <Compile Include="Business\DataDef\EvalQualityResult.cs" />
+    <Compile Include="Business\DataDef\EvalVolumnResult.cs" />
+    <Compile Include="Business\DataDef\EvalSchoolResult.cs" />
+    <Compile Include="Business\Extensions\basic\DoubleExtensions.cs" />
+    <Compile Include="Business\Extensions\DeclareExtensions.cs" />
+    <Compile Include="Business\Extensions\AttachmentsExtensions.cs" />
+    <Compile Include="Business\Extensions\TeamExtensions.cs" />
+    <Compile Include="Business\Extensions\EvalPeriodExtensions.cs" />
+    <Compile Include="Business\Helper\BzPermissionNames.cs" />
+    <Compile Include="Business\Helper\CompanyHelper.cs" />
+    <Compile Include="Business\Helper\EvalHelper.cs" />
+    <Compile Include="Business\Helper\Keys\AttachmentsKeys.cs" />
+    <Compile Include="Business\Helper\Keys\TeamActiveKeys.cs" />
+    <Compile Include="Business\Helper\Keys\KetYanjKeys.cs" />
+    <Compile Include="Business\Helper\Keys\ShareKeys.cs" />
+    <Compile Include="Business\Helper\Keys\TesHuodKaizKeys.cs" />
+    <Compile Include="Business\Helper\Keys\XuesHuodKeys.cs" />
+    <Compile Include="Business\Helper\InspectionQualityHelper.cs" />
+    <Compile Include="Business\Helper\PicklistHelper.cs" />
+    <Compile Include="Business\Helper\Keys\EvalQualityRuleKeys.cs" />
+    <Compile Include="Business\Helper\Keys\EvalVolumnRuleKeys.cs" />
+    <Compile Include="Business\Helper\Keys\EvalSchoolRuleKeys.cs" />
+    <Compile Include="Business\Helper\Keys\StatisticalKeys.cs" />
+    <Compile Include="Business\Helper\Keys\ExpertKeys.cs" />
+    <Compile Include="Business\Helper\NoticeHelper.cs" />
+    <Compile Include="Business\Log\Logger.cs" />
+    <Compile Include="Business\System.Web.Mvc\CacheAttribute.cs" />
+    <Compile Include="Business\System.Web.Mvc\PermissonAttribute.cs" />
+    <Compile Include="Business\Utilities\PDFHelper.cs" />
+    <Compile Include="Controllers\ProfileModifyPeriodController.cs" />
+    <Compile Include="Controllers\ExpManageController.cs" />
+    <Compile Include="Controllers\ChartController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HomePageImageController.cs" />
+    <Compile Include="Controllers\NoticeController.cs" />
+    <Compile Include="Controllers\NoticeManageController.cs" />
+    <Compile Include="Controllers\QualityEvalController.cs" />
+    <Compile Include="Controllers\QualityEvalManageController.cs" />
+    <Compile Include="Controllers\PermissionController.cs" />
+    <Compile Include="Controllers\ShareManageController.cs" />
+    <Compile Include="Controllers\StatisticalManageController.cs" />
+    <Compile Include="Controllers\SystemController.cs" />
+    <Compile Include="Controllers\TeacherManageController.cs" />
+    <Compile Include="Controllers\UserEvalController.cs" />
+    <Compile Include="Controllers\VolumnEvalManageController.cs" />
+    <Compile Include="Controllers\SchoolEvalManageController.cs" />
+    <Compile Include="Controllers\SchoolEvalController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="EvalAnalysis\AnalysisUnits.cs" />
+    <Compile Include="EvalAnalysis\AnnualEngine.QualityEvalUnit.cs" />
+    <Compile Include="EvalAnalysis\AnnualEngine.QualityEvalUnit5002.cs" />
+    <Compile Include="EvalAnalysis\AnnualEngine.QualityEvalUnit5003.cs" />
+    <Compile Include="EvalAnalysis\AnnualEngine.QualityEvalUnit5004.cs" />
+    <Compile Include="EvalAnalysis\AnnualEngine.QualityEvalUnit5005.cs" />
+    <Compile Include="EvalAnalysis\AnnualEngine.QualityEvalUnit5006.cs" />
+    <Compile Include="EvalAnalysis\AnnualEngine.VolumnEvalUnit5006.cs" />
+    <Compile Include="EvalAnalysis\AnnualEngine.VolumnEvalUnit5005.cs" />
+    <Compile Include="EvalAnalysis\AnnualEngine.VolumnEvalUnit5004.cs" />
+    <Compile Include="EvalAnalysis\AnnualEngine.VolumnEvalUnit5003.cs" />
+    <Compile Include="EvalAnalysis\AnnualEngine.VolumnEvalUnit5002.cs" />
+    <Compile Include="EvalAnalysis\AnnualEngine.VolumnEvalUnit.cs" />
+    <Compile Include="EvalAnalysis\AnnualEngine.SchoolEvalUnit.cs" />
+    <Compile Include="EvalAnalysis\EvalParam.cs" />
+    <Compile Include="EvalAnalysis\EngineManager.cs" />
+    <Compile Include="EvalAnalysis\AnnualEngine.cs" />
+    <Compile Include="EvalAnalysis\EvalAnalysisEngine.cs" />
+    <Compile Include="Business\Cache\ThisAppCache.cs" />
+    <Compile Include="Business\Config\ThisApp.cs" />
+    <Compile Include="Business\Config\PicklistKeys.cs" />
+    <Compile Include="Business\DataDef\BzUserProfile.cs" />
+    <Compile Include="Business\DataDef\BzRoleCache.cs" />
+    <Compile Include="Business\DataDef\BzUser.cs" />
+    <Compile Include="Business\Json\json_treenode_types.cs" />
+    <Compile Include="Business\Json\json_treenode.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\EvalPeriodController.cs" />
+    <Compile Include="Controllers\JsonController.cs" />
+    <Compile Include="Controllers\EvalManageController.cs" />
+    <Compile Include="Controllers\TeamPopController .cs" />
+    <Compile Include="Models\EvalResultViewModels.cs" />
+    <Compile Include="Models\AttachmentsModel.cs" />
+    <Compile Include="Models\DeclareAchievementDataModel.cs" />
+    <Compile Include="Models\DeclareActiveTotalViewModel.cs" />
+    <Compile Include="Models\AdminOverViewModel.cs" />
+    <Compile Include="Models\ChartViewModel.cs" />
+    <Compile Include="Models\DeclareActiveDataModel.cs" />
+    <Compile Include="Models\LogModels.cs" />
+    <Compile Include="Models\NoticeViewModel.cs" />
+    <Compile Include="Models\ScoreModels.cs" />
+    <Compile Include="Models\StatisticalViewModel.cs" />
+    <Compile Include="Models\DeclareModel.cs" />
+    <Compile Include="Models\CompanyManageViewModels.cs" />
+    <Compile Include="Models\LeaderTeamViewModel.cs" />
+    <Compile Include="Models\JoinTeamViewModel.cs" />
+    <Compile Include="Models\PeriodModel.cs" />
+    <Compile Include="Models\ExpManageViewModels.cs" />
+    <Compile Include="Models\QualityEvalManageViewModels.cs" />
+    <Compile Include="Models\QualityEvalViewModels.cs" />
+    <Compile Include="Models\NoticeModel.cs" />
+    <Compile Include="Models\InspectionViewModel.cs" />
+    <Compile Include="Models\TeacherEvalInfo.cs" />
+    <Compile Include="Models\UserEvalViewModel.cs" />
+    <Compile Include="Models\UserInfoModel.cs" />
+    <Compile Include="Models\VolumnEvalManageViewModels.cs" />
+    <Compile Include="Models\SchoolEvalManageViewModels.cs" />
+    <Compile Include="Business\DataDef\DeclareBase.cs" />
+    <Compile Include="Business\Helper\Keys\TeamKeys.cs" />
+    <Compile Include="Business\Helper\SelectNames.cs" />
+    <Compile Include="Business\Helper\DeclareTargetIds.cs" />
+    <Compile Include="Business\Helper\DeclareBaseHelper.cs" />
+    <Compile Include="Business\Helper\LevelNames.cs" />
+    <Compile Include="Business\Helper\Keys\DataTypeKey.cs" />
+    <Compile Include="Business\Helper\Keys\DeclareKeys.cs" />
+    <Compile Include="Business\Helper\BzRoleNames.cs" />
+    <Compile Include="Business\Helper\BzUserProfileHelper.cs" />
+    <Compile Include="Business\Symber.Web.Report\BaseLookupAPRptColumn.cs" />
+    <Compile Include="Business\Symber.Web.Report\DateTimeChineseAPRptColumn.cs" />
+    <Compile Include="Business\Symber.Web.Report\IDAPRptColumn.cs" />
+    <Compile Include="Business\Symber.Web.Report\AgeAPRptColumn.cs" />
+    <Compile Include="Business\System.Web.Mvc\IdentityAuthorizeAttribute.cs" />
+    <Compile Include="Business\Utilities\AppConfigHelper.cs" />
+    <Compile Include="Controllers\DeclarePopController.cs" />
+    <Compile Include="Controllers\DesignerController.cs" />
+    <Compile Include="Business\Helper\BzUserHelper.cs" />
+    <Compile Include="Business\Helper\BzRoleIds.cs" />
+    <Compile Include="Business\DataDef\Picklist.cs" />
+    <Compile Include="Business\DataDef\PicklistCache.cs" />
+    <Compile Include="Business\Extensions\ControllerExtensions.cs" />
+    <Compile Include="Business\Extensions\HtmlExtensions.cs" />
+    <Compile Include="Business\Extensions\HttpContextBaseExtensions.cs" />
+    <Compile Include="Business\Extensions\PicklistAPRptColumnExtensions.cs" />
+    <Compile Include="Business\Extensions\RouteDataExtensions.cs" />
+    <Compile Include="Business\Initialize\PicklistDal.cs" />
+    <Compile Include="Business\Utilities\AsposeCellPatch.cs" />
+    <Compile Include="Controllers\DeclareController.cs" />
+    <Compile Include="Controllers\AttachmentController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\StudioController.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Controllers\TeamManageController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Business\System.Web.Mvc\AttachmentResults.cs" />
+    <Compile Include="Business\System.Web.Mvc\JsonExceptionAttribute.cs" />
+    <Compile Include="Business\System.Web.Mvc\LogExceptionAttribute.cs" />
+    <Compile Include="Models\TeamViewModels.cs" />
+    <Compile Include="Models\TeamManageViewModels.cs" />
+    <Compile Include="Models\DeclareViewModels.cs" />
+    <Compile Include="Models\ModelBinder\AjaxOrderModelBinder.cs" />
+    <Compile Include="Business\Security\BzClaimTypes.cs" />
+    <Compile Include="Business\Symber.Web.Report\PicklistAPRptColumn.cs" />
+    <Compile Include="Business\XOrg\XOrgData.cs" />
+    <Compile Include="Business\XOrg\XOrgControllerFactory.cs" />
+    <Compile Include="Business\Identity\ApplicationDbContext.cs" />
+    <Compile Include="Business\Identity\ApplicationSignInManager.cs" />
+    <Compile Include="Business\Identity\ApplicationUserManager.cs" />
+    <Compile Include="Business\Identity\EmailService.cs" />
+    <Compile Include="Business\Extensions\BzUserExtensions.cs" />
+    <Compile Include="Business\Identity\SmsService.cs" />
+    <Compile Include="Business\Symber.Web.Identity\IdentityDbContext.cs" />
+    <Compile Include="Business\Symber.Web.Identity\IdentityRole.cs" />
+    <Compile Include="Business\Symber.Web.Identity\IdentityRoleClaim.cs" />
+    <Compile Include="Business\Symber.Web.Identity\IdentityUser.cs" />
+    <Compile Include="Business\Symber.Web.Identity\IdentityUserClaim.cs" />
+    <Compile Include="Business\Symber.Web.Identity\IdentityUserLogin.cs" />
+    <Compile Include="Business\Symber.Web.Identity\IdentityUserRole.cs" />
+    <Compile Include="Business\Symber.Web.Identity\RoleStore.cs" />
+    <Compile Include="Business\Symber.Web.Identity\UserStore.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ModelBinder\EmptyStringModelBinder.cs" />
+    <Compile Include="Business\System.Web.Mvc\AjaxOrder.cs" />
+    <Compile Include="Business\System.Web.Mvc\AjaxResults.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+    <Content Include="assets\img\News404.jpg" />
+    <Content Include="assets\js\jquery-1.11.1.min.js" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\ajax\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\annotating\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-interacting\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-multiple\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time-zones\date.js" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time-zones\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\background.png" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\basic-options\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\basic-usage\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\canvas\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\categories\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\examples.css" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\image\hs-2004-27-a-large-web.jpg" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\image\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\interacting\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\navigate\arrow-down.gif" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\navigate\arrow-left.gif" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\navigate\arrow-right.gif" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\navigate\arrow-up.gif" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\navigate\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\percentiles\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\realtime\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\resize\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\selection\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\series-errorbars\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\series-pie\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\series-toggle\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\series-types\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\shared\jquery-ui\jquery-ui.min.css" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\shared\jquery-ui\jquery-ui.min.js" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\stacking\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\symbols\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\threshold\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\tracking\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\visitors\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\zooming\index.html" />
+    <Content Include="assets\plugins\flot-0.8.3\excanvas.js" />
+    <Content Include="assets\plugins\flot-0.8.3\excanvas.min.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.colorhelpers.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.colorhelpers.min.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.canvas.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.canvas.min.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.categories.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.categories.min.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.crosshair.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.crosshair.min.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.errorbars.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.errorbars.min.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.fillbetween.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.fillbetween.min.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.image.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.image.min.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.min.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.navigate.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.navigate.min.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.pie.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.pie.min.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.resize.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.resize.min.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.selection.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.selection.min.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.stack.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.stack.min.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.symbol.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.symbol.min.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.threshold.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.threshold.min.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.time.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.flot.time.min.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.js" />
+    <Content Include="assets\plugins\flot-0.8.3\jquery.min.js" />
+    <Content Include="assets\plugins\flot-0.8.3\LICENSE.txt" />
+    <Content Include="assets\plugins\jquery.searchableSelect\css\jquery.searchableSelect.css" />
+    <Content Include="assets\plugins\jquery.searchableSelect\js\jquery.searchableSelect.js" />
+    <Content Include="assets\plugins\pdf.object\pdfobject.js" />
+    <Content Include="assets\plugins\pdf.object\pdfobject.min.js" />
+    <Content Include="assets\plugins\tableExport.jquery.plugin-master\html2canvas.js" />
+    <Content Include="assets\plugins\tableExport.jquery.plugin-master\jquery.base64.js" />
+    <Content Include="assets\plugins\tableExport.jquery.plugin-master\jspdf\jspdf.js" />
+    <Content Include="assets\plugins\tableExport.jquery.plugin-master\jspdf\libs\base64.js" />
+    <Content Include="assets\plugins\tableExport.jquery.plugin-master\jspdf\libs\sprintf.js" />
+    <Content Include="assets\plugins\tableExport.jquery.plugin-master\tableExport.js" />
+    <Content Include="Business\Log\dll\Camoran.GodLog.DB.dll" />
+    <Content Include="Business\Log\dll\Camoran.GodLog.dll" />
+    <Content Include="Business\Log\dll\Dapper.dll" />
+    <Content Include="Views\Declare\ZisFaz_PeixJiangz_JiaosPeixKec.cshtml" />
+    <Content Include="Views\DeclarePop\ZisFaz_PeixJiangz_JiaosPeixKec.cshtml" />
+    <Content Include="Views\Declare\ZisFaz_PeixJiangz_DingxxKec.cshtml" />
+    <Content Include="Views\DeclarePop\ZisFaz_PeixJiangz_DingxxKec.cshtml" />
+    <Content Include="Views\News\List.cshtml" />
+    <Content Include="Views\News\Edit.cshtml" />
+    <Content Include="Views\HomePageImage\Edit.cshtml" />
+    <Content Include="Views\HomePageImage\List.cshtml" />
+    <Content Include="Views\News\Details.cshtml" />
+    <Content Include="Views\HomePageImage\Details.cshtml" />
+    <Content Include="Views\EvalModel\Annual\QualityRuleView5002.cshtml" />
+    <Content Include="Views\EvalModel\Annual\QualityRuleView5003.cshtml" />
+    <Content Include="Views\EvalModel\Annual\QualityRuleView5004.cshtml" />
+    <Content Include="Views\EvalModel\Annual\QualityRuleView5005.cshtml" />
+    <Content Include="Views\EvalModel\Annual\QualityRuleView5006.cshtml" />
+    <Content Include="Views\EvalManage\QualityRule.cshtml" />
+    <Content Include="Views\VolumnEvalManage\Overview.cshtml" />
+    <Content Include="assets\json\expert.json" />
+    <Content Include="Views\QualityEval\EvalMemberList.cshtml" />
+    <Content Include="Views\QualityEval\List.cshtml" />
+    <Content Include="Views\QualityEval\NotEvalMemberList.cshtml" />
+    <Content Include="Views\EvalModel\Annual\SubmitResultView.cshtml" />
+    <Content Include="Views\EvalModel\Annual\QualityEvalView5006.cshtml" />
+    <Content Include="Views\EvalModel\Annual\QualityResultView5003.cshtml" />
+    <Content Include="Views\EvalModel\Annual\QualityEvalView5002.cshtml" />
+    <Content Include="Views\EvalModel\Annual\QualityResultView5002.cshtml" />
+    <Content Include="Views\EvalModel\Annual\VolumnResultView5002.cshtml" />
+    <Content Include="Views\EvalModel\Annual\VolumnResultView5003.cshtml" />
+    <Content Include="Views\EvalModel\Annual\VolumnResultView5004.cshtml" />
+    <Content Include="Views\EvalModel\Annual\VolumnResultView5005.cshtml" />
+    <Content Include="Views\EvalModel\Annual\VolumnResultView5006.cshtml" />
+    <Content Include="Views\EvalModel\Annual\_VolumnResultScore.cshtml" />
+    <Content Include="Views\Declare\Overview.cshtml" />
+    <Content Include="Views\EvalUtilities\_ResultMenu.cshtml" />
+    <Content Include="Views\QualityEvalManage\EvalMemberList.cshtml" />
+    <Content Include="Views\QualityEvalManage\Overview.cshtml" />
+    <Content Include="Views\QualityEvalManage\NotEvalMemberList.cshtml" />
+    <Content Include="Views\EvalModel\Annual\NotInResultView.cshtml" />
+    <Content Include="Views\EvalUtilities\_DeclareInfo.cshtml" />
+    <Content Include="Views\EvalModel\Annual\QualityEvalSubmitView.cshtml" />
+    <Content Include="Views\EvalModel\Annual\_QualitySubmitResultScore.cshtml" />
+    <Content Include="Views\QualityEvalManage\_nav.cshtml" />
+    <Content Include="Views\EvalModel\Annual\_QualityEvalResultList.cshtml" />
+    <Content Include="Views\EvalModel\Annual\_SubmitQualityEval.cshtml" />
+    <Content Include="Views\EvalModel\Annual\QualityEvalView5003.cshtml" />
+    <Content Include="Views\EvalModel\Annual\QualityEvalView5004.cshtml" />
+    <Content Include="Views\EvalModel\Annual\QualityEvalView5005.cshtml" />
+    <Content Include="Views\EvalModel\Annual\QualityResultView5004.cshtml" />
+    <Content Include="Views\EvalModel\Annual\QualityResultView5006.cshtml" />
+    <Content Include="Views\EvalModel\Annual\QualityResultView5005.cshtml" />
+    <Content Include="Views\Home\DeclareActiveTotal.cshtml" />
+    <Content Include="Views\Home\JoinTeam.cshtml" />
+    <Content Include="Views\Home\LeaderTeam.cshtml" />
+    <Content Include="Views\Home\EvalPeriodScores.cshtml" />
+    <Content Include="Views\Home\ExpGroups.cshtml" />
+    <Content Include="Views\Home\OverView.cshtml" />
+    <Content Include="assets\plugins\flot-0.8.3\API.md" />
+    <Content Include="assets\plugins\flot-0.8.3\CONTRIBUTING.md" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\ajax\data-eu-gdp-growth-1.json" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\ajax\data-eu-gdp-growth-2.json" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\ajax\data-eu-gdp-growth-3.json" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\ajax\data-eu-gdp-growth-4.json" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\ajax\data-eu-gdp-growth-5.json" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\ajax\data-eu-gdp-growth.json" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\ajax\data-japan-gdp-growth.json" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\ajax\data-usa-gdp-growth.json" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time-zones\tz\africa" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time-zones\tz\antarctica" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time-zones\tz\asia" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time-zones\tz\australasia" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time-zones\tz\backward" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time-zones\tz\etcetera" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time-zones\tz\europe" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time-zones\tz\factory" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time-zones\tz\iso3166.tab" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time-zones\tz\leapseconds" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time-zones\tz\northamerica" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time-zones\tz\pacificnew" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time-zones\tz\solar87" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time-zones\tz\solar88" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time-zones\tz\solar89" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time-zones\tz\southamerica" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time-zones\tz\systemv" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time-zones\tz\yearistype.sh" />
+    <Content Include="assets\plugins\flot-0.8.3\examples\axes-time-zones\tz\zone.tab" />
+    <Content Include="assets\plugins\flot-0.8.3\FAQ.md" />
+    <Content Include="assets\plugins\flot-0.8.3\Makefile" />
+    <Content Include="assets\plugins\flot-0.8.3\NEWS.md" />
+    <Content Include="assets\plugins\flot-0.8.3\PLUGINS.md" />
+    <Content Include="assets\plugins\flot-0.8.3\README.md" />
+    <Content Include="Views\Home\AdminIndex.cshtml" />
+    <Content Include="Views\Home\SchoolIndex.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\QualityEvalManage\List.cshtml" />
+    <Content Include="Views\Home\EvalPeriodAlert.cshtml" />
+    <Content Include="Views\EvalUtilities\_ScoreInputJS.cshtml" />
+    <Content Include="assets\plugins\tableExport.jquery.plugin-master\README.md" />
+    <Content Include="assets\plugins\tableExport.jquery.plugin-master\tableExport.jquery.json" />
+    <Content Include="assets\plugins\pdf.object\.gitignore" />
+    <Content Include="assets\plugins\pdf.object\bower.json" />
+    <Content Include="assets\plugins\pdf.object\package.json" />
+    <Content Include="assets\plugins\pdf.object\readme.md" />
+    <None Include="Properties\PublishProfiles\Talents.Admin.pubxml" />
+    <Content Include="Views\Permission\List.cshtml" />
+    <Content Include="Views\DeclarePop\AttachmentsView.cshtml" />
+    <Content Include="Views\NoticeManage\Details.cshtml" />
+    <Content Include="Views\NoticeManage\Edit.cshtml" />
+    <Content Include="Views\NoticeManage\List.cshtml" />
+    <Content Include="Views\Notice\Details.cshtml" />
+    <Content Include="Views\Notice\List.cshtml" />
+    <Content Include="Views\Declare\ZisFaz_PeixJiangz_KecZiyKaif.cshtml" />
+    <Content Include="Views\DeclarePop\ZisFaz_PeixJiangz_KecZiyKaif.cshtml" />
+    <Content Include="Views\Home\Report.cshtml" />
+    <Content Include="Views\Company\Edit.cshtml" />
+    <Content Include="Views\Home\EvalComments.cshtml" />
+    <Content Include="Views\Attachment\Preview.cshtml" />
+    <None Include="Views\SchoolEvalManage\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\css\app.css" />
+    <Content Include="assets\css\app.min.css" />
+    <Content Include="assets\css\bootstrap.min.css" />
+    <Content Include="assets\css\font-awesome.min.css" />
+    <Content Include="assets\css\main.css" />
+    <Content Include="assets\css\main.min.css" />
+    <Content Include="assets\css\style-switcher.css" />
+    <Content Include="assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="assets\ico\trainningadmin-favicon.png" />
+    <Content Include="assets\ico\kingadmin-favicon.png" />
+    <Content Include="assets\ico\kingadmin-favicon114x114.png" />
+    <Content Include="assets\ico\kingadmin-favicon144x144.png" />
+    <Content Include="assets\ico\kingadmin-favicon57x57.png" />
+    <Content Include="assets\ico\kingadmin-favicon72x72.png" />
+    <Content Include="assets\ico\trainningadmin-favicon114x114.png" />
+    <Content Include="assets\ico\trainningadmin-favicon144x144.png" />
+    <Content Include="assets\ico\trainningadmin-favicon57x57.png" />
+    <Content Include="assets\ico\trainningadmin-favicon72x72.png" />
+    <Content Include="assets\img\32px.png" />
+    <Content Include="assets\img\7127.jpg" />
+    <Content Include="assets\img\cog.png" />
+    <Content Include="assets\img\diagonal-stripe.png" />
+    <Content Include="assets\img\face2.jpg" />
+    <Content Include="assets\img\loading_5.gif" />
+    <Content Include="assets\img\trainingadmin-logo-white.png" />
+    <Content Include="assets\img\trainingadmin-logo.png" />
+    <Content Include="assets\img\user.png" />
+    <Content Include="assets\js\app.js" />
+    <Content Include="assets\js\app.min.js" />
+    <Content Include="assets\js\bootstrap.min.js" />
+    <Content Include="assets\js\deliswitch.js" />
+    <Content Include="assets\js\html5shiv.min.js" />
+    <Content Include="assets\js\jquery-2.1.4.min.js" />
+    <Content Include="assets\js\jquery.flot.min.js" />
+    <Content Include="assets\js\jqueryval-mis.js" />
+    <Content Include="assets\js\jqueryval-mis.min.js" />
+    <Content Include="assets\js\jstree.min.js" />
+    <Content Include="assets\js\king-common.js" />
+    <Content Include="assets\js\king-common.min.js" />
+    <Content Include="assets\js\modernizr-2.6.2.min.js" />
+    <Content Include="assets\js\plugins.js" />
+    <Content Include="assets\js\plugins.min.js" />
+    <Content Include="assets\js\respond.min.js" />
+    <Content Include="assets\plugins\bootstrap-3.3.2\css\bootstrap-theme.css" />
+    <Content Include="assets\plugins\bootstrap-3.3.2\css\bootstrap-theme.min.css" />
+    <Content Include="assets\plugins\bootstrap-3.3.2\css\bootstrap.css" />
+    <Content Include="assets\plugins\bootstrap-3.3.2\css\bootstrap.min.css" />
+    <Content Include="assets\plugins\bootstrap-3.3.2\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="assets\plugins\bootstrap-3.3.2\js\bootstrap.js" />
+    <Content Include="assets\plugins\bootstrap-3.3.2\js\bootstrap.min.js" />
+    <Content Include="assets\plugins\bootstrap-3.3.2\js\npm.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\css\bootstrap-datepicker.css" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\css\bootstrap-datepicker.min.css" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\css\bootstrap-datepicker.standalone.css" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\css\bootstrap-datepicker.standalone.min.css" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\css\bootstrap-datepicker3.css" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\css\bootstrap-datepicker3.min.css" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\css\bootstrap-datepicker3.standalone.css" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\css\bootstrap-datepicker3.standalone.min.css" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\js\bootstrap-datepicker.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\js\bootstrap-datepicker.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.ar.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.az.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.bg.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.bs.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.ca.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.cs.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.cy.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.da.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.de.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.el.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.en-AU.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.en-GB.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.eo.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.es.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.et.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.eu.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.fa.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.fi.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.fo.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.fr-CH.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.fr.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.gl.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.he.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.hr.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.hu.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.hy.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.id.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.is.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.it-CH.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.it.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.ja.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.ka.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.kh.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.kk.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.ko.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.kr.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.lt.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.lv.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.me.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.mk.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.mn.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.ms.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.nb.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.nl-BE.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.nl.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.no.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.pl.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.pt-BR.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.pt.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.ro.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.rs-latin.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.rs.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.ru.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.sk.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.sl.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.sq.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.sr-latin.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.sr.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.sv.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.sw.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.th.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.tr.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.uk.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.vi.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.zh-CN.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\locales\bootstrap-datepicker.zh-TW.min.js" />
+    <Content Include="assets\plugins\bootstrap-multiselect-0.9.8\css\bootstrap-multiselect.css" />
+    <Content Include="assets\plugins\bootstrap-multiselect-0.9.8\js\bootstrap-multiselect.js" />
+    <Content Include="assets\plugins\bootstrap-multiselect-0.9.8\js\bootstrap-multiselect.min.js" />
+    <Content Include="assets\plugins\bootstrap-switch-3.3.2\css\bootstrap-switch.css" />
+    <Content Include="assets\plugins\bootstrap-switch-3.3.2\css\bootstrap-switch.min.css" />
+    <Content Include="assets\plugins\bootstrap-switch-3.3.2\js\bootstrap-switch.js" />
+    <Content Include="assets\plugins\bootstrap-switch-3.3.2\js\bootstrap-switch.min.js" />
+    <Content Include="assets\plugins\dropzone-4.0.0\dropzone.js" />
+    <Content Include="assets\plugins\dropzone-4.0.0\dropzone.min.js" />
+    <Content Include="assets\plugins\dropzone-4.3.0\css\basic.css" />
+    <Content Include="assets\plugins\dropzone-4.3.0\css\basic.min.css" />
+    <Content Include="assets\plugins\dropzone-4.3.0\css\dropzone.css" />
+    <Content Include="assets\plugins\dropzone-4.3.0\css\dropzone.min.css" />
+    <Content Include="assets\plugins\dropzone-4.3.0\js\dropzone-amd-module.js" />
+    <Content Include="assets\plugins\dropzone-4.3.0\js\dropzone-amd-module.min.js" />
+    <Content Include="assets\plugins\dropzone-4.3.0\js\dropzone.js" />
+    <Content Include="assets\plugins\dropzone-4.3.0\js\dropzone.min.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\css\summernote.css" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\js\summernote.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\js\summernote.min.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-ar-AR.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-bg-BG.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-ca-ES.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-cs-CZ.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-da-DK.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-de-DE.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-es-ES.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-es-EU.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-fa-IR.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-fi-FI.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-fr-FR.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-he-IL.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-hu-HU.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-id-ID.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-it-IT.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-ja-JP.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-ko-KR.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-lt-LT.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-nb-NO.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-nl-NL.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-pl-PL.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-pt-BR.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-pt-PT.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-ro-RO.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-ru-RU.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-sk-SK.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-sl-SI.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-sr-RS-Latin.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-sr-RS.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-sv-SE.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-th-TH.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-tr-TR.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-uk-UA.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-vi-VN.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-zh-CN.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\lang\summernote-zh-TW.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\plugin\hello\summernote-ext-hello.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\plugin\specialchars\summernote-ext-specialchars.js" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\summernote.js" />
+    <Content Include="assets\plugins\font-awesome-4.4.0\css\font-awesome.css" />
+    <Content Include="assets\plugins\font-awesome-4.4.0\css\font-awesome.min.css" />
+    <Content Include="assets\plugins\font-awesome-4.4.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\plugins\jquery-2.1.4\jquery-2.1.4.js" />
+    <Content Include="assets\plugins\jquery-2.1.4\jquery-2.1.4.min.js" />
+    <Content Include="assets\plugins\jquery-json-2.5.1\jquery.json.js" />
+    <Content Include="assets\plugins\jquery-json-2.5.1\jquery.json.min.js" />
+    <Content Include="assets\plugins\jquery.slimscroll-1.3.7\jquery.slimscroll.js" />
+    <Content Include="assets\plugins\jquery.slimscroll-1.3.7\jquery.slimscroll.min.js" />
+    <Content Include="assets\plugins\jquery.bootgrid-1.1.4\jquery.bootgrid.css" />
+    <Content Include="assets\plugins\jquery.bootgrid-1.1.4\jquery.bootgrid.filters.js" />
+    <Content Include="assets\plugins\jquery.bootgrid-1.1.4\jquery.bootgrid.filters.min.js" />
+    <Content Include="assets\plugins\jquery.bootgrid-1.1.4\jquery.bootgrid.js" />
+    <Content Include="assets\plugins\jquery.bootgrid-1.1.4\jquery.bootgrid.min.css" />
+    <Content Include="assets\plugins\jquery.bootgrid-1.1.4\jquery.bootgrid.min.js" />
+    <Content Include="assets\plugins\jquery.bootgrid-1.3.1\css\jquery.bootgrid.css" />
+    <Content Include="assets\plugins\jquery.bootgrid-1.3.1\css\jquery.bootgrid.min.css" />
+    <Content Include="assets\plugins\jquery.bootgrid-1.3.1\js\jquery.bootgrid.fa.js" />
+    <Content Include="assets\plugins\jquery.bootgrid-1.3.1\js\jquery.bootgrid.fa.min.js" />
+    <Content Include="assets\plugins\jquery.bootgrid-1.3.1\js\jquery.bootgrid.js" />
+    <Content Include="assets\plugins\jquery.bootgrid-1.3.1\js\jquery.bootgrid.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\additional-methods.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\additional-methods.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\jquery.validate.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\jquery.validate.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_ar.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_ar.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_bg.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_bg.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_bn_BD.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_bn_BD.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_ca.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_ca.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_cs.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_cs.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_da.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_da.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_de.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_de.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_el.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_el.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_es.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_es.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_es_AR.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_es_AR.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_es_PE.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_es_PE.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_et.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_et.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_eu.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_eu.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_fa.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_fa.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_fi.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_fi.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_fr.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_fr.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_ge.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_ge.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_gl.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_gl.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_he.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_he.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_hr.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_hr.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_hu.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_hu.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_hy_AM.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_hy_AM.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_id.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_id.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_is.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_is.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_it.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_it.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_ja.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_ja.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_ka.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_ka.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_kk.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_kk.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_ko.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_ko.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_lt.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_lt.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_lv.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_lv.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_mk.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_mk.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_my.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_my.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_nl.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_nl.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_no.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_no.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_pl.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_pl.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_pt_BR.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_pt_BR.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_pt_PT.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_pt_PT.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_ro.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_ro.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_ru.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_ru.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_si.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_si.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_sk.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_sk.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_sl.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_sl.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_sr.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_sr.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_sr_lat.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_sr_lat.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_sv.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_sv.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_th.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_th.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_tj.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_tj.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_tr.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_tr.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_uk.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_uk.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_vi.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_vi.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_zh.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_zh.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_zh_TW.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\messages_zh_TW.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\methods_de.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\methods_de.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\methods_es_CL.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\methods_es_CL.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\methods_fi.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\methods_fi.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\methods_nl.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\methods_nl.min.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\methods_pt.js" />
+    <Content Include="assets\plugins\jquery.validate-1.15.0\localization\methods_pt.min.js" />
+    <Content Include="assets\plugins\jquery.validate.bootstrap\jquery.validate.bootstrap.js" />
+    <Content Include="assets\plugins\jquery.validate.bootstrap\jquery.validate.bootstrap.min.js" />
+    <Content Include="assets\plugins\jquery.validate.unobtrusive.bootstrap\jquery.validate.unobtrusive.bootstrap.js" />
+    <Content Include="assets\plugins\jquery.validate.unobtrusive.bootstrap\jquery.validate.unobtrusive.bootstrap.min.js" />
+    <Content Include="assets\plugins\jquery.validate.unobtrusive\jquery.validate.unobtrusive.js" />
+    <Content Include="assets\plugins\jquery.validate.unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <Content Include="assets\plugins\jstree-3.2.1\js\jstree.js" />
+    <Content Include="assets\plugins\jstree-3.2.1\js\jstree.min.js" />
+    <Content Include="assets\plugins\jstree-3.2.1\themes\default-dark\32px.png" />
+    <Content Include="assets\plugins\jstree-3.2.1\themes\default-dark\40px.png" />
+    <Content Include="assets\plugins\jstree-3.2.1\themes\default-dark\style.css" />
+    <Content Include="assets\plugins\jstree-3.2.1\themes\default-dark\style.min.css" />
+    <Content Include="assets\plugins\jstree-3.2.1\themes\default-dark\throbber.gif" />
+    <Content Include="assets\plugins\jstree-3.2.1\themes\default\32px.png" />
+    <Content Include="assets\plugins\jstree-3.2.1\themes\default\40px.png" />
+    <Content Include="assets\plugins\jstree-3.2.1\themes\default\style.css" />
+    <Content Include="assets\plugins\jstree-3.2.1\themes\default\style.min.css" />
+    <Content Include="assets\plugins\jstree-3.2.1\themes\default\throbber.gif" />
+    <Content Include="assets\plugins\knockout-3.2.0\knockout-3.2.0.js" />
+    <Content Include="assets\plugins\knockout-3.2.0\knockout-3.2.0.min.js" />
+    <Content Include="assets\plugins\message\alertify.js-0.3.11\css\alertify.bootstrap.css" />
+    <Content Include="assets\plugins\message\alertify.js-0.3.11\css\alertify.core.css" />
+    <Content Include="assets\plugins\message\alertify.js-0.3.11\css\alertify.default.css" />
+    <Content Include="assets\plugins\message\alertify.js-0.3.11\js\alertify.js" />
+    <Content Include="assets\plugins\message\alertify.js-0.3.11\js\alertify.min.js" />
+    <Content Include="assets\plugins\message\jquery-toastmessage-0.2.0\css\jquery.toastmessage.css" />
+    <Content Include="assets\plugins\message\jquery-toastmessage-0.2.0\images\close.gif" />
+    <Content Include="assets\plugins\message\jquery-toastmessage-0.2.0\images\error.png" />
+    <Content Include="assets\plugins\message\jquery-toastmessage-0.2.0\images\notice.png" />
+    <Content Include="assets\plugins\message\jquery-toastmessage-0.2.0\images\success.png" />
+    <Content Include="assets\plugins\message\jquery-toastmessage-0.2.0\images\warning.png" />
+    <Content Include="assets\plugins\message\jquery-toastmessage-0.2.0\js\jquery.toastmessage.js" />
+    <Content Include="assets\plugins\message\jquery-toastmessage-0.2.0\js\jquery.toastmessage.min.js" />
+    <Content Include="assets\plugins\modernizr-2.6.2\modernizr-2.6.2.js" />
+    <Content Include="assets\plugins\modernizr-2.6.2\modernizr-2.6.2.min.js" />
+    <Content Include="assets\plugins\moment-2.10.6\locales.js" />
+    <Content Include="assets\plugins\moment-2.10.6\locales.min.js" />
+    <Content Include="assets\plugins\moment-2.10.6\moment-with-locales.js" />
+    <Content Include="assets\plugins\moment-2.10.6\moment-with-locales.min.js" />
+    <Content Include="assets\plugins\moment-2.10.6\moment.js" />
+    <Content Include="assets\plugins\moment-2.10.6\moment.min.js" />
+    <Content Include="assets\plugins\select2-4.0.2\css\select2.css" />
+    <Content Include="assets\plugins\select2-4.0.2\css\select2.min.css" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\ar.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\az.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\bg.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\ca.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\cs.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\da.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\de.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\en.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\es.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\et.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\eu.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\fa.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\fi.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\fr.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\gl.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\he.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\hi.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\hr.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\hu.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\id.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\is.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\it.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\ja.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\ko.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\lt.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\lv.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\mk.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\ms.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\nb.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\nl.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\pl.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\pt-BR.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\pt.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\ro.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\ru.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\sk.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\sr-Cyrl.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\sr.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\sv.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\th.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\tr.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\uk.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\vi.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\zh-CN.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\i18n\zh-TW.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\select2.full.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\select2.full.min.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\select2.js" />
+    <Content Include="assets\plugins\select2-4.0.2\js\select2.min.js" />
+    <Content Include="assets\plugins\state\excanvas\excanvas.js" />
+    <Content Include="assets\plugins\state\excanvas\excanvas.min.js" />
+    <Content Include="assets\plugins\state\flot-0.8.3\jquery.colorhelpers.js" />
+    <Content Include="assets\plugins\state\flot-0.8.3\jquery.flot.canvas.js" />
+    <Content Include="assets\plugins\state\flot-0.8.3\jquery.flot.categories.js" />
+    <Content Include="assets\plugins\state\flot-0.8.3\jquery.flot.crosshair.js" />
+    <Content Include="assets\plugins\state\flot-0.8.3\jquery.flot.errorbars.js" />
+    <Content Include="assets\plugins\state\flot-0.8.3\jquery.flot.fillbetween.js" />
+    <Content Include="assets\plugins\state\flot-0.8.3\jquery.flot.image.js" />
+    <Content Include="assets\plugins\state\flot-0.8.3\jquery.flot.js" />
+    <Content Include="assets\plugins\state\flot-0.8.3\jquery.flot.navigate.js" />
+    <Content Include="assets\plugins\state\flot-0.8.3\jquery.flot.pie.js" />
+    <Content Include="assets\plugins\state\flot-0.8.3\jquery.flot.resize.js" />
+    <Content Include="assets\plugins\state\flot-0.8.3\jquery.flot.selection.js" />
+    <Content Include="assets\plugins\state\flot-0.8.3\jquery.flot.stack.js" />
+    <Content Include="assets\plugins\state\flot-0.8.3\jquery.flot.symbol.js" />
+    <Content Include="assets\plugins\state\flot-0.8.3\jquery.flot.threshold.js" />
+    <Content Include="assets\plugins\state\flot-0.8.3\jquery.flot.time.js" />
+    <Content Include="assets\plugins\state\flot-0.8.3\jquery.flot.tooltip.js" />
+    <Content Include="assets\plugins\typeahead.js-0.11.1\bloodhound.js" />
+    <Content Include="assets\plugins\typeahead.js-0.11.1\bloodhound.min.js" />
+    <Content Include="assets\plugins\typeahead.js-0.11.1\typeahead.bundle.js" />
+    <Content Include="assets\plugins\typeahead.js-0.11.1\typeahead.bundle.min.js" />
+    <Content Include="assets\plugins\typeahead.js-0.11.1\typeahead.jquery.js" />
+    <Content Include="assets\plugins\typeahead.js-0.11.1\typeahead.jquery.min.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="HtmlPage1.html" />
+    <Content Include="发布注意事项.txt" />
+    <Content Include="数据库字段修改.sql" />
+    <Content Include="迁移.txt" />
+    <Content Include="Report\Def\APRptReportDef.xml" />
+    <Content Include="Report\Def\APRptViewDef.xml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_layout.cshtml" />
+    <Content Include="Views\Home\TeacherIndex.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="assets\plugins\flot-0.8.3\examples\gauge\" />
+    <Folder Include="Attachments\" />
+    <Folder Include="Business\Reports\" />
+    <Folder Include="Templates\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="assets\fonts\FontAwesome.otf" />
+    <Content Include="assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="assets\plugins\bootstrap-3.3.2\css\bootstrap-theme.css.map" />
+    <Content Include="assets\plugins\bootstrap-3.3.2\css\bootstrap.css.map" />
+    <Content Include="assets\plugins\bootstrap-3.3.2\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="assets\plugins\bootstrap-3.3.2\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="assets\plugins\bootstrap-3.3.2\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="assets\plugins\bootstrap-3.3.2\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\css\bootstrap-datepicker.css.map" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\css\bootstrap-datepicker.min.css.map" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\css\bootstrap-datepicker.standalone.css.map" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\css\bootstrap-datepicker.standalone.min.css.map" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\css\bootstrap-datepicker3.css.map" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\css\bootstrap-datepicker3.min.css.map" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\css\bootstrap-datepicker3.standalone.css.map" />
+    <Content Include="assets\plugins\bootstrap-datepicker-1.6.0\css\bootstrap-datepicker3.standalone.min.css.map" />
+    <Content Include="assets\plugins\font-awesome-4.4.0\css\font-awesome.css.map" />
+    <Content Include="assets\plugins\font-awesome-4.4.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="assets\plugins\font-awesome-4.4.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="assets\plugins\font-awesome-4.4.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="assets\plugins\font-awesome-4.4.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="assets\plugins\font-awesome-4.4.0\fonts\FontAwesome.otf" />
+    <Content Include="assets\js\jquery.flot.js" />
+    <Content Include="Business\Business.apgen">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="assets\json\declare.json" />
+    <Content Include="assets\json\team_master.json" />
+    <Content Include="assets\json\team_member.json" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\fonts\summernote.eot" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\fonts\summernote.ttf" />
+    <Content Include="assets\plugins\editor\summernote-0.8.1\fonts\summernote.woff" />
+    <None Include="Project_Readme.html" />
+    <Content Include="Views\Shared\_notice.cshtml" />
+    <Content Include="Views\Shared\_sidebarAdmin.cshtml" />
+    <Content Include="Views\Shared\_user.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\_anonymous.cshtml" />
+    <None Include="Properties\PublishProfiles\Deploy.pubxml" />
+    <Content Include="Views\Shared\_styleSwitcher.cshtml" />
+    <Content Include="Views\User\Search.cshtml" />
+    <Content Include="Views\Studio\Profiles.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\View\Run.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\Account\ChgPwd.cshtml" />
+    <Content Include="Views\Declare\Index.cshtml" />
+    <Content Include="Views\Shared\_sidebarTeacher.cshtml" />
+    <Content Include="Views\Utilities\_partialJS.cshtml" />
+    <Content Include="Views\Declare\ZisFaz_GerChengj.cshtml" />
+    <Content Include="Views\Declare\ZisFaz_ZiwYanx.cshtml" />
+    <Content Include="Views\Declare\ZisFaz_GerSWOT.cshtml" />
+    <Content Include="Views\DeclarePop\ZisFaz_ZiwYanx.cshtml" />
+    <Content Include="Views\Declare\ZisFaz_ZiwFazJih.cshtml" />
+    <Content Include="Views\Declare\QunLiud_XuekDaitr_LiurXuex.cshtml" />
+    <Content Include="Views\Declare\ZisFaz_ShiqjHuod.cshtml" />
+    <Content Include="Views\DeclarePop\ZisFaz_ShiqjHuod.cshtml" />
+    <Content Include="Views\Declare\ZisFaz_JiaoxHuod_JiaoxGongkk.cshtml" />
+    <Content Include="Views\DeclarePop\ZisFaz_JiaoxHuod_JiaoxGongkk.cshtml" />
+    <Content Include="Views\Role\List.cshtml" />
+    <Content Include="Views\Declare\ZisFaz_JiaoxHuod_Yantk.cshtml" />
+    <Content Include="Views\DeclarePop\ZisFaz_JiaoxHuod_Yantk.cshtml" />
+    <Content Include="Views\Declare\ZisFaz_JiaoxHuod_JiaoxPingb.cshtml" />
+    <Content Include="Views\DeclarePop\ZisFaz_JiaoxHuod_JiaoxPingb.cshtml" />
+    <Content Include="Views\Declare\ZisFaz_PeixJiangz_ZhuantJiangz.cshtml" />
+    <Content Include="Views\DeclarePop\ZisFaz_PeixJiangz_ZhuantJiangz.cshtml" />
+    <Content Include="Views\DeclarePop\ZisFaz_XuesHuod.cshtml" />
+    <Content Include="Views\Declare\ZisFaz_KeyChengg_KetYanj.cshtml" />
+    <Content Include="Views\DeclarePop\ZisFaz_KeyChengg_KetYanj.cshtml" />
+    <Content Include="Views\Declare\ZisFaz_KeyChengg_FabLunw.cshtml" />
+    <Content Include="Views\DeclarePop\ZisFaz_KeyChengg_FabLunw.cshtml" />
+    <Content Include="Views\Declare\ZisFaz_KeyChengg_LunzQingk.cshtml" />
+    <Content Include="Views\DeclarePop\ZisFaz_KeyChengg_LunzQingk.cshtml" />
+    <Content Include="Views\Declare\ZhidJians_YingxlDeGongz.cshtml" />
+    <Content Include="Views\DeclarePop\ZisFaz_ZhidJians_YingxlDeGongz.cshtml" />
+    <Content Include="Views\DeclarePop\ZhidJians_YingxlDeGongz.cshtml" />
+    <Content Include="Views\Declare\ZhidJians_TesHuodKaiz.cshtml" />
+    <Content Include="Views\DeclarePop\ZhidJians_TesHuodKaiz.cshtml" />
+    <Content Include="Views\Declare\ZhidJians_DangaJians.cshtml" />
+    <Content Include="Views\DeclarePop\ZhidJians_DangaJians.cshtml" />
+    <Content Include="Views\TeamManage\DeclareEdit.cshtml" />
+    <Content Include="Views\TeamManage\DeclareList.cshtml" />
+    <Content Include="Views\TeamManage\TeamList.cshtml" />
+    <Content Include="Views\TeamManage\MemberList.cshtml" />
+    <Content Include="Views\TeamManage\AssignMaster.cshtml" />
+    <Content Include="Views\TeamManage\FindMaster.cshtml" />
+    <Content Include="Views\TeamManage\TeamMember.cshtml" />
+    <Content Include="Views\Declare\QunLiud_GugJiaos_LiurXuex.cshtml" />
+    <Content Include="Views\Declare\QunLiud_XuekDaitr_KetJiaox_Gongkk.cshtml" />
+    <Content Include="Views\Declare\QunLiud_XuekDaitr_KetJiaox_GongkHuibk.cshtml" />
+    <Content Include="Views\DeclarePop\QunLiud_XuekDaitr_KetJiaox_Gongkk.cshtml" />
+    <Content Include="Views\DeclarePop\QunLiud_XuekDaitr_KetJiaox_GongkHuibk.cshtml" />
+    <Content Include="Views\Declare\QunLiud_XuekDaitr_KetJiaox_Suitk.cshtml" />
+    <Content Include="Views\DeclarePop\QunLiud_XuekDaitr_KetJiaox_Suitk.cshtml" />
+    <Content Include="Views\Declare\QunLiud_XuekDaitr_KetJiaox_TingKZhid.cshtml" />
+    <Content Include="Views\DeclarePop\QunLiud_XuekDaitr_KetJiaox_TingKZhid.cshtml" />
+    <Content Include="Views\Team\Master.cshtml" />
+    <Content Include="Views\Team\Member.cshtml" />
+    <Content Include="Views\Declare\QunLiud_XuekDaitr_JiaoyKey_ZhuantJiangz.cshtml" />
+    <Content Include="Views\DeclarePop\QunLiud_XuekDaitr_JiaoyKey_ZhuantJiangz.cshtml" />
+    <Content Include="Views\Declare\QunLiud_XuekDaitr_JiaoyKey_JiaoyHuod.cshtml" />
+    <Content Include="Views\DeclarePop\QunLiud_XuekDaitr_JiaoyKey_JiaoyHuod.cshtml" />
+    <Content Include="Views\Declare\QunLiud_XuekDaitr_JiaoyKey_CanyHuod.cshtml" />
+    <Content Include="Views\DeclarePop\QunLiud_XuekDaitr_JiaoyKey_CanyHuod.cshtml" />
+    <Content Include="Views\Declare\QunLiud_XuekDaitr_JiaoyKey_JiedxZongj.cshtml" />
+    <Content Include="Views\Declare\QunLiud_XuekDaitr_DaijPeix_DaijDuix.cshtml" />
+    <Content Include="Views\Declare\QunLiud_XuekDaitr_DaijPeix_DaijZhidJil.cshtml" />
+    <Content Include="Views\DeclarePop\QunLiud_XuekDaitr_DaijPeix_DaijZhidJil.cshtml" />
+    <Content Include="Views\Team\TidXinx.cshtml" />
+    <Content Include="Views\Declare\QunLiud_GugJiaos_Gongkk.cshtml" />
+    <Content Include="Views\DeclarePop\QunLiud_GugJiaos_Gongkk.cshtml" />
+    <Content Include="Views\Declare\QunLiud_GugJiaos_TingkZhid.cshtml" />
+    <Content Include="Views\DeclarePop\QunLiud_GugJiaos_TingkZhid.cshtml" />
+    <Content Include="Views\Declare\QunLiud_GugJiaos_BeikzHuod.cshtml" />
+    <Content Include="Views\DeclarePop\QunLiud_GugJiaos_BeikzHuod.cshtml" />
+    <Content Include="Views\Declare\QunLiud_GugJiaos_RenjNianjBanj.cshtml" />
+    <Content Include="Views\Declare\PeihJiaoyyGongz_JiaoyXinx.cshtml" />
+    <Content Include="Views\Declare\PeihJiaoyyGongz_XuekJiaoy.cshtml" />
+    <Content Include="Views\DeclarePop\PeihJiaoyyGongz_XuekJiaoy.cshtml" />
+    <Content Include="Views\Declare\PeihJiaoyyGongz_XuekMingt.cshtml" />
+    <Content Include="Views\DeclarePop\PeihJiaoyyGongz_XuekMingt.cshtml" />
+    <Content Include="Views\Declare\PeihJiaoyyGongz_JicXuexTiaoy.cshtml" />
+    <Content Include="Views\DeclarePop\PeihJiaoyyGongz_JicXuexTiaoy.cshtml" />
+    <Content Include="Views\Declare\NiandZongj.cshtml" />
+    <Content Include="Views\Declare\ZisFaz_GerJianl.cshtml" />
+    <Content Include="Views\DeclarePop\ZisFaz_GerJianl.cshtml" />
+    <Content Include="Views\Team\DaijJih.cshtml" />
+    <Content Include="Views\Team\DaijJihView.cshtml" />
+    <Content Include="Views\Team\DaijHuod.cshtml" />
+    <Content Include="Views\Team\DaijHuodView.cshtml" />
+    <Content Include="Views\TeamPop\DaijHuod_XueyChengg.cshtml" />
+    <Content Include="Views\TeamPop\MemberResult.cshtml" />
+    <Content Include="Views\Team\KecShis.cshtml" />
+    <Content Include="Views\Team\KecShis_Bianj.cshtml" />
+    <Content Include="Views\Team\KecShisView.cshtml" />
+    <Content Include="Views\Team\KecShis_Anp.cshtml" />
+    <Content Include="Views\Team\DaijHuod_Timeline.cshtml" />
+    <Content Include="Views\TeamPop\KecShis_Anp.cshtml" />
+    <Content Include="Views\Company\Search.cshtml" />
+    <Content Include="Views\TeamPop\DaijHuod_Item.cshtml" />
+    <Content Include="Views\Team\KecShis_Detail.cshtml" />
+    <Content Include="Views\TeamManage\CompanyList.cshtml" />
+    <Content Include="Views\TeamManage\AssignCompany.cshtml" />
+    <Content Include="Views\TeamManage\FindCompany.cshtml" />
+    <Content Include="Views\EvalPeriod\List.cshtml" />
+    <Content Include="Views\EvalManage\SchoolRule.cshtml" />
+    <Content Include="Views\EvalModel\Annual\SchoolRuleView.cshtml" />
+    <Content Include="Views\EvalPeriod\Edit.cshtml" />
+    <Content Include="Views\ExpManage\AssignExpGroup.cshtml" />
+    <Content Include="Views\ExpManage\ExpList.cshtml" />
+    <Content Include="Views\ExpManage\FindExpGroup.cshtml" />
+    <Content Include="Views\ExpManage\GroupEdit.cshtml" />
+    <Content Include="Views\ExpManage\GroupList.cshtml" />
+    <Content Include="Views\TeamManage\ExpGroupList.cshtml" />
+    <Content Include="Views\TeamManage\FindExpGroup.cshtml" />
+    <Content Include="Views\Declare\ZisFaz_JiaoxHuod.cshtml" />
+    <Content Include="Views\Declare\ZisFaz_PeixJiangz.cshtml" />
+    <Content Include="Views\Declare\ZisFaz_XuesHuod.cshtml" />
+    <Content Include="Views\Declare\ZisFaz_KeyChengg.cshtml" />
+    <Content Include="Views\Declare\PromptInfo.cshtml" />
+    <Content Include="Views\Shared\_sidebarSchoolAdmin.cshtml" />
+    <Content Include="Views\EvalManage\VolumnRule.cshtml" />
+    <Content Include="Views\EvalModel\Annual\VolumnRuleView5002.cshtml" />
+    <Content Include="Views\EvalModel\Annual\VolumnRuleView5003.cshtml" />
+    <Content Include="Views\EvalModel\Annual\VolumnRuleView5005.cshtml" />
+    <Content Include="Views\EvalModel\Annual\VolumnRuleView5004.cshtml" />
+    <Content Include="Views\EvalModel\Annual\VolumnRuleView5006.cshtml" />
+    <Content Include="Views\EvalPeriod\NotInAccessRegion.cshtml" />
+    <Content Include="Views\SchoolEval\List.cshtml" />
+    <Content Include="Views\ExpManage\MemberGroupList.cshtml" />
+    <Content Include="Views\ExpManage\RemoveExpMember.cshtml" />
+    <Content Include="Views\TeamManage\AssignExpGroup.cshtml" />
+    <Content Include="Views\EvalModel\Annual\SchoolEvalView.cshtml" />
+    <Content Include="Views\SchoolEvalManage\Overview.cshtml" />
+    <Content Include="Views\EvalModel\Annual\SchoolResultView.cshtml" />
+    <Content Include="Views\SchoolEvalManage\EvalMemberList.cshtml" />
+    <Content Include="Views\SchoolEvalManage\NotEvalMemberList.cshtml" />
+    <Content Include="Views\VolumnEvalManage\EvalMemberList.cshtml" />
+    <Content Include="Views\VolumnEvalManage\_nav.cshtml" />
+    <Content Include="Views\VolumnEvalManage\NotEvalMemberList.cshtml" />
+    <Content Include="Views\VolumnEvalManage\List.cshtml" />
+    <Content Include="Views\TeamManage\RemoveExpMember.cshtml" />
+    <Content Include="Views\Shared\_overView.cshtml" />
+    <Content Include="Views\SchoolEval\NotEvalList.cshtml" />
+    <Content Include="Views\EvalUtilities\ResultView.cshtml" />
+    <Content Include="Views\SchoolEvalManage\_nav.cshtml" />
+    <Content Include="Views\UserEval\Overview.cshtml" />
+    <Content Include="Views\TeamPop\Home_XueyChengg.cshtml" />
+    <Content Include="Views\StatisticalManage\Student.cshtml" />
+    <Content Include="Views\StatisticalManage\SchoolEval.cshtml" />
+    <Content Include="Views\StatisticalManage\VolumnEval.cshtml" />
+    <Content Include="Views\StatisticalManage\QualityEval.cshtml" />
+    <Content Include="Views\StatisticalManage\TempList.cshtml" />
+    <Content Include="Views\StatisticalManage\TempSelect.cshtml" />
+    <Content Include="Views\StatisticalManage\MulTempList.cshtml" />
+    <Content Include="Views\TeamPop\DaijHuod_Advice.cshtml" />
+    <Content Include="Views\Team\TidXinxView.cshtml" />
+    <Content Include="Views\System\SyncDBC.cshtml" />
+    <Content Include="Views\VolumnEvalManage\Report.cshtml" />
+    <Content Include="Views\TeamPop\Memo1.cshtml" />
+    <Content Include="Views\TeamPop\Memo2.cshtml" />
+    <Content Include="Views\TeamPop\Memo3.cshtml" />
+    <Content Include="Views\Team\DaijHuod_Edit.cshtml" />
+    <Content Include="Views\StatisticalManage\Inspection.cshtml" />
+    <Content Include="Views\StatisticalManage\_AjaxSearchPost.cshtml" />
+    <Content Include="Views\StatisticalManage\_ArticleTable.cshtml" />
+    <Content Include="Views\StatisticalManage\MemberList.cshtml" />
+    <Content Include="Views\ShareManage\DeclareList.cshtml" />
+    <Content Include="Views\ShareManage\TeamList.cshtml" />
+    <Content Include="Views\ProfileModifyPeriod\List.cshtml" />
+    <Content Include="Views\ProfileModifyPeriod\Edit.cshtml" />
+    <Content Include="Views\TeacherManage\Search.cshtml" />
+    <Content Include="Views\TeacherManage\Statistical.cshtml" />
+    <Content Include="Views\TeacherManage\UserInfo.cshtml" />
+    <Content Include="Views\Shared\_preview.cshtml" />
+    <None Include="xml.schema.definition\apgen.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="xml.schema.definition\apgen.xsx">
+      <DependentUpon>apgen.xsd</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CasUtility\CasUtility.csproj">
+      <Project>{bafdd4ad-7923-4743-9d7f-58a2c443895a}</Project>
+      <Name>CasUtility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>18997</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:18997/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>此项目引用这台计算机上缺少的 NuGet 程序包。使用 NuGet 程序包还原可下载这些程序包。有关详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.1.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.1.1\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

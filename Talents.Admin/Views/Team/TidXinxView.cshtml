@@ -1,0 +1,94 @@
+﻿@model DeclareBase
+@{ 
+	var pageTitle = ViewBag.Title = TeamKeys.TidXinx;
+}
+<!-- WIDGET TABBED CONTENT -->
+<div class="widget">
+	<div class="widget-header">
+		<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
+		<div class="btn-group widget-header-toolbar">
+			<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+			<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+		</div>
+	</div>
+	<div class="widget-content">
+
+		<div class="form-horizontal form-group-sm">
+			<div class="row">
+				<fieldset class="col-md-6">
+					<div class="form-group">
+						@Html.LabelFor(m => m.TeamName, new { @class = "col-md-3 control-label" })
+						<div class="col-md-9">
+							<span class="form-control details-text">@Model.TeamName</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">带教老师</label>
+						<div class="col-md-9">
+							<span class="form-control details-text">@Model.RealName</span>
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.DeclareTargetPKID, new { @class = "col-md-3 control-label" })
+						<div class="col-md-9">
+							<span class="form-control details-text">@Model.DeclareTarget</span>
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.DeclareSubjectPKID, new { @class = "col-md-3 control-label" })
+						<div class="col-md-9">
+							<span class="form-control details-text">@Model.DeclareSubject</span>
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.DeclareStagePKID, new { @class = "col-md-3 control-label" })
+						<div class="col-md-9">
+							<span class="form-control details-text">@Model.DeclareStage</span>
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.MemberCount, new { @class = "col-md-3 control-label" })
+						<div class="col-md-9">
+							<span class="form-control details-text">@Model.MemberCount</span>
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.ActiveCount, new { @class = "col-md-3 control-label" })
+						<div class="col-md-9">
+							<span class="form-control details-text">@Model.ActiveCount</span>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="col-md-6">
+					<div class="table-responsive">
+						<table class="table table-condensed table-striped table-hover">
+							<thead>
+								<tr>
+									<th>学员</th>
+									<th>称号</th>
+									<th>学科</th>
+									<th>学段</th>
+									<th>单位</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in ViewBag.MemberList as List<TeamMemberModel>)
+								{
+									<tr>
+										<td><a href="@Url.Action("Overview", "Declare", new { id = item.TeacherId})" target="_blank" title="查看材料填写">@item.RealName</a></td>
+										<td>@item.Target</td>
+										<td>@item.Subject</td>
+										<td>@item.Stage</td>
+										<td>@item.CompanyName</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</fieldset>
+			</div>
+		</div>
+
+	</div>
+</div>
+<!-- END WIDGET TABBED CONTENT -->

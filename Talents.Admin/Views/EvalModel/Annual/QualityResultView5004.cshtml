@@ -1,0 +1,854 @@
+﻿@model QualityEvalPeriodModel
+@{
+	var result = Model.Result;
+	var items = Model.ResultItems;
+
+	var ZisFaz_DusHuod = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ZisFaz_DusHuod);
+	var ZisFaz_KaizShik = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ZisFaz_KaizShik);
+	var ZisFaz_DanrPingwGongz = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ZisFaz_DanrPingwGongz);
+	var ZisFaz_PingbHuoj = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ZisFaz_PingbHuoj);
+	var ZisFaz_Total1 = EvalHelper.GetScore(16, "", ZisFaz_KaizShik.ResultValue, ZisFaz_DanrPingwGongz.ResultValue, ZisFaz_PingbHuoj.ResultValue);
+	var ZisFaz_FabLunw = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ZisFaz_FabLunw);
+	var ZisFaz_LixKet = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ZisFaz_LixKet);
+	var ZisFaz_XiangmYanj = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ZisFaz_XiangmYanj);
+	var ZisFaz_Total2 = EvalHelper.GetScore(20, "", ZisFaz_FabLunw.ResultValue, ZisFaz_LixKet.ResultValue, ZisFaz_XiangmYanj.ResultValue);
+	var PeixKec_KaisJiaosPeixKec = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.PeixKec_KaisJiaosPeixKec);
+	var PeixKec_JiangzBaog = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.PeixKec_JiangzBaog);
+	var PeixKec_KecZiyKaif = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.PeixKec_KecZiyKaif);
+	var PeixKec_Total = EvalHelper.GetScore(30, "", PeixKec_KaisJiaosPeixKec.ResultValue, PeixKec_JiangzBaog.ResultValue, PeixKec_KecZiyKaif.ResultValue);
+	var DaijJiaos_XueyShul = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.DaijJiaos_XueyShul);
+	var DaijJiaos_DaijJih = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.DaijJiaos_DaijJih);
+	var DaijJiaos_XueyChengzFenx = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.DaijJiaos_XueyChengzFenx);
+	var DaijJiaos_DaijZhid = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.DaijJiaos_DaijZhid);
+	var DaijJiaos_KaizShik = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.DaijJiaos_KaizShik);
+	var DaijJiaos_FablunwHuocYukTiyJiu = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.DaijJiaos_FablunwHuocYukTiyJiu);
+	var DaijJiaos_JiaoyJiaoxPingb = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.DaijJiaos_JiaoyJiaoxPingb);
+	var DaijJiaos_Total = EvalHelper.GetScore(11, "", DaijJiaos_KaizShik.ResultValue, DaijJiaos_FablunwHuocYukTiyJiu.ResultValue, DaijJiaos_JiaoyJiaoxPingb.ResultValue);
+	var Tes = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.Tes);
+
+}
+<!-- widget -->
+<div class="widget">
+	<div class="widget-header">
+		<h3>学员质评结果</h3>
+		<div class="btn-group widget-header-toolbar">
+			<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+			<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+		</div>
+	</div>
+	<div class="widget-content">
+		<div class="tab-content no-padding">
+
+			<table class="table table-condensed table-striped">
+				<tr>
+					<th class="table-col-10p">得分</th>
+					<td><strong class="result-score">@result.Score</strong></td>
+				</tr>
+				<tr>
+					<th>总分</th>
+					<td>@result.FullScore</td>
+				</tr>
+				<tr>
+					<th>评分人</th>
+					<td>@result.AccesserName</td>
+				</tr>
+				<tr>
+					<th>评分时间</th>
+					<td>@result.AccessDate.ToString("yyyy-MM-dd")</td>
+				</tr>
+			</table>
+
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th class="table-col-20p" colspan="2">评价指标</th>
+						<th class="table-col-20p">考核分类</th>
+						<th>指标项</th>
+						<th class="table-col-10p">分值/统计标准</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!--读书活动-->
+					<tr>
+						<td colspan="2">读书活动</td>
+			@if (ZisFaz_DusHuod.ChooseValue == "1A")
+			{
+							<td>达量质考</td>
+							<td><label>A：高质量的读书心得，达到在高水准的刊物上发表的水平</label></td>
+							<td><span>@ZisFaz_DusHuod.ResultValue</span>分</td>
+			}
+			else if (ZisFaz_DusHuod.ChooseValue == "1B")
+			{
+				<td>达量质考</td>
+							<td><label> B：完成读书要求，读书心得内容质量总体较高，值得向同行推荐、交流</label></td>
+							<td><span>@ZisFaz_DusHuod.ResultValue</span>分</td>
+			}
+			else if (ZisFaz_DusHuod.ChooseValue == "1C")
+			{
+				<td>达量质考</td>
+							<td><label> C：完成读书要求，读书心得内容质量总体较好，能看出有价值的内容</label></td>
+							<td><span>@ZisFaz_DusHuod.ResultValue</span>分</td>
+			}
+			else if (ZisFaz_DusHuod.ChooseValue == "1D")
+			{
+				<td>达量质考</td>
+							<td><label> D：读书心得内容质量一般，文字量较少（有的篇幅少于800字）</label></td>
+							<td><span>@ZisFaz_DusHuod.ResultValue</span>分</td>
+			}
+			else if (ZisFaz_DusHuod.ChooseValue == "2A")
+			{
+				<td>减量质考</td>
+							<td><label> A：已完成的任务质量较高，值得推荐、发表</label></td>
+							<td><span>@ZisFaz_DusHuod.ResultValue</span>分</td>
+			}
+			else if (ZisFaz_DusHuod.ChooseValue == "2B")
+			{
+				<td>减量质考</td>
+							<td><label> B：已完成的任务质量一般</label></td>
+							<td><span>@ZisFaz_DusHuod.ResultValue</span>分</td>
+			}
+			else if (ZisFaz_DusHuod.ChooseValue == "2C")
+			{
+				<td>减量质考</td>
+							<td><label> C：没有提交读书心得；或者提交的材料没有价值</label></td>
+							<td>0分</td>
+			}
+					</tr>
+					<!--开展示课-->
+					<tr>
+						<td rowspan="3"></td>
+						<td>开展示课</td>
+						@if (ZisFaz_KaizShik.ChooseValue == "1A")
+						{
+							<td>达量质考</td>
+								<td><label> A：高质量、高水准、具有示范性的展示课</label></td>
+												<td><span>@ZisFaz_KaizShik.ResultValue</span>分</td>
+
+						}
+						else if (ZisFaz_KaizShik.ChooseValue == "1B")
+						{
+							<td>达量质考</td>
+								<td><label> B：质量较高，开设的展示课值得向同行推荐、借鉴</label></td>
+												<td><span>@ZisFaz_KaizShik.ResultValue</span>分</td>
+
+						}
+						else if (ZisFaz_KaizShik.ChooseValue == "1C")
+						{
+							<td>达量质考</td>
+								<td><label> C：质量较好，开设的展示课中部分内容值得推荐</label></td>
+													<td><span>@ZisFaz_KaizShik.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_KaizShik.ChooseValue == "1D")
+						{
+							<td>达量质考</td>
+								<td><label> D：质量一般，完成了规定的任务</label></td>
+													<td><span>@ZisFaz_KaizShik.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_KaizShik.ChooseValue == "2A")
+						{
+							<td>减量质考</td>
+								<td><label> A：高质量的校际间展示课，有可佐证的材料</label></td>
+													<td><span>@ZisFaz_KaizShik.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_KaizShik.ChooseValue == "2B")
+						{
+							<td>减量质考</td>
+								<td><label> B：没有开课；或者没有区级及以上相应的佐证材料</label></td>
+													<td>0分</td>
+						}
+					</tr>
+					<!--担任评委工作-->
+					<tr>
+						<td>担任评委工作</td>
+						@if (ZisFaz_DanrPingwGongz.ChooseValue == "1A")
+						{
+							<td>达量质考</td>
+								<td><label> A：专业水平要求很高的市级及以上教育教学评比活动</label></td>
+													<td><span>@ZisFaz_DanrPingwGongz.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_DanrPingwGongz.ChooseValue == "1B")
+						{
+							<td>达量质考</td>
+								<td><label> B： 综合性或专业水平要求高的评比活动</label></td>
+													<td><span>@ZisFaz_DanrPingwGongz.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_DanrPingwGongz.ChooseValue == "1C")
+						{
+							<td>达量质考</td>
+								<td><label> C：常规性、专业水准要求较高的评比活动</label></td>
+													<td><span>@ZisFaz_DanrPingwGongz.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_DanrPingwGongz.ChooseValue == "1D")
+						{
+							<td>达量质考</td>
+								<td><label> D：常规性、专业水准要求一般的评比活动</label></td>
+													<td><span>@ZisFaz_DanrPingwGongz.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_DanrPingwGongz.ChooseValue == "2A")
+						{
+							<td>减量质考</td>
+								<td><label> A：在校际间联合进行的教育教学活动中担任专业评委，有佐证材料</label></td>
+													<td><span>@ZisFaz_DanrPingwGongz.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_DanrPingwGongz.ChooseValue == "2B")
+						{
+							<td>减量质考</td>
+								<td><label> B：没有进行此项工作；或者没有区级及以上相应的佐证材料</label></td>
+													<td>0分</td>
+						}
+					</tr>
+					<!--评比获奖-->
+					<tr>
+						<td>评比获奖</td>
+						@if (ZisFaz_PingbHuoj.ChooseValue == "1A")
+						{
+							<td>达量质考</td>
+								<td><label> A：负责的重大课题或项目获奖；或其他高水准的大奖</label></td>
+													<td><span>@ZisFaz_PingbHuoj.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_PingbHuoj.ChooseValue == "1B")
+						{
+							<td>达量质考</td>
+								<td><label> B：主持或负责的课题或项目获奖；或其他专业水平高的奖项</label></td>
+													<td><span>@ZisFaz_PingbHuoj.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_PingbHuoj.ChooseValue == "1C")
+						{
+							<td>达量质考</td>
+								<td><label> C：作为主要参与者的课题或项目获奖；或其他专业水平较高的奖项</label></td>
+													<td><span>@ZisFaz_PingbHuoj.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_PingbHuoj.ChooseValue == "1D")
+						{
+							<td>达量质考</td>
+								<td><label> D：参与的课题或项目获奖；或其他较高的奖项</label></td>
+													<td><span>@ZisFaz_PingbHuoj.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_PingbHuoj.ChooseValue == "2A")
+						{
+							<td>减量质考</td>
+								<td><label> A：获得区际间联合举行的教育教学活动奖项，或者市级多部门（非市级官方组织）联合开展的活动奖项</label></td>
+													<td><span>@ZisFaz_PingbHuoj.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_PingbHuoj.ChooseValue == "2B")
+						{
+							<td>减量质考</td>
+								<td><label> B：没有获奖；或者没有市级及以上相应的佐证材料</label></td>
+													<td>0分</td>
+						}
+					</tr>
+					<!--得分-->
+					<tr>
+						<td colspan="4" class="text-right">得分</td>
+						<td>
+							<span>@ZisFaz_Total1</span>分
+						</td>
+					</tr>
+					<!--发表论文-->
+					<tr>
+						<td rowspan="3"></td>
+						<td>发表论文</td>
+						@if (ZisFaz_FabLunw.ChooseValue == "1A")
+						{
+							<td>达量质考</td>
+							<td><label> A：高质量的学科论文，具有前沿、引领、指导性</label></td>
+												<td><span>@ZisFaz_FabLunw.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_FabLunw.ChooseValue == "1B")
+						{
+							<td>达量质考</td>
+								<td><label> B：质量较高的学科论文，有一定的前沿、引领、指导作用</label></td>
+													<td><span>@ZisFaz_FabLunw.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_FabLunw.ChooseValue == "1C")
+						{
+							<td>达量质考</td>
+								<td><label> C：质量较高的学科论文</label></td>
+													<td><span>@ZisFaz_FabLunw.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_FabLunw.ChooseValue == "1D")
+						{
+							<td>达量质考</td>
+								<td><label> D：质量较好的学科论文</label></td>
+													<td><span>@ZisFaz_FabLunw.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_FabLunw.ChooseValue == "2A")
+						{
+							<td>减量质考</td>
+								<td><label> A：没有发表论文；或者没有市级及以上相应的佐证材料</label></td>
+													<td>0分</td>
+						}
+					</tr>
+					<!--立项课题-->
+					<tr>
+						<td>立项课题</td>
+						@if (ZisFaz_LixKet.ChooseValue == "1A")
+						{
+							<td>达量质考</td>
+								<td><label> A：主持或负责的高质量的学科类重要课题成果</label></td>
+													<td><span>@ZisFaz_LixKet.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_LixKet.ChooseValue == "1B")
+						{
+							<td>达量质考</td>
+								<td><label> B：主持或负责的质量较高的学科类重点课题成果；或参与的重大课题成果</label></td>
+													<td><span>@ZisFaz_LixKet.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_LixKet.ChooseValue == "1C")
+						{
+							<td>达量质考</td>
+								<td><label> C：主持或负责的学科类课题成果；或参与市级课题成果</label></td>
+													<td><span>@ZisFaz_LixKet.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_LixKet.ChooseValue == "1D")
+						{
+							<td>达量质考</td>
+								<td><label> D：参与的学科类课题成果</label></td>
+													<td><span>@ZisFaz_LixKet.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_LixKet.ChooseValue == "2A")
+						{
+							<td>减量质考</td>
+								<td><label> A：没有市级立项课题，或者没有市级及以上相应的佐证材料</label></td>
+													<td>0分</td>
+						}
+					</tr>
+					<!--项目研究-->
+					<tr>
+						<td>项目研究</td>
+						@if (ZisFaz_XiangmYanj.ChooseValue == "1A")
+						{
+							<td>达量质考</td>
+								<td><label> A：主持或负责的高质量的重要项目成果</label></td>
+													<td><span>@ZisFaz_XiangmYanj.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_XiangmYanj.ChooseValue == "1B")
+						{
+							<td>达量质考</td>
+								<td><label> B：主持或负责的质量较高的重点项目成果；或参与的重大项目成果</label></td>
+													<td><span>@ZisFaz_XiangmYanj.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_XiangmYanj.ChooseValue == "1C")
+						{
+							<td>达量质考</td>
+								<td><label> C：主持或负责的质量较好的项目成果；或参与市级项目成果</label></td>
+													<td><span>@ZisFaz_XiangmYanj.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_XiangmYanj.ChooseValue == "1D")
+						{
+							<td>达量质考</td>
+								<td><label> D：参与的项目成果</label></td>
+													<td><span>@ZisFaz_XiangmYanj.ResultValue</span>分</td>
+						}
+						else if (ZisFaz_XiangmYanj.ChooseValue == "2A")
+						{
+							<td>减量质考</td>
+							<td><label> A：没有市级项目；或者没有市级及以上相应的佐证材料</label></td>
+							<td>0分</td>
+						}
+					</tr>
+					<!--得分-->
+					<tr>
+						<td colspan="4" class="text-right">得分</td>
+						<td>
+							<span>@ZisFaz_Total2</span>分
+						</td>
+					</tr>
+					<!--开设教师培训课程-->
+					<tr>
+						<td rowspan="3"></td>
+						<td>开设教师培训课程</td>
+			@if (PeixKec_KaisJiaosPeixKec.ChooseValue == "1A")
+			{
+				<td>达量质考</td>
+								<td><label> A：高质量的学科类培训课程</label></td>
+								<td><span>@PeixKec_KaisJiaosPeixKec.ResultValue</span>分</td>
+			}
+			else if (PeixKec_KaisJiaosPeixKec.ChooseValue == "1B")
+			{
+				<td>达量质考</td>
+								<td><label> B：质量较高的学科类培训课程</label></td>
+								<td><span>@PeixKec_KaisJiaosPeixKec.ResultValue</span>分</td>
+			}
+			else if (PeixKec_KaisJiaosPeixKec.ChooseValue == "1C")
+			{
+				<td>达量质考</td>
+								<td><label> C：质量好的学科类培训课程</label></td>
+								<td>11.99分</td>
+			}
+			else if (PeixKec_KaisJiaosPeixKec.ChooseValue == "1D")
+			{
+				<td>达量质考</td>
+								<td><label> D：质量较好的学科类培训课程</label></td>
+								<td><span>@PeixKec_KaisJiaosPeixKec.ResultValue</span>分</td>
+			}
+			else if (PeixKec_KaisJiaosPeixKec.ChooseValue == "2A")
+			{
+				<td>减量质考</td>
+								<td><label> A：没有开设微课程；或者没有区级及以上相应的佐证材料</label></td>
+								<td>0分</td>
+			}
+					</tr>
+					<!--讲座、报告（须是学科类）-->
+					<tr>
+						<td>讲座、报告（须是学科类）</td>
+			@if (PeixKec_JiangzBaog.ChooseValue == "1A")
+			{
+				<td>达量质考</td>
+								<td><label> A：高质量的学科类讲座</label></td>
+								<td><span>@PeixKec_JiangzBaog.ResultValue</span>分</td>
+
+			}
+			else if (PeixKec_JiangzBaog.ChooseValue == "1B")
+			{
+				<td>达量质考</td>
+								<td><label> B：质量较高的学科类讲座</label></td>
+								<td><span>@PeixKec_JiangzBaog.ResultValue</span>分</td>
+			}
+			else if (PeixKec_JiangzBaog.ChooseValue == "1C")
+			{
+				<td>达量质考</td>
+								<td><label> C：质量好的学科类讲座、报告</label></td>
+								<td><span>@PeixKec_JiangzBaog.ResultValue</span>分</td>
+			}
+			else if (PeixKec_JiangzBaog.ChooseValue == "1D")
+			{
+				<td>达量质考</td>
+								<td><label> D：质量较好的学科类、报告</label></td>
+								<td><span>@PeixKec_JiangzBaog.ResultValue</span>分</td>
+			}
+			else if (PeixKec_JiangzBaog.ChooseValue == "2A")
+			{
+				<td>减量质考</td>
+								<td><label> A：没有开讲座、报告；或者没有区级及以上相应的佐证材料</label></td>
+								<td>0分</td>
+			}
+					</tr>
+					<!--课程资源开发-->
+					<tr>
+						<td>课程资源开发</td>
+			@if (PeixKec_KecZiyKaif.ChooseValue == "1A")
+			{
+				<td>达量质考</td>
+								<td><label> A：担任市级学科教材主编；或在市级学科教材修订中担任主要工作；或在市级学科类教育教学类资源的开发中担任主要工作</label></td>
+								<td><span>@PeixKec_KecZiyKaif.ResultValue</span>分</td>
+			}
+			else if (PeixKec_KecZiyKaif.ChooseValue == "1B")
+			{
+				<td>达量质考</td>
+								<td><label> B：参与市级学科教材编审、修订；或参与高要求的学科类教育教学重要资源的开发</label></td>
+								<td><span>@PeixKec_KecZiyKaif.ResultValue</span>分</td>
+			}
+			else if (PeixKec_KecZiyKaif.ChooseValue == "1C")
+			{
+				<td>达量质考</td>
+								<td><label> C：主持区本学科教材编审、修订；或在区本学科教材编审、修订中承担主要工作；或参与学科类教育教学重要资源的开发</label></td>
+								<td><span>@PeixKec_KecZiyKaif.ResultValue</span>分</td>
+			}
+			else if (PeixKec_KecZiyKaif.ChooseValue == "1D")
+			{
+				<td>达量质考</td>
+								<td><label> D：参与区本学科教材编审、修订；或参与教育教学资源的开发</label></td>
+								<td><span>@PeixKec_KecZiyKaif.ResultValue</span>分</td>
+			}
+			else if (PeixKec_KecZiyKaif.ChooseValue == "2A")
+			{
+				<td>减量质考</td>
+								<td><label> A：没有材料；或者没有市级佐证材料</label></td>
+								<td>0分</td>
+			}
+					</tr>
+					<!--得分-->
+					<tr>
+						<td colspan="4" class="text-right">得分</td>
+						<td>
+							<span>@PeixKec_Total</span>分
+						</td>
+					</tr>
+					<!--学员数量-->
+					<tr>
+						<td colspan="2">学员数量</td>
+			@if (DaijJiaos_XueyShul.ChooseValue == "1A")
+			{
+				<td>达量质考</td>
+							<td><label> A：6≤学员人数</label></td>
+							<td><span>@DaijJiaos_XueyShul.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_XueyShul.ChooseValue == "1B")
+			{
+				<td>达量质考</td>
+							<td><label> B：3≤学员人数≤5</label></td>
+							<td><span>@DaijJiaos_XueyShul.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_XueyShul.ChooseValue == "2A")
+			{
+				<td>减量质考</td>
+							<td><label> A：1≤学员人数≤2</label></td>
+							<td><span>@DaijJiaos_XueyShul.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_XueyShul.ChooseValue == "2B")
+			{
+				<td>减量质考</td>
+							<td><label> B：无学员</label></td>
+							<td>0分</td>
+			}
+					</tr>
+					<!--带教计划（方案）、小结-->
+					<tr>
+						<td colspan="2">带教计划（方案）、小结</td>
+			@if (DaijJiaos_DaijJih.ChooseValue == "1A")
+			{
+				<td>达量质考</td>
+							<td><label> A：计划、小结针对性强，实施效果好</label></td>
+							<td><span>@DaijJiaos_DaijJih.ResultValue</span>分</td>
+}
+            else if (DaijJiaos_DaijJih.ChooseValue == "1B")
+            {
+				<td>达量质考</td>
+							<td><label> B：计划、小结有针对性，总体上实施较好</label></td>
+							<td><span>@DaijJiaos_DaijJih.ResultValue</span>分</td>
+}
+            else if (DaijJiaos_DaijJih.ChooseValue == "1C")
+            {
+				<td>达量质考</td>
+							<td><label> C：计划中部分内容进行了实施、小结，无突出的效果</label></td>
+							<td><span>@DaijJiaos_DaijJih.ResultValue</span>分</td>
+}
+            else if (DaijJiaos_DaijJih.ChooseValue == "2A")
+            {
+				<td>减量质考</td>
+							<td><label> A：有计划、无小结；或者无计划、有小结</label></td>
+							<td><span>@DaijJiaos_DaijJih.ResultValue</span>分</td>
+}
+            else if (DaijJiaos_DaijJih.ChooseValue == "2B")
+            {
+				<td>减量质考</td>
+							<td><label> B：没有相关的材料</label></td>
+							<td>0分</td>
+			}
+					</tr>
+					<!--学员的成长分析-->
+					<tr>
+						<td colspan="2">学员的成长分析</td>
+			@if (DaijJiaos_XueyChengzFenx.ChooseValue == "1A")
+			{
+				<td>达量质考</td>
+							<td><label> A：针对性强，对学员的成长有较强的指导作用</label></td>
+							<td><span>@DaijJiaos_XueyChengzFenx.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_XueyChengzFenx.ChooseValue == "1B")
+			{
+				<td>达量质考</td>
+							<td><label> B：有针对性，对学员的成长有一定的指导作用</label></td>
+							<td><span>@DaijJiaos_XueyChengzFenx.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_XueyChengzFenx.ChooseValue == "1C")
+			{
+				<td>达量质考</td>
+							<td><label> C：对部分学员的成长有一些指导作用</label></td>
+							<td><span>@DaijJiaos_XueyChengzFenx.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_XueyChengzFenx.ChooseValue == "2A")
+			{
+				<td>减量质考</td>
+							<td><label> A：有多数学员的成长分析，未达到每位学员都有</label></td>
+							<td><span>@DaijJiaos_XueyChengzFenx.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_XueyChengzFenx.ChooseValue == "2B")
+			{
+				<td>减量质考</td>
+							<td><label> B：没有相关的材料；或者未达到学员数量的一半</label></td>
+							<td><span>@DaijJiaos_XueyChengzFenx.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_XueyChengzFenx.ChooseValue == "2C")
+			{
+				<td>减量质考</td>
+							<td><label> C：没有相关的材料</label></td>
+							<td>0分</td>
+			}
+					</tr>
+					<!--带教指导-->
+					<tr>
+						<td colspan="2">带教指导</td>
+			@if (DaijJiaos_DaijZhid.ChooseValue == "1A")
+			{
+				<td>达量质考</td>
+							<td><label> A：指导有很高的价值，个别指导对专业提升的作用很强</label></td>
+							<td><span>@DaijJiaos_DaijZhid.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_DaijZhid.ChooseValue == "1B")
+			{
+				<td>达量质考</td>
+							<td><label> B：指导有较高的价值，对部分学员的专业提升的作用很强</label></td>
+							<td><span>@DaijJiaos_DaijZhid.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_DaijZhid.ChooseValue == "1C")
+			{
+				<td>达量质考</td>
+							<td><label> C：开展的指导工作对学员的专业提升作用较好</label></td>
+							<td><span>@DaijJiaos_DaijZhid.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_DaijZhid.ChooseValue == "1D")
+			{
+				<td>达量质考</td>
+							<td><label> D：开展的指导工作对学员的专业提升作用一般</label></td>
+							<td><span>@DaijJiaos_DaijZhid.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_DaijZhid.ChooseValue == "2A")
+			{
+				<td>减量质考</td>
+							<td><label> A：材料未达到要求的数量（超过85%），但质量非常好</label></td>
+							<td><span>@DaijJiaos_DaijZhid.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_DaijZhid.ChooseValue == "2B")
+			{
+				<td>减量质考</td>
+							<td><label> B：材料未达到要求的数量（有过半以上），但质量非常好</label></td>
+							<td><span>@DaijJiaos_DaijZhid.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_DaijZhid.ChooseValue == "2C")
+			{
+				<td>减量质考</td>
+							<td><label> C：材料数量较少（未过半），质量尚可</label></td>
+							<td><span>@DaijJiaos_DaijZhid.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_DaijZhid.ChooseValue == "2D")
+			{
+				<td>减量质考</td>
+							<td><label> D：没有相关的材料</label></td>
+							<td>0分</td>
+			}
+					</tr>
+					<!--开展示课-->
+					<tr>
+						<td rowspan="3	"></td>
+						<td>开展示课</td>
+			@if (DaijJiaos_KaizShik.ChooseValue == "1A")
+			{
+				<td>达量质考</td>
+							<td><label> A：展示课总体质量较高</label></td>
+							<td><span>@DaijJiaos_KaizShik.ResultValue</span>分</td>
+
+			}
+			else if (DaijJiaos_KaizShik.ChooseValue == "1B")
+			{
+				<td>达量质考</td>
+								<td><label> B：展示课中有部分质量较高</label></td>
+								<td><span>@DaijJiaos_KaizShik.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_KaizShik.ChooseValue == "1C")
+			{
+				<td>达量质考</td>
+								<td><label> C：展示课总体质量较好</label></td>
+								<td><span>@DaijJiaos_KaizShik.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_KaizShik.ChooseValue == "1D")
+			{
+				<td>达量质考</td>
+								<td><label> D：展示课中部分质量较好</label></td>
+								<td><span>@DaijJiaos_KaizShik.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_KaizShik.ChooseValue == "2A")
+			{
+				<td>减量质考</td>
+								<td><label> A：有70%以上的学员开设了展示课</label></td>
+								<td><span>@DaijJiaos_KaizShik.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_KaizShik.ChooseValue == "2B")
+			{
+				<td>减量质考</td>
+								<td><label> B：不到一半人数的学员开设了展示课</label></td>
+								<td><span>@DaijJiaos_KaizShik.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_KaizShik.ChooseValue == "2C")
+			{
+				<td>减量质考</td>
+								<td><label> C：无校级及以上的展示课</label></td>
+								<td>0分</td>
+			}
+					</tr>
+					<!--发表论文或参与课题研究-->
+					<tr>
+						<td>发表论文或参与课题研究</td>
+			@if (DaijJiaos_FablunwHuocYukTiyJiu.ChooseValue == "1A")
+			{
+				<td>达量质考</td>
+							<td><label> A：论文或课题成果总体质量较高</label></td>
+							<td><span>@DaijJiaos_FablunwHuocYukTiyJiu.ResultValue</span>分</td>
+
+			}
+			else if (DaijJiaos_FablunwHuocYukTiyJiu.ChooseValue == "1B")
+			{
+				<td>达量质考</td>
+								<td><label> B：论文或课题成果中有部分质量较高</label></td>
+								<td><span>@DaijJiaos_FablunwHuocYukTiyJiu.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_FablunwHuocYukTiyJiu.ChooseValue == "1C")
+			{
+				<td>达量质考</td>
+								<td><label>C：论文或课题成果总体质量较好</label></td>
+								<td><span>@DaijJiaos_FablunwHuocYukTiyJiu.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_FablunwHuocYukTiyJiu.ChooseValue == "1D")
+			{
+				<td>达量质考</td>
+								<td><label> D：论文或课题成果部分质量较好</label></td>
+								<td>1.91分</td>
+			}
+			else if (DaijJiaos_FablunwHuocYukTiyJiu.ChooseValue == "2A")
+			{
+				<td>减量质考</td>
+								<td><label> A：有80%以上的学员有论文、课题成果</label></td>
+								<td><span>@DaijJiaos_FablunwHuocYukTiyJiu.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_FablunwHuocYukTiyJiu.ChooseValue == "2B")
+			{
+				<td>减量质考</td>
+								<td><label> B：约一半人数的学员有论文、课题成果</label></td>
+								<td><span>@DaijJiaos_FablunwHuocYukTiyJiu.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_FablunwHuocYukTiyJiu.ChooseValue == "2C")
+			{
+				<td>减量质考</td>
+								<td><label> C：无论文或课题成果；或仅30%的学员有论文、课题成果</label></td>
+								<td>0分</td>
+			}
+					</tr>
+					<!--教育教学评比-->
+					<tr>
+						<td>教育教学评比</td>
+			@if (DaijJiaos_JiaoyJiaoxPingb.ChooseValue == "1A")
+			{
+				<td>达量质考</td>
+								<td><label> A：奖项中多数为市区级、总体质量较高</label></td>
+								<td><span>@DaijJiaos_JiaoyJiaoxPingb.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_JiaoyJiaoxPingb.ChooseValue == "1B")
+			{
+				<td>达量质考</td>
+								<td><label> B：奖项中大多为区级及以上，且质量较高</label></td>
+								<td><span>@DaijJiaos_JiaoyJiaoxPingb.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_JiaoyJiaoxPingb.ChooseValue == "1C")
+			{
+				<td>达量质考</td>
+								<td><label> C：奖项有一半为区级，有少量市级</label></td>
+								<td>2.19分</td>
+			}
+			else if (DaijJiaos_JiaoyJiaoxPingb.ChooseValue == "1D")
+			{
+				<td>达量质考</td>
+								<td><label> D：奖项中多数为校级，市级极少</label></td>
+								<td><span>@DaijJiaos_JiaoyJiaoxPingb.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_JiaoyJiaoxPingb.ChooseValue == "2A")
+			{
+				<td>减量质考</td>
+								<td><label> A：有80%以上的学员获得奖项</label></td>
+								<td><span>@DaijJiaos_JiaoyJiaoxPingb.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_JiaoyJiaoxPingb.ChooseValue == "2B")
+			{
+				<td>减量质考</td>
+								<td><label> B：约一半人数的学员获得奖项</label></td>
+								<td><span>@DaijJiaos_JiaoyJiaoxPingb.ResultValue</span>分</td>
+			}
+			else if (DaijJiaos_JiaoyJiaoxPingb.ChooseValue == "2C")
+			{
+				<td>减量质考</td>
+								<td><label> C：无获奖；或仅30%的学员有获奖</label></td>
+								<td><span>@DaijJiaos_JiaoyJiaoxPingb.ResultValue</span>分</td>
+			}
+					</tr>
+					<!--得分-->
+					<tr>
+						<td colspan="4" class="text-right">得分</td>
+						<td>
+							<span>@DaijJiaos_Total</span>分
+						</td>
+					</tr>
+					<!--特色-->
+					<tr>
+						<td colspan="2">其他</td>
+						@if (Tes.ChooseValue == "1A")
+						{
+							<td>达量质考</td>
+									<td><label> A：学科类专著</label></td>
+									<td><span>@Tes.ResultValue</span>分</td>
+						}
+						else if (Tes.ChooseValue == "1B")
+						{
+							<td>达量质考</td>
+									<td><label> B：学科类合著</label></td>
+									<td><span>@Tes.ResultValue</span>分</td>
+						}
+						else if (Tes.ChooseValue == "1C")
+						{
+							<td>达量质考</td>
+									<td><label> A：担任市级教材编写的主编或副主编</label></td>
+									<td><span>@Tes.ResultValue</span>分</td>
+						}
+						else if (Tes.ChooseValue == "1D")
+						{
+							<td>达量质考</td>
+									<td><label> B：参与市级教材的编写、修改、审核</label></td>
+									<td><span>@Tes.ResultValue</span>分</td>
+						}
+						else if (Tes.ChooseValue == "1E")
+						{
+							<td>达量质考</td>
+									<td><label> A：负责市级重点项目研究</label></td>
+									<td><span>@Tes.ResultValue</span>分</td>
+						}
+						else if (Tes.ChooseValue == "1F")
+						{
+							<td>达量质考</td>
+									<td><label> A：担任市级名教师培训基地主持（副主持）人</label></td>
+									<td><span>@Tes.ResultValue</span>分</td>
+						}
+						else if (Tes.ChooseValue == "1G")
+						{
+							<td>达量质考</td>
+									<td><label> A：担任其他市级培训基地主持人</label></td>
+									<td>5分</td>
+						}
+						else if (Tes.ChooseValue == "2A")
+						{
+							<td>减量质考</td>
+									<td><label> A：在教学、科研、培训、带教学员方面有特别突出的成绩（需用文字进行说明）</label></td>
+									<td><span>@Tes.ResultValue</span>分</td>
+						}
+						else if (Tes.ChooseValue == "2B")
+						{
+							<td>减量质考</td>
+									<td><label> B：无符合可加分的材料</label></td>
+									<td>0分</td>
+						}
+					</tr>
+
+				</tbody>
+			</table>
+
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th class="table-col-20p" colspan="2">专家评价</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							@Html.TextArea("Comment", result.Comment, new { @readonly = "readonly", @style = " margin:0; padding:0;width:100%; height:100%;" })
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<!-- /widget -->
+
+
+
+				
+

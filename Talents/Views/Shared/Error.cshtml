@@ -1,0 +1,48 @@
+﻿@model HandleErrorInfo
+@{
+
+	Layout = "~/Areas/Admin/Views/Shared/_previewlayout.cshtml";
+	var pageTitle = ViewBag.Title = "异常";
+}
+
+<div class="dashboard-wrapper">
+
+	<!-- Left Sidebar Start -->
+	<div class="left-sidebar">
+
+		<!-- Row Start -->
+		<div class="row">
+			<div class="col-lg-12 col-md-12">
+				<div class="widget no-margin">
+					<div class="widget-header">
+						<div class="title">
+							@pageTitle
+						</div>
+					</div>
+					<div class="widget-body">
+						<div class="row">
+
+							<div class="col-md-12">
+
+								<h2><i class="fa fa-chain-broken"></i> @pageTitle</h2>
+								<em>有一个 <b>@Model.Exception.GetType().Name</b> 在访问 <b>@Model.ControllerName</b> 的 <b>@Model.ActionName</b> 时发生。</em>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Row End -->
+
+	</div>
+	<!-- Left Sidebar End -->
+	<!-- Right Sidebar Start -->
+	<div class="right-sidebar">
+
+		
+
+	</div>
+	<!-- Right Sidebar End -->
+
+</div>

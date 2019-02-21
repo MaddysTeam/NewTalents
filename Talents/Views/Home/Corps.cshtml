@@ -1,0 +1,148 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@model Webdiyer.WebControls.Mvc.PagedList<HomeTeamActiveModel>
+@{
+	ViewBag.Title = "梯队动态";
+
+	var ishot = Request["isHot"] != null && bool.Parse(Request["isHot"]);
+	var isShare = Request["isShare"] != null && bool.Parse(Request["isShare"]);
+	var isNew = Request["isNew"] != null && bool.Parse(Request["isNew"]);
+
+	if (!ishot && !isShare && !isNew)
+	{
+		isNew = true;
+	}
+
+	var Model1 = ishot ? Model.OrderBy(o => o.Date).Take(5)
+							 : Model.OrderByDescending(o => o.Date).Take(5);
+
+	var corpsAction = isShare ? "SharedCorps" : "Corps";
+}
+<div id="stuning-header">
+	<div class="row">
+		<div class="twelve columns">
+			<div id="page-title">
+				<div class="page-title-inner">
+					<h1 class="page-title"> 梯队动态 </h1>
+					<div class="group">
+						<div class="block">
+							<p>学科高地<br />理事长</p>
+							<a href="@Url.Action(corpsAction, new { target = 5002, isNew = isNew, isHot = ishot,isShare=isShare })" class="btn">活 动</a>
+							<a href="@Url.Action("CorpList", new { target = 5002 })" class="btn">梯 队</a>
+						</div>
+						<div class="block">
+							<p>学科培训<br />基地主持人</p>
+							<a href="@Url.Action(corpsAction, new { target = 5003, isNew = isNew, isHot = ishot,isShare=isShare})" class="btn">活 动</a>
+							<a href="@Url.Action("CorpList", new { target = 5003 })" class="btn">梯 队</a>
+						</div>
+						<div class="block">
+							<p>学科培训<br />工作室主持人</p>
+							<a href="@Url.Action(corpsAction, new { target = 5004, isNew = isNew, isHot = ishot,isShare=isShare })" class="btn">活 动</a>
+							<a href="@Url.Action("CorpList", new { target = 5004 })" class="btn">梯 队</a>
+						</div>
+						<div class="block">
+							<p>学科带头人</p>
+							<a href="@Url.Action(corpsAction, new { target = 5005, isNew = isNew, isHot = ishot,isShare=isShare })" class="btn">活 动</a>
+							<a href="@Url.Action("CorpList", new { target = 5005 })" class="btn">梯 队</a>
+						</div>
+						<div class="block">
+							<p>骨干教师</p>
+							<a href="@Url.Action(corpsAction, new { target = 5006, isNew = isNew, isHot = ishot,isShare=isShare })" class="btn">活 动</a>
+							<a href="@Url.Action("CorpList", new { target = 5006 })" class="btn">梯 队</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<section id="layout">
+	<div class="row">
+
+		<section id="main-content" role="main" class="eight columns">
+			@foreach (var item in Model)
+			{
+				<article class="post type-post status-publish format-standard has-post-thumbnail sticky hentry category-wishes tag-creative tag-gadget">
+					<header>
+						<time class="date updated"> <span class="day">@item.Date.ToString("dd")</span> <span class="month">@item.Date.ToString("yyyy-MM")</span> </time>
+						<div class="ovh">
+							<h3 class="entry-title"><a href="@Url.Action("CorpDetail", "Home", new { id = item.TeamActiveId })" target="_blank">@item.Title</a></h3>
+							<div class="entry-meta dopinfo">
+								<span class="byline author vcard"><a href="javascript:;" rel="author" class="fn">@item.TeamName</a></span>
+							</div>
+							@if (item.IsShare)
+							{
+								<div class="entry-meta dopinfo">
+									<span class="byline author vcard"><a href="javascript:;" rel="author" class="fn">共享文件数：@item.AttachmentCount</a></span>
+									<a href="@Url.Action("CorpDetail", "Home", new { id = item.TeamActiveId })">【查看详细】</a>
+								</div>
+							}
+						</div>
+					</header>
+					<div class="post-format">
+						<i class="icon-pencil-1"></i>
+					</div>
+					<div class="entry-content">
+						<div class="content">
+							@Html.Raw(item.ContentValue)
+						</div>
+						<a href="@Url.Action("CorpDetail", "Home", new { id = item.TeamActiveId })" class="link-read-more" target="_blank"></a>
+					</div>
+				</article>
+			}
+			
+			<nav class="page-nav">
+				<div class="pagination">
+					@Html.Pager(Model).Options(o => o.SetPageIndexParameterName("pageIndex").SetPagerItemTemplate("{0}&nbsp;"))
+				</div>
+			</nav>
+
+		</section>
+
+		<aside class="four columns" id="left-sidebar">
+			<section id="crum_widget_tabs-2" class="widget widget_crum_widget_tabs">
+				<ul class="tabs contained horisontal">
+					<li  class="@(isNew? "active":"")" style="width:33%"><a href="@Url.Action("Corps","Home",new {isNew=true })">最新活动</a></li>
+					<li style="width:33%"  class="@(ishot? "active":"")"><a href="@Url.Action("Corps","Home",new {isHot=true })">最热活动</a></li>
+					<li style="width:33%" class="@(isShare? "active":"")"><a href="@Url.Action("SharedCorps", "Home", new { isShare = true })">活动共享</a></li>
+				</ul>
+				<ul class="tabs-content contained folio-wrap clearfix cl" style="margin: 0 20px;">
+					<li class="active">
+						@foreach (var item in Model1)
+						{
+							<article class="hentry mini-news clearfix">
+								<div class="box-name entry-title">
+									<a href="@Url.Action("CorpDetail", "Home", new { id = item.TeamActiveId })" target="_blank">@item.Title</a>
+								</div>
+								<div class="entry-meta dopinfo">
+									<span class="byline author vcard"><a href="javascript:;" rel="author" class="fn">@item.TeamName</a></span>
+									<span class="delim"></span>
+									<span class="entry-date updated">@item.Date.ToString("yyyy/MM/dd")</span>
+								</div>
+							</article>
+						}
+					</li>
+				</ul>
+			</section>
+		</aside>
+
+	</div>
+</section>
+
+@section plugins{
+	@Scripts.Render("~/js/app_foundation")
+}
+
+@section scripts{
+	<script>
+
+		$(function () {
+			$(".entry-content .content").each(function (index, item) {
+				var sub = $(this).text();
+				sub = sub.length > 90 ? sub.substr(0, 87) + ' ...' : sub;
+				$(this).html(sub);
+			});
+		});
+
+	</script>
+}

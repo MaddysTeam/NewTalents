@@ -1,0 +1,76 @@
+﻿@model PeriodModel
+@{
+	var pageTitle = ViewBag.Title = Model.Title;
+	
+	var declare = ViewBag.Declare as DeclareModel;
+}
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
+				<li class="active">@pageTitle</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-gear"></i> @Model.PeriodName</h2>
+			<em>@pageTitle</em>
+		</div>
+
+		@Html.Partial("../EvalModel/Annual/_ResultMenu", Model)
+
+		<div class="main-content">
+
+			<div class="row">
+				<div class="col-md-3">
+
+					<!-- widget -->
+					<div class="widget">
+						<div class="widget-header">
+							<h3>基本信息</h3>
+							<div class="btn-group widget-header-toolbar">
+								<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+								<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+							</div>
+						</div>
+						<div class="widget-content">
+
+							@Html.Partial("../EvalModel/Annual/_DeclareInfo", declare)
+
+						</div>
+					</div>
+					<!-- /widget -->
+
+				</div>
+				<div class="col-md-9">
+
+					<!-- WIDGET TABBED CONTENT -->
+					<div class="widget">
+						<div class="widget-header">
+							<h3>虹口区教育系统教师专业人才梯队 @pageTitle </h3>
+							<div class="btn-group widget-header-toolbar">
+								<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+								<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+							</div>
+						</div>
+						<div class="widget-content">
+							<div class="alert alert-info alert-dismissable">
+								<a href="" class="close">&times;</a>
+								<strong>提示！</strong> @Model.PromptInfo
+							</div>
+						</div>
+					</div>
+					<!-- END WIDGET TABBED CONTENT -->
+
+				</div>
+			</div>
+
+		</div>
+		<!-- /main-content -->
+	</div>
+	<!-- /main -->
+</div>

@@ -1,0 +1,79 @@
+﻿@model UserInfoModel
+@{
+   var pageTitle = "用户信息";
+}
+<style>
+	.table th label{
+		font-weight: bold;
+	}
+</style>
+<div class="modal-dialog modal-lg">
+
+	<!-- widget -->
+	<div class="widget">
+		<div class="widget-header">
+			<h3><i class="fa fa-edit"></i> @pageTitle </h3>
+			<div class="btn-group widget-header-toolbar">
+				<a href="#" title="关闭" class="btn-borderless" data-dismiss="modal"><i class="fa fa-close"></i></a>
+			</div>
+		</div>
+		<div class="widget-content">
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table .table-striped .table-bordered .table-hover table-condensed">
+						<tbody>
+							<tr>
+								<th>@Html.LabelFor(m => m.Nationality)</th>
+								<td>@Html.DisplayFor(m => m.Nationality)</td>
+								<th>@Html.LabelFor(m => m.PoliticalStatus)</th>
+								<td>@Html.DisplayFor(m => Model.PoliticalStatus)</td>
+								<th>@Html.LabelFor(m => m.SkillDate)</th>
+								<td>@Html.DisplayFor(m => m.SkillDate)</td>
+							</tr>
+							<tr>
+								<th>@Html.LabelFor(m => m.GraduateSchool)</th>
+								<td>@Html.DisplayFor(m => m.GraduateSchool)</td>
+								<th>@Html.LabelFor(m => m.RankTitle)</th>
+								<td>@Html.DisplayFor(m => Model.RankTitle)</td>
+								<th>@Html.LabelFor(m => m.TrainNo)</th>
+								<td>@Html.DisplayFor(m => m.TrainNo)</td>
+							</tr>
+							<tr>
+								<th>@Html.LabelFor(m => m.Phonemobile)</th>
+								<td>@Html.DisplayFor(m => m.Phonemobile)</td>
+								<th>@Html.LabelFor(m => m.Email)</th>
+								<td>@Html.DisplayFor(m => Model.Email)</td>
+								<th>@Html.LabelFor(m => m.MemberCount)</th>
+								<td>@Html.DisplayFor(m => m.MemberCount)</td>
+							</tr>
+							<tr>
+								<th>@Html.LabelFor(m => m.SchoolScore)</th>
+								<td>@Html.DisplayFor(m => m.SchoolScore) / 30</td>
+								<th>@Html.LabelFor(m => m.VolumnScore)</th>
+								<td>@Html.DisplayFor(m => Model.VolumnScore) / 20</td>
+								<th>@Html.LabelFor(m => m.QualityScore)</th>
+								<td>@Html.DisplayFor(m => m.QualityScore) / 50</td>
+							</tr>
+							<tr>
+								<th>@Html.LabelFor(m => m.ChaScore)</th>
+								<td>@Html.DisplayFor(m => m.ChaScore) / 5</td>
+								<th>总得分</th>
+								<td>@(Model.SchoolScore + Model.VolumnScore + Model.QualityScore + Model.ChaScore) / 105</td>
+								<th></th>
+								<td></td>
+							</tr>
+							<tr>
+								<th colspan="6">荣誉</th>
+							</tr>
+							<tr><th colspan="6">@Html.DisplayFor(m => m.Honor)</th></tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- end widget -->
+
+</div>
+

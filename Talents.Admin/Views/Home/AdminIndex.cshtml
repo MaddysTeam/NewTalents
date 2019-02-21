@@ -1,0 +1,210 @@
+﻿@{
+	var pageTitle = ViewBag.Title = "首页";
+}
+<div class="col-md-10 content-wrapper">
+
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-home"></i> @pageTitle</h2>
+		</div>
+
+		<div class="main-content">
+
+			<div id="evalPeriodAlert">
+
+			</div>
+
+			<div class="row top-content" id="overView">
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-4">
+
+					<!-- 校评 PIE CHART -->
+					<div class="widget">
+						<div class="widget-header">
+							<h3><i class="fa fa-pie-chart"></i> 校评</h3> <em></em>
+							<div class="btn-group widget-header-toolbar">
+								<a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+								<a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+								<a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+							</div>
+						</div>
+						<div class="widget-content">
+							<div class="flot-chart" id="schoolEval"></div>
+						</div>
+					</div>
+					<!-- END 校评 PIE CHART -->
+
+				</div>
+
+				<div class="col-md-4">
+
+					<!-- 量评 PIE CHART -->
+					<div class="widget">
+						<div class="widget-header">
+							<h3><i class="fa fa-pie-chart"></i> 量评</h3> <em></em>
+							<div class="btn-group widget-header-toolbar">
+								<a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+								<a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+								<a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+							</div>
+						</div>
+						<div class="widget-content">
+							<div class="flot-chart" id="volumnEval"></div>
+						</div>
+					</div>
+					<!-- END 量评 PIE CHART -->
+
+				</div>
+
+				<div class="col-md-4">
+
+					<!-- 质评 PIE CHART -->
+					<div class="widget">
+						<div class="widget-header">
+							<h3><i class="fa fa-pie-chart"></i> 质评</h3> <em></em>
+							<div class="btn-group widget-header-toolbar">
+								<a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+								<a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+								<a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+							</div>
+						</div>
+						<div class="widget-content">
+							<div class="flot-chart" id="qualityEval"></div>
+						</div>
+					</div>
+					<!-- END 质评 PIE CHART -->
+
+				</div>
+
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+
+					<!-- 梯队信息 BAR CHART -->
+					<div class="widget">
+						<div class="widget-header">
+							<h3><i class="fa fa-bar-chart-o"></i> 梯队信息</h3> <em></em>
+							<div class="btn-group widget-header-toolbar">
+								<a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+								<a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+								<a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+							</div>
+						</div>
+						<div class="widget-content">
+							<div class="text-center">梯队人员数量</div>
+							<div class="flot-chart" id="teamInfo"></div>
+						</div>
+					</div>
+					<!-- END 梯队信息 BAR CHART -->
+
+				</div>
+			</div>
+		</div>
+
+		<!-- /main-content -->
+	</div>
+	<!-- /main -->
+</div>
+
+@section Plugins{
+	@Scripts.Render("~/js/state/flot")
+}
+
+@section Scripts{
+	<script>
+
+		$(function () {
+
+			var ajaxSuccess = '@AjaxResults.Success';
+
+			$.get('@Url.Action("EvalPeriodAlert", "Home")', function (data) {
+
+				$('#evalPeriodAlert').html(data);
+
+			})
+
+			$.get('@Url.Action("OverView", "Home")', function (data) {
+
+				$('#overView').html(data);
+
+			});
+
+			$.get('@Url.Action("SchoolEval", "Chart")', function (data) {
+
+				if (data.result == ajaxSuccess) {
+					PieChart('#schoolEval', data.data);
+				}
+				else {
+					$('#schoolEval').html(data.msg);
+				}
+
+			});
+
+			$.get('@Url.Action("VolumnEval", "Chart")', function (data) {
+
+				if (data.result == ajaxSuccess) {
+					PieChart('#volumnEval', data.data);
+				} else {
+					$('#volumnEval').html(data.msg);
+				}
+
+			});
+
+			$.get('@Url.Action("QualityEval", "Chart")', function (data) {
+
+				if (data.result == ajaxSuccess) {
+					PieChart('#qualityEval', data.data);
+				} else {
+					$('#qualityEval').html(data.msg);
+				}
+
+			});
+
+			$.get('@Url.Action("TeamInfo", "Chart")', function (data) {
+
+				var ds = [];
+				var ticks = [];
+
+				$.each(data.list, function (index) {
+
+					ticks.push([index, this.label]);
+
+					ds.push({
+						label: this.label,
+						data: [[index, this.data]]
+					});
+
+				});
+
+				BarChart('#teamInfo', ds, {
+					xaxis: {
+						ticks: ticks,
+						tickLength: 0
+					},
+					yaxis: {
+						ticks: [],
+						tickLength: 0
+					},
+					isUseTooltip: true
+				});
+
+			});
+
+		});
+
+	</script>
+}

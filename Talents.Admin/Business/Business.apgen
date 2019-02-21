@@ -1,0 +1,934 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<gen xmlns="http://schemas.symber.com/apgen" namespace="Business">
+	<genSections>
+		<sectionGroup name="code" type="Symber.Web.Compilation.APGenCodeSectionGroup, Symber.Web.APQuery, Version=4.0, Culture=neutral, PublicKeyToken=5f8081ae21b51971">
+			<section name="namespaces" type="Symber.Web.Compilation.APGenNamespacesSection, Symber.Web.APQuery, Version=4.0, Culture=neutral, PublicKeyToken=5f8081ae21b51971"/>
+			<section name="enums" type="Symber.Web.Compilation.APGenEnumsSection, Symber.Web.APQuery, Version=4.0, Culture=neutral, PublicKeyToken=5f8081ae21b51971"/>
+		</sectionGroup>
+		<section name="businessModel" type="Symber.Web.Compilation.APGenBusinessModelSection, Symber.Web.APQuery, Version=4.0, Culture=neutral, PublicKeyToken=5f8081ae21b51971"/>
+	</genSections>
+
+	<code>
+		<namespaces>
+			<add import="Symber.Web.Identity"/>
+		</namespaces>
+		<enums>
+		</enums>
+	</code>
+
+
+
+	<!-- Add APQuery.net Project Business Logic Here. -->
+	<!-- Like as -->
+	<businessModel autoSyncDatabase="true" autoInitDatabase="true">
+
+		<tables>
+
+			<!-- Picklist -->
+
+			<table name="Picklist" comment="选项列表">
+				<columns>
+
+					<add name="PicklistId" type="long" primaryKey="true"/>
+					<add name="InnerKey" type="string" dataLength="40"/>
+					<add name="Name" type="string" dataLength="255"/>
+					<add name="Adjustable" type="bool"/>
+					<add name="Strengthen" type="bool" />
+					<add name="Description" type="string" dataLength="1000"/>
+
+				</columns>
+			</table>
+
+			<table name="PicklistItem" comment="选项列表项" >
+				<columns>
+
+					<add name="PicklistItemId" type="long" primaryKey="true"/>
+					<add name="PicklistId" type="long" primaryKey="true" comment="Associated with PickList.PickListId"/>
+					<add name="Name" type="string" dataLength="255"/>
+					<add name="StrengthenValue" type="long"/>
+					<add name="Code" type="string" dataLength="100"/>
+					<add name="IsDefault" type="bool"/>
+
+				</columns>
+			</table>
+
+
+			<!-- 同步数据表 -->
+
+			<table name="School_Info" comment="学校基础数据表">
+				<columns>
+
+					<add name="id" type="string" dataLength="36" display="学校ID" />
+					<add name="xxmc" type="string" dataLength="60" display="学校名称"/>
+					<add name="xxdm" type="string" dataLength="10" display="学校代码"/>
+
+				</columns>
+			</table>
+
+			<table name="Staff_Info" comment="教职工基础数据表">
+				<columns>
+
+					<add name="id" type="string" dataLength="36" display="教职工ID" />
+					<add name="yhm" type="string" dataLength="36" isNullable="true" display="用户登录名"/>
+					<add name="xxdm" type="string" dataLength="10" isNullable="true" display="学校代码"/>
+					<add name="xm" type="string" dataLength="50" isNullable="true" display="真实姓名"/>
+					<add name="sfzjh" type="string" dataLength="50" isNullable="true" display="身份证件号"/>
+					<add name="sxh" type="string" dataLength="20" isNullable="true" display="师训号"/>
+					<add name="csrq" type="string" dataLength="8" isNullable="true" display="出生日期"/>
+					<add name="xb" type="string" dataLength="1" isNullable="true" display="性别ID"/>
+					<add name="xl" type="string" dataLength="2" isNullable="true" display="学历ID"/>
+					<add name="xw" type="string" dataLength="3" isNullable="true" display="学位ID"/>
+					<add name="byxx" type="string" dataLength="100" isNullable="true" display="毕业学校"/>
+					<add name="zy" type="string" dataLength="50" isNullable="true" display="专业"/>
+					<add name="zw" type="string" dataLength="3" isNullable="true" display="职务ID"/>
+					<add name="zc" type="string" dataLength="1" isNullable="true" display="职称ID"/>
+					<add name="rjxk" type="string" dataLength="2" isNullable="true" display="任教学科ID"/>
+					<add name="dw" type="string" dataLength="800" isNullable="true" display="单位"/>
+
+				</columns>
+			</table>
+
+
+			<!-- 用户体系 -->
+
+			<table name="BzUser" inherits="IdentityUser&lt;long&gt;" comment="用户">
+				<columns>
+
+					<add name="UserId" type="long" propertyName="Id" identityType="Provider" primaryKey="true" display="用户ID" override="true"/>
+
+					<!-- Login -->
+					<add name="UserName" type="string" dataLength="255" required="true" display="用户名" override="true"/>
+					<add name="PasswordHash" type="string" dataLength="255" display="密码哈希" override="true"/>
+					<add name="SecurityStamp" type="string" dataLength="255" display="Salt" override="true"/>
+					<add name="Email" type="string" dataLength="255" display="电子邮箱" comment="尝试实现用户名或邮箱双模式登录" override="true"/>
+					<add name="EmailConfirmed" type="bool" display="电子邮箱确认" override="true"/>
+					<add name="PhoneNumber" type="string" dataLength="255" display="电话" comment="为短信服务预留" override="true"/>
+					<add name="PhoneNumberConfirmed" type="bool" display="电话确认" override="true"/>
+					<add name="TwoFactorEnabled" type="bool" display="双模式" override="true"/>
+					<add name="LockoutEndDtc" type="DateTime?" isNullable="true" display="锁定时间" />
+					<add name="LockoutEnabled" type="bool" display="锁定" override="true"/>
+					<add name="AccessFailedCount" type="int" display="错误次数" override="true"/>
+
+					<!-- Logic -->
+					<add name="Actived" type="bool" display="有效"/>
+
+				</columns>
+				<uniques>
+					<index name="BzUnq_UserName">
+						<add name="UserName"/>
+					</index>
+					<index name="BzUnq_Email">
+						<add name="Email"/>
+					</index>
+				</uniques>
+			</table>
+
+			<table name="BzUserClaim" inherits="IdentityUserClaim&lt;long&gt;" comment="UserClaim">
+				<columns>
+
+					<add name="Id" type="int" identityType="Provider" primaryKey="true" display="ID" override="true"/>
+					<add name="UserId" type="long" override="true"/>
+					<add name="ClaimType" type="string" dataLength="100" override="true"/>
+					<add name="ClaimValue" type="string" dataLength="100" override="true"/>
+
+				</columns>
+			</table>
+
+			<table name="BzUserProfile" comment="用户简档">
+				<columns>
+
+					<add name="UserId" type="long" primaryKey="true" display="用户ID" />
+					<add name="UUID" type="string" dataLength="100" display="UUID" />
+					<add name="CompanyId" type="long" display="单位ID" />
+					<add name="UserName" type="string" dataLength="255" required="true" display="用户名" comment="id+name 双重 id 为了提供数据迁移的的灵活性"/>
+					<add name="UserType" type="string" dataLength="255" display="用户类型" comment="管理员，学校管理员，教师"/>
+
+					<!-- General Information -->
+					<add name="RealName" type="string" dataLength="40" required="true" display="真实姓名"/>
+					<add name="IDCard" type="string" dataLength="18" required="true" display="身份证件号"/>
+					<add name="TrainNo" type="string" dataLength="20"  defaultValue=""  display="师训编号"/>
+					<add name="GenderPKID" type="long" display="性别" required="true"  comment="PickList - Gender"/>
+					<add name="Birthday" type="DateTime" required="true"  display="出生年月"/>
+					<add name="PoliticalStatusPKID" type="long" display="政治面貌" required="true"  comment="PickList - PoliticalStatus"/>
+					<add name="NationalityPKID" type="long" display="民族" required="true"  comment="PickList - Nationality"/>
+
+					<!-- Work Information -->
+					<add name="EduSubjectPKID" type="long" display="任教学科" comment="PickList - EduSubject"/>
+					<add name="EduStagePKID" type="long" display="任教学段" comment="PickList - EduStage"/>
+					<add name="JobDate" type="DateTime?" isNullable="true" required="true"  display="参加教育工作年月"/>
+					<add name="SkillTitlePKID" type="long" display="现任专技职称" comment="PickList - SkillTitle"/>
+					<add name="SkillDate" type="DateTime?" isNullable="true" required="true" display="职称通过年月"/>
+					<add name="CompanyName" type="string" dataLength="100" required="true"  display="单位"/>
+					<add name="CompanyNameOuter" type="string" dataLength="800" display="单位(数据同步)"/>
+					<add name="Companyaddress" type="string" dataLength="255" required="true"  display="单位地址"/>
+					<add name="RankTitlePKID" type="long" display="行政职务" comment="PickList - RankTitle"/>
+
+					<!-- Educational Information -->
+					<add name="EduBgPKID" type="long" display="学历" comment="PickList - EduBg"/>
+					<add name="EduDegreePKID" type="long" display="学位" comment="PickList - EduDegree"/>
+					<add name="GraduateSchool" type="string" required="true"  dataLength="100" display="毕业院校与专业"/>
+					<add name="GraduateDate" type="DateTime?" required="true"  display="毕业年月"/>
+
+					<!-- Contact Information -->
+					<add name="Phonemobile" type="string" dataLength="20" required="true"  display="手机号码"/>
+					<add name="Email" type="string" dataLength="255" required="true"  display="电子邮箱" comment="用于联系的电子邮箱"/>
+					
+					<!--Modify Period-->
+					<add name="PeriodId" type="long" isNullable="true"  display="修改周期ID"/>
+				
+				</columns>
+			</table>
+
+			<table name="BzRole" inherits="IdentityRole&lt;long&gt;" comment="角色">
+				<columns>
+
+					<add name="RoleId" type="long" propertyName="Id" identityType="Provider" primaryKey="true" display="角色ID" override="true"/>
+					<!-- Login -->
+					<add name="Name" type="string" dataLength="255" required="true" display="角色名" override="true"/>
+					<add name="NormalizedName" type="string" dataLength="255" display="常名" override="true"/>
+
+				</columns>
+			</table>
+
+			<table name="BzUserRole" comment="用户角色">
+				<columns>
+
+					<add name="UserRoleId" type="long" identityType="Provider" primaryKey="true" display="ID" />
+					<add name="UserId" type="long" display="用户ID" />
+					<add name="RoleId" type="long" display="角色ID"/>
+					<add name="ScopeType" type="string" dataLength="30" display="作用域类型"/>
+					<add name="ScopeId" type="long" display="作用域ID"/>
+
+				</columns>
+			</table>
+
+
+			<!-- 用户基本信息修改.周期-->
+			<table name="ProfileModifyPeriod" comment="用户信息修改周期表">
+				<columns>
+
+					<add name="PeriodId" type="long" primaryKey="true" identityType="Provider" display="周期ID"/>
+					<add name="Name" type="string" dataLength="100" display="周期名称"/>
+					<add name="BeginDate" type="DateTime" display="开始时间（修改区间）"/>
+					<add name="EndDate" type="DateTime" display="结束时间（修改区间）"/>
+					<add name="IsCurrent" type="bool" display="是否当前修改期"/>
+				
+				</columns>
+			</table>
+
+			<table name="BzUserProfileHistory" comment="用户简档历史表">
+				<columns>
+					
+					<add name="Id" type="long" primaryKey="true"  identityType="Database" display="ID" />
+					<add name="UserId" type="long" display="用户ID" />
+					<add name="CompanyId" type="long" display="单位ID" />
+					<add name="UserName" type="string" dataLength="255" required="true" display="用户名" comment="id+name 双重 id 为了提供数据迁移的的灵活性"/>
+					<add name="UserType" type="string" dataLength="255" display="用户类型" comment="管理员，学校管理员，教师"/>
+
+					<!-- General Information -->
+					<add name="RealName" type="string" dataLength="40" required="true" display="真实姓名"/>
+					<add name="IDCard" type="string" dataLength="18" required="true" display="身份证件号"/>
+					<add name="TrainNo" type="string" dataLength="20" display="师训编号"/>
+					<add name="GenderPKID" type="long" display="性别" comment="PickList - Gender"/>
+					<add name="Birthday" type="DateTime" required="true" display="出生年月"/>
+					<add name="PoliticalStatusPKID" type="long" display="政治面貌" comment="PickList - PoliticalStatus"/>
+					<add name="NationalityPKID" type="long" display="民族" comment="PickList - Nationality"/>
+
+					<!-- Work Information -->
+					<add name="EduSubjectPKID" type="long" display="任教学科" comment="PickList - EduSubject"/>
+					<add name="EduStagePKID" type="long" display="任教学段" comment="PickList - EduStage"/>
+					<add name="JobDate" type="DateTime?" isNullable="true" display="参加教育工作年月"/>
+					<add name="SkillTitlePKID" type="long" display="现任专技职称" comment="PickList - SkillTitle"/>
+					<add name="SkillDate" type="DateTime?" isNullable="true" display="职称通过年月"/>
+					<add name="CompanyName" type="string" dataLength="100" display="单位"/>
+					<add name="CompanyNameOuter" type="string" dataLength="800" display="单位(数据同步)"/>
+					<add name="Companyaddress" type="string" dataLength="255" display="单位地址"/>
+					<add name="RankTitlePKID" type="long" display="行政职务" comment="PickList - RankTitle"/>
+
+					<!-- Educational Information -->
+					<add name="EduBgPKID" type="long" display="学历" comment="PickList - EduBg"/>
+					<add name="EduDegreePKID" type="long" display="学位" comment="PickList - EduDegree"/>
+					<add name="GraduateSchool" type="string" dataLength="100" display="毕业院校与专业"/>
+					<add name="GraduateDate" type="DateTime?" isNullable="true" display="毕业年月"/>
+
+					<!-- Contact Information -->
+					<add name="Phonemobile" type="string" dataLength="20" display="手机号码"/>
+					<add name="Email" type="string" dataLength="255" display="电子邮箱" comment="用于联系的电子邮箱"/>
+
+					<!--Modify Period-->
+					<add name="PeriodId" type="long" isNullable="true"  display="修改周期ID"/>
+				</columns>
+			</table>
+
+			<table name="DeclareBaseHistory" comment="申报历史表">
+				<columns>
+
+					<add name="Id" type="long" primaryKey="true" identityType="Database" display="ID" />
+					<add name="TeacherId" type="long" display="教师ID" />
+
+					<!-- General Information -->
+					<add name="DeclareTargetPKID" type="long" display="申报（担任）称号" comment="PickList - PLKey_DeclareTarget"/>
+					<add name="DeclareSubjectPKID" type="long" display="申报学科" comment="PickList - PLKey_DeclareSubject"/>
+					<add name="DeclareStagePKID" type="long" display="申报学段" comment="PickList - PLKey_DeclareStage"/>
+
+					<add name="AllowFlowToSchool" type="bool" display="流入学校开展工作"/>
+					<add name="AllowFitResearcher" type="bool" display="配合教研员开展工作"/>
+
+					<add name="HasTeam" type="bool" display="拥有工作室"/>
+					<add name="TeamName" type="string" dataLength="100" display="梯队名称" comment="工作室之类的名称"/>
+					<add name="MemberCount" type="int" display="学员数量" comment="冗余字段"/>
+					<add name="ActiveCount" type="int" display="活动数量" comment="冗余字段"/>
+
+					<!--Modify Period-->
+					<add name="PeriodId" type="long" isNullable="true"  display="修改周期ID"/>
+
+				</columns>
+			</table>
+
+
+			<!-- 单位体系 -->
+			
+			<table name="Company" comment="单位">
+				<columns>
+
+					<add name="CompanyId" type="long" primaryKey="true" identityType="Provider" display="单位ID" />
+					<add name="CompanyName" type="string" dataLength="255" required="true" display="单位名称"/>
+
+				</columns>
+			</table>
+
+			<table name="CompanyAccesser" comment="单位-管理员">
+				<columns>
+
+					<add name="CompanyId" type="long" primaryKey="true" display="单位ID" />
+					<add name="UserId" type="long" primaryKey="true" display="用户ID"/>
+
+				</columns>
+			</table>
+
+			<table name="CompanyDeclare" comment="单位-申报教师">
+				<columns>
+
+					<add name="CompanyId" type="long" primaryKey="true" display="单位ID" />
+					<add name="TeacherId" type="long" primaryKey="true" display="教师ID"/>
+
+				</columns>
+			</table>
+
+
+			<!-- 权限体系 -->
+      <table name="BzPermission" comment="权限">
+        <columns>
+          
+          <add name="PermissionId" type="long" propertyName="Id" identityType="Provider" primaryKey="true" display="权限ID" />
+          <add name="Name" type="string" dataLength="255" required="true" display="权限名称" />
+          <add name="Status" type="int" defaultValue="0" display="权限状态"/>
+        
+        </columns>
+      </table>
+
+      <table name="BzRolePermission" comment="角色权限">
+        <columns>
+
+          <add name="RolePermissionId" type="long" identityType="Provider" primaryKey="true" display="ID" />
+          <add name="RoleId" type="long" display="角色ID"/>
+          <add name="PermissionId" type="long" display="权限ID"/>
+          <add name="IsGrant" type="bool" defaultValue="true" display="是否授权"/>
+          
+        </columns>
+      </table>
+     
+	
+			<!-- 申报.基本情况 -->
+
+			<table name="DeclareBase" comment="申报">
+				<columns>
+
+					<add name="TeacherId" type="long" primaryKey="true" display="教师ID" />
+
+					<!-- General Information -->
+					<add name="DeclareTargetPKID" type="long" display="申报（担任）称号" comment="PickList - PLKey_DeclareTarget"/>
+					<add name="DeclareSubjectPKID" type="long" display="申报学科" comment="PickList - PLKey_DeclareSubject"/>
+					<add name="DeclareStagePKID" type="long" display="申报学段" comment="PickList - PLKey_DeclareStage"/>
+
+					<add name="AllowFlowToSchool" type="bool" display="流入学校开展工作"/>
+					<add name="AllowFitResearcher" type="bool" display="配合教研员开展工作"/>
+
+					<add name="HasTeam" type="bool" display="拥有工作室"/>
+					<add name="TeamName" type="string" dataLength="100" display="梯队名称" comment="工作室之类的名称"/>
+					<add name="MemberCount" type="int" display="学员数量" comment="冗余字段"/>
+					<add name="ActiveCount" type="int" display="活动数量" comment="冗余字段"/>
+					
+					<!--Modify Period-->
+					<add name="PeriodId" type="long" isNullable="true"  display="修改周期ID"/>
+					
+				</columns>
+			</table>
+
+			<table name="DeclareResume" comment="申报-简历">
+				<columns>
+
+					<add name="DeclareResumeId" type="long" identityType="Provider" primaryKey="true" display="简历ID" />
+					<add name="TeacherId" type="long" display="教师ID" />
+
+					<!-- General Information -->
+					<add name="DateRegion" type="string" dataLength="100" display="时间区间"/>
+					<add name="Company" type="string" dataLength="100" display="单位"/>
+					<add name="Title" type="string" dataLength="100" display="职称、职务"/>
+					<!-- Record Information -->
+					<add name="CreateDate" type="DateTime" display="创建时间"/>
+					<add name="Creator" type="long" display="创建人"/>
+					<add name="ModifyDate" type="DateTime?" isNullable="true" display="修改时间"/>
+					<add name="Modifier" type="long" display="修改人"/>
+				</columns>
+			</table>
+
+			<table name="DeclareContent" comment="申报-内容">
+				<columns>
+
+					<add name="DeclareContentId" type="long" primaryKey="true" identityType="Provider" display="内容ID" />
+					<add name="TeacherId" type="long" display="教师ID" />
+
+					<!-- General Information -->
+					<add name="ContentKey" type="string" dataLength="200" display="内容类别" comment="用点分符做完字符串分割"/>
+					<add name="ContentValue" type="string" dataLength="30000" display="内容" />
+					<add name="ContentDataType" type="string" dataLength="100" display="内容数据类型" comment="内容的数据类型，String，DateTime等"/>
+					
+					<!-- Record Information -->
+					<add name="CreateDate" type="DateTime" display="创建时间"/>
+					<add name="Creator" type="long" display="创建人"/>
+					<add name="ModifyDate" type="DateTime?" isNullable="true" display="修改时间"/>
+					<add name="Modifier" type="long" display="修改人"/>
+				</columns>
+			</table>
+
+			<table name="DeclareActive" comment="申报-活动">
+				<columns>
+
+					<add name="DeclareActiveId" type="long" identityType="Provider" primaryKey="true" display="ID"/>
+					<add name="TeacherId" type="long" display="教师ID"/>
+
+					<!-- General Information-->
+					<add name="ActiveKey" type="string" dataLength="200" display="内容类别" comment="用点分符做完字符串分割"/>
+					<add name="Date" type="DateTime" display="时间"/>
+					<add name="Location" type="string" dataLength="100" display="地点" />
+					<add name="Level" type="string" dataLength="100" display="等级"/>
+					<add name="ContentValue" type="string" dataLength="10000" display="内容" />
+					<add name="Dynamic1" type="string" dataLength="2000" display="动态内容1"/>
+					<add name="Dynamic2" type="string" dataLength="2000" display="动态内容2"/>
+					<add name="Dynamic3" type="string" dataLength="2000" display="动态内容3"/>
+					<add name="Dynamic4" type="string" dataLength="2000" display="动态内容4"/>
+					<add name="Dynamic5" type="string" dataLength="2000" display="动态内容5"/>
+					<add name="Dynamic6" type="string" dataLength="2000" display="动态内容6"/>
+					<add name="Dynamic7" type="string" dataLength="2000" display="动态内容7"/>
+					<add name="Dynamic8" type="string" dataLength="2000" display="动态内容8"/>
+					<add name="Dynamic9" type="long" display="动态内容9" comment="PickList - "/>
+					<add name="IsShare" type="bool" display="是否共享"/>
+					
+					<!-- Record Information -->
+					<add name="CreateDate" type="DateTime" display="创建时间"/>
+					<add name="Creator" type="long" display="创建人"/>
+					<add name="ModifyDate" type="DateTime?" isNullable="true" display="修改时间"/>
+					<add name="Modifier" type="long" display="修改人"/>
+				</columns>
+			</table>
+
+			<table name="DeclareAchievement" comment="申报-科研成果">
+				<columns>
+
+					<add name="DeclareAchievementId" type="long" primaryKey="true" identityType="Provider" display="成果ID" />
+					<add name="TeacherId" type="long" display="教师ID" />
+
+					<!-- General Information -->
+					<add name="AchievementKey" type="string" dataLength="200" display="内容类别" comment="用点分符做完字符串分割"/>
+					<add name="Date" type="string" dataLength="100" display="时间" />
+					<add name="DateRegion" type="string" dataLength="100" display="时间区间"/>
+					<add name="Location" type="string" dataLength="100" display="地点" />
+					<add name="Level" type="string" dataLength="100" display="等级"/>
+					<add name="NameOrTitle" type="string" dataLength="100" display="名称或标题"/>
+					<add name="Dynamic1" type="string" dataLength="2000" display="动态内容1"/>
+					<add name="Dynamic2" type="string" dataLength="2000" display="动态内容2"/>
+					<add name="Dynamic3" type="string" dataLength="2000" display="动态内容3"/>
+					<add name="Dynamic4" type="string" dataLength="2000" display="动态内容4"/>
+					<add name="Dynamic5" type="string" dataLength="2000" display="动态内容5"/>
+					<add name="Dynamic6" type="long" display="动态内容9" comment="PickList - "/>
+					<add name="IsShare" type="bool" display="是否共享"/>
+					<!-- Record Information -->
+					<add name="CreateDate" type="DateTime" display="创建时间"/>
+					<add name="Creator" type="long" display="创建人"/>
+					<add name="ModifyDate" type="DateTime?" isNullable="true" display="修改时间"/>
+					<add name="Modifier" type="long" display="修改人"/>
+				</columns>
+			</table>
+
+			<table name="DeclareOrgConst" comment="申报-制度建设">
+				<columns>
+
+					<add name="DeclareOrgConstId" type="long" primaryKey="true" identityType="Provider" display="建设ID" />
+					<add name="TeacherId" type="long" display="教师ID" />
+
+					<!-- General Information-->
+					<add name="Content" type="string" dataLength="2000" display="内容"/>
+					<add name="Work" type="string" dataLength="2000" display="开展情况"/>
+					<add name="Remark" type="string" dataLength="2000" display="备注"/>
+					<add name="IsShare" type="bool" display="是否共享"/>
+					<!-- Record Information -->
+					<add name="CreateDate" type="DateTime" display="创建时间"/>
+					<add name="Creator" type="long" display="创建人"/>
+					<add name="ModifyDate" type="DateTime?" isNullable="true" display="修改时间"/>
+					<add name="Modifier" type="long" display="修改人"/>
+				</columns>
+			</table>
+
+
+			<!-- 梯队.基本情况 -->
+			
+			<table name="TeamMember" comment="梯队-学员">
+				<columns>
+
+					<add name="TeamId" type="long" primaryKey="true" display="梯队ID" />
+					<add name="MemberId" type="long" primaryKey="true" display="学员ID" />
+					<add name="ContentValue" type="string" dataLength="30000" display="学员的成长方向" />
+					<!-- Record Information -->
+					<add name="CreateDate" type="DateTime" display="创建时间"/>
+					<add name="Creator" type="long" display="创建人"/>
+				</columns>
+			</table>
+
+			<table name="TeamContent" comment="梯队-内容">
+				<columns>
+
+					<add name="TeamContentId" type="long" primaryKey="true" identityType="Provider" display="内容ID"/>
+					<add name="TeamId" type="long" display="梯队ID"/>
+
+					<!-- General Information -->
+					<add name="ContentKey" type="string" dataLength="200" display="内容类别" comment="用点分符做完字符串分割"/>
+					<add name="ContentValue" type="string" dataLength="30000" display="内容" />
+					<add name="ContentDataType" type="string" dataLength="100" display="内容数据类型" comment="内容的数据类型，String，DateTime等"/>
+					<!-- Record Information -->
+					<add name="CreateDate" type="DateTime" display="创建时间"/>
+					<add name="Creator" type="long" display="创建人"/>
+					<add name="ModifyDate" type="DateTime?" isNullable="true" display="修改时间"/>
+					<add name="Modifier" type="long" display="修改人"/>
+				</columns>
+			</table>
+
+			<table name="TeamActive" comment="梯队-活动">
+				<columns>
+
+					<add name="TeamActiveId" type="long" identityType="Provider" primaryKey="true" display="ID"/>
+					<add name="TeamId" type="long" display="梯队ID"/>
+
+					<!-- General Information-->
+					<add name="Date" type="DateTime" required="true" display="时间"/>
+					<add name="Location" type="string" dataLength="100" required="true" display="地点" />
+					<add name="Title" type="string" dataLength="100" required="true" display="标题"/>
+					<add name="ActiveType" type="long" display="类型" comment="PickList - TeamActiveType"/>
+					<add name="ContentValue" type="string" dataLength="10000" required="true" display="内容" />
+					<add name="IsShow" type="bool" display="是否显示"/>
+					<add name="IsShare" type="bool" display="是否共享"/>
+					<!-- Record Information -->
+					<add name="CreateDate" type="DateTime" display="创建时间"/>
+					<add name="Creator" type="long" display="创建人"/>
+					<add name="ModifyDate" type="DateTime?" isNullable="true" display="修改时间"/>
+					<add name="Modifier" type="long" display="修改人"/>
+				</columns>
+			</table>
+
+			<table name="TeamActiveResult" comment="梯队-活动成果">
+				<columns>
+					
+					<add name="ResultId" type="long" identityType="Provider" primaryKey="true" display="成果ID" />
+					<add name="ActiveId" type="long" display="活动ID" />
+					<add name="MemberId" type="long" display="学员ID" />
+					<!-- General Information -->
+					<add name="ActiveResult" type="string" dataLength="30000" display="学员的成果"/>
+					<!-- Record Information -->
+					<add name="CreateDate" type="DateTime" display="创建时间"/>
+					<add name="Creator" type="long" display="创建人"/>
+					<add name="ModifyDate" type="DateTime?" isNullable="true" display="修改时间"/>
+					<add name="Modifier" type="long" display="修改人"/>
+				</columns>
+			</table>
+
+			<table name="TeamActiveItem" comment="梯队-活动内容">
+				<columns>
+
+					<add name="ItemId" type="long" identityType="Provider" primaryKey="true" display="内容ID" />
+					<add name="ActiveId" type="long" display="活动ID" />
+					<add name="MemberId" type="long" display="学员ID" />
+
+					<!-- General Information -->
+					<add name="SendDate" type="DateTime" display="发布时间"/>
+					<add name="ItemContent" type="string" dataLength="20000" display="活动内容"/>
+					<!-- Record Information -->
+					<add name="CreateDate" type="DateTime" display="创建时间"/>
+					<add name="Creator" type="long" display="创建人"/>
+					<add name="ModifyDate" type="DateTime?" isNullable="true" display="修改时间"/>
+					<add name="Modifier" type="long" display="修改人"/>
+				</columns>
+			</table>
+
+			<table name="TeamSpecialCourse" comment="梯队-定向性课程开设登记表">
+				<columns>
+
+					<add name="CourseId" type="long" identityType="Provider" primaryKey="true" display="课程ID"/>
+					<add name="TeamId" type="long" display="梯队ID"/>
+
+					<!-- General Information -->
+					<add name="Title" type="string" required="true" dataLength="255" display="课程主题"/>
+					<add name="StartDate" type="DateTime" display="课程开设开始时段"/>
+					<add name="EndDate" type="DateTime" display="课程开设结束时段"/>
+					<add name="CourseTarget" type="string" dataLength="2000" display="课程目标"/>
+					<add name="CoursePlan" type="string" dataLength="20000" display="活动方案"/>
+					<add name="CourseRecords" type="string" dataLength="20000" display="过程记录"/>
+					<add name="CourseResults" type="string" dataLength="30000" display="活动效果"/>
+					<add name="CourseSummary" type="string" dataLength="30000" display="活动总结"/>
+					<add name="Remark" type="string" dataLength="2000" display="备注"/>
+					<add name="TotalCount" type="int" display="参加总人数"/>
+					<add name="MemberCount" type="int" display="团队学员数"/>
+					<add name="MemberRecord" type="string" dataLength="100" display="非团队成员参加对象（若有至少需写出1—5人姓名/单位）"/>
+					<!-- Record Information -->
+					<add name="CreateDate" type="DateTime" display="创建时间"/>
+					<add name="Creator" type="long" display="创建人"/>
+					<add name="ModifyDate" type="DateTime?" isNullable="true" display="修改时间"/>
+					<add name="Modifier" type="long" display="修改人"/>
+				</columns>
+			</table>
+
+			<table name="TeamSpecialCourseItem" comment="梯队-定向性课程实施安排表">
+				<columns>
+
+					<add name="ItemId" type="long" identityType="Provider" primaryKey="true" display="项目ID"/>
+					<add name="CourseId" type="long" display="ID" comment="课程Id"/>
+					<add name="TeamId" type="long" display="梯队ID"/>
+
+					<!-- General Information -->
+					<add name="ItemDate" type="DateTime" display="具体时间"/>
+					<add name="Location" type="string" dataLength="255" display="地点"/>
+					<add name="Title" type="string" dataLength="255" required="true" display="专题"/>
+					<add name="Content" type="string" dataLength="20000" display="内容"/>
+					<add name="ActivityType" type="string" dataLength="255" display="活动形式"/>
+					<add name="Speaker" type="string" dataLength="255" display="主讲人"/>
+					<add name="Remark" type="string" dataLength="255" display="备注"/>
+					<!-- Record Information -->
+					<add name="CreateDate" type="DateTime" display="创建时间"/>
+					<add name="Creator" type="long" display="创建人"/>
+					<add name="ModifyDate" type="DateTime?" isNullable="true" display="修改时间"/>
+					<add name="Modifier" type="long" display="修改人"/>
+				</columns>
+			</table>
+
+
+			<!-- 专家组管理 -->
+
+			<table name="ExpGroup" comment="专家组">
+				<columns>
+
+					<add name="GroupId" type="long" identityType="Provider" primaryKey="true" display="专家组ID" />
+
+					<!-- General Information -->
+					<add name="Name" type="string" dataLength="40" required="true" display="专家组名称"/>
+					<add name="DeclareTargetPKID" type="long" display="申报（担任）称号" comment="PickList - PLKey_DeclareTarget"/>
+					<add name="DeclareSubjectPKID" type="long" display="申报学科" comment="PickList - PLKey_DeclareSubject"/>
+					<add name="DeclareStagePKID" type="long" display="申报学段" comment="PickList - PLKey_DeclareStage"/>
+					<add name="MemberCount" type="int" display="专家数量" comment="冗余字段"/>
+					<add name="TeacherCount" type="int" display="学员数量" comment="冗余字段"/>
+					<!-- Record Information -->
+					<add name="CreateDate" type="DateTime" display="创建时间"/>
+					<add name="Creator" type="long" display="创建人"/>
+					<add name="ModifyDate" type="DateTime?" isNullable="true" display="修改时间"/>
+					<add name="Modifier" type="long" display="修改人"/>
+				</columns>
+			</table>
+
+			<table name="ExpGroupMember" comment="专家组成员">
+				<columns>
+
+					<add name="GroupMemberId" type="long" identityType="Provider" primaryKey="true" display="专家组成员ID" />
+
+					<add name="GroupId" type="long" display="专家ID" comment="专家组ID"/>
+					<add name="ExpectID" type="long" display="专家ID" comment="专家ID"/>
+					<add name="IsLeader" type="bool" display="是否组长"/>
+
+				</columns>
+			</table>
+
+			<table name="Expect" comment="专家">
+				<columns>
+
+					<add name="ExpectId" type="long" primaryKey="true" display="专家ID" />
+					<add name="GroupCount" type="long" dataLength="1000" display="专家组数量" comment="参加的专家组数量"/>
+
+				</columns>
+			</table>
+
+			<table name="ExpGroupTarget" comment="专家组-学员">
+				<columns>
+
+					<add name="GroupId" type="long" primaryKey="true" display="专家组ID" />
+					<add name="MemberId" type="long" primaryKey="true" display="学员ID" />
+
+				</columns>
+			</table>
+
+
+			<!-- 评价.周期 -->
+
+			<table name="EvalPeriod" comment="评价-周期">
+				<columns>
+
+					<add name="PeriodId" type="long" primaryKey="true" identityType="Provider" display="周期ID"/>
+				
+					<!-- General Information -->
+					<add name="Name" type="string" dataLength="100" display="周期名称"/>
+					<add name="BeginDate" type="DateTime" display="开始时间（考核区间）"/>
+					<add name="EndDate" type="DateTime" display="结束时间（考核区间）"/>
+					<add name="AccessBeginDate" type="DateTime" display="开始时间（操作区间）"/>
+					<add name="AccessEndDate" type="DateTime" display="结束时间（操作区间）"/>
+					<add name="AnalysisName" type="String" dataLength="100" display="算法模型名称"/>
+					<add name="AnalysisType" type="String" dataLength="100" display="算法模型类型"/>
+					<add name="IsCurrent" type="bool" display="是否当前考核期"/>
+					<!-- Record Information -->
+					<add name="CreateDate" type="DateTime" display="创建时间"/>
+					<add name="Creator" type="long" display="创建人"/>
+					<add name="ModifyDate" type="DateTime?" isNullable="true" display="修改时间"/>
+					<add name="Modifier" type="long" display="修改人"/>
+				</columns>
+			</table>
+
+			
+			<!-- 评价.校评 -->
+
+			<table name="EvalSchoolResult" comment="评价-校评-结果">
+				<columns>
+
+					<add name="ResultId" type="long" primaryKey="true" identityType="Provider" display="评价结果ID"/>
+					<add name="PeriodId" type="long" display="周期ID"/>
+					<add name="CompanyId" type="long" display="单位ID"/>
+					<add name="TeacherId" type="long" display="教师ID"/>
+
+					<!-- General Information -->
+					<add name="FullScore" type="double" display="总分"/>
+					<add name="Score" type="double" display="得分"/>
+					<add name="Morality" type="string" dataLength="200" display="合格"/>
+
+					<add name="Accesser" type="long" display="考评人" comment="关联考评人"/>
+					<add name="AccessDate" type="DateTime" display="考评时间"/>
+
+				</columns>
+			</table>
+
+			<table name="EvalSchoolResultItem" comment="评价-校评-结果项">
+				<columns>
+
+					<add name="ResultItemId" type="long" primaryKey="true" identityType="Provider" display="结果项ID"/>
+					<add name="ResultId" type="long" display="评价结果ID"/>
+
+					<!-- General Information -->
+					<add name="EvalItemKey" type="string" dataLength="200" display="指标项" comment="用点分符做完字符串分割"/>
+					<add name="ChooseValue" type="string" dataLength="20" display="选择值"/>
+					<add name="ResultValue" type="string" dataLength="100" display="输入值"/>
+
+				</columns>
+			</table>
+
+
+			<!-- 评价.量评 -->
+
+			<table name="EvalVolumnResult" comment="评价-量评-结果">
+				<columns>
+
+					<add name="ResultId" type="long" primaryKey="true" identityType="Provider" display="评价结果ID"/>
+					<add name="PeriodId" type="long" display="周期ID"/>
+					<add name="DeclareTargetPKID" type="long" display="申报（担任）称号" comment="PickList - PLKey_DeclareTarget"/>
+					<add name="TeacherId" type="long" display="教师ID"/>
+
+					<!-- General Information -->
+					<add name="FullScore" type="double" display="总分"/>
+					<add name="Score" type="double" display="得分"/>
+					<add name="AnalysisContent" type="string" dataLength="20000" display="分析报告"/>
+
+					<add name="Accesser" type="long" display="考评人" comment="关联考评人"/>
+					<add name="AccessDate" type="DateTime" display="考评时间"/>
+
+				</columns>
+			</table>
+
+			<table name="EvalVolumnResultItem" comment="评价-量评-结果项">
+				<columns>
+
+					<add name="ResultItemId" type="long" primaryKey="true" identityType="Provider" display="结果项ID"/>
+					<add name="ResultId" type="long" display="评价结果ID"/>
+
+					<!-- General Information -->
+					<add name="EvalItemKey" type="string" dataLength="200" display="指标项" comment="用点分符做完字符串分割"/>
+					<add name="ChooseValue" type="string" dataLength="20" display="选择值"/>
+					<add name="ResultValue" type="string" dataLength="100" display="输入值"/>
+
+				</columns>
+			</table>
+		
+			<!-- 评价.质评 -->
+
+			<table name="EvalQualitySubmitResult" comment="评价-质评-提交结果">
+				<columns>
+
+					<add name="ResultId" type="long" primaryKey="true" identityType="Provider" display="评价结果ID"/>
+					<add name="PeriodId" type="long" display="周期ID"/>
+					<add name="DeclareTargetPKID" type="long" display="申报（担任）称号" comment="PickList - PLKey_DeclareTarget"/>
+					<add name="TeacherId" type="long" display="教师ID"/>
+
+					<!-- General Information -->
+					<add name="FullScore" type="double" display="总分"/>
+					<add name="Score" type="double" display="得分"/>
+					<add name="Characteristic" type="double" display="特色分得分"/>
+					<add name="AdjustScore" type="double" display="调整分" comment="调整分为参考值"/>
+					<add name="AccesserCount" type="int" display="评分人数"/>
+
+					<add name="GroupId" type="long" display="专家组" comment="关联专家组"/>
+					<add name="Accesser" type="long" display="组长" comment="关联专家组长"/>
+					<add name="AccessDate" type="DateTime" display="考评时间"/>
+
+				</columns>
+			</table>
+
+			<table name="EvalQualityResult" comment="评价-质评-结果">
+				<columns>
+
+					<add name="ResultId" type="long" primaryKey="true" identityType="Provider" display="评价结果ID"/>
+					<add name="PeriodId" type="long" display="周期ID"/>
+					<add name="DeclareTargetPKID" type="long" display="申报（担任）称号" comment="PickList - PLKey_DeclareTarget"/>
+					<add name="TeacherId" type="long" display="教师ID"/>
+
+					<!-- General Information -->
+					<add name="FullScore" type="double" display="总分"/>
+					<add name="Score" type="double" display="得分"/>
+				   <add name="Characteristic" type="double" display="特色分"/>
+				   <add name="DynamicScore1" type="double" display="备用分1"/>
+				   <add name="DynamicScore2" type="double" display="备用分2"/>
+				   <add name="DynamicScore3" type="double" display="备用分3"/>
+					<add name="Comment" type="string" dataLength="10000" display="总评" comment="每位专家的评语"/>
+					<add name="GroupId" type="long" display="专家组" comment="关联专家组"/>
+					<add name="Accesser" type="long" display="考评人" comment="关联考评人"/>
+					<add name="AccessDate" type="DateTime" display="考评时间"/>
+         
+				</columns>
+			</table>
+
+			<table name="EvalQualityResultItem" comment="评价-质评-结果项">
+				<columns>
+
+					<add name="ResultItemId" type="long" primaryKey="true" identityType="Provider" display="结果项ID"/>
+					<add name="ResultId" type="long" display="评价结果ID"/>
+
+					<!-- General Information -->
+					<add name="EvalItemKey" type="string" dataLength="200" display="指标项" comment="用点分符做完字符串分割"/>
+					<add name="ChooseValue" type="string" dataLength="20" display="选择值"/>
+					<add name="ResultValue" type="string" dataLength="100" display="输入值"/>
+
+				</columns>
+			</table>
+
+
+			<!-- 新闻 -->
+			
+			<table name="News" comment="新闻">
+				<columns>
+
+					<add name="NewsId" type="long" identityType="Provider" primaryKey="true" display="新闻ID" />
+
+					<!-- General Information -->
+					<add name="Title" type="string" dataLength="100" required="true" display="新闻标题"/>
+					<add name="Content" type="string" dataLength="20000" required="true" display="新闻内容"/>
+					<add name="ThumbUrl" type="string" dataLength="255" display="新闻缩略图"/>
+
+					<!-- Ink -->
+					<add name="Creator" type="long" display="创建者ID" comment="创建人" />
+					<add name="CreatedTime" type="DateTime" display="创建时间"/>
+
+				</columns>
+			</table>
+
+			<table name="HomePageImage" comment="首页图片">
+				<columns>
+
+					<add name="ImgId" type="long" identityType="Provider" primaryKey="true" display="图片ID" />
+
+					<!-- General Information -->
+					<add name="ImgUrl" type="string" dataLength="2000" display="图片路径"/>
+					<add name="ImgName" type="string" dataLength="255" display="图片名称"/>
+					<add name="UploadDate" type="DateTime" display="上传时间"/>
+					<add name="UseDate" type="DateTime" display="上架/下架时间" />
+					<add name="ImgType" type="bool" display="图片状态"/>
+
+				</columns>
+			</table>
+
+			<table name="Attachments" comment="附件">
+				<columns>
+
+					<add name="ID" type="long" identityType="Provider" primaryKey="true" display="附件ID" />
+
+					<!-- General Information -->
+					<add name="Type" type="string" dataLength="100" display="类型"/>
+					<add name="JoinId" type="long" display="关联ID"/>
+					<add name="UserId" type="long" display="用户ID"/>
+					<add name="AttachmentUrl" type="string" dataLength="255" display="附件路径"/>
+					<add name="AttachmentName" type="string" dataLength="100" display="附件名称"/>
+					<add name="UploadDate" type="DateTime" display="上传时间"/>
+
+				</columns>
+			</table>
+
+			<table name="Notice" comment="通知">
+				<columns>
+
+					<add name="NoticeId" type="long" identityType="Provider" primaryKey="true" display="通知ID" />
+
+					<!-- General Information -->
+					<add name="Title" type="string" dataLength="100" required="true" display="通知标题"/>
+					<add name="Content" type="string" dataLength="20000" required="true" display="通知内容"/>
+					<add name="IsSend" type="bool" display="是否推送"/>
+					
+					<!-- Ink -->
+					<add name="Creator" type="long" display="创建者ID" comment="创建人" />
+					<add name="CreatedTime" type="DateTime" display="创建时间"/>
+
+				</columns>
+			</table>
+
+			<table name="ReadNotice" comment="阅读通知">
+				<columns>
+					
+					<add name="NoticeId" type="long" primaryKey="true" display="通知ID" />
+					<add name="UserId" type="long" primaryKey="true" display="用户ID"/>
+					
+					<!-- Ink -->
+					<add name="ReadTime" type="DateTime" display="阅读时间"/>
+
+				</columns>
+			</table>
+			
+			<!-- 共享 -->
+
+			<table name="Share" comment="共享">
+				<columns>
+
+					<add name="ShareId" type="long" primaryKey="true" identityType="Provider" display="梯队共享ID"/>
+					<add name="UserId" type="long" display="共享者ID"/>
+					<add name="ItemId" type="long" display="共享项ID"/>
+					<add name="Title" type="string" dataLength="1000" display="共享标题/内容"/>
+					<add name="ParentType" type="string" dataLength="255"  display="父共享类型"/>
+					<add name="Type" type="string" dataLength="255" display="共享类型"/>
+					<add name="CreateDate" type="DateTime" display="创建时间"/>
+					<add name="PubishDate" type="DateTime" display="发布时间"/>
+
+				</columns>
+			</table>
+		
+		</tables>
+
+	</businessModel>
+
+</gen>

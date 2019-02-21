@@ -1,0 +1,53 @@
+﻿@model List<Attachments>
+@{
+	var pageTitle = ViewBag.Title = "附件";
+	var allType = string.Join(",", AttachmentsKeys.ImageSuffix, AttachmentsKeys.DocumentSuffix);
+}
+<div class="modal-dialog modal-lg">
+
+	<!-- widget -->
+	<div class="widget">
+		<div class="widget-header">
+			<h3><i class="fa fa-edit"></i> @pageTitle </h3>
+			<div class="btn-group widget-header-toolbar">
+				<a href="#" title="关闭" class="btn-borderless" data-dismiss="modal"><i class="fa fa-close"></i></a>
+			</div>
+		</div>
+		<div class="widget-content">
+			<div class="row">
+				<div class="col-md-12">
+
+					<div class="table-responsive">
+
+						<table class="table table-condensed table-striped table-hover">
+							<tbody>
+								@foreach (var item in Model)
+								{
+									var isMine = item.UserId == Html.GetUserProfile().UserId;
+									var extName = Path.GetExtension(item.AttachmentName);
+									<tr>
+										<td>	
+											@if (allType.IndexOf(extName) <= 0)
+											{
+												<a href="@Url.Content(item.AttachmentUrl)" target="_blank" title="@item.AttachmentName">@(item.AttachmentName.Length > 40 ? item.AttachmentName.Substring(0, 37) + "..." : item.AttachmentName)</a>
+											}
+											else 
+											{
+												<a href="@Url.Action("Preview", "Attachment", new {id=item.ID})" target="_blank" title="@item.AttachmentName">@(item.AttachmentName.Length > 40 ? item.AttachmentName.Substring(0, 37) + "..." : item.AttachmentName)</a>
+											}
+										</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- end widget -->
+
+</div>

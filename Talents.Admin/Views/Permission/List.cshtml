@@ -1,0 +1,132 @@
+﻿@{ 
+   // var roleId= Request[""]
+	var pageTitle = ViewBag.Title = "权限管理";
+}
+<div class="col-md-10 contenllt-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
+				<li class="active">@pageTitle</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-users"></i> @pageTitle</h2>
+			<em></em>
+		</div>
+
+		<div class="main-content">
+
+            <div class="alert alert-info alert-dismissable">
+                <a href="" class="close">&times;</a>
+                <strong>提示！</strong> 系统管理员自动获取全部权限，且对普通管理员，校管理员，专家，教师角色设置绑定相应权限，非系统管理员无法操作权限板块
+            </div>
+
+			<!-- widget -->
+			<div class="widget">
+				<div class="widget-header">
+					<h3><i class="fa fa-paperclip"></i>角色权限管理</h3>
+					<div class="btn-group widget-header-toolbar">
+						<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+						<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+					</div>
+				</div>
+				<div class="widget-content">
+                    <div class="row">   
+                        <div class="form-horizontal">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="col-md-6 control-label">角色名称</label>
+                                    <div class="col-md-6">
+                                        @Html.DropDownList("UserType", new SelectList(BzRoleNames.UserType), new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					<!-- Grid -->
+					<div class="table-responsive">
+
+                        <table id="bootgrid" class="table table-striped table-hover table-dark-header">
+                            <thead>
+                                <tr>
+                                    <th data-column-id="permissionName">权限名称</th>
+                                    <th data-column-id="roleName">所属角色</th>
+                                    <th data-column-id="isGrant">是否授予角色权限</th>
+                                    <th data-column-id="commands" data-formatter="commands" data-sortable="false" data-header-Css-Class="width180">操作</th>
+                                </tr>
+                            </thead>
+                        </table>
+
+					</div>
+					<!-- end Grid-->
+
+				</div>
+				<!-- /widget content -->
+			</div>
+			<!-- /widget -->
+
+		</div>
+		<!-- /main-content -->
+	</div>
+	<!-- /main -->
+</div>
+@section Scripts {
+    <script>
+        function getGlobalRequest() {
+            return {
+                userType: $('#UserType').val(),
+            };
+        }
+
+        function getGridOptions() {
+            return $.extend(true, {}, gridOptions, {
+
+                url: window.location.href,
+
+                requestHandler: function (request) { return $.extend(true, request, getGlobalRequest()); },
+
+                formatters: {
+                    'commands': function (column, row) {
+                        return '<div class="btn-group btn-group-xs pull-right" data-row-id="' + row.permissionId + '">' +
+							    '<button class="btn btn-success btn-edit btn-grant" dataUrl="/Permission/GrantRolePermisson/?rolePermissonId=' + row.rpId + '">授予权限</button>' +
+                                '<button class="btn btn-warning btn-deny" dataUrl="/Permission/DenyRolePermisson/?rolePermissonId='+row.rpId+'">移除权限</button>'
+								 '</div>';
+                    },
+                },
+
+            });
+        }
+
+        $(function () {
+
+            var grid = $('#bootgrid');
+            grid.bootgrid(getGridOptions())
+			.on('loaded.rs.jquery.bootgrid', function () {
+
+			    grid.find('.btn-grant,.btn-deny').on('click', function (e) {
+			        var url = $(this).attr('dataUrl');
+			        $.post(url, function (data, status) {
+			            popupMessage(data, {
+			                success: function () {
+			                   // $this.closest('tr').remove();
+			                    afterDialogSuccess();
+			                }
+			            });
+			        });
+			    });
+			});
+
+        });
+
+        function afterDialogSuccess() {
+            $('#firstModal').modal('hide');
+            $('#bootgrid').bootgrid('reload');
+        }
+    </script>
+    
+    }

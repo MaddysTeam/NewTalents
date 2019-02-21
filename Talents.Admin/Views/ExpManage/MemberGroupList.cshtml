@@ -1,0 +1,65 @@
+﻿@model List<MemberGroupModel>
+<div class="modal-dialog modal-lg">
+
+	<!-- widget -->
+	<div class="widget">
+		<div class="widget-header">
+			<h3><i class="fa fa-edit"></i> 参与的专家组</h3>
+			<div class="btn-group widget-header-toolbar">
+				<a href="#" title="关闭" class="btn-borderless" data-dismiss="modal"><i class="fa fa-close"></i></a>
+			</div>
+		</div>
+		<div class="widget-content">
+
+			<div class="table-responsive" id="FindResults">
+				<table class="table table-condensed table-striped table-hover table-dark-header">
+					<thead>
+						<tr>
+							<th>专家组名称</th>
+							<th class="width120">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model)
+						{
+							<tr>
+								<td>@item.expGroupName</td>
+								<td>
+									<div class="btn-group btn-group-xs pull-right" data-row-id="@item.expGroupId">
+										<button class="btn btn-success btn-adjust">移除</button>
+									</div>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</div>
+	<!-- end widget -->
+</div>
+<script>
+
+	$(function () {
+		var memberId = @ViewBag.MemberId;
+		$('.btn-adjust').on('click', function () {
+			var $this = $(this);
+			var groupId = $(this).parent().data('rowId');
+			$.post('/ExpManage/RemoveExpMember', { memberId: memberId, groupId: groupId }, function (data, status) {
+				popupMessage(data, {
+					success: function () {
+						$this.closest('tr').remove();
+						afterDialogSuccess();
+					}
+				});
+			});
+		});
+
+	})
+
+	function afterDialogSuccess() {
+		$('#firstModal').modal('hide');
+		$('#bootgrid').bootgrid('reload');
+	}
+</script>

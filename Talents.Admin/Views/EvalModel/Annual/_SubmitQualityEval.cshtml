@@ -1,0 +1,75 @@
+﻿@model EvalQualitySubmitResult
+<!-- Modal start -->
+<div class="modal" id="adjustScoreModal" tabindex="-1" role="dialog" aria-labelledby="adjustScoreModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+
+		<!-- widget -->
+		<div class="widget">
+			<div class="widget-header">
+				<h3><i class="fa fa-edit"></i> 编辑用户</h3>
+				<div class="btn-group widget-header-toolbar">
+					<a href="#" title="关闭" class="btn-borderless" data-dismiss="modal"><i class="fa fa-close"></i></a>
+				</div>
+			</div>
+			<div class="widget-content">
+
+				@using (Html.BeginForm("SubmitEvalResult", "QualityEval", FormMethod.Post, new { @class = "form-horizontal" }))
+				{
+					@Html.HiddenFor(model => Model.PeriodId)
+					@Html.HiddenFor(model => Model.DeclareTargetPKID)
+					@Html.HiddenFor(model => Model.TeacherId)
+					@Html.HiddenFor(model => Model.FullScore)
+					@Html.HiddenFor(model => Model.Score)
+					@Html.HiddenFor(model => Model.AccesserCount)
+					@Html.HiddenFor(model => Model.GroupId)
+					@Html.HiddenFor(model => Model.Accesser)
+					@Html.HiddenFor(model => Model.Characteristic)
+					<div class="row">
+						<fieldset class="col-sm-12">
+							<div class="form-group">
+								@Html.LabelFor(m => m.Score, new { @class = "control-label col-md-3" })
+								<div class="col-md-9">
+									<span class="form-control details-text">@Model.Score</span>
+								</div>
+							</div>
+							<div class="form-group">
+								@Html.LabelFor(m => m.FullScore, new { @class = "control-label col-md-3" })
+								<div class="col-md-9">
+									<span class="form-control details-text">@Model.FullScore</span>
+								</div>
+							</div>
+							<div class="form-group">
+								@Html.LabelFor(m => m.AccesserCount, new { @class = "control-label col-md-3" })
+								<div class="col-md-9">
+									<span class="form-control details-text">@Model.AccesserCount</span>
+								</div>
+							</div>
+							<div>
+								<div class="text-danger col-md-3"></div>
+								<div class="text-danger col-md-9"><i class="glyphicon glyphicon-exclamation-sign">可以根据实际情况调整学员得分</i></div>
+							</div>
+							<div class="form-group">
+								@Html.LabelFor(m => m.AdjustScore, new { @class = "control-label col-md-3" })
+								<div class="col-md-9">
+									@Html.TextBoxFor(m => m.AdjustScore, new { @class = "form-control" })
+									@Html.ValidationMessageFor(m => m.AdjustScore)
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-9 col-lg-offset-3">
+									<button type="submit" class="btn btn-primary btn-block-half"><i class="fa fa-check-circle"></i> 提交</button>
+									<button type="button" class="btn btn-default btn-block-half" data-dismiss="modal">取消</button>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+				}
+
+			</div>
+		</div>
+		<!-- end widget -->
+
+
+	</div>
+</div>
+<!-- Modal end -->

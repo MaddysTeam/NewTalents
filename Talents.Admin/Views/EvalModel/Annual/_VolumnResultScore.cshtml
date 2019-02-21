@@ -1,0 +1,21 @@
+﻿<table class="table table-condensed table-striped">
+	<tr>
+		<th class="table-col-10p">得分</th>
+		<td>
+			<strong class="result-score m-r-30">@Model.Score</strong>
+			<button class="btn btn-xs btn-info btn-view" data-toggle="ajax-modal" data-url="@Url.Action("Report", "VolumnEvalManage", new { teacherId = Model.TeacherId, periodId = Model.PeriodId })" data-target="#firstModal"><i class="fa fa-external-link"></i> <span>查看报告</span></button>
+		</td>
+	</tr>
+	<tr>
+		<th>总分</th>
+		<td>@Model.FullScore</td>
+	</tr>
+	<tr>
+		<th>评分人</th>
+		<td>@Model.AccesserName</td>
+	</tr>
+	<tr>
+		<th>评分时间</th>
+		<td>@Model.AccessDate.ToString("yyyy-MM-dd")</td>
+	</tr>
+</table>

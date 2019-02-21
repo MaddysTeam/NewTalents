@@ -1,0 +1,158 @@
+﻿@{
+	var pageTitle = ViewBag.Title = "首页";
+	var userIsExpert = Html.GetUserProfile().IsExpert;
+}
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-home"></i> @pageTitle</h2>
+		</div>
+
+		<div class="main-content">
+
+			<div class="alert alert-danger alert-dismissable">
+				<a href="" class="close">×</a>
+				<strong> <i class="fa fa-warning"></i> 重要提示</strong>
+				<br />
+				<a href="@Url.Content("~/Attachments/temp/关于开展虹教系统教师专业人才梯队2016年度考核的预通知-1.doc")">关于开展虹教系统教师专业人才梯队2016年度考核的预通知（一）</a>
+				<br />
+				<a href="@Url.Content("~/Attachments/temp/2016-2018年度虹教系统教师专业人才梯队各层级工作任务.doc")">2016-2018年度虹教系统教师专业人才梯队各层级工作任务</a>
+				<br />
+				<a href="@Url.Content("~/Attachments/temp/虹教系统教师专业人才梯队相关问题问答（一）.doc")">虹教系统教师专业人才梯队相关问题问答（一）</a>
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-6">
+
+					<!-- 教师查看量评结果 start -->
+					<div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="widget">
+									<div class="widget-header">
+										<h3><i class="fa fa-tasks"></i> 考核统计分析</h3>
+									</div>
+									<div class="widget-content">
+										<button class="btn btn-xs btn-info btn-view" data-toggle="ajax-modal" data-url="@Url.Action("Report", "Home")" data-target="#firstModal"><i class="fa fa-external-link"></i> <span>查看量评报告</span></button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 教师查看量评结果 end -->
+
+					<div id="evalComments"></div>
+
+					<div id="declareActiveTotal"></div>
+
+					<div id="joinTeam"></div>
+
+					<div id="leaderTeam"></div>
+
+				</div>
+
+				<div class="col-md-6">
+
+					<div id="evalPeriodScores" ></div>
+
+					@if (userIsExpert)
+					{
+						<div id="expGroups"></div>
+					}
+
+				</div>
+
+			</div>
+		</div>
+
+		<!-- /main-content -->
+	</div>
+	<!-- /main -->
+</div>
+
+@section Modals {
+	<!-- Modal start -->
+	<div class="modal" id="firstModal" tabindex="-1" role="dialog" aria-labelledby="firstModalLabel" aria-hidden="true">
+	</div>
+	<!-- Modal end -->
+}
+
+@section Scripts{
+	<script>
+
+		$(function () {
+
+			$.get('@Url.Action("DeclareActiveTotal", "Home")', function (data) {
+
+				$('#declareActiveTotal').html(data);
+
+			});
+
+			$.get('@Url.Action("JoinTeam", "Home")', function (data) {
+
+				$('#joinTeam').html(data);
+
+			});
+
+			$.get('@Url.Action("LeaderTeam", "Home")', function (data) {
+
+				$('#leaderTeam').html(data);
+
+			});
+
+			$.get('@Url.Action("EvalPeriodScores", "Home")', function (data) {
+
+				$('#evalPeriodScores').html(data);
+
+			});
+
+			$.get('@Url.Action("EvalComments", "Home")', function (data) {
+
+				$('#evalComments').html(data);
+
+			});
+
+			//TODO: 是否需要判断下专家组不可能为空的逻辑
+			var isExpert = '@userIsExpert' == 'True' ? true : false;
+
+			if (isExpert) {
+
+				$.get('@Url.Action("ExpGroups", "Home")', function (data, stats) {
+
+					$('#expGroups').html(data);
+
+					$('.group-block').each(function () {
+
+						var $this = $(this);
+						var paras = $this.data('param').split(',');
+
+						$.post('@Url.Action("ExpGroupInfo", "Home")', { groupId: paras[0], periodId: paras[1] }, function (data) {
+
+							$this.find('#td_leader').html(data.leaderName);
+							$this.find('#a_evalCount').html(data.evalCount);
+							$this.find('#a_notEvalCount').html(data.notEvalCount);
+							if (data.notEvalCount == 0 && data.evalCount > 0) {
+								$this.addClass('panel-success');
+								$this.find('.group-block-header').append('<i class="glyphicon glyphicon-ok"></i>');
+							}
+						});
+
+					});
+
+				});
+			}
+
+		});
+
+	</script>
+}

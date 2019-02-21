@@ -1,0 +1,17 @@
+﻿	TeamActive , DeclareActive,Notice 表contenValue字段手动设置为nvarchar(max)
+
+	BzUserProfileHistory 和 DeclareBaseHistory  id 字段设置为数据库自增列
+
+	Business.Config.ThisApp.DBName="真实库名"
+	Business.Config.ThisApp.LogDBConnctString="真实库"
+
+TeamActive declareAcitive notice 表 的content 从ntext 改为nvarchar(max)
+
+添加日志表
+create table [log]
+(
+  userId bigint not null,
+  operationDate datetime not null,
+  [where] nvarchar(200) not null,
+  doSomthing nvarchar(max) not null
+)

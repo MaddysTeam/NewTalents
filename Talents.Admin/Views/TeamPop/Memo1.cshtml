@@ -1,0 +1,55 @@
+﻿@model TeamContent
+@{
+	var pageTitle = ViewBag.Title = TeamKeys.DaijJih_Memo1;
+}
+<div class="modal-dialog modal-lg">
+
+	<!-- widget -->
+	<div class="widget">
+		<div class="widget-header">
+			<h3><i class="fa fa-edit"></i> @pageTitle </h3>
+			<div class="btn-group widget-header-toolbar">
+				<a href="#" title="关闭" class="btn-borderless" data-dismiss="modal"><i class="fa fa-close"></i></a>
+			</div>
+		</div>
+		<div class="widget-content">
+		@using (Html.BeginForm("Memo1", "TeamPop", Model == null ? null : new { id = Model.TeamContentId }, FormMethod.Post, new { @class = "form-horizontal", data_after_success = "afterDialogSuccess()" }))
+		{
+			<div class="row">
+				<fieldset class="col-md-12">
+					<div class="form-group">
+						<label for="" class="col-md-3 control-label">
+							培养目标
+						</label>
+						<div class="col-md-9">
+							@Html.TextAreaFor(m => m.ContentValue, 5, 5, new { @class = "form-control" })
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-9 col-lg-offset-3">
+							<button type="submit" class="btn btn-primary btn-block-half"><i class="fa fa-check-circle"></i> 保存</button>
+							<button type="button" class="btn btn-default btn-block-half" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		}
+		</div>
+		
+	</div>
+	<!-- end widget -->
+
+</div>
+
+<script>
+
+    $(function () {
+
+        ajaxSubmitForm($('.modal-dialog form'));
+    });
+
+    function afterDialogSuccess() {
+        $('#firstModal').modal('hide');
+        loadFrag()
+    }
+</script>

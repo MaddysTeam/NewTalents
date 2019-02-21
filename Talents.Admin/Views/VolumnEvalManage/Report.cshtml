@@ -1,0 +1,34 @@
+﻿@model EvalVolumnResult
+<div class="modal-dialog">
+
+	<!-- widget -->
+	<div class="widget">
+		<div class="widget-header">
+			<h3><i class="fa fa-edit"></i> 量评报告</h3>
+			<div class="btn-group widget-header-toolbar">
+				<a href="#" title="关闭" class="btn-borderless" data-dismiss="modal"><i class="fa fa-close"></i></a>
+			</div>
+		</div>
+		<div class="widget-content">
+
+			<div class="container">
+				@if (Model.AnalysisContent != "")
+				{
+					var list = Model.AnalysisContent.Split('。');
+
+					foreach (var item in list)
+					{
+						if (item != "")
+						{
+							<p>
+								@item 。
+							</p>
+							<hr />
+						}
+					}
+				}
+			</div>
+		</div>
+	</div>
+	<!-- end widget -->
+</div>

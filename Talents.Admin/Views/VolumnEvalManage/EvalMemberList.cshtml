@@ -1,0 +1,135 @@
+﻿@{
+	var pageTitle = ViewBag.Title = "已评学员列表";
+}
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action(" Index", "Home" )">首页</a></li>
+				<li class="active">@pageTitle</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-users"></i> @pageTitle</h2>
+			<em></em>
+		</div>
+
+		<div class="main-content">
+
+			@Html.Partial("_nav")
+
+			<!-- widget -->
+			<div class="widget">
+				<div class="widget-header">
+					<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
+					<div class="btn-group widget-header-toolbar">
+						<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+						<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+					</div>
+				</div>
+				<div class="widget-content">
+
+					<div class="row">
+						<div class="form-horizontal">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">称号</label>
+									<div class="col-md-6">
+										@Html.DropDownList("Target", DeclareBaseHelper.DeclareTarget.GetSelectList(noneLabel: SelectNames.All), new { @class = "form-control" })
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Grid -->
+					<div class="table-responsive">
+						<table id="bootgrid" class="table table-striped table-hover table-dark-header">
+							<thead>
+								<tr>
+									<th data-column-id="targetName">称号</th>
+									<th data-column-id="realName">姓名</th>
+									<th data-column-id="accesser">评审人姓名</th>
+									<th data-column-id="accessDate" data-formatter="DateOnly">评审日期</th>
+									<th data-column-id="score">分数</th>
+									<th data-column-id="commands" data-formatter="commands" data-sortable="false" data-header-Css-Class="width180">操作</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					<!-- end Grid-->
+
+				</div>
+				<!-- /widget content -->
+			</div>
+			<!-- /widget -->
+
+		</div>
+		<!-- /main-content -->
+	</div>
+	<!-- /main -->
+</div>
+
+@section Scripts {
+	<script>
+
+		function getGlobalRequest() {
+			return {
+				target: $('#Target').val()
+			};
+		}
+
+		function getGridOptions() {
+			return $.extend(true, {}, gridOptions, {
+
+				url: window.location.href,
+
+				requestHandler: function (request) { return $.extend(true, request, getGlobalRequest()); },
+
+				formatters: {
+					'commands': function (column, row) {
+						var commandsText = '<div class="btn-group btn-group-xs pull-right" data-row-id="' + row.id + '">' +
+											'<a target="_blank" class="btn btn-warning btn-view" href="@Url.Action("ResultView", "VolumnEvalManage")?TeacherId=' + row.teacherId + '&PeriodId=' + row.periodId + '"><i class="fa fa-external-link"></i>查看</a>'
+											'</div>';
+						commandsText += '@ViewBag.IsCurrent' == "True" ? '<div class="btn-group btn-group-xs pull-right" data-row-id="' + row.teacherId + '" data-row-target="' + row.targetId + '">' +
+													 '<button class="btn btn-success btn-eval">执行考评</button>' +
+													 '</div>' : "";
+						return commandsText;
+					},
+				},
+
+			});
+		}
+
+		$(function () {
+
+			var grid = $('#bootgrid');
+			grid.bootgrid(getGridOptions())
+			.on('loaded.rs.jquery.bootgrid', function () {
+
+				// edit
+				grid.find('.btn-eval').on('click', function (e) {
+					var teacherId = $(this).parent().data('rowId');
+					var targetId = $(this).parent().data('rowTarget');
+					var periodId = '@ViewBag.PeriodId';
+
+					$.post('Eval', { periodId: periodId, teacherId: teacherId, targetId: targetId }, function (data, status) {
+						popupMessage(data, {
+							success: function () {
+								$('#bootgrid').bootgrid('reload');
+							}
+						});
+					})
+
+				});
+
+			});
+
+		});
+
+	</script>
+}

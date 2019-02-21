@@ -1,0 +1,523 @@
+﻿
+
+迁移用户
+insert BzUser select * from TsUser
+insert BzUserProfile select * from TsUserProfile
+insert BzRole (RoleId, Name, NormalizedName) values (1, 'Admin', N'管理员'), (2, 'SchoolAdmin', N'学校管理员'), (3, 'Teacher', N'教师')
+insert BzUserRole ( UserRoleId, UserId, RoleId, ScopeType, ScopeId) values (5000, 1, 1, '', 0)
+
+修改用户身份
+update BzUserProfile
+set UserType = 'Admin'
+where UserType != 'Admin' and UserType != 'Teacher'
+
+修改ap_query_mapid表，修改BzUser.UserId = TsUser.UserId
+update ap_query_mapid
+set value = (select value from ap_query_mapid where name = 'TsUser.UserId')
+where name = 'BzUser.UserId'
+	
+迁移申报称号
+insert DeclareBase
+	(TeacherId, DeclareTargetPKID, DeclareSubjectPKID, DeclareStagePKID,
+	 AllowFlowToSchool, AllowFitResearcher,
+	 HasTeam, TeamName, MemberCount, ActiveCount)
+select UserId, DeclareTargetPKID, DeclareSubjectPKID, DeclareStagePKID, 0, 0,
+	0, '', 0, 0
+	from DclBase
+
+修正称号
+update DeclareBase 
+set DeclareTargetPKID = DeclareTargetPKID+1
+update DeclareBase
+set DeclareTargetPKID = 5001
+where DeclareTargetPKID = 5010
+
+更新工作室名称
+update DeclareBase
+set teamName = t2.CorpName, Hasteam = 1
+from DeclareBase as t1 inner join
+(select CorpId, CorpName from Corp) as t2 on t1.TeacherId = t2.CorpId
+
+更新工作室学员数量
+update DeclareBase
+set MemberCount = t2.cnt
+from DeclareBase as t1 inner join
+(select CorpId, COUNT(CorpId)-1 as cnt from CorpMember group by CorpId) as t2 on t1.TeacherId = t2.CorpId
+
+更新工作室活动数量
+update DeclareBase
+set ActiveCount = t2.cnt
+from DeclareBase as t1 inner join
+(select CorpId, COUNT(CorpId) as cnt from CorpTask group by CorpId) as t2 on t1.TeacherId = t2.CorpId
+
+迁移梯队成员，舍弃掉梯队导师
+insert teamMember(teamId, memberid, contentValue)
+select t.CorpId, UserId, '' from CorpMember as t
+where IsMaster = 0
+
+想办法把单位信息获取，从TsCompany获取
+insert into company select * from tsCompany
+
+创建单位用户
+/Company/Search - 自动创建管理员
+
+
+
+同步教师的个人材料填写
+注：
+将DeclareContent的PrimaryKey修改成自增量
+
+1、个人成就
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select userid, N'自身发展.个人成就.研究成果', memo1, 'String'
+from dclbase
+where memo1 != ''
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select userid, N'自身发展.个人成就.曾经获得荣誉奖项', memo2, 'String'
+from dclbase
+where memo2 != ''
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select userid, N'自身发展.个人成就.之后获得研究成果', memo3, 'String'
+from dclbase
+where memo3 != ''
+
+2、个人简历
+insert into DeclareResume(DeclareResumeId, TeacherId, DateRegion, Company, Title)
+select BaseResumeId, UserId, BEDate, Company, Title from DclBaseResume
+
+update ap_query_mapid set value = (select value from ap_query_mapid where name = 'DclBaseResume.BaseResumeId') where name = 'DeclareResume.DeclareResumeId' 
+
+
+3.个人SOWT
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.个人SWOT分析.优势.课堂教学类', Goodness1, 'String'
+from DclSwot
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.个人SWOT分析.优势.科研类', Goodness2, 'String'
+from DclSwot
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.个人SWOT分析.优势.技能类', Goodness3, 'String'
+from DclSwot
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.个人SWOT分析.优势.个性及其他', Goodness4, 'String'
+from DclSwot
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.个人SWOT分析.劣势.课堂教学类', Weakness1, 'String'
+from DclSwot
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.个人SWOT分析.劣势.科研类', Weakness2, 'String'
+from DclSwot
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.个人SWOT分析.劣势.技能类', Weakness3, 'String'
+from DclSwot
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.个人SWOT分析.劣势.个性及其他', Weakness4, 'String'
+from DclSwot
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.个人SWOT分析.机遇.教研组', Opportunity1, 'String'
+from DclSwot
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.个人SWOT分析.机遇.学校内部环境', Opportunity2, 'String'
+from DclSwot
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.个人SWOT分析.机遇.政策制度', Opportunity3, 'String'
+from DclSwot
+
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.个人SWOT分析.威胁.教研组', Challenge1, 'String'
+from DclSwot
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.个人SWOT分析.威胁.学校内部环境', Challenge2, 'String'
+from DclSwot
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.个人SWOT分析.威胁.政策制度', Challenge3, 'String'
+from DclSwot
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.个人SWOT分析.改进措施', AdvancePlan, 'String'
+from DclSwot
+
+4.个人的发展分析
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.自我发展计划.专业发展目标.总体目标', Outline, 'String'
+from DclAdvancePlan
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.自我发展计划.阶段目标.第一年目标', FirstYear, 'String'
+from DclAdvancePlan
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.自我发展计划.阶段目标.第二年目标', SecondYear, 'String'
+from DclAdvancePlan
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.自我发展计划.阶段目标.第三年目标', ThirdYear, 'String'
+from DclAdvancePlan
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.自我发展计划.具体计划.专业能力方面.教学', Teach, 'String'
+from DclAdvancePlan
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.自我发展计划.具体计划.专业能力方面.科研', Research, 'String'
+from DclAdvancePlan
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.自我发展计划.具体计划.专业能力方面.培训教师', Train, 'String'
+from DclAdvancePlan
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.自我发展计划.具体计划.专业能力方面.项目任务', Task, 'String'
+from DclAdvancePlan
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.自我发展计划.具体计划.素养方面.知识', Knowledge, 'String'
+from DclAdvancePlan
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.自我发展计划.具体计划.素养方面.技能', Skill, 'String'
+from DclAdvancePlan
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'自身发展.自我发展计划.具体计划.素养方面.其他', Other, 'String'
+from DclAdvancePlan
+
+注：
+将DeclareActive的PrimaryKey修改成自增量
+
+5. 自我研修 
+insert into DeclareActive(TeacherId, ActiveKey, Date, Location, Level, ContentValue, AttachmentUrl, AttachmentName, Dynamic1, Dynamic2, Dynamic3, Dynamic4, Dynamic5, Dynamic6, Dynamic7, Dynamic8, Dynamic9)
+select UserId, N'自身发展.自我研修', ActDate, ActLocation, '', Content, Attachment, AttachmentName, '', '' ,'', '', '', '', '', '',  0  from DclGeneralAct
+where ActType = 'PLKey_Study'
+
+6. 公开课
+update DclGeneralAct
+set Level = N'市级'
+where Level = N'上海市'
+and ActType = 'PLKey_CorpOpen'
+
+update DclGeneralAct
+set Level = N'国家级'
+where Level = N'全国级'
+and ActType = 'PLKey_CorpOpen'
+
+update DclGeneralAct
+set Level = N'校级'
+where Level = N'园级'
+and ActType = 'PLKey_CorpOpen'
+
+insert into DeclareActive(TeacherId, ActiveKey, Date, Location, Level, ContentValue, AttachmentUrl, AttachmentName, Dynamic1, Dynamic2, Dynamic3, Dynamic4, Dynamic5, Dynamic6, Dynamic7, Dynamic8, Dynamic9)
+select UserId, N'自身发展.教学活动.开设教学公开课', ActDate, ActLocation, Level , Content, Attachment, AttachmentName, EduClass, Org ,'', '', '', '', '', '',  0  from DclGeneralAct
+where ActType = 'PLKey_CorpOpen'
+and ActLocation != ''
+
+7.教研课 级别 基地研讨课、区公开,虹口区区级培训 改为区级, 李国华副区长、华师大副校长听课 改为校级
+
+update DclGeneralAct
+set Level = N'区级'
+where (Level = N'基地研讨课、区公开' or Level = N'虹口区区级培训' )
+and  ActType = 'PLKey_CorpResearch'
+
+update DclGeneralAct
+set Level = N'校级'
+where Level = N'李国华副区长、华师大副校长听课'
+and  ActType = 'PLKey_CorpResearch' 
+
+insert into DeclareActive(TeacherId, ActiveKey, Date, Location, Level, ContentValue, AttachmentUrl, AttachmentName, Dynamic1, Dynamic2, Dynamic3, Dynamic4, Dynamic5, Dynamic6, Dynamic7, Dynamic8, Dynamic9)
+select UserId, N'自身发展.教学活动.开设研讨课', ActDate, ActLocation, Level , Content, Attachment, AttachmentName, EduClass, Org ,'', '', '', '', '', '',  0  from DclGeneralAct
+where ActType = 'PLKey_CorpResearch'
+and ActLocation != ''
+
+8 参加教学评比  地点+班级
+insert into DeclareActive(TeacherId, ActiveKey, Date, Location, Level, ContentValue, AttachmentUrl, AttachmentName, Dynamic1, Dynamic2, Dynamic3, Dynamic4, Dynamic5, Dynamic6, Dynamic7, Dynamic8, Dynamic9)
+select UserId, N'自身发展.教学活动.参加教学评比', ActDate, ActLocation + N' ' + EduClass, Level , Content, Attachment, AttachmentName, Org, '' ,'', '', '', '', '', '',  0  from DclGeneralAct
+where ActType = 'PLKey_CorpElect'
+
+9 开设培训课程 
+--5171	5170	市级
+--5172	5170	区级(微课程)
+--5173	5170	区级(研训一体课程)
+
+update DclGeneralAct
+set Level = N'市级'
+where Level = N'5171' and ActType = 'PLKey_TrainCourse'
+
+update DclGeneralAct
+set Level = N'区级（微课程）'
+where Level = N'5172' and ActType = 'PLKey_TrainCourse'
+
+update DclGeneralAct
+set Level = N'区级（研训一体课程）'
+where Level = N'5173' and ActType = 'PLKey_TrainCourse'
+
+insert into DeclareActive(TeacherId, ActiveKey, Date, Location, Level, ContentValue, AttachmentUrl, AttachmentName, Dynamic1, Dynamic2, Dynamic3, Dynamic4, Dynamic5, Dynamic6, Dynamic7, Dynamic8, Dynamic9)
+select UserId, N'自身发展.培训与讲座.开设教师培训课程', ActDate, ActLocation, '' , Content, Attachment, AttachmentName, MemberCount, Level , '', '', '', '', '', '',  0  from DclGeneralAct
+where ActType = 'PLKey_TrainCourse'
+
+10 学科类专题讲座
+update DclGeneralAct
+set Level = N'区级'
+where ActType = 'PLKey_TrainSubject' and Level = N'区'
+
+update DclGeneralAct
+set Level = N'校级'
+where ActType = 'PLKey_TrainSubject' and (Level = N'支部中心组' or Level = N'校' or Level = N'园级')
+
+
+insert into DeclareActive(TeacherId, ActiveKey, Date, Location, Level, ContentValue, AttachmentUrl, AttachmentName, Dynamic1, Dynamic2, Dynamic3, Dynamic4, Dynamic5, Dynamic6, Dynamic7, Dynamic8, Dynamic9)
+select UserId, N'自身发展.培训与讲座.开设学科类专题讲座', ActDate, ActLocation, Level , Content, Attachment, AttachmentName, Org, '' ,'', '', '', '', '', '',  0  from DclGeneralAct
+where ActType = 'PLKey_TrainSubject'
+
+11定向性课程
+insert into DeclareActive(TeacherId, ActiveKey, Date, Location, Level, ContentValue, AttachmentUrl, AttachmentName, Dynamic1, Dynamic2, Dynamic3, Dynamic4, Dynamic5, Dynamic6, Dynamic7, Dynamic8, Dynamic9)
+select UserId, N'自身发展.培训与讲座.开设定向性课程', ActDate, ActLocation, Level , Content, Attachment, AttachmentName, Org, Members ,'', '', '', '', '', '',  0  from DclGeneralAct
+where ActType = 'PLKey_TrainMaster'
+
+12学术活动
+--5441	读书沙龙
+--5442	外出考察
+--5443	担任评委工作
+--5444	评比获奖
+--5445	其他	
+
+update DclGeneralAct
+set Level = N'校级'
+where ActType = 'PLKey_SalonWork' and Content != '' 
+
+
+insert into DeclareActive(TeacherId, ActiveKey, Date, Location, Level, ContentValue, AttachmentUrl, AttachmentName, Dynamic1, Dynamic2, Dynamic3, Dynamic4, Dynamic5, Dynamic6, Dynamic7, Dynamic8, Dynamic9)
+select UserId, N'自身发展.学术活动', ActDate, ActLocation, Level , Content, Attachment, AttachmentName, Members, org ,'', '', '', '', '', '',  5441  from DclGeneralAct
+where ActType = 'PLKey_SalonWork' and Content != ''
+
+
+update DclGeneralAct
+set Level = N'校级'
+where ActType = 'PLKey_InspectWork'
+
+insert into DeclareActive(TeacherId, ActiveKey, Date, Location, Level, ContentValue, AttachmentUrl, AttachmentName, Dynamic1, Dynamic2, Dynamic3, Dynamic4, Dynamic5, Dynamic6, Dynamic7, Dynamic8, Dynamic9)
+select UserId, N'自身发展.学术活动', ActDate, ActLocation, Level , Content, Attachment, AttachmentName, Members, org ,'', '', '', '', '', '',  5442  from DclGeneralAct
+where ActType = 'PLKey_InspectWork'
+
+
+
+update DclGeneralAct
+set Level = N'校级'
+where ActType = 'PLKey_Academic'
+
+insert into DeclareActive(TeacherId, ActiveKey, Date, Location, Level, ContentValue, AttachmentUrl, AttachmentName, Dynamic1, Dynamic2, Dynamic3, Dynamic4, Dynamic5, Dynamic6, Dynamic7, Dynamic8, Dynamic9)
+select UserId, N'自身发展.学术活动', ActDate, ActLocation, Level , Content, Attachment, AttachmentName, Members, org ,'', '', '', '', '', '',  5445  from DclGeneralAct
+where ActType = 'PLKey_Academic'
+	
+注：
+将DeclareAchievement的PrimaryKey修改成自增量
+
+13 开展课题(项目)研究工作 所有类型都为 课题. 先执行插入数据操作， 在修改类型
+--5641	课题
+--5642	项目
+
+--5151	国家级
+--5152	市级
+--5153	区级
+--5154	校级
+
+insert into DeclareAchievement(TeacherId, AchievementKey, Date, DateRegion, Location, Level, NameOrTitle, Dynamic1, Dynamic2, Dynamic3, Dynamic4, Dynamic5, Dynamic6)
+select UserId, N'自身发展.教育教学科研成果.开展课题(项目)研究工作', '',  ResearchDate, '', LevelPKID, ResearchName, IsMaster, Master, '', '', '', 5641   from DclAchivementResearch
+
+update DeclareAchievement
+set Dynamic1 = N'TRUE'
+where Dynamic1 = N'1' and AchievementKey = N'自身发展.教育教学科研成果.开展课题(项目)研究工作'
+
+update DeclareAchievement
+set Dynamic1 = N'FALSE'
+where Dynamic1 = N'0' and AchievementKey = N'自身发展.教育教学科研成果.开展课题(项目)研究工作'
+
+update DeclareAchievement
+set Level = N'国家级'
+where Level = '5151' and AchievementKey = N'自身发展.教育教学科研成果.开展课题(项目)研究工作'
+
+update DeclareAchievement
+set Level = N'市级'
+where Level = '5152' and AchievementKey = N'自身发展.教育教学科研成果.开展课题(项目)研究工作'
+
+update DeclareAchievement
+set Level = N'区级'
+where Level = '5153' and AchievementKey = N'自身发展.教育教学科研成果.开展课题(项目)研究工作'
+
+update DeclareAchievement
+set Level = N'校级'
+where Level = '5154' and AchievementKey = N'自身发展.教育教学科研成果.开展课题(项目)研究工作'
+
+14 论文发表 先执行插入数据操作， 在修改类型
+
+insert into DeclareAchievement(TeacherId, AchievementKey, Date, DateRegion, Location, Level, NameOrTitle, Dynamic1, Dynamic2, Dynamic3, Dynamic4, Dynamic5, Dynamic6)
+select UserId, N'自身发展.教育教学科研成果.论文发表',  CONVERT(CHAR(10), PublishDate, 23), '', '', Level, ThesisName, PeriodicalName, [Rank], '', '', '', 0
+from DclAchivementThesis
+
+--5141 国家级
+--5142 市级
+--5143 区级
+
+update DeclareAchievement
+set Level = N'国家级'
+where Level = '5141' and AchievementKey = N'自身发展.教育教学科研成果.论文发表'
+
+update DeclareAchievement
+set Level = N'市级'
+where Level = '5142' and AchievementKey = N'自身发展.教育教学科研成果.论文发表'
+
+update DeclareAchievement
+set Level = N'区级'
+where Level = '5143' and AchievementKey = N'自身发展.教育教学科研成果.论文发表'
+
+
+15 自身发展.教育教学科研成果.论著情况
+insert into DeclareAchievement(TeacherId, AchievementKey, Date, DateRegion, Location, Level, NameOrTitle, Dynamic1, Dynamic2, Dynamic3, Dynamic4, Dynamic5, Dynamic6)
+select UserId, N'自身发展.教育教学科研成果.论著情况',  CONVERT(CHAR(10), PublishDate, 23), '', '', '', BookName, PressName, IsSingle, '', '', '', 0
+from DclAchivementBook
+
+update DeclareAchievement
+set Dynamic2 = N'TRUE'
+where Dynamic2 = N'1' and AchievementKey = N'自身发展.教育教学科研成果.论著情况'
+
+update DeclareAchievement
+set Dynamic2 = N'FALSE'
+where Dynamic2 = N'0' and AchievementKey = N'自身发展.教育教学科研成果.论著情况'
+
+16 自身发展.市、区级大活动
+insert into DeclareActive(TeacherId, ActiveKey, Date, Location, Level, ContentValue, AttachmentUrl, AttachmentName, Dynamic1, Dynamic2, Dynamic3, Dynamic4, Dynamic5, Dynamic6, Dynamic7, Dynamic8, Dynamic9)
+select UserId, N'自身发展.市、区级大活动', ActDate, ActLocation, Level , Content, Attachment, AttachmentName, Members, org ,'', '', '', '', '', '',  0  from DclGeneralAct
+where ActType = 'PLKey_AdvanceWork'
+
+17 有影响力的工作
+insert into DeclareActive(TeacherId, ActiveKey, Date, Location, Level, ContentValue, AttachmentUrl, AttachmentName, Dynamic1, Dynamic2, Dynamic3, Dynamic4, Dynamic5, Dynamic6, Dynamic7, Dynamic8, Dynamic9)
+select UserId, N'制度建设.有影响力的工作', ActDate, ActLocation, Level , Content, Attachment, AttachmentName, org, '' ,'', '', '', '', '', '',  0  from DclGeneralAct
+where ActType = 'PLKey_FamousWork'
+
+18 制度建设.特色活动开展 数据结构变动，原表无数据不执行操作
+--5841 课程资源类
+--5842 活动展示类
+--5843 其他
+select * from DclGeneralAct
+where ActType = 'PLKey_SpecialWork'
+
+19 制度建设.档案建设 无数据可不做操作
+注： 将DeclareOrgConst的PrimaryKey修改成自增量
+insert into DeclareOrgConst(TeacherId, Content, Work, Remark)
+select UserId, Content, Work, Remark from DclOrganizeWork
+
+
+
+20 配合教研员开展工作
+update declarebase
+set AllowFitResearcher = 1
+from declarebase db
+inner join DclResearch  dr on db.teacherId = dr.userId and declareTargetPKID = 5005
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'配合教研员工作.教研信息.开始参与教研工作时间', CONVERT(CHAR(10), ResearchDate, 23), 'DateTime'
+from DclResearch
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'配合教研员工作.教研信息.教研学科', ResearchSubject, 'String'
+from DclResearch
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'配合教研员工作.教研信息.教研员姓名', ResearchName, 'String'
+from DclResearch
+
+教研员活动列表查看是否有数据 (学科教研工作、命题工作、工作指导)
+select * from DclGeneralAct
+where actType = N'PLKey_ResearchWork'
+
+select * from DclGeneralAct
+where actType = N'PLKey_ThesisWork'
+
+select * from DclGeneralAct
+where actType = N'PLKey_WorkInstruction'
+
+21 年底总结
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'年底总结.第一年', content, 'String'
+from DclSummary
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'年底总结.第二年', content1, 'String'
+from DclSummary
+
+insert into declarecontent (teacherid, contentKey, contentValue, contentDataType)
+select UserId, N'年底总结.第三年', content2, 'String'
+from DclSummary
+
+
+22 梯队-内容
+注： 将TeamContent的PrimaryKey修改成自增量
+insert into TeamContent(TeamId, ContentKey, ContentValue, ContentDataType)
+select CorpId, N'带教计划.培养目标', CorpPlan, 'String' from Corp
+where corpplan != ''
+
+insert into TeamContent(TeamId, ContentKey, ContentValue, ContentDataType)
+select CorpId, N'带教计划.具体计划', Content, 'String' from Corp
+where corpplan != ''
+
+23 梯队活动 无活动类型，统一为5941
+注： 将teamactive的PrimaryKey修改成自增量
+--5941 日常共性类指导记录
+--5942 听课指导
+--5943 论文或课题修改指导
+--5944 教案类修改指导
+insert into teamactive(TeamId, Date, Location, Title, ActiveType, ContentValue, IsShow)
+select CorpId, TaskDate, '', Title, 5941, TaskTarget, IsShow from CorpTask
+
+insert into TeamActiveResult(ActiveId, MemberId, ActiveResult)
+select ta.TeamActiveId, ctr.UserId, ctr.TaskResult from CorpTaskResult ctr
+inner join CorpTask ct on ctr.TaskId = ct.TaskId
+left join TeamActive ta on ct.CorpId = ta.TeamId and ct.Title = ta.Title and ta.IsShow = ct.IsShow
+
+insert into teamActiveItem(ActiveId, MemberId, SendDate, ItemContent)
+select ta.TeamActiveId, ctr.UserId, ctr.RepDate, ctr.TaskContent from CorpTaskItem ctr
+inner join CorpTask ct on ctr.TaskId = ct.TaskId
+left join TeamActive ta on ct.CorpId = ta.TeamId and ct.Title = ta.Title and ta.IsShow = ct.IsShow
+
+24 递队 定向性课程
+注： 将TeamSpecialCourse的PrimaryKey修改成自增量
+insert into TeamSpecialCourse(TeamId, Title, StartDate, EndDate, CourseTarget, CoursePlan, CourseRecords, CourseResults, CourseSummary, Remark, TotalCount, MemberCount, MemberRecord)
+select UserId, Title, StartDate, EndDate, OrPurpose, OrPlan, OrRecords, OrResults, OrSummary, Remark, TotalCount, MemberCount, MemberRecord from CorpOriented
+
+2016-10-19 单附件上传变更为多附件上传
+25 给申报-活动的附件导入附件表
+注: 将Attachments的PrimaryKey修改成自增量， 然后需要修改 ap_query_mapid(name为'Attachments.ID')的值
+insert into Attachments(Type, JoinId, UserId, AttachmentUrl, AttachmentName, UploadDate)
+select ActiveKey, DeclareActiveId, TeacherId, AttachmentUrl, AttachmentName, getdate() from DeclareActive
+where AttachmentName != ''
+
+26 给申报-科研成果的附件导入附件表
+insert into Attachments(Type, JoinId, UserId, AttachmentUrl, AttachmentName, UploadDate)
+select AchievementKey, DeclareAchievementId, TeacherId, AttachmentUrl, AttachmentName, getdate() from DeclareAchievement
+where AttachmentName != ''
+
+26 给梯队-活动的附件导入附件表
+insert into Attachments(Type, JoinId, UserId, AttachmentUrl, AttachmentName, UploadDate)
+select N'带教活动.编辑', TeamActiveId, TeamId, AttachmentUrl, AttachmentName, getdate() from TeamActive
+where AttachmentName != ''
+
+27 给梯队-活动成果的附件导入附件表
+insert into Attachments(Type, JoinId, UserId, AttachmentUrl, AttachmentName, UploadDate)
+select N'带教活动.学员成果', ResultId, MemberId, AttachmentUrl, AttachmentName, getdate() from TeamActiveResult
+where AttachmentName != ''

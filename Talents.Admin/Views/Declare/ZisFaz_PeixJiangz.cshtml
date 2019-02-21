@@ -1,0 +1,231 @@
+﻿@model List<DeclareActive>
+@{ 
+	var pageTitle = ViewBag.Title = DeclareKeys.ZisFaz_PeixJiangz;
+}
+
+<div class="alert alert-info alert-dismissable">
+	<a href="" class="close">&times;</a>
+	<strong>提示！</strong> 可以逐级展开或点选左侧材料填写项目树的节点，进行指定项目的内容填写。
+</div>
+
+<!-- WIDGET TABBED CONTENT -->
+<div class="widget">
+	<div class="widget-header">
+		<h3><i class="fa fa-paperclip"></i> @DeclareKeys.ZisFaz_PeixJiangz_JiaosPeixKec</h3>
+		<div class="btn-group widget-header-toolbar">
+			<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+			<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+		</div>
+	</div>
+	<div class="widget-content">
+
+		<div class="table-responsive">
+			<table class="table table-condensed table-striped table-hover">
+				<thead>
+					<tr>
+						<th>课程名称</th>
+						<th>级别</th>
+						<th>参加人数</th>
+						<th>课程开设时间</th>
+						<th class="width240">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model.FindAll(m => m.ActiveKey == DeclareKeys.ZisFaz_PeixJiangz_JiaosPeixKec))
+					{
+						<tr>
+							<td>@item.ContentValue</td>
+							<td>@item.Level</td>
+							<td>@item.Dynamic1</td>
+							<td>@item.Date.ToString("yyyy-MM-dd")</td>
+							<td>
+								<div class="btn-group btn-group-xs pull-right">
+									@if (item.IsShare)
+									{
+										<button class="btn btn-custom-secondary btn-share" data-url="@Url.Action("ShareActive", "Declare", new { id = item.DeclareActiveId, isShare = false })">取消共享</button>
+									}
+									else
+									{
+										<button class="btn btn-custom-secondary btn-share" data-url="@Url.Action("ShareActive", "Declare", new { id = item.DeclareActiveId, isShare = true })">共享</button>
+									}
+									<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_PeixJiangz_JiaosPeixKec })" data-target="#firstModal" title="查看附件">查看附件</button>
+								</div>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+</div>
+<!-- END WIDGET TABBED CONTENT -->
+
+
+<!-- WIDGET TABBED CONTENT -->
+<div class="widget">
+	<div class="widget-header">
+		<h3><i class="fa fa-paperclip"></i> @DeclareKeys.ZisFaz_PeixJiangz_ZhuantJiangz</h3>
+		<div class="btn-group widget-header-toolbar">
+			<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+			<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+		</div>
+	</div>
+	<div class="widget-content">
+
+		<div class="table-responsive">
+			<table class="table table-condensed table-striped table-hover">
+				<thead>
+					<tr>
+						<th>时间</th>
+						<th>讲座主题</th>
+						<th>级别/范围</th>
+						<th>组织单位、部门</th>
+						<th class="width240">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model.FindAll(m => m.ActiveKey == DeclareKeys.ZisFaz_PeixJiangz_ZhuantJiangz))
+					{
+						<tr>
+							<td>@item.Date.ToString("yyyy-MM-dd")</td>
+							<td>@(item.ContentValue.Length > 50 ? Html.Raw(item.ContentValue.Substring(0, 50) + "...") : Html.Raw(item.ContentValue))</td>
+							<td>@item.Level</td>
+							<td>@item.Dynamic1</td>
+							<td>
+								<div class="btn-group btn-group-xs pull-right">
+									@if (item.IsShare)
+									{
+										<button class="btn btn-custom-secondary btn-share" data-url="@Url.Action("ShareActive", "Declare", new { id = item.DeclareActiveId, isShare = false })">取消共享</button>
+									}
+									else
+									{
+										<button class="btn btn-custom-secondary btn-share" data-url="@Url.Action("ShareActive", "Declare", new { id = item.DeclareActiveId, isShare = true })">共享</button>
+									}
+									<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_PeixJiangz_ZhuantJiangz })" data-target="#firstModal" title="查看附件">查看附件</button>
+								</div>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+</div>
+<!-- END WIDGET TABBED CONTENT -->
+
+@if (!ViewBag.Approve)
+{
+	<!-- WIDGET TABBED CONTENT -->
+	<div class="widget">
+		<div class="widget-header">
+			<h3><i class="fa fa-paperclip"></i> @DeclareKeys.ZisFaz_PeixJiangz_DingxxKec</h3>
+			<div class="btn-group widget-header-toolbar">
+				<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+				<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+			</div>
+		</div>
+		<div class="widget-content">
+
+			<div class="table-responsive">
+				<table class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>时间</th>
+							<th>地点</th>
+							<th>内容</th>
+							<th>负责人</th>
+							<th class="width240">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model.FindAll(m => m.ActiveKey == DeclareKeys.ZisFaz_PeixJiangz_DingxxKec))
+						{
+							<tr>
+								<td>@item.Date.ToString("yyyy-MM-dd")</td>
+								<td>@item.Location</td>
+								<td>@item.ContentValue</td>
+								<td>@item.Dynamic1</td>
+								<td>
+									<div class="btn-group btn-group-xs pull-right">
+										@if (item.IsShare)
+										{
+											<button class="btn btn-custom-secondary btn-share" data-url="@Url.Action("ShareActive", "Declare", new { id = item.DeclareActiveId, isShare = false })">取消共享</button>
+										}
+										else
+										{
+											<button class="btn btn-custom-secondary btn-share" data-url="@Url.Action("ShareActive", "Declare", new { id = item.DeclareActiveId, isShare = true })">共享</button>
+										}
+										<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_PeixJiangz_DingxxKec })" data-target="#firstModal" title="查看附件">查看附件</button>
+									</div>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</div>
+	<!-- END WIDGET TABBED CONTENT -->
+}
+
+@if (ViewBag.Approve1)
+{
+	<!-- WIDGET TABBED CONTENT -->
+	<div class="widget">
+		<div class="widget-header">
+			<h3><i class="fa fa-paperclip"></i> @DeclareKeys.ZisFaz_PeixJiangz_KecZiyKaif</h3>
+			<div class="btn-group widget-header-toolbar">
+				<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+				<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+			</div>
+		</div>
+		<div class="widget-content">
+
+			<div class="table-responsive">
+				<table class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>时间</th>
+							<th>级别</th>
+							<th>类型</th>
+							<th>主题/内容</th>
+							<th>合作单位、部门/负责人</th>
+							<th class="width240">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model.FindAll(m => m.ActiveKey == DeclareKeys.ZisFaz_PeixJiangz_KecZiyKaif))
+						{
+							<tr>
+								<td>@item.Date.ToString("yyyy-MM-dd")</td>
+								<td>@item.Level</td>
+								<td>@PicklistHelper.TesHuodKaizType.GetName(item.Dynamic9)</td>
+								<td>@item.ContentValue</td>
+								<td>@item.Dynamic2</td>
+								<td>
+									<div class="btn-group btn-group-xs pull-right">
+										@if (item.IsShare)
+										{
+											<button class="btn btn-custom-secondary btn-share" data-url="@Url.Action("ShareActive", "Declare", new { id = item.DeclareActiveId, isShare = false })">取消共享</button>
+										}
+										else
+										{
+											<button class="btn btn-custom-secondary btn-share" data-url="@Url.Action("ShareActive", "Declare", new { id = item.DeclareActiveId, isShare = true })">共享</button>
+										}
+										<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_PeixJiangz_KecZiyKaif })" data-target="#firstModal" title="查看附件">查看附件</button>
+									</div>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</div>
+	<!-- END WIDGET TABBED CONTENT -->
+}
+@Html.Partial("../Utilities/_partialJS")

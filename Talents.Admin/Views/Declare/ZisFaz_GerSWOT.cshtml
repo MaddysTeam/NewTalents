@@ -1,0 +1,165 @@
+﻿@model ZisFaz_GerSWOTModel
+@{ 
+	var pageTitle = ViewBag.Title = DeclareKeys.ZisFaz_GerSWOT;
+}
+<!-- WIDGET TABBED CONTENT -->
+<div class="widget">
+	<div class="widget-header">
+		<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
+		<div class="btn-group widget-header-toolbar">
+			<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+			<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+		</div>
+	</div>
+	<div class="widget-content">
+
+		<form action="@Url.Action("ZisFaz_GerSWOT", "Declare")" class="form-horizontal form-group-sm">
+			<div class="row">
+				<fieldset class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">自身特长、优势</h4>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								@Html.LabelFor(m => m.Goodness1, new { @class = "col-md-12 control-label" })
+								<div class="col-md-12">
+									@Html.TextAreaFor(m => m.Goodness1, 5, 5, new { @class = "form-control" })
+								</div>
+							</div>
+							<div class="form-group">
+								@Html.LabelFor(m => m.Goodness2, new { @class = "col-md-12 control-label" })
+								<div class="col-md-12">
+									@Html.TextAreaFor(m => m.Goodness2, 5, 5, new { @class = "form-control" })
+								</div>
+							</div>
+							<div class="form-group">
+								@Html.LabelFor(m => m.Goodness3, new { @class = "col-md-12 control-label" })
+								<div class="col-md-12">
+									@Html.TextAreaFor(m => m.Goodness3, 5, 5, new { @class = "form-control" })
+								</div>
+							</div>
+							<div class="form-group">
+								@Html.LabelFor(m => m.Goodness4, new { @class = "col-md-12 control-label" })
+								<div class="col-md-12">
+									@Html.TextAreaFor(m => m.Goodness4, 5, 5, new { @class = "form-control" })
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">自身不足、劣势</h4>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								@Html.LabelFor(m => m.Weakness1, new { @class = "col-md-12 control-label" })
+								<div class="col-md-12">
+									@Html.TextAreaFor(m => m.Weakness1, 5, 5, new { @class = "form-control" })
+								</div>
+							</div>
+							<div class="form-group">
+								@Html.LabelFor(m => m.Weakness2, new { @class = "col-md-12 control-label" })
+								<div class="col-md-12">
+									@Html.TextAreaFor(m => m.Weakness2, 5, 5, new { @class = "form-control" })
+								</div>
+							</div>
+							<div class="form-group">
+								@Html.LabelFor(m => m.Weakness3, new { @class = "col-md-12 control-label" })
+								<div class="col-md-12">
+									@Html.TextAreaFor(m => m.Weakness3, 5, 5, new { @class = "form-control" })
+								</div>
+							</div>
+							<div class="form-group">
+								@Html.LabelFor(m => m.Weakness4, new { @class = "col-md-12 control-label" })
+								<div class="col-md-12">
+									@Html.TextAreaFor(m => m.Weakness4, 5, 5, new { @class = "form-control" })
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">外部环境提供的机遇</h4>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								@Html.LabelFor(m => m.Opportunity1, new { @class = "col-md-12 control-label" })
+								<div class="col-md-12">
+									@Html.TextAreaFor(m => m.Opportunity1, 5, 5, new { @class = "form-control" })
+								</div>
+							</div>
+							<div class="form-group">
+								@Html.LabelFor(m => m.Opportunity2, new { @class = "col-md-12 control-label" })
+								<div class="col-md-12">
+									@Html.TextAreaFor(m => m.Opportunity2, 5, 5, new { @class = "form-control" })
+								</div>
+							</div>
+							<div class="form-group">
+								@Html.LabelFor(m => m.Opportunity3, new { @class = "col-md-12 control-label" })
+								<div class="col-md-12">
+									@Html.TextAreaFor(m => m.Opportunity3, 5, 5, new { @class = "form-control" })
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">外部环境带来的威胁</h4>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								@Html.LabelFor(m => m.Challenge1, new { @class = "col-md-12 control-label" })
+								<div class="col-md-12">
+									@Html.TextAreaFor(m => m.Challenge1, 5, 5, new { @class = "form-control" })
+								</div>
+							</div>
+							<div class="form-group">
+								@Html.LabelFor(m => m.Challenge2, new { @class = "col-md-12 control-label" })
+								<div class="col-md-12">
+									@Html.TextAreaFor(m => m.Challenge2, 5, 5, new { @class = "form-control" })
+								</div>
+							</div>
+							<div class="form-group">
+								@Html.LabelFor(m => m.Challenge3, new { @class = "col-md-12 control-label" })
+								<div class="col-md-12">
+									@Html.TextAreaFor(m => m.Challenge3, 5, 5, new { @class = "form-control" })
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">完善、改进提高的措施、办法</h4>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<div class="col-md-12">
+									@Html.TextAreaFor(m => m.GaijCuos, 5, 5, new { @class = "form-control" })
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="col-md-12">
+					<div class="form-group">
+						<div class="col-md-offset-2">
+							<button type="submit" class="btn btn-custom-primary btn-save"><i class="fa fa-save"></i> 保存</button>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		</form>
+
+	</div>
+</div>
+<!-- END WIDGET TABBED CONTENT -->
+@Html.Partial("../Utilities/_partialJS")

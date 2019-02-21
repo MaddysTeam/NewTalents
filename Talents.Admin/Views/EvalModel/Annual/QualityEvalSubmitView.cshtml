@@ -1,0 +1,57 @@
+﻿@model QualityEvalSubmitPeriodModel
+@{
+	var result = Model.Result;
+}
+<!-- widget -->
+<div class="widget">
+	<div class="widget-header">
+		<h3>专家考评结果</h3>
+		<div class="btn-group widget-header-toolbar">
+			<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+			<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+		</div>
+	</div>
+	<div class="widget-content">
+		<div class="tab-content no-padding">
+
+			@if (result != null)
+			{
+				@Html.Partial("../EvalModel/Annual/_QualitySubmitResultScore", result)
+			}
+
+			@Html.Partial("../EvalModel/Annual/_QualityEvalResultList", Model.EvalResults)
+
+			@if(Model.NotEvalExperts != null && Model.NotEvalExperts.Count > 0)
+			{
+				<p>当前还有如下专家未开展评价： @String.Join(", ", Model.NotEvalExperts.ToArray()) </p>
+			}
+
+			@if (Model.IsLeader)
+			{
+				<div class="text-right">
+					@if (Model.IsSubmit)
+					{
+						<a class="btn btn-sm btn-success"><i class="fa fa-pencil-square-o"></i><span>已完成提交考评</span></a>
+					}
+					else if (!Model.CanSubmit)
+					{
+						<a class="btn btn-sm btn-success"><i class="fa fa-pencil-square-o"></i><span>尚有专家未考评</span></a>
+					}
+					else
+					{
+						<a class="btn btn-sm btn-success" data-toggle="modal" data-target="#adjustScoreModal"><i class="fa fa-pencil-square-o"></i><span>提交考评</span></a>
+					}
+				</div>
+			}
+
+		</div>
+	</div>
+</div>
+<!-- /widget -->
+@if (Model.CanSubmit && Model.GroupId != 0)
+{
+	@Html.Partial("../EvalModel/Annual/_SubmitQualityEval", Model.DoSubmit)
+}
+
+<div id="evalResult">
+</div>

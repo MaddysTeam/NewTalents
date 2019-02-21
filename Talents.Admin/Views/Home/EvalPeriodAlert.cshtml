@@ -1,0 +1,6 @@
+﻿@model EvalPeriod
+<div class="alert alert-info alert-dismissable font-22">
+	<strong>当期考核区间：</strong> @Model.BeginDate.ToString("yyyy-MM-dd") 至 @Model.EndDate.ToString("yyyy-MM-dd")
+	<br />
+	<strong>当期操作区间：</strong> @Model.AccessBeginDate.ToString("yyyy-MM-dd") 至 @Model.AccessEndDate.ToString("yyyy-MM-dd")
+</div>

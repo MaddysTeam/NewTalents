@@ -1,0 +1,26 @@
+﻿<table class="table table-condensed">
+	<tr>
+		<th>姓名</th>
+		<td>@Model.RealName</td>
+	</tr>
+	<tr>
+		<th>单位</th>
+		<td>@Model.CompanyName</td>
+	</tr>
+	<tr>
+		<th>称号</th>
+		<td>@Model.Target</td>
+	</tr>
+	<tr>
+		<th>学科</th>
+		<td>@Model.Subject</td>
+	</tr>
+	<tr>
+		<th>学段</th>
+		<td>@Model.Stage</td>
+	</tr>
+	<tr>
+		<th></th>
+		<td><a target="_blank" href="@Url.Action("Overview", "Declare", new {  id = Model.TeacherId })"><i class="fa fa-external-link"></i> 查看材料</a></td>
+	</tr>
+</table>

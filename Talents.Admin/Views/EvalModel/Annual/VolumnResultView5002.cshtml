@@ -1,0 +1,691 @@
+﻿@model VolumnEvalPeriodModel
+@{
+	var result = Model.Result;
+	var items = Model.ResultItems;
+
+	var ZiwYanx = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.DusHuod);
+
+	var KaiZhansk = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.KaiZhansk);
+	var DanrPingwGongz = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.DanrPingwGongz);
+	var PingbHuoj = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.PingbHuoj);
+
+	var FabLunw = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.FabLunw);
+	var LixKet = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.LixKet);
+	var XiangmYanj = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.XiangmYanj);
+
+	var JiaosPeixKec = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.JiaosPeixKec);
+	var ZhuantJiangz = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.ZhuantJiangz);
+	var KecZiyKaif = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.KecZiyKaif);
+
+
+	var XueyShul = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.XueyShul);
+	var DaijXiex = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.DaijXiey);
+	var JutJih = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.JutJih);
+	var DaijXiaoj = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.DaijXiaoj);
+	var XueydChengzFangx = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.XueydChengzFangx);
+	var XueyGerFazGuih = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.XueyGerFazGuih);
+
+	var RicGongxlZhid = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.RicGongxlZhid);
+	var TingkZhid = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.TingkZhid);
+	var JiaoalXiugZhid = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.JiaoalXiugZhid);
+	var LunwHuoKetXiugZhid = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.LunwHuoKetXiugZhid);
+
+	var DaijZhidKaiZhansk = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.DaijZhidKaiZhansk);
+	var JiaoyXuekKeyChengg = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.JiaoyXuekKeyChengg);
+	var JiaoyJiaoxPingb = EngineManager.GetVolumnResultItem(items, EvalVolumnRuleKeys.JiaoyJiaoxPingb);
+}
+<!-- WIDGET TABBED CONTENT -->
+<!-- 高地理事长 -->
+<div class="widget">
+	<div class="widget-header">
+		<h3>虹口区教育系统教师专业人才梯队 <strong class="red">高地理事长-量评</strong> 结果</h3>
+		<div class="btn-group widget-header-toolbar">
+			<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+			<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+		</div>
+	</div>
+	<div class="widget-content">
+		<div class="tab-content no-padding">
+
+			@Html.Partial("../EvalModel/Annual/_VolumnResultScore", result)
+
+			<!-- 量评结果 -->
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th colspan="2" class="table-col-10p">评价指标</th>
+						<th>指标项</th>
+						<th class="table-col-10p">分值/统计标准</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td colspan="2">读书活动</td>
+						@if (ZiwYanx.ChooseValue == LevelNames.A)
+						{
+							<td>A：≥4篇</td>
+							<td>@ZiwYanx.ResultValue</td>
+						}
+						else if (ZiwYanx.ChooseValue == LevelNames.B)
+						{
+							<td>B：2篇或3篇</td>
+							<td>@ZiwYanx.ResultValue</td>
+						}
+						else if (ZiwYanx.ChooseValue == LevelNames.C)
+						{
+							<td>C：1篇</td>
+							<td>@ZiwYanx.ResultValue</td>
+						}
+						else
+						{
+							<td>D：无</td>
+							<td>0分</td>
+						}
+
+					</tr>
+					<tr>
+						<td rowspan="4"></td>
+						<td>开展示课</td>
+						@if (KaiZhansk.ChooseValue == LevelNames.A)
+						{
+							<td>A：≥1节区级或市级或国家级</td>
+						}
+						else if (KaiZhansk.ChooseValue == LevelNames.B)
+						{
+							<td>B：≥1节校级</td>
+						}
+						else if (KaiZhansk.ChooseValue == LevelNames.C)
+						{
+							<td>C：无</td>
+						}
+						<td>@KaiZhansk.ResultValue</td>
+					</tr>
+					<tr>
+						<td>担任评委工作</td>
+						@if (DanrPingwGongz.ChooseValue == LevelNames.A)
+						{
+							<td>A：≥1次市级或国家级</td>
+						}
+						else if (DanrPingwGongz.ChooseValue == LevelNames.B)
+						{
+							<td>B：≥1次区级</td>
+						}
+						else if (DanrPingwGongz.ChooseValue == LevelNames.C)
+						{
+							<td>C：≥1次校级</td>
+						}
+						else
+						{
+							<td>D：无</td>
+						}
+						<td>@DanrPingwGongz.ResultValue</td>
+					</tr>
+					<tr>
+						<td>评比获奖</td>
+						@if (PingbHuoj.ChooseValue == LevelNames.A)
+						{
+							<td>A：≥1项市级或国家级</td>
+						}
+						else if (PingbHuoj.ChooseValue == LevelNames.B)
+						{
+							<td>B：≥1项区级上</td>
+						}
+						else if (PingbHuoj.ChooseValue == LevelNames.C)
+						{
+							<td>C：≥1项校级</td>
+						}
+						else
+						{
+							<td>D：无</td>
+						}
+						<td>@PingbHuoj.ResultValue</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="text-right">得分</td>
+						<td>@EvalHelper.GetScore(10, "分", KaiZhansk.ResultValue, DanrPingwGongz.ResultValue, PingbHuoj.ResultValue)</td>
+					</tr>
+					<tr>
+						<td rowspan="4"></td>
+						<td>发表论文</td>
+						@if (FabLunw.ChooseValue == LevelNames.A)
+						{
+							<td>A：≥1篇市级或国家级</td>
+						}
+						else if (FabLunw.ChooseValue == LevelNames.B)
+						{
+							<td>B：≥1篇区级</td>
+						}
+						else if (FabLunw.ChooseValue == LevelNames.C)
+						{
+							<td>C：≥1篇校级（交流或发表）</td>
+						}
+						else
+						{
+							<td>D：无</td>
+						}
+						<td>@FabLunw.ResultValue</td>
+					</tr>
+					<tr>
+						<td>立项课题</td>
+						@if (LixKet.ChooseValue == LevelNames.A)
+						{
+							<td>A：≥1项市级或国家级</td>
+						}
+						else if (LixKet.ChooseValue == LevelNames.B)
+						{
+							<td>B：≥1项区级上</td>
+						}
+						else if (LixKet.ChooseValue == LevelNames.C)
+						{
+							<td>C：≥1项校级</td>
+						}
+						else
+						{
+							<td>D：无</td>
+						}
+						<td>@LixKet.ResultValue</td>
+					</tr>
+					<tr>
+						<td>项目研究</td>
+						@if (XiangmYanj.ChooseValue == LevelNames.A)
+						{
+							<td>A：≥1项市级或国家级</td>
+						}
+						else if (XiangmYanj.ChooseValue == LevelNames.B)
+						{
+							<td>B：≥1项区级</td>
+						}
+						else if (XiangmYanj.ChooseValue == LevelNames.C)
+						{
+							<td>C：≥1项校级</td>
+						}
+						else
+						{
+							<td>D：无</td>
+						}
+						<td>@XiangmYanj.ResultValue</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td class="text-right">得分</td>
+						<td>@EvalHelper.GetScore(10, "分", FabLunw.ResultValue, LixKet.ResultValue, XiangmYanj.ResultValue)</td>
+					</tr>
+					<tr>
+						<td rowspan="4"></td>
+						<td>开设教师培训课程</td>
+						@if (JiaosPeixKec.ChooseValue == LevelNames.A)
+						{
+							<td>A： 1门定向性课程+1门区级研训一体课程或市级课程</td>
+						}
+						else if (JiaosPeixKec.ChooseValue == LevelNames.B)
+						{
+							<td>B： ≥1门定向性课程且无区级研训一体课程或市级课程</td>
+						}
+						else if (JiaosPeixKec.ChooseValue == LevelNames.C)
+						{
+							<td>C： 1门区级研训一体课程或市级课程</td>
+						}
+						else
+						{
+							<td>D： 无</td>
+						}
+						<td>@JiaosPeixKec.ResultValue</td>
+					</tr>
+					<tr>
+						<td>讲座、报告</td>
+						@if (ZhuantJiangz.ChooseValue == LevelNames.A)
+						{
+							<td>A： ≥1次市级或国家级</td>
+						}
+						else if (ZhuantJiangz.ChooseValue == LevelNames.B)
+						{
+							<td>B： ≥1次区级</td>
+						}
+						else if (ZhuantJiangz.ChooseValue == LevelNames.C)
+						{
+							<td>C： ≥1次校级</td>
+						}
+						else
+						{
+							<td>D： 无，指标“培训课程”为0分</td>
+						}
+						<td>@ZhuantJiangz.ResultValue</td>
+					</tr>
+					<tr>
+						<td>课程资源开发</td>
+
+						@if (KecZiyKaif.ChooseValue == LevelNames.A)
+						{
+							<td>A：担任市级学科教材的主编或副主编</td>
+						}
+						else if (KecZiyKaif.ChooseValue == LevelNames.B)
+						{
+							<td>B： 参与市级学科教材编审、修订</td>
+						}
+						else if (KecZiyKaif.ChooseValue == LevelNames.C)
+						{
+							<td>C： 参与区本学科教材编审、修订，或担任区级及以上教育教学类资源的开发</td>
+						}
+						else if (KecZiyKaif.ChooseValue == LevelNames.D)
+						{
+							<td>D： 参与校本学科教材编审、修订，或担任校级及以上教育教学类资源的开发</td>
+						}
+						else
+						{
+							<td>E: 无</td>
+						}
+						<td>@KecZiyKaif.ResultValue</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="text-right">得分</td>
+						@if (ZhuantJiangz.ChooseValue == LevelNames.D)
+						{
+							<td>0分</td>
+						}
+						else
+						{
+							<td>@EvalHelper.GetScore(25, "分", JiaosPeixKec.ResultValue, ZhuantJiangz.ResultValue, KecZiyKaif.ResultValue)</td>
+						}
+					</tr>
+					<tr>
+						<td colspan="2">学员数量</td>
+						@if (XueyShul.ChooseValue == LevelNames.A)
+						{
+							<td>A： ≥7人</td>
+							<td>@XueyShul.ResultValue</td>
+						}
+						else if (XueyShul.ChooseValue == LevelNames.B)
+						{
+							<td>B： ﹤7人</td>
+							<td>@XueyShul.ResultValue</td>
+						}
+						else
+						{
+							<td>C： 无</td>
+							<td>0分</td>
+						}
+					</tr>
+					<tr>
+						<td colspan="2">带教协议</td>
+						@if (DaijXiex.ChooseValue == LevelNames.A && XueyShul.ChooseValue != LevelNames.C)
+						{
+							<td>A： 有</td>
+							<td>@DaijXiex.ResultValue</td>
+						}
+						else
+						{
+							<td>B： 无</td>
+							<td>0分</td>
+						}
+					</tr>
+					<tr>
+						<td colspan="2">带教计划（方案）</td>
+						@if (JutJih.ChooseValue == LevelNames.A && XueyShul.ChooseValue != LevelNames.C)
+						{
+							<td>A： 有</td>
+							<td>@JutJih.ResultValue</td>
+						}
+						else
+						{
+							<td>B： 无</td>
+							<td>0分</td>
+						}
+					</tr>
+					<tr>
+						<td colspan="2">带教小结</td>
+						@if (DaijXiaoj.ChooseValue == LevelNames.A && XueyShul.ChooseValue != LevelNames.C)
+						{
+							<td>A： 有</td>
+							<td>@DaijXiaoj.ResultValue</td>
+						}
+						else
+						{
+							<td>B： 无</td>
+							<td>0分</td>
+						}
+					</tr>
+					<tr>
+						<td colspan="2">学员的成长分析</td>
+						@if (XueyShul.ChooseValue == LevelNames.C)
+						{
+							<td>C： 无</td>
+							<td>0分</td>
+						}
+						else if (XueydChengzFangx.ChooseValue == LevelNames.A)
+						{
+							<td>A： 有</td>
+							<td>@XueydChengzFangx.ResultValue</td>
+						}
+						else if (XueydChengzFangx.ChooseValue == LevelNames.B)
+						{
+							<td> B： 少于学员的数量 </td>
+							<td>@XueydChengzFangx.ResultValue</td>
+						}
+						else
+						{
+							<td>C： 无</td>
+							<td>0分</td>
+						}
+					</tr>
+					<tr>
+						<td rowspan="5"></td>
+						<td>日常共性类指导记录</td>
+						@if (XueyShul.ChooseValue == LevelNames.C)
+						{
+							<td>D: 无</td>
+							<td>0分</td>
+						}
+						else if (RicGongxlZhid.ChooseValue == LevelNames.A)
+						{
+							<td>A： ≥8份</td>
+							<td>@RicGongxlZhid.ResultValue</td>
+						}
+						else if (RicGongxlZhid.ChooseValue == LevelNames.B)
+						{
+							<td>B： 5—7份</td>
+							<td>@RicGongxlZhid.ResultValue</td>
+						}
+						else if (RicGongxlZhid.ChooseValue == LevelNames.C)
+						{
+							<td>C： 1—4份</td>
+							<td>@RicGongxlZhid.ResultValue</td>
+						}
+						else
+						{
+							<td>D： 无</td>
+							<td>@RicGongxlZhid.ResultValue</td>
+						}
+					</tr>
+					<tr>
+						<td>听课指导</td>
+						@if (XueyShul.ChooseValue == LevelNames.C)
+						{
+							<td>D： 无</td>
+							<td>0分</td>
+						}
+						else if (TingkZhid.ChooseValue == LevelNames.A)
+						{
+							<td>A： ≥4份/人*学员数量</td>
+							<td>@TingkZhid.ResultValue</td>
+						}
+						else if (TingkZhid.ChooseValue == LevelNames.B)
+						{
+							<td>B： 不少于学员数量，但少于4份/人*学员数量 </td>
+							<td>@TingkZhid.ResultValue</td>
+						}
+						else if (TingkZhid.ChooseValue == LevelNames.C)
+						{
+							<td>C： 少于学员数量</td>
+							<td>@TingkZhid.ResultValue</td>
+						}
+						else if (TingkZhid.ChooseValue == LevelNames.D)
+						{
+							<td>D： 无</td>
+							<td>@TingkZhid.ResultValue</td>
+						}
+					</tr>
+					<tr>
+						<td>教案类修改指导</td>
+
+						@if (XueyShul.ChooseValue == LevelNames.C)
+						{
+							<td>D： 无</td>
+							<td>0分</td>
+						}
+						else if (JiaoalXiugZhid.ChooseValue == LevelNames.A)
+						{
+							<td>A： ≥2份/人*学员数量</td>
+							<td>@JiaoalXiugZhid.ResultValue</td>
+						}
+						else if (JiaoalXiugZhid.ChooseValue == LevelNames.B)
+						{
+							<td>B： 不少于学员数量，但少于2份/人*学员数量 </td>
+							<td>@JiaoalXiugZhid.ResultValue</td>
+						}
+						else if (JiaoalXiugZhid.ChooseValue == LevelNames.C)
+						{
+							<td>C： 少于学员数量</td>
+							<td>@JiaoalXiugZhid.ResultValue</td>
+						}
+						else if (JiaoalXiugZhid.ChooseValue == LevelNames.D)
+						{
+							<td>D： 无</td>
+							<td>@JiaoalXiugZhid.ResultValue</td>
+						}
+					</tr>
+					<tr>
+						<td>论文或课题修改指导</td>
+
+						@if (XueyShul.ChooseValue == LevelNames.C)
+						{
+							<td>D： 无</td>
+							<td>0分</td>
+						}
+						else if (LunwHuoKetXiugZhid.ChooseValue == LevelNames.A)
+						{
+							<td>A： ≥2份/人*学员数量</td>
+							<td>@LunwHuoKetXiugZhid.ResultValue</td>
+						}
+						else if (LunwHuoKetXiugZhid.ChooseValue == LevelNames.B)
+						{
+							<td>B： 不少于学员数量，但少于2份/人*学员数量</td>
+							<td>@LunwHuoKetXiugZhid.ResultValue</td>
+						}
+						else if (LunwHuoKetXiugZhid.ChooseValue == LevelNames.C)
+						{
+							<td>C： 少于学员数量</td>
+							<td>@LunwHuoKetXiugZhid.ResultValue</td>
+						}
+						else if (LunwHuoKetXiugZhid.ChooseValue == LevelNames.D)
+						{
+							<td>D： 无</td>
+							<td>@LunwHuoKetXiugZhid.ResultValue</td>
+						}
+					</tr>
+					<tr>
+						<td colspan="2" class="text-right">得分</td>
+						@if (XueyShul.ChooseValue == LevelNames.C)
+						{
+							<td>0分</td>
+						}
+						else
+						{
+							<td>@EvalHelper.GetScore(10, "分", RicGongxlZhid.ResultValue, TingkZhid.ResultValue, JiaoalXiugZhid.ResultValue, LunwHuoKetXiugZhid.ResultValue)</td>
+						}
+					</tr>
+					<tr>
+						<td rowspan="4"></td>
+						<td>开设展示课</td>
+						@if (XueyShul.ChooseValue == LevelNames.C)
+						{
+							<td>E: 无</td>
+							<td>0分</td>
+						}
+						else if (DaijZhidKaiZhansk.ChooseValue == LevelNames.A)
+						{
+							<td>A： 学员全部完成相应任务</td>
+							<td>@DaijZhidKaiZhansk.ResultValue</td>
+						}
+						else if (DaijZhidKaiZhansk.ChooseValue == LevelNames.B)
+						{
+							<td>B： 60%学员数≤完成任务的学员人数＜100%学员数</td>
+							<td>@DaijZhidKaiZhansk.ResultValue</td>
+						}
+						else if (DaijZhidKaiZhansk.ChooseValue == LevelNames.C)
+						{
+							<td>C： 30%学员数≤完成任务的学员人数＜60%学员数</td>
+							<td>@DaijZhidKaiZhansk.ResultValue</td>
+						}
+						else if (DaijZhidKaiZhansk.ChooseValue == LevelNames.D)
+						{
+							<td>D： 完成任务学员人数＜30%学员数</td>
+							<td>@DaijZhidKaiZhansk.ResultValue</td>
+						}
+					</tr>
+					<tr>
+						<td>发表论文或参与课题研究</td>
+						@if (XueyShul.ChooseValue == LevelNames.C)
+						{
+							<td>E: 无</td>
+							<td>0分</td>
+						}
+						else if (JiaoyXuekKeyChengg.ChooseValue == LevelNames.A)
+						{
+							<td>A： 学员全部完成相应任务</td>
+							<td>@JiaoyXuekKeyChengg.ResultValue</td>
+						}
+						else if (JiaoyXuekKeyChengg.ChooseValue == LevelNames.B)
+						{
+							<td>B： 60%学员数≤完成任务的学员人数＜100%学员数</td>
+							<td>@JiaoyXuekKeyChengg.ResultValue</td>
+						}
+						else if (JiaoyXuekKeyChengg.ChooseValue == LevelNames.C)
+						{
+							<td>C： 30%学员数≤完成任务的学员人数＜60%学员数</td>
+							<td>@JiaoyXuekKeyChengg.ResultValue</td>
+						}
+						else if (JiaoyXuekKeyChengg.ChooseValue == LevelNames.D)
+						{
+							<td>D： 完成任务学员人数＜30%学员数</td>
+							<td>@JiaoyXuekKeyChengg.ResultValue</td>
+						}
+					</tr>
+					<tr>
+						<td>教育教学评比</td>
+						@if (XueyShul.ChooseValue == LevelNames.C)
+						{
+							<td>E: 无</td>
+							<td>0分</td>
+						}
+						else if (JiaoyJiaoxPingb.ChooseValue == LevelNames.A)
+						{
+							<td>A： 学员全部完成相应任务</td>
+							<td>@JiaoyJiaoxPingb.ResultValue</td>
+						}
+						else if (JiaoyJiaoxPingb.ChooseValue == LevelNames.B)
+						{
+							<td>B： 60%学员数≤完成任务的学员人数＜100%学员数</td>
+							<td>@JiaoyJiaoxPingb.ResultValue</td>
+						}
+						else if (JiaoyJiaoxPingb.ChooseValue == LevelNames.C)
+						{
+							<td>C： 30%学员数≤完成任务的学员人数＜60%学员数</td>
+							<td>@JiaoyJiaoxPingb.ResultValue</td>
+						}
+						else if (JiaoyJiaoxPingb.ChooseValue == LevelNames.D)
+						{
+							<td>D： 完成任务学员人数＜30%学员数</td>
+							<td>@JiaoyJiaoxPingb.ResultValue</td>
+						}
+					</tr>
+					<tr>
+						<td colspan="2" class="text-right">得分</td>
+						@if (XueyShul.ChooseValue == LevelNames.C)
+						{
+							<td>0分</td>
+						}
+						else
+						{
+							<td>@EvalHelper.GetScore(15, "分", DaijZhidKaiZhansk.ResultValue, JiaoyXuekKeyChengg.ResultValue, JiaoyJiaoxPingb.ResultValue) </td>
+						}
+					</tr>
+					<tr>
+						<td colspan="2">研修活动规则</td>
+						@if (XueyShul.ChooseValue != LevelNames.C)
+						{
+							<td>A：有</td>
+							<td>达标</td>
+						}
+						else
+						{
+							<td>B：无</td>
+							<td>无</td>
+						}
+					</tr>
+					<tr>
+						<td colspan="2">经费管理办法</td>
+						@if (XueyShul.ChooseValue != LevelNames.C)
+						{
+							<td>A：有</td>
+							<td>达标</td>
+						}
+						else
+						{
+							<td>B：无</td>
+							<td>无</td>
+						}
+					</tr>
+					<tr>
+						<td colspan="2">
+							学员个人发展规划
+						</td>
+
+						@if (XueyShul.ChooseValue == LevelNames.C)
+						{
+							<td>C：无 </td>
+							<td>无</td>
+						}
+						else if (XueyGerFazGuih.ChooseValue == LevelNames.A)
+						{
+							<td>A：与学员的数量相等</td>
+							<td>@XueyGerFazGuih.ResultValue</td>
+						}
+						else if (XueyGerFazGuih.ChooseValue == LevelNames.B)
+						{
+
+							<td>B：少于学员的数量 </td>
+							<td>@XueyGerFazGuih.ResultValue</td>
+						}
+						else if (XueyGerFazGuih.ChooseValue == LevelNames.C)
+						{
+							<td>C：无 </td>
+							<td>@XueyGerFazGuih.ResultValue</td>
+						}
+					</tr>
+					<tr>
+						<td colspan="2">活动安排表</td>
+						@if (XueyShul.ChooseValue != LevelNames.C)
+						{
+							<td>A：有</td>
+												<td>达标</td>
+						}
+						else
+						{
+							<td>B：无</td>
+												<td>无</td>
+						}
+					</tr>
+					<tr>
+						<td colspan="2">学员读书书目</td>
+						@if (XueyShul.ChooseValue != LevelNames.C)
+						{
+							<td>A：有</td>
+												<td>达标</td>
+						}
+						else
+						{
+							<td>B：无</td>
+												<td>无</td>
+						}
+					</tr>
+					<tr>
+						<td colspan="2">研修活动考勤</td>
+						@if (XueyShul.ChooseValue != LevelNames.C)
+						{
+							<td>A：与活动次数相等</td>
+												<td>达标</td>
+						}
+						else
+						{
+							<td>B：无</td>
+							<td>无</td>
+						}
+					</tr>
+
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+</div>
+<!-- END WIDGET TABBED CONTENT -->

@@ -1,0 +1,148 @@
+﻿@{ 
+	var pageTitle = ViewBag.Title = "梯队管理";
+	var targetList = DeclareBaseHelper.DeclareTarget.GetSelectList(filter: m => DeclareTargetIds.HasTeam(m.PicklistItemId), noneLabel: SelectNames.All).ToList();
+}
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
+				<li class="active">@pageTitle</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-gear"></i> @pageTitle</h2>
+			<em></em>
+		</div>
+
+		<div class="main-content">
+
+			<!-- widget -->
+			<div class="widget">
+				<div class="widget-header">
+					<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
+					<div class="btn-group widget-header-toolbar">
+						<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+						<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+					</div>
+				</div>
+				<div class="widget-content">
+
+					<div class="row">
+						<div class="form-horizontal">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">称号</label>
+									<div class="col-md-6">
+										@Html.DropDownList("Target", targetList, new { @class = "form-control" })
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">学科</label>
+									<div class="col-md-6">
+										@Html.DropDownList("Subject", DeclareBaseHelper.DeclareSubject.GetSelectList(noneLabel: SelectNames.All), new { @class = "form-control" })
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">学段</label>
+									<div class="col-md-6">
+										@Html.DropDownList("Stage", DeclareBaseHelper.DeclareStage.GetSelectList(noneLabel: SelectNames.All), new { @class = "form-control" })
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Grid -->
+					<div class="table-responsive">
+						<table id="bootgrid" class="table table-striped table-hover table-dark-header">
+							<thead>
+								<tr>
+									<th data-column-id="teamName">梯队名称</th>
+									<th data-column-id="realName">导师姓名</th>
+									<th data-column-id="target" data-order="desc">称号</th>
+									<th data-column-id="subject">学科</th>
+									<th data-column-id="stage">学段</th>
+									<th data-column-id="memberCount">学员数量</th>
+									<th data-column-id="commands" data-formatter="commands" data-sortable="false" data-header-Css-Class="width120">操作</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					<!-- end Grid-->
+
+				</div>
+				<!-- /widget content -->
+			</div>
+			<!-- /widget -->
+
+		</div>
+		<!-- /main-content -->
+	</div>
+	<!-- /main -->
+</div>
+@section Modals{
+	<button class="btn btn-md btn-custom-primary hidden" id="modelProxy" data-toggle="ajax-modal" data-target="#firstModal">代理</button>
+	<!-- Modal start -->
+	<div class="modal" id="firstModal" tabindex="-1" role="dialog" aria-labelledby="firstModalLabel" aria-hidden="true">
+	</div>
+	<!-- Modal end -->
+}
+@section Scripts {
+	<script>
+
+		function getGlobalRequest() {
+			return {
+				target: $('#Target').val(),
+				subject: $('#Subject').val(),
+				stage: $('#Stage').val()
+			};
+		}
+
+		function getGridOptions() {
+			return $.extend(true, {}, gridOptions, {
+
+				url: window.location.href,
+
+				requestHandler: function (request) { return $.extend(true, request, getGlobalRequest()); },
+
+				formatters: {
+					'commands': function (column, row) {
+						var id = row.id;
+						return '<div class="btn-group btn-group-xs pull-right" data-row-id="' + row.id + '">' +
+								 '<button class="btn btn-success btn-edit">调整学员</button>' +
+								 '</div>';
+					},
+				},
+			});
+		}
+
+		$(function () {
+
+			var grid = $('#bootgrid');
+			grid.bootgrid(getGridOptions())
+			.on('loaded.rs.jquery.bootgrid', function () {
+
+				// edit
+				grid.find('.btn-edit').on('click', function (e) {
+					var id = $(this).parent().data('rowId');
+					var $proxy = $('#modelProxy');
+					$proxy
+						.data('url', '/TeamManage/TeamMember/?teamId=' + id)
+						.trigger('click');
+				});
+
+			});
+
+		});
+
+	</script>
+}

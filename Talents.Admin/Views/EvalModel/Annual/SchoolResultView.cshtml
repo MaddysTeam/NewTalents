@@ -1,0 +1,147 @@
+﻿@model SchoolEvalPeriodModel
+@{
+	var result = Model.Result;
+	var items = Model.ResultItems;
+
+	var XiaonLvz_Gongzl = EngineManager.GetEvalChooseValue(items, EvalSchoolRuleKeys.XiaonLvz_Gongzl);
+	var XiaonLvz_GongzZhil = EngineManager.GetEvalResult(items, EvalSchoolRuleKeys.XiaonLvz_GongzZhil);
+	var Shid = EngineManager.GetEvalChooseValue(items, EvalSchoolRuleKeys.Shid);
+ }
+<!-- widget -->
+<div class="widget">
+	<div class="widget-header">
+		<h3>虹口区教育系统教师专业人才梯队学校考核指标结果</h3>
+		<div class="btn-group widget-header-toolbar">
+			<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+			<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+		</div>
+	</div>
+	<div class="widget-content">
+		<div class="tab-content no-padding">
+
+			<table class="table table-condensed table-striped">
+				<tr>
+					<th class="table-col-10p">得分</th>
+					<td><strong class="result-score">@result.Score</strong></td>
+				</tr>
+				<tr>
+					<th>总分</th>
+					<td>@result.FullScore</td>
+				</tr>
+				<tr>
+					<th>评分人</th>
+					<td>@result.AccesserName</td>
+				</tr>
+				<tr>
+					<th>评分时间</th>
+					<td>@result.AccessDate.ToString("yyyy-MM-dd")</td>
+				</tr>
+			</table>
+
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th class="table-col-10p">评价指标</th>
+						<th>指标项</th>
+						<th class="table-col-10p">分值/统计标准</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!--工作量-->
+					@if (XiaonLvz_Gongzl == "A")
+					{
+						<tr>
+							<td>工作量</td>
+							<td><label> A：满工作量</label></td>
+							<td>50分</td>
+						</tr>
+					}
+					else if (XiaonLvz_Gongzl == "B")
+					{
+						<tr>
+							<td>工作量</td>
+							<td><label> B：工作量过半未满</label></td>
+							<td>40分</td>
+						</tr>
+					}
+					else if (XiaonLvz_Gongzl == "C")
+					{
+						<tr>
+							<td>工作量</td>
+							<td><label> C：仅达一半工作量</label></td>
+							<td>25分</td>
+						</tr>
+					}
+					else if (XiaonLvz_Gongzl == "D")
+					{
+						<tr>
+							<td>工作量</td>
+							<td><label> D：不足一半工作量</label></td>
+							<td>15分</td>
+						</tr>
+					}
+					<!--工作质量-->
+					@if (XiaonLvz_GongzZhil.ChooseValue == "A")
+					{
+						<tr>
+							<td>工作质量</td>
+							<td><label> A：自己足额完成工作任务、达到工作要求，并获得所在单位认可。（须满工作量）</label></td>
+							<td>@(XiaonLvz_GongzZhil.ResultValue)分</td>
+						</tr>
+					}
+					else if (XiaonLvz_GongzZhil.ChooseValue == "B")
+					{
+						<tr>
+							<td>工作质量</td>
+							<td><label> B：自己完成承担的工作任务、基本达到工作要求，所在单位教职工对其工作基本认可。（工作量须达一半以上）</label></td>
+							<td>@(XiaonLvz_GongzZhil.ResultValue)分</td>
+						</tr>
+					}
+					else if (XiaonLvz_GongzZhil.ChooseValue == "C")
+					{
+						<tr>
+							<td>工作质量</td>
+							<td><label> C：工作量部分任务长期由他人分担，基本达到工作要求；或工作量仅一半，基本达到工作要求。</label></td>
+							<td>@(XiaonLvz_GongzZhil.ResultValue)分</td>
+						</tr>
+					}
+					else if (XiaonLvz_GongzZhil.ChooseValue == "D")
+					{
+						<tr>
+							<td>工作质量</td>
+							<td><label> D：承担的工作量不足一半；或未能完成工作量任务；或较多工作未能达到工作要求；或工作量近一半任务由他人承担。</label></td>
+							<td>@(XiaonLvz_GongzZhil.ResultValue)分</td>
+						</tr>
+					}
+					<!--师德-->
+					@if (Shid == "A")
+					{
+						<tr>
+							<td>师德</td>
+							<td><label> A：无违反师德相关规定的言行</label></td>
+							<td>合格</td>
+						</tr>
+					}
+					else if (Shid == "B")
+					{
+						<tr>
+							<td>师德</td>
+							<td><label> B：有违反师德相关禁令的言行，尚未被退出梯队</label></td>
+							<td>基本合格</td>
+						</tr>
+					}
+					else if (Shid == "C")
+					{
+						<tr>
+							<td>师德</td>
+							<td><label> C：有违反师德相关规定的言行，应当出梯队</label></td>
+							<td>不合格</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+</div>
+<!-- /widget -->

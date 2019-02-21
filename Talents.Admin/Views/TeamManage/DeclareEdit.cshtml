@@ -1,0 +1,110 @@
+﻿@model DeclareBase
+<div class="modal-dialog">
+
+	<!-- widget -->
+	<div class="widget">
+		<div class="widget-header">
+			<h3><i class="fa fa-edit"></i> 编辑称号</h3>
+			<div class="btn-group widget-header-toolbar">
+				<a href="#" title="关闭" class="btn-borderless" data-dismiss="modal"><i class="fa fa-close"></i></a>
+			</div>
+		</div>
+		<div class="widget-content">
+
+			<form class="form-horizontal" action="@Url.Action("DeclareEdit", "TeamManage")" role="form" data-after-success="afterDialogSuccess()">
+				<div class="row">
+					<fieldset class="col-sm-12">
+						@Html.HiddenFor(m => m.TeacherId)
+						<div class="form-group">
+							@Html.LabelFor(m => m.DeclareTargetPKID, new { @class = "control-label col-md-3" })
+							<div class="col-md-9">
+								@Html.DropDownListFor(m => m.DeclareTargetPKID, DeclareBaseHelper.DeclareTarget.GetSelectList(noneLabel: "--None--"), new { @class = "form-control" })
+								@Html.ValidationMessageFor(m => m.DeclareTargetPKID)
+							</div>
+						</div>
+						<div class="form-group">
+							@Html.LabelFor(m => m.DeclareSubjectPKID, new { @class = "control-label col-md-3" })
+							<div class="col-md-9">
+								@Html.DropDownListFor(m => m.DeclareSubjectPKID, DeclareBaseHelper.DeclareSubject.GetSelectList(), new { @class = "form-control" })
+								@Html.ValidationMessageFor(m => m.DeclareSubjectPKID)
+							</div>
+						</div>
+						<div class="form-group">
+							@Html.LabelFor(m => m.DeclareStagePKID, new { @class = "control-label col-md-3" })
+							<div class="col-md-9">
+								@Html.DropDownListFor(m => m.DeclareStagePKID, DeclareBaseHelper.DeclareStage.GetSelectList(), new { @class = "form-control" })
+								@Html.ValidationMessageFor(m => m.DeclareStagePKID)
+							</div>
+						</div>
+						<div class="form-group" id="showTeamName">
+							@Html.LabelFor(m => m.TeamName, new { @class = "control-label col-md-3" })
+							<div class="col-md-9">
+								@Html.TextBoxFor(m => m.TeamName, new { @class = "form-control" })
+								@Html.ValidationMessageFor(m => m.TeamName)
+							</div>
+						</div>
+						<div class="form-group" id="showAllowFlowToSchool">
+							<div class="col-md-9 col-md-offset-3">
+								<label>@Html.CheckBoxFor(m => m.AllowFlowToSchool) 流入学校开展工作</label>
+							</div>
+						</div>
+						<div class="form-group" id="showAllowFitResearcher">
+							<div class="col-md-9 col-md-offset-3">
+								<label>@Html.CheckBoxFor(m => m.AllowFitResearcher) 配合教研员开展工作</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-9 col-lg-offset-3">
+								<button type="submit" class="btn btn-primary btn-block-half"><i class="fa fa-check-circle"></i> 保存</button>
+								<button type="button" class="btn btn-default btn-block-half" data-dismiss="modal">取消</button>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+			</form>
+
+		</div>
+	</div>
+	<!-- end widget -->
+</div>
+<script>
+
+	$(function () {
+
+		ajaxSubmitForm($('.modal-dialog form'));
+
+
+		var
+			$target = $('#DeclareTargetPKID'),
+			$showTeamName = $('#showTeamName'),
+			$showAllowFlowToSchool = $('#showAllowFlowToSchool'),
+			showAllowFitResearcher = $('#showAllowFitResearcher');
+
+		function judgeDeclare() {
+			var tgt = $target.val();
+
+			if (tgt == 5001 || tgt == 5002 || tgt == 5003 || tgt == 5004) { $showTeamName.show(); }
+			else { $showTeamName.hide(); }
+
+			if (tgt == 5005 || tgt == 5006) { $showAllowFlowToSchool.show(); }
+			else { $showAllowFlowToSchool.hide(); }
+
+			if (tgt == 5005) { showAllowFitResearcher.show(); }
+			else { showAllowFitResearcher.hide(); }
+
+		}
+
+		$target.on("change", function () {
+			judgeDeclare();
+		});
+
+		judgeDeclare();
+
+	})
+
+	function afterDialogSuccess() {
+		$('#firstModal').modal('hide');
+		$('#bootgrid').bootgrid('reload');
+	}
+
+</script>

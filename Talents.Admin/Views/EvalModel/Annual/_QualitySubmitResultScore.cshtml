@@ -1,0 +1,26 @@
+﻿<table class="table table-condensed table-striped">
+	<tr>
+		<th class="table-col-10p">平均得分</th>
+		<td><strong class="result-score">@Model.Score</strong></td>
+	</tr>
+	<tr>
+		<th>总分</th>
+		<td>@Model.FullScore</td>
+	</tr>
+	<tr>
+		<th>评分人数</th>
+		<td>@Model.AccesserCount</td>
+	</tr>
+	<tr>
+		<th>专家组（长）</th>
+		<td>@Model.GroupName (@Model.AccesserName)</td>
+	</tr>
+	<tr>
+		<th>调整分</th>
+		<td>@Model.AdjustScore</td>
+	</tr>
+	<tr>
+		<th>提交时间</th>
+		<td>@Model.AccessDate.ToString("yyyy-MM-dd")</td>
+	</tr>
+</table>

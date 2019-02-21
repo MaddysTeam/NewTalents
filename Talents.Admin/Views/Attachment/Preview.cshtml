@@ -1,0 +1,38 @@
+﻿@model Attachments
+@{ 
+	Layout = "~/Views/Shared/_preview.cshtml";
+}
+<div style="overflow:hidden">
+
+	<div class="widget-content preview" id="previewContainer" >
+		
+	</div>
+
+</div>
+
+@section Scripts{
+<script src="~/assets/plugins/pdf.object/pdfobject.min.js"></script>
+
+<script>
+	$(function () {
+
+		var $previewContainer = $('#previewContainer');
+		var extName = '@Path.GetExtension(Model.AttachmentName)';
+		var name = '@Model.AttachmentName';
+		var path = '@Model.AttachmentUrl';
+
+		//if file is image type , show image preview area
+		var imageSuffix = '@AttachmentsKeys.ImageSuffix';
+		var documentSuffix = '@AttachmentsKeys.DocumentSuffix';
+
+		if (imageSuffix.indexOf(extName.toLowerCase()) >= 0) {
+			$previewContainer.append('<img src="' + path + '" style="height:100%; width:100%"></img>');
+			return true;
+		}
+		else if (documentSuffix.indexOf(extName) >= 0) {
+			PDFObject.embed(path, '#previewContainer', { width: "1000px", height: "600px" });
+		}
+
+	});
+	</script>
+}

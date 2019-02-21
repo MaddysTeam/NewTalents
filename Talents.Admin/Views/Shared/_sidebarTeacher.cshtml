@@ -1,0 +1,93 @@
+﻿@{
+	var up = Html.GetUserProfile();
+}
+<!-- left sidebar -->
+<div class="col-md-2 left-sidebar">
+	<!-- main-nav -->
+	<nav class="main-nav">
+		<ul class="main-menu">
+			<li>
+				<a href="@Url.Action("Index", "Home")">
+					<i class="fa fa-home fa-fw"></i>
+					<span class="text">首页</span>
+				</a>
+			</li>
+			@if (up.IsDeclare)
+			{
+				<li>
+					<a href="@Url.Action("Index", "Declare")">
+						<i class="fa fa-book fa-fw"></i>
+						<span class="text">材料填写</span>
+					</a>
+				</li>
+				<!-- WIDGET ACTIVITY FEED -->
+				<div class="widget widget-treeview" style="display:none">
+					<div class="widget-content">
+						<div id="treeview-declare"></div>
+					</div>
+				</div>
+				if (up.IsMaster)
+				{
+					<!-- END WIDGET ACTIVITY FEED -->
+					<li>
+						<a href="@Url.Action("Master", "Team")">
+							<i class="fa fa-book fa-fw"></i>
+							<span class="text">辅导的梯队</span>
+						</a>
+					</li>
+					<!-- WIDGET ACTIVITY FEED -->
+					<div class="widget widget-treeview" style="display:none">
+						<div class="widget-content">
+							<div id="treeview-team-master"></div>
+						</div>
+					</div>
+					<!-- END WIDGET ACTIVITY FEED -->
+				}
+				if (up.IsMember)
+				{
+					<li>
+						<a href="@Url.Action("Member", "Team")">
+							<i class="fa fa-book fa-fw"></i>
+							<span class="text">参与的梯队</span>
+						</a>
+					</li>
+					<!-- WIDGET ACTIVITY FEED -->
+					<div class="widget widget-treeview" style="display:none">
+						<div class="widget-content">
+							<div id="treeview-team-member"></div>
+						</div>
+					</div>
+					<!-- END WIDGET ACTIVITY FEED -->
+				}
+				<li>
+					<a href="@Url.Action("Overview", "Declare", new {  id = up.UserId })" target="_blank">
+						<i class="fa fa-external-link fa-fw"></i>
+						<span class="text">查看材料</span>
+					</a>
+				</li>
+				<li>
+					<a href="@Url.Action("DeclareList", "ShareManage", new {  teacherId = up.UserId })">
+						<i class="fa fa-share-alt-square fa-fw"></i>
+						<span class="text">共享管理</span>
+					</a>
+				</li>
+				
+			}
+            @if (up.IsExpert)
+            {
+            <li>
+                <a href="@Url.Action("Index", "QualityEval")">
+                    <i class="fa fa-gear fa-fw"></i>
+                    <span class="text">专家任务</span>
+                </a>
+            </li>
+            }
+		</ul>
+	</nav>
+	<!-- /main-nav -->
+
+	<div class="sidebar-minified js-toggle-minified">
+		<i class="fa fa-angle-left"></i>
+	</div>
+</div>
+<!-- /left sidebar -->

@@ -1,0 +1,47 @@
+﻿@model List<TeamActiveItemViewModel>
+@{ 
+	var pageTitle = ViewBag.Title = TeamKeys.DaijHuod_HuodNeir;
+	var activeId = ViewBag.activeId;
+	var userId = Html.GetUserProfile().UserId;
+}
+<!-- WIDGET TABBED CONTENT -->
+<div class="widget">
+	<div class="widget-header">
+		<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
+		<div class="btn-group widget-header-toolbar pull-right">
+			<button class="btn btn-sm btn-custom-primary" data-toggle="ajax-modal" data-url="@Url.Action("DaijHuod_Item", "TeamPop", new { activeId = activeId })" data-target="#firstModal"><i class="fa fa-plus-square"></i> 添加新活动</button>
+			<a href="javascript:loadFrag()" class="btn btn-sm btn-info">返回</a>
+		</div>
+		<div class="btn-group widget-header-toolbar">
+			<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+			<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+		</div>
+	</div>
+	<div class="widget-content">
+
+		@foreach (var item in Model)
+		{
+			<div class="media media-whosay">
+				<div class="media-body">
+					<h4 class="media-heading">@item.MemberId</h4>
+					<span>@item.SendDate.ToString("yyyy-MM-dd")</span>
+					<p class="pl-20">
+						@Html.Raw(item.ItemContent)
+					</p>
+				</div>
+				<div class="media-right">
+					@if (item.MemberId == userId)
+					{
+						<button class="btn btn-success btn-sm" data-toggle="ajax-modal" data-url="@Url.Action("DaijHuod_Item", "TeamPop", new { activeId = item.ActiveId, itemId = item.ItemId })" data-target="#firstModal" title="编辑">编辑</button>
+					}
+					@if (item.MemberId == userId || item.TeamId == userId)
+					{
+						<button class="btn btn-warning btn-remove btn-sm" data-url="@Url.Action("RemoveDaijHuod_Item", "Team", new { id = item.ItemId })" title="删除">删除</button>
+					}
+				</div>
+			</div>
+		}
+	</div>
+</div>
+<!-- END WIDGET TABBED CONTENT -->
+@Html.Partial("../Utilities/_partialJS")

@@ -1,0 +1,22 @@
+﻿@model List<FindExpGroupModel>
+<table class="table table-condensed table-striped table-hover table-dark-header">
+	<thead>
+		<tr>
+			<th>专家组名称</th>
+			<th class="width120">操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>@item.expGroupName</td>
+				<td>
+					<div class="btn-group btn-group-xs pull-right" data-row-id="@item.expGroupId">
+						<button class="btn btn-success btn-assign">加入</button>
+					</div>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

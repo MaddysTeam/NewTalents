@@ -1,0 +1,96 @@
+﻿<script>
+	$(function () {
+
+		$('.flotValue').each(function (index) {
+			var $this = $(this);
+			var min = $this.data('min'),
+				 max = $this.data('max'),
+			    pl = max == 0 || min == 0 ? '0分' : min + '分 - ' + max + '分';
+			$this.html('<div class="form-group"><input type="text" class="form-control" placeholder="' + pl + '"/></div>');
+
+			var hidName = $this.data('hidden'),// 获取隐藏域名
+			  $hidden = $('input[name="' + hidName + '"]'), // 存放分数数据用于提交
+			  $radio = $this.parents('tr').find(':radio').click(function () {
+			  	$('input[name="' + $radio.attr('name') + '"]').not(':checked')
+																.attr('checked', false)
+																.parents('tr')
+																.find(':text')
+																.val('')
+																.attr('disabled', 'disabled')
+																.parents('.form-group')
+																.removeClass('has-error');
+
+			  	//取出原先保留的值，用户可以依据先前的值进行得分的修改
+			  	var dataValue = $this.data('value') || max;
+			  	$text.val(dataValue).removeAttr('disabled').focus();
+			  	$radio.attr('checked', true);
+			  }),
+			  $text = $this.find(':text').blur(function () {
+			  	var scoreValue = $text.val();
+			  	var score = parseFloat(scoreValue);
+			  	if (scoreValue == '' || /^(:?(:?\d+.\d+)|(:?\d+))$/.test(scoreValue) == false) {
+			  		$text.parents('.form-group').addClass('has-error');
+			  		popupMessage({ msg: '必须输入数字', result: 'error' });
+			  		$hidden.val('');
+			  		return false;	
+			  	}
+			  	else if (score > max || score < min) {
+			  		$text.parents('.form-group').addClass('has-error');
+			  		popupMessage({ msg: '得分必须在有效范围之内', result: 'error' });
+			  		$hidden.val('');
+			  		return false;
+			  	}
+
+			  	$this.data('value', score);
+			  	//移除错误状态
+			  	$text.parents('.form-group').removeClass('has-error')
+			  	//将数据放入隐藏域用于提交
+			  	$hidden.val(scoreValue)
+			  });
+
+
+			// 默认选中按钮，如果不是选中状态则禁用文本框
+			if ($radio.attr('checked') != 'checked') {
+				$text.attr('disabled', 'disabled')
+			}
+			else {
+				if ($hidden.val() == '' && !$hidden.val()) {
+					$hidden.val(max);
+				}
+				if (!$('.flotValue').find(':text').is(':focus')) { // 默认第一个文本框选中状态
+					$text.focus();
+				}
+
+				$this.data('value', $hidden.val());// 保存默认值，用户在来回切换radio后还能看到先前的数值
+				$text.val($hidden.val());
+			}
+		});
+
+		// 提交按钮
+		$('.btn_submit').click(function () {
+			$('.flotValue').find(':text:focus').blur(); // 解决有时回车按钮触发提交但是没有触发文本框 blur事件
+			$('.errorMessage').empty();
+			var err = '<i class="glyphicon glyphicon-alert"></i>以下项目还未完成考核</br>';
+			var success = true;
+			$('.hiddenValue').each(function () {
+				if ($(this).val() == '') {
+					success = false;
+					err += $(this).data('error') + '</br>'
+				}
+			});
+			if ($('.commentValue').val() == '') {
+				success = false;
+				err+='必须填写总评'+'</br>'
+			}
+			if (!success) {
+				$('.errorMessage').html(err).show();
+				return false;
+			}
+		});
+
+		//隐藏错误提示信息
+		$('.errorMessage').hide();
+
+	});
+
+</script>

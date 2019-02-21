@@ -1,0 +1,147 @@
+﻿@model ZisFaz_KeyChengg_FabLunwModel
+@{
+	var pageTitle = ViewBag.Title = DeclareKeys.ZisFaz_KeyChengg_FabLunw;
+}
+<div class="modal-dialog modal-lg">
+
+	<!-- widget -->
+	<div class="widget">
+		<div class="widget-header">
+			<h3><i class="fa fa-edit"></i> @pageTitle </h3>
+			<div class="btn-group widget-header-toolbar">
+				<a href="#" title="关闭" class="btn-borderless" data-dismiss="modal"><i class="fa fa-close"></i></a>
+			</div>
+		</div>
+		<div class="widget-content">
+		@using (Html.BeginForm("ZisFaz_KeyChengg_FabLunw", "DeclarePop", Model.DeclareAchievementId == 0 ? null : new { id = Model.DeclareAchievementId }, FormMethod.Post, new { @class = "form-horizontal", data_after_success = "afterDialogSuccess()" }))
+		{
+			<div class="row">
+				<fieldset class="col-md-12">
+					<div class="form-group">
+						@Html.LabelFor(m => m.Level, new { @class = "control-label col-md-3" })
+						<div class="col-md-9">
+							@Html.DropDownListFor(m => m.Level, new SelectList(LevelNames.KeyChengg_FabLunw), new { @class = "form-control" })
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.Date, new { @class = "control-label col-md-3" })
+						<div class="col-md-9">
+							<div class="input-group date" data-provide="datepicker" data-date-language="zh-CN" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
+								@Html.TextBoxFor(m => m.Date, "{0:yyyy-MM-dd}", new { @class = "form-control" })
+								<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+							</div>
+							@Html.ValidationMessageFor(m => m.Date)
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.NameOrTitle, new { @class = "control-label col-md-3" })
+						<div class="col-md-9">
+							@Html.TextBoxFor(m => m.NameOrTitle, new { @class = "form-control" })
+							@Html.ValidationMessageFor(m => m.NameOrTitle)
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.Dynamic1, new { @class = "control-label col-md-3" })
+						<div class="col-md-9">
+							@Html.TextBoxFor(m => m.Dynamic1, new { @class = "form-control" })
+							@Html.ValidationMessageFor(m => m.Dynamic1)
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.Dynamic2, new { @class = "control-label col-md-3" })
+						<div class="col-md-9">
+							@Html.TextBoxFor(m => m.Dynamic2, new { @class = "form-control" })
+							@Html.ValidationMessageFor(m => m.Dynamic2)
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.IsShare, new { @class = "control-label col-md-3" })
+						<div class="col-md-9">
+							@Html.CheckBoxFor(m => m.IsShare, new { @style = "width:20px; height:20px;" })
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.AttachmentName, new { @class = "control-label col-md-3" })
+						<div class="col-md-9">
+							@Html.HiddenFor(m => m.AttachmentUrl)
+							@Html.TextAreaFor(m => m.AttachmentName, 5, 5, new { @style = "visibility:hidden;position:absolute;" })
+							<div class="input-group">
+								<div id="uploadName" class="form-control oversize upload-control">
+
+									@if (Model.AttachmentName != null && Model.AttachmentName != "")
+									{
+										foreach (var item in Model.AttachmentName.Split('|'))
+										{
+											<p>
+												<label title="@item">@(item.Length > 40 ? item.Substring(0, 37) + "..." : item)</label> <button type="button" class="btn btn-danger btn-xs btn-delete" onclick="delAttachment(this)">删除</button>
+											</p>
+										}
+									}
+								</div>
+								<span class="input-group-btn">
+									<button class="btn btn-danger btn-upload" type="button" id="btn-upload">附件上传</button>
+								</span>
+							</div>
+							@Html.ValidationMessageFor(m => m.AttachmentName)
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(m => m.VertificationName, new { @class = "control-label col-md-3" })
+						<div class="col-md-9">
+							@Html.HiddenFor(m => m.VertificationUrl)
+							@Html.TextBoxFor(m => m.VertificationName, new { @style = "visibility:hidden;" })
+							<div class="input-group">
+								<div id="simpleUploadName" class="form-control">
+									@Html.Label("", Model.VertificationName)
+								</div>
+								<span class="input-group-btn">
+									<button class="btn btn-danger btn-upload" type="button" id="btn-vertifyUpload">证明文件上传</button>
+								</span>
+							</div>
+							@Html.ValidationMessageFor(m => m.VertificationName)
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-9 col-lg-offset-3">
+							<button type="submit" class="btn btn-primary btn-block-half"><i class="fa fa-check-circle"></i> 保存</button>
+							<button type="button" class="btn btn-default btn-block-half" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		}
+		</div>
+	</div>
+	<!-- end widget -->
+
+</div>
+
+<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden"></form>
+<form action="@Url.Action("UploadFile", "Attachment")" class="hidden" id="fm-vertifyDropzone"></form>
+
+<script>
+
+	$(function () {
+
+		ajaxSubmitForm($('.modal-dialog form'));
+		//多文件上传
+		ajaxBindFileUpload();
+		//单文件上传
+		ajaxSimpleFileUpload('fm-vertifyDropzone', 'btn-vertifyUpload', function (file, data) {
+			$('#VertificationUrl').val(data.url);
+			$('#VertificationName').val(data.filename);
+			$('#simpleUploadName').html(data.filename);
+		}, function (file, message) {
+			popupMessage({ result: 'error', msg: message });
+		});
+
+	})
+
+	function afterDialogSuccess() {
+		$('#firstModal').modal('hide');
+		loadFrag()
+	}
+
+</script>

@@ -1,0 +1,359 @@
+﻿<!-- left sidebar -->
+<div class="col-md-2 left-sidebar">
+	<!-- main-nav -->
+	<nav class="main-nav">
+		<ul class="main-menu">
+			<li>
+				<a href="@Url.Action("Index", "Home")">
+					<i class="fa fa-home fa-fw"></i>
+					<span class="text">首页</span>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="js-sub-menu-toggle">
+					<i class="fa fa-gears"></i>
+					<span class="text">用户权限管理</span>
+					<i class="toggle-icon fa fa-angle-left"></i>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="@Url.Action("Search", "User")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">用户管理</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("List", "Role")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">角色管理</span>
+						</a>
+					</li>
+                    @*<li> 
+                        <a href="@Url.Action("List", "Permission")">
+                            <i class="fa fa-gear fa-fw"></i>
+                            <span class="text">权限管理</span>
+                        </a>
+                    </li>*@
+				</ul>
+			</li>
+			<li>
+				<a href="#" class="js-sub-menu-toggle">
+					<i class="fa fa-gears"></i>
+					<span class="text">教师信息管理</span>
+					<i class="toggle-icon fa fa-angle-left"></i>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="@Url.Action("List", "ProfileModifyPeriod")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">修改周期管理</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("Search","TeacherManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">教师信息查询</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("Statistical", "TeacherManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">教师信息统计</span>
+						</a>
+					</li>
+					@*<li>
+				 <a href="@Url.Action("List", "Permission")">
+					  <i class="fa fa-gear fa-fw"></i>
+					  <span class="text">权限管理</span>
+				 </a>
+			</li>*@
+				</ul>
+			</li>
+			<li>
+				<a href="#" class="js-sub-menu-toggle">
+					<i class="fa fa-gears"></i>
+					<span class="text">梯队身份管理</span>
+					<i class="toggle-icon fa fa-angle-left"></i>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="@Url.Action("DeclareList", "TeamManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">称号管理</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("TeamList", "TeamManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">梯队管理</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("MemberList", "TeamManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">学员管理</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#" class="js-sub-menu-toggle">
+					<i class="fa fa-gears"></i>
+					<span class="text">单位管理</span>
+					<i class="toggle-icon fa fa-angle-left"></i>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="@Url.Action("Search", "Company")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">单位管理</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("CompanyList", "TeamManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">学员校评单位管理</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#" class="js-sub-menu-toggle">
+					<i class="fa fa-gears"></i>
+					<span class="text">考评指标管理</span>
+					<i class="toggle-icon fa fa-angle-left"></i>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="@Url.Action("List", "EvalPeriod")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">考评周期管理</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("SchoolRule", "EvalManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">校评指标管理</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("VolumnRule", "EvalManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">量评指标管理</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("QualityRule", "EvalManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">质评指标管理</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("OverallRule", "EvalManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">总评指标管理</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#" class="js-sub-menu-toggle">
+					<i class="fa fa-gears"></i>
+					<span class="text">专家组管理</span>
+					<i class="toggle-icon fa fa-angle-left"></i>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="@Url.Action("GroupList", "ExpManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">专家组管理</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("ExpList", "ExpManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">专家管理</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("ExpGroupList", "TeamManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">学员质评专家组管理</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#" class="js-sub-menu-toggle">
+					<i class="fa fa-gears"></i>
+					<span class="text">校评管理</span>
+					<i class="toggle-icon fa fa-angle-left"></i>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="@Url.Action("Overview", "SchoolEvalManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">当期校评总览</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("List", "SchoolEvalManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">往期校评</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#" class="js-sub-menu-toggle">
+					<i class="fa fa-gears"></i>
+					<span class="text">量评管理</span>
+					<i class="toggle-icon fa fa-angle-left"></i>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="@Url.Action("Overview", "VolumnEvalManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">当期量评总览</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("List", "VolumnEvalManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">往期量评</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#" class="js-sub-menu-toggle">
+					<i class="fa fa-gears"></i>
+					<span class="text">质评管理</span>
+					<i class="toggle-icon fa fa-angle-left"></i>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="@Url.Action("Overview", "QualityEvalManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">当期质评总览</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("List", "QualityEvalManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">往期质评</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#" class="js-sub-menu-toggle">
+					<i class="fa fa-gears"></i>
+					<span class="text">共享管理</span>
+					<i class="toggle-icon fa fa-angle-left"></i>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="@Url.Action("DeclareList", "ShareManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">教师共享管理</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("TeamList", "ShareManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">梯队活动共享管理</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#" class="js-sub-menu-toggle">
+					<i class="fa fa-gears"></i>
+					<span class="text">网站管理</span>
+					<i class="toggle-icon fa fa-angle-left"></i>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="@Url.Action("List", "News")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">新闻管理</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("List", "HomePageImage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">首页图片管理</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#" class="js-sub-menu-toggle">
+					<i class="fa fa-gears"></i>
+					<span class="text">统计管理</span>
+					<i class="toggle-icon fa fa-angle-left"></i>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="@Url.Action("Student", "StatisticalManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">学员统计</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("SchoolEval", "StatisticalManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">校评统计</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("VolumnEval", "StatisticalManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">量评统计</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("QualityEval", "StatisticalManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">质评统计</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("Inspection", "StatisticalManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">考核成绩统计</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#" class="js-sub-menu-toggle">
+					<i class="fa fa-gears"></i>
+					<span class="text">系统管理</span>
+					<i class="toggle-icon fa fa-angle-left"></i>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="@Url.Action("SyncDBC", "System")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">数据中心同步</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("List", "NoticeManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">通知中心</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+	<!-- /main-nav -->
+
+	<div class="sidebar-minified js-toggle-minified">
+		<i class="fa fa-angle-left"></i>
+	</div>
+</div>
+<!-- /left sidebar -->

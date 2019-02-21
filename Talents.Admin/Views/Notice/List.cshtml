@@ -1,0 +1,89 @@
+﻿@{
+	var pageTitle = ViewBag.Title = "通知列表";
+}
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
+				<li class="active">@pageTitle</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-newspaper-o fa-fw"></i> @pageTitle</h2>
+			<em></em>
+		</div>
+
+		<div class="main-content">
+
+			<!-- widget -->
+			<div class="widget">
+				<div class="widget-header">
+					<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
+					<div class="btn-group widget-header-toolbar">
+						<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+						<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+					</div>
+				</div>
+				<div class="widget-content">
+
+					<!-- Grid -->
+					<div class="table-responsive">
+						<table id="bootgrid" class="table table-striped table-hover table-dark-header">
+							<thead>
+								<tr>
+									<th data-column-id="title" data-formatter="link">标题</th>
+									<th data-column-id="realName">创建人</th>
+									<th data-column-id="createdTime" data-formatter="DateOnly" data-order="desc">创建时间</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					<!-- end Grid-->
+
+				</div>
+				<!-- /widget content -->
+			</div>
+			<!-- /widget -->
+
+		</div>
+		<!-- /main-content -->
+	</div>
+	<!-- /main -->
+</div>
+
+
+@section Scripts {
+	<script>
+
+		function getGlobalRequest() {
+		}
+
+		function getGridOptions() {
+			return $.extend(true, {}, gridOptions, {
+
+				url: window.location.href,
+
+				requestHandler: function (request) { return $.extend(true, request, getGlobalRequest()); },
+
+				formatters: {
+					'link': function (column, row) {
+						return '<a  href="' + '@Url.Action("Details", "Notice")' + '/' + row['id'] + '" target="_blank">' + row['title'] + '</a>';
+					}
+				},
+
+			});
+		}
+
+		$(function () {
+
+			var grid = $('#bootgrid');
+			grid.bootgrid(getGridOptions());
+		})
+
+	</script>
+}

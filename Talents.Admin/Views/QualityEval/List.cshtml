@@ -1,0 +1,94 @@
+﻿@model ExpGroupList
+<!-- END WIDGET TABBED CONTENT -->
+@{
+	var pageTitle = ViewBag.Title = "所属专家组";
+	var periodId = Request["periodId"];
+}
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-gear"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-home"></i> @pageTitle</h2>
+			<em></em>
+		</div>
+
+		<div class="main-content">
+
+			<!-- WIDGET TABBED CONTENT -->
+			<div class="widget">
+				<div class="widget-header">
+					<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
+					<div class="btn-group widget-header-toolbar">
+						<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+						<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+					</div>
+				</div>
+				<div class="widget-content">
+					<div class="row">
+						@foreach (var item in Model.Groups)
+						{
+							<div class="col-md-3 block text-center">
+								<table class="table table-condensed table-striped table-hover table-bordered group-block" data-param="@item.GroupId">
+									<tbody>
+										<tr>
+											<td class="table-col-30p">专家组</td>
+											<td>@item.Name</td>
+										</tr>
+										<tr>
+											<td class="table-col-30p">组长</td>
+											<td id="td_leader"></td>
+										</tr>
+										<tr>
+											<td class="table-col-30p">成员</td>
+											<td id="td_members"></td>
+										</tr>
+										<tr>
+											<td class="table-col-30p">已评学员人数</td>
+											<td><a id="a_evalCount" href="@Url.Action("EvalMemberList", new { groupId = item.GroupId, periodId = periodId })"></a></td>
+										</tr>
+										<tr>
+											<td class="table-col-30p">未评学员人数</td>
+											<td><a id="a_notEvalCount" href="@Url.Action("NotEvalMemberList", new { groupId = item.GroupId, periodId = periodId })"><span></span></a></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						}
+					</div>
+				</div>
+				<!-- END WIDGET TABBED CONTENT -->
+
+
+			</div>
+			<!-- /main-content -->
+		</div>
+		<!-- /main -->
+	</div>
+</div>
+@section Scripts{
+	<script>
+        $(function () {
+
+			$('.group-block').each(function () {
+
+				var $this = $(this);
+				$.post('GetGroupInfo', { groupId: $this.data('param'), periodId: @periodId }, function (data) {
+					$this.find('#td_leader').html(data.leaderName);
+					$this.find('#td_members').html(data.memberNames);
+					$this.find('#a_evalCount').html(data.evalCount);
+					$this.find('#a_notEvalCount').html(data.notEvalCount);
+				});
+
+			});
+
+		})
+	</script>
+}

@@ -1,0 +1,37 @@
+﻿@model AdminOverViewModel
+<div class="col-md-2">
+	<div class="stock-info">
+		<span class="company"><a href="@Url.Action("Search", "User")">教师</a></span>
+		<span class="value inv-green">@Model.TeacherCount</span>
+	</div>
+</div>
+<div class="col-md-2">
+	<div class="stock-info">
+		<span class="company"><a href="@Url.Action("MemberList", "TeamManage")">学员</a></span>
+		<span class="value inv-red">@Model.MemberCount</span>
+	</div>
+</div>
+<div class="col-md-2">
+	<div class="stock-info">
+		<span class="company"><a href="@Url.Action("TeamList", "TeamManage")">梯队</a></span>
+		<span class="value inv-red">@Model.TeamCount</span>
+	</div>
+</div>
+<div class="col-md-2">
+	<div class="stock-info">
+		<span class="company"><a href="@Url.Action("GroupList", "ExpManage")">专家组</a></span>
+		<span class="value inv-green">@Model.ExpertsGroupCount</span>
+	</div>
+</div>
+<div class="col-md-2">
+	<div class="stock-info">
+		<span class="company">专家</span>
+		<span class="value inv-green">@Model.ExpertsCount</span>
+	</div>
+</div>
+<div class="col-md-2">
+	<div class="stock-info">
+		<span class="company"><a href="@Url.Action("Search", "Company")">学校</a></span>
+		<span class="value inv-green">@Model.SchollCount</span>
+	</div>
+</div>

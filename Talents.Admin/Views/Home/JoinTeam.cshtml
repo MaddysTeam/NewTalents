@@ -1,0 +1,57 @@
+﻿@model List<JoinTeamViewModel>
+<div class="row">
+	<div class="col-md-12">
+
+		<div class="widget">
+			<div class="widget-header">
+				<h3><i class="fa fa-tasks"></i> 参与的梯队--活动成果</h3>
+			</div>
+			<div class="widget-content">
+
+				<table class="table table-condensed table-hover">
+					<thead>
+						<tr>
+							<th>活动标题</th>
+							<th class="width-p-15"></th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model)
+						{
+							<tr>
+								<td>@item.Title</td>
+								@if (item.IsComplete)
+								{
+									<td>
+										<div class="btn-group btn-group-xs pull-right">
+											<button class="btn btn-success">
+												<i class="glyphicon glyphicon-ok"></i>
+											</button>
+										</div>
+									</td>
+								}
+								else
+								{
+									<td>
+										<div class="btn-group btn-group-xs pull-right">
+											<button class="btn btn-custom-primary btn-add" data-toggle="ajax-modal" data-url="@Url.Action("Home_XueyChengg", "TeamPop", new { activeId = item.ActiveId })" data-target="#firstModal" title="填写成果">
+												<i class="fa fa fa-exclamation-circle fa-lg"></i>填写成果
+											</button>
+										</div>
+									</td>
+								}
+							</tr>
+						}
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+	
+
+

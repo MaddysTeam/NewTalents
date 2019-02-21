@@ -1,0 +1,117 @@
+﻿@model List<UserEvalViewModel>
+@{ 
+	var userName = ViewBag.UserName;
+	var pageTitle = ViewBag.Title = userName + "的考评周期统计列表";
+	var userId = Request["userId"];
+}
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
+				<li class="active">@pageTitle</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-gear"></i> @pageTitle</h2>
+			<em></em>
+		</div>
+
+		<div class="main-content">
+
+			<!-- widget -->
+			<div class="widget">
+				<div class="widget-header">
+					<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
+					<div class="btn-group widget-header-toolbar">
+						<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+						<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+					</div>
+				</div>
+				<div class="widget-content">
+
+					<!-- Grid -->
+					<div class="table-responsive">
+                        <table class="table table-striped table-hover table-dark-header">
+                            <thead>
+                                <tr>
+                                    <th>周期名称</th>
+                                    <th>校评分数</th>
+                                    <th>量评分数</th>
+                                    <th>量评报告</th>
+                                    <th>质评分数</th>
+                                    <th>特色分</th>
+                                    <th>总分</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.PeriodName</td>
+                                        @if (item.IsSchoolEval)
+                                        {
+                                            <td>@item.SchoolScore</td>
+                                        }
+                                        else
+                                        {
+                                            <td>-</td>
+                                        }
+                                        @if (item.IsVolumnEval)
+                                        {
+                                            <td>@item.VolumnScore</td>
+                                        }
+                                        else
+                                        {
+                                            <td>-</td>
+                                        }
+                                        <td>
+                                            <a data-toggle="ajax-modal" data-url="@Url.Action("Report", "VolumnEvalManage", new { teacherId = Html.GetUserProfile().UserId, periodId = item.PeriodId })" data-target="#firstModal"><i class="fa fa-external-link"></i> <span>查看报告</span></a>
+                                        </td>
+                                        @if (item.IsQualityEval)
+                                        {
+                                            <td>@item.QualityScore</td>
+                                        }
+                                        else
+                                        {
+                                            <td>-</td>
+                                        }
+                                        @if (item.IsCharacteristicEval)
+                                        {
+                                            <td>@item.CharacteristicScore</td>
+                                        }
+                                        else
+                                        {
+                                            <td>-</td>
+                                        }
+                                        <td>
+                                            @(item.SchoolScore + item.VolumnScore + item.QualityFullScore + item.CharacteristicScore) /@item.FullScore
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+					</div>
+					<!-- end Grid-->
+
+				</div>
+				<!-- /widget content -->
+			</div>
+			<!-- /widget -->
+
+		</div>
+		<!-- /main-content -->
+	</div>
+	<!-- /main -->
+</div>
+
+@section Modals {
+	<!-- Modal start -->
+	<div class="modal" id="firstModal" tabindex="-1" role="dialog" aria-labelledby="firstModalLabel" aria-hidden="true">
+	</div>
+	<!-- Modal end -->
+}

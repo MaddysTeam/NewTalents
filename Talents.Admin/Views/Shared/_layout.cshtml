@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<head>
+	<title>@ViewBag.Title - 虹口教育</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="description" content="虹口教育">
+	<meta name="author" content="上海教育软件有限公司">
+
+	<!-- css -->
+	@Styles.Render("~/css/bootstrap")
+	@Styles.Render("~/css/font-awesome")
+	@RenderSection("Css", required: false)
+	@Styles.Render("~/css/themes/king")
+	@Styles.Render("~/css/app")
+	<!-- /css -->
+
+	<!--[if lte IE 9]>
+		<script src="/assets/js/respond.min.js"></script>
+		<script src="/assets/js/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+	<body class="full-page">
+		<!-- wrapper -->
+		<div class="wrapper">
+
+			<!-- top bar -->
+			<div class="top-bar">
+				<div class="container">
+					<div class="row">
+						<!-- logo -->
+						<div class="col-md-2 logo">
+							<a href="@Url.Action("Index", "Home")">
+								<img src="~/assets/img/trainingadmin-logo-white.png" alt="学籍管理系统" />
+							</a>
+							<h1 class="sr-only">学籍管理系统</h1>
+						</div>
+						<!-- /logo -->
+						<div class="col-md-10">
+							<div class="row">
+								<div class="col-md-3">
+								</div>
+								<div class="col-md-9">
+									<!-- top-bar-right -->
+									<div class="top-bar-right">
+										<!-- responsive menu bar icon -->
+										<a href="#" class="hidden-md hidden-lg main-nav-toggle"><i class="fa fa-bars"></i></a>
+										<!-- /responsive menu bar icon -->
+										@{
+											var rolename = Html.GetUserProfile().UserType;
+											if (rolename == BzRoleNames.Teacher)
+											{
+												@Html.Partial("_notice")
+											}
+										}
+										@Html.Partial("_user")
+									</div>
+									<!-- /top-bar-right -->
+								</div>
+							</div>
+							<!-- /row -->
+						</div>
+					</div>
+					<!-- /row -->
+				</div>
+				<!-- /container -->
+			</div>
+			<!-- /top bar -->
+
+			<!-- bottom: left nav and right main content -->
+			<div class="bottom">
+				<div class="container">
+					<div class="row">
+						@{
+							//var rolename = Html.GetUserProfile().UserType;
+							if (rolename == BzRoleNames.Admin)
+							{
+								@Html.Partial("_sidebarAdmin")
+							}
+							else if (rolename == BzRoleNames.SchoolAdmin)
+							{
+								@Html.Partial("_sidebarSchoolAdmin")
+							}
+							else
+							{
+								@Html.Partial("_sidebarTeacher")
+							}
+						} 
+
+						<!-- content-wrapper -->
+						@RenderBody()
+						<!-- /content-wrapper -->
+					</div>
+					<!-- /row -->
+				</div>
+				<!-- /container -->
+			</div>
+			<!-- /bottom: left nav and right main content -->
+
+			<div class="push-sticky-footer"></div>
+		</div>
+		<!-- /wrapper -->
+
+		<!-- footer -->
+		<footer class="footer">
+			&copy; 虹口教育学院
+		</footer>
+		<!-- /footer -->
+
+		@*@Html.Partial("_styleSwitcher")*@
+		@RenderSection("Modals", required: false)
+
+		<!-- javascript -->
+		@Scripts.Render("~/js/jquery")
+		@Scripts.Render("~/js/bootstrap")
+		@Scripts.Render("~/js/modernizr")
+		@Scripts.Render("~/js/jqueryval-mis")
+		@Scripts.Render("~/js/plugins")
+		@RenderSection("Plugins", required: false)
+		@Scripts.Render("~/js/themes/king")
+		@Scripts.Render("~/js/app")
+		@RenderSection("Scripts", required: false)
+		<!-- /javascript -->
+	</body>
+</html>

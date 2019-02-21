@@ -1,0 +1,47 @@
+﻿@{
+	var pageTitle = ViewBag.Title = "提示";
+}
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-info"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-home"></i> @pageTitle</h2>
+			<em></em>
+		</div>
+
+		<div class="main-content">
+
+			<!-- WIDGET TABBED CONTENT -->
+			<div class="widget">
+				<div class="widget-header">
+					<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
+					<div class="btn-group widget-header-toolbar">
+						<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+						<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+					</div>
+				</div>
+				<div class="widget-content">
+
+					<div class="alert alert-info alert-dismissable">
+						<a href="" class="close">&times;</a>
+						<strong>提示！</strong> 当前时间还未启动考评工作。
+					</div>
+
+				</div>
+			</div>
+			<!-- END WIDGET TABBED CONTENT -->
+
+
+		</div>
+		<!-- /main-content -->
+	</div>
+	<!-- /main -->
+</div>

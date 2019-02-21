@@ -1,0 +1,22 @@
+﻿@model PeriodModel
+@{
+	var userType = Html.GetUserProfile().UserType;
+}
+<!-- top action buttons -->
+<div class="gallery-buttons bottom-30px">
+	
+	@if (userType == BzRoleNames.Admin ||
+				  userType == BzRoleNames.SchoolAdmin ||
+				  Html.GetUserProfile().IsExpert)
+	{
+		<a class="btn btn-md btn-success" href="@Url.Action("ResultView","SchoolEval",new { Model.TeacherId, Model.PeriodId, GroupId = Request["GroupId"] })"><span>校评</span></a>
+		if (userType != BzRoleNames.SchoolAdmin)
+		{
+			<a class="btn btn-md btn-success" href="@Url.Action("ResultView","VolumnEvalManage",new { Model.TeacherId, Model.PeriodId, GroupId = Request["GroupId"] })"><span>量评</span></a>
+			<a class="btn btn-md btn-success" href="@Url.Action("SubmitResultView","QualityEval",new { Model.TeacherId, Model.PeriodId, GroupId = Request["GroupId"] })"><span>质评</span></a>
+		}
+	}
+</div>
+<!-- /top action buttons -->
+    
+    

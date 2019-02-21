@@ -1,0 +1,48 @@
+﻿@model NewsModel
+@{
+	ViewBag.Title = "新闻详情";
+}
+<div id="stuning-header" style="background-color: #7a7a7a; background-image: url(../../assets/img/kamni.jpg);  background-position: center;">
+	<div class="row">
+		<div class="twelve columns">
+			<div id="page-title">
+				<div class="page-title-inner">
+					<div class="page-title">
+					</div>
+					<div class="subtitle">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<section id="layout">
+	<div class="row">
+		<div class="blog-section ">
+			<section id="main-content" role="main" class="twelve columns">
+				<article class="post-3087 post type-post status-publish format-standard has-post-thumbnail hentry category-wishes tag-creative tag-gadget">
+					<div class="post-social">
+						<div datetime="2015-12-18" class="date updated">
+							<time datetime="2015-12-18" class="date updated"> <span class="day">@Model.CreatedTime.ToString("dd")</span> <span class="month">@Model.CreatedTime.ToString("yyyy-MM")</span></time>
+							<div class="post-format clearfix">
+								<i class="icon-pencil-1"></i>
+							</div>
+						</div>
+					</div>
+					<div class="ovh">
+						<h1 class="entry-title">@Model.Title</h1>
+						<div class="post-media clearfix">
+							<div class="entry-thumb">
+								<img src="@Model.ThumbUrl" />
+							</div>
+						</div>
+						<div class="entry-content">
+							@Html.Raw(Model.Content)
+						</div>
+						<span class="byline author vcard"> 作者: <a href="javascript:;" rel="author" class="fn">@Model.RealName</a></span>
+					</div>
+				</article>
+			</section>
+		</div>
+	</div>
+</section>

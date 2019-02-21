@@ -1,0 +1,88 @@
+﻿@model List<HomeCorpInfoModel>
+@{
+	ViewBag.Title = "梯队动态";
+	var title = "";
+	if (Model != null && Model.Count > 0)
+	{
+		title = Model[0].TargetName;
+	}
+}
+<div id="stuning-header">
+	<div class="row">
+		<div class="twelve columns">
+			<div id="page-title">
+				<div class="page-title-inner">
+					<h1 class="page-title"> 梯队动态 </h1>
+					<div class="group">
+						<div class="block">
+							<p>学科高地<br />理事长</p>
+							<a href="@Url.Action("Corps", new { target = 5002 })" class="btn">活 动</a>
+							<a href="@Url.Action("CorpList", new { target = 5002 })" class="btn">梯 队</a>
+						</div>
+						<div class="block">
+							<p>学科培训<br />基地主持人</p>
+							<a href="@Url.Action("Corps", new { target = 5003 })" class="btn">活 动</a>
+							<a href="@Url.Action("CorpList", new { target = 5003 })" class="btn">梯 队</a>
+						</div>
+						<div class="block">
+							<p>学科培训<br />工作室主持人</p>
+							<a href="@Url.Action("Corps", new { target = 5004 })" class="btn">活 动</a>
+							<a href="@Url.Action("CorpList", new { target = 5004 })" class="btn">梯 队</a>
+						</div>
+						<div class="block">
+							<p>学科带头人</p>
+							<a href="@Url.Action("Corps", new { target = 5005 })" class="btn">活 动</a>
+							<a href="@Url.Action("CorpList", new { target = 5005 })" class="btn">梯 队</a>
+						</div>
+						<div class="block">
+							<p>骨干教师</p>
+							<a href="@Url.Action("Corps", new { target = 5006 })" class="btn">活 动</a>
+							<a href="@Url.Action("CorpList", new { target = 5006 })" class="btn">梯 队</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<section id="layout">
+	<div class="row">
+
+		<div class="mvb_inner_wrapper" style="">
+			<div class="module shortcode">
+
+				<h3 class="widget-title">@title </h3>
+
+				<div class="woocommerce columns-4" style="margin-bottom: 100px">
+					<ul class="row">
+
+						@foreach (var item in Model)
+						{
+						<li class="three columns">
+							<div class="corp-name">
+
+								<h4><a href="@Url.Action("Corps", new { corp = item.TeacherId })">@item.TeamName</a></h4>
+
+								<span class="corp-subject">学科：@item.SubjectName</span>
+
+								<span class="corp-count">学员： @item.MemberCount</span>
+
+								<span class="corp-count">活动： @item.TaskCount</span>
+
+							</div>
+						</li>
+						}
+
+					</ul>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</section>
+
+@section plugins{
+	@Scripts.Render("~/js/app_foundation")
+}

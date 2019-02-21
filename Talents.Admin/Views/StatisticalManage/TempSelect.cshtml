@@ -1,0 +1,6 @@
+﻿@*@model List<EvalPeriod>
+@{
+    var periods = Model.Select(x => new SelectListItem { Text = x.Name, Value = x.PeriodId.ToString() });
+}
+ }
+@Html.DropDownList("periodSelect", periods, new { @class = " form-control periodSelect" })*@

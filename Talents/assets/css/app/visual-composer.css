@@ -1,0 +1,88 @@
+/* -----------------------------------------
+   Visual Composer overwrite
+----------------------------------------- */
+
+.flexslider {
+    overflow: hidden;
+}
+
+
+.wpb_video_widget .wpb_wrapper .wpb_video_wrapper {
+    padding-top: 0 !important;
+    position: static  !important;
+}
+.wpb_video_widget .wpb_wrapper .wpb_video_wrapper > div.fluidvids {
+    padding-top: 56.222222222222214% !important
+}
+.wpb_toggle, #content h4.wpb_toggle {
+    font-size: 14px;
+    position: relative;
+    top: -3px;
+    margin-bottom: 15px;
+}
+
+.wpb_heading, .entry-content .wpb_heading, .wpb_content_element h2 {
+    margin: 0 0 30px 0 !important;
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.wpb_content_element, ul.wpb_thumbnails-fluid > li, .last_toggle_el_margin, .wpb_button {
+    margin-bottom: 0 !important;
+}
+.mega-text .wpb_content_element, ul.wpb_thumbnails-fluid > li, .last_toggle_el_margin, .wpb_button {
+    margin-bottom: 15px;
+    margin-top: 20px;
+}
+
+.wpb_video_widget .wpb_wrapper .wpb_video_wrapper {
+    padding-top: 0 !important;
+    position: relative;
+}
+.wpb_column.column_container {
+    margin-bottom: 25px;
+}
+
+.wpb_toggle, #content h4.wpb_toggle {
+    background: url(../img/toggle_close.png) no-repeat left 4px !important;
+    padding-left: 30px !important;
+}
+.wpb_toggle_title_active, #content h4.wpb_toggle_title_active {
+    background: url(../img/toggle_open.png) no-repeat left 4px !important;
+}
+.wpb_toggle_content {
+    padding-left: 30px !important;
+}
+
+.wpb_content_element .ui-tabs .ui-tabs-nav a, #content .wpb_accordion .ui-accordion .ui-accordion-header a, .wpb_accordion .ui-accordion .ui-accordion-header a {
+    font-weight: 400;
+    font-size: 14px;
+    padding: 1em 1.5em !important;
+    color: #fff;
+}
+
+.wpb_tabs .ui-tabs .ui-tabs-panel, .wpb_accordion .ui-accordion .ui-accordion-content {
+    padding: 1.2em 2em !important;
+    font-size: 11px;
+}
+.ui-accordion .ui-accordion-header .ui-accordion-header-icon {
+    display: none;
+}
+
+.wpb_content_element .wpb_tabs_nav li.ui-tabs-active {
+    background: #F7F7F7 !important;
+    /*border: 1px solid #ECEFF0;*/
+    border-bottom: none;
+}
+.wpb_content_element .wpb_tabs_nav li.ui-tabs-active a {
+    color: inherit;
+}
+.wpb_content_element .wpb_tabs_nav li {
+    background: #36BAE2 !important;
+}
+.wpb_accordion .wpb_accordion_wrapper .ui-state-active .ui-icon {
+    display: none !important;
+}
+.wpb_content_element .wpb_accordion_wrapper .wpb_accordion_header{
+    background-color: #36BAE2 !important;
+}

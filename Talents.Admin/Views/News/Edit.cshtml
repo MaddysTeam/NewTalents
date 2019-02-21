@@ -1,0 +1,128 @@
+﻿@model News
+@{ 
+	var pageTitle = ViewBag.Title = "编辑新闻";
+}
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
+				<li class="active">@pageTitle</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-users"></i> @pageTitle</h2>
+			<em></em>
+		</div>
+
+		<div class="main-content">
+
+			<!-- widget -->
+			<div class="widget">
+				<div class="widget-header">
+					<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
+					<div class="btn-group widget-header-toolbar">
+						<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+						<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+					</div>
+				</div>
+				<div class="widget-content">
+
+					<div class="form-horizontal">
+						<div class="row">
+							<fieldset class="col-md-4">
+								<div id="showimg" class="show-img">
+									@if (Model.ThumbUrl != "")
+									{
+										<img src="@Model.ThumbUrl" />
+									}
+									else
+									{
+										<img src="~/assets/img/News404.jpg">
+									}
+								</div>
+								<button type="button" class="btn btn-default" id="btnupload">更换标题图片</button>
+							</fieldset>
+							<fieldset class="col-md-8">
+@using (Html.BeginForm("Edit", "News", null, FormMethod.Post))
+{
+								@Html.HiddenFor(m => m.NewsId)
+								@Html.HiddenFor(m => m.ThumbUrl)
+								<div class="form-group">
+									@Html.LabelFor(m => m.Title, new { @class = "col-md-12 control-label" })
+									<div class="col-md-12">
+										@Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+										@Html.ValidationMessageFor(m => m.Title)
+									</div>
+								</div>
+								<div class="form-group">
+									@Html.LabelFor(m => m.Content, new { @class = "col-md-12 control-label" })
+									<div class="col-md-12">
+										@Html.TextAreaFor(m => m.Content, new { style = "visibility:hidden;position:absolute;", @required = "required" })
+										<div class="summernote-frame no-padding">
+											<div id="sum" class="summernote required" data-whatever="Content"></div>
+										</div>
+										@Html.ValidationMessageFor(m => m.Content)
+									</div>
+								</div>
+									<div class="form-group">
+										<div class="col-md-offset-2">
+											
+											<button type="submit" class="btn btn-custom-primary btn-save"><i class="fa fa-save"></i> 保存</button>
+										</div>
+									</div>
+}
+							</fieldset>
+						</div>
+					</div>
+					
+					<form action="@Url.Action("UploadImage", "Attachment")" class="dropzone hidden"></form>
+
+				</div>
+				<!-- /widget content -->
+			</div>
+			<!-- /widget -->
+
+		</div>
+		<!-- /main-content -->
+	</div>
+	<!-- /main -->
+</div>
+@section scripts{
+	<script>
+
+		$(function () {
+			
+			//	summernote
+			insureSummernot($('#sum'));
+
+			// dropzone
+			Dropzone.autoDiscover = false;
+			$('.dropzone').dropzone({
+				addRemoveLinks: !0,
+				maxFiles: 100,
+				acceptedFiles: 'image/*',
+				dictResponseError: "上传出错",
+				uploadMultiple: false,
+				init: function () {
+					this.on('success', function (file, data) {
+						$('#ThumbUrl').val(data.url);
+						setTimeout(function () { $('#showimg').html("<img src='" + data.url + "'/>"); }, 1000);
+					});
+					this.on('error', function (file, message) {
+						popupMessage({ result: 'error', msg: message });
+					});
+				}
+			});
+				
+			// proxy click event to dropzone.
+			$('#btnupload').on('click', function () { $('.dropzone').trigger('click'); });
+
+		})
+
+	</script>	
+}

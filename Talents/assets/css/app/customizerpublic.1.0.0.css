@@ -1,0 +1,403 @@
+/* This stylesheet is used to style the public view of the plugin. */
+
+/* -----------------------------------------
+   Top menu
+----------------------------------------- */
+.tiled-menu {
+    list-style: none;
+    list-style-image: none;
+    padding: 20px 0 10px 0;
+    position: relative;
+    float: right;
+    min-height: 172px; }
+.tiled-menu > .menu-item {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: 40px;
+    position: relative; }
+.tiled-menu > .menu-item > a {
+    color: inherit; }
+.tiled-menu.no-customizer {
+    padding-top: 80px; }
+
+.tiled-menu>li>ul {
+	padding-top: 25px;
+}
+
+.fixed .tiled-menu {
+    min-height: 0; }
+
+.main-menu-item {
+    margin-left: 3px;
+    float: left;
+    position: relative;
+    width: 115px; }
+
+.widget .main-menu-item {
+    margin-bottom: 10px; }
+
+.main-menu-item a {
+    color: inherit;
+	display: block;
+}
+.main-menu-item.has-submenu .item-title:after {
+    content: "";
+    margin-left: 10px;
+    display: inline-block;
+    position: relative;
+    top: -1px;
+    width: 7px;
+    height: 4px;
+    background: url("../assets/drop-pipt.gif") 0 bottom no-repeat;
+}
+
+.menu-tile {
+    display: block;
+    position: relative;
+    z-index: 1;
+    height: 115px;
+    width: 100%;
+    text-decoration: none;
+    background-color: #FFAA31;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -moz-transform: scale(1);
+    /* Firefox */
+    -webkit-transform: scale(1);
+    /* Safari and Chrome */
+    -o-transform: scale(1);
+    /* Opera */
+    -ms-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: -webkit-transform .2s ease-out;
+    -moz-transition: -moz-transform .2s ease-out;
+    -o-transition: -o-transform .2s ease-out;
+    -ms-transition: -ms-transform .2s ease-out;
+    transition: transform .2s ease-out; }
+.menu-tile:hover {
+    z-index: 10;
+    -moz-transform: scale(1.05);
+    /* Firefox */
+    -webkit-transform: scale(1.05);
+    /* Safari and Chrome */
+    -o-transform: scale(1.05);
+    /* Opera */
+    -ms-transform: scale(1.05);
+    transform: scale(1.05); }
+
+
+.main-menu-item.hovered .menu-tile {
+	z-index: 10;
+	-moz-transform: scale(1.05);
+	-webkit-transform: scale(1.05);
+	-o-transform: scale(1.05);
+	-ms-transform: scale(1.05);
+	transform: scale(1.05);
+}
+
+.metro-menu-item .item-title {
+    font-size: 1em;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    padding: 5px 0 0 0;
+}
+
+.tile-icon {
+    position: absolute;
+    font-size: 45px;
+    text-align: center;
+    top: 50%;
+    margin-top: -38px;
+    width: 100%;
+    color: #fff; }
+
+/*---Second level----*/
+.sub-menu {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+    list-style: none;
+    position: absolute;
+    z-index: 999;
+    top: 100%;
+    margin: 0;
+    min-width: 200px;
+    border-radius: 2px;
+
+    -webkit-transition: opacity .2s ease-in-out;
+    -moz-transition: opacity .2s ease-in-out;
+    transition: opacity .2s ease-in-out;
+}
+
+.main-menu-item:last-child > .sub-menu {left:auto; right:0;}
+
+.main-menu-item.hovered > .sub-menu{
+    opacity: 1;
+    visibility: visible;
+    display: block;
+	}
+
+.sub-menu-item:hover > .sub-menu{
+    opacity: 1;
+    visibility: visible;
+    display: block;
+}
+
+.sub-menu li {
+    display: block;
+    background: #323c3f;
+    background: rgba(50, 60, 63, 0.9);
+    position: relative;
+    border-bottom: 1px solid #42555A; }
+.sub-menu li:first-child {
+    border-top: 3px solid #d2dee4;
+	}
+.sub-menu li.style-classic ul>li:first-child {
+	top: -3px;
+}
+.sub-menu li:last-child {
+    border-bottom: none; }
+.sub-menu li.has-submenu > a:after {
+    content: "";
+    right: 10px;
+    display: inline-block;
+    position: absolute;
+    top: 40%;
+    width: 4px;
+    height: 7px;
+    background: url("../assets/drop-pipt.gif") 0 top  no-repeat; }
+
+.sub-menu:hover {
+    overflow: visible; }
+
+.sub-menu a {
+    color: #fff;
+    font-size: 0.85714em;
+    text-transform: uppercase;
+    line-height: 42px;
+    height: 42px;
+	padding: 0 10px 0 28px;
+    display: block;
+    white-space: nowrap;
+	position: relative;
+	z-index: 10;
+}
+
+.sub-menu a:hover {
+    background: #475458;
+    border-left: 2px solid #d2dee4;
+    text-indent: -2px; }
+
+.sub-menu > li > ul {
+    visibility: hidden;
+    display: none;
+    left: 100%;
+    padding-left: 2px; }
+
+.sub-menu > li:hover > ul {
+    display: block;
+    visibility: visible; }
+
+.tiled-menu .has-submenu .sub-menu.sub-sub-menu {
+	position: absolute;
+	top: 0;
+	left: 100%;
+}
+
+.tiled-menu .sub-menu li.style-metro.hovered > a {
+	border-left: 0;
+	background: none;
+	font-size: 16px;
+	text-indent: 15px;
+}
+/*-------- Retina support ------------*/
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (min-device-pixel-ratio: 2) {
+    .sub-menu li, .main-menu-item.has-submenu .item-title:after {
+        background-image: url("../assets/drop-pipt@2x.gif");
+		background-repeat: no-repeat;
+        background-size: 7px 20px;
+    }
+}
+
+/*------------------ Metro style ------------------------*/
+
+
+.tiled-menu  .sub-menu li.style-metro {
+    display: block;
+    background: #1ba1e2;
+    position: relative;
+    border-bottom: 0;
+}
+
+.tiled-menu .sub-menu li.style-metro:first-child {
+    border-top: 0;
+}
+
+.tiled-menu .sub-menu {
+	list-style: none;
+    position: absolute;
+    z-index: 999;
+    left: -2px;
+    margin: 0;
+    min-width: 200px;
+    border-radius: 2px;
+}
+
+.tiled-menu .sub-menu a {
+    font-size: 14px;
+    color: #fff;
+    line-height: 40px;
+	font-family: "Source Sans pro","Segoe UI Light", "Segoe UI", "HelveticaNeue-Light", "Helvetica Neue Light", 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    text-transform: none;
+    white-space: nowrap;
+
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+.tiled-menu li .sub-menu li.style-metro:after {
+	position: absolute;
+	left: 12px;
+	top: 11px;
+	border: #fff 2px solid;
+	border-radius: 100em;
+	width: 23px;
+	height: 23px;
+	opacity: 0;
+	content: "";
+	display: block;
+	-webkit-transition: opacity .4s ease-in-out;
+	-moz-transition: opacity .4s ease-in-out;
+	transition: opacity .4s ease-in-out;
+}
+
+.tiled-menu li .sub-sub-menu li.style-metro:after {
+	font-family: 'moon';
+	font-style: normal;
+	font-weight: normal;
+	speak: none;
+	text-decoration: inherit;
+	text-align: center;
+	font-variant: normal;
+	text-transform: none;
+	-webkit-font-smoothing: antialiased;
+	position: absolute;
+	left: 15px;
+	top: 12px;
+	font-size: 10px;
+	color: #fff;
+	padding: 3px;
+	opacity: 0;
+	content: "\e3fb";
+}
+
+.tiled-menu li .sub-menu .style-metro:before {
+    font-family: 'moon';
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+    text-decoration: inherit;
+    text-align: center;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    position: absolute;
+	left: 15px;
+	top: 12px;
+	font-size: 10px;
+	color: #fff;
+	padding: 3px;
+    opacity: 0;
+    content: "\e3fb";
+
+    -webkit-transition: opacity .4s ease-in-out;
+    -moz-transition: opacity .4s ease-in-out;
+    transition: opacity .4s ease-in-out;
+}
+
+.tiled-menu .sub-menu li.style-metro a:hover{
+    border-left: 0;
+    background: none;
+    font-size: 16px;
+    text-indent: 15px;
+}
+
+.tiled-menu li .sub-menu li.style-metro:hover:before, .tiled-menu li .sub-menu li.style-metro:hover:after {
+    opacity: 1;
+}
+
+.style-metro .sub-menu li{
+    padding: 3px 0;
+}
+
+.sub-menu li ul li:first-child:before {
+    display: none; }
+
+.style-metro .sub-menu li{
+    position: relative;
+}
+
+
+
+@media only screen and (max-width: 767px) {
+
+	.tiled-menu .metro-menu-item .sub-menu {
+		position: relative;
+	}
+
+	.style-metro .sub-sub-menu {
+		position: relative ;
+		top: 0 ;
+		left: 0;
+		min-width: 100%;
+		padding-left: 20px;
+		z-index: 999;
+			}
+
+	.menu-tile:hover {
+		z-index: 10;
+		-moz-transform: none;
+		-webkit-transform: none;
+		-o-transform: none;
+		-ms-transform: none;
+		transform: none;
+	}
+}
+
+
+@media only screen and (max-width: 767px) {
+
+	.sub-menu > li > ul {
+		left: 0;
+	}
+
+	.tiled-menu .item-title {
+		position: absolute;
+		z-index: 100;
+		bottom: 40px;
+		color: #fff;
+		left: 25px;
+	}
+
+	.sub-menu {
+		position: relative;
+		min-width: 200px;
+		padding-top: 0;
+
+		}
+
+	.tiled-menu .has-submenu .sub-menu.sub-sub-menu {
+		position: relative;
+		top: 100% ;
+		left: 0 ;
+		z-index: 999;
+	}
+
+
+}

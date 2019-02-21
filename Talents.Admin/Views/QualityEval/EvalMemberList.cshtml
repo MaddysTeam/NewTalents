@@ -1,0 +1,113 @@
+﻿@{
+	var pageTitle = ViewBag.Title = "已评学员列表";
+
+	var groupId = Request["groupId"];
+	var periodId= Request["periodId"];
+}
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action(" Index", "Home" )">首页</a></li>
+				<li class="active">@pageTitle</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-users"></i> @pageTitle</h2>
+			<em></em>
+		</div>
+
+		<div class="main-content">
+			<!-- top action buttons -->
+			<div class="gallery-buttons bottom-30px">
+				<a class="btn btn-md btn-info" href="@Url.Action("EvalMemberList", "QualityEval", new { groupId = groupId, periodId = periodId })"><span>已评学员</span></a>
+				<a class="btn btn-md btn-info" href="@Url.Action("NotEvalMemberList", "QualityEval", new { groupId = groupId, periodId = periodId })"><span>未评学员</span></a>
+			</div>
+			<!-- /top action buttons -->
+
+			<!-- widget -->
+			<div class="widget">
+				<div class="widget-header">
+					<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
+					<div class="btn-group widget-header-toolbar">
+						<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+						<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+					</div>
+				</div>
+				<div class="widget-content">
+
+					<!-- Grid -->
+					<div class="table-responsive">
+						<table id="bootgrid" class="table table-striped table-hover table-dark-header">
+							<thead>
+								<tr>
+                                    <th data-column-id="target">层级</th>
+									<th data-column-id="realName">姓名</th>
+                                    <th data-column-id="score">总得分</th>
+                                    <th data-column-id="dynamicScore1">自身发展</th>
+                                    <th data-column-id="dynamicScore2">培训课程</th>
+                                    <th data-column-id="dynamicScore3">带教教师</th>
+                                    <th data-column-id="characteristic">特色</th>
+									<th data-column-id="submitStatus">状态</th>
+									<th data-column-id="commands" data-formatter="commands" data-sortable="false" data-header-Css-Class="width180">操作</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					<!-- end Grid-->
+
+				</div>
+				<!-- /widget content -->
+			</div>
+			<!-- /widget -->
+
+		</div>
+		<!-- /main-content -->
+	</div>
+	<!-- /main -->
+</div>
+
+@section Scripts {
+	<script>
+
+		function getGlobalRequest() {
+			return {};
+		}
+
+		function getGridOptions() {
+			return $.extend(true, {}, gridOptions, {
+
+				url: window.location.href,
+
+				requestHandler: function (request) { return $.extend(true, request, getGlobalRequest()); },
+
+				formatters: {
+					'commands': function (column, row) {
+						var html = '<div class="btn-group btn-group-xs pull-right" data-row-id="' + row.id + '">' +
+							'<a target="_blank" class="btn btn-warning btn-view" href="@Url.Action("SubmitResultView", "QualityEval")?teacherId=' + row.id + '&periodId=' +@periodId +'&groupId='+@groupId+'"><i class="fa fa-external-link"></i>查看</a>';
+						if (row.submitStatus == '未提交') {
+							html += '<a class="btn btn-success btn-view" href="@Url.Action("Eval", "QualityEval")?teacherId=' + row.id + '&periodId=' + @periodId + '&targetId=' + row.targetId + '&groupId=' +@groupId +'">执行考评</a>';
+						}
+						html += '</div>';
+						return html;
+					},
+				},
+
+			});
+		}
+
+		$(function () {
+
+			var grid = $('#bootgrid');
+			grid.bootgrid(getGridOptions())
+			.on('loaded.rs.jquery.bootgrid', function () {
+			});
+
+		});
+
+	</script>	
+}

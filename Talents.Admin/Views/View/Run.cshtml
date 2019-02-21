@@ -1,0 +1,437 @@
+﻿@model APRptViewDef
+@{ 
+	var pageTitle = ViewBag.Title = "信息检索";
+}
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
+				<li class="active">@pageTitle</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-search"></i> @pageTitle</h2>
+			<em>@Model.Name</em>
+		</div>
+
+		<div class="main-content">
+
+			<!-- widget -->
+			<div class="widget">
+				<div class="widget-header">
+					<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
+					<div class="btn-group widget-header-toolbar pull-right">
+						<button type="button" class="btn btn-warning btn-sm" id="btnExport"><i class="fa fa-file-excel-o"></i> <span>导出</span></button>
+					</div>
+					<div class="btn-group widget-header-toolbar">
+						<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+						<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+					</div>
+				</div>
+				<div class="widget-content">
+
+					@Html.Partial("../Utilies/_choose")
+
+					<div class="filters row" style="display:none" data-bind="visible: enableFilter">
+
+						<div class="col-sm-12">
+
+							<div class="form-inline filters-block">
+
+								<div data-bind="foreach: filters">
+									<div class="form-inline">
+										<div class="input-group">
+											<div class="input-group-addon"><i class="fa fa-filter" data-bind="visible: !$parent.enableAdvance()"></i><kbd data-bind="visible: $parent.enableAdvance(), text: serialNumber($index())"></kbd></div>
+											<div class="input-group-controls">
+												<select class="form-control" data-bind="options: $parent.filterFields, optionsText: 'text', value: chooseColumn, optionsCaption: '--- 未选 ---'"></select>
+												<select class="form-control" data-bind="options: ops, optionsText: 'name', enable: chooseColumn, value: chooseOps, optionsCaption: '--- 未选 ---'"></select>
+												<input type="text" class="form-control" data-bind="value: filterValue, enable: chooseOps" />
+											</div>
+											<div class="input-group-btn">
+												<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-bind="enable: enableLookup"><span class="caret"></span></button>
+												<ul class="dropdown-menu dropdown-menu-right" role="menu" data-bind="foreach: $data.enums, click: pickEnum">
+													<li><label class="dropdown-item"><input type="checkbox" data-bind="checked: checked" /> <span data-bind="text: name"></span></label></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="form-inline filters-block">
+
+								<div class="form-group">
+									<div class="btn-group">
+										<button type="button" class="btn btn-default" data-bind="enable: filters().length < maxSize, click: addFilter"><i class="fa fa-plus"></i> 添加</button>
+										<button type="button" class="btn btn-default" data-bind="enable: filters().length > minSize, click: removeFilter"><i class="fa fa-minus"></i> 减少</button>
+									</div>
+								</div>
+								<br />
+								<div class="form-group">
+									@*<div class="input-group">
+										<span class="input-group-addon">
+											<input type="checkbox" data-bind="checked: enableAdvance" /> 高级筛选
+										</span>
+										<input type="text" class="form-control" data-bind="enable: enableAdvance, value: logicExpr" />
+									</div>*@
+								</div>
+							</div>
+						</div>
+
+					</div> <!-- Filters -->
+
+					<div class="table-responsive">
+						<table id="bootgrid" class="table table-striped table-hover table-dark-header">
+							<thead>
+								<tr data-bind="foreach: gridColumns">
+									<th data-bind="text: text, attr: { 'data-column-id': id, 'data-formatter': formatter, 'data-visible': visible }"></th>
+								</tr>
+							</thead>
+						</table>
+					</div> <!-- Views run -->
+
+				</div>
+				<!-- /widget content -->
+			</div>
+			<!-- /widget -->
+
+		</div>
+		<!-- /main-content -->
+	</div>
+	<!-- /main -->
+</div>
+<form class="hidden" method="post" id="fromExport"></form>
+
+@section Scripts {
+	<script>
+
+		var avaliableOps = [
+			{ id: 'Equals', name: '等于' },
+			{ id: 'NotEqual', name: '不等于' },
+			{ id: 'GreaterThan', name: '大于' },
+			{ id: 'GreaterOrEqual', name: '大于或等于' },
+			{ id: 'LessThan', name: '小于' },
+			{ id: 'LessOrEqual', name: '小于或等于' },
+			{ id: 'StartsWith', name: '起始字符为' },
+			{ id: 'Contains', name: '包含' },
+			{ id: 'DoesNotContain', name: '不包含' },
+			{ id: 'Between', name: '介于之间' },
+			{ id: 'Includes', name: '包括' },
+			{ id: 'Excludes', name: '不包括' }
+		];
+
+		var type2ops = {
+			Unknown: [],
+			Text: ['Equals', 'NotEqual', 'GreaterThan', 'GreaterOrEqual', 'LessThan', 'LessOrEqual', 'StartsWith', 'Contains', 'DoesNotContain'],
+			Boolean: ['Equals', 'NotEqual'],
+			Number: ['Equals', 'NotEqual', 'GreaterThan', 'GreaterOrEqual', 'LessThan', 'LessOrEqual', 'Between'],
+			DateTime: ['Equals', 'NotEqual', 'GreaterThan', 'GreaterOrEqual', 'LessThan', 'LessOrEqual', 'Between'],
+			EnumOrId: ['Equals', 'NotEqual', 'GreaterThan', 'GreaterOrEqual', 'LessThan', 'LessOrEqual', 'Between'],
+			MultiEnum: ['Equals', 'NotEqual', 'Includes', 'Excludes']
+		};
+
+		var Filter = function () {
+
+			this.chooseColumn = ko.observable();
+
+			this._type = ko.observable();
+
+			this.ops = ko.pureComputed(function () {
+
+				type = this.chooseColumn() || false ? this.chooseColumn().type : 'Unknown';
+				var t2o = type2ops[type];
+
+				this._type(type);
+
+				if (type == 'Unknown') {
+					this.filterValue('');
+				}
+
+				return $.grep(avaliableOps, function (v, k) {
+					if ($.inArray(v.id, t2o) != -1) {
+						return true;
+					}
+				});
+
+			}, this);
+
+			this.chooseOps = ko.observable();
+
+			this.filterValue = ko.observable();
+
+			this.enableLookup = ko.pureComputed(function (p) {
+				if (this.chooseOps() && this._type() == 'EnumOrId') {
+					var
+						$this = this,
+						choose = this.chooseColumn(),
+						items = choose.items;
+					if (items) {
+						$this.updateEnums(items);
+					}
+					else {
+						var ajax = choose.ajax;
+						$.get(ajax, function (response) {
+							choose.items = response;
+							$this.updateEnums(response);
+						});
+					}
+
+					return true;
+				}
+				return false;
+
+			}, this);
+
+			this.updateEnums = function (enumNames) {
+
+				var arr = [];
+
+				$.each(enumNames, function (index, data) {
+					arr.push({ name: data, checked: ko.observable(false) });
+				});
+
+				this.enums(arr);
+
+			};
+
+			this.serialNumber = function (index) { return String.fromCharCode(0x41 + index); }
+
+			this.enums = ko.observableArray([]);
+
+			this.pickEnum = function (data, e) {
+				e.stopPropagation();
+
+				var arr = [];
+				$.each(this.enums(), function (index, item) {
+					if (item.checked())
+						arr.push('\"' + item.name + '\"');
+				});
+				this.filterValue(arr.join(','));
+
+				return true;
+			};
+
+		}
+
+		viewFilterModel = function () {
+
+			this.filterFields = ko.observableArray([]);
+
+			this.filters = ko.observableArray([]);
+
+			this.enableFilter = ko.observable(false);
+
+			this.minSize = 2;
+
+			this.maxSize = 10;
+
+			this.isAdv = ko.observable(false);
+
+			this.logicExpr = ko.observable();
+
+			this.enableAdvance = ko.pureComputed({
+
+				read: function () {
+					return this.isAdv();
+				},
+
+				write: function (value) {
+					this.isAdv(value);
+				},
+
+				owner: this
+			});
+
+			this.addFilter = function () {
+				this.filters.push(new Filter());
+			};
+
+			this.removeFilter = function () {
+				this.filters.pop();
+			};
+
+			this.initFilters = function (size) {
+				this.minSize = size;
+				for (var i = 0; i < size; i++)
+					this.addFilter();
+			};
+
+			this.getRequest = function () {
+
+				var request = {
+					filter: {}
+				};
+
+				if (this.enableFilter()) {
+
+					$.each(this.filters(), function (index, item) {
+						if (item.chooseOps()) {
+							var o = request.filter[item.serialNumber(index)] = {};
+							o = o[item.chooseColumn().id] = {};
+							o = o[item.chooseOps().id] = item.filterValue();
+						}
+					});
+
+					if (this.isAdv()) {
+						request['filterLogic'] = this.logicExpr();
+					}
+
+				}
+
+				return request;
+			};
+
+			this.getFormRequest = function () {
+
+				var request = {
+				};
+
+				if (this.enableFilter()) {
+
+					$.each(this.filters(), function (index, item) {
+						if (item.chooseOps()) {
+							var key = 'filter[' + item.serialNumber(index) +
+								'][' + item.chooseColumn().id +
+								'][' + item.chooseOps().id + ']';
+							request[key] = item.filterValue();
+						}
+					});
+
+					if (this.isAdv()) {
+						request['filterLogic'] = this.logicExpr();
+					}
+
+				}
+
+				return request;
+			};
+
+		};
+
+		viewGridModel = function () {
+			this.gridColumns = ko.observableArray([]);
+		}
+
+		var viewModel;
+
+		function getGridOptions(ajaxurl) {
+			return $.extend(true, {}, gridOptions, {
+
+				url: ajaxurl,
+
+				requestHandler: function (request) {
+					var n = viewModel.getRequest();
+					$.extend(true, request, n, getFocusFilter());
+					return request;
+				},
+
+				showFiltersHandler: function (show) {
+					viewModel.enableFilter(show);
+				},
+
+				formatters: {
+
+					'Lookup': function (column, row) {
+						var text = row[column.id], url = text;
+						if (!(typeof text === 'string')) { url = text.url; text = text.text; }
+						return text;
+					},
+
+				}
+
+			});
+		}
+
+		$(function () {
+
+			var viewTempate = '@Url.Action("Template", "View", new { id = this.ViewContext.RouteData.Values["id"], company = Request["company"] })',
+				 viewRecords = '@Url.Action("Records", "View", new { id = this.ViewContext.RouteData.Values["id"], company = Request["company"] })';
+				 viewExport = '@Url.Action("Export", "View", new { id = this.ViewContext.RouteData.Values["id"], company = Request["company"] })';
+			viewModel = $.extend({}, new viewFilterModel(), new viewGridModel());
+			viewModel.initFilters(2);
+
+			$.post(viewTempate, null, function (data, status) {
+
+				viewModel.gridColumns(data.gridColumns);
+				viewModel.filterFields(data.filterFields);
+				ko.applyBindings(viewModel);
+				$('#bootgrid').bootgrid(getGridOptions(viewRecords));
+
+			})
+
+			$('#btnExport').on('click', function (e) {
+				e.preventDefault();
+
+				var request = viewModel.getFormRequest();
+
+				var gg = [], cols = [];
+				$('#bootgrid').bootgrid("getColumnSettings", gg);
+				$.each(gg, function (i, n) {
+					if (n.visible) { cols.push(n.id); }
+				})
+				request['columns'] = cols.join(',');
+
+				var $form = $('#fromExport');
+				$form.html('');
+				for (var _ in request) {
+					var $input = $('<input type="hidden">').attr('name', _).val(request[_]);
+					$form.append($input);
+				}
+
+				cloneFocusFilter($form);
+
+				$form.attr('action', viewExport).submit();
+			})
+			
+		})
+
+	</script>
+	<script>
+
+		var viewId = @this.ViewContext.RouteData.Values["id"];
+		function getFocusFilter() {
+			return {
+				recordYear: $('#RecordYear').val(),
+				portal: $('#Portal').val(),
+				master: $('#Master').val(),
+				advFocus: $('#AdvFocus').prop("checked")
+			};
+		}
+
+		function cloneFocusFilter($form) {
+			$form.append($('<input type="hidden">').attr('name', 'RecordYear').val($('#RecordYear').val()));
+			$form.append($('<input type="hidden">').attr('name', 'Portal').val($('#Portal').val()));
+			$form.append($('<input type="hidden">').attr('name', 'Master').val($('#Master').val()));
+			$form.append($('<input type="hidden">').attr('name', 'AdvFocus').val($('#AdvFocus').prop("checked")));
+		}
+
+		function changeMaster() {
+			var $master = $('#Master'), $portal = $('#Portal');
+			$master.empty();
+			$.post('/Master/Filter', { portal: $portal.val() }, function (data, status) {
+				$.each(data, function (i, n) {
+					$master.append('<option value="' + n.id + '">' + n.name + '</option>');
+				});
+				$master.prepend('<option value="0">--- 未选 ---</option>');
+			});
+		}
+
+		$(function () {
+			$('#Portal').on('change', function () {
+				changeMaster();
+			})
+			changeMaster();
+
+			if (viewId != 2) {
+				$('#onlyUsedEmployee').hide();
+			}
+		})
+
+	</script>
+}

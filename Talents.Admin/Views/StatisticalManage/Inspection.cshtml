@@ -1,0 +1,151 @@
+﻿@model Webdiyer.WebControls.Mvc.PagedList<InspectionViewModel>
+@{ 
+	var pageTitle = ViewBag.Title = "考核成绩管理";
+	var targetList = DeclareBaseHelper.DeclareTarget.GetSelectList(filter: m => DeclareTargetIds.HasTeam(m.PicklistItemId), noneLabel: SelectNames.All).ToList();
+
+}
+@section Css{
+	<link href="~/assets/plugins/jquery.searchableSelect/css/jquery.searchableSelect.css" rel="stylesheet" />
+}
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
+				<li class="active">@pageTitle</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-users"></i> @pageTitle</h2>
+			<em></em>
+		</div>
+
+		<div class="main-content">
+
+			<!-- widget -->
+			<div class="widget">
+				<div class="widget-header">
+					<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
+					<div class="btn-group widget-header-toolbar">
+						<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+						<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+					</div>
+				</div>
+				<div class="widget-content">
+
+					<div class="row">
+						@using (Html.BeginForm("Inspection", ViewContext.RouteData.GetRequiredString("controller"), new { id = "" }, FormMethod.Post, new { id = "searchForm", @class = "form-horizontal" }))
+						{
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">考核周期</label>
+									<div class="col-md-6">
+										@Html.DropDownList("Period", EvalHelper.GetEvalPeriodSelectList(), new { @class = "form-control",@id= "Period" })
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">带教团队，称号</label>
+									<div class="col-md-6">
+										@Html.DropDownList("Target", targetList, new { @class = "form-control" })
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">学科</label>
+									<div class="col-md-6">
+										@Html.DropDownList("Subject", DeclareBaseHelper.DeclareSubject.GetSelectList(noneLabel: SelectNames.All), new { @class = "form-control" })
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">姓名</label>
+									<div class="col-md-6">
+										@Html.TextBox("Name", "", new { @class = "form-control" })
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">单位</label>
+									<div class="col-md-6">
+										@Html.DropDownList("dropdown_company", CompanyHelper.GetCompanySelectList(), new { @class = "dropdown_company" })
+										@*@Html.TextBox("CompanyName", "", new { @class = "form-control" })*@
+										<input type="hidden" name="CompanyId" id="CompanyId" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-2 col-md-offset-1">
+								<div class="form-group">
+									<button class="btn btn-md btn-info" type="submit" accesskey="S">查询</button>
+									<button class="btn btn-md btn-info" type="button" id="btnexp">导出</button>
+								</div>
+							</div>
+						}
+					</div>
+
+					<div id="articles">
+						@Html.Partial("_AjaxSearchPost", Model)
+					</div>
+
+				</div>
+				<!-- /widget content -->
+			</div>
+			<!-- /widget -->
+
+		</div>
+		<!-- /main-content -->
+	</div>
+	<!-- /main -->
+</div>
+
+@section Modals{
+	<a href="@Url.Action("ExportStu", "StatisticalManage")" class="btn btn-primary btn-block" id="aProxy"><i class="fa fa-edit"></i> 代理</a>
+	<!-- Modal start -->
+			<div class="modal" id="firstModal" tabindex="-1" role="dialog" aria-labelledby="firstModalLabel" aria-hidden="true">
+			</div>
+	<!-- Modal end -->
+}
+@section Plugins{
+	<script src="~/assets/plugins/jquery.searchableSelect/js/jquery.searchableSelect.js"></script>
+}
+@section Scripts{
+<script src="~/assets/plugins/tableExport.jquery.plugin-master/tableExport.js"></script>
+<script src="~/assets/plugins/tableExport.jquery.plugin-master/jquery.base64.js"></script>
+	@{Html.RegisterMvcPagerScriptResource();}
+<script type="text/javascript">
+
+	$(function () {
+
+		$('.widget-content form').submit();
+
+		$('#btnexp').on('click', function () {
+			var periodId = $('#Period').val();
+			var targetId = $('#Target').val();
+			var subjectId = $('#Subject').val();
+			var companyId = $('#CompanyId').val();
+			if (companyId == '') companyId = 0;
+			var Name = $('#Name').val();
+			$('#aProxy').attr("href", "/StatisticalManage/ExportStu?PeriodId=" + periodId + "&Target=" + targetId + "&Subject=" + subjectId + "&CompanyId=" + companyId + "&Name=" + Name)
+			$('#aProxy')[0].click();
+		});
+
+
+		$('.dropdown_company').searchableSelect({
+			afterSelectItem: function (v) {
+				v = v == "0" ? "" : v;
+				$('#CompanyId').val(v)
+			}
+		});
+
+	})
+</script>
+}

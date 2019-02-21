@@ -1,0 +1,73 @@
+﻿@model ExpGroup
+<div class="modal-dialog">
+
+	<!-- widget -->
+	<div class="widget">
+		<div class="widget-header">
+			<h3><i class="fa fa-edit"></i> 编辑专家组</h3>
+			<div class="btn-group widget-header-toolbar">
+				<a href="#" title="关闭" class="btn-borderless" data-dismiss="modal"><i class="fa fa-close"></i></a>
+			</div>
+		</div>
+		<div class="widget-content">
+
+			<form class="form-horizontal" action="@Url.Action("GroupEdit", "ExpManage")" role="form" data-after-success="afterDialogSuccess()">
+				<div class="row">
+					<fieldset class="col-sm-12">
+						@Html.HiddenFor(m => m.MemberCount)
+						@Html.HiddenFor(m => m.GroupId)
+						@Html.HiddenFor(m => m.TeacherCount)
+						<div class="form-group">
+							@Html.LabelFor(m => m.Name, new { @class = "col-md-3 control-label" })
+							<div class="col-md-9">
+								@Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+								@Html.ValidationMessageFor(m => m.Name)
+							</div>
+						</div>
+						<div class="form-group">
+							@Html.LabelFor(m => m.DeclareTargetPKID, new { @class = "col-md-3 control-label" })
+							<div class="col-md-9">
+								@Html.DropDownListFor(m => m.DeclareTargetPKID, DeclareBaseHelper.DeclareTarget.GetSelectList(), new { @class = "form-control" })
+							</div>
+						</div>
+						<div class="form-group">
+							@Html.LabelFor(m => m.DeclareSubjectPKID, new { @class = "col-md-3 control-label" })
+							<div class="col-md-9">
+								@Html.DropDownListFor(m => m.DeclareSubjectPKID, DeclareBaseHelper.DeclareSubject.GetSelectList(), new { @class = "form-control" })
+							</div>
+						</div>
+						<div class="form-group">
+							@Html.LabelFor(m => m.DeclareStagePKID, new { @class = "col-md-3 control-label" })
+							<div class="col-md-9">
+								@Html.DropDownListFor(m => m.DeclareStagePKID, DeclareBaseHelper.DeclareStage.GetSelectList(), new { @class = "form-control" })
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-9 col-lg-offset-3">
+								<button type="submit" class="btn btn-primary btn-block-half"><i class="fa fa-check-circle"></i> 保存</button>
+								<button type="button" class="btn btn-default btn-block-half" data-dismiss="modal">取消</button>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+			</form>
+
+		</div>
+	</div>
+	<!-- end widget -->
+</div>
+<script>
+
+	$(function () {
+
+		ajaxSubmitForm($('.modal-dialog form'));
+
+	})
+
+	function afterDialogSuccess() {
+		$('#firstModal').modal('hide');
+		$('#bootgrid').bootgrid('reload');
+	}
+
+</script>
+

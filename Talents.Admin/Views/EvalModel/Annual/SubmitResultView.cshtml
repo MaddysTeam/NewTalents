@@ -1,0 +1,255 @@
+﻿@model QualityEvalResultSummary
+@{
+	var pageTitle = "考评结果";
+}
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
+				<li class="active">@pageTitle</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-gear"></i>@Model.Period.Name</h2>
+			<em>@pageTitle</em>
+		</div>
+
+		<div class="main-content">
+
+			<div class="row">
+				<div class="col-md-3">
+
+					<!-- widget -->
+					<div class="widget">
+						<div class="widget-header">
+							<h3>基本信息</h3>
+							<div class="btn-group widget-header-toolbar">
+								<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+								<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+							</div>
+						</div>
+						<div class="widget-content">
+
+							@Html.Partial("../EvalModel/Annual/_DeclareInfo", Model.EvalMember)
+
+						</div>
+					</div>
+					<!-- /widget -->
+
+				</div>
+				<div class="col-md-9">
+
+					<!-- widget -->
+					<div class="widget">
+						<div class="widget-header">
+							<h3>专家考评结果</h3>
+							<div class="btn-group widget-header-toolbar">
+								<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+								<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+							</div>
+						</div>
+						<div class="widget-content">
+							<div class="tab-content no-padding">
+
+								<table class="table table-striped table-hover table-dark-header">
+									<tr>
+										<th class="table-col-10p">平均得分</th>
+										<td><strong class="result-score">@Model.SubmitResult.Score</strong></td>
+									</tr>
+									<tr>
+										<th>总分</th>
+										<td>@Model.SubmitResult.FullScore</td>
+									</tr>
+									<tr>
+										<th>评分人数</th>
+										<td>@Model.SubmitResult.AccesserCount</td>
+									</tr>
+									@if (Model.CurrentAccessor.IsSubmit)
+									{
+										<tr>
+											<th>调整分</th>
+											<td>@Model.SubmitResult.AdjustScore</td>
+										</tr>
+										<tr>
+											<th>提交时间</th>
+											<td>@Model.SubmitResult.AccessDate.ToString("yyyy-MM-dd")</td>
+										</tr>
+									}
+								</table>
+
+								<table class="table table-striped table-bordered">
+									<thead>
+										<tr>
+											<th>专家</th>
+											<th>评分</th>
+											<th>考评时间</th>
+											<th>查看明细</th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach (var item in Model.ExpertEvalResults)
+										{
+											<tr class="text-left">
+												<td>@item.Accessor</td>
+												<td>@(item.IsEval ? string.Format("{0} / {1}", item.Score, item.FullScore) : string.Empty)</td>
+												<td>
+													@(item.IsEval ? item.AccessDate.ToString("yyyy-MM-dd") : string.Empty)
+												</td>
+												@if (item.IsEval)
+												{
+													<td class="text-right"><button class="btn btn-xs btn-warning btn-edit" data-params="@item.ResultId,@Model.EvalMember.TargetId">查看明细</button></td>
+												}
+												else
+												{
+													<td class="text-right"></td>
+												}
+											</tr>
+										}
+									</tbody>
+								</table>
+
+								<div class="text-right">
+
+									<div class="buttons">
+										@if (Model.CurrentAccessor.IsLeader)
+										{
+											if (Model.CurrentAccessor.CanSubmit)
+											{
+												<a class="btn btn-sm btn-success" data-toggle="modal" data-target="#adjustScoreModal"><i class="fa fa-pencil-square-o"></i><span>提交考评</span></a>
+											}
+											else
+											{
+												<a class="btn btn-sm btn-success disabled"><i class="fa fa-pencil-square-o"></i><span>提交考评</span></a>
+											}
+										}
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /widget -->
+
+					<div class="evalResult">
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+		<!-- /main-content -->
+	</div>
+	<!-- /main -->
+</div>
+@section Modals{
+	<!-- Modal start -->
+	<div class="modal" id="adjustScoreModal" tabindex="-1" role="dialog" aria-labelledby="adjustScoreModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+
+			<!-- widget -->
+			<div class="widget">
+				<div class="widget-header">
+					<h3><i class="fa fa-edit"></i> 编辑用户</h3>
+					<div class="btn-group widget-header-toolbar">
+						<a href="#" title="关闭" class="btn-borderless" data-dismiss="modal"><i class="fa fa-close"></i></a>
+					</div>
+				</div>
+				<div class="widget-content">
+
+					@using (Html.BeginForm("SubmitEvalResult", "QualityEval", FormMethod.Post, new { id = "form_evalSubmit", @class = "form-horizontal" }))
+					{
+						if (Model.CurrentAccessor.IsLeader)
+						{
+							@Html.HiddenFor(model => Model.SubmitResult.Accesser)
+							@Html.HiddenFor(model => Model.SubmitResult.AccesserCount)
+							@Html.HiddenFor(model => Model.SubmitResult.DeclareTargetPKID)
+							@Html.HiddenFor(model => Model.SubmitResult.FullScore)
+							@Html.HiddenFor(model => Model.SubmitResult.AccessDate)
+							@Html.HiddenFor(model => Model.SubmitResult.GroupId)
+							@Html.HiddenFor(model => Model.SubmitResult.PeriodId)
+							@Html.HiddenFor(model => Model.SubmitResult.ResultId)
+							@Html.HiddenFor(model => Model.SubmitResult.TeacherId)
+							@Html.HiddenFor(model => Model.SubmitResult.Score)
+						}
+
+						<div class="row">
+							<fieldset class="col-sm-12">
+								<div class="form-group">
+									@Html.LabelFor(m => m.SubmitResult.Score, new { @class = "control-label col-md-3" })
+									<div class="col-md-9">
+										<span class="form-control details-text">@Model.SubmitResult.Score</span>
+									</div>
+								</div>
+								<div class="form-group">
+									@Html.LabelFor(m => m.SubmitResult.FullScore, new { @class = "control-label col-md-3" })
+									<div class="col-md-9">
+										<span class="form-control details-text">@Model.SubmitResult.FullScore</span>
+									</div>
+								</div>
+								<div class="form-group">
+									@Html.LabelFor(m => m.SubmitResult.AccesserCount, new { @class = "control-label col-md-3" })
+									<div class="col-md-9">
+										<span class="form-control details-text">@Model.SubmitResult.AccesserCount</span>
+									</div>
+								</div>
+								<div>
+									<div class="text-danger col-md-3"></div>
+									<div class="text-danger col-md-9"><i class="glyphicon glyphicon-exclamation-sign">可以根据实际情况调整学员得分</i></div>
+								</div>
+								<div class="form-group">
+									@Html.LabelFor(m => m.SubmitResult.AdjustScore, new { @class = "control-label col-md-3" })
+									<div class="col-md-9">
+										@Html.TextBoxFor(m => m.SubmitResult.AdjustScore, new { @class = "form-control" })
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-9 col-lg-offset-3">
+										<button type="submit" class="btn btn-primary btn-block-half"><i class="fa fa-check-circle"></i> 提交</button>
+										<button type="button" class="btn btn-default btn-block-half" data-dismiss="modal">取消</button>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					}
+
+				</div>
+			</div>
+			<!-- end widget -->
+
+
+		</div>
+	</div>
+	<!-- Modal end -->
+}
+@section Scripts{
+	<script>
+
+		var resultId = '@Request["resultId"]';
+		var targetId = '@Request["targetId"]';
+
+		function LoadResultView(resultId, targetId) {
+			$.post('@Url.Action("ResultView", "QualityEval")', { 'resultId': resultId, 'targetId': targetId }, function (data) {
+				$('.evalResult').html(data);
+			})
+		}
+
+	  	$(function () {
+
+	  		$('.btn-warning').click(function () {
+	  			var params = $(this).attr('data-params').split(',');
+
+	  			LoadResultView(params[0], params[1]);
+	  		});
+
+	  		if (resultId) {
+	  			LoadResultView(resultId, targetId);
+	  		}
+	  	});
+
+	</script>
+}

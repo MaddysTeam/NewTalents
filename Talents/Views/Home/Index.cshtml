@@ -1,0 +1,134 @@
+﻿@{
+	ViewBag.Title = "首页";
+	var NewsList = ViewBag.NewsList;
+	var ImgList = ViewBag.ImgList as List<Business.HomePageImage>;
+	int ImgCount = ImgList.Count > 5 ? 5 : ImgList.Count;
+}
+
+<section id="layout" class="no-title">
+	<div class="twelve columns mobile-twelve  mvb_first mvb_last">
+		<div class="mvb_inner_wrapper" style="">
+			<div class="module shortcode    ">
+				<p>
+				</p>
+				<div class="ls-wp-fullwidth-container">
+					<div class="ls-wp-fullwidth-helper">
+						<div id="layerslider_25" class="ls-wp-container">
+
+							@for (int i = 0; i < ImgCount; i++)
+							{
+								<div class="ls-slide" data-ls="transition2d all;">
+									<img class="ls-l"
+										  data-ls="offsetxin:0;offsetyin:bottom;fadein:false;offsetxout:0;offsetyout:bottom;durationout:1000;fadeout:false;"
+										  src="@ImgList[i].ImgUrl"
+										  data-ng-src="~/assets/img/Bg.jpg"
+										  alt="" style="width:1200px;height:400px;">
+								</div>
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<section>
+	<div class="wrap">
+		<div class="crumina-slider-wrap">
+			<div id="crum-slider" data-width="">
+				<div class="element-2-2 item">
+					<div class="block-news">
+						<div class="cat-name">
+							<a href="@Url.Action("News","Home")">新闻动态</a>
+						</div>
+
+						<dl class="dl-absolute">
+							@foreach (var item in NewsList)
+							{
+								<dd><a target="_blank" href="@Url.Action("NewsDetail", "Home", new { id = item.NewsId })">@item.Title</a></dd>
+							}
+						</dl>
+
+					</div>
+				</div>
+				<div class="element-2-1 item">
+					<div class="block-intro">
+						<div class="cat-name">
+							<a href="@Url.Action("About","Home")">平台简介</a> &nbsp;
+						</div>
+						<div class="entry-thumb">
+							<div class="cnt">
+								<img src="~/assets/img/img_intro.png" class="normal" />
+								<p>为突出以“教师为本”的服务理念，方便梯队教师记录个人的成长轨迹、实现梯队成员之间的在线协作交流，教育局开发设计了集资源、课程、协作教研三位一体的“虹口区教师专业人才梯队建设管理平台”。梯队教师通过管理平台，记录专业成长过程。同时，管理平台将汇聚区域教师优质教育教学成果，形成纵横交织的信息交流网络，提供跨学科、跨学段、多角度的协作研修桥梁。</p>
+							</div>
+							<a href="@Url.Action("About","Home")" class="link"> </a>
+						</div>
+					</div>
+				</div>
+				@*<div class="element-1-1 item">
+					<div class="block-faq">
+						<div class="cat-name">
+							<a href="@Url.Action("FAQ","Home")">疑难解答</a> &nbsp;
+						</div>
+						<div class="entry-thumb">
+							<div class="cnt">
+								<p>如何使用人才梯队系统... ...</p>
+								<img src="~/assets/img/img_faq.png" class="normal" />
+							</div>
+							<a href="@Url.Action("FAQ","Home")" class="link"> </a>
+						</div>
+					</div>
+				</div>*@
+				<div class="element-2-1 item">
+					<div class="block-contact">
+						<div class="cat-name">
+							<a href="@Url.Action("Contact","Home")">联系我们</a> &nbsp;
+						</div>
+						<div class="entry-thumb">
+							<div class="cnt">
+								<p>与我们取得联系... ...</p>
+								<img src="~/assets/img/img_contact.png" class="normal" />
+							</div>
+							<a href="@Url.Action("Contact","Home")" class="link"> </a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+@section scripts{
+<script data-cfasync="false" type="text/javascript">
+	var lsjQuery = jQuery;
+	lsjQuery(document).ready(function () {
+		if (typeof lsjQuery.fn.layerSlider == "undefined") {
+			lsShowNotice('layerslider_25', 'jquery');
+		} else {
+			lsjQuery("#layerslider_25").layerSlider({
+				responsiveUnder: 1180,
+				layersContainer: 1200,
+				startInViewport: false,
+				twoWaySlideshow: true,
+				skin: 'fullwidth',
+				globalBGColor: '#14a6d6',
+				showCircleTimer: false,
+				thumbnailNavigation: 'disabled',
+				autoPlayVideos: false,
+				lazyLoad: false,
+				yourLogoStyle: 'left: 10px; top: 10px;',
+				cbInit: function (element) { },
+				cbStart: function (data) { },
+				cbStop: function (data) { },
+				cbPause: function (data) { },
+				cbAnimStart: function (data) { },
+				cbAnimStop: function (data) { },
+				cbPrev: function (data) { },
+				cbNext: function (data) { },
+			})
+		}
+	});
+</script>
+}

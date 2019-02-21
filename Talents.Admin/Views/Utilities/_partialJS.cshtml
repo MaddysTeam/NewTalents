@@ -1,0 +1,83 @@
+﻿<script>
+	$(function () {
+
+		// widget expand
+		$(".btn-expand").click(function (e) {
+			e.preventDefault();
+
+			var t = $(this).closest(".widget");
+
+			if ($("body").hasClass("widget-expand") && $(t).hasClass("widget-expand")) {
+				$("body, .widget").removeClass("widget-expand");
+				$(".widget").removeAttr("style");
+			} else {
+				$("body").addClass("widget-expand");
+				$(this).closest(".widget").addClass("widget-expand");
+			}
+			$(window).trigger("resize")
+		})
+
+		// widget focus
+		$('.widget .btn-focus').clickToggle(
+			function (e) {
+				e.preventDefault();
+				$(this).find('i.fa-eye').toggleClass('fa-eye-slash');
+				$(this).parents('.widget').find('.btn-remove').addClass('link-disabled');
+				$(this).parents('.widget').addClass('widget-focus-enabled');
+				$('<div id="focus-overlay"></div>').hide().appendTo('body').fadeIn(300);
+
+			},
+			function (e) {
+				e.preventDefault();
+				$theWidget = $(this).parents('.widget');
+
+				$(this).find('i.fa-eye').toggleClass('fa-eye-slash');
+				$theWidget.find('.btn-remove').removeClass('link-disabled');
+				$('body').find('#focus-overlay').fadeOut(function () {
+					$(this).remove();
+					$theWidget.removeClass('widget-focus-enabled');
+				});
+			}
+		)
+
+		ajaxSubmitForm($('.widget-content form'));
+
+		$('.widget .btn-remove').click(function (e) {
+			e.preventDefault();
+
+			if (confirm("确定要执行删除操作吗？")) {
+				var $this = $(this);
+				var url = $this.data('url');
+
+				$.post(url, null, function (data, status) {
+					popupMessage(data, {
+						success: function () {
+							loadFrag();
+						}
+					});
+				})
+			}
+		});
+
+
+		$('.widget .btn-share').click(function (e) {
+			e.preventDefault();
+
+			if (confirm("确定要执行共享操作吗？")) {
+				var $this = $(this);
+				var url = $this.data('url');
+
+				$.post(url, null, function (data, status) {
+					popupMessage(data, {
+						success: function () {
+							loadFrag();
+						}
+					});
+				})
+			}
+		});
+
+		insureSummernot($('#sum'));
+	})
+
+</script>

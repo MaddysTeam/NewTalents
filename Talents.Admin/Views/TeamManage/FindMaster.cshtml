@@ -1,0 +1,30 @@
+﻿@model List<FindMasterModel>
+<table class="table table-condensed table-striped table-hover table-dark-header">
+	<thead>
+		<tr>
+			<th>梯队名称</th>
+			<th>导师姓名</th>
+			<th>称号</th>
+			<th>学科</th>
+			<th>学段</th>
+			<th class="width120">操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+		<tr>
+			<td>@item.teamName</td>
+			<td>@item.realName</td>
+			<td>@item.target</td>
+			<td>@item.subject</td>
+			<td>@item.stage</td>
+			<td>
+				<div class="btn-group btn-group-xs pull-right" data-row-id="@item.id">
+					<button class="btn btn-success btn-assign">指派</button>
+				</div>
+			</td>
+		</tr>
+		}
+	</tbody>
+</table>

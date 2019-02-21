@@ -1,0 +1,52 @@
+﻿@model PeihJiaoyyGongz_JiaoyXinxModel
+@{ 
+	var pageTitle = ViewBag.Title = DeclareKeys.PeihJiaoyyGongz_JiaoyXinx;
+}
+<!-- WIDGET TABBED CONTENT -->
+<div class="widget">
+	<div class="widget-header">
+		<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
+		<div class="btn-group widget-header-toolbar">
+			<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+			<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+		</div>
+	</div>
+	<div class="widget-content">
+
+		<form action="@Url.Action("PeihJiaoyyGongz_JiaoyXinx", "Declare")" class="form-horizontal form-group-sm">
+			<div class="row">
+				<fieldset class="col-md-12">
+					<div class="form-group">
+						@Html.LabelFor(m => m.Memo3, new { @class = "col-md-12 control-label" })
+						<div class="col-md-12">
+							<div class="input-group date" data-provide="datepicker" data-date-language="zh-CN" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
+								@Html.TextBoxFor(m => m.Memo3, "{0:yyyy-MM-dd}", new { @class = "form-control" })
+								<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.Memo1, new { @class = "col-md-12 control-label" })
+						<div class="col-md-12">
+							@Html.TextBoxFor(m => m.Memo1, new { @class = "form-control" })
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.Memo2, new { @class = "col-md-12 control-label" })
+						<div class="col-md-12">
+							@Html.TextBoxFor(m => m.Memo2, new { @class = "form-control" })
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-offset-2">
+							<button type="submit" class="btn btn-custom-primary btn-save"><i class="fa fa-save"></i> 保存</button>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		</form>
+
+	</div>
+</div>
+<!-- END WIDGET TABBED CONTENT -->
+@Html.Partial("../Utilities/_partialJS")

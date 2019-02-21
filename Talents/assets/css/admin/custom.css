@@ -1,0 +1,113 @@
+﻿.set_wd_1 {
+  width:100%;
+}
+.set_wd_ot {
+  width:5%;
+}
+.month-income li p{
+  font-size:16px;
+  line-height:40px;
+}
+  
+.width-80 {
+  width: 80px;
+}
+.font-14 {
+	font-size:14px;
+}
+#cssmenu > ul > li.sp {
+  margin-left: 5px;
+}
+.color-line {
+  background:#3498db;
+  height: 6px;
+}
+.modal-content {
+  border-radius: 0;
+  border: none;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.modal-backdrop.in {
+  opacity: 0.4;
+}
+.modal-backdrop {
+  position: fixed;
+  bottom: 0;
+}
+
+.modal-content .modal-dialog {
+  margin-top: 80px;
+}
+.modal-content .modal-header {
+  padding: 30px 30px;
+  background: #f7f9fa;
+}
+.modal-content .modal-title {
+  font-size: 30px;
+  font-weight: 300;
+  color: #34495e;
+}
+
+.modal-content .modal-body {
+  padding: 20px 30px;
+}
+.modal-content .modal-header small {
+  color: #9d9fa2;
+}
+.modal-content .modal-footer {
+  background: #f7f9fa;
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
+
+.table-borderbold > tbody > tr > td, .table-borderbold > tbody > tr > th {
+	border:1px solid black !important;
+	height:28px;
+}
+
+.width-per-1 {
+	width:8%;
+}
+.width-per-2 {
+	width:16%;
+}
+.width-per-3 {
+	width:24%;
+}
+.width-per-4 {
+	width:32%;
+}
+width-per-5 {
+	width:40%;
+}
+.height-30 {
+	height:30px !important;
+}
+.height-80 {
+	height:80px !important;
+}
+.height-60 {
+	height:60px !important;
+}
+.height-100 {
+	height:100px !important;
+}
+.height-500 {
+	height:500px !important;
+}
+@media (min-width: 1200px) {
+  .modal-lg {
+    width: 1140px;
+  }
+}
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.dashboard-wrapper {
+  min-height: 1000px;
+}

@@ -1,0 +1,280 @@
+﻿@model Webdiyer.WebControls.Mvc.PagedList<InspectionViewModel>
+<div class="table-responsive">
+	<table class="table table-bordered table-striped" id="activity">
+		<thead>
+			<tr>
+				<th class="nowrap" rowspan="3">序号</th>
+				<th rowspan="3">
+					带教团队，称号
+				</th>
+				<th rowspan="3">
+					学科
+				</th>
+				<th rowspan="3">
+					姓名
+				</th>
+				<th rowspan="3">
+					单位
+				</th>
+				<th rowspan="3">
+					总得分/分值
+				</th>
+				<th rowspan="3">
+					校评得分/分值
+				</th>
+				<th rowspan="3">
+					量评得分/分值
+				</th>
+				<th rowspan="3">
+					质评得分/分值
+				</th>
+				<th rowspan="3">
+					特色得分/分值
+				</th>
+				<th rowspan="3">
+					师德
+				</th>
+				<th colspan="2">
+					在校履职
+				</th>
+				<th colspan="8">
+					自身发展
+				</th>
+				<th colspan="8">
+					培训课程
+				</th>
+				<th colspan="10">
+					带教教师
+				</th>
+			</tr>
+			<tr>
+				<th rowspan="2">
+					量评得分/分值
+				</th>
+				<th rowspan="2">
+					质评得分/分值
+				</th>
+				<th colspan="2">
+					读书活动
+				</th>
+				<th colspan="2">
+					开课、评委、评比
+				</th>
+				<th colspan="2">
+					科研
+				</th>
+				<th rowspan="2">
+					量评得分/分值
+				</th>
+				<th rowspan="2">
+					质评得分/分值
+				</th>
+				<th colspan="2">
+					开设课程
+				</th>
+				<th colspan="2">
+					讲座、报告
+				</th>
+				<th colspan="2">
+					课程资源
+				</th>
+				<th rowspan="2">
+					量评得分/分值
+				</th>
+				<th rowspan="2">
+					质评得分/分值
+				</th>
+				<th colspan="2">
+					带教指导
+				</th>
+				<th colspan="2">
+					活动与经费制度
+				</th>
+				<th colspan="2">
+					其他带教工作
+				</th>
+				<th colspan="2">
+					带教成果
+				</th>
+				<th rowspan="2">
+					量评得分/分值
+				</th>
+				<th rowspan="2">
+					质评得分/分值
+				</th>
+			</tr>
+			<tr>
+				<th>量评得分/分值</th>
+				<th>质评得分/分值</th>
+				<th>量评得分/分值</th>
+				<th>质评得分/分值</th>
+				<th>量评得分/分值</th>
+				<th>质评得分/分值</th>
+				<th>量评得分/分值</th>
+				<th>质评得分/分值</th>
+				<th>量评得分/分值</th>
+				<th>质评得分/分值</th>
+				<th>量评得分/分值</th>
+				<th>质评得分/分值</th>
+				<th>量评得分/分值</th>
+				<th>质评得分/分值</th>
+				<th>量评得分/分值</th>
+				<th>质评得分/分值</th>
+				<th>量评得分/分值</th>
+				<th>质评得分/分值</th>
+				<th>量评得分/分值</th>
+				<th>质评得分/分值</th>
+			</tr>
+		</thead>
+		<tbody>
+			@{ int i = 0;}
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>@(Model.StartItemIndex + i++)</td>
+					<td>
+						@Html.DisplayFor(m => item.TargetName)
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.SubjectName)
+					</td>
+					<td>
+						<a data-toggle="ajax-modal" data-url="@Url.Action("MemberList", "StatisticalManage", new { id = item.TeacherId})" data-target="#firstModal">
+							@Html.DisplayFor(m => item.TeacherName)
+						</a>
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.CompanyName)
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.TotalStr)
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.SchoolStr)
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.VolumnStr)
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.QualityStr)
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.Quality.TesGongz_Str)
+					</td>
+					<td>
+						<!-- 师德 -->
+						@Html.DisplayFor(m => item.School.Shid)
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.School.Volumn_Str) 
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.School.Quality_Str) 
+					</td>
+					<td>
+						<!-- 读书活动 -->
+						@Html.DisplayFor(m => item.Volumn.DusHuod_Str)
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.Quality.DusHuod_Str)
+					</td>
+					<td>
+						<!-- 开课、评委、评比 -->
+						@Html.DisplayFor(m => item.Volumn.KaikPingwPingb_Str)
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.Quality.KaikPingwPingb_Str)
+					</td>
+					<td>
+						<!-- 科研 -->
+						@Html.DisplayFor(m => item.Volumn.Key_Str) 
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.Quality.Key_Str)
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.Volumn.ZisFaz_Str)	
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.Quality.ZisFaz_Str)	
+					</td>
+					<td>
+						<!-- 开设课程 -->
+						@Html.DisplayFor(m => item.Volumn.KaisKec_Str)
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.Quality.KaisKec_Str)
+					</td>
+					<td>
+						<!-- 讲座、报告 -->
+						@Html.DisplayFor(m => item.Volumn.JiangzBaog_Str)
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.Quality.JiangzBaog_Str)
+					</td>
+					<td>
+						<!-- 课程资源 -->
+						@Html.DisplayFor(m => item.Volumn.KecZiy_Str)
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.Quality.KecZiy_Str)
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.Volumn.PeixKec_Str)
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.Quality.PeixKec_Str)
+					</td>
+					<td>
+						<!-- 带教指导 -->
+						@Html.DisplayFor(m => item.Volumn.DaijZhid_Str)
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.Quality.DaijZhid_Str)
+					</td>
+					<td>
+						<!-- 活动与经费制度 -->
+						@Html.DisplayFor(m => item.Volumn.HuodJingfZhid)
+					</td>
+					<td>
+						无
+						@*@Html.DisplayFor(m => item.Quality.DaijJiaos.HuodJingfZhid)*@
+					</td>
+					<td>
+						<!-- 其他带教工作 -->
+						@Html.DisplayFor(m => item.Volumn.QitDaijGongz_Str)
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.Quality.QitDaijGongz_Str)
+					</td>
+					<td>
+						<!-- 带教成果 -->
+						@Html.DisplayFor(m => item.Volumn.DaijChengg_Str)
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.Quality.DaijChengg_Str)
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.Volumn.DaijJiaos_Str)
+					</td>
+					<td>
+						@Html.DisplayFor(m => item.Quality.DaijJiaos_Str)
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+	
+	<div class="pull-right">
+		@Ajax.Pager(Model, new PagerOptions{
+						 PageIndexParameterName = "current",
+						 ContainerTagName = "ul",
+						 CssClass = "pagination",
+						 CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>",
+						 DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>",
+						 PagerItemTemplate = "<li>{0}</li>",
+						 Id = "bootstrappager",
+						 AutoHide = false},
+						new MvcAjaxOptions { UpdateTargetId = "articles", HttpMethod = "Post", DataFormId = "searchForm" })
+	</div>
+</div>

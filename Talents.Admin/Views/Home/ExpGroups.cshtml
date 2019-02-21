@@ -1,0 +1,48 @@
+﻿@model ExpGroupList
+@{
+	var periodId = ViewBag.periodId;
+ }
+<div class="row">
+	<div class="col-md-12">
+
+		<div class="widget">
+			<div class="widget-header">
+				<h3><i class="fa fa-bar-chart-o"></i>专家组</h3>
+			</div>
+			<div class="widget-content">
+				<div class="row">
+
+					@foreach (var item in Model.Groups)
+					{
+						<div class="col-md-4">
+							<div class="panel panel-default  group-block" data-param="@item.GroupId,@periodId">
+								<div class="panel-heading group-block-header">
+									@item.Name
+								</div>
+								<table class="table table-condensed table-striped table-hover">
+									<tbody>
+										<tr>
+											<td>组长</td>
+											<td id="td_leader"></td>
+										</tr>
+										<tr>
+											<td>已评学员人数</td>
+											<td class="text-center"><a id="a_evalCount" href="@Url.Action("EvalMemberList","QualityEval", new { groupId = item.GroupId, periodId = periodId })"></a></td>
+										</tr>
+										<tr>
+											<td>未评学员人数</td>
+											<td class="text-center"><a id="a_notEvalCount" href="@Url.Action("NotEvalMemberList","QualityEval", new { groupId = item.GroupId, periodId = periodId })"><span></span></a></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					}
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>

@@ -1,0 +1,47 @@
+﻿@model List<TeamSpecialCourseViewModel>
+@{
+	var pageTitle = ViewBag.Title = TeamKeys.KecShis;
+}
+<!-- WIDGET TABBED CONTENT -->
+<div class="widget">
+	<div class="widget-header">
+		<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
+		<div class="btn-group widget-header-toolbar">
+			<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+			<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+		</div>
+	</div>
+	<div class="widget-content">
+
+		<div class="table-responsive">
+			<table class="table table-condensed table-striped table-hover">
+				<thead>
+					<tr>
+						<th>时间段</th>
+						<th>课程主题</th>
+						<th>安排数量</th>
+						<th class="width120">操作</th>
+					</tr>
+				</thead>
+				<tbody>					
+					@foreach (var item in Model)
+					{
+						<tr>
+							<td>@item.StartDate.ToString("yyyy-MM-dd") 至 @item.EndDate.ToString("yyyy-MM-dd")</td>
+							<td>@item.Title</td>
+							<td>@item.ItemCount</td>
+							<td>
+								<div class="btn-group btn-group-xs pull-right">
+									<a class="btn btn-custom-primary btn-add" href="javascript:loadFrag({key: '@TeamKeys.KecShis_Chak', courseId:@item.CourseId})" title="查看课程">查看课程</a>
+									<a class="btn btn-info" href="javascript:loadFrag({key: '@TeamKeys.KecShis_Anp', courseId:@item.CourseId})" title="课程安排">安排</a>
+								</div>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<!-- END WIDGET TABBED CONTENT -->
+@Html.Partial("../Utilities/_partialJS")

@@ -1,0 +1,71 @@
+﻿@model Notice
+@{ 
+	var pageTitle = ViewBag.Title = "通知详细";
+	var list = ViewBag.AttachmentList;
+}
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
+				<li class="active">@pageTitle</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-users"></i> @pageTitle</h2>
+			<em></em>
+		</div>
+
+		<div class="main-content">
+
+			<!-- widget -->
+			<div class="widget">
+				<div class="widget-header">
+					<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
+					<div class="btn-group widget-header-toolbar">
+						<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+						<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+					</div>
+					<div class="btn-group widget-header-toolbar pull-right">
+						<a href="@Url.Action("List")" class="btn btn-sm btn-info">返回</a>
+					</div>
+				</div>
+				<div class="widget-content">
+
+					<div class="row">
+
+						<fieldset class="col-md-10 col-md-offset-1">
+
+							<h3><strong>@Model.Title</strong> <small>@Model.CreatedTime.ToString("yyyy-MM-dd")</small> </h3>
+
+							<div class="mt-20">
+								@Html.Raw(Model.Content)
+							</div>
+
+							@if (list != null)
+							{
+								foreach (var item in list)
+								{
+									<p>
+										<a href="@Url.Content(item.AttachmentName)" title="@item.AttachmentName">@(item.AttachmentName.Length > 40 ? item.AttachmentName.Substring(0, 37) + "..." : item.AttachmentName)</a>
+									</p>
+								}
+							}
+						</fieldset>
+
+					</div>
+
+				</div>
+				<!-- /widget content -->
+			</div>
+			<!-- /widget -->
+
+		</div>
+		<!-- /main-content -->
+	</div>
+	<!-- /main -->
+</div>
