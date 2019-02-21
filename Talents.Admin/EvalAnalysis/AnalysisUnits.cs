@@ -117,4 +117,21 @@ namespace TheSite.EvalAnalysis
 
 	}
 
+   public abstract class DecalreEvalUnitBase : AnalysisUnit
+   {
+
+      public abstract long TargetId { get; }
+
+      public abstract List<EvalQualityResult> GetResults(APDBDef db, DecalreEvalParam param);
+
+      public abstract EvalQualityResult GetResult(APDBDef db, DecalreEvalParam param);
+
+      public abstract Dictionary<string, EvalQualityResultItem> GetResultItem(APDBDef db, DecalreEvalParam param);
+
+    //  public abstract Dictionary<string, string> ChooseEvalResultItems(Dictionary<string, EvalQualityResultItem> items);
+
+      public abstract long Eval(APDBDef db, DecalreEvalParam param, System.Web.Mvc.FormCollection fc);
+
+   }
+
 }

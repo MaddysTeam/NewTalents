@@ -31,4 +31,11 @@
 
 	}
 
+   public class DecalreEvalParam: EvalParam
+   {
+      public long GroupId { get; set; }
+      public long TargetId { get; set; }
+      public long ResultId { get; set; }
+   }
+
 }

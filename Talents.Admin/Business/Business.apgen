@@ -485,7 +485,6 @@
 				</columns>
 			</table>
 
-
 			<table name="DeclareMaterial" comment="申报材料，用于申报流程">
 				<columns>
 
@@ -493,8 +492,8 @@
 					<add name="UserId" type="long" display="申报者ID"/>
 					<add name="ItemId" type="long" display="申报项ID"/>
 					<add name="Title" type="string" dataLength="1000" display="标题/内容"/>
-					<!--<add name="ParentType" type="string" dataLength="255"  display="父共享类型"/>
-					<add name="Type" type="string" dataLength="255" display="共享类型"/>-->
+					<add name="ParentType" type="string" dataLength="255" />
+					<add name="Type" type="string" dataLength="255" display="申报类型"/>
 					<add name="CreateDate" type="DateTime" display="创建时间"/>
 					<add name="PubishDate" type="DateTime" display="发布时间"/>
 
@@ -789,6 +788,7 @@
 
 				</columns>
 			</table>
+			
 		
 			<!-- 评价.质评 -->
 

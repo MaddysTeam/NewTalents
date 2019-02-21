@@ -48,7 +48,7 @@ namespace Business.Config
 		public const string Approve = "SignApprove";
 
       // 日志数据库连接字符串
-      public const string LogDBConnctString = "Data Source=10.1.1.8;Initial Catalog=NewTalents;User ID=sa;Password=Kd2017.com;";
+      public static string LogDBConnctString => ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;// "Data Source=10.1.1.8;Initial Catalog=NewTalents;User ID=sa;Password=Kd2017.com;";
 
       // 日志文件地址
       public const string LogFilePath = "";
