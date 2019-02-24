@@ -80,7 +80,7 @@
 		$('.widget .btn-declare').click(function (e) {
 			e.preventDefault();
 
-			if (confirm("确定要申报该材料吗？")) {
+			//if (confirm("确定要申报该材料吗？")) {
 				var $this = $(this);
 				var url = $this.data('url');
 
@@ -91,7 +91,7 @@
 						}
 					});
 				})
-			}
+			//}
 		});
 
 		insureSummernot($('#sum'));

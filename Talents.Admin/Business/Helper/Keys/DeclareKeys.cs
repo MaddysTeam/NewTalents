@@ -123,6 +123,11 @@
       public const string ZisFaz_ZhansKec = "自身发展.展示课程";
       public const string ZisFaz_PingwGongzHuoPbiHuoj = "自身发展.评委工作或评比获奖";
 
+
+      //review 
+      public const string ReviewSuccess = "审核通过";
+      public const string ReviewProcess = "待审核";
+      public const string ReviewFailure = "审核不通过";
    }
 
 }

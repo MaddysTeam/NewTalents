@@ -36,7 +36,9 @@ namespace Business
 
       public bool IsSystemAdmin { get; set; }
 
-		public long TargetId { get; set; }
+      public bool IsSchoolAdmin { get; set; }
+
+      public long TargetId { get; set; }
 
     }
 

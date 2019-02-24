@@ -20,18 +20,44 @@
 						@Html.LabelFor(m => m.Memo1, new { @class = "col-md-12 control-label" })
 						<div class="col-md-12">
 							@Html.TextAreaFor(m => m.Memo1, 5, 5, new { @class = "form-control" })
+							@if (Model.IsDeclare1)
+							{
+								<button class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareContent", "DeclareMaterial", new { key =DeclareKeys.ZisFaz_GerChengj_Memo1, isDeclare = false })">取消申报</button>
+							}
+							else
+							{
+								<button class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareContent", "DeclareMaterial", new { key = DeclareKeys.ZisFaz_GerChengj_Memo1, isDeclare = true })">申报</button>
+							}
 						</div>
+
 					</div>
 					<div class="form-group">
 						@Html.LabelFor(m => m.Memo2, new { @class = "col-md-12 control-label" })
 						<div class="col-md-12">
 							@Html.TextAreaFor(m => m.Memo2, 5, 5, new { @class = "form-control" })
+							@if (Model.IsDeclare2)
+							{
+								<button class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareContent", "DeclareMaterial", new { key = DeclareKeys.ZisFaz_GerChengj_Memo2, isDeclare = false })">取消申报</button>
+							}
+							else
+							{
+
+								<button class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareContent", "DeclareMaterial", new { key = DeclareKeys.ZisFaz_GerChengj_Memo2, isDeclare = true })">申报</button>
+							}
 						</div>
 					</div>
 					<div class="form-group">
 						@Html.LabelFor(m => m.Memo3, new { @class = "col-md-12 control-label" })
 						<div class="col-md-12">
 							@Html.TextAreaFor(m => m.Memo3, 5, 5, new { @class = "form-control" })
+							@if (Model.IsDeclare3)
+							{
+								<button class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareContent", "DeclareMaterial", new { key =DeclareKeys.ZisFaz_GerChengj_Memo3, isDeclare = false })">取消申报</button>
+							}
+							else
+							{
+								<button class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareContent", "DeclareMaterial", new { key =DeclareKeys.ZisFaz_GerChengj_Memo3, isDeclare = true })">申报</button>
+							}
 						</div>
 					</div>
 					<div class="form-group">

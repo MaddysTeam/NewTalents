@@ -19,6 +19,9 @@ namespace TheSite.Models
       [Display(Name = "是否共享")]
       public bool IsShare { get; set; }
 
+      [Display(Name = "是否申报")]
+      public bool IsDeclare { get; set; }
+
       [Display(Name = "证明文件路径")]
       public string VertificationUrl { get; set; }
 
@@ -34,6 +37,9 @@ namespace TheSite.Models
 
       [Display(Name = "是否共享")]
       public bool IsShare { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare { get; set; }
 
       [Display(Name = "证明文件路径")]
       public string VertificationUrl { get; set; }
@@ -56,6 +62,19 @@ namespace TheSite.Models
 
       [Display(Name = "之后获得研究成果")]
       public string Memo3 { get; set; }
+
+      public long ItemKey1 { get; set; }
+
+      public bool IsDeclare1 { get; set; }
+
+      public long ItemKey2 { get; set; }
+
+      public bool IsDeclare2 { get; set; }
+
+      public long ItemKey3 { get; set; }
+
+      public bool IsDeclare3 { get; set; }
+
 
    }
 
@@ -861,6 +880,18 @@ namespace TheSite.Models
 
       [Display(Name = "开始参与教研工作时间")]
       public DateTime Memo3 { get; set; }
+
+      public string Key1 { get; set; }
+
+      public string Key2 { get; set; }
+
+      public string Key3 { get; set; }
+
+      public bool IsDeclare1 { get; set; }
+
+      public bool IsDeclare2 { get; set; }
+
+      public bool IsDeclare3 { get; set; }
 
    }
 

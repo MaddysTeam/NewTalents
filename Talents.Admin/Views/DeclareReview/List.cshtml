@@ -1,7 +1,8 @@
 ﻿
 @{
-	var pageTitle = ViewBag.Title = "个人申报材料管理";
-	var teacherId = Request["teacherId"];
+	var pageTitle = ViewBag.Title = "教师申报审核列表";
+	//var teacherId = Request["teacherId"];
+	//var schoold= HttpAntiForgeryException.
 }
 <div class="col-md-10 content-wrapper">
 	<div class="row">
@@ -25,7 +26,7 @@
 			<!-- widget -->
 			<div class="widget">
 				<div class="widget-header">
-					<h3><i class="fa fa-paperclip"></i> 申报材料列表</h3>
+					<h3><i class="fa fa-paperclip"></i> 申报教师列表</h3>
 					<div class="btn-group widget-header-toolbar">
 						<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
 						<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
@@ -38,10 +39,9 @@
 						<table id="bootgrid" class="table table-striped table-hover table-dark-header">
 							<thead>
 								<tr>
-									<th data-column-id="id" data-order="desc">材料编号</th>
-									<th data-column-id="type" data-order="desc">材料分类</th>
-									<th data-column-id="title" data-order="desc">内容标题/信息</th>
-									<th data-column-id="realName">申报人</th>
+									<th data-column-id="id" data-order="desc">申报编号</th>
+									<th data-column-id="realName" data-order="desc">申报教师姓名</th>
+									<th data-column-id="status" data-order="desc">审核状态</th>
 									<th data-column-id="commands" data-formatter="commands" data-sortable="false" data-header-Css-Class="width180">操作</th>
 								</tr>
 							</thead>
@@ -70,7 +70,9 @@
 	<script>
 
 		function getGlobalRequest() {
-			return {};
+			return {
+
+			};
 		}
 
 		function getGridOptions() {
@@ -82,10 +84,10 @@
 
 				formatters: {
 					'commands': function (column, row) {
-						var temp = '<a target="_blank" class="btn btn-warning btn-share" href="#"><i class="fa fa-external-link"></i>取消申报</a>';
-						return '<div class="btn-group btn-group-xs pull-right" data-parent-type="' + row.parentType + '" data-type="' + row.type + '" data-row-id="' + row.itemId + '">' +
+						var temp = '<a target="_blank" href="/DeclareMaterial/Overview?id=' + row.teacherId + '" class="btn btn-warning btn-overview"><i class="fa fa-external-link"></i>查看申报材料</a>';
+						return '<div class="btn-group btn-group-xs pull-right"  data-row-id="' + row.id + '">' +
 								 temp +
-								 '<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-target="#firstModal" title="查看附件">查看附件</button>' +
+								 '<a class="btn btn-danger btn-review" data-toggle="ajax-modal" data-target="#firstModal" title="申报审核">申报审核</a>' +
 								 '</div>';
 					},
 				},
@@ -99,28 +101,27 @@
 			grid.bootgrid(getGridOptions())
 			.on('loaded.rs.jquery.bootgrid', function () {
 
-				grid.find('.btn-share').on('click', function (e) {
-					e.preventDefault();
+				//grid.find('.btn-review').on('click', function (e) {
+				//	e.preventDefault();
 
-					if (confirm("确定要执行取消申报操作吗？")) {
-						var id = $(this).parent().data('rowId');
-						var parentType = $(this).parent().data('parentType');
-						$.post('/DeclareMaterial/' + parentType, { id: id, isDeclare: false }, function (data, status) {
-							popupMessage(data, {
-								success: function () {
-									$('#bootgrid').bootgrid('reload');
-								}
-							});
-						})
-					}
-				});
+				//	//if (confirm("确定要执行取消申报操作吗？")) {
+				//	//	var id = $(this).parent().data('rowId');
+				//	//	var action = $(this).parent().data('parentType');
+				//	//	$.post('/DeclareMaterial/' + action, { id: id, isShare: false }, function (data, status) {
+				//	//		popupMessage(data, {
+				//	//			success: function () {
+				//	//				$('#bootgrid').bootgrid('reload');
+				//	//			}
+				//	//		});
+				//	//	})
+				//	//}
+				//});
 
 
-				grid.find('.btn-view').on('click', function (e) {
+				grid.find('.btn-review').on('click', function (e) {
 					var id = $(this).parent().data('rowId');
-					var type = $(this).parent().data('type');
 					var $proxy = $('#modelProxy');
-					var url = '/DeclarePop/AttachmentsView/?id=' + id + '&type=' + type;
+					var url = '/DeclareReview/Edit/?id=' + id;
 					$proxy
 						.data('url', url)
 						.trigger('click');

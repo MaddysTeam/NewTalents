@@ -1,6 +1,7 @@
 ﻿@{
 	var pageTitle = ViewBag.Title = "首页";
 	var userIsExpert = Html.GetUserProfile().IsExpert;
+	var review = ViewBag.DeclareReview as DeclareReview;
 }
 <div class="col-md-10 content-wrapper">
 	<div class="row">
@@ -33,6 +34,34 @@
 			<div class="row">
 
 				<div class="col-md-6">
+
+					<!-- 我的申报 start -->
+					@if (!userIsExpert)
+					{
+					<div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="widget">
+									<div class="widget-header">
+										<h3><i class="fa fa-tasks"></i>我的申报</h3>
+									</div>
+									<div class="widget-content">
+										@if (review != null && review.StatusKey == DeclareKeys.ReviewSuccess)
+										{
+											<button class="btn btn-success" disabled>审核已通过</button>
+}
+										else
+										{
+											<button class="btn btn-xs btn-warning btn-view" data-toggle="ajax-modal" data-url="@Url.Action("Edit", "DeclareReview", new { id = review == null ? 0 : review.ReviewId })" data-target="#firstModal"><i class="fa fa-external-link"></i> <span>申报申请</span></button>
+}
+										<a target="_blank" class="btn btn-xs btn-custom-primary btn-view" href="@Url.Action("overview", "declareMaterial", new { id = Html.GetUserProfile().UserId })"><i class="fa fa-external-link"></i> <span>查看已申报材料</span></a>
+										@*<a class="btn btn-xs btn-custom-primary btn-view" data-toggle="ajax-modal" data-url="@Url.Action("Report", "Home")" data-target="#firstModal"><i class="fa fa-external-link"></i> <span>查看已申报材料</span></a>*@
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					}
 
 					<!-- 教师查看量评结果 start -->
 					<div>
@@ -91,6 +120,8 @@
 	<script>
 
 		$(function () {
+
+
 
 			$.get('@Url.Action("DeclareActiveTotal", "Home")', function (data) {
 

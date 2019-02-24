@@ -117,7 +117,7 @@ namespace TheSite.EvalAnalysis
 
 	}
 
-   public abstract class DecalreEvalUnitBase : AnalysisUnit
+   public abstract class DeclareEvalUnitBase : AnalysisUnit
    {
 
       public abstract long TargetId { get; }

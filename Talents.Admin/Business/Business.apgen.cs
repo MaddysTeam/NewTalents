@@ -71,6 +71,10 @@ namespace Business {
         
         private static DeclareMaterialTableDef _declareMaterial;
         
+        private static DeclarePeriodTableDef _declarePeriod;
+        
+        private static DeclareReviewTableDef _declareReview;
+        
         private static TeamMemberTableDef _teamMember;
         
         private static TeamContentTableDef _teamContent;
@@ -170,6 +174,10 @@ namespace Business {
         private APDalDef.DeclareOrgConstDal _declareOrgConstDal;
         
         private APDalDef.DeclareMaterialDal _declareMaterialDal;
+        
+        private APDalDef.DeclarePeriodDal _declarePeriodDal;
+        
+        private APDalDef.DeclareReviewDal _declareReviewDal;
         
         private APDalDef.TeamMemberDal _teamMemberDal;
         
@@ -514,6 +522,30 @@ namespace Business {
                     _declareMaterial = new DeclareMaterialTableDef("DeclareMaterial");
                 }
                 return _declareMaterial;
+            }
+        }
+        
+        /// <summary>
+        /// 申报周期 TableDef
+        /// </summary>
+        public static DeclarePeriodTableDef DeclarePeriod {
+            get {
+                if ((_declarePeriod == null)) {
+                    _declarePeriod = new DeclarePeriodTableDef("DeclarePeriod");
+                }
+                return _declarePeriod;
+            }
+        }
+        
+        /// <summary>
+        /// 申报审核 TableDef
+        /// </summary>
+        public static DeclareReviewTableDef DeclareReview {
+            get {
+                if ((_declareReview == null)) {
+                    _declareReview = new DeclareReviewTableDef("DeclareReview");
+                }
+                return _declareReview;
             }
         }
         
@@ -1106,6 +1138,30 @@ namespace Business {
         }
         
         /// <summary>
+        /// 申报周期 Dal
+        /// </summary>
+        public virtual APDalDef.DeclarePeriodDal DeclarePeriodDal {
+            get {
+                if ((_declarePeriodDal == null)) {
+                    _declarePeriodDal = new APDalDef.DeclarePeriodDal(this);
+                }
+                return _declarePeriodDal;
+            }
+        }
+        
+        /// <summary>
+        /// 申报审核 Dal
+        /// </summary>
+        public virtual APDalDef.DeclareReviewDal DeclareReviewDal {
+            get {
+                if ((_declareReviewDal == null)) {
+                    _declareReviewDal = new APDalDef.DeclareReviewDal(this);
+                }
+                return _declareReviewDal;
+            }
+        }
+        
+        /// <summary>
         /// 梯队-学员 Dal
         /// </summary>
         public virtual APDalDef.TeamMemberDal TeamMemberDal {
@@ -1444,6 +1500,8 @@ namespace Business {
                 db.DeclareAchievementDal.InitData(db);
                 db.DeclareOrgConstDal.InitData(db);
                 db.DeclareMaterialDal.InitData(db);
+                db.DeclarePeriodDal.InitData(db);
+                db.DeclareReviewDal.InitData(db);
                 db.TeamMemberDal.InitData(db);
                 db.TeamContentDal.InitData(db);
                 db.TeamActiveDal.InitData(db);
@@ -3136,9 +3194,8 @@ namespace Business {
             public virtual StringAPColumnDef GraduateSchool {
                 get {
                     if (Object.ReferenceEquals(_graduateSchool, null)) {
-                        _graduateSchool = new StringAPColumnDef(this, "GraduateSchool", false, 100);
+                        _graduateSchool = new StringAPColumnDef(this, "GraduateSchool", true, 100);
                         _graduateSchool.Display = "毕业院校与专业";
-                        _graduateSchool.Required = true;
                     }
                     return _graduateSchool;
                 }
@@ -3150,9 +3207,8 @@ namespace Business {
             public virtual DateTimeAPColumnDef GraduateDate {
                 get {
                     if (Object.ReferenceEquals(_graduateDate, null)) {
-                        _graduateDate = new DateTimeAPColumnDef(this, "GraduateDate", false);
+                        _graduateDate = new DateTimeAPColumnDef(this, "GraduateDate", true);
                         _graduateDate.Display = "毕业年月";
-                        _graduateDate.Required = true;
                     }
                     return _graduateDate;
                 }
@@ -3164,9 +3220,8 @@ namespace Business {
             public virtual StringAPColumnDef Phonemobile {
                 get {
                     if (Object.ReferenceEquals(_phonemobile, null)) {
-                        _phonemobile = new StringAPColumnDef(this, "Phonemobile", false, 20);
+                        _phonemobile = new StringAPColumnDef(this, "Phonemobile", true, 20);
                         _phonemobile.Display = "手机号码";
-                        _phonemobile.Required = true;
                     }
                     return _phonemobile;
                 }
@@ -3178,9 +3233,8 @@ namespace Business {
             public virtual StringAPColumnDef Email {
                 get {
                     if (Object.ReferenceEquals(_email, null)) {
-                        _email = new StringAPColumnDef(this, "Email", false, 255);
+                        _email = new StringAPColumnDef(this, "Email", true, 255);
                         _email.Display = "电子邮箱";
-                        _email.Required = true;
                     }
                     return _email;
                 }
@@ -7056,7 +7110,9 @@ namespace Business {
             
             private Int64APColumnDef _materialId;
             
-            private Int64APColumnDef _userId;
+            private Int64APColumnDef _periodId;
+            
+            private Int64APColumnDef _teacherId;
             
             private Int64APColumnDef _itemId;
             
@@ -7092,15 +7148,28 @@ namespace Business {
             }
             
             /// <summary>
-            /// UserId ColumnDef
+            /// PeriodId ColumnDef
             /// </summary>
-            public virtual Int64APColumnDef UserId {
+            public virtual Int64APColumnDef PeriodId {
                 get {
-                    if (Object.ReferenceEquals(_userId, null)) {
-                        _userId = new Int64APColumnDef(this, "UserId", false);
-                        _userId.Display = "申报者ID";
+                    if (Object.ReferenceEquals(_periodId, null)) {
+                        _periodId = new Int64APColumnDef(this, "PeriodId", false);
+                        _periodId.Display = "申报周期ID";
                     }
-                    return _userId;
+                    return _periodId;
+                }
+            }
+            
+            /// <summary>
+            /// TeacherId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef TeacherId {
+                get {
+                    if (Object.ReferenceEquals(_teacherId, null)) {
+                        _teacherId = new Int64APColumnDef(this, "TeacherId", false);
+                        _teacherId.Display = "申报老师ID";
+                    }
+                    return _teacherId;
                 }
             }
             
@@ -7203,7 +7272,8 @@ namespace Business {
             /// </summary>
             public virtual void Fullup(IDataReader reader, DeclareMaterial data, bool throwIfValidColumnName) {
                 data.MaterialId = MaterialId.GetValue<long>(reader, throwIfValidColumnName);
-                data.UserId = UserId.GetValue<long>(reader, throwIfValidColumnName);
+                data.PeriodId = PeriodId.GetValue<long>(reader, throwIfValidColumnName);
+                data.TeacherId = TeacherId.GetValue<long>(reader, throwIfValidColumnName);
                 data.ItemId = ItemId.GetValue<long>(reader, throwIfValidColumnName);
                 data.Title = Title.GetValue<string>(reader, throwIfValidColumnName);
                 data.ParentType = ParentType.GetValue<string>(reader, throwIfValidColumnName);
@@ -7251,6 +7321,366 @@ namespace Business {
             /// </summary>
             public virtual List<DeclareMaterial> TolerantMapList(IDataReader reader) {
                 List<DeclareMaterial> list = new List<DeclareMaterial>();
+                try {
+                    for (; reader.Read(); ) {
+                        list.Add(TolerantMap(reader));
+                    }
+                }
+                finally {
+                    reader.Close();
+                }
+                return list;
+            }
+        }
+        
+        [Serializable()]
+        public partial class DeclarePeriodTableDef : APTableDef {
+            
+            private Int64APColumnDef _periodId;
+            
+            private StringAPColumnDef _name;
+            
+            private DateTimeAPColumnDef _beginDate;
+            
+            private DateTimeAPColumnDef _endDate;
+            
+            private BooleanAPColumnDef _isCurrent;
+            
+            public DeclarePeriodTableDef(string tableName) : 
+                    base(tableName) {
+            }
+            
+            protected DeclarePeriodTableDef(string tableName, string alias) : 
+                    base(tableName, alias) {
+            }
+            
+            /// <summary>
+            /// PeriodId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef PeriodId {
+                get {
+                    if (Object.ReferenceEquals(_periodId, null)) {
+                        _periodId = new Int64APColumnDef(this, "PeriodId", false);
+                        _periodId.Display = "周期ID";
+                    }
+                    return _periodId;
+                }
+            }
+            
+            /// <summary>
+            /// Name ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef Name {
+                get {
+                    if (Object.ReferenceEquals(_name, null)) {
+                        _name = new StringAPColumnDef(this, "Name", false, 100);
+                        _name.Display = "周期名称";
+                    }
+                    return _name;
+                }
+            }
+            
+            /// <summary>
+            /// BeginDate ColumnDef
+            /// </summary>
+            public virtual DateTimeAPColumnDef BeginDate {
+                get {
+                    if (Object.ReferenceEquals(_beginDate, null)) {
+                        _beginDate = new DateTimeAPColumnDef(this, "BeginDate", false);
+                        _beginDate.Display = "开始时间（修改区间）";
+                    }
+                    return _beginDate;
+                }
+            }
+            
+            /// <summary>
+            /// EndDate ColumnDef
+            /// </summary>
+            public virtual DateTimeAPColumnDef EndDate {
+                get {
+                    if (Object.ReferenceEquals(_endDate, null)) {
+                        _endDate = new DateTimeAPColumnDef(this, "EndDate", false);
+                        _endDate.Display = "结束时间（修改区间）";
+                    }
+                    return _endDate;
+                }
+            }
+            
+            /// <summary>
+            /// IsCurrent ColumnDef
+            /// </summary>
+            public virtual BooleanAPColumnDef IsCurrent {
+                get {
+                    if (Object.ReferenceEquals(_isCurrent, null)) {
+                        _isCurrent = new BooleanAPColumnDef(this, "IsCurrent", false);
+                        _isCurrent.Display = "是否当前申报期";
+                    }
+                    return _isCurrent;
+                }
+            }
+            
+            /// <summary>
+            /// Default Index
+            /// </summary>
+            public virtual APSqlOrderPhrase DefaultOrder {
+                get {
+                    return null;
+                }
+            }
+            
+            /// <summary>
+            /// Create a alias table
+            /// </summary>
+            public virtual DeclarePeriodTableDef As(string name) {
+                return new DeclarePeriodTableDef("DeclarePeriod", name);
+            }
+            
+            /// <summary>
+            /// Fill the data.
+            /// </summary>
+            public virtual void Fullup(IDataReader reader, DeclarePeriod data, bool throwIfValidColumnName) {
+                data.PeriodId = PeriodId.GetValue<long>(reader, throwIfValidColumnName);
+                data.Name = Name.GetValue<string>(reader, throwIfValidColumnName);
+                data.BeginDate = BeginDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
+                data.EndDate = EndDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
+                data.IsCurrent = IsCurrent.GetValue<bool>(reader, throwIfValidColumnName);
+            }
+            
+            /// <summary>
+            /// Fill the data.
+            /// </summary>
+            public virtual DeclarePeriod Map(IDataReader reader) {
+                DeclarePeriod data = new DeclarePeriod();
+                Fullup(reader, data, true);
+                return data;
+            }
+            
+            /// <summary>
+            /// Fill the data.
+            /// </summary>
+            public virtual DeclarePeriod TolerantMap(IDataReader reader) {
+                DeclarePeriod data = new DeclarePeriod();
+                Fullup(reader, data, false);
+                return data;
+            }
+            
+            /// <summary>
+            /// Fill the data.
+            /// </summary>
+            public virtual List<DeclarePeriod> MapList(IDataReader reader) {
+                List<DeclarePeriod> list = new List<DeclarePeriod>();
+                try {
+                    for (; reader.Read(); ) {
+                        list.Add(Map(reader));
+                    }
+                }
+                finally {
+                    reader.Close();
+                }
+                return list;
+            }
+            
+            /// <summary>
+            /// Fill the data.
+            /// </summary>
+            public virtual List<DeclarePeriod> TolerantMapList(IDataReader reader) {
+                List<DeclarePeriod> list = new List<DeclarePeriod>();
+                try {
+                    for (; reader.Read(); ) {
+                        list.Add(TolerantMap(reader));
+                    }
+                }
+                finally {
+                    reader.Close();
+                }
+                return list;
+            }
+        }
+        
+        [Serializable()]
+        public partial class DeclareReviewTableDef : APTableDef {
+            
+            private Int64APColumnDef _reviewId;
+            
+            private Int64APColumnDef _teacherId;
+            
+            private Int64APColumnDef _reviewerId;
+            
+            private Int64APColumnDef _declareBaseId;
+            
+            private StringAPColumnDef _statusKey;
+            
+            private Int64APColumnDef _periodId;
+            
+            private StringAPColumnDef _reviewComment;
+            
+            public DeclareReviewTableDef(string tableName) : 
+                    base(tableName) {
+            }
+            
+            protected DeclareReviewTableDef(string tableName, string alias) : 
+                    base(tableName, alias) {
+            }
+            
+            /// <summary>
+            /// ReviewId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef ReviewId {
+                get {
+                    if (Object.ReferenceEquals(_reviewId, null)) {
+                        _reviewId = new Int64APColumnDef(this, "ReviewId", false);
+                        _reviewId.Display = "周期ID";
+                    }
+                    return _reviewId;
+                }
+            }
+            
+            /// <summary>
+            /// TeacherId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef TeacherId {
+                get {
+                    if (Object.ReferenceEquals(_teacherId, null)) {
+                        _teacherId = new Int64APColumnDef(this, "TeacherId", false);
+                        _teacherId.Display = "教师ID";
+                    }
+                    return _teacherId;
+                }
+            }
+            
+            /// <summary>
+            /// ReviewerId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef ReviewerId {
+                get {
+                    if (Object.ReferenceEquals(_reviewerId, null)) {
+                        _reviewerId = new Int64APColumnDef(this, "ReviewerId", false);
+                        _reviewerId.Display = "审核ID";
+                    }
+                    return _reviewerId;
+                }
+            }
+            
+            /// <summary>
+            /// DeclareBaseId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef DeclareBaseId {
+                get {
+                    if (Object.ReferenceEquals(_declareBaseId, null)) {
+                        _declareBaseId = new Int64APColumnDef(this, "DeclareBaseId", false);
+                        _declareBaseId.Display = "申报ID";
+                    }
+                    return _declareBaseId;
+                }
+            }
+            
+            /// <summary>
+            /// StatusKey ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef StatusKey {
+                get {
+                    if (Object.ReferenceEquals(_statusKey, null)) {
+                        _statusKey = new StringAPColumnDef(this, "StatusKey", false, 0);
+                        _statusKey.Display = "审核状态";
+                    }
+                    return _statusKey;
+                }
+            }
+            
+            /// <summary>
+            /// PeriodId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef PeriodId {
+                get {
+                    if (Object.ReferenceEquals(_periodId, null)) {
+                        _periodId = new Int64APColumnDef(this, "PeriodId", false);
+                        _periodId.Display = "申报周期ID";
+                    }
+                    return _periodId;
+                }
+            }
+            
+            /// <summary>
+            /// ReviewComment ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef ReviewComment {
+                get {
+                    if (Object.ReferenceEquals(_reviewComment, null)) {
+                        _reviewComment = new StringAPColumnDef(this, "ReviewComment", false, 10000);
+                        _reviewComment.Display = "校管理员审批意见";
+                    }
+                    return _reviewComment;
+                }
+            }
+            
+            /// <summary>
+            /// Default Index
+            /// </summary>
+            public virtual APSqlOrderPhrase DefaultOrder {
+                get {
+                    return null;
+                }
+            }
+            
+            /// <summary>
+            /// Create a alias table
+            /// </summary>
+            public virtual DeclareReviewTableDef As(string name) {
+                return new DeclareReviewTableDef("DeclareReview", name);
+            }
+            
+            /// <summary>
+            /// Fill the data.
+            /// </summary>
+            public virtual void Fullup(IDataReader reader, DeclareReview data, bool throwIfValidColumnName) {
+                data.ReviewId = ReviewId.GetValue<long>(reader, throwIfValidColumnName);
+                data.TeacherId = TeacherId.GetValue<long>(reader, throwIfValidColumnName);
+                data.ReviewerId = ReviewerId.GetValue<long>(reader, throwIfValidColumnName);
+                data.DeclareBaseId = DeclareBaseId.GetValue<long>(reader, throwIfValidColumnName);
+                data.StatusKey = StatusKey.GetValue<string>(reader, throwIfValidColumnName);
+                data.PeriodId = PeriodId.GetValue<long>(reader, throwIfValidColumnName);
+                data.ReviewComment = ReviewComment.GetValue<string>(reader, throwIfValidColumnName);
+            }
+            
+            /// <summary>
+            /// Fill the data.
+            /// </summary>
+            public virtual DeclareReview Map(IDataReader reader) {
+                DeclareReview data = new DeclareReview();
+                Fullup(reader, data, true);
+                return data;
+            }
+            
+            /// <summary>
+            /// Fill the data.
+            /// </summary>
+            public virtual DeclareReview TolerantMap(IDataReader reader) {
+                DeclareReview data = new DeclareReview();
+                Fullup(reader, data, false);
+                return data;
+            }
+            
+            /// <summary>
+            /// Fill the data.
+            /// </summary>
+            public virtual List<DeclareReview> MapList(IDataReader reader) {
+                List<DeclareReview> list = new List<DeclareReview>();
+                try {
+                    for (; reader.Read(); ) {
+                        list.Add(Map(reader));
+                    }
+                }
+                finally {
+                    reader.Close();
+                }
+                return list;
+            }
+            
+            /// <summary>
+            /// Fill the data.
+            /// </summary>
+            public virtual List<DeclareReview> TolerantMapList(IDataReader reader) {
+                List<DeclareReview> list = new List<DeclareReview>();
                 try {
                     for (; reader.Read(); ) {
                         list.Add(TolerantMap(reader));
@@ -7440,6 +7870,8 @@ namespace Business {
             
             private StringAPColumnDef _contentDataType;
             
+            private BooleanAPColumnDef _isDeclare;
+            
             private DateTimeAPColumnDef _createDate;
             
             private Int64APColumnDef _creator;
@@ -7522,6 +7954,19 @@ namespace Business {
             }
             
             /// <summary>
+            /// IsDeclare ColumnDef
+            /// </summary>
+            public virtual BooleanAPColumnDef IsDeclare {
+                get {
+                    if (Object.ReferenceEquals(_isDeclare, null)) {
+                        _isDeclare = new BooleanAPColumnDef(this, "IsDeclare", false);
+                        _isDeclare.Display = "是否申报";
+                    }
+                    return _isDeclare;
+                }
+            }
+            
+            /// <summary>
             /// CreateDate ColumnDef
             /// </summary>
             public virtual DateTimeAPColumnDef CreateDate {
@@ -7598,6 +8043,7 @@ namespace Business {
                 data.ContentKey = ContentKey.GetValue<string>(reader, throwIfValidColumnName);
                 data.ContentValue = ContentValue.GetValue<string>(reader, throwIfValidColumnName);
                 data.ContentDataType = ContentDataType.GetValue<string>(reader, throwIfValidColumnName);
+                data.IsDeclare = IsDeclare.GetValue<bool>(reader, throwIfValidColumnName);
                 data.CreateDate = CreateDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
                 data.Creator = Creator.GetValue<long>(reader, throwIfValidColumnName);
                 data.ModifyDate = ModifyDate.GetValue<System.Nullable<System.DateTime>>(reader, throwIfValidColumnName);
@@ -7675,6 +8121,8 @@ namespace Business {
             private BooleanAPColumnDef _isShow;
             
             private BooleanAPColumnDef _isShare;
+            
+            private BooleanAPColumnDef _isDeclare;
             
             private DateTimeAPColumnDef _createDate;
             
@@ -7814,6 +8262,19 @@ namespace Business {
             }
             
             /// <summary>
+            /// IsDeclare ColumnDef
+            /// </summary>
+            public virtual BooleanAPColumnDef IsDeclare {
+                get {
+                    if (Object.ReferenceEquals(_isDeclare, null)) {
+                        _isDeclare = new BooleanAPColumnDef(this, "IsDeclare", false);
+                        _isDeclare.Display = "是否申报";
+                    }
+                    return _isDeclare;
+                }
+            }
+            
+            /// <summary>
             /// CreateDate ColumnDef
             /// </summary>
             public virtual DateTimeAPColumnDef CreateDate {
@@ -7894,6 +8355,7 @@ namespace Business {
                 data.ContentValue = ContentValue.GetValue<string>(reader, throwIfValidColumnName);
                 data.IsShow = IsShow.GetValue<bool>(reader, throwIfValidColumnName);
                 data.IsShare = IsShare.GetValue<bool>(reader, throwIfValidColumnName);
+                data.IsDeclare = IsDeclare.GetValue<bool>(reader, throwIfValidColumnName);
                 data.CreateDate = CreateDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
                 data.Creator = Creator.GetValue<long>(reader, throwIfValidColumnName);
                 data.ModifyDate = ModifyDate.GetValue<System.Nullable<System.DateTime>>(reader, throwIfValidColumnName);
@@ -15745,7 +16207,7 @@ namespace Business {
                 if ((data.MaterialId == 0)) {
                     data.MaterialId = ((long)(GetNewId(APDBDef.DeclareMaterial.MaterialId)));
                 }
-                var query = APQuery.insert(APDBDef.DeclareMaterial).values(APDBDef.DeclareMaterial.MaterialId.SetValue(data.MaterialId), APDBDef.DeclareMaterial.UserId.SetValue(data.UserId), APDBDef.DeclareMaterial.ItemId.SetValue(data.ItemId), APDBDef.DeclareMaterial.Title.SetValue(data.Title), APDBDef.DeclareMaterial.ParentType.SetValue(data.ParentType), APDBDef.DeclareMaterial.Type.SetValue(data.Type), APDBDef.DeclareMaterial.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareMaterial.PubishDate.SetValue(data.PubishDate));
+                var query = APQuery.insert(APDBDef.DeclareMaterial).values(APDBDef.DeclareMaterial.MaterialId.SetValue(data.MaterialId), APDBDef.DeclareMaterial.PeriodId.SetValue(data.PeriodId), APDBDef.DeclareMaterial.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareMaterial.ItemId.SetValue(data.ItemId), APDBDef.DeclareMaterial.Title.SetValue(data.Title), APDBDef.DeclareMaterial.ParentType.SetValue(data.ParentType), APDBDef.DeclareMaterial.Type.SetValue(data.Type), APDBDef.DeclareMaterial.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareMaterial.PubishDate.SetValue(data.PubishDate));
                 ExecuteNonQuery(query);
             }
             
@@ -15753,7 +16215,7 @@ namespace Business {
             /// Update Data.
             /// </summary>
             public virtual void Update(DeclareMaterial data) {
-                var query = APQuery.update(APDBDef.DeclareMaterial).values(APDBDef.DeclareMaterial.UserId.SetValue(data.UserId), APDBDef.DeclareMaterial.ItemId.SetValue(data.ItemId), APDBDef.DeclareMaterial.Title.SetValue(data.Title), APDBDef.DeclareMaterial.ParentType.SetValue(data.ParentType), APDBDef.DeclareMaterial.Type.SetValue(data.Type), APDBDef.DeclareMaterial.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareMaterial.PubishDate.SetValue(data.PubishDate)).where((APDBDef.DeclareMaterial.MaterialId == data.MaterialId));
+                var query = APQuery.update(APDBDef.DeclareMaterial).values(APDBDef.DeclareMaterial.PeriodId.SetValue(data.PeriodId), APDBDef.DeclareMaterial.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareMaterial.ItemId.SetValue(data.ItemId), APDBDef.DeclareMaterial.Title.SetValue(data.Title), APDBDef.DeclareMaterial.ParentType.SetValue(data.ParentType), APDBDef.DeclareMaterial.Type.SetValue(data.Type), APDBDef.DeclareMaterial.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareMaterial.PubishDate.SetValue(data.PubishDate)).where((APDBDef.DeclareMaterial.MaterialId == data.MaterialId));
                 ExecuteNonQuery(query);
             }
             
@@ -15858,6 +16320,278 @@ namespace Business {
             }
             
             public DeclareMaterialDal(APDatabase db) : 
+                    base(db) {
+            }
+        }
+        
+        /// <summary>
+        /// 申报周期 DalBase
+        /// </summary>
+        public partial class DeclarePeriodDalBase : APDal {
+            
+            public DeclarePeriodDalBase() {
+            }
+            
+            public DeclarePeriodDalBase(APDatabase db) : 
+                    base(db) {
+            }
+            
+            /// <summary>
+            /// Insert Data.
+            /// </summary>
+            public virtual void Insert(DeclarePeriod data) {
+                if ((data.PeriodId == 0)) {
+                    data.PeriodId = ((long)(GetNewId(APDBDef.DeclarePeriod.PeriodId)));
+                }
+                var query = APQuery.insert(APDBDef.DeclarePeriod).values(APDBDef.DeclarePeriod.PeriodId.SetValue(data.PeriodId), APDBDef.DeclarePeriod.Name.SetValue(data.Name), APDBDef.DeclarePeriod.BeginDate.SetValue(data.BeginDate), APDBDef.DeclarePeriod.EndDate.SetValue(data.EndDate), APDBDef.DeclarePeriod.IsCurrent.SetValue(data.IsCurrent));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// Update Data.
+            /// </summary>
+            public virtual void Update(DeclarePeriod data) {
+                var query = APQuery.update(APDBDef.DeclarePeriod).values(APDBDef.DeclarePeriod.Name.SetValue(data.Name), APDBDef.DeclarePeriod.BeginDate.SetValue(data.BeginDate), APDBDef.DeclarePeriod.EndDate.SetValue(data.EndDate), APDBDef.DeclarePeriod.IsCurrent.SetValue(data.IsCurrent)).where((APDBDef.DeclarePeriod.PeriodId == data.PeriodId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// Update Data.
+            /// </summary>
+            public virtual void UpdatePartial(long periodId, Object metadata) {
+                var query = APQuery.update(APDBDef.DeclarePeriod).values(APSqlSetPhraseSelector.Select(APDBDef.DeclarePeriod, metadata)).where((APDBDef.DeclarePeriod.PeriodId == periodId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// Delete data by primary key.
+            /// </summary>
+            public virtual void PrimaryDelete(long periodId) {
+                var query = APQuery.delete(APDBDef.DeclarePeriod).where((APDBDef.DeclarePeriod.PeriodId == periodId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// Delete data by condition.
+            /// </summary>
+            public virtual void ConditionDelete(APSqlWherePhrase condition) {
+                var query = APQuery.delete(APDBDef.DeclarePeriod).where(condition);
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// Query count by condition.
+            /// </summary>
+            public virtual int ConditionQueryCount(APSqlWherePhrase condition) {
+                var query = APQuery.select(APDBDef.DeclarePeriod.Asterisk.Count()).from(APDBDef.DeclarePeriod).where(condition);
+                return ExecuteCount(query);
+            }
+            
+            /// <summary>
+            /// Get data by PK.
+            /// </summary>
+            public virtual DeclarePeriod PrimaryGet(long periodId) {
+                var query = APQuery.select(APDBDef.DeclarePeriod.Asterisk).from(APDBDef.DeclarePeriod).where((APDBDef.DeclarePeriod.PeriodId == periodId));
+                IDataReader reader = ExecuteReader(query);
+                try {
+                    if (reader.Read()) {
+                        return APDBDef.DeclarePeriod.Map(reader);
+                    }
+                    return null;
+                }
+                finally {
+                    reader.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Query by condition.
+            /// </summary>
+            public virtual List<DeclarePeriod> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+                var query = APQuery.select(APDBDef.DeclarePeriod.Asterisk).from(APDBDef.DeclarePeriod);
+                if ((condition != null)) {
+                    query.where(condition);
+                }
+                if ((orderBy != null)) {
+                    query.order_by(orderBy);
+                }
+                if ((take != null)) {
+                    query.take(take);
+                }
+                if ((skip != null)) {
+                    query.skip(skip);
+                }
+                query.primary(APDBDef.DeclarePeriod.PeriodId);
+                IDataReader reader = ExecuteReader(query);
+                return APDBDef.DeclarePeriod.MapList(reader);
+            }
+            
+            /// <summary>
+            /// Get the initial data of the table.
+            /// </summary>
+            public virtual List<DeclarePeriod> GetInitData() {
+                return new List<DeclarePeriod>();
+            }
+            
+            /// <summary>
+            /// Initialize data.
+            /// </summary>
+            public virtual void InitData(APDBDef db) {
+                List<DeclarePeriod> list = GetInitData();
+                for (int i = 0; (i < list.Count); i = (i + 1)) {
+                    DeclarePeriod data = list[i];
+                    if ((PrimaryGet(data.PeriodId) == null)) {
+                        Insert(data);
+                    }
+                }
+            }
+        }
+        
+        /// <summary>
+        /// 申报周期 Dal
+        /// </summary>
+        public partial class DeclarePeriodDal : DeclarePeriodDalBase {
+            
+            public DeclarePeriodDal() {
+            }
+            
+            public DeclarePeriodDal(APDatabase db) : 
+                    base(db) {
+            }
+        }
+        
+        /// <summary>
+        /// 申报审核 DalBase
+        /// </summary>
+        public partial class DeclareReviewDalBase : APDal {
+            
+            public DeclareReviewDalBase() {
+            }
+            
+            public DeclareReviewDalBase(APDatabase db) : 
+                    base(db) {
+            }
+            
+            /// <summary>
+            /// Insert Data.
+            /// </summary>
+            public virtual void Insert(DeclareReview data) {
+                if ((data.ReviewId == 0)) {
+                    data.ReviewId = ((long)(GetNewId(APDBDef.DeclareReview.ReviewId)));
+                }
+                var query = APQuery.insert(APDBDef.DeclareReview).values(APDBDef.DeclareReview.ReviewId.SetValue(data.ReviewId), APDBDef.DeclareReview.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareReview.ReviewerId.SetValue(data.ReviewerId), APDBDef.DeclareReview.DeclareBaseId.SetValue(data.DeclareBaseId), APDBDef.DeclareReview.StatusKey.SetValue(data.StatusKey), APDBDef.DeclareReview.PeriodId.SetValue(data.PeriodId), APDBDef.DeclareReview.ReviewComment.SetValue(data.ReviewComment));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// Update Data.
+            /// </summary>
+            public virtual void Update(DeclareReview data) {
+                var query = APQuery.update(APDBDef.DeclareReview).values(APDBDef.DeclareReview.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareReview.ReviewerId.SetValue(data.ReviewerId), APDBDef.DeclareReview.DeclareBaseId.SetValue(data.DeclareBaseId), APDBDef.DeclareReview.StatusKey.SetValue(data.StatusKey), APDBDef.DeclareReview.PeriodId.SetValue(data.PeriodId), APDBDef.DeclareReview.ReviewComment.SetValue(data.ReviewComment)).where((APDBDef.DeclareReview.ReviewId == data.ReviewId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// Update Data.
+            /// </summary>
+            public virtual void UpdatePartial(long reviewId, Object metadata) {
+                var query = APQuery.update(APDBDef.DeclareReview).values(APSqlSetPhraseSelector.Select(APDBDef.DeclareReview, metadata)).where((APDBDef.DeclareReview.ReviewId == reviewId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// Delete data by primary key.
+            /// </summary>
+            public virtual void PrimaryDelete(long reviewId) {
+                var query = APQuery.delete(APDBDef.DeclareReview).where((APDBDef.DeclareReview.ReviewId == reviewId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// Delete data by condition.
+            /// </summary>
+            public virtual void ConditionDelete(APSqlWherePhrase condition) {
+                var query = APQuery.delete(APDBDef.DeclareReview).where(condition);
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// Query count by condition.
+            /// </summary>
+            public virtual int ConditionQueryCount(APSqlWherePhrase condition) {
+                var query = APQuery.select(APDBDef.DeclareReview.Asterisk.Count()).from(APDBDef.DeclareReview).where(condition);
+                return ExecuteCount(query);
+            }
+            
+            /// <summary>
+            /// Get data by PK.
+            /// </summary>
+            public virtual DeclareReview PrimaryGet(long reviewId) {
+                var query = APQuery.select(APDBDef.DeclareReview.Asterisk).from(APDBDef.DeclareReview).where((APDBDef.DeclareReview.ReviewId == reviewId));
+                IDataReader reader = ExecuteReader(query);
+                try {
+                    if (reader.Read()) {
+                        return APDBDef.DeclareReview.Map(reader);
+                    }
+                    return null;
+                }
+                finally {
+                    reader.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Query by condition.
+            /// </summary>
+            public virtual List<DeclareReview> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+                var query = APQuery.select(APDBDef.DeclareReview.Asterisk).from(APDBDef.DeclareReview);
+                if ((condition != null)) {
+                    query.where(condition);
+                }
+                if ((orderBy != null)) {
+                    query.order_by(orderBy);
+                }
+                if ((take != null)) {
+                    query.take(take);
+                }
+                if ((skip != null)) {
+                    query.skip(skip);
+                }
+                query.primary(APDBDef.DeclareReview.ReviewId);
+                IDataReader reader = ExecuteReader(query);
+                return APDBDef.DeclareReview.MapList(reader);
+            }
+            
+            /// <summary>
+            /// Get the initial data of the table.
+            /// </summary>
+            public virtual List<DeclareReview> GetInitData() {
+                return new List<DeclareReview>();
+            }
+            
+            /// <summary>
+            /// Initialize data.
+            /// </summary>
+            public virtual void InitData(APDBDef db) {
+                List<DeclareReview> list = GetInitData();
+                for (int i = 0; (i < list.Count); i = (i + 1)) {
+                    DeclareReview data = list[i];
+                    if ((PrimaryGet(data.ReviewId) == null)) {
+                        Insert(data);
+                    }
+                }
+            }
+        }
+        
+        /// <summary>
+        /// 申报审核 Dal
+        /// </summary>
+        public partial class DeclareReviewDal : DeclareReviewDalBase {
+            
+            public DeclareReviewDal() {
+            }
+            
+            public DeclareReviewDal(APDatabase db) : 
                     base(db) {
             }
         }
@@ -16014,7 +16748,7 @@ namespace Business {
                 if ((data.TeamContentId == 0)) {
                     data.TeamContentId = ((long)(GetNewId(APDBDef.TeamContent.TeamContentId)));
                 }
-                var query = APQuery.insert(APDBDef.TeamContent).values(APDBDef.TeamContent.TeamContentId.SetValue(data.TeamContentId), APDBDef.TeamContent.TeamId.SetValue(data.TeamId), APDBDef.TeamContent.ContentKey.SetValue(data.ContentKey), APDBDef.TeamContent.ContentValue.SetValue(data.ContentValue), APDBDef.TeamContent.ContentDataType.SetValue(data.ContentDataType), APDBDef.TeamContent.CreateDate.SetValue(data.CreateDate), APDBDef.TeamContent.Creator.SetValue(data.Creator), APDBDef.TeamContent.ModifyDate.SetValue(data.ModifyDate), APDBDef.TeamContent.Modifier.SetValue(data.Modifier));
+                var query = APQuery.insert(APDBDef.TeamContent).values(APDBDef.TeamContent.TeamContentId.SetValue(data.TeamContentId), APDBDef.TeamContent.TeamId.SetValue(data.TeamId), APDBDef.TeamContent.ContentKey.SetValue(data.ContentKey), APDBDef.TeamContent.ContentValue.SetValue(data.ContentValue), APDBDef.TeamContent.ContentDataType.SetValue(data.ContentDataType), APDBDef.TeamContent.IsDeclare.SetValue(data.IsDeclare), APDBDef.TeamContent.CreateDate.SetValue(data.CreateDate), APDBDef.TeamContent.Creator.SetValue(data.Creator), APDBDef.TeamContent.ModifyDate.SetValue(data.ModifyDate), APDBDef.TeamContent.Modifier.SetValue(data.Modifier));
                 ExecuteNonQuery(query);
             }
             
@@ -16022,7 +16756,7 @@ namespace Business {
             /// Update Data.
             /// </summary>
             public virtual void Update(TeamContent data) {
-                var query = APQuery.update(APDBDef.TeamContent).values(APDBDef.TeamContent.TeamId.SetValue(data.TeamId), APDBDef.TeamContent.ContentKey.SetValue(data.ContentKey), APDBDef.TeamContent.ContentValue.SetValue(data.ContentValue), APDBDef.TeamContent.ContentDataType.SetValue(data.ContentDataType), APDBDef.TeamContent.CreateDate.SetValue(data.CreateDate), APDBDef.TeamContent.Creator.SetValue(data.Creator), APDBDef.TeamContent.ModifyDate.SetValue(data.ModifyDate), APDBDef.TeamContent.Modifier.SetValue(data.Modifier)).where((APDBDef.TeamContent.TeamContentId == data.TeamContentId));
+                var query = APQuery.update(APDBDef.TeamContent).values(APDBDef.TeamContent.TeamId.SetValue(data.TeamId), APDBDef.TeamContent.ContentKey.SetValue(data.ContentKey), APDBDef.TeamContent.ContentValue.SetValue(data.ContentValue), APDBDef.TeamContent.ContentDataType.SetValue(data.ContentDataType), APDBDef.TeamContent.IsDeclare.SetValue(data.IsDeclare), APDBDef.TeamContent.CreateDate.SetValue(data.CreateDate), APDBDef.TeamContent.Creator.SetValue(data.Creator), APDBDef.TeamContent.ModifyDate.SetValue(data.ModifyDate), APDBDef.TeamContent.Modifier.SetValue(data.Modifier)).where((APDBDef.TeamContent.TeamContentId == data.TeamContentId));
                 ExecuteNonQuery(query);
             }
             
@@ -16150,7 +16884,7 @@ namespace Business {
                 if ((data.TeamActiveId == 0)) {
                     data.TeamActiveId = ((long)(GetNewId(APDBDef.TeamActive.TeamActiveId)));
                 }
-                var query = APQuery.insert(APDBDef.TeamActive).values(APDBDef.TeamActive.TeamActiveId.SetValue(data.TeamActiveId), APDBDef.TeamActive.TeamId.SetValue(data.TeamId), APDBDef.TeamActive.Date.SetValue(data.Date), APDBDef.TeamActive.Location.SetValue(data.Location), APDBDef.TeamActive.Title.SetValue(data.Title), APDBDef.TeamActive.ActiveType.SetValue(data.ActiveType), APDBDef.TeamActive.ContentValue.SetValue(data.ContentValue), APDBDef.TeamActive.IsShow.SetValue(data.IsShow), APDBDef.TeamActive.IsShare.SetValue(data.IsShare), APDBDef.TeamActive.CreateDate.SetValue(data.CreateDate), APDBDef.TeamActive.Creator.SetValue(data.Creator), APDBDef.TeamActive.ModifyDate.SetValue(data.ModifyDate), APDBDef.TeamActive.Modifier.SetValue(data.Modifier));
+                var query = APQuery.insert(APDBDef.TeamActive).values(APDBDef.TeamActive.TeamActiveId.SetValue(data.TeamActiveId), APDBDef.TeamActive.TeamId.SetValue(data.TeamId), APDBDef.TeamActive.Date.SetValue(data.Date), APDBDef.TeamActive.Location.SetValue(data.Location), APDBDef.TeamActive.Title.SetValue(data.Title), APDBDef.TeamActive.ActiveType.SetValue(data.ActiveType), APDBDef.TeamActive.ContentValue.SetValue(data.ContentValue), APDBDef.TeamActive.IsShow.SetValue(data.IsShow), APDBDef.TeamActive.IsShare.SetValue(data.IsShare), APDBDef.TeamActive.IsDeclare.SetValue(data.IsDeclare), APDBDef.TeamActive.CreateDate.SetValue(data.CreateDate), APDBDef.TeamActive.Creator.SetValue(data.Creator), APDBDef.TeamActive.ModifyDate.SetValue(data.ModifyDate), APDBDef.TeamActive.Modifier.SetValue(data.Modifier));
                 ExecuteNonQuery(query);
             }
             
@@ -16158,7 +16892,7 @@ namespace Business {
             /// Update Data.
             /// </summary>
             public virtual void Update(TeamActive data) {
-                var query = APQuery.update(APDBDef.TeamActive).values(APDBDef.TeamActive.TeamId.SetValue(data.TeamId), APDBDef.TeamActive.Date.SetValue(data.Date), APDBDef.TeamActive.Location.SetValue(data.Location), APDBDef.TeamActive.Title.SetValue(data.Title), APDBDef.TeamActive.ActiveType.SetValue(data.ActiveType), APDBDef.TeamActive.ContentValue.SetValue(data.ContentValue), APDBDef.TeamActive.IsShow.SetValue(data.IsShow), APDBDef.TeamActive.IsShare.SetValue(data.IsShare), APDBDef.TeamActive.CreateDate.SetValue(data.CreateDate), APDBDef.TeamActive.Creator.SetValue(data.Creator), APDBDef.TeamActive.ModifyDate.SetValue(data.ModifyDate), APDBDef.TeamActive.Modifier.SetValue(data.Modifier)).where((APDBDef.TeamActive.TeamActiveId == data.TeamActiveId));
+                var query = APQuery.update(APDBDef.TeamActive).values(APDBDef.TeamActive.TeamId.SetValue(data.TeamId), APDBDef.TeamActive.Date.SetValue(data.Date), APDBDef.TeamActive.Location.SetValue(data.Location), APDBDef.TeamActive.Title.SetValue(data.Title), APDBDef.TeamActive.ActiveType.SetValue(data.ActiveType), APDBDef.TeamActive.ContentValue.SetValue(data.ContentValue), APDBDef.TeamActive.IsShow.SetValue(data.IsShow), APDBDef.TeamActive.IsShare.SetValue(data.IsShare), APDBDef.TeamActive.IsDeclare.SetValue(data.IsDeclare), APDBDef.TeamActive.CreateDate.SetValue(data.CreateDate), APDBDef.TeamActive.Creator.SetValue(data.Creator), APDBDef.TeamActive.ModifyDate.SetValue(data.ModifyDate), APDBDef.TeamActive.Modifier.SetValue(data.Modifier)).where((APDBDef.TeamActive.TeamActiveId == data.TeamActiveId));
                 ExecuteNonQuery(query);
             }
             
@@ -22833,6 +23567,304 @@ namespace Business {
         }
         
         /// <summary>
+        /// 申报周期 BplBase
+        /// </summary>
+        public partial class DeclarePeriodBplBase {
+            
+            /// <summary>
+            /// Insert Data.
+            /// </summary>
+            public static void Insert(DeclarePeriod data) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclarePeriodDal.Insert(data);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Update Data.
+            /// </summary>
+            public static void Update(DeclarePeriod data) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclarePeriodDal.Update(data);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Update Data.
+            /// </summary>
+            public static void UpdatePartial(long periodId, Object metadata) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclarePeriodDal.UpdatePartial(periodId, metadata);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Delete data by primary key.
+            /// </summary>
+            public static void PrimaryDelete(long periodId) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclarePeriodDal.PrimaryDelete(periodId);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Delete data by condition.
+            /// </summary>
+            public static void ConditionDelete(APSqlWherePhrase condition) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclarePeriodDal.ConditionDelete(condition);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Query count by condition.
+            /// </summary>
+            public static int ConditionQueryCount(APSqlWherePhrase condition) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclarePeriodDal.ConditionQueryCount(condition);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Get data by PK.
+            /// </summary>
+            public static DeclarePeriod PrimaryGet(long periodId) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclarePeriodDal.PrimaryGet(periodId);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Query by condition.
+            /// </summary>
+            public static List<DeclarePeriod> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclarePeriodDal.ConditionQuery(condition, orderBy, take, skip);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Query by condition.
+            /// </summary>
+            public static List<DeclarePeriod> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclarePeriodDal.ConditionQuery(condition, orderBy, take, null);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Query by condition.
+            /// </summary>
+            public static List<DeclarePeriod> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclarePeriodDal.ConditionQuery(condition, orderBy, null, null);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Get all data.
+            /// </summary>
+            public static List<DeclarePeriod> GetAll() {
+                return ConditionQuery(null, null);
+            }
+        }
+        
+        /// <summary>
+        /// 申报周期 Dal
+        /// </summary>
+        public partial class DeclarePeriodBpl : DeclarePeriodBplBase {
+        }
+        
+        /// <summary>
+        /// 申报审核 BplBase
+        /// </summary>
+        public partial class DeclareReviewBplBase {
+            
+            /// <summary>
+            /// Insert Data.
+            /// </summary>
+            public static void Insert(DeclareReview data) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareReviewDal.Insert(data);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Update Data.
+            /// </summary>
+            public static void Update(DeclareReview data) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareReviewDal.Update(data);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Update Data.
+            /// </summary>
+            public static void UpdatePartial(long reviewId, Object metadata) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareReviewDal.UpdatePartial(reviewId, metadata);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Delete data by primary key.
+            /// </summary>
+            public static void PrimaryDelete(long reviewId) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareReviewDal.PrimaryDelete(reviewId);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Delete data by condition.
+            /// </summary>
+            public static void ConditionDelete(APSqlWherePhrase condition) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareReviewDal.ConditionDelete(condition);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Query count by condition.
+            /// </summary>
+            public static int ConditionQueryCount(APSqlWherePhrase condition) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareReviewDal.ConditionQueryCount(condition);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Get data by PK.
+            /// </summary>
+            public static DeclareReview PrimaryGet(long reviewId) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareReviewDal.PrimaryGet(reviewId);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Query by condition.
+            /// </summary>
+            public static List<DeclareReview> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareReviewDal.ConditionQuery(condition, orderBy, take, skip);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Query by condition.
+            /// </summary>
+            public static List<DeclareReview> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareReviewDal.ConditionQuery(condition, orderBy, take, null);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Query by condition.
+            /// </summary>
+            public static List<DeclareReview> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareReviewDal.ConditionQuery(condition, orderBy, null, null);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// Get all data.
+            /// </summary>
+            public static List<DeclareReview> GetAll() {
+                return ConditionQuery(null, null);
+            }
+        }
+        
+        /// <summary>
+        /// 申报审核 Dal
+        /// </summary>
+        public partial class DeclareReviewBpl : DeclareReviewBplBase {
+        }
+        
+        /// <summary>
         /// 梯队-学员 BplBase
         /// </summary>
         public partial class TeamMemberBplBase {
@@ -29149,7 +30181,7 @@ namespace Business {
         /// <summary>
         /// GraduateSchool
         /// </summary>
-        private string _graduateSchool = string.Empty;
+        private string _graduateSchool;
         
         /// <summary>
         /// GraduateDate
@@ -29159,12 +30191,12 @@ namespace Business {
         /// <summary>
         /// Phonemobile
         /// </summary>
-        private string _phonemobile = string.Empty;
+        private string _phonemobile;
         
         /// <summary>
         /// 用于联系的电子邮箱
         /// </summary>
-        private string _email = string.Empty;
+        private string _email;
         
         /// <summary>
         /// PeriodId
@@ -29769,7 +30801,6 @@ namespace Business {
         /// GraduateSchool
         /// </summary>
         [Display(Name="毕业院校与专业")]
-        [Required()]
         [StringLength(100)]
         public virtual string GraduateSchool {
             get {
@@ -29793,7 +30824,6 @@ namespace Business {
         /// GraduateDate
         /// </summary>
         [Display(Name="毕业年月")]
-        [Required()]
         public virtual System.Nullable<System.DateTime> GraduateDate {
             get {
                 return _graduateDate;
@@ -29816,7 +30846,6 @@ namespace Business {
         /// Phonemobile
         /// </summary>
         [Display(Name="手机号码")]
-        [Required()]
         [StringLength(20)]
         public virtual string Phonemobile {
             get {
@@ -29840,7 +30869,6 @@ namespace Business {
         /// 用于联系的电子邮箱
         /// </summary>
         [Display(Name="电子邮箱")]
-        [Required()]
         [StringLength(255)]
         public virtual string Email {
             get {
@@ -37513,9 +38541,14 @@ namespace Business {
         private long _materialId;
         
         /// <summary>
-        /// UserId
+        /// PeriodId
         /// </summary>
-        private long _userId;
+        private long _periodId;
+        
+        /// <summary>
+        /// TeacherId
+        /// </summary>
+        private long _teacherId;
         
         /// <summary>
         /// ItemId
@@ -37556,9 +38589,10 @@ namespace Business {
         /// <summary>
         /// Constructor with all field values.
         /// </summary>
-        public DeclareMaterialBase(long materialId, long userId, long itemId, string title, string parentType, string type, System.DateTime createDate, System.DateTime pubishDate) {
+        public DeclareMaterialBase(long materialId, long periodId, long teacherId, long itemId, string title, string parentType, string type, System.DateTime createDate, System.DateTime pubishDate) {
             _materialId = materialId;
-            _userId = userId;
+            _periodId = periodId;
+            _teacherId = teacherId;
             _itemId = itemId;
             _title = title;
             _parentType = parentType;
@@ -37590,24 +38624,46 @@ namespace Business {
         }
         
         /// <summary>
-        /// UserId
+        /// PeriodId
         /// </summary>
-        [Display(Name="申报者ID")]
-        public virtual long UserId {
+        [Display(Name="申报周期ID")]
+        public virtual long PeriodId {
             get {
-                return _userId;
+                return _periodId;
             }
             set {
-                _userId = value;
+                _periodId = value;
             }
         }
         
         /// <summary>
-        /// UserId APColumnDef
+        /// PeriodId APColumnDef
         /// </summary>
-        public static Int64APColumnDef UserIdDef {
+        public static Int64APColumnDef PeriodIdDef {
             get {
-                return APDBDef.DeclareMaterial.UserId;
+                return APDBDef.DeclareMaterial.PeriodId;
+            }
+        }
+        
+        /// <summary>
+        /// TeacherId
+        /// </summary>
+        [Display(Name="申报老师ID")]
+        public virtual long TeacherId {
+            get {
+                return _teacherId;
+            }
+            set {
+                _teacherId = value;
+            }
+        }
+        
+        /// <summary>
+        /// TeacherId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef TeacherIdDef {
+            get {
+                return APDBDef.DeclareMaterial.TeacherId;
             }
         }
         
@@ -37768,7 +38824,8 @@ namespace Business {
         /// </summary>
         public virtual void Assignment(DeclareMaterial data) {
             MaterialId = data.MaterialId;
-            UserId = data.UserId;
+            PeriodId = data.PeriodId;
+            TeacherId = data.TeacherId;
             ItemId = data.ItemId;
             Title = data.Title;
             ParentType = data.ParentType;
@@ -37784,7 +38841,10 @@ namespace Business {
             if ((MaterialId != data.MaterialId)) {
                 return false;
             }
-            if ((UserId != data.UserId)) {
+            if ((PeriodId != data.PeriodId)) {
+                return false;
+            }
+            if ((TeacherId != data.TeacherId)) {
                 return false;
             }
             if ((ItemId != data.ItemId)) {
@@ -37901,8 +38961,689 @@ namespace Business {
         /// <summary>
         /// Constructor with all field values.
         /// </summary>
-        public DeclareMaterial(long materialId, long userId, long itemId, string title, string parentType, string type, System.DateTime createDate, System.DateTime pubishDate) : 
-                base(materialId, userId, itemId, title, parentType, type, createDate, pubishDate) {
+        public DeclareMaterial(long materialId, long periodId, long teacherId, long itemId, string title, string parentType, string type, System.DateTime createDate, System.DateTime pubishDate) : 
+                base(materialId, periodId, teacherId, itemId, title, parentType, type, createDate, pubishDate) {
+        }
+    }
+    
+    /// <summary>
+    /// 申报周期 Base
+    /// </summary>
+    [Serializable()]
+    public abstract partial class DeclarePeriodBase {
+        
+        /// <summary>
+        /// PeriodId
+        /// </summary>
+        private long _periodId;
+        
+        /// <summary>
+        /// Name
+        /// </summary>
+        private string _name = string.Empty;
+        
+        /// <summary>
+        /// BeginDate
+        /// </summary>
+        private System.DateTime _beginDate;
+        
+        /// <summary>
+        /// EndDate
+        /// </summary>
+        private System.DateTime _endDate;
+        
+        /// <summary>
+        /// IsCurrent
+        /// </summary>
+        private bool _isCurrent;
+        
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public DeclarePeriodBase() {
+        }
+        
+        /// <summary>
+        /// Constructor with all field values.
+        /// </summary>
+        public DeclarePeriodBase(long periodId, string name, System.DateTime beginDate, System.DateTime endDate, bool isCurrent) {
+            _periodId = periodId;
+            _name = name;
+            _beginDate = beginDate;
+            _endDate = endDate;
+            _isCurrent = isCurrent;
+        }
+        
+        /// <summary>
+        /// PeriodId
+        /// </summary>
+        [Display(Name="周期ID")]
+        public virtual long PeriodId {
+            get {
+                return _periodId;
+            }
+            set {
+                _periodId = value;
+            }
+        }
+        
+        /// <summary>
+        /// PeriodId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef PeriodIdDef {
+            get {
+                return APDBDef.DeclarePeriod.PeriodId;
+            }
+        }
+        
+        /// <summary>
+        /// Name
+        /// </summary>
+        [Display(Name="周期名称")]
+        [StringLength(100)]
+        public virtual string Name {
+            get {
+                return _name;
+            }
+            set {
+                _name = value;
+            }
+        }
+        
+        /// <summary>
+        /// Name APColumnDef
+        /// </summary>
+        public static StringAPColumnDef NameDef {
+            get {
+                return APDBDef.DeclarePeriod.Name;
+            }
+        }
+        
+        /// <summary>
+        /// BeginDate
+        /// </summary>
+        [Display(Name="开始时间（修改区间）")]
+        public virtual System.DateTime BeginDate {
+            get {
+                return _beginDate;
+            }
+            set {
+                _beginDate = value;
+            }
+        }
+        
+        /// <summary>
+        /// BeginDate APColumnDef
+        /// </summary>
+        public static DateTimeAPColumnDef BeginDateDef {
+            get {
+                return APDBDef.DeclarePeriod.BeginDate;
+            }
+        }
+        
+        /// <summary>
+        /// EndDate
+        /// </summary>
+        [Display(Name="结束时间（修改区间）")]
+        public virtual System.DateTime EndDate {
+            get {
+                return _endDate;
+            }
+            set {
+                _endDate = value;
+            }
+        }
+        
+        /// <summary>
+        /// EndDate APColumnDef
+        /// </summary>
+        public static DateTimeAPColumnDef EndDateDef {
+            get {
+                return APDBDef.DeclarePeriod.EndDate;
+            }
+        }
+        
+        /// <summary>
+        /// IsCurrent
+        /// </summary>
+        [Display(Name="是否当前申报期")]
+        public virtual bool IsCurrent {
+            get {
+                return _isCurrent;
+            }
+            set {
+                _isCurrent = value;
+            }
+        }
+        
+        /// <summary>
+        /// IsCurrent APColumnDef
+        /// </summary>
+        public static BooleanAPColumnDef IsCurrentDef {
+            get {
+                return APDBDef.DeclarePeriod.IsCurrent;
+            }
+        }
+        
+        /// <summary>
+        /// DeclarePeriodTableDef APTableDef
+        /// </summary>
+        public static APDBDef.DeclarePeriodTableDef TableDef {
+            get {
+                return APDBDef.DeclarePeriod;
+            }
+        }
+        
+        /// <summary>
+        /// DeclarePeriodTableDef APSqlAsteriskExpr
+        /// </summary>
+        public static APSqlAsteriskExpr Asterisk {
+            get {
+                return APDBDef.DeclarePeriod.Asterisk;
+            }
+        }
+        
+        /// <summary>
+        /// Assignment.
+        /// </summary>
+        public virtual void Assignment(DeclarePeriod data) {
+            PeriodId = data.PeriodId;
+            Name = data.Name;
+            BeginDate = data.BeginDate;
+            EndDate = data.EndDate;
+            IsCurrent = data.IsCurrent;
+        }
+        
+        /// <summary>
+        /// Compare equals.
+        /// </summary>
+        public virtual bool CompareEquals(DeclarePeriod data) {
+            if ((PeriodId != data.PeriodId)) {
+                return false;
+            }
+            if ((Name != data.Name)) {
+                return false;
+            }
+            if ((BeginDate != data.BeginDate)) {
+                return false;
+            }
+            if ((EndDate != data.EndDate)) {
+                return false;
+            }
+            if ((IsCurrent != data.IsCurrent)) {
+                return false;
+            }
+            return true;
+        }
+        
+        /// <summary>
+        /// Insert Data.
+        /// </summary>
+        public virtual void Insert() {
+            APBplDef.DeclarePeriodBpl.Insert(((DeclarePeriod)(this)));
+        }
+        
+        /// <summary>
+        /// Update Data.
+        /// </summary>
+        public virtual void Update() {
+            APBplDef.DeclarePeriodBpl.Update(((DeclarePeriod)(this)));
+        }
+        
+        /// <summary>
+        /// Update Data.
+        /// </summary>
+        public static void UpdatePartial(long periodId, Object metadata) {
+            APBplDef.DeclarePeriodBpl.UpdatePartial(periodId, metadata);
+        }
+        
+        /// <summary>
+        /// Delete data by primary key.
+        /// </summary>
+        public static void PrimaryDelete(long periodId) {
+            APBplDef.DeclarePeriodBpl.PrimaryDelete(periodId);
+        }
+        
+        /// <summary>
+        /// Delete data by condition.
+        /// </summary>
+        public static void ConditionDelete(APSqlWherePhrase condition) {
+            APBplDef.DeclarePeriodBpl.ConditionDelete(condition);
+        }
+        
+        /// <summary>
+        /// Query count by condition.
+        /// </summary>
+        public static int ConditionQueryCount(APSqlWherePhrase condition) {
+            return APBplDef.DeclarePeriodBpl.ConditionQueryCount(condition);
+        }
+        
+        /// <summary>
+        /// Get data by PK.
+        /// </summary>
+        public static DeclarePeriod PrimaryGet(long periodId) {
+            return APBplDef.DeclarePeriodBpl.PrimaryGet(periodId);
+        }
+        
+        /// <summary>
+        /// Query by condition.
+        /// </summary>
+        public static List<DeclarePeriod> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take, int skip) {
+            return APBplDef.DeclarePeriodBpl.ConditionQuery(condition, orderBy, take, skip);
+        }
+        
+        /// <summary>
+        /// Query by condition.
+        /// </summary>
+        public static List<DeclarePeriod> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take) {
+            return APBplDef.DeclarePeriodBpl.ConditionQuery(condition, orderBy, take);
+        }
+        
+        /// <summary>
+        /// Query by condition.
+        /// </summary>
+        public static List<DeclarePeriod> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+            return APBplDef.DeclarePeriodBpl.ConditionQuery(condition, orderBy);
+        }
+        
+        /// <summary>
+        /// Get all data.
+        /// </summary>
+        public static List<DeclarePeriod> GetAll() {
+            return APBplDef.DeclarePeriodBpl.GetAll();
+        }
+    }
+    
+    /// <summary>
+    /// 申报周期
+    /// </summary>
+    [Serializable()]
+    public partial class DeclarePeriod : DeclarePeriodBase {
+        
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public DeclarePeriod() {
+        }
+        
+        /// <summary>
+        /// Constructor with all field values.
+        /// </summary>
+        public DeclarePeriod(long periodId, string name, System.DateTime beginDate, System.DateTime endDate, bool isCurrent) : 
+                base(periodId, name, beginDate, endDate, isCurrent) {
+        }
+    }
+    
+    /// <summary>
+    /// 申报审核 Base
+    /// </summary>
+    [Serializable()]
+    public abstract partial class DeclareReviewBase {
+        
+        /// <summary>
+        /// ReviewId
+        /// </summary>
+        private long _reviewId;
+        
+        /// <summary>
+        /// TeacherId
+        /// </summary>
+        private long _teacherId;
+        
+        /// <summary>
+        /// ReviewerId
+        /// </summary>
+        private long _reviewerId;
+        
+        /// <summary>
+        /// DeclareBaseId
+        /// </summary>
+        private long _declareBaseId;
+        
+        /// <summary>
+        /// StatusKey
+        /// </summary>
+        private string _statusKey = string.Empty;
+        
+        /// <summary>
+        /// PeriodId
+        /// </summary>
+        private long _periodId;
+        
+        /// <summary>
+        /// ReviewComment
+        /// </summary>
+        private string _reviewComment = string.Empty;
+        
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public DeclareReviewBase() {
+        }
+        
+        /// <summary>
+        /// Constructor with all field values.
+        /// </summary>
+        public DeclareReviewBase(long reviewId, long teacherId, long reviewerId, long declareBaseId, string statusKey, long periodId, string reviewComment) {
+            _reviewId = reviewId;
+            _teacherId = teacherId;
+            _reviewerId = reviewerId;
+            _declareBaseId = declareBaseId;
+            _statusKey = statusKey;
+            _periodId = periodId;
+            _reviewComment = reviewComment;
+        }
+        
+        /// <summary>
+        /// ReviewId
+        /// </summary>
+        [Display(Name="周期ID")]
+        public virtual long ReviewId {
+            get {
+                return _reviewId;
+            }
+            set {
+                _reviewId = value;
+            }
+        }
+        
+        /// <summary>
+        /// ReviewId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef ReviewIdDef {
+            get {
+                return APDBDef.DeclareReview.ReviewId;
+            }
+        }
+        
+        /// <summary>
+        /// TeacherId
+        /// </summary>
+        [Display(Name="教师ID")]
+        public virtual long TeacherId {
+            get {
+                return _teacherId;
+            }
+            set {
+                _teacherId = value;
+            }
+        }
+        
+        /// <summary>
+        /// TeacherId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef TeacherIdDef {
+            get {
+                return APDBDef.DeclareReview.TeacherId;
+            }
+        }
+        
+        /// <summary>
+        /// ReviewerId
+        /// </summary>
+        [Display(Name="审核ID")]
+        public virtual long ReviewerId {
+            get {
+                return _reviewerId;
+            }
+            set {
+                _reviewerId = value;
+            }
+        }
+        
+        /// <summary>
+        /// ReviewerId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef ReviewerIdDef {
+            get {
+                return APDBDef.DeclareReview.ReviewerId;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareBaseId
+        /// </summary>
+        [Display(Name="申报ID")]
+        public virtual long DeclareBaseId {
+            get {
+                return _declareBaseId;
+            }
+            set {
+                _declareBaseId = value;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareBaseId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef DeclareBaseIdDef {
+            get {
+                return APDBDef.DeclareReview.DeclareBaseId;
+            }
+        }
+        
+        /// <summary>
+        /// StatusKey
+        /// </summary>
+        [Display(Name="审核状态")]
+        [StringLength(0)]
+        public virtual string StatusKey {
+            get {
+                return _statusKey;
+            }
+            set {
+                _statusKey = value;
+            }
+        }
+        
+        /// <summary>
+        /// StatusKey APColumnDef
+        /// </summary>
+        public static StringAPColumnDef StatusKeyDef {
+            get {
+                return APDBDef.DeclareReview.StatusKey;
+            }
+        }
+        
+        /// <summary>
+        /// PeriodId
+        /// </summary>
+        [Display(Name="申报周期ID")]
+        public virtual long PeriodId {
+            get {
+                return _periodId;
+            }
+            set {
+                _periodId = value;
+            }
+        }
+        
+        /// <summary>
+        /// PeriodId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef PeriodIdDef {
+            get {
+                return APDBDef.DeclareReview.PeriodId;
+            }
+        }
+        
+        /// <summary>
+        /// ReviewComment
+        /// </summary>
+        [Display(Name="校管理员审批意见")]
+        [StringLength(10000)]
+        public virtual string ReviewComment {
+            get {
+                return _reviewComment;
+            }
+            set {
+                _reviewComment = value;
+            }
+        }
+        
+        /// <summary>
+        /// ReviewComment APColumnDef
+        /// </summary>
+        public static StringAPColumnDef ReviewCommentDef {
+            get {
+                return APDBDef.DeclareReview.ReviewComment;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareReviewTableDef APTableDef
+        /// </summary>
+        public static APDBDef.DeclareReviewTableDef TableDef {
+            get {
+                return APDBDef.DeclareReview;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareReviewTableDef APSqlAsteriskExpr
+        /// </summary>
+        public static APSqlAsteriskExpr Asterisk {
+            get {
+                return APDBDef.DeclareReview.Asterisk;
+            }
+        }
+        
+        /// <summary>
+        /// Assignment.
+        /// </summary>
+        public virtual void Assignment(DeclareReview data) {
+            ReviewId = data.ReviewId;
+            TeacherId = data.TeacherId;
+            ReviewerId = data.ReviewerId;
+            DeclareBaseId = data.DeclareBaseId;
+            StatusKey = data.StatusKey;
+            PeriodId = data.PeriodId;
+            ReviewComment = data.ReviewComment;
+        }
+        
+        /// <summary>
+        /// Compare equals.
+        /// </summary>
+        public virtual bool CompareEquals(DeclareReview data) {
+            if ((ReviewId != data.ReviewId)) {
+                return false;
+            }
+            if ((TeacherId != data.TeacherId)) {
+                return false;
+            }
+            if ((ReviewerId != data.ReviewerId)) {
+                return false;
+            }
+            if ((DeclareBaseId != data.DeclareBaseId)) {
+                return false;
+            }
+            if ((StatusKey != data.StatusKey)) {
+                return false;
+            }
+            if ((PeriodId != data.PeriodId)) {
+                return false;
+            }
+            if ((ReviewComment != data.ReviewComment)) {
+                return false;
+            }
+            return true;
+        }
+        
+        /// <summary>
+        /// Insert Data.
+        /// </summary>
+        public virtual void Insert() {
+            APBplDef.DeclareReviewBpl.Insert(((DeclareReview)(this)));
+        }
+        
+        /// <summary>
+        /// Update Data.
+        /// </summary>
+        public virtual void Update() {
+            APBplDef.DeclareReviewBpl.Update(((DeclareReview)(this)));
+        }
+        
+        /// <summary>
+        /// Update Data.
+        /// </summary>
+        public static void UpdatePartial(long reviewId, Object metadata) {
+            APBplDef.DeclareReviewBpl.UpdatePartial(reviewId, metadata);
+        }
+        
+        /// <summary>
+        /// Delete data by primary key.
+        /// </summary>
+        public static void PrimaryDelete(long reviewId) {
+            APBplDef.DeclareReviewBpl.PrimaryDelete(reviewId);
+        }
+        
+        /// <summary>
+        /// Delete data by condition.
+        /// </summary>
+        public static void ConditionDelete(APSqlWherePhrase condition) {
+            APBplDef.DeclareReviewBpl.ConditionDelete(condition);
+        }
+        
+        /// <summary>
+        /// Query count by condition.
+        /// </summary>
+        public static int ConditionQueryCount(APSqlWherePhrase condition) {
+            return APBplDef.DeclareReviewBpl.ConditionQueryCount(condition);
+        }
+        
+        /// <summary>
+        /// Get data by PK.
+        /// </summary>
+        public static DeclareReview PrimaryGet(long reviewId) {
+            return APBplDef.DeclareReviewBpl.PrimaryGet(reviewId);
+        }
+        
+        /// <summary>
+        /// Query by condition.
+        /// </summary>
+        public static List<DeclareReview> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take, int skip) {
+            return APBplDef.DeclareReviewBpl.ConditionQuery(condition, orderBy, take, skip);
+        }
+        
+        /// <summary>
+        /// Query by condition.
+        /// </summary>
+        public static List<DeclareReview> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take) {
+            return APBplDef.DeclareReviewBpl.ConditionQuery(condition, orderBy, take);
+        }
+        
+        /// <summary>
+        /// Query by condition.
+        /// </summary>
+        public static List<DeclareReview> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+            return APBplDef.DeclareReviewBpl.ConditionQuery(condition, orderBy);
+        }
+        
+        /// <summary>
+        /// Get all data.
+        /// </summary>
+        public static List<DeclareReview> GetAll() {
+            return APBplDef.DeclareReviewBpl.GetAll();
+        }
+    }
+    
+    /// <summary>
+    /// 申报审核
+    /// </summary>
+    [Serializable()]
+    public partial class DeclareReview : DeclareReviewBase {
+        
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public DeclareReview() {
+        }
+        
+        /// <summary>
+        /// Constructor with all field values.
+        /// </summary>
+        public DeclareReview(long reviewId, long teacherId, long reviewerId, long declareBaseId, string statusKey, long periodId, string reviewComment) : 
+                base(reviewId, teacherId, reviewerId, declareBaseId, statusKey, periodId, reviewComment) {
         }
     }
     
@@ -38246,6 +39987,11 @@ namespace Business {
         private string _contentDataType = string.Empty;
         
         /// <summary>
+        /// IsDeclare
+        /// </summary>
+        private bool _isDeclare;
+        
+        /// <summary>
         /// CreateDate
         /// </summary>
         private System.DateTime _createDate;
@@ -38274,12 +40020,13 @@ namespace Business {
         /// <summary>
         /// Constructor with all field values.
         /// </summary>
-        public TeamContentBase(long teamContentId, long teamId, string contentKey, string contentValue, string contentDataType, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) {
+        public TeamContentBase(long teamContentId, long teamId, string contentKey, string contentValue, string contentDataType, bool isDeclare, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) {
             _teamContentId = teamContentId;
             _teamId = teamId;
             _contentKey = contentKey;
             _contentValue = contentValue;
             _contentDataType = contentDataType;
+            _isDeclare = isDeclare;
             _createDate = createDate;
             _creator = creator;
             _modifyDate = modifyDate;
@@ -38400,6 +40147,28 @@ namespace Business {
         }
         
         /// <summary>
+        /// IsDeclare
+        /// </summary>
+        [Display(Name="是否申报")]
+        public virtual bool IsDeclare {
+            get {
+                return _isDeclare;
+            }
+            set {
+                _isDeclare = value;
+            }
+        }
+        
+        /// <summary>
+        /// IsDeclare APColumnDef
+        /// </summary>
+        public static BooleanAPColumnDef IsDeclareDef {
+            get {
+                return APDBDef.TeamContent.IsDeclare;
+            }
+        }
+        
+        /// <summary>
         /// CreateDate
         /// </summary>
         [Display(Name="创建时间")]
@@ -38514,6 +40283,7 @@ namespace Business {
             ContentKey = data.ContentKey;
             ContentValue = data.ContentValue;
             ContentDataType = data.ContentDataType;
+            IsDeclare = data.IsDeclare;
             CreateDate = data.CreateDate;
             Creator = data.Creator;
             ModifyDate = data.ModifyDate;
@@ -38537,6 +40307,9 @@ namespace Business {
                 return false;
             }
             if ((ContentDataType != data.ContentDataType)) {
+                return false;
+            }
+            if ((IsDeclare != data.IsDeclare)) {
                 return false;
             }
             if ((CreateDate != data.CreateDate)) {
@@ -38647,8 +40420,8 @@ namespace Business {
         /// <summary>
         /// Constructor with all field values.
         /// </summary>
-        public TeamContent(long teamContentId, long teamId, string contentKey, string contentValue, string contentDataType, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) : 
-                base(teamContentId, teamId, contentKey, contentValue, contentDataType, createDate, creator, modifyDate, modifier) {
+        public TeamContent(long teamContentId, long teamId, string contentKey, string contentValue, string contentDataType, bool isDeclare, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) : 
+                base(teamContentId, teamId, contentKey, contentValue, contentDataType, isDeclare, createDate, creator, modifyDate, modifier) {
         }
     }
     
@@ -38704,6 +40477,11 @@ namespace Business {
         private bool _isShare;
         
         /// <summary>
+        /// IsDeclare
+        /// </summary>
+        private bool _isDeclare;
+        
+        /// <summary>
         /// CreateDate
         /// </summary>
         private System.DateTime _createDate;
@@ -38732,7 +40510,7 @@ namespace Business {
         /// <summary>
         /// Constructor with all field values.
         /// </summary>
-        public TeamActiveBase(long teamActiveId, long teamId, System.DateTime date, string location, string title, long activeType, string contentValue, bool isShow, bool isShare, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) {
+        public TeamActiveBase(long teamActiveId, long teamId, System.DateTime date, string location, string title, long activeType, string contentValue, bool isShow, bool isShare, bool isDeclare, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) {
             _teamActiveId = teamActiveId;
             _teamId = teamId;
             _date = date;
@@ -38742,6 +40520,7 @@ namespace Business {
             _contentValue = contentValue;
             _isShow = isShow;
             _isShare = isShare;
+            _isDeclare = isDeclare;
             _createDate = createDate;
             _creator = creator;
             _modifyDate = modifyDate;
@@ -38954,6 +40733,28 @@ namespace Business {
         }
         
         /// <summary>
+        /// IsDeclare
+        /// </summary>
+        [Display(Name="是否申报")]
+        public virtual bool IsDeclare {
+            get {
+                return _isDeclare;
+            }
+            set {
+                _isDeclare = value;
+            }
+        }
+        
+        /// <summary>
+        /// IsDeclare APColumnDef
+        /// </summary>
+        public static BooleanAPColumnDef IsDeclareDef {
+            get {
+                return APDBDef.TeamActive.IsDeclare;
+            }
+        }
+        
+        /// <summary>
         /// CreateDate
         /// </summary>
         [Display(Name="创建时间")]
@@ -39072,6 +40873,7 @@ namespace Business {
             ContentValue = data.ContentValue;
             IsShow = data.IsShow;
             IsShare = data.IsShare;
+            IsDeclare = data.IsDeclare;
             CreateDate = data.CreateDate;
             Creator = data.Creator;
             ModifyDate = data.ModifyDate;
@@ -39107,6 +40909,9 @@ namespace Business {
                 return false;
             }
             if ((IsShare != data.IsShare)) {
+                return false;
+            }
+            if ((IsDeclare != data.IsDeclare)) {
                 return false;
             }
             if ((CreateDate != data.CreateDate)) {
@@ -39217,8 +41022,8 @@ namespace Business {
         /// <summary>
         /// Constructor with all field values.
         /// </summary>
-        public TeamActive(long teamActiveId, long teamId, System.DateTime date, string location, string title, long activeType, string contentValue, bool isShow, bool isShare, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) : 
-                base(teamActiveId, teamId, date, location, title, activeType, contentValue, isShow, isShare, createDate, creator, modifyDate, modifier) {
+        public TeamActive(long teamActiveId, long teamId, System.DateTime date, string location, string title, long activeType, string contentValue, bool isShow, bool isShare, bool isDeclare, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) : 
+                base(teamActiveId, teamId, date, location, title, activeType, contentValue, isShow, isShare, isDeclare, createDate, creator, modifyDate, modifier) {
         }
     }
     

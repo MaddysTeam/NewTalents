@@ -26,6 +26,7 @@ namespace TheSite.Controllers
       private static APDBDef.TeamActiveResultTableDef tar = APDBDef.TeamActiveResult;
       private static APDBDef.TeamSpecialCourseTableDef tsc = APDBDef.TeamSpecialCourse;
       private static APDBDef.TeamMemberTableDef tm = APDBDef.TeamMember;
+      private static APDBDef.DeclareMaterialTableDef dm = APDBDef.DeclareMaterial;
 
       // GET: Declare/Index
 
@@ -287,7 +288,7 @@ namespace TheSite.Controllers
 
                db.Commit();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                db.Rollback();
 
@@ -405,14 +406,17 @@ namespace TheSite.Controllers
             if (m.ContentKey == DeclareKeys.ZisFaz_GerChengj_Memo1)
             {
                model.Memo1 = m.ContentValue;
+               model.IsDeclare1 = m.IsDeclare;
             }
             else if (m.ContentKey == DeclareKeys.ZisFaz_GerChengj_Memo2)
             {
                model.Memo2 = m.ContentValue;
+               model.IsDeclare2 = m.IsDeclare;
             }
             else if (m.ContentKey == DeclareKeys.ZisFaz_GerChengj_Memo3)
             {
                model.Memo3 = m.ContentValue;
+               model.IsDeclare3 = m.IsDeclare;
             }
          });
 
@@ -428,9 +432,9 @@ namespace TheSite.Controllers
 
          try
          {
-            SetDeclareContent(DeclareKeys.ZisFaz_GerChengj_Memo1, model.Memo1);
-            SetDeclareContent(DeclareKeys.ZisFaz_GerChengj_Memo2, model.Memo2);
-            SetDeclareContent(DeclareKeys.ZisFaz_GerChengj_Memo3, model.Memo3);
+            SetDeclareContent(DeclareKeys.ZisFaz_GerChengj_Memo1, model.Memo1, model.IsDeclare1);
+            SetDeclareContent(DeclareKeys.ZisFaz_GerChengj_Memo2, model.Memo2, model.IsDeclare2);
+            SetDeclareContent(DeclareKeys.ZisFaz_GerChengj_Memo3, model.Memo3, model.IsDeclare3);
 
             db.Commit();
          }
@@ -564,21 +568,21 @@ namespace TheSite.Controllers
 
          try
          {
-            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Goodness1, model.Goodness1);
-            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Goodness2, model.Goodness2);
-            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Goodness3, model.Goodness3);
-            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Goodness4, model.Goodness4);
-            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Weakness1, model.Weakness1);
-            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Weakness2, model.Weakness2);
-            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Weakness3, model.Weakness3);
-            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Weakness4, model.Weakness4);
-            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Opportunity1, model.Opportunity1);
-            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Opportunity2, model.Opportunity2);
-            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Opportunity3, model.Opportunity3);
-            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Challenge1, model.Challenge1);
-            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Challenge2, model.Challenge2);
-            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Challenge3, model.Challenge3);
-            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_GaijCuos, model.GaijCuos);
+            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Goodness1, model.Goodness1);
+            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Goodness2, model.Goodness2);
+            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Goodness3, model.Goodness3);
+            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Goodness4, model.Goodness4);
+            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Weakness1, model.Weakness1);
+            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Weakness2, model.Weakness2);
+            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Weakness3, model.Weakness3);
+            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Weakness4, model.Weakness4);
+            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Opportunity1, model.Opportunity1);
+            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Opportunity2, model.Opportunity2);
+            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Opportunity3, model.Opportunity3);
+            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Challenge1, model.Challenge1);
+            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Challenge2, model.Challenge2);
+            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Challenge3, model.Challenge3);
+            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_GaijCuos, model.GaijCuos);
 
             db.Commit();
          }
@@ -667,17 +671,17 @@ namespace TheSite.Controllers
 
          try
          {
-            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_ZhuanyeFazMub_Memo1, model.ZhuanyeFazMub_Memo1);
-            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JiedMub_Memo1, model.JiedMub_Memo1);
-            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JiedMub_Memo2, model.JiedMub_Memo2);
-            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JiedMub_Memo3, model.JiedMub_Memo3);
-            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_ZhuanyNenglFangm_Memo1, model.ZhuanyNenglFangm_Memo1);
-            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_ZhuanyNenglFangm_Memo2, model.ZhuanyNenglFangm_Memo2);
-            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_ZhuanyNenglFangm_Memo3, model.ZhuanyNenglFangm_Memo3);
-            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_ZhuanyNenglFangm_Memo4, model.ZhuanyNenglFangm_Memo4);
-            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_XuyFangm_Memo1, model.XuyFangm_Memo1);
-            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_XuyFangm_Memo2, model.XuyFangm_Memo2);
-            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_XuyFangm_Memo3, model.XuyFangm_Memo3);
+            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_ZhuanyeFazMub_Memo1, model.ZhuanyeFazMub_Memo1);
+            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JiedMub_Memo1, model.JiedMub_Memo1);
+            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JiedMub_Memo2, model.JiedMub_Memo2);
+            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JiedMub_Memo3, model.JiedMub_Memo3);
+            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_ZhuanyNenglFangm_Memo1, model.ZhuanyNenglFangm_Memo1);
+            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_ZhuanyNenglFangm_Memo2, model.ZhuanyNenglFangm_Memo2);
+            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_ZhuanyNenglFangm_Memo3, model.ZhuanyNenglFangm_Memo3);
+            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_ZhuanyNenglFangm_Memo4, model.ZhuanyNenglFangm_Memo4);
+            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_XuyFangm_Memo1, model.XuyFangm_Memo1);
+            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_XuyFangm_Memo2, model.XuyFangm_Memo2);
+            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_XuyFangm_Memo3, model.XuyFangm_Memo3);
 
             db.Commit();
          }
@@ -721,7 +725,8 @@ namespace TheSite.Controllers
                Date = m.Date,
                Location = m.Location,
                ContentValue = SubString(m.ContentValue),
-               IsShare = m.IsShare
+               IsShare = m.IsShare,
+               IsDeclare = m.IsDeclare
             });
          });
 
@@ -767,7 +772,8 @@ namespace TheSite.Controllers
                Level = m.Level,
                Dynamic1 = m.Dynamic1,
                Dynamic2 = m.Dynamic2,
-               IsShare=m.IsShare
+               IsShare = m.IsShare,
+               IsDeclare = m.IsDeclare
             });
          });
 
@@ -800,7 +806,8 @@ namespace TheSite.Controllers
                Level = m.Level,
                Dynamic1 = m.Dynamic1,
                Dynamic2 = m.Dynamic2,
-               IsShare=m.IsShare
+               IsShare = m.IsShare,
+               IsDeclare = m.IsDeclare
             });
          });
 
@@ -831,8 +838,9 @@ namespace TheSite.Controllers
                ContentValue = SubString(m.ContentValue),
                Dynamic2 = m.Dynamic2,
                Dynamic1 = m.Dynamic1,
-               IsShare=m.IsShare,
-               Level=m.Level
+               IsShare = m.IsShare,
+               Level = m.Level,
+               IsDeclare = m.IsDeclare
             });
          });
 
@@ -880,7 +888,8 @@ namespace TheSite.Controllers
                ContentValue = m.ContentValue,
                Dynamic1 = m.Dynamic1,
                Dynamic2 = m.Dynamic2,
-               IsShare=m.IsShare
+               IsShare = m.IsShare,
+               IsDeclare = m.IsDeclare
             });
          });
 
@@ -911,7 +920,8 @@ namespace TheSite.Controllers
                ContentValue = SubString(m.ContentValue),
                Level = m.Level,
                Dynamic1 = m.Dynamic1,
-               IsShare=m.IsShare
+               IsShare = m.IsShare,
+               IsDeclare = m.IsDeclare
             });
          });
 
@@ -943,8 +953,9 @@ namespace TheSite.Controllers
                ContentValue = SubString(m.ContentValue),
                Dynamic1 = m.Dynamic1,
                Dynamic2 = m.Dynamic2,
-               IsShare=m.IsShare,
-               Level=m.Level
+               IsShare = m.IsShare,
+               Level = m.Level,
+               IsDeclare = m.IsDeclare
             });
          });
 
@@ -976,7 +987,8 @@ namespace TheSite.Controllers
                Dynamic1 = m.Dynamic1,
                Dynamic2 = m.Dynamic2,
                Level = m.Level,
-               Dynamic9 = m.Dynamic9
+               Dynamic9 = m.Dynamic9,
+               IsDeclare = m.IsDeclare
             });
          });
 
@@ -1008,7 +1020,8 @@ namespace TheSite.Controllers
                Dynamic2 = m.Dynamic2,
                Level = m.Level,
                Dynamic9 = m.Dynamic9,
-               IsShare=m.IsShare
+               IsShare = m.IsShare,
+               IsDeclare = m.IsDeclare
             });
          });
 
@@ -1055,7 +1068,8 @@ namespace TheSite.Controllers
                Dynamic2 = m.Dynamic2,
                NameOrTitle = m.NameOrTitle,
                Dynamic6 = m.Dynamic6,
-               IsShare=m.IsShare
+               IsShare = m.IsShare,
+               IsDeclare = m.IsDeclare
             });
          });
 
@@ -1086,7 +1100,8 @@ namespace TheSite.Controllers
                Level = m.Level,
                Dynamic2 = m.Dynamic2,
                NameOrTitle = m.NameOrTitle,
-               IsShare=m.IsShare
+               IsShare = m.IsShare,
+               IsDeclare = m.IsDeclare
             });
          });
 
@@ -1116,7 +1131,8 @@ namespace TheSite.Controllers
                Dynamic1 = m.Dynamic1,
                Dynamic2 = bool.Parse(m.Dynamic2),
                NameOrTitle = m.NameOrTitle,
-               IsShare=m.IsShare
+               IsShare = m.IsShare,
+               IsDeclare = m.IsDeclare
             });
          });
 
@@ -1147,7 +1163,8 @@ namespace TheSite.Controllers
                ContentValue = SubString(m.ContentValue),
                Dynamic1 = m.Dynamic1,
                Dynamic2 = m.Dynamic2,
-               IsShare=m.IsShare
+               IsShare = m.IsShare,
+               IsDeclare = m.IsDeclare
             });
          });
 
@@ -1177,7 +1194,8 @@ namespace TheSite.Controllers
                Location = m.Location,
                ContentValue = SubString(m.ContentValue),
                Dynamic1 = m.Dynamic1,
-               IsShare=m.IsShare
+               IsShare = m.IsShare,
+               IsDeclare = m.IsDeclare
             });
          });
 
@@ -1210,7 +1228,8 @@ namespace TheSite.Controllers
                Dynamic2 = m.Dynamic2,
                Level = m.Level,
                Dynamic9 = m.Dynamic9,
-               IsShare=m.IsShare
+               IsShare = m.IsShare,
+               IsDeclare = m.IsDeclare
             });
          });
 
@@ -1240,7 +1259,8 @@ namespace TheSite.Controllers
                   DeclareOrgConstId = t.DeclareOrgConstId.GetValue(r),
                   Content = SubString(t.Content.GetValue(r)),
                   Remark = SubString(t.Remark.GetValue(r)),
-                  Work = SubString(t.Work.GetValue(r))
+                  Work = SubString(t.Work.GetValue(r)),
+                  IsDeclare = t.IsDeclare.GetValue(r)
                };
             }).ToList();
 
@@ -1283,8 +1303,8 @@ namespace TheSite.Controllers
 
          try
          {
-            SetDeclareContent(DeclareKeys.QunLiud_XuekDaitr_LiurXuex_XuexMingc, model.XuexMingc);
-            SetDeclareContent(DeclareKeys.QunLiud_XuekDaitr_LiurXuex_JiaoyZuc, model.JiaoyZuc);
+            SetDeclareContent(DeclareKeys.QunLiud_XuekDaitr_LiurXuex_XuexMingc, model.XuexMingc, false);
+            SetDeclareContent(DeclareKeys.QunLiud_XuekDaitr_LiurXuex_JiaoyZuc, model.JiaoyZuc, false);
 
             db.Commit();
          }
@@ -1544,7 +1564,7 @@ namespace TheSite.Controllers
 
          try
          {
-            SetDeclareContent(DeclareKeys.QunLiud_XuekDaitr_JiaoyKey_JiedxZongj, model.Summary);
+            SetDeclareContent(DeclareKeys.QunLiud_XuekDaitr_JiaoyKey_JiedxZongj, model.Summary, false);
 
             db.Commit();
          }
@@ -1613,10 +1633,10 @@ namespace TheSite.Controllers
 
          try
          {
-            SetDeclareContent(DeclareKeys.QunLiud_XuekDaitr_DaijPeix_DaijDuix, model.Member);
-            SetDeclareContent(DeclareKeys.QunLiud_XuekDaitr_DaijPeix_DaijXuek, model.Subject);
-            SetDeclareContent(DeclareKeys.QunLiud_XuekDaitr_DaijPeix_DaijDuixFazFenx, model.Analysis);
-            SetDeclareContent(DeclareKeys.QunLiud_XuekDaitr_DaijPeix_DaijFangaGaiy, model.Summary);
+            SetDeclareContent(DeclareKeys.QunLiud_XuekDaitr_DaijPeix_DaijDuix, model.Member, false);
+            SetDeclareContent(DeclareKeys.QunLiud_XuekDaitr_DaijPeix_DaijXuek, model.Subject, false);
+            SetDeclareContent(DeclareKeys.QunLiud_XuekDaitr_DaijPeix_DaijDuixFazFenx, model.Analysis, false);
+            SetDeclareContent(DeclareKeys.QunLiud_XuekDaitr_DaijPeix_DaijFangaGaiy, model.Summary, false);
 
             db.Commit();
          }
@@ -1702,8 +1722,8 @@ namespace TheSite.Controllers
 
          try
          {
-            SetDeclareContent(DeclareKeys.QunLiud_GugJiaos_LiurXuex_XuexMingc, model.XuexMingc);
-            SetDeclareContent(DeclareKeys.QunLiud_GugJiaos_LiurXuex_JiaoyZuc, model.JiaoyZuc);
+            SetDeclareContent(DeclareKeys.QunLiud_GugJiaos_LiurXuex_XuexMingc, model.XuexMingc, false);
+            SetDeclareContent(DeclareKeys.QunLiud_GugJiaos_LiurXuex_JiaoyZuc, model.JiaoyZuc, false);
 
             db.Commit();
          }
@@ -1856,10 +1876,10 @@ namespace TheSite.Controllers
 
          try
          {
-            SetDeclareContent(DeclareKeys.QunLiud_GugJiaos_RenjNianjBanj_Memo1, model.Memo1);
-            SetDeclareContent(DeclareKeys.QunLiud_GugJiaos_RenjNianjBanj_Memo2, model.Memo2);
-            SetDeclareContent(DeclareKeys.QunLiud_GugJiaos_RenjNianjBanj_Memo3, model.Memo3);
-            SetDeclareContent(DeclareKeys.QunLiud_GugJiaos_RenjNianjBanj_Memo4, model.Memo4);
+            SetDeclareContent(DeclareKeys.QunLiud_GugJiaos_RenjNianjBanj_Memo1, model.Memo1, false);
+            SetDeclareContent(DeclareKeys.QunLiud_GugJiaos_RenjNianjBanj_Memo2, model.Memo2, false);
+            SetDeclareContent(DeclareKeys.QunLiud_GugJiaos_RenjNianjBanj_Memo3, model.Memo3, false);
+            SetDeclareContent(DeclareKeys.QunLiud_GugJiaos_RenjNianjBanj_Memo4, model.Memo4, false);
 
             db.Commit();
          }
@@ -1900,14 +1920,17 @@ namespace TheSite.Controllers
             if (m.ContentKey == DeclareKeys.PeihJiaoyyGongz_JiaoyXinx_Memo1)
             {
                model.Memo1 = m.ContentValue;
+               model.IsDeclare1 = m.IsDeclare;
             }
             else if (m.ContentKey == DeclareKeys.PeihJiaoyyGongz_JiaoyXinx_Memo2)
             {
                model.Memo2 = m.ContentValue;
+               model.IsDeclare2 = m.IsDeclare;
             }
             else if (m.ContentKey == DeclareKeys.PeihJiaoyyGongz_JiaoyXinx_Memo3)
             {
                model.Memo3 = System.Convert.ToDateTime(m.ContentValue);
+               model.IsDeclare3 = m.IsDeclare;
             }
          });
 
@@ -1923,9 +1946,9 @@ namespace TheSite.Controllers
 
          try
          {
-            SetDeclareContent(DeclareKeys.PeihJiaoyyGongz_JiaoyXinx_Memo1, model.Memo1);
-            SetDeclareContent(DeclareKeys.PeihJiaoyyGongz_JiaoyXinx_Memo2, model.Memo2);
-            SetDeclareContent(DeclareKeys.PeihJiaoyyGongz_JiaoyXinx_Memo3, model.Memo3.ToString(), DataTypeKey.DateTime);
+            SetDeclareContent(DeclareKeys.PeihJiaoyyGongz_JiaoyXinx_Memo1, model.Memo1, model.IsDeclare1);
+            SetDeclareContent(DeclareKeys.PeihJiaoyyGongz_JiaoyXinx_Memo2, model.Memo2, model.IsDeclare2);
+            SetDeclareContent(DeclareKeys.PeihJiaoyyGongz_JiaoyXinx_Memo3, model.Memo3.ToString(), model.IsDeclare3, DataTypeKey.DateTime);
 
             db.Commit();
          }
@@ -1969,7 +1992,8 @@ namespace TheSite.Controllers
                Date = m.Date,
                Location = m.Location,
                ContentValue = SubString(m.ContentValue),
-               Dynamic1 = m.Dynamic1
+               Dynamic1 = m.Dynamic1,
+               IsDeclare = m.IsDeclare
             });
          });
 
@@ -1999,7 +2023,8 @@ namespace TheSite.Controllers
                ContentValue = SubString(m.ContentValue),
                Dynamic1 = m.Dynamic1,
                Dynamic2 = m.Dynamic2,
-               Dynamic3 = m.Dynamic3
+               Dynamic3 = m.Dynamic3,
+               IsDeclare = m.IsDeclare
             });
          });
 
@@ -2029,6 +2054,7 @@ namespace TheSite.Controllers
                Location = m.Location,
                ContentValue = SubString(m.ContentValue),
                Dynamic1 = m.Dynamic1,
+               IsDeclare = m.IsDeclare
             });
          });
 
@@ -2070,7 +2096,7 @@ namespace TheSite.Controllers
 
          try
          {
-            SetDeclareContent(model.Key, model.Summary);
+            SetDeclareContent(model.Key, model.Summary, false);
 
             db.Commit();
          }
@@ -2098,10 +2124,9 @@ namespace TheSite.Controllers
 
       #region [ 填报信息 ]
 
-
       public ActionResult Overview(long id)
       {
-         var ep= APDBDef.EvalPeriod;
+         var ep = APDBDef.EvalPeriod;
          var currentPeriod = db.EvalPeriodDal.ConditionQuery(ep.IsCurrent == true, null, null, null).FirstOrDefault();
          if (currentPeriod == null) throw new ApplicationException("当前不再任何考核期！");
 
@@ -2134,7 +2159,7 @@ namespace TheSite.Controllers
          var memberDaList = APQuery.select(da.Asterisk, dcl.DeclareTargetPKID)
             .from(da, dcl.JoinInner(da.TeacherId == dcl.TeacherId))
             .where(
-            da.CreateDate>=currentPeriod.BeginDate & da.CreateDate<= currentPeriod.EndDate &
+            da.CreateDate >= currentPeriod.BeginDate & da.CreateDate <= currentPeriod.EndDate &
             da.Date >= currentPeriod.BeginDate & da.Date <= currentPeriod.EndDate &
             da.TeacherId.In(subQuery) & (da.ActiveKey == DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk |
                                                 da.ActiveKey == DeclareKeys.ZisFaz_JiaoxHuod_Yantk |
@@ -2166,14 +2191,13 @@ namespace TheSite.Controllers
          return View();
       }
 
-
       #endregion
 
 
       #region [ Helper ]
 
 
-      private List<DeclareContent> QueryDeclareContent(long teacherId,EvalPeriod period)
+      private List<DeclareContent> QueryDeclareContent(long teacherId, EvalPeriod period)
          => db.DeclareContentDal.ConditionQuery(
             tc.TeacherId == teacherId,
             null, null, null);
@@ -2185,44 +2209,71 @@ namespace TheSite.Controllers
             null, null, null);
 
 
-      private void SetDeclareContent(string key, string value, string type = "String")
+      private void SetDeclareContent(string key, string value, bool isDeclare, string type = "String")
       {
          value = value.Trim();
 
-         var maybeId = APQuery.select(tc.DeclareContentId)
-            .from(tc)
-            .where(tc.TeacherId == UserProfile.UserId & tc.ContentKey == key)
-            .executeScale(db);
+         var period = db.GetCurrentDeclarePeriod();
+         //var maybeId = APQuery.select(tc.DeclareContentId)
+         //   .from(tc)
+         //   .where(tc.TeacherId == UserProfile.UserId & tc.ContentKey == key)
+         //   .executeScale(db);
 
-         if (maybeId == null)
+         var content = db.DeclareContentDal.ConditionQuery(tc.ContentKey == key & tc.TeacherId == UserProfile.UserId, null, null, null).FirstOrDefault();
+         if (content == null)
          {
-            db.DeclareContentDal.Insert(new DeclareContent
+            content = new DeclareContent
             {
                TeacherId = UserProfile.UserId,
                ContentKey = key,
                ContentValue = value,
                ContentDataType = type,
-					Creator = UserProfile.UserId,
-					CreateDate = DateTime.Now
-            });
+               Creator = UserProfile.UserId,
+               CreateDate = DateTime.Now,
+               IsDeclare = isDeclare
+            };
+
+            db.DeclareContentDal.Insert(content);
          }
          else
          {
             APQuery.update(tc)
                .set(tc.ContentValue.SetValue(value))
-					.set(tc.Modifier.SetValue(UserProfile.UserId))
-					.set(tc.ModifyDate.SetValue(DateTime.Now))
-					.where(tc.DeclareContentId == (long)maybeId)
+               .set(tc.Modifier.SetValue(UserProfile.UserId))
+               .set(tc.ModifyDate.SetValue(DateTime.Now))
+               .set(tc.IsDeclare.SetValue(isDeclare))
+               .where(tc.DeclareContentId == content.DeclareContentId)
                .execute(db);
          }
+
+         content.IsDeclare = isDeclare;
+         AddDeclareMaterial(content, period);
       }
 
 
-      private List<DeclareActive> QueryDeclareActiveList(long teacherId,EvalPeriod period)
+      public void AddDeclareMaterial(DeclareContent content, DeclarePeriod period)
+      {
+         db.DeclareMaterialDal.ConditionDelete(dm.ItemId == content.DeclareContentId & dm.PeriodId == period.PeriodId);
+         if (content.IsDeclare)
+            db.DeclareMaterialDal.Insert(new DeclareMaterial
+            {
+               ItemId = content.DeclareContentId,
+               ParentType = "DeclareContent",
+               CreateDate = DateTime.Now,
+               PubishDate = DateTime.Now,
+               Title = content.ContentValue,
+               Type = content.ContentKey,
+               TeacherId = UserProfile.UserId,
+               PeriodId = period.PeriodId
+            });
+      }
+
+
+      private List<DeclareActive> QueryDeclareActiveList(long teacherId, EvalPeriod period)
          => db.DeclareActiveDal.ConditionQuery(
-            da.TeacherId == teacherId 
-            & da.CreateDate>=period.BeginDate 
-            & da.CreateDate<=period.EndDate
+            da.TeacherId == teacherId
+            & da.CreateDate >= period.BeginDate
+            & da.CreateDate <= period.EndDate
             & da.Date >= period.BeginDate
             & da.Date <= period.EndDate,
             null, null, null);
@@ -2258,7 +2309,7 @@ namespace TheSite.Controllers
             null, null, null);
 
 
-      private Dictionary<long, TeamActiveViewModel> GetTeamActiveList(long teamId,EvalPeriod current)
+      private Dictionary<long, TeamActiveViewModel> GetTeamActiveList(long teamId, EvalPeriod current)
       {
          var p = APDBDef.PicklistItem;
 
@@ -2268,8 +2319,8 @@ namespace TheSite.Controllers
 
          list = APQuery.select(t.Asterisk, p.Name)
             .from(t, p.JoinInner(t.ActiveType == p.PicklistItemId))
-            .where(t.TeamId == teamId 
-            & t.CreateDate>= current.BeginDate & t.CreateDate<=current.EndDate
+            .where(t.TeamId == teamId
+            & t.CreateDate >= current.BeginDate & t.CreateDate <= current.EndDate
             & t.Date >= current.BeginDate & t.Date <= current.EndDate)
             .query(db, r =>
             {
