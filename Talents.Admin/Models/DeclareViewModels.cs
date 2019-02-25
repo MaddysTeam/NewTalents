@@ -127,6 +127,52 @@ namespace TheSite.Models
       [Display(Name = "完善、改进提高的措施、办法")]
       public string GaijCuos { get; set; }
 
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare1 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare2 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare3 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare4 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare5 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare6 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare7 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare8 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare9 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare10 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare11 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare12 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare13 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare14 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare15 { get; set; }
+
    }
 
 
@@ -165,6 +211,39 @@ namespace TheSite.Models
 
       [Display(Name = "其他")]
       public string XuyFangm_Memo3 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare1 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare2 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare3 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare4 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare5 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare6 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare7 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare8 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare9 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare10 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare11 { get; set; }
 
    }
 

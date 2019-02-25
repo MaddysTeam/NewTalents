@@ -18,11 +18,11 @@ namespace TheSite.Controllers
 		static APDBDef.TeamActiveTableDef ta = APDBDef.TeamActive;
 		static APDBDef.TeamContentTableDef tc = APDBDef.TeamContent;
 		static APDBDef.AttachmentsTableDef at = APDBDef.Attachments;
+      private static APDBDef.DeclareMaterialTableDef dm = APDBDef.DeclareMaterial;
 
+      #region [ 学员的成长方向 ]
 
-		#region [ 学员的成长方向 ]
-
-		public ActionResult DaijHuod_Advice(long MemberId)
+      public ActionResult DaijHuod_Advice(long MemberId)
 		{
 			var model = new TeamMemberDataModel()
 			{
@@ -480,20 +480,24 @@ namespace TheSite.Controllers
 				model.TeamId = UserProfile.UserId;
 				model.Creator = UserProfile.UserId;
 				model.CreateDate = DateTime.Now;
+
 				db.TeamContentDal.Insert(model);
 			}
 			else
 			{
 				model.Modifier = UserProfile.UserId;
 				model.ModifyDate = DateTime.Now;
+
 				db.TeamContentDal.UpdatePartial(id.Value, new
 				{
 					model.ContentValue,
 					model.Modifier,
-					model.ModifyDate
+					model.ModifyDate,
+               model.IsDeclare
 				});
 			}
 
+         AddDeclareMaterial(model, db.GetCurrentDeclarePeriod());
 
          //记录日志
          var doSomthing = id == null ? "新增:" + id : "修改:" + id;
@@ -722,6 +726,23 @@ namespace TheSite.Controllers
 
       #region [Helper]
 
+
+      private void AddDeclareMaterial(TeamContent content, DeclarePeriod period)
+      {
+         db.DeclareMaterialDal.ConditionDelete(dm.ItemId == content.TeamContentId & dm.PeriodId == period.PeriodId);
+         if (content.IsDeclare)
+            db.DeclareMaterialDal.Insert(new DeclareMaterial
+            {
+               ItemId = content.TeamContentId,
+               ParentType = "TeamContent",
+               CreateDate = DateTime.Now,
+               PubishDate = DateTime.Now,
+               Title = content.ContentValue,
+               Type = content.ContentKey,
+               TeacherId = UserProfile.UserId,
+               PeriodId = period.PeriodId
+            });
+      }
 
       private void Log(string where, string doSomthing)
       {

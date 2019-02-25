@@ -51,6 +51,14 @@
 							<td>@item.DateRegion</td>
 							<td>
 								<div class="btn-group btn-group-xs pull-right">
+									@if (item.IsDeclare)
+									{
+										<button class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareAchievement", "DeclareMaterial", new { id = item.DeclareAchievementId, isDeclare = false })">取消申报</button>
+									}
+									else
+									{
+										<button class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareAchievement", "DeclareMaterial", new { id = item.DeclareAchievementId, isDeclare = true })">申报</button>
+									}
 									@if (item.IsShare)
 									{
 										<button class="btn btn-custom-secondary btn-share" data-url="@Url.Action("ShareAchievement", "Declare", new { id = item.DeclareAchievementId, isShare = false })">取消共享</button>
@@ -107,6 +115,14 @@
 							<td>@item.Dynamic1</td>
 							<td>
 								<div class="btn-group btn-group-xs pull-right">
+									@if (item.IsDeclare)
+									{
+										<button class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareAchievement", "DeclareMaterial", new { id = item.DeclareAchievementId, isDeclare = false })">取消申报</button>
+									}
+									else
+									{
+										<button class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareAchievement", "DeclareMaterial", new { id = item.DeclareAchievementId, isDeclare = true })">申报</button>
+									}
 									@if (item.IsShare)
 									{
 										<button class="btn btn-custom-secondary btn-share" data-url="@Url.Action("ShareAchievement", "Declare", new { id = item.DeclareAchievementId, isShare = false })">取消共享</button>
@@ -170,6 +186,14 @@
 							</td>
 							<td>
 								<div class="btn-group btn-group-xs pull-right">
+									@if (item.IsDeclare)
+									{
+										<button class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareAchievement", "DeclareMaterial", new { id = item.DeclareAchievementId, isDeclare = false })">取消申报</button>
+									}
+									else
+									{
+										<button class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareAchievement", "DeclareMaterial", new { id = item.DeclareAchievementId, isDeclare = true })">申报</button>
+									}
 									@if (item.IsShare)
 									{
 										<button class="btn btn-custom-secondary btn-share" data-url="@Url.Action("ShareAchievement", "Declare", new { id = item.DeclareAchievementId, isShare = false })">取消共享</button>

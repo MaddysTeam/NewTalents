@@ -14,8 +14,8 @@
 		public const long JiaoxXinx = 5008;
 		public const long TezXuey = 5009;
 
-		public static bool AllowZhidJians(long id)
-			=> id == GaodLisz || id == JidZhucr || id == GongzsZhucr || id == WaipDaos;
+      public static bool AllowZhidJians(long id)
+         => id == GaodLisz || id == JidZhucr || id == GongzsZhucr || id == WaipDaos;
 
 		public static bool AllowQunLiud(long id)
 			=> id == XuekDaitr || id == GugJiaos;
@@ -23,14 +23,14 @@
 		public static bool AllowPeihJiaoyy(long id)
 			=> id == XuekDaitr;
 
-		public static bool AllowKecShis(long id)
-			=> id == GaodLisz || id == JidZhucr || id == GongzsZhucr;
+      public static bool AllowKecShis(long id)
+         => id == GaodLisz || id == JidZhucr || id == GongzsZhucr;
 
-		public static bool HasTeam(long id)
-			=> id == GaodLisz || id == JidZhucr || id == GongzsZhucr || id == WaipDaos || id == XuekDaitr || id == GugJiaos;
+      public static bool HasTeam(long id)
+         => id == GaodLisz || id == JidZhucr || id == GongzsZhucr || id == WaipDaos || id == XuekDaitr || id == GugJiaos;
 
 
-		public static bool AllowEval(long id)
+      public static bool AllowEval(long id)
 			=> id != WaipDaos && id != TezXuey;
 
 		public static bool AllowRule(long id)

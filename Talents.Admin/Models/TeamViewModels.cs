@@ -32,6 +32,15 @@ namespace TheSite.Models
       [Display(Name = "带教小结")]
       public string Memo3 { get; set; }
 
+      [Display(Name = "是否申报")]
+      public bool IsDeclare1 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare2 { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare3 { get; set; }
+
    }
 
 

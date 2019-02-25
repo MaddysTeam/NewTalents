@@ -235,14 +235,17 @@ namespace TheSite.Controllers
             if (m.ContentKey == TeamKeys.DaijJih_Memo1)
             {
                model.Memo1 = m.ContentValue;
+               model.IsDeclare1 = m.IsDeclare;
             }
             else if (m.ContentKey == TeamKeys.DaijJih_Memo2)
             {
                model.Memo2 = m.ContentValue;
+               model.IsDeclare2 = m.IsDeclare;
             }
             else if (m.ContentKey == TeamKeys.DaijJih_Memo3)
             {
                model.Memo3 = m.ContentValue;
+               model.IsDeclare3 = m.IsDeclare;
             }
          });
 
@@ -268,9 +271,9 @@ namespace TheSite.Controllers
 
          try
          {
-            SetTeamContent(TeamKeys.DaijJih_Memo1, model.Memo1);
-            SetTeamContent(TeamKeys.DaijJih_Memo2, model.Memo2);
-            SetTeamContent(TeamKeys.DaijJih_Memo3, model.Memo3);
+            SetTeamContent(TeamKeys.DaijJih_Memo1, model.Memo1, model.IsDeclare1);
+            SetTeamContent(TeamKeys.DaijJih_Memo2, model.Memo2, model.IsDeclare2);
+            SetTeamContent(TeamKeys.DaijJih_Memo3, model.Memo3, model.IsDeclare3);
 
             db.Commit();
          }
@@ -308,9 +311,9 @@ namespace TheSite.Controllers
             .where(tm.TeamId == teamId)
             .executeScale(db);
 
-         var model = APQuery.select(ta.TeamActiveId, ta.ActiveType, ta.Date, ta.Title,ta.IsShare, tar.ActiveId.Count().As("ActiveCount"))
+         var model = APQuery.select(ta.TeamActiveId, ta.ActiveType, ta.Date, ta.Title, ta.IsShare, tar.ActiveId.Count().As("ActiveCount"))
             .from(ta, tar.JoinLeft(ta.TeamActiveId == tar.ActiveId))
-            .group_by(ta.TeamActiveId, ta.ActiveType, ta.Date, ta.Title,ta.IsShare)
+            .group_by(ta.TeamActiveId, ta.ActiveType, ta.Date, ta.Title, ta.IsShare)
             .where(ta.TeamId == teamId)
             .query(db, rd =>
             {
@@ -322,7 +325,7 @@ namespace TheSite.Controllers
                   Count = rd.GetInt32(rd.GetOrdinal("ActiveCount")),
                   MemberCount = memberCount,
                   ActiveType = ta.ActiveType.GetValue(rd),
-                  IsShare= ta.IsShare.GetValue(rd),
+                  IsShare = ta.IsShare.GetValue(rd),
                };
             }).ToList();
 
@@ -487,9 +490,9 @@ namespace TheSite.Controllers
                   Location = model.Location,
                   TeamId = model.TeamId,
                   Title = model.Title,
-                  IsShare=model.IsShare,
-						Creator = UserProfile.UserId,
-						CreateDate = DateTime.Now
+                  IsShare = model.IsShare,
+                  Creator = UserProfile.UserId,
+                  CreateDate = DateTime.Now
                };
 
                db.TeamActiveDal.Insert(data);
@@ -524,9 +527,9 @@ namespace TheSite.Controllers
                   model.ActiveType,
                   model.Date,
                   model.IsShare,
-						Modifier = UserProfile.UserId,
-						ModifyDate = DateTime.Now
-					});
+                  Modifier = UserProfile.UserId,
+                  ModifyDate = DateTime.Now
+               });
 
                AttachmentsExtensions.DeleteAtta(db, id.Value, AttachmentsKeys.DaijHuod_Edit);
                atta.JoinId = id.Value;
@@ -717,14 +720,14 @@ namespace TheSite.Controllers
 
          if (id == null)
          {
-				model.Creator = UserProfile.UserId;
-				model.CreateDate = DateTime.Now;
+            model.Creator = UserProfile.UserId;
+            model.CreateDate = DateTime.Now;
             db.TeamSpecialCourseDal.Insert(model);
          }
          else
          {
-				model.ModifyDate = DateTime.Now;
-				model.Modifier = UserProfile.UserId;
+            model.ModifyDate = DateTime.Now;
+            model.Modifier = UserProfile.UserId;
             db.TeamSpecialCourseDal.Update(model);
          }
 
@@ -797,7 +800,7 @@ namespace TheSite.Controllers
             null, null, null);
 
 
-      private void SetTeamContent(string key, string value, string type = "String")
+      private void SetTeamContent(string key, string value, bool isDeclare, string type = "String")
       {
          value = value.Trim();
 
@@ -814,16 +817,18 @@ namespace TheSite.Controllers
                ContentKey = key,
                ContentValue = value,
                ContentDataType = type,
-					Creator = UserProfile.UserId,
-					CreateDate = DateTime.Now
+               Creator = UserProfile.UserId,
+               CreateDate = DateTime.Now,
+               IsDeclare = isDeclare,
             });
          }
          else
          {
             APQuery.update(tc)
                .set(tc.ContentValue.SetValue(value))
-					.set(tc.Modifier.SetValue(UserProfile.UserId))
-					.set(tc.ModifyDate.SetValue(DateTime.Now))
+               .set(tc.Modifier.SetValue(UserProfile.UserId))
+               .set(tc.ModifyDate.SetValue(DateTime.Now))
+               .set(tc.IsDeclare.SetValue(isDeclare))
                .where(tc.TeamContentId == (long)maybeId)
                .execute(db);
          }

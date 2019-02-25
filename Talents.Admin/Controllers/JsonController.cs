@@ -556,7 +556,7 @@ namespace TheSite.Controllers
             zisFaz.children.Add(new json_treenode() { id = DeclareKeys.ZisFaz_GerChengj, text = "个人成就", type = json_treenode_types.content });
             zisFaz.children.Add(new json_treenode() { id = DeclareKeys.ZisFaz_GerJianl, text = "个人简历", type = json_treenode_types.content });
 
-            if (targetId != DeclareTargetIds.GaodLisz && targetId != DeclareTargetIds.JidZhucr)
+            if (true)
             {
                zisFaz.children.Add(new json_treenode() { id = DeclareKeys.ZisFaz_GerSWOT, text = "个人SWOT分析", type = json_treenode_types.content });
                zisFaz.children.Add(new json_treenode() { id = DeclareKeys.ZisFaz_ZiwFazJih, text = "自我发展计划", type = json_treenode_types.content });
@@ -686,7 +686,6 @@ namespace TheSite.Controllers
       public ActionResult GetTeamMaster()
       {
          ThrowNotAjax();
-
 
          var model = db.DeclareBaseDal.PrimaryGet(UserProfile.UserId);
          var targetId = model.DeclareTargetPKID;

@@ -146,6 +146,7 @@ namespace TheSite.Controllers
          ThrowNotAjax();
 
          var deletedActive = db.DeclareActiveDal.PrimaryGet(id);
+         var period = db.GetCurrentDeclarePeriod();
 
          db.BeginTrans();
 
@@ -153,6 +154,9 @@ namespace TheSite.Controllers
          {
             db.DeclareActiveDal.PrimaryDelete(id);
             AttachmentsExtensions.DeleteAtta(db, id, type);
+
+            if (period != null && deletedActive.IsDeclare)
+               db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == period.PeriodId);
 
             db.Commit();
 
@@ -192,6 +196,7 @@ namespace TheSite.Controllers
       {
          ThrowNotAjax();
 
+         var period = db.GetCurrentDeclarePeriod();
 
          db.BeginTrans();
 
@@ -200,6 +205,9 @@ namespace TheSite.Controllers
             db.DeclareAchievementDal.PrimaryDelete(id);
 
             AttachmentsExtensions.DeleteAtta(db, id, type);
+
+            if (period != null)
+               db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == period.PeriodId);
 
             db.Commit();
          }
@@ -230,7 +238,12 @@ namespace TheSite.Controllers
       {
          ThrowNotAjax();
 
+         var period = db.GetCurrentDeclarePeriod();
+
          db.DeclareOrgConstDal.PrimaryDelete(id);
+
+         if (period != null)
+            db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == period.PeriodId);
 
          return Json(new
          {
@@ -510,48 +523,63 @@ namespace TheSite.Controllers
             {
                case DeclareKeys.ZisFaz_GerSWOT_Goodness1:
                   model.Goodness1 = m.ContentValue;
+                  model.IsDeclare1 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_GerSWOT_Goodness2:
                   model.Goodness2 = m.ContentValue;
+                  model.IsDeclare2 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_GerSWOT_Goodness3:
                   model.Goodness3 = m.ContentValue;
+                  model.IsDeclare3 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_GerSWOT_Goodness4:
                   model.Goodness4 = m.ContentValue;
+                  model.IsDeclare4 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_GerSWOT_Weakness1:
                   model.Weakness1 = m.ContentValue;
+                  model.IsDeclare5 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_GerSWOT_Weakness2:
                   model.Weakness2 = m.ContentValue;
+                  model.IsDeclare6 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_GerSWOT_Weakness3:
                   model.Weakness3 = m.ContentValue;
+                  model.IsDeclare7 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_GerSWOT_Weakness4:
                   model.Weakness4 = m.ContentValue;
+                  model.IsDeclare8 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_GerSWOT_Opportunity1:
                   model.Opportunity1 = m.ContentValue;
+                  model.IsDeclare9 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_GerSWOT_Opportunity2:
                   model.Opportunity2 = m.ContentValue;
+                  model.IsDeclare10 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_GerSWOT_Opportunity3:
                   model.Opportunity3 = m.ContentValue;
+                  model.IsDeclare11 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_GerSWOT_Challenge1:
                   model.Challenge1 = m.ContentValue;
+                  model.IsDeclare12 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_GerSWOT_Challenge2:
                   model.Challenge2 = m.ContentValue;
+                  model.IsDeclare13 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_GerSWOT_Challenge3:
                   model.Challenge3 = m.ContentValue;
+                  model.IsDeclare14 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_GerSWOT_GaijCuos:
                   model.GaijCuos = m.ContentValue;
+                  model.IsDeclare15 = m.IsDeclare;
                   break;
             }
          });
@@ -568,21 +596,21 @@ namespace TheSite.Controllers
 
          try
          {
-            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Goodness1, model.Goodness1);
-            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Goodness2, model.Goodness2);
-            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Goodness3, model.Goodness3);
-            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Goodness4, model.Goodness4);
-            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Weakness1, model.Weakness1);
-            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Weakness2, model.Weakness2);
-            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Weakness3, model.Weakness3);
-            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Weakness4, model.Weakness4);
-            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Opportunity1, model.Opportunity1);
-            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Opportunity2, model.Opportunity2);
-            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Opportunity3, model.Opportunity3);
-            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Challenge1, model.Challenge1);
-            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Challenge2, model.Challenge2);
-            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Challenge3, model.Challenge3);
-            //SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_GaijCuos, model.GaijCuos);
+            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Goodness1, model.Goodness1, model.IsDeclare1);
+            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Goodness2, model.Goodness2, model.IsDeclare2);
+            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Goodness3, model.Goodness3, model.IsDeclare3);
+            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Goodness4, model.Goodness4, model.IsDeclare4);
+            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Weakness1, model.Weakness1, model.IsDeclare5);
+            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Weakness2, model.Weakness2, model.IsDeclare6);
+            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Weakness3, model.Weakness3, model.IsDeclare7);
+            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Weakness4, model.Weakness4, model.IsDeclare8);
+            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Opportunity1, model.Opportunity1, model.IsDeclare9);
+            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Opportunity2, model.Opportunity2, model.IsDeclare10);
+            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Opportunity3, model.Opportunity3, model.IsDeclare11);
+            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Challenge1, model.Challenge1, model.IsDeclare12);
+            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Challenge2, model.Challenge2, model.IsDeclare13);
+            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_Challenge3, model.Challenge3, model.IsDeclare14);
+            SetDeclareContent(DeclareKeys.ZisFaz_GerSWOT_GaijCuos, model.GaijCuos, model.IsDeclare15);
 
             db.Commit();
          }
@@ -625,36 +653,47 @@ namespace TheSite.Controllers
             {
                case DeclareKeys.ZisFaz_ZiwFazJih_ZhuanyeFazMub_Memo1:
                   model.ZhuanyeFazMub_Memo1 = m.ContentValue;
+                  model.IsDeclare1 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_ZiwFazJih_JiedMub_Memo1:
                   model.JiedMub_Memo1 = m.ContentValue;
+                  model.IsDeclare2 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_ZiwFazJih_JiedMub_Memo2:
                   model.JiedMub_Memo2 = m.ContentValue;
+                  model.IsDeclare3 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_ZiwFazJih_JiedMub_Memo3:
                   model.JiedMub_Memo3 = m.ContentValue;
+                  model.IsDeclare4 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_ZiwFazJih_JutJih_ZhuanyNenglFangm_Memo1:
                   model.ZhuanyNenglFangm_Memo1 = m.ContentValue;
+                  model.IsDeclare5 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_ZiwFazJih_JutJih_ZhuanyNenglFangm_Memo2:
                   model.ZhuanyNenglFangm_Memo2 = m.ContentValue;
+                  model.IsDeclare6 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_ZiwFazJih_JutJih_ZhuanyNenglFangm_Memo3:
                   model.ZhuanyNenglFangm_Memo3 = m.ContentValue;
+                  model.IsDeclare7 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_ZiwFazJih_JutJih_ZhuanyNenglFangm_Memo4:
                   model.ZhuanyNenglFangm_Memo4 = m.ContentValue;
+                  model.IsDeclare8 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_ZiwFazJih_JutJih_XuyFangm_Memo1:
                   model.XuyFangm_Memo1 = m.ContentValue;
+                  model.IsDeclare9 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_ZiwFazJih_JutJih_XuyFangm_Memo2:
                   model.XuyFangm_Memo2 = m.ContentValue;
+                  model.IsDeclare10 = m.IsDeclare;
                   break;
                case DeclareKeys.ZisFaz_ZiwFazJih_JutJih_XuyFangm_Memo3:
                   model.XuyFangm_Memo3 = m.ContentValue;
+                  model.IsDeclare11 = m.IsDeclare;
                   break;
             }
          });
@@ -671,17 +710,17 @@ namespace TheSite.Controllers
 
          try
          {
-            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_ZhuanyeFazMub_Memo1, model.ZhuanyeFazMub_Memo1);
-            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JiedMub_Memo1, model.JiedMub_Memo1);
-            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JiedMub_Memo2, model.JiedMub_Memo2);
-            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JiedMub_Memo3, model.JiedMub_Memo3);
-            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_ZhuanyNenglFangm_Memo1, model.ZhuanyNenglFangm_Memo1);
-            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_ZhuanyNenglFangm_Memo2, model.ZhuanyNenglFangm_Memo2);
-            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_ZhuanyNenglFangm_Memo3, model.ZhuanyNenglFangm_Memo3);
-            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_ZhuanyNenglFangm_Memo4, model.ZhuanyNenglFangm_Memo4);
-            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_XuyFangm_Memo1, model.XuyFangm_Memo1);
-            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_XuyFangm_Memo2, model.XuyFangm_Memo2);
-            //SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_XuyFangm_Memo3, model.XuyFangm_Memo3);
+            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_ZhuanyeFazMub_Memo1, model.ZhuanyeFazMub_Memo1, model.IsDeclare1);
+            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JiedMub_Memo1, model.JiedMub_Memo1, model.IsDeclare2);
+            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JiedMub_Memo2, model.JiedMub_Memo2, model.IsDeclare3);
+            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JiedMub_Memo3, model.JiedMub_Memo3, model.IsDeclare4);
+            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_ZhuanyNenglFangm_Memo1, model.ZhuanyNenglFangm_Memo1, model.IsDeclare5);
+            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_ZhuanyNenglFangm_Memo2, model.ZhuanyNenglFangm_Memo2, model.IsDeclare6);
+            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_ZhuanyNenglFangm_Memo3, model.ZhuanyNenglFangm_Memo3, model.IsDeclare7);
+            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_ZhuanyNenglFangm_Memo4, model.ZhuanyNenglFangm_Memo4, model.IsDeclare8);
+            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_XuyFangm_Memo1, model.XuyFangm_Memo1, model.IsDeclare9);
+            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_XuyFangm_Memo2, model.XuyFangm_Memo2, model.IsDeclare10);
+            SetDeclareContent(DeclareKeys.ZisFaz_ZiwFazJih_JutJih_XuyFangm_Memo3, model.XuyFangm_Memo3, model.IsDeclare11);
 
             db.Commit();
          }
@@ -2251,7 +2290,7 @@ namespace TheSite.Controllers
       }
 
 
-      public void AddDeclareMaterial(DeclareContent content, DeclarePeriod period)
+      private void AddDeclareMaterial(DeclareContent content, DeclarePeriod period)
       {
          db.DeclareMaterialDal.ConditionDelete(dm.ItemId == content.DeclareContentId & dm.PeriodId == period.PeriodId);
          if (content.IsDeclare)
