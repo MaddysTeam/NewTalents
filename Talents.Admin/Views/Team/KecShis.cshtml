@@ -20,7 +20,7 @@
 						<th>时间段</th>
 						<th>课程主题</th>
 						<th>安排数量</th>
-						<th class="width120">操作</th>
+						<th class="width320">操作</th>
 					</tr>
 				</thead>
 				<tbody>					
@@ -30,8 +30,16 @@
 							<td>@item.StartDate.ToString("yyyy-MM-dd") 至 @item.EndDate.ToString("yyyy-MM-dd")</td>
 							<td>@item.Title</td>
 							<td>@item.ItemCount</td>
-							<td>
+							<td class="width320">
 								<div class="btn-group btn-group-xs pull-right">
+									@if (item.IsDeclare)
+									{
+										<button class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareTeamSpecialCourse", "DeclareMaterial", new { id = item.CourseId, isDeclare = false })">取消申报</button>
+									}
+									else
+									{
+										<button class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareTeamSpecialCourse", "DeclareMaterial", new { id = item.CourseId, isDeclare = true })">申报</button>
+									}
 									<button class="btn btn-success btn-edit" data-row-id="@item.CourseId" title="编辑">编辑</button>
 									<button class="btn btn-warning btn-remove" data-url="@Url.Action("RemoveKecShis", "Team", new { id = item.CourseId })" title="删除">删除</button>
 									<a class="btn btn-info" href="javascript:loadFrag({key: '@TeamKeys.KecShis_Anp', courseId:@item.CourseId})" title="课程安排">安排</a> 

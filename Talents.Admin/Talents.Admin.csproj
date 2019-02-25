@@ -52,6 +52,14 @@
       <HintPath>..\packages\Aspose.Cells.8.7.1\lib\net40\Aspose.Cells.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Aspose.Slides, Version=17.5.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Business\Utilities\Aspose\Aspose.Slides.dll</HintPath>
+    </Reference>
+    <Reference Include="Aspose.Words, Version=18.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Business\Utilities\Aspose\Aspose.Words.dll</HintPath>
+    </Reference>
     <Reference Include="Camoran.GodLog, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Business\Log\dll\Camoran.GodLog.dll</HintPath>
@@ -179,6 +187,10 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="WcsLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Business\Utilities\wangsu\WcsLib.dll</HintPath>
+    </Reference>
     <Reference Include="Webdiyer.MvcPager, Version=3.0.2015.802, Culture=neutral, PublicKeyToken=f6872c5a09aed72c, processorArchitecture=MSIL">
       <HintPath>..\packages\Webdiyer.MvcPager.3.0.1.1\lib\Webdiyer.MvcPager.dll</HintPath>
       <Private>True</Private>
@@ -240,7 +252,11 @@
     <Compile Include="Business\Log\Logger.cs" />
     <Compile Include="Business\System.Web.Mvc\CacheAttribute.cs" />
     <Compile Include="Business\System.Web.Mvc\PermissonAttribute.cs" />
+    <Compile Include="Business\Utilities\Aspose\WordConverter.cs" />
+    <Compile Include="Business\Utilities\Aspose\PPTConverter.cs" />
+    <Compile Include="Business\Utilities\wangsu\FileUploader.cs" />
     <Compile Include="Business\Utilities\PDFHelper.cs" />
+    <Compile Include="Business\Utilities\Aspose\ExcelConverter.cs" />
     <Compile Include="Controllers\DeclareReviewController.cs" />
     <Compile Include="Controllers\DeclareMaterialController.cs" />
     <Compile Include="Controllers\ProfileModifyPeriodController.cs" />
@@ -483,6 +499,9 @@
     <Content Include="Business\Log\dll\Camoran.GodLog.DB.dll" />
     <Content Include="Business\Log\dll\Camoran.GodLog.dll" />
     <Content Include="Business\Log\dll\Dapper.dll" />
+    <Content Include="Business\Utilities\Aspose\Aspose.Words.dll" />
+    <Content Include="Business\Utilities\wangsu\WcsLib.dll" />
+    <Content Include="Business\Utilities\wangsu\WcsLib.pdb" />
     <Content Include="Views\Declare\ZisFaz_PeixJiangz_JiaosPeixKec.cshtml" />
     <Content Include="Views\DeclarePop\ZisFaz_PeixJiangz_JiaosPeixKec.cshtml" />
     <Content Include="Views\Declare\ZisFaz_PeixJiangz_DingxxKec.cshtml" />

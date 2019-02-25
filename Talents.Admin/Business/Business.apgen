@@ -640,6 +640,8 @@
 					<add name="TotalCount" type="int" display="参加总人数"/>
 					<add name="MemberCount" type="int" display="团队学员数"/>
 					<add name="MemberRecord" type="string" dataLength="100" display="非团队成员参加对象（若有至少需写出1—5人姓名/单位）"/>
+					<add name="IsDeclare" type="bool" display="是否申报"/>
+					
 					<!-- Record Information -->
 					<add name="CreateDate" type="DateTime" display="创建时间"/>
 					<add name="Creator" type="long" display="创建人"/>

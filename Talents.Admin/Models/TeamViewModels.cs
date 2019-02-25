@@ -172,6 +172,8 @@ namespace TheSite.Models
       public string ContentValue { get; set; }
 
       public long TeamContentId { get; set; }
+
+      public bool IsDeclare { get; set; }
    }
 
 
@@ -188,6 +190,8 @@ namespace TheSite.Models
       public string ContentValue { get; set; }
 
       public long TeamContentId { get; set; }
+
+      public bool IsDeclare { get; set; }
    }
 
 

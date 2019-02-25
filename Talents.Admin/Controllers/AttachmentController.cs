@@ -9,6 +9,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
+using Util.ThirdParty.WangsuCloud;
 
 namespace TheSite.Controllers
 {
@@ -16,17 +17,17 @@ namespace TheSite.Controllers
    public class AttachmentController : BaseController
    {
 
-      static Dictionary<string, PDFHandler> PDFHandlers = new Dictionary<string, PDFHandler>
-      {
-         {".doc", new WordToPDFHandler()  },
-         {".docx",new WordToPDFHandler()  },
-         {".xls", new ExcelToPDFHandler()  },
-         {".xlsx",new ExcelToPDFHandler()  },
-         {".csv", new ExcelToPDFHandler()  },
-         {".pptx",new PPTToPDFHandler() },
-         {".ppt", new PPTToPDFHandler() },
-         {".pdf", new PDFHandler()  },
-      };
+      //static Dictionary<string, PDFHandler> PDFHandlers = new Dictionary<string, PDFHandler>
+      //{
+      //   {".doc", new WordToPDFHandler()  },
+      //   {".docx",new WordToPDFHandler()  },
+      //   {".xls", new ExcelToPDFHandler()  },
+      //   {".xlsx",new ExcelToPDFHandler()  },
+      //   {".csv", new ExcelToPDFHandler()  },
+      //   {".pptx",new PPTToPDFHandler() },
+      //   {".ppt", new PPTToPDFHandler() },
+      //   {".pdf", new PDFHandler()  },
+      //};
 
       [HttpPost]
       public ActionResult UploadFile(HttpPostedFileBase file)
@@ -36,22 +37,59 @@ namespace TheSite.Controllers
          try
          {
             string filename = DateTime.Now.ToString("yyyyMMddHHmmssffff") + file.FileName.Substring(file.FileName.IndexOf('.'));
-            string savepath = GetDirForSaveing();
 
-            string mappedDir = Server.MapPath("~" + savepath);
-            if (!Directory.Exists(mappedDir))
-               Directory.CreateDirectory(mappedDir);
+            var uploadFile = new UploadFile
+            {
+               Stream = file.InputStream,
+               FileName = $"files/{DateTime.Today.ToString("yyyyMMdd")}/{filename}"
+            };
+            var result = FileUploader.SliceUpload(uploadFile);
+
+            var ext = Path.GetExtension(file.FileName);
+            if (ext.ToLowerInvariant() == ".pptx" || ext.ToLowerInvariant() == ".ppt")
+            {
+               Stream docStream = null;
+               try
+               {
+                  docStream = Util.ThirdParty.Aspose.PPTConverter.ConvertoPdf(file.InputStream);
+                  var pdfFile = new UploadFile
+                  {
+                     Stream = docStream,
+                     FileName = $"files/{DateTime.Today.ToString("yyyyMMdd")}/abc.pdf"
+                  };
+                  var docResult = FileUploader.SliceUpload(pdfFile);
+               }
+               catch(Exception e)
+               {
+
+               }
+               finally
+               {
+                  if (docStream != null)
+                  {
+                     docStream.Close();
+                     docStream.Dispose();
+                  }
+               }
+
+            }
+
+            //string savepath = GetDirForSaveing();
+
+            //string mappedDir = Server.MapPath("~" + savepath);
+            //if (!Directory.Exists(mappedDir))
+            //   Directory.CreateDirectory(mappedDir);
 
 
-            file.SaveAs(Path.Combine(mappedDir, filename));
+            //file.SaveAs(Path.Combine(mappedDir, filename));
 
-            string url = savepath + "/" + filename;
+            //string url = savepath + "/" + filename;
 
             // 返回结果
             return Json(new
             {
                result = AjaxResults.Success,
-               url = url,
+               url = result.FileUrl,
                filename = file.FileName,
                msg = "文件已保存成功"
             });
@@ -159,12 +197,14 @@ namespace TheSite.Controllers
 
       public ActionResult Preview(long id)
       {
-         var attachment = db.AttachmentsDal.PrimaryGet(id);
-         var extName = Path.GetExtension(attachment.AttachmentName);
-         if (PDFHandlers.ContainsKey(extName))
-            PDFHandlers[extName].Handle(attachment, new PDFContext { Server = Server });
+         //var attachment = db.AttachmentsDal.PrimaryGet(id);
+         //var extName = Path.GetExtension(attachment.AttachmentName);
+         //if (PDFHandlers.ContainsKey(extName))
+         //   PDFHandlers[extName].Handle(attachment, new PDFContext { Server = Server });
 
-         return View(attachment);
+         //return View(attachment);
+
+         return View();
       }
 
 
@@ -176,72 +216,72 @@ namespace TheSite.Controllers
 
    }
 
-   class PDFHandler
-   {
-      public virtual void Handle(Attachments orginal, PDFContext context) { }
-   }
+   //class PDFHandler
+   //{
+   //   public virtual void Handle(Attachments orginal, PDFContext context) { }
+   //}
 
-   class WordToPDFHandler : PDFHandler
-   {
-      public override void Handle(Attachments orginal, PDFContext context)
-      {
-         var attachment = orginal;
-         var server = context.Server;
-         var filePath = server.MapPath("~" + attachment.AttachmentUrl);
-         var extName = Path.GetExtension(orginal.AttachmentName);
-         var pdfVirtualPath = attachment.AttachmentUrl.Replace(extName, ".pdf");
-         var pdfPath = server.MapPath("~" + pdfVirtualPath);
-         if (!System.IO.File.Exists(pdfPath))
-         {
-            PDFHelper.WordToPDF(filePath, pdfPath);
-         }
+   //class WordToPDFHandler : PDFHandler
+   //{
+   //   public override void Handle(Attachments orginal, PDFContext context)
+   //   {
+   //      var attachment = orginal;
+   //      var server = context.Server;
+   //      var filePath = server.MapPath("~" + attachment.AttachmentUrl);
+   //      var extName = Path.GetExtension(orginal.AttachmentName);
+   //      var pdfVirtualPath = attachment.AttachmentUrl.Replace(extName, ".pdf");
+   //      var pdfPath = server.MapPath("~" + pdfVirtualPath);
+   //      if (!System.IO.File.Exists(pdfPath))
+   //      {
+   //         PDFHelper.WordToPDF(filePath, pdfPath);
+   //      }
 
-         attachment.AttachmentUrl = pdfVirtualPath;
+   //      attachment.AttachmentUrl = pdfVirtualPath;
 
-      }
-   }
+   //   }
+   //}
 
-   class ExcelToPDFHandler : PDFHandler
-   {
-      public override void Handle(Attachments orginal, PDFContext context)
-      {
-         var attachment = orginal;
-         var server = context.Server;
-         var filePath = server.MapPath("~" + attachment.AttachmentUrl);
-         var extName = Path.GetExtension(orginal.AttachmentName);
-         var pdfVirtualPath = attachment.AttachmentUrl.Replace(extName, ".pdf");
-         var pdfPath = server.MapPath("~" + pdfVirtualPath);
-         if (!System.IO.File.Exists(pdfPath))
-         {
-            PDFHelper.ExcelToPdf(filePath, pdfPath);
-         }
+   //class ExcelToPDFHandler : PDFHandler
+   //{
+   //   public override void Handle(Attachments orginal, PDFContext context)
+   //   {
+   //      var attachment = orginal;
+   //      var server = context.Server;
+   //      var filePath = server.MapPath("~" + attachment.AttachmentUrl);
+   //      var extName = Path.GetExtension(orginal.AttachmentName);
+   //      var pdfVirtualPath = attachment.AttachmentUrl.Replace(extName, ".pdf");
+   //      var pdfPath = server.MapPath("~" + pdfVirtualPath);
+   //      if (!System.IO.File.Exists(pdfPath))
+   //      {
+   //         PDFHelper.ExcelToPdf(filePath, pdfPath);
+   //      }
 
-         attachment.AttachmentUrl = pdfVirtualPath;
-      }
-   }
+   //      attachment.AttachmentUrl = pdfVirtualPath;
+   //   }
+   //}
 
-   class PPTToPDFHandler : PDFHandler
-   {
-      public override void Handle(Attachments orginal, PDFContext context)
-      {
-         var attachment = orginal;
-         var server = context.Server;
-         var filePath = server.MapPath("~" + attachment.AttachmentUrl);
-         var extName = Path.GetExtension(orginal.AttachmentName);
-         var pdfVirtualPath = attachment.AttachmentUrl.Replace(extName, ".pdf");
-         var pdfPath = server.MapPath("~" + pdfVirtualPath);
-         if (!System.IO.File.Exists(pdfPath))
-         {
-            PDFHelper.PPTToPDF(filePath, pdfPath);
-         }
+   //class PPTToPDFHandler : PDFHandler
+   //{
+   //   public override void Handle(Attachments orginal, PDFContext context)
+   //   {
+   //      var attachment = orginal;
+   //      var server = context.Server;
+   //      var filePath = server.MapPath("~" + attachment.AttachmentUrl);
+   //      var extName = Path.GetExtension(orginal.AttachmentName);
+   //      var pdfVirtualPath = attachment.AttachmentUrl.Replace(extName, ".pdf");
+   //      var pdfPath = server.MapPath("~" + pdfVirtualPath);
+   //      if (!System.IO.File.Exists(pdfPath))
+   //      {
+   //         PDFHelper.PPTToPDF(filePath, pdfPath);
+   //      }
 
-         attachment.AttachmentUrl = pdfVirtualPath;
-      }
-   }
+   //      attachment.AttachmentUrl = pdfVirtualPath;
+   //   }
+   //}
 
-   class PDFContext
-   {
-      public HttpServerUtilityBase Server { get; set; }
-   }
+   //class PDFContext
+   //{
+   //   public HttpServerUtilityBase Server { get; set; }
+   //}
 
 }

@@ -487,8 +487,9 @@ namespace TheSite.Controllers
 			{
 				model.Modifier = UserProfile.UserId;
 				model.ModifyDate = DateTime.Now;
+            model.ContentKey = TeamKeys.DaijJih_Memo1;
 
-				db.TeamContentDal.UpdatePartial(id.Value, new
+            db.TeamContentDal.UpdatePartial(id.Value, new
 				{
 					model.ContentValue,
 					model.Modifier,
@@ -534,6 +535,7 @@ namespace TheSite.Controllers
 					AttachmentsExtensions.GetAttachmentList(db, UserProfile.UserId, AttachmentsKeys.DaijJih_Memo2));
 				model.AttachmentName = atta.Name;
 				model.AttachmentUrl = atta.Url;
+            model.IsDeclare = data.IsDeclare;
 			}
 		
 			return PartialView("Memo2", model);
@@ -545,14 +547,15 @@ namespace TheSite.Controllers
 		{
 			ThrowNotAjax();
 
+         var data = id == null ? new TeamContent() : db.TeamContentDal.PrimaryGet(id.Value);
 
-			var atta = new AttachmentsDataModel()
+         var atta = new AttachmentsDataModel()
 			{
 				Type = AttachmentsKeys.DaijJih_Memo2,
 				Name = model.AttachmentName,
 				Url = model.AttachmentUrl,
 				UserId = UserProfile.UserId,
-				JoinId = UserProfile.UserId
+				JoinId = UserProfile.UserId,
 			};
 
 
@@ -563,14 +566,15 @@ namespace TheSite.Controllers
 
 				if (id == null)
 				{
-					var data = new TeamContent()
+				   data = new TeamContent()
 					{
 						ContentKey = TeamKeys.DaijJih_Memo2,
 						ContentValue = model.ContentValue,
 						TeamId = UserProfile.UserId,
 						CreateDate = DateTime.Now,
-						Creator = UserProfile.UserId
-					};
+						Creator = UserProfile.UserId,
+                  IsDeclare = model.IsDeclare
+            };
 
 					db.TeamContentDal.Insert(data);
 				}
@@ -580,14 +584,19 @@ namespace TheSite.Controllers
 					{
 						ContentValue = model.ContentValue,
 						Modifier = UserProfile.UserId,
-						ModifyDate = DateTime.Now
-					});
+						ModifyDate = DateTime.Now,
+                  IsDeclare=model.IsDeclare
+               });
 
 					AttachmentsExtensions.DeleteAtta(db, UserProfile.UserId, AttachmentsKeys.DaijJih_Memo2);
 				}
 
 				AttachmentsExtensions.InsertAtta(db, atta);
-				db.Commit();
+
+            data.IsDeclare = model.IsDeclare;
+            AddDeclareMaterial(data, db.GetCurrentDeclarePeriod());
+
+            db.Commit();
 
 
             //记录日志
@@ -639,6 +648,7 @@ namespace TheSite.Controllers
 					AttachmentsExtensions.GetAttachmentList(db, UserProfile.UserId, AttachmentsKeys.DaijJih_Memo3));
 				model.AttachmentName = atta.Name;
 				model.AttachmentUrl = atta.Url;
+            model.IsDeclare = data.IsDeclare;
 			}
 
 			return PartialView("Memo3", model);
@@ -649,8 +659,9 @@ namespace TheSite.Controllers
 		{
 			ThrowNotAjax();
 
+         var data = id == null ? new TeamContent() : db.TeamContentDal.PrimaryGet(id.Value);
 
-			var atta = new AttachmentsDataModel()
+         var atta = new AttachmentsDataModel()
 			{
 				Type = AttachmentsKeys.DaijJih_Memo3,
 				Name = model.AttachmentName,
@@ -667,13 +678,14 @@ namespace TheSite.Controllers
 
 				if (id == null)
 				{
-					var data = new TeamContent()
+				   data = new TeamContent()
 					{
 						ContentKey = TeamKeys.DaijJih_Memo3,
 						ContentValue = model.ContentValue,
 						TeamId = UserProfile.UserId,
 						Creator = UserProfile.UserId,
-						CreateDate = DateTime.Now
+						CreateDate = DateTime.Now,
+                  IsDeclare=model.IsDeclare
 					};
 
 					db.TeamContentDal.Insert(data);
@@ -684,14 +696,19 @@ namespace TheSite.Controllers
 					{
 						ContentValue = model.ContentValue,
 						ModifyDate = DateTime.Now,
-						Modifier = UserProfile.UserId
-					});
+						Modifier = UserProfile.UserId,
+                  IsDeclare = model.IsDeclare
+               });
 
 					AttachmentsExtensions.DeleteAtta(db, UserProfile.UserId, AttachmentsKeys.DaijJih_Memo3);
 				}
 
 				AttachmentsExtensions.InsertAtta(db, atta);
-				db.Commit();
+
+            data.IsDeclare = model.IsDeclare;
+            AddDeclareMaterial(data, db.GetCurrentDeclarePeriod());
+
+            db.Commit();
 
 
             //记录日志
@@ -737,7 +754,7 @@ namespace TheSite.Controllers
                ParentType = "TeamContent",
                CreateDate = DateTime.Now,
                PubishDate = DateTime.Now,
-               Title = content.ContentValue,
+               Title = content.ContentKey==TeamKeys.DaijJih_Memo2? " " :content.ContentValue,
                Type = content.ContentKey,
                TeacherId = UserProfile.UserId,
                PeriodId = period.PeriodId

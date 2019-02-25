@@ -316,6 +316,7 @@ textarea.form-control {
 .table th.width320 {
 	width: 320px;
 }
+
 .table-dark-header th:hover {
 	background-color: #aaa;
 }

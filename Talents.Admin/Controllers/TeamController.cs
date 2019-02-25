@@ -22,7 +22,7 @@ namespace TheSite.Controllers
       static APDBDef.TeamActiveResultTableDef tar = APDBDef.TeamActiveResult;
       static APDBDef.TeamSpecialCourseTableDef tsc = APDBDef.TeamSpecialCourse;
       static APDBDef.TeamSpecialCourseItemTableDef tsci = APDBDef.TeamSpecialCourseItem;
-
+      static APDBDef.DeclareMaterialTableDef dm = APDBDef.DeclareMaterial;
 
       #region [ 导师访问自己的梯队 ]
 
@@ -311,9 +311,9 @@ namespace TheSite.Controllers
             .where(tm.TeamId == teamId)
             .executeScale(db);
 
-         var model = APQuery.select(ta.TeamActiveId, ta.ActiveType, ta.Date, ta.Title, ta.IsShare, tar.ActiveId.Count().As("ActiveCount"))
+         var model = APQuery.select(ta.TeamActiveId, ta.ActiveType, ta.Date, ta.Title, ta.IsShare, tar.ActiveId.Count().As("ActiveCount"),ta.IsDeclare)
             .from(ta, tar.JoinLeft(ta.TeamActiveId == tar.ActiveId))
-            .group_by(ta.TeamActiveId, ta.ActiveType, ta.Date, ta.Title, ta.IsShare)
+            .group_by(ta.TeamActiveId, ta.ActiveType, ta.Date, ta.Title, ta.IsShare, ta.IsDeclare)
             .where(ta.TeamId == teamId)
             .query(db, rd =>
             {
@@ -326,6 +326,7 @@ namespace TheSite.Controllers
                   MemberCount = memberCount,
                   ActiveType = ta.ActiveType.GetValue(rd),
                   IsShare = ta.IsShare.GetValue(rd),
+                  IsDeclare=ta.IsDeclare.GetValue(rd)
                };
             }).ToList();
 
@@ -348,6 +349,7 @@ namespace TheSite.Controllers
       {
          ThrowNotAjax();
 
+         var period = db.GetCurrentDeclarePeriod();
          var teamId = (long)APQuery.select(ta.TeamId)
             .from(ta)
             .where(ta.TeamActiveId == id)
@@ -366,6 +368,8 @@ namespace TheSite.Controllers
                .set(d.ActiveCount.SetValue(APSqlRawExpr.Expr("ActiveCount - 1")))
                .where(d.TeacherId == teamId)
                .execute(db);
+
+            db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == period.PeriodId);
 
             db.Commit();
 
@@ -630,10 +634,10 @@ namespace TheSite.Controllers
       {
          var t = APDBDef.TeamSpecialCourse;
 
-         var model = APQuery.select(tsc.CourseId, tsc.StartDate, tsc.EndDate, tsc.Title,
+         var model = APQuery.select(tsc.CourseId, tsc.StartDate, tsc.EndDate, tsc.Title, tsc.IsDeclare,
             tsci.CourseId.Count().As("ItemCount"))
             .from(tsc, tsci.JoinLeft(tsc.CourseId == tsci.CourseId))
-            .group_by(tsc.CourseId, tsc.StartDate, tsc.EndDate, tsc.Title)
+            .group_by(tsc.CourseId, tsc.StartDate, tsc.EndDate, tsc.Title, tsc.IsDeclare)
             .where(tsc.TeamId == teamId)
             .query(db, rd =>
             {
@@ -663,12 +667,15 @@ namespace TheSite.Controllers
       {
          ThrowNotAjax();
 
+         var period = db.GetCurrentDeclarePeriod();
+
          db.BeginTrans();
 
          try
          {
             db.TeamSpecialCourseDal.PrimaryDelete(id);
             db.TeamSpecialCourseItemDal.ConditionDelete(tsci.CourseId == id);
+            db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == period.PeriodId);
 
             db.Commit();
          }

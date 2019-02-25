@@ -8884,6 +8884,8 @@ namespace Business {
             
             private StringAPColumnDef _memberRecord;
             
+            private BooleanAPColumnDef _isDeclare;
+            
             private DateTimeAPColumnDef _createDate;
             
             private Int64APColumnDef _creator;
@@ -9084,6 +9086,19 @@ namespace Business {
             }
             
             /// <summary>
+            /// IsDeclare ColumnDef
+            /// </summary>
+            public virtual BooleanAPColumnDef IsDeclare {
+                get {
+                    if (Object.ReferenceEquals(_isDeclare, null)) {
+                        _isDeclare = new BooleanAPColumnDef(this, "IsDeclare", false);
+                        _isDeclare.Display = "是否申报";
+                    }
+                    return _isDeclare;
+                }
+            }
+            
+            /// <summary>
             /// CreateDate ColumnDef
             /// </summary>
             public virtual DateTimeAPColumnDef CreateDate {
@@ -9169,6 +9184,7 @@ namespace Business {
                 data.TotalCount = TotalCount.GetValue<int>(reader, throwIfValidColumnName);
                 data.MemberCount = MemberCount.GetValue<int>(reader, throwIfValidColumnName);
                 data.MemberRecord = MemberRecord.GetValue<string>(reader, throwIfValidColumnName);
+                data.IsDeclare = IsDeclare.GetValue<bool>(reader, throwIfValidColumnName);
                 data.CreateDate = CreateDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
                 data.Creator = Creator.GetValue<long>(reader, throwIfValidColumnName);
                 data.ModifyDate = ModifyDate.GetValue<System.Nullable<System.DateTime>>(reader, throwIfValidColumnName);
@@ -17292,7 +17308,7 @@ namespace Business {
                 if ((data.CourseId == 0)) {
                     data.CourseId = ((long)(GetNewId(APDBDef.TeamSpecialCourse.CourseId)));
                 }
-                var query = APQuery.insert(APDBDef.TeamSpecialCourse).values(APDBDef.TeamSpecialCourse.CourseId.SetValue(data.CourseId), APDBDef.TeamSpecialCourse.TeamId.SetValue(data.TeamId), APDBDef.TeamSpecialCourse.Title.SetValue(data.Title), APDBDef.TeamSpecialCourse.StartDate.SetValue(data.StartDate), APDBDef.TeamSpecialCourse.EndDate.SetValue(data.EndDate), APDBDef.TeamSpecialCourse.CourseTarget.SetValue(data.CourseTarget), APDBDef.TeamSpecialCourse.CoursePlan.SetValue(data.CoursePlan), APDBDef.TeamSpecialCourse.CourseRecords.SetValue(data.CourseRecords), APDBDef.TeamSpecialCourse.CourseResults.SetValue(data.CourseResults), APDBDef.TeamSpecialCourse.CourseSummary.SetValue(data.CourseSummary), APDBDef.TeamSpecialCourse.Remark.SetValue(data.Remark), APDBDef.TeamSpecialCourse.TotalCount.SetValue(data.TotalCount), APDBDef.TeamSpecialCourse.MemberCount.SetValue(data.MemberCount), APDBDef.TeamSpecialCourse.MemberRecord.SetValue(data.MemberRecord), APDBDef.TeamSpecialCourse.CreateDate.SetValue(data.CreateDate), APDBDef.TeamSpecialCourse.Creator.SetValue(data.Creator), APDBDef.TeamSpecialCourse.ModifyDate.SetValue(data.ModifyDate), APDBDef.TeamSpecialCourse.Modifier.SetValue(data.Modifier));
+                var query = APQuery.insert(APDBDef.TeamSpecialCourse).values(APDBDef.TeamSpecialCourse.CourseId.SetValue(data.CourseId), APDBDef.TeamSpecialCourse.TeamId.SetValue(data.TeamId), APDBDef.TeamSpecialCourse.Title.SetValue(data.Title), APDBDef.TeamSpecialCourse.StartDate.SetValue(data.StartDate), APDBDef.TeamSpecialCourse.EndDate.SetValue(data.EndDate), APDBDef.TeamSpecialCourse.CourseTarget.SetValue(data.CourseTarget), APDBDef.TeamSpecialCourse.CoursePlan.SetValue(data.CoursePlan), APDBDef.TeamSpecialCourse.CourseRecords.SetValue(data.CourseRecords), APDBDef.TeamSpecialCourse.CourseResults.SetValue(data.CourseResults), APDBDef.TeamSpecialCourse.CourseSummary.SetValue(data.CourseSummary), APDBDef.TeamSpecialCourse.Remark.SetValue(data.Remark), APDBDef.TeamSpecialCourse.TotalCount.SetValue(data.TotalCount), APDBDef.TeamSpecialCourse.MemberCount.SetValue(data.MemberCount), APDBDef.TeamSpecialCourse.MemberRecord.SetValue(data.MemberRecord), APDBDef.TeamSpecialCourse.IsDeclare.SetValue(data.IsDeclare), APDBDef.TeamSpecialCourse.CreateDate.SetValue(data.CreateDate), APDBDef.TeamSpecialCourse.Creator.SetValue(data.Creator), APDBDef.TeamSpecialCourse.ModifyDate.SetValue(data.ModifyDate), APDBDef.TeamSpecialCourse.Modifier.SetValue(data.Modifier));
                 ExecuteNonQuery(query);
             }
             
@@ -17300,7 +17316,7 @@ namespace Business {
             /// Update Data.
             /// </summary>
             public virtual void Update(TeamSpecialCourse data) {
-                var query = APQuery.update(APDBDef.TeamSpecialCourse).values(APDBDef.TeamSpecialCourse.TeamId.SetValue(data.TeamId), APDBDef.TeamSpecialCourse.Title.SetValue(data.Title), APDBDef.TeamSpecialCourse.StartDate.SetValue(data.StartDate), APDBDef.TeamSpecialCourse.EndDate.SetValue(data.EndDate), APDBDef.TeamSpecialCourse.CourseTarget.SetValue(data.CourseTarget), APDBDef.TeamSpecialCourse.CoursePlan.SetValue(data.CoursePlan), APDBDef.TeamSpecialCourse.CourseRecords.SetValue(data.CourseRecords), APDBDef.TeamSpecialCourse.CourseResults.SetValue(data.CourseResults), APDBDef.TeamSpecialCourse.CourseSummary.SetValue(data.CourseSummary), APDBDef.TeamSpecialCourse.Remark.SetValue(data.Remark), APDBDef.TeamSpecialCourse.TotalCount.SetValue(data.TotalCount), APDBDef.TeamSpecialCourse.MemberCount.SetValue(data.MemberCount), APDBDef.TeamSpecialCourse.MemberRecord.SetValue(data.MemberRecord), APDBDef.TeamSpecialCourse.CreateDate.SetValue(data.CreateDate), APDBDef.TeamSpecialCourse.Creator.SetValue(data.Creator), APDBDef.TeamSpecialCourse.ModifyDate.SetValue(data.ModifyDate), APDBDef.TeamSpecialCourse.Modifier.SetValue(data.Modifier)).where((APDBDef.TeamSpecialCourse.CourseId == data.CourseId));
+                var query = APQuery.update(APDBDef.TeamSpecialCourse).values(APDBDef.TeamSpecialCourse.TeamId.SetValue(data.TeamId), APDBDef.TeamSpecialCourse.Title.SetValue(data.Title), APDBDef.TeamSpecialCourse.StartDate.SetValue(data.StartDate), APDBDef.TeamSpecialCourse.EndDate.SetValue(data.EndDate), APDBDef.TeamSpecialCourse.CourseTarget.SetValue(data.CourseTarget), APDBDef.TeamSpecialCourse.CoursePlan.SetValue(data.CoursePlan), APDBDef.TeamSpecialCourse.CourseRecords.SetValue(data.CourseRecords), APDBDef.TeamSpecialCourse.CourseResults.SetValue(data.CourseResults), APDBDef.TeamSpecialCourse.CourseSummary.SetValue(data.CourseSummary), APDBDef.TeamSpecialCourse.Remark.SetValue(data.Remark), APDBDef.TeamSpecialCourse.TotalCount.SetValue(data.TotalCount), APDBDef.TeamSpecialCourse.MemberCount.SetValue(data.MemberCount), APDBDef.TeamSpecialCourse.MemberRecord.SetValue(data.MemberRecord), APDBDef.TeamSpecialCourse.IsDeclare.SetValue(data.IsDeclare), APDBDef.TeamSpecialCourse.CreateDate.SetValue(data.CreateDate), APDBDef.TeamSpecialCourse.Creator.SetValue(data.Creator), APDBDef.TeamSpecialCourse.ModifyDate.SetValue(data.ModifyDate), APDBDef.TeamSpecialCourse.Modifier.SetValue(data.Modifier)).where((APDBDef.TeamSpecialCourse.CourseId == data.CourseId));
                 ExecuteNonQuery(query);
             }
             
@@ -41944,6 +41960,11 @@ namespace Business {
         private string _memberRecord = string.Empty;
         
         /// <summary>
+        /// IsDeclare
+        /// </summary>
+        private bool _isDeclare;
+        
+        /// <summary>
         /// CreateDate
         /// </summary>
         private System.DateTime _createDate;
@@ -41987,6 +42008,7 @@ namespace Business {
                     int totalCount, 
                     int memberCount, 
                     string memberRecord, 
+                    bool isDeclare, 
                     System.DateTime createDate, 
                     long creator, 
                     System.Nullable<System.DateTime> modifyDate, 
@@ -42005,6 +42027,7 @@ namespace Business {
             _totalCount = totalCount;
             _memberCount = memberCount;
             _memberRecord = memberRecord;
+            _isDeclare = isDeclare;
             _createDate = createDate;
             _creator = creator;
             _modifyDate = modifyDate;
@@ -42329,6 +42352,28 @@ namespace Business {
         }
         
         /// <summary>
+        /// IsDeclare
+        /// </summary>
+        [Display(Name="是否申报")]
+        public virtual bool IsDeclare {
+            get {
+                return _isDeclare;
+            }
+            set {
+                _isDeclare = value;
+            }
+        }
+        
+        /// <summary>
+        /// IsDeclare APColumnDef
+        /// </summary>
+        public static BooleanAPColumnDef IsDeclareDef {
+            get {
+                return APDBDef.TeamSpecialCourse.IsDeclare;
+            }
+        }
+        
+        /// <summary>
         /// CreateDate
         /// </summary>
         [Display(Name="创建时间")]
@@ -42452,6 +42497,7 @@ namespace Business {
             TotalCount = data.TotalCount;
             MemberCount = data.MemberCount;
             MemberRecord = data.MemberRecord;
+            IsDeclare = data.IsDeclare;
             CreateDate = data.CreateDate;
             Creator = data.Creator;
             ModifyDate = data.ModifyDate;
@@ -42502,6 +42548,9 @@ namespace Business {
                 return false;
             }
             if ((MemberRecord != data.MemberRecord)) {
+                return false;
+            }
+            if ((IsDeclare != data.IsDeclare)) {
                 return false;
             }
             if ((CreateDate != data.CreateDate)) {
@@ -42627,11 +42676,12 @@ namespace Business {
                     int totalCount, 
                     int memberCount, 
                     string memberRecord, 
+                    bool isDeclare, 
                     System.DateTime createDate, 
                     long creator, 
                     System.Nullable<System.DateTime> modifyDate, 
                     long modifier) : 
-                base(courseId, teamId, title, startDate, endDate, courseTarget, coursePlan, courseRecords, courseResults, courseSummary, remark, totalCount, memberCount, memberRecord, createDate, creator, modifyDate, modifier) {
+                base(courseId, teamId, title, startDate, endDate, courseTarget, coursePlan, courseRecords, courseResults, courseSummary, remark, totalCount, memberCount, memberRecord, isDeclare, createDate, creator, modifyDate, modifier) {
         }
     }
     
