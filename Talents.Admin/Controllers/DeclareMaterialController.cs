@@ -97,21 +97,7 @@ namespace TheSite.Controllers
             {
                db.DeclareResumeDal.UpdatePartial(id, new { isDeclare = resume.IsDeclare });
 
-               if (resume.IsDeclare)
-                  db.DeclareMaterialDal.Insert(new DeclareMaterial
-                  {
-                     ItemId = id,
-                     ParentType = "DeclareResume",
-                     CreateDate = DateTime.Now,
-                     PubishDate = DateTime.Now,
-                     Title = resume.Title,
-                     Type = DeclareKeys.ZisFaz_GerJianl,
-                     TeacherId = UserProfile.UserId,
-                     PeriodId = period.PeriodId
-                  });
-               else
-                  db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == period.PeriodId);
-
+               DeclareMaterialHelper.AddDeclareMaterial(resume, period, db);
 
                db.Commit();
             }
@@ -162,21 +148,7 @@ namespace TheSite.Controllers
             {
                db.DeclareActiveDal.UpdatePartial(id, new { isDeclare = active.IsDeclare });
 
-               if (active.IsDeclare)
-                  db.DeclareMaterialDal.Insert(new DeclareMaterial
-                  {
-                     ItemId = id,
-                     ParentType = "DeclareActive",
-                     CreateDate = DateTime.Now,
-                     PubishDate = DateTime.Now,
-                     Title = active.ContentValue,
-                     Type = active.ActiveKey,
-                     TeacherId = UserProfile.UserId,
-                     PeriodId = period.PeriodId
-                  });
-               else
-                  db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == period.PeriodId);
-
+               DeclareMaterialHelper.AddDeclareMaterial(active, period, db);
 
                db.Commit();
             }
@@ -228,21 +200,7 @@ namespace TheSite.Controllers
             {
                db.DeclareOrgConstDal.UpdatePartial(id, new { isDeclare = org.IsDeclare });
 
-               if (org.IsDeclare)
-                  db.DeclareMaterialDal.Insert(new DeclareMaterial
-                  {
-                     ItemId = id,
-                     ParentType = "DeclareOrgConst",
-                     CreateDate = DateTime.Now,
-                     PubishDate = DateTime.Now,
-                     Title = org.Content,
-                     Type = DeclareKeys.ZhidJians_DangaJians,
-                     TeacherId = UserProfile.UserId,
-                     PeriodId = period.PeriodId
-                  });
-               else
-                  db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == period.PeriodId);
-
+               DeclareMaterialHelper.AddDeclareMaterial(org, period, db);
 
                db.Commit();
             }
@@ -293,21 +251,7 @@ namespace TheSite.Controllers
             {
                db.DeclareAchievementDal.UpdatePartial(id, new { IsDeclare = achievement.IsDeclare });
 
-               if (achievement.IsDeclare)
-                  db.DeclareMaterialDal.Insert(new DeclareMaterial
-                  {
-                     ItemId = id,
-                     ParentType = "DeclareAchievement",
-                     CreateDate = DateTime.Now,
-                     PubishDate = DateTime.Now,
-                     Title = achievement.NameOrTitle,
-                     Type = achievement.AchievementKey,
-                     TeacherId = UserProfile.UserId,
-                     PeriodId = period.PeriodId
-                  });
-               else
-                  db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == period.PeriodId);
-
+               DeclareMaterialHelper.AddDeclareMaterial(achievement, period, db);
 
                db.Commit();
             }
@@ -358,20 +302,22 @@ namespace TheSite.Controllers
             {
                db.TeamActiveDal.UpdatePartial(id, new { IsDeclare = teamActive.IsDeclare });
 
-               if (teamActive.IsDeclare)
-                  db.DeclareMaterialDal.Insert(new DeclareMaterial
-                  {
-                     ItemId = id,
-                     ParentType = "DeclareTeamActive",
-                     CreateDate = DateTime.Now,
-                     PubishDate = DateTime.Now,
-                     Title = teamActive.Title,
-                     Type = PicklistHelper.TeamActiveType.GetName(teamActive.ActiveType),
-                     TeacherId = UserProfile.UserId,
-                     PeriodId = period.PeriodId
-                  });
-               else
-                  db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == period.PeriodId);
+               DeclareMaterialHelper.AddDeclareMaterial(teamActive, period, db);
+
+               //if (teamActive.IsDeclare)
+               //   db.DeclareMaterialDal.Insert(new DeclareMaterial
+               //   {
+               //      ItemId = id,
+               //      ParentType = "DeclareTeamActive",
+               //      CreateDate = DateTime.Now,
+               //      PubishDate = DateTime.Now,
+               //      Title = teamActive.Title,
+               //      Type = PicklistHelper.TeamActiveType.GetName(teamActive.ActiveType),
+               //      TeacherId = UserProfile.UserId,
+               //      PeriodId = period.PeriodId
+               //   });
+               //else
+               //   db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == period.PeriodId);
 
 
                db.Commit();
@@ -423,20 +369,22 @@ namespace TheSite.Controllers
             {
                db.TeamSpecialCourseDal.UpdatePartial(id, new { IsDeclare = specialCourse.IsDeclare });
 
-               if (specialCourse.IsDeclare)
-                  db.DeclareMaterialDal.Insert(new DeclareMaterial
-                  {
-                     ItemId = id,
-                     ParentType = "DeclareTeamSpecialCourse",
-                     CreateDate = DateTime.Now,
-                     PubishDate = DateTime.Now,
-                     Title = specialCourse.Title,
-                     Type = TeamKeys.KecShis_Chak,
-                     TeacherId = UserProfile.UserId,
-                     PeriodId = period.PeriodId
-                  });
-               else
-                  db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == period.PeriodId);
+               DeclareMaterialHelper.AddDeclareMaterial(specialCourse,period,db);
+
+               //if (specialCourse.IsDeclare)
+               //   db.DeclareMaterialDal.Insert(new DeclareMaterial
+               //   {
+               //      ItemId = id,
+               //      ParentType = "DeclareTeamSpecialCourse",
+               //      CreateDate = DateTime.Now,
+               //      PubishDate = DateTime.Now,
+               //      Title = specialCourse.Title,
+               //      Type = TeamKeys.KecShis_Chak,
+               //      TeacherId = UserProfile.UserId,
+               //      PeriodId = period.PeriodId
+               //   });
+               //else
+               //   db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == period.PeriodId);
 
 
                db.Commit();
@@ -476,9 +424,7 @@ namespace TheSite.Controllers
       {
          ThrowNotAjax();
 
-         var period = db.GetCurrentDeclarePeriod();
-
-         db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == period.PeriodId);
+         db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == Period.PeriodId);
 
          APQuery.update(dc).set(dc.IsDeclare.SetValue(false)).where(dc.DeclareContentId == id).execute(db);
 

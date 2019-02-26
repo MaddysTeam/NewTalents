@@ -23,27 +23,11 @@
 			</li>
 
 			<li>
-				<a href="#" class="js-sub-menu-toggle">
-					<i class="fa fa-gears"></i>
-					<span class="text">教师申报管理</span>
-					<i class="toggle-icon fa fa-angle-left"></i>
+				<a href="@Url.Action("List", "DeclareReview", new {companyId=Html.GetUserProfile().CompanyId })">
+					<i class="fa fa-gear fa-fw"></i>
+					<span class="text">申报审核列表</span>
 				</a>
-				<ul class="sub-menu">
-					<li>
-						<a href="@Url.Action("List", "DeclareReview", new {companyId=Html.GetUserProfile().CompanyId })">
-							<i class="fa fa-gear fa-fw"></i>
-							<span class="text">申报审核列表</span>
-						</a>
-					</li>
-					@*<li>
-						<a href="@Url.Action("", "")">
-							<i class="fa fa-gear fa-fw"></i>
-							<span class="text">申报材料列表</span>
-						</a>
-					</li>*@
-				</ul>
 			</li>
-
 		</ul>
 	</nav>
 	<!-- /main-nav -->

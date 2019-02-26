@@ -36,13 +36,30 @@ namespace TheSite.Controllers
 		}
 
 
-		#endregion
+      private static DeclarePeriod _period;
+
+      public DeclarePeriod Period {
+         get
+         {
+            if (_period == null)
+               _period = db.GetCurrentDeclarePeriod();
+            return _period;
+         }
+         private set
+         {
+            _period = value;
+         }
+      }
 
 
-		#region [ UserManager ]
+
+      #endregion
 
 
-		private ApplicationSignInManager _signInManager;
+      #region [ UserManager ]
+
+
+      private ApplicationSignInManager _signInManager;
 		private ApplicationUserManager _userManager;
 
 

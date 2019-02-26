@@ -146,7 +146,6 @@ namespace TheSite.Controllers
          ThrowNotAjax();
 
          var deletedActive = db.DeclareActiveDal.PrimaryGet(id);
-         var period = db.GetCurrentDeclarePeriod();
 
          db.BeginTrans();
 
@@ -155,8 +154,8 @@ namespace TheSite.Controllers
             db.DeclareActiveDal.PrimaryDelete(id);
             AttachmentsExtensions.DeleteAtta(db, id, type);
 
-            if (period != null && deletedActive.IsDeclare)
-               db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == period.PeriodId);
+            if (Period != null && deletedActive.IsDeclare)
+               db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == Period.PeriodId);
 
             db.Commit();
 
@@ -2287,28 +2286,7 @@ namespace TheSite.Controllers
          }
 
          content.IsDeclare = isDeclare;
-         AddDeclareMaterial(content, period);
-      }
-
-
-      private void AddDeclareMaterial(DeclareContent content, DeclarePeriod period)
-      {
-         if (content != null && period != null && content.IsDeclare)
-         {
-            db.DeclareMaterialDal.ConditionDelete(dm.ItemId == content.DeclareContentId & dm.PeriodId == period.PeriodId);
-            if (content.IsDeclare)
-               db.DeclareMaterialDal.Insert(new DeclareMaterial
-               {
-                  ItemId = content.DeclareContentId,
-                  ParentType = "DeclareContent",
-                  CreateDate = DateTime.Now,
-                  PubishDate = DateTime.Now,
-                  Title = content.ContentValue,
-                  Type = content.ContentKey,
-                  TeacherId = UserProfile.UserId,
-                  PeriodId = period.PeriodId
-               });
-         }
+         DeclareMaterialHelper.AddDeclareMaterial(content, period,db);
       }
 
 

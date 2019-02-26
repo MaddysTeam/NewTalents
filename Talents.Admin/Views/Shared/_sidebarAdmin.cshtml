@@ -37,16 +37,16 @@
 					<i class="toggle-icon fa fa-angle-left"></i>
 				</a>
 				<ul class="sub-menu">
-					<li>
+					@*<li>
 						<a href="@Url.Action("Search", "User")">
 							<i class="fa fa-gear fa-fw"></i>
 							<span class="text">申报周期管理</span>
 						</a>
-					</li>
+					</li>*@
 					<li>
-						<a href="@Url.Action("", "")">
+						<a href="@Url.Action("List", "DeclareReview", new {companyId=0 })">
 							<i class="fa fa-gear fa-fw"></i>
-							<span class="text">教师申报管理</span>
+							<span class="text">教师申报列表</span>
 						</a>
 					</li>
 				</ul>

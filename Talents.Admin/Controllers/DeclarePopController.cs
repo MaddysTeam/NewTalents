@@ -57,10 +57,13 @@ namespace TheSite.Controllers
                model.DateRegion,
                model.Company,
                model.Title,
-
+               model.IsDeclare
             });
          }
 
+         var period = db.GetCurrentDeclarePeriod();
+         model = db.DeclareResumeDal.PrimaryGet(id.Value);
+         DeclareMaterialHelper.AddDeclareMaterial(model, period, db);
 
          var doSomthing = id == null ? "新增:" + id : "修改:" + id;
          Log(DeclareKeys.ZisFaz_GerJianl, doSomthing);
@@ -99,7 +102,8 @@ namespace TheSite.Controllers
                   Date = list.Date,
                   Location = list.Location,
                   ContentValue = list.ContentValue,
-                  IsShare = list.IsShare
+                  IsShare = list.IsShare,
+                  IsDeclare=list.IsDeclare
                };
 
                var at = AttachmentsExtensions.GetAttachment(AttachmentsExtensions.GetAttachmentList(db, id.Value, AttachmentsKeys.ZisFaz_ZiwYanx));
@@ -118,7 +122,7 @@ namespace TheSite.Controllers
       {
          ThrowNotAjax();
 
-
+         var period = db.GetCurrentDeclarePeriod();
          var atta = new AttachmentsDataModel()
          {
             Type = AttachmentsKeys.ZisFaz_ZiwYanx,
@@ -127,6 +131,7 @@ namespace TheSite.Controllers
             UserId = UserProfile.UserId
          };
 
+         DeclareActive data = null;
 
          db.BeginTrans();
 
@@ -134,7 +139,7 @@ namespace TheSite.Controllers
          {
             if (id == null)
             {
-               var data = new DeclareActive()
+               data = new DeclareActive()
                {
                   TeacherId = UserProfile.UserId,
                   ActiveKey = DeclareKeys.ZisFaz_ZiwYanx,
@@ -143,7 +148,8 @@ namespace TheSite.Controllers
                   ContentValue = model.ContentValue,
                   IsShare = model.IsShare,
                   Creator = UserProfile.UserId,
-                  CreateDate = DateTime.Now
+                  CreateDate = DateTime.Now,
+                  IsDeclare=model.IsDeclare
                };
 
                db.DeclareActiveDal.Insert(data);
@@ -158,16 +164,22 @@ namespace TheSite.Controllers
                .set(t.IsShare.SetValue(model.IsShare))
                .set(t.Modifier.SetValue(UserProfile.UserId))
                .set(t.ModifyDate.SetValue(DateTime.Now))
+               .set(t.IsDeclare.SetValue(model.IsDeclare))
                .where(t.DeclareActiveId == id.Value)
                .execute(db);
 
                AttachmentsExtensions.DeleteAtta(db, id.Value, AttachmentsKeys.ZisFaz_ZiwYanx);
                atta.JoinId = id.Value;
+
+               data = db.DeclareActiveDal.PrimaryGet(id.Value);
+
             }
 
             AttachmentsExtensions.InsertAtta(db, atta);
 
             AddOrDelShare(atta.JoinId, model.ContentValue, ShareKeys.ActiveShare, model.IsShare);
+
+            DeclareMaterialHelper.AddDeclareMaterial(data, period, db);
 
             db.Commit();
 
@@ -227,7 +239,8 @@ namespace TheSite.Controllers
                   Level = list.Level,
                   Dynamic1 = list.Dynamic1,
                   Dynamic2 = list.Dynamic2,
-                  IsShare = list.IsShare
+                  IsShare = list.IsShare,
+                  IsDeclare=list.IsDeclare
                };
 
                var allAts = AttachmentsExtensions.GetAttachmentList(db, id.Value);
@@ -270,6 +283,7 @@ namespace TheSite.Controllers
             UserId = UserProfile.UserId
          };
 
+         DeclareActive data = null;
 
          db.BeginTrans();
 
@@ -277,7 +291,7 @@ namespace TheSite.Controllers
          {
             if (id == null)
             {
-               var data = new DeclareActive()
+               data = new DeclareActive()
                {
                   TeacherId = UserProfile.UserId,
                   ActiveKey = DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk,
@@ -290,6 +304,7 @@ namespace TheSite.Controllers
                   IsShare = model.IsShare,
                   Creator = UserProfile.UserId,
                   CreateDate = DateTime.Now,
+                  IsDeclare=model.IsDeclare
                };
 
                db.DeclareActiveDal.Insert(data);
@@ -308,6 +323,7 @@ namespace TheSite.Controllers
                   .set(t.IsShare.SetValue(model.IsShare))
                   .set(t.Modifier.SetValue(UserProfile.UserId))
                   .set(t.ModifyDate.SetValue(DateTime.Now))
+                  .set(t.IsDeclare.SetValue(model.IsDeclare))
                   .where(t.DeclareActiveId == id.Value)
                   .execute(db);
 
@@ -315,11 +331,16 @@ namespace TheSite.Controllers
 
                atta.JoinId = id.Value;
                vertAtta.JoinId = id.Value;
+
+               data = db.DeclareActiveDal.PrimaryGet(id.Value);
             }
 
             AttachmentsExtensions.InsertAttas(db, new AttachmentsDataModel[] { atta, vertAtta });
 
             AddOrDelShare(atta.JoinId, model.ContentValue, ShareKeys.ActiveShare, model.IsShare);
+
+            var period = db.GetCurrentDeclarePeriod();
+            DeclareMaterialHelper.AddDeclareMaterial(data, period, db);
 
             db.Commit();
 

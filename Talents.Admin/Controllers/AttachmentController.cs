@@ -116,7 +116,6 @@ namespace TheSite.Controllers
 
       public static Bitmap GetThumbnail(HttpPostedFileBase hpf, int destHeight = ThisApp.ImageHeight, int destWidth = ThisApp.ImageWidth)
       {
-
          System.Drawing.Image imgSource = Image.FromStream(hpf.InputStream);
          System.Drawing.Imaging.ImageFormat thisFormat = imgSource.RawFormat;
          int sW = 0, sH = 0;
@@ -158,7 +157,6 @@ namespace TheSite.Controllers
          encoderParams.Param[0] = encoderParam;
          imgSource.Dispose();
          return outBmp;
-
       }
 
 
@@ -179,6 +177,7 @@ namespace TheSite.Controllers
       {
          return ThisApp.UploadFilePath + DateTime.Now.ToString("yyyyMMdd");
       }
+
 
       private Stream BitmapToStream(Bitmap bitmap,string ext)
       {

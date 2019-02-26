@@ -20,7 +20,6 @@ namespace TheSite.Controllers
 
       static APDBDef.DeclareReviewTableDef dr = APDBDef.DeclareReview;
 
-
       // GET: DeclareMaterial/Review
       // POST-Ajax: DeclareMaterial/Review
 
@@ -49,7 +48,7 @@ namespace TheSite.Controllers
 
          var period = db.GetCurrentDeclarePeriod();
          var isExist = db.DeclareReviewDal.ConditionQueryCount(
-            dr.TeacherId ==  UserProfile.UserId
+            dr.TeacherId == UserProfile.UserId
             & dr.StatusKey == DeclareKeys.ReviewProcess
             & dr.PeriodId == period.PeriodId) > 0;
 
@@ -77,7 +76,7 @@ namespace TheSite.Controllers
                review.StatusKey = DeclareKeys.ReviewProcess;
             }
 
-            db.DeclareReviewDal.UpdatePartial(review.ReviewId, new { StatusKey = review.StatusKey, ReviewComment=review.ReviewComment});
+            db.DeclareReviewDal.UpdatePartial(review.ReviewId, new { StatusKey = review.StatusKey, ReviewComment = review.ReviewComment });
          }
 
          return Json(new
@@ -98,13 +97,18 @@ namespace TheSite.Controllers
       {
          var u = APDBDef.BzUserProfile;
          var u2 = APDBDef.BzUserProfile.As("reviewer");
+         var c = APDBDef.Company;
          var currentPeriod = db.GetCurrentDeclarePeriod();
-         var query = APQuery.select(dr.ReviewId, dr.ReviewComment, dr.StatusKey, dr.TeacherId, dr.ReviewerId, u.RealName, u2.RealName.As("reviewer"))
-                          .from(dr, u.JoinInner(dr.TeacherId == u.UserId), u2.JoinLeft(dr.ReviewerId == u2.UserId))
+         var query = APQuery.select(dr.ReviewId, dr.ReviewComment, dr.StatusKey, dr.TeacherId, dr.ReviewerId, u.RealName, u2.RealName.As("reviewer"), c.CompanyName)
+                          .from(dr,
+                                u.JoinInner(dr.TeacherId == u.UserId),
+                                c.JoinInner(c.CompanyId == dr.CompanyId),
+                                u2.JoinLeft(dr.ReviewerId == u2.UserId)
+                                )
                           .where(dr.PeriodId == currentPeriod.PeriodId);
 
          if (companyId > 0)
-            query = query.where_and(u.CompanyId == companyId);
+            query = query.where_and(c.CompanyId == companyId);
 
 
          //过滤条件
@@ -138,7 +142,8 @@ namespace TheSite.Controllers
             status = dr.StatusKey.GetValue(r),
             teacherId = dr.TeacherId.GetValue(r),
             realName = u.RealName.GetValue(r),
-            reviewer = u2.RealName.GetValue(r, "reviewer")
+            reviewer = u2.RealName.GetValue(r, "reviewer"),
+            company = c.CompanyName.GetValue(r)
          });
 
          return Json(new
