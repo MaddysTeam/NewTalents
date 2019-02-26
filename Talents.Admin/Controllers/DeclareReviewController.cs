@@ -38,6 +38,30 @@ namespace TheSite.Controllers
       [HttpPost]
       public ActionResult Edit(DeclareReview review)
       {
+         if (review.CompanyId == 0)
+         {
+            return Json(new
+            {
+               result = AjaxResults.Error,
+               msg = "必须选择单位!"
+            });
+         }
+
+         var period = db.GetCurrentDeclarePeriod();
+         var isExist = db.DeclareReviewDal.ConditionQueryCount(
+            dr.TeacherId ==  UserProfile.UserId
+            & dr.StatusKey == DeclareKeys.ReviewProcess
+            & dr.PeriodId == period.PeriodId) > 0;
+
+         if (isExist)
+         {
+            return Json(new
+            {
+               result = AjaxResults.Error,
+               msg = "不能连续发送审核申请!"
+            });
+         }
+
          if (review.ReviewId == 0)
          {
             review.TeacherId = UserProfile.UserId;
@@ -53,7 +77,7 @@ namespace TheSite.Controllers
                review.StatusKey = DeclareKeys.ReviewProcess;
             }
 
-            db.DeclareReviewDal.UpdatePartial(review.ReviewId, new { StatusKey = review.StatusKey });
+            db.DeclareReviewDal.UpdatePartial(review.ReviewId, new { StatusKey = review.StatusKey, ReviewComment=review.ReviewComment});
          }
 
          return Json(new
@@ -75,9 +99,9 @@ namespace TheSite.Controllers
          var u = APDBDef.BzUserProfile;
          var u2 = APDBDef.BzUserProfile.As("reviewer");
          var currentPeriod = db.GetCurrentDeclarePeriod();
-         var query = APQuery.select(dr.ReviewId, dr.ReviewComment, dr.StatusKey, dr.TeacherId, dr.ReviewerId, u.RealName,u2.RealName.As("reviewer"))
-                          .from(dr, u.JoinInner(dr.TeacherId == u.UserId),u2.JoinLeft(dr.ReviewerId==u2.UserId))
-                          .where(dr.PeriodId== currentPeriod.PeriodId);
+         var query = APQuery.select(dr.ReviewId, dr.ReviewComment, dr.StatusKey, dr.TeacherId, dr.ReviewerId, u.RealName, u2.RealName.As("reviewer"))
+                          .from(dr, u.JoinInner(dr.TeacherId == u.UserId), u2.JoinLeft(dr.ReviewerId == u2.UserId))
+                          .where(dr.PeriodId == currentPeriod.PeriodId);
 
          if (companyId > 0)
             query = query.where_and(u.CompanyId == companyId);
@@ -109,12 +133,12 @@ namespace TheSite.Controllers
 
          var result = query.query(db, r => new
          {
-            id= dr.ReviewId.GetValue(r),
-            comment=dr.ReviewComment.GetValue(r),
-            status=dr.StatusKey.GetValue(r),
-            teacherId=dr.TeacherId.GetValue(r),
-            realName=u.RealName.GetValue(r),
-            reviewer=u2.RealName.GetValue(r, "reviewer")
+            id = dr.ReviewId.GetValue(r),
+            comment = dr.ReviewComment.GetValue(r),
+            status = dr.StatusKey.GetValue(r),
+            teacherId = dr.TeacherId.GetValue(r),
+            realName = u.RealName.GetValue(r),
+            reviewer = u2.RealName.GetValue(r, "reviewer")
          });
 
          return Json(new
@@ -125,7 +149,6 @@ namespace TheSite.Controllers
             total
          });
       }
-
 
    }
 

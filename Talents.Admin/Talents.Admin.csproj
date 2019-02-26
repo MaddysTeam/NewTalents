@@ -230,6 +230,7 @@
     <Compile Include="Business\Extensions\basic\DoubleExtensions.cs" />
     <Compile Include="Business\Extensions\DeclareExtensions.cs" />
     <Compile Include="Business\Extensions\AttachmentsExtensions.cs" />
+    <Compile Include="Business\Extensions\StreamExtension.cs" />
     <Compile Include="Business\Extensions\TeamExtensions.cs" />
     <Compile Include="Business\Extensions\EvalPeriodExtensions.cs" />
     <Compile Include="Business\Helper\BzPermissionNames.cs" />

@@ -2119,6 +2119,7 @@ namespace TheSite.Controllers
             if (m.ContentKey == Key)
             {
                model.Summary = m.ContentValue;
+               model.IsDeclare = m.IsDeclare;
             }
          });
 
@@ -2135,7 +2136,7 @@ namespace TheSite.Controllers
 
          try
          {
-            SetDeclareContent(model.Key, model.Summary, false);
+            SetDeclareContent(model.Key, model.Key, model.IsDeclare);
 
             db.Commit();
          }
@@ -2292,19 +2293,22 @@ namespace TheSite.Controllers
 
       private void AddDeclareMaterial(DeclareContent content, DeclarePeriod period)
       {
-         db.DeclareMaterialDal.ConditionDelete(dm.ItemId == content.DeclareContentId & dm.PeriodId == period.PeriodId);
-         if (content.IsDeclare)
-            db.DeclareMaterialDal.Insert(new DeclareMaterial
-            {
-               ItemId = content.DeclareContentId,
-               ParentType = "DeclareContent",
-               CreateDate = DateTime.Now,
-               PubishDate = DateTime.Now,
-               Title = content.ContentValue,
-               Type = content.ContentKey,
-               TeacherId = UserProfile.UserId,
-               PeriodId = period.PeriodId
-            });
+         if (content != null && period != null && content.IsDeclare)
+         {
+            db.DeclareMaterialDal.ConditionDelete(dm.ItemId == content.DeclareContentId & dm.PeriodId == period.PeriodId);
+            if (content.IsDeclare)
+               db.DeclareMaterialDal.Insert(new DeclareMaterial
+               {
+                  ItemId = content.DeclareContentId,
+                  ParentType = "DeclareContent",
+                  CreateDate = DateTime.Now,
+                  PubishDate = DateTime.Now,
+                  Title = content.ContentValue,
+                  Type = content.ContentKey,
+                  TeacherId = UserProfile.UserId,
+                  PeriodId = period.PeriodId
+               });
+         }
       }
 
 

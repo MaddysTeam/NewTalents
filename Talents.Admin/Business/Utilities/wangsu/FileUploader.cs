@@ -20,9 +20,9 @@ namespace Util.ThirdParty.WangsuCloud
       public const string SECURITY_KEY = "7253219e0206883520aa81840bac6e4972156ef0";// 必须
       public const string UPLOAD_DOMAIN = "tejiao.up28.v1.wcsapi.com";// 必须
       public const string MANAGER_DOMAIN = "tejiao.mgr28.v1.wcsapi.com"; // 必须
-      public const string SCOPE = "hktd-zy"; //项目文件夹，如新项目需要登录创建
+      public const string SCOPE = "tejiao-test001"; //项目文件夹，如新项目需要登录创建
       public const string DEADLINE = "1546300800000";
-      public const string DOMAIN = "cdnhktd.sser.shdjg.net"; 
+      public const string DOMAIN = "cdn.sser.shdjg.net"; 
 
       public static SimpleUpload SimpleUploader
       {
@@ -195,7 +195,7 @@ namespace Util.ThirdParty.WangsuCloud
          Config config = EnvUtility.EnvConfig();
 
          // 上传到这个 bucket
-         string bucket = "csj-zyk";
+         string bucket = FileUploader.SCOPE;
          string key = file;
 
          // 上传前先删除

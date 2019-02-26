@@ -1,9 +1,9 @@
 ﻿@model DeclareReview
 @{
 	var pageTitle = "提交申报申请";
+	var company = CompanyHelper.GetCompanySelectList().First(x => x.Value == Model.CompanyId.ToString());
 }
 <div class="modal-dialog modal-lg">
-
 	<!-- widget -->
 	<div class="widget">
 		<div class="widget-header">
@@ -22,16 +22,26 @@
 				@Html.HiddenFor(x => x.StatusKey)
 				<div class="row">
 					<fieldset class="col-md-12">
-						@*<div class="form-group">
-								@Html.LabelFor(m => m.Date, new { @class = "control-label col-md-3" })
+
+						@if (Html.GetUserProfile().IsSchoolAdmin)
+						{
+							@Html.HiddenFor(x => x.CompanyId)
+							<div class="form-group">
+								@Html.LabelFor(m => m.CompanyId, new { @class = "col-md-3 control-label" })
 								<div class="col-md-9">
-									<div class="input-group date" data-provide="datepicker" data-date-language="zh-CN" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
-										@Html.TextBoxFor(m => m.Date, "{0:yyyy-MM-dd}", new { @class = "form-control" })
-										<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-									</div>
-									@Html.ValidationMessageFor(m => m.Date)
+									@Html.Label("Company", company.Text, new { @class = "form-control" })
 								</div>
-							</div>*@
+							</div>
+						}
+						else
+						{
+							<div class="form-group">
+								@Html.LabelFor(m => m.CompanyId, new { @class = "col-md-3 control-label" })
+								<div class="col-md-9">
+									@Html.DropDownListFor(m => m.CompanyId, CompanyHelper.GetCompanySelectList(), new { @class = "form-control" })
+								</div>
+							</div>
+						}
 						@if (Html.GetUserProfile().IsSchoolAdmin)
 						{
 							<div class="form-group">
@@ -42,26 +52,24 @@
 								</div>
 							</div>
 						}
-
-						@if (Html.GetUserProfile().IsDeclare && Model.StatusKey == DeclareKeys.ReviewFailure)
+						else if (Html.GetUserProfile().IsDeclare && Model.StatusKey == DeclareKeys.ReviewFailure)
 						{
 							<div class="form-group">
 								@Html.LabelFor(m => m.ReviewComment, new { @class = "control-label col-md-3" })
 								<div class="col-md-9">
-									@Html.TextAreaFor(m => m.ReviewComment, 5, 5, new { @class = "form-control", @readonly="readonly" })
+									@Html.TextAreaFor(m => m.ReviewComment, 5, 5, new { @class = "form-control",@readonly="readonly" })
 									@Html.ValidationMessageFor(m => m.ReviewComment)
 								</div>
 							</div>
 						}
-
 						<div class="form-group">
 							<div class="col-sm-9 col-lg-offset-3">
 								@if (Html.GetUserProfile().IsSchoolAdmin)
 								{
 									if (Model.StatusKey == DeclareKeys.ReviewProcess)
 									{
-										<button type="submit" class="btn btn-success btn-block-half" id="ReviewSuccess" ><i class="fa fa-check-circle"></i> 通过</button>
-										<button type="submit" class="btn btn-danger btn-block-half" id="ReviewFailure" >不通过</button>
+										<button type="submit" class="btn btn-success btn-block-half" id="ReviewSuccess"><i class="fa fa-check-circle"></i> 通过</button>
+										<button type="submit" class="btn btn-danger btn-block-half" id="ReviewFailure">不通过</button>
 									}
 									else if (Model.StatusKey == DeclareKeys.ReviewSuccess)
 									{
@@ -69,7 +77,7 @@
 									}
 									else if (Model.StatusKey == DeclareKeys.ReviewFailure)
 									{
-										<button class="btn btn-danger btn-block-half"  disabled><i class="fa fa-check-circle"></i> 审核不通过！</button>
+										<button class="btn btn-danger btn-block-half" disabled><i class="fa fa-check-circle"></i> 审核不通过！</button>
 									}
 								}
 								else if (Html.GetUserProfile().IsDeclare)
@@ -81,7 +89,7 @@
 									}
 									if (Model.StatusKey == DeclareKeys.ReviewProcess)
 									{
-										<button  class="btn btn-primary btn-block-half" disabled><i class="fa fa-check-circle"></i> 待审核</button>
+										<button class="btn btn-primary btn-block-half" disabled><i class="fa fa-check-circle"></i> 待审核</button>
 									}
 									if (Model.StatusKey == DeclareKeys.ReviewSuccess)
 									{
@@ -95,21 +103,16 @@
 
 								}
 
-
 							</div>
 						</div>
 					</fieldset>
 				</div>
 			}
 		</div>
-
 	</div>
 	<!-- end widget -->
-
 </div>
-
 <form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden"></form>
-
 <script>
 
 	$(function () {

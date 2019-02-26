@@ -384,13 +384,13 @@ function summernoteSendFile(file, node) {
 		$.ajax({
 			url: "/Attachment/UploadFile",
 			data: data,
-			cache: false,
+			cache: false,	
 			contentType: false,
 			processData: false,
 			dataType: "json",
 			type: 'POST',
 			success: function (result) {
-				$image.attr('src', result.showUrl);
+				$image.attr('src', result.url);
 			}
 		});
 

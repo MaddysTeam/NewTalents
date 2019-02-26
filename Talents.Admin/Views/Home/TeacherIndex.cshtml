@@ -49,12 +49,17 @@
 										@if (review != null && review.StatusKey == DeclareKeys.ReviewSuccess)
 										{
 											<button class="btn btn-success" disabled>审核已通过</button>
-}
+										}
+										else if (review != null && review.StatusKey == DeclareKeys.ReviewProcess)
+										{
+											<button class="btn btn-warning" disabled>待审核</button>
+										}
 										else
 										{
-											<button class="btn btn-xs btn-warning btn-view" data-toggle="ajax-modal" data-url="@Url.Action("Edit", "DeclareReview", new { id = review == null ? 0 : review.ReviewId })" data-target="#firstModal"><i class="fa fa-external-link"></i> <span>申报申请</span></button>
-}
-										<a target="_blank" class="btn btn-xs btn-custom-primary btn-view" href="@Url.Action("overview", "declareMaterial", new { id = Html.GetUserProfile().UserId })"><i class="fa fa-external-link"></i> <span>查看已申报材料</span></a>
+											<button class="btn btn-custom-primary btn-view" data-toggle="ajax-modal" data-url="@Url.Action("Edit", "DeclareReview", new { id = review == null ? 0 : review.ReviewId })" data-target="#firstModal"><i class="fa fa-external-link"></i> <span>申报申请</span>
+											</button>
+										}
+										<a target="_blank" class="btn btn-warning btn-view" href="@Url.Action("overview", "declareMaterial", new { id = Html.GetUserProfile().UserId })"><i class="fa fa-external-link"></i> <span>查看已申报材料</span></a>
 										@*<a class="btn btn-xs btn-custom-primary btn-view" data-toggle="ajax-modal" data-url="@Url.Action("Report", "Home")" data-target="#firstModal"><i class="fa fa-external-link"></i> <span>查看已申报材料</span></a>*@
 									</div>
 								</div>
@@ -72,7 +77,7 @@
 										<h3><i class="fa fa-tasks"></i> 考核统计分析</h3>
 									</div>
 									<div class="widget-content">
-										<button class="btn btn-xs btn-info btn-view" data-toggle="ajax-modal" data-url="@Url.Action("Report", "Home")" data-target="#firstModal"><i class="fa fa-external-link"></i> <span>查看量评报告</span></button>
+										<button class="btn btn-info btn-view" data-toggle="ajax-modal" data-url="@Url.Action("Report", "Home")" data-target="#firstModal"><i class="fa fa-external-link"></i> <span>查看量评报告</span></button>
 									</div>
 								</div>
 							</div>

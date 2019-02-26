@@ -966,10 +966,13 @@ namespace TheSite.Models
 
       public string Key3 { get; set; }
 
+      [Display(Name = "是否申报")]
       public bool IsDeclare1 { get; set; }
 
+      [Display(Name = "是否申报")]
       public bool IsDeclare2 { get; set; }
 
+      [Display(Name = "是否申报")]
       public bool IsDeclare3 { get; set; }
 
    }
@@ -1052,6 +1055,9 @@ namespace TheSite.Models
       public string Summary { get; set; }
 
       public string Key { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare { get; set; }
    }
 
 }

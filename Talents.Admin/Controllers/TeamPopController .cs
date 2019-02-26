@@ -754,7 +754,7 @@ namespace TheSite.Controllers
                ParentType = "TeamContent",
                CreateDate = DateTime.Now,
                PubishDate = DateTime.Now,
-               Title = content.ContentKey==TeamKeys.DaijJih_Memo2? " " :content.ContentValue,
+               Title = content.ContentKey==TeamKeys.DaijJih_Memo2? content.ContentKey: content.ContentValue,
                Type = content.ContentKey,
                TeacherId = UserProfile.UserId,
                PeriodId = period.PeriodId

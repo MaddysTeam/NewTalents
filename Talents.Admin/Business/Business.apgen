@@ -521,10 +521,11 @@
 					<add name="TeacherId" type="long" display="教师ID"/>
 					<add name="ReviewerId" type="long" display="审核ID"/>
 					<add name="DeclareBaseId" type="long" display="申报ID"/>
-					<add name="StatusKey" type="string" display="审核状态"/>
+					<add name="StatusKey" type="string" dataLength="100" display="审核状态"/>
 					<add name="PeriodId" type="long" display="申报周期ID"/>
+					<add name="CompanyId" type="long" display="所在单位"/>
 					<!--<add name="ContentValue" type="string" dataLength="10000" required="true" display="审核内容" />-->
-					<add name="ReviewComment" type="string" dataLength="10000" display="校管理员审批意见" />
+					<add name="ReviewComment" type="string" dataLength="2000" display="校管理员审批意见" />
 					
 				</columns>			
 			</table>

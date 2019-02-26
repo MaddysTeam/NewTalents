@@ -51,7 +51,7 @@
 								foreach (var item in list)
 								{
 									<p>
-										<a href="@Url.Content(item.AttachmentName)" title="@item.AttachmentName">@(item.AttachmentName.Length > 40 ? item.AttachmentName.Substring(0, 37) + "..." : item.AttachmentName)</a>
+										<a href="@Url.Content(item.AttachmentUrl)" title="@item.AttachmentName">@(item.AttachmentName.Length > 40 ? item.AttachmentName.Substring(0, 37) + "..." : item.AttachmentName)</a>
 									</p>
 								}
 							}
