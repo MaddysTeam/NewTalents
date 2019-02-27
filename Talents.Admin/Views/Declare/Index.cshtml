@@ -1,5 +1,6 @@
 ﻿@{ 
 	var pageTitle = ViewBag.Title = "材料填写";
+	var menuDataUrl = (bool)ViewBag.IsInDeclarePeriod ? "/Json/GetAllDeclare" : "/Json/GetDeclare";
 }
 <div class="col-md-10 content-wrapper">
 	<div class="row">
@@ -72,7 +73,7 @@
 			$treeviewApp.jstree({
 				'core': {
 					'data': {
-						'url': '/Json/GetDeclare_temp'
+						'url': '@menuDataUrl'
 					},
 					'check_callback': true,
 				},

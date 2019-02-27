@@ -528,9 +528,9 @@ namespace TheSite.Controllers
       }
 
 
-      //	GET: Json/GetDeclare_temp
+      //	GET: Json/GetAllDeclare
 
-      public ActionResult GetDeclare_temp(long? userId)
+      public ActionResult GetAllDeclare(long? userId)
       {
          ThrowNotAjax();
 

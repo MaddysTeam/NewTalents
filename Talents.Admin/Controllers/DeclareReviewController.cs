@@ -37,6 +37,8 @@ namespace TheSite.Controllers
       [HttpPost]
       public ActionResult Edit(DeclareReview review)
       {
+         var cd = APDBDef.CompanyDeclare;
+
          if (review.CompanyId == 0)
          {
             return Json(new
@@ -69,22 +71,39 @@ namespace TheSite.Controllers
             });
          }
 
-         if (review.ReviewId == 0)
-         {
-            review.TeacherId = UserProfile.UserId;
-            review.PeriodId = Period.PeriodId;
-            review.StatusKey = DeclareKeys.ReviewProcess;
+         db.BeginTrans();
 
-            db.DeclareReviewDal.Insert(review);
-         }
-         else
+         try
          {
-            if (review.TeacherId == UserProfile.UserId)
+            if (review.ReviewId == 0)
             {
+               review.TeacherId = UserProfile.UserId;
+               review.PeriodId = Period.PeriodId;
                review.StatusKey = DeclareKeys.ReviewProcess;
+
+               db.DeclareReviewDal.Insert(review);
+            }
+            else
+            {
+               if (review.TeacherId == UserProfile.UserId)
+               {
+                  review.StatusKey = DeclareKeys.ReviewProcess;
+               }
+
+               db.DeclareReviewDal.UpdatePartial(review.ReviewId, new { StatusKey = review.StatusKey, ReviewComment = review.ReviewComment, CompanyId = review.CompanyId });
             }
 
-            db.DeclareReviewDal.UpdatePartial(review.ReviewId, new { StatusKey = review.StatusKey, ReviewComment = review.ReviewComment });
+            if (review.TeacherId == UserProfile.UserId)
+            {
+               db.CompanyDeclareDal.ConditionDelete(cd.TeacherId== review.TeacherId);
+               db.CompanyDeclareDal.Insert(new CompanyDeclare { CompanyId = review.CompanyId, TeacherId = review.TeacherId });
+            }
+
+            db.Commit();
+         }
+         catch
+         {
+            db.Rollback();
          }
 
          return Json(new

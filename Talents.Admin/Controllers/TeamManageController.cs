@@ -38,9 +38,13 @@ namespace TheSite.Controllers
 		{
 			ThrowNotAjax();
 
-			var query = APQuery.select(up.UserId, up.RealName, up.IDCard, up.CompanyName,
+			var query = APQuery.select(up.UserId, up.RealName, up.IDCard, c.CompanyName,
 					  d.DeclareTargetPKID, d.DeclareSubjectPKID, d.DeclareStagePKID, d.HasTeam, d.TeamName)
-				 .from(up, d.JoinLeft(up.UserId == d.TeacherId))
+				 .from(up,
+             d.JoinLeft(up.UserId == d.TeacherId),
+             cd.JoinLeft(cd.TeacherId==up.UserId),
+             c.JoinLeft(c.CompanyId==cd.CompanyId)
+             )
 				 .where(up.UserType == BzRoleNames.Teacher)
 				 .primary(up.UserId)
 				 .skip((current - 1) * rowCount)
@@ -102,7 +106,7 @@ namespace TheSite.Controllers
 					id = up.UserId.GetValue(rd),
 					realName = up.RealName.GetValue(rd),
 					card = up.IDCard.GetValue(rd),
-					companyName = up.CompanyName.GetValue(rd),
+					companyName = c.CompanyName.GetValue(rd),
 					target = DeclareBaseHelper.DeclareTarget.GetName(d.DeclareTargetPKID.GetValue(rd)),
 					subject = DeclareBaseHelper.DeclareSubject.GetName(d.DeclareSubjectPKID.GetValue(rd)),
 					stage = DeclareBaseHelper.DeclareStage.GetName(d.DeclareStagePKID.GetValue(rd)),
@@ -153,6 +157,7 @@ namespace TheSite.Controllers
 				 .executeScale(db) > 0;
 
 			var Team = db.TeamMemberDal.ConditionQuery(tm.MemberId == model.TeacherId, null, null, null).FirstOrDefault();
+         var isTeamMaster = db.TeamMemberDal.ConditionQueryCount(tm.TeamId == model.TeacherId) > 0;
 
 			if (model.DeclareTargetPKID == 0)
 			{
@@ -186,7 +191,7 @@ namespace TheSite.Controllers
 			}
 			else
 			{
-				if (DeclareTargetIds.HasTeam(model.DeclareTargetPKID))
+				if (DeclareTargetIds.HasTeam(model.DeclareTargetPKID) && isTeamMaster)
 				{
 					if (!DeclareTargetIds.AllowZhidJians(model.DeclareTargetPKID))
 					{

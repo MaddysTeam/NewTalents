@@ -18,8 +18,7 @@ namespace TheSite.Controllers
 
 	public class StatisticalManageController : BaseController
 	{
-
-		static APDBDef.DeclareBaseTableDef d = APDBDef.DeclareBase;
+      static APDBDef.DeclareBaseTableDef d = APDBDef.DeclareBase;
 		static APDBDef.EvalSchoolResultTableDef esr = APDBDef.EvalSchoolResult;
 		static APDBDef.EvalSchoolResultItemTableDef esri = APDBDef.EvalSchoolResultItem;
 		static APDBDef.EvalVolumnResultTableDef evr = APDBDef.EvalVolumnResult;
