@@ -45,14 +45,14 @@
 									{
 										<button class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareTeamActive", "DeclareMaterial", new { id = item.TeamActiveId, isDeclare = true })">申报</button>
 									}
-									@if (item.IsShare)
+									@*@if (item.IsShare)
 									{
 										<button class="btn btn-custom-secondary btn-share" data-url="@Url.Action("ShareTeamActive", "Team", new { id = item.TeamActiveId, isShare = false })">取消共享</button>
 									}
 									else
 									{
 										<button class="btn btn-custom-secondary btn-share" data-url="@Url.Action("ShareTeamActive", "Team", new { id = item.TeamActiveId, isShare = true })">共享</button>
-									}
+									}*@
 									<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.TeamActiveId, type = AttachmentsKeys.DaijHuod_Edit })" data-target="#firstModal" title="查看附件">查看附件</button>
 									<a class="btn btn-success btn-edit" href="javascript:loadFrag({key: '@TeamKeys.DaijHuod_Edit', activeId:@item.TeamActiveId})" title="编辑">编辑</a>									
 									<button class="btn btn-warning btn-remove" data-url="@Url.Action("RemoveDaijHuod", "Team", new { id = item.TeamActiveId })" title="删除">删除</button>

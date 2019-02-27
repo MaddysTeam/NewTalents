@@ -7344,6 +7344,10 @@ namespace Business {
             
             private DateTimeAPColumnDef _endDate;
             
+            private DateTimeAPColumnDef _reveiwStartDate;
+            
+            private DateTimeAPColumnDef _reveiwEndDate;
+            
             private BooleanAPColumnDef _isCurrent;
             
             public DeclarePeriodTableDef(string tableName) : 
@@ -7387,7 +7391,7 @@ namespace Business {
                 get {
                     if (Object.ReferenceEquals(_beginDate, null)) {
                         _beginDate = new DateTimeAPColumnDef(this, "BeginDate", false);
-                        _beginDate.Display = "开始时间（修改区间）";
+                        _beginDate.Display = "开始时间（数据范围区间）";
                     }
                     return _beginDate;
                 }
@@ -7400,9 +7404,35 @@ namespace Business {
                 get {
                     if (Object.ReferenceEquals(_endDate, null)) {
                         _endDate = new DateTimeAPColumnDef(this, "EndDate", false);
-                        _endDate.Display = "结束时间（修改区间）";
+                        _endDate.Display = "结束时间（数据范围区间）";
                     }
                     return _endDate;
+                }
+            }
+            
+            /// <summary>
+            /// ReveiwStartDate ColumnDef
+            /// </summary>
+            public virtual DateTimeAPColumnDef ReveiwStartDate {
+                get {
+                    if (Object.ReferenceEquals(_reveiwStartDate, null)) {
+                        _reveiwStartDate = new DateTimeAPColumnDef(this, "ReveiwStartDate", false);
+                        _reveiwStartDate.Display = "审核开始时间（审核提交和操作区间）";
+                    }
+                    return _reveiwStartDate;
+                }
+            }
+            
+            /// <summary>
+            /// ReveiwEndDate ColumnDef
+            /// </summary>
+            public virtual DateTimeAPColumnDef ReveiwEndDate {
+                get {
+                    if (Object.ReferenceEquals(_reveiwEndDate, null)) {
+                        _reveiwEndDate = new DateTimeAPColumnDef(this, "ReveiwEndDate", false);
+                        _reveiwEndDate.Display = "审核结束时间（审核提交和操作区间）";
+                    }
+                    return _reveiwEndDate;
                 }
             }
             
@@ -7443,6 +7473,8 @@ namespace Business {
                 data.Name = Name.GetValue<string>(reader, throwIfValidColumnName);
                 data.BeginDate = BeginDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
                 data.EndDate = EndDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
+                data.ReveiwStartDate = ReveiwStartDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
+                data.ReveiwEndDate = ReveiwEndDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
                 data.IsCurrent = IsCurrent.GetValue<bool>(reader, throwIfValidColumnName);
             }
             
@@ -16375,7 +16407,7 @@ namespace Business {
                 if ((data.PeriodId == 0)) {
                     data.PeriodId = ((long)(GetNewId(APDBDef.DeclarePeriod.PeriodId)));
                 }
-                var query = APQuery.insert(APDBDef.DeclarePeriod).values(APDBDef.DeclarePeriod.PeriodId.SetValue(data.PeriodId), APDBDef.DeclarePeriod.Name.SetValue(data.Name), APDBDef.DeclarePeriod.BeginDate.SetValue(data.BeginDate), APDBDef.DeclarePeriod.EndDate.SetValue(data.EndDate), APDBDef.DeclarePeriod.IsCurrent.SetValue(data.IsCurrent));
+                var query = APQuery.insert(APDBDef.DeclarePeriod).values(APDBDef.DeclarePeriod.PeriodId.SetValue(data.PeriodId), APDBDef.DeclarePeriod.Name.SetValue(data.Name), APDBDef.DeclarePeriod.BeginDate.SetValue(data.BeginDate), APDBDef.DeclarePeriod.EndDate.SetValue(data.EndDate), APDBDef.DeclarePeriod.ReveiwStartDate.SetValue(data.ReveiwStartDate), APDBDef.DeclarePeriod.ReveiwEndDate.SetValue(data.ReveiwEndDate), APDBDef.DeclarePeriod.IsCurrent.SetValue(data.IsCurrent));
                 ExecuteNonQuery(query);
             }
             
@@ -16383,7 +16415,7 @@ namespace Business {
             /// 更新数据。
             /// </summary>
             public virtual void Update(DeclarePeriod data) {
-                var query = APQuery.update(APDBDef.DeclarePeriod).values(APDBDef.DeclarePeriod.Name.SetValue(data.Name), APDBDef.DeclarePeriod.BeginDate.SetValue(data.BeginDate), APDBDef.DeclarePeriod.EndDate.SetValue(data.EndDate), APDBDef.DeclarePeriod.IsCurrent.SetValue(data.IsCurrent)).where((APDBDef.DeclarePeriod.PeriodId == data.PeriodId));
+                var query = APQuery.update(APDBDef.DeclarePeriod).values(APDBDef.DeclarePeriod.Name.SetValue(data.Name), APDBDef.DeclarePeriod.BeginDate.SetValue(data.BeginDate), APDBDef.DeclarePeriod.EndDate.SetValue(data.EndDate), APDBDef.DeclarePeriod.ReveiwStartDate.SetValue(data.ReveiwStartDate), APDBDef.DeclarePeriod.ReveiwEndDate.SetValue(data.ReveiwEndDate), APDBDef.DeclarePeriod.IsCurrent.SetValue(data.IsCurrent)).where((APDBDef.DeclarePeriod.PeriodId == data.PeriodId));
                 ExecuteNonQuery(query);
             }
             
@@ -39025,6 +39057,16 @@ namespace Business {
         private System.DateTime _endDate;
         
         /// <summary>
+        /// ReveiwStartDate
+        /// </summary>
+        private System.DateTime _reveiwStartDate;
+        
+        /// <summary>
+        /// ReveiwEndDate
+        /// </summary>
+        private System.DateTime _reveiwEndDate;
+        
+        /// <summary>
         /// IsCurrent
         /// </summary>
         private bool _isCurrent;
@@ -39038,11 +39080,13 @@ namespace Business {
         /// <summary>
         /// 初始化所有字段的构造函数。
         /// </summary>
-        public DeclarePeriodBase(long periodId, string name, System.DateTime beginDate, System.DateTime endDate, bool isCurrent) {
+        public DeclarePeriodBase(long periodId, string name, System.DateTime beginDate, System.DateTime endDate, System.DateTime reveiwStartDate, System.DateTime reveiwEndDate, bool isCurrent) {
             _periodId = periodId;
             _name = name;
             _beginDate = beginDate;
             _endDate = endDate;
+            _reveiwStartDate = reveiwStartDate;
+            _reveiwEndDate = reveiwEndDate;
             _isCurrent = isCurrent;
         }
         
@@ -39094,7 +39138,7 @@ namespace Business {
         /// <summary>
         /// BeginDate
         /// </summary>
-        [Display(Name="开始时间（修改区间）")]
+        [Display(Name="开始时间（数据范围区间）")]
         public virtual System.DateTime BeginDate {
             get {
                 return _beginDate;
@@ -39116,7 +39160,7 @@ namespace Business {
         /// <summary>
         /// EndDate
         /// </summary>
-        [Display(Name="结束时间（修改区间）")]
+        [Display(Name="结束时间（数据范围区间）")]
         public virtual System.DateTime EndDate {
             get {
                 return _endDate;
@@ -39132,6 +39176,50 @@ namespace Business {
         public static DateTimeAPColumnDef EndDateDef {
             get {
                 return APDBDef.DeclarePeriod.EndDate;
+            }
+        }
+        
+        /// <summary>
+        /// ReveiwStartDate
+        /// </summary>
+        [Display(Name="审核开始时间（审核提交和操作区间）")]
+        public virtual System.DateTime ReveiwStartDate {
+            get {
+                return _reveiwStartDate;
+            }
+            set {
+                _reveiwStartDate = value;
+            }
+        }
+        
+        /// <summary>
+        /// ReveiwStartDate APColumnDef
+        /// </summary>
+        public static DateTimeAPColumnDef ReveiwStartDateDef {
+            get {
+                return APDBDef.DeclarePeriod.ReveiwStartDate;
+            }
+        }
+        
+        /// <summary>
+        /// ReveiwEndDate
+        /// </summary>
+        [Display(Name="审核结束时间（审核提交和操作区间）")]
+        public virtual System.DateTime ReveiwEndDate {
+            get {
+                return _reveiwEndDate;
+            }
+            set {
+                _reveiwEndDate = value;
+            }
+        }
+        
+        /// <summary>
+        /// ReveiwEndDate APColumnDef
+        /// </summary>
+        public static DateTimeAPColumnDef ReveiwEndDateDef {
+            get {
+                return APDBDef.DeclarePeriod.ReveiwEndDate;
             }
         }
         
@@ -39183,6 +39271,8 @@ namespace Business {
             Name = data.Name;
             BeginDate = data.BeginDate;
             EndDate = data.EndDate;
+            ReveiwStartDate = data.ReveiwStartDate;
+            ReveiwEndDate = data.ReveiwEndDate;
             IsCurrent = data.IsCurrent;
         }
         
@@ -39200,6 +39290,12 @@ namespace Business {
                 return false;
             }
             if ((EndDate != data.EndDate)) {
+                return false;
+            }
+            if ((ReveiwStartDate != data.ReveiwStartDate)) {
+                return false;
+            }
+            if ((ReveiwEndDate != data.ReveiwEndDate)) {
                 return false;
             }
             if ((IsCurrent != data.IsCurrent)) {
@@ -39301,8 +39397,8 @@ namespace Business {
         /// <summary>
         /// 初始化所有字段的构造函数。
         /// </summary>
-        public DeclarePeriod(long periodId, string name, System.DateTime beginDate, System.DateTime endDate, bool isCurrent) : 
-                base(periodId, name, beginDate, endDate, isCurrent) {
+        public DeclarePeriod(long periodId, string name, System.DateTime beginDate, System.DateTime endDate, System.DateTime reveiwStartDate, System.DateTime reveiwEndDate, bool isCurrent) : 
+                base(periodId, name, beginDate, endDate, reveiwStartDate, reveiwEndDate, isCurrent) {
         }
     }
     

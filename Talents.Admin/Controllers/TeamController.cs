@@ -349,7 +349,7 @@ namespace TheSite.Controllers
       {
          ThrowNotAjax();
 
-         var period = db.GetCurrentDeclarePeriod();
+         var period = Period;
          var teamId = (long)APQuery.select(ta.TeamId)
             .from(ta)
             .where(ta.TeamActiveId == id)
@@ -667,7 +667,7 @@ namespace TheSite.Controllers
       {
          ThrowNotAjax();
 
-         var period = db.GetCurrentDeclarePeriod();
+         var period = Period;
 
          db.BeginTrans();
 

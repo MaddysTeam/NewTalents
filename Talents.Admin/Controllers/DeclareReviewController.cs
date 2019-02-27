@@ -46,11 +46,19 @@ namespace TheSite.Controllers
             });
          }
 
-         var period = db.GetCurrentDeclarePeriod();
+         if (!Period.IsInReviewPeriod)
+         {
+            return Json(new
+            {
+               result = AjaxResults.Error,
+               msg = "未在评审期,请联系管理员!"
+            });
+         }
+
          var isExist = db.DeclareReviewDal.ConditionQueryCount(
             dr.TeacherId == UserProfile.UserId
             & dr.StatusKey == DeclareKeys.ReviewProcess
-            & dr.PeriodId == period.PeriodId) > 0;
+            & dr.PeriodId == Period.PeriodId) > 0;
 
          if (isExist)
          {
@@ -64,7 +72,7 @@ namespace TheSite.Controllers
          if (review.ReviewId == 0)
          {
             review.TeacherId = UserProfile.UserId;
-            review.PeriodId = db.GetCurrentDeclarePeriod().PeriodId;
+            review.PeriodId = Period.PeriodId;
             review.StatusKey = DeclareKeys.ReviewProcess;
 
             db.DeclareReviewDal.Insert(review);
@@ -98,7 +106,7 @@ namespace TheSite.Controllers
          var u = APDBDef.BzUserProfile;
          var u2 = APDBDef.BzUserProfile.As("reviewer");
          var c = APDBDef.Company;
-         var currentPeriod = db.GetCurrentDeclarePeriod();
+         var currentPeriod = Period;
          var query = APQuery.select(dr.ReviewId, dr.ReviewComment, dr.StatusKey, dr.TeacherId, dr.ReviewerId, u.RealName, u2.RealName.As("reviewer"), c.CompanyName)
                           .from(dr,
                                 u.JoinInner(dr.TeacherId == u.UserId),

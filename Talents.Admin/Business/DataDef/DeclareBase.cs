@@ -1,4 +1,5 @@
 ﻿using Business.Helper;
+using System;
 
 namespace Business
 {
@@ -15,5 +16,11 @@ namespace Business
 		public string RealName { get; set; }
 
 	}
+
+
+   public partial class DeclarePeriod
+   {
+      public bool IsInReviewPeriod => DateTime.Now >= ReveiwStartDate && DateTime.Now <= ReveiwEndDate;
+   }
 
 }

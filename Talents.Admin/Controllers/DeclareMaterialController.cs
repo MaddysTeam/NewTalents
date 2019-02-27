@@ -85,12 +85,12 @@ namespace TheSite.Controllers
       {
          ThrowNotAjax();
 
-         var period = db.GetCurrentDeclarePeriod();
+         var period = Period;
          var resume = db.DeclareResumeDal.PrimaryGet(id);
-         resume.IsDeclare = isDeclare;
-
          if (resume != null)
          {
+            resume.IsDeclare = isDeclare;
+
             db.BeginTrans();
 
             try
@@ -136,7 +136,7 @@ namespace TheSite.Controllers
       {
          ThrowNotAjax();
 
-         var period = db.GetCurrentDeclarePeriod();
+         var period = Period;
          var active = db.DeclareActiveDal.PrimaryGet(id);
          active.IsDeclare = isDeclare;
 
@@ -188,7 +188,7 @@ namespace TheSite.Controllers
       {
          ThrowNotAjax();
 
-         var period = db.GetCurrentDeclarePeriod();
+         var period = Period;
          var org = db.DeclareOrgConstDal.PrimaryGet(id);
          org.IsDeclare = isDeclare;
 
@@ -239,7 +239,7 @@ namespace TheSite.Controllers
       {
          ThrowNotAjax();
 
-         var period = db.GetCurrentDeclarePeriod();
+         var period = Period;
          var achievement = db.DeclareAchievementDal.PrimaryGet(id);
          achievement.IsDeclare = isDeclare;
 
@@ -289,7 +289,7 @@ namespace TheSite.Controllers
       {
          ThrowNotAjax();
 
-         var period = db.GetCurrentDeclarePeriod();
+         var period = Period;
 
          var teamActive = db.TeamActiveDal.PrimaryGet(id);
          teamActive.IsDeclare = isDeclare;
@@ -356,7 +356,7 @@ namespace TheSite.Controllers
       {
          ThrowNotAjax();
 
-         var period = db.GetCurrentDeclarePeriod();
+         var period = Period;
 
          var specialCourse = db.TeamSpecialCourseDal.PrimaryGet(id);
          specialCourse.IsDeclare = isDeclare;

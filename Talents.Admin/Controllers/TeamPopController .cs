@@ -498,7 +498,7 @@ namespace TheSite.Controllers
 				});
 			}
 
-         AddDeclareMaterial(model, db.GetCurrentDeclarePeriod());
+         AddDeclareMaterial(model, Period);
 
          //记录日志
          var doSomthing = id == null ? "新增:" + id : "修改:" + id;
@@ -594,7 +594,7 @@ namespace TheSite.Controllers
 				AttachmentsExtensions.InsertAtta(db, atta);
 
             data.IsDeclare = model.IsDeclare;
-            AddDeclareMaterial(data, db.GetCurrentDeclarePeriod());
+            AddDeclareMaterial(data, Period);
 
             db.Commit();
 
@@ -706,7 +706,7 @@ namespace TheSite.Controllers
 				AttachmentsExtensions.InsertAtta(db, atta);
 
             data.IsDeclare = model.IsDeclare;
-            AddDeclareMaterial(data, db.GetCurrentDeclarePeriod());
+            AddDeclareMaterial(data, Period);
 
             db.Commit();
 

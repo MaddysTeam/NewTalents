@@ -45,7 +45,7 @@ namespace Business.Helper
                   ParentType = "DeclareContent",
                   CreateDate = DateTime.Now,
                   PubishDate = DateTime.Now,
-                  Title = content.ContentValue,
+                  Title = SubString(content.ContentValue),
                   Type = content.ContentKey,
                   TeacherId = content.TeacherId,
                   PeriodId = period.PeriodId
@@ -177,6 +177,11 @@ namespace Business.Helper
                });
          }
       }
+
+
+
+      private static string SubString(string str)
+         => str.Length > 50 ? str.Substring(0, 50) + "..." : str;
 
 
    }

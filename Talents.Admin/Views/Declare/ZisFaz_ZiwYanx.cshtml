@@ -40,14 +40,14 @@
 									{
 										<button class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareActive", "DeclareMaterial", new { id = item.DeclareActiveId, isDeclare = true })">申报</button>
 									}
-									@if (item.IsShare)
+									@*@if (item.IsShare)
 									{
 										<button class="btn btn-custom-secondary btn-share" data-url="@Url.Action("ShareActive", "Declare", new { id = item.DeclareActiveId, isShare = false })">取消共享</button>
 									}
 									else
 									{
 										<button class="btn btn-custom-secondary btn-share" data-url="@Url.Action("ShareActive", "Declare", new { id = item.DeclareActiveId, isShare = true })">共享</button>
-									}
+									}*@
 									<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_ZiwYanx })" data-target="#firstModal" title="查看附件">查看附件</button>
 									<button class="btn btn-success btn-edit" data-toggle="ajax-modal" data-url="@Url.Action("ZisFaz_ZiwYanx", "DeclarePop", new { id = item.DeclareActiveId })" data-target="#firstModal" title="编辑">编辑</button>
 									<button class="btn btn-warning btn-remove" data-url="@Url.Action("RemoveActive", "Declare", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_ZiwYanx })" title="删除">删除</button>

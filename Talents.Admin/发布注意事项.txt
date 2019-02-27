@@ -15,3 +15,16 @@ create table [log]
   [where] nvarchar(200) not null,
   doSomthing nvarchar(max) not null
 )
+
+2019 03 发布前的工作
+
+新功能：申报功能
+
+洗数据：
+
+1  bzuserProfile 的companyId 字段要和company 表 companyId 一致
+2  所有在bzuserProfile的数据都要添加称号且称号为【普通教师】
+3  将原先的称号信息洗入历史表
+4  将现有其他级别称号的老师改为【普通教师】
+5  将attachment 数据放到cdn
+6  称号更改时的问题

@@ -158,15 +158,6 @@ namespace TheSite.Controllers
                db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == Period.PeriodId);
 
             db.Commit();
-
-
-            LogFactory.Create().Log(new LogModel
-            {
-               UserID = UserProfile.UserId,
-               OperationDate = DateTime.Now,
-               Where = deletedActive.ActiveKey,
-               DoSomthing = string.Format("删除了ID为{0} 的decalre active 项", id)
-            });
          }
          catch (Exception ex)
          {
@@ -179,6 +170,13 @@ namespace TheSite.Controllers
             });
          }
 
+         LogFactory.Create().Log(new LogModel
+         {
+            UserID = UserProfile.UserId,
+            OperationDate = DateTime.Now,
+            Where = deletedActive.ActiveKey,
+            DoSomthing = string.Format("删除了ID为{0} 的decalre active 项", id)
+         });
 
          return Json(new
          {
@@ -195,8 +193,6 @@ namespace TheSite.Controllers
       {
          ThrowNotAjax();
 
-         var period = db.GetCurrentDeclarePeriod();
-
          db.BeginTrans();
 
          try
@@ -205,8 +201,8 @@ namespace TheSite.Controllers
 
             AttachmentsExtensions.DeleteAtta(db, id, type);
 
-            if (period != null)
-               db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == period.PeriodId);
+            if (Period != null)
+               db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == Period.PeriodId);
 
             db.Commit();
          }
@@ -237,12 +233,10 @@ namespace TheSite.Controllers
       {
          ThrowNotAjax();
 
-         var period = db.GetCurrentDeclarePeriod();
-
          db.DeclareOrgConstDal.PrimaryDelete(id);
 
-         if (period != null)
-            db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == period.PeriodId);
+         if (Period != null)
+            db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == Period.PeriodId);
 
          return Json(new
          {
@@ -493,6 +487,10 @@ namespace TheSite.Controllers
          ThrowNotAjax();
 
          db.DeclareResumeDal.PrimaryDelete(id);
+
+         if (Period != null)
+            db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == Period.PeriodId);
+
 
          return Json(new
          {
@@ -2252,7 +2250,7 @@ namespace TheSite.Controllers
       {
          value = value.Trim();
 
-         var period = db.GetCurrentDeclarePeriod();
+         var period = Period;
          //var maybeId = APQuery.select(tc.DeclareContentId)
          //   .from(tc)
          //   .where(tc.TeacherId == UserProfile.UserId & tc.ContentKey == key)
@@ -2283,10 +2281,12 @@ namespace TheSite.Controllers
                .set(tc.IsDeclare.SetValue(isDeclare))
                .where(tc.DeclareContentId == content.DeclareContentId)
                .execute(db);
+
+            content = db.DeclareContentDal.PrimaryGet(content.DeclareContentId);
          }
 
          content.IsDeclare = isDeclare;
-         DeclareMaterialHelper.AddDeclareMaterial(content, period,db);
+         DeclareMaterialHelper.AddDeclareMaterial(content, period, db);
       }
 
 
