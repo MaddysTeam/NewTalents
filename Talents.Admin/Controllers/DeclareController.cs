@@ -2132,6 +2132,7 @@ namespace TheSite.Controllers
 
       [HttpPost]
       [ValidateInput(false)]
+      [DecalrePeriod]
       public ActionResult NiandZongj(NiandZongjModel model)
       {
          ThrowNotAjax();

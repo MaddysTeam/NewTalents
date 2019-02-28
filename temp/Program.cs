@@ -21,8 +21,16 @@ namespace temp
          string ext = string.Empty;
          Stream pdfStream = null;
          Stream originStream = null;
+
+          
+         
          foreach (var d in diretories)
          {
+            var tempFoderNum = Convert.ToInt32(d.Replace(parentFile, string.Empty).Replace("\\", string.Empty));
+            if (tempFoderNum <= 20170612)
+            {
+               continue;
+            }
             var files = Directory.GetFiles(d);
             foreach (var f in files)
             {

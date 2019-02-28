@@ -81,6 +81,7 @@ namespace TheSite.Controllers
       // POST-Ajax: DeclareMaterial/DeclareContent  申报简历材料
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult DeclareResume(long id, bool isDeclare)
       {
          ThrowNotAjax();
@@ -376,22 +377,6 @@ namespace TheSite.Controllers
 
                DeclareMaterialHelper.AddDeclareMaterial(specialCourse,period,db);
 
-               //if (specialCourse.IsDeclare)
-               //   db.DeclareMaterialDal.Insert(new DeclareMaterial
-               //   {
-               //      ItemId = id,
-               //      ParentType = "DeclareTeamSpecialCourse",
-               //      CreateDate = DateTime.Now,
-               //      PubishDate = DateTime.Now,
-               //      Title = specialCourse.Title,
-               //      Type = TeamKeys.KecShis_Chak,
-               //      TeacherId = UserProfile.UserId,
-               //      PeriodId = period.PeriodId
-               //   });
-               //else
-               //   db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == period.PeriodId);
-
-
                db.Commit();
             }
             catch
@@ -430,9 +415,24 @@ namespace TheSite.Controllers
       {
          ThrowNotAjax();
 
-         db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == Period.PeriodId);
+         db.BeginTrans();
 
-         APQuery.update(dc).set(dc.IsDeclare.SetValue(false)).where(dc.DeclareContentId == id).execute(db);
+         try
+         {
+            db.BeginTrans();
+
+
+            db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == Period.PeriodId);
+
+            APQuery.update(dc).set(dc.IsDeclare.SetValue(false)).where(dc.DeclareContentId == id).execute(db);
+
+
+            db.Commit();
+         }
+         catch
+         {
+            db.Rollback();
+         }
 
          return Json(new
          {

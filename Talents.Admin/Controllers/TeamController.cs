@@ -263,6 +263,7 @@ namespace TheSite.Controllers
 
       [HttpPost]
       [ValidateInput(false)]
+      [DecalrePeriod]
       public ActionResult DaijJih(DaijJihModel model)
       {
          ThrowNotAjax();
@@ -345,6 +346,7 @@ namespace TheSite.Controllers
       //	POST-Ajax: Team/RemoveDaijHuod
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult RemoveDaijHuod(long id)
       {
          ThrowNotAjax();
@@ -400,6 +402,7 @@ namespace TheSite.Controllers
       //	POST-Ajax: Team/RemoveXueyChengg
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult RemoveXueyChengg(long id)
       {
          ThrowNotAjax();
@@ -451,7 +454,8 @@ namespace TheSite.Controllers
                      Location = ta.Location.GetValue(r),
                      TeamActiveId = ta.TeamActiveId.GetValue(r),
                      TeamId = ta.TeamId.GetValue(r),
-                     Title = ta.Title.GetValue(r)
+                     Title = ta.Title.GetValue(r),
+                     IsDeclare=ta.IsDeclare.GetValue(r)
                   };
                }).First();
 
@@ -467,6 +471,7 @@ namespace TheSite.Controllers
 
       [HttpPost]
       [ValidateInput(false)]
+      [DecalrePeriod]
       public ActionResult DaijHuod_Edit(long? id, TeamActiveDataModel model)
       {
          ThrowNotAjax();
@@ -479,13 +484,15 @@ namespace TheSite.Controllers
             UserId = UserProfile.UserId
          };
 
+         TeamActive data = null;
+
          if (id == null)
          {
             db.BeginTrans();
 
             try
             {
-               var data = new TeamActive()
+               data = new TeamActive()
                {
                   ActiveType = model.ActiveType,
                   ContentValue = model.ContentValue,
@@ -494,7 +501,8 @@ namespace TheSite.Controllers
                   Location = model.Location,
                   TeamId = model.TeamId,
                   Title = model.Title,
-                  IsShare = model.IsShare,
+                  //IsShare = model.IsShare,
+                  IsDeclare=model.IsDeclare,
                   Creator = UserProfile.UserId,
                   CreateDate = DateTime.Now
                };
@@ -532,7 +540,8 @@ namespace TheSite.Controllers
                   model.Date,
                   model.IsShare,
                   Modifier = UserProfile.UserId,
-                  ModifyDate = DateTime.Now
+                  ModifyDate = DateTime.Now,
+                  model.IsDeclare
                });
 
                AttachmentsExtensions.DeleteAtta(db, id.Value, AttachmentsKeys.DaijHuod_Edit);
@@ -547,7 +556,11 @@ namespace TheSite.Controllers
                db.Rollback();
             }
 
+            data = db.TeamActiveDal.PrimaryGet(id.Value);
+
          }
+
+         DeclareMaterialHelper.AddDeclareMaterial(data, Period, db);
 
 
          //记录日志
@@ -663,6 +676,7 @@ namespace TheSite.Controllers
       //	POST_Ajax: Team/RemoveKecShis
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult RemoveKecShis(long id)
       {
          ThrowNotAjax();

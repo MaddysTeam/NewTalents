@@ -156,6 +156,9 @@ namespace TheSite.Models
 
       [Display(Name = "是否共享")]
       public bool IsShare { get; set; }
+
+      [Display(Name = "是否申报")]
+      public bool IsDeclare { get; set; }
    }
 
 

@@ -146,7 +146,7 @@ namespace Business.Helper
                db.DeclareMaterialDal.Insert(new DeclareMaterial
                {
                   ItemId = teamActive.TeamActiveId,
-                  ParentType = "DeclareOrgConst",
+                  ParentType = "DeclareTeamActive",
                   CreateDate = DateTime.Now,
                   PubishDate = DateTime.Now,
                   Title = teamActive.Title,
@@ -167,7 +167,7 @@ namespace Business.Helper
                db.DeclareMaterialDal.Insert(new DeclareMaterial
                {
                   ItemId = specialCourse.CourseId,
-                  ParentType = "DeclareOrgConst",
+                  ParentType = "DeclareTeamSpecialCourse",
                   CreateDate = DateTime.Now,
                   PubishDate = DateTime.Now,
                   Title = specialCourse.Title,
