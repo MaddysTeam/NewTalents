@@ -36,6 +36,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult ZisFaz_GerJianl(long? id, DeclareResume model)
       {
          ThrowNotAjax();
@@ -129,6 +130,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult ZisFaz_ZiwYanx(long? id, ZisFaz_ZiwYanxModel model)
       {
          ThrowNotAjax();
@@ -272,6 +274,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult ZisFaz_JiaoxHuod_JiaoxGongkk(long? id, ZisFaz_JiaoxHuod_JiaoxGongkkModel model)
       {
          ThrowNotAjax();
@@ -431,6 +434,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult ZisFaz_JiaoxHuod_Yantk(long? id, ZisFaz_JiaoxHuod_YantkModel model)
       {
          ThrowNotAjax();
@@ -592,6 +596,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult ZisFaz_JiaoxHuod_JiaoxPingb(long? id, ZisFaz_JiaoxHuod_JiaoxPingbModel model)
       {
          ThrowNotAjax();
@@ -751,6 +756,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult ZisFaz_PeixJiangz_JiaosPeixKec(long? id, ZisFaz_PeixJiangzModel model)
       {
          ThrowNotAjax();
@@ -903,6 +909,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult ZisFaz_PeixJiangz_ZhuantJiangz(long? id, ZisFaz_PeixJiangz_ZhuantJiangzModel model)
       {
          ThrowNotAjax();
@@ -1062,6 +1069,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult ZisFaz_PeixJiangz_DingxxKec(long? id, ZisFaz_PeixJiangz_DingxxKecModel model)
       {
          ThrowNotAjax();
@@ -1221,6 +1229,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult ZisFaz_PeixJiangz_KecZiyKaif(long? id, ZhidJians_TesHuodKaizModel model)
       {
          ThrowNotAjax();
@@ -1380,6 +1389,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult ZisFaz_XuesHuod(long? id, ZisFaz_XuesHuodModel model)
       {
          ThrowNotAjax();
@@ -1542,6 +1552,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult ZisFaz_KeyChengg_KetYanj(long? id, ZisFaz_KeyChengg_KetYanjModel model)
       {
          ThrowNotAjax();
@@ -1700,6 +1711,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult ZisFaz_KeyChengg_FabLunw(long? id, ZisFaz_KeyChengg_FabLunwModel model)
       {
          ThrowNotAjax();
@@ -1856,6 +1868,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult ZisFaz_KeyChengg_LunzQingk(long? id, ZisFaz_KeyChengg_LunzQingkModel model)
       {
          ThrowNotAjax();
@@ -2010,6 +2023,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult ZisFaz_ShiqjHuod(long? id, ZisFaz_ShiqjHuodModel model)
       {
          ThrowNotAjax();
@@ -2166,6 +2180,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult ZhidJians_YingxlDeGongz(long? id, ZhidJians_YingxlDeGongzModel model)
       {
          ThrowNotAjax();
@@ -2322,6 +2337,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult ZhidJians_TesHuodKaiz(long? id, ZhidJians_TesHuodKaizModel model)
       {
          ThrowNotAjax();
@@ -2450,6 +2466,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult ZhidJians_DangaJians(long? id, DeclareOrgConst model)
       {
          ThrowNotAjax();
@@ -3799,6 +3816,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult PeihJiaoyyGongz_XuekJiaoy(long? id, PeihJiaoyyGongz_XuekJiaoyModel model)
       {
          ThrowNotAjax();
@@ -3929,6 +3947,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult PeihJiaoyyGongz_XuekMingt(long? id, PeihJiaoyyGongz_XuekMingtModel model)
       {
          ThrowNotAjax();
@@ -4059,6 +4078,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult PeihJiaoyyGongz_JicXuexTiaoy(long? id, PeihJiaoyyGongz_JicXuexTiaoyModel model)
       {
          ThrowNotAjax();

@@ -71,13 +71,15 @@
 						<span class="text">申报材料管理</span>
 					</a>
 				</li>
-				<li>
-					<a href="@Url.Action("DeclareList", "ShareManage", new {  teacherId = up.UserId })">
-						<i class="fa fa-share-alt-square fa-fw"></i>
-						<span class="text">共享管理</span>
-					</a>
-				</li>
-				
+				//if (Html.GetDeclarePeriod() == null)
+				//{
+					@*<li>
+						<a href="@Url.Action("DeclareList", "ShareManage", new { teacherId = up.UserId })">
+							<i class="fa fa-share-alt-square fa-fw"></i>
+							<span class="text">共享管理</span>
+						</a>
+					</li>*@
+				//}
 			}
             @if (up.IsExpert)
             {

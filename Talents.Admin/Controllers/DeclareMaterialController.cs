@@ -132,6 +132,7 @@ namespace TheSite.Controllers
       // POST-Ajax: DeclareMaterial/DeclareActive  申报活动材料
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult DeclareActive(long id, bool isDeclare)
       {
          ThrowNotAjax();
@@ -184,6 +185,7 @@ namespace TheSite.Controllers
       // POST-Ajax: DeclareMaterial/DeclareOrgConst  申报档案建设
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult DeclareOrgConst(long id, bool isDeclare)
       {
          ThrowNotAjax();
@@ -235,6 +237,7 @@ namespace TheSite.Controllers
       // POST-Ajax: DeclareMaterial/DeclareAchievement 申报成果材料
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult DeclareAchievement(long id, bool isDeclare)
       {
          ThrowNotAjax();
@@ -285,6 +288,7 @@ namespace TheSite.Controllers
       // POST-Ajax: DeclareMaterial/DeclareTeamActive 申报团队活动
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult DeclareTeamActive(long id, bool isDeclare)
       {
          ThrowNotAjax();
@@ -352,6 +356,7 @@ namespace TheSite.Controllers
       // POST-Ajax: DeclareMaterial/DeclareTeamActive 申报定向性课程实施
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult DeclareTeamSpecialCourse(long id, bool isDeclare)
       {
          ThrowNotAjax();
@@ -420,6 +425,7 @@ namespace TheSite.Controllers
       // POST-Ajax: DeclareMaterial/DeclareContent  申报内容材料
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult DeclareContent(long id, bool isDeclare)
       {
          ThrowNotAjax();

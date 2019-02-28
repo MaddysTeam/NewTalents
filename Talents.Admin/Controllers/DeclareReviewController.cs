@@ -48,14 +48,14 @@ namespace TheSite.Controllers
             });
          }
 
-         if (!Period.IsInReviewPeriod)
-         {
-            return Json(new
-            {
-               result = AjaxResults.Error,
-               msg = "未在评审期,请联系管理员!"
-            });
-         }
+         //if (!Period.IsInReviewPeriod)
+         //{
+         //   return Json(new
+         //   {
+         //      result = AjaxResults.Error,
+         //      msg = "未在评审期,请联系管理员!"
+         //   });
+         //}
 
          var isExist = db.DeclareReviewDal.ConditionQueryCount(
             dr.TeacherId == UserProfile.UserId

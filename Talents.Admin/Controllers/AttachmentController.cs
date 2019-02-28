@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Util.ThirdParty.WangsuCloud;
@@ -40,7 +41,7 @@ namespace TheSite.Controllers
                pdfStream = fileStream.ConvertToPDF(ext);
 
                filePath = GenerateFilePath(filename.Replace(ext, string.Empty) + ".pdf");
-               Upload(pdfStream, filePath,false);
+               Upload(pdfStream, filePath, false);
             }
 
             // 返回结果
@@ -87,7 +88,7 @@ namespace TheSite.Controllers
             var img = GetThumbnail(file);
             imgStream = BitmapToStream(img, Path.GetExtension(file.FileName));
 
-            var result = Upload(imgStream, filePath,false);
+            var result = Upload(imgStream, filePath, false);
 
             // 返回结果
             return Json(new
@@ -162,11 +163,24 @@ namespace TheSite.Controllers
 
       public ActionResult Preview(long id)
       {
+         id = 116154;
          var attachment = db.AttachmentsDal.PrimaryGet(id);
          var ext = Path.GetExtension(attachment.AttachmentName);
-         if (needConvertExt.IndexOf(ext) >= 0)
+
+         if (needConvertExt.IndexOf(ext) >= 0 && string.IsNullOrEmpty(attachment.PreviewUrl) && attachment.UserId != UserProfile.UserId)
          {
-            attachment.AttachmentUrl = attachment.AttachmentUrl.Replace(ext,".pdf");
+            ////WebClient client = new WebClient();
+            ////var fileStream = client.OpenRead(attachment.AttachmentUrl,);
+            ////if (needConvertExt.IndexOf(ext) >= 0)
+            ////{
+            ////   var pdfStream = fileStream.ConvertToPDF(ext);
+            ////   var filePath = GenerateFilePath(attachment.AttachmentName.Replace(ext, string.Empty) + ".pdf");
+            ////   var result = Upload(pdfStream, filePath, false);
+            ////   if (result.IsSuccess)
+            ////   {
+            ////      db.AttachmentsDal.UpdatePartial(id, new { PreviewUrl = attachment.PreviewUrl });
+            ////   }
+            ////}
          }
 
          return View(attachment);
@@ -179,13 +193,13 @@ namespace TheSite.Controllers
       }
 
 
-      private Stream BitmapToStream(Bitmap bitmap,string ext)
+      private Stream BitmapToStream(Bitmap bitmap, string ext)
       {
          MemoryStream ms = null;
          try
          {
             ms = new MemoryStream();
-            bitmap.Save(ms,ImageFormat.Jpeg);
+            bitmap.Save(ms, ImageFormat.Jpeg);
          }
          catch (ArgumentNullException ex)
          {

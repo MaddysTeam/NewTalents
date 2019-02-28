@@ -2,6 +2,7 @@
 @{
 	var pageTitle = "提交申报申请";
 	var company = CompanyHelper.GetCompanySelectList().First(x => x.Value == Model.CompanyId.ToString());
+	var isInReview = Request["isReview"] ;
 }
 <div class="modal-dialog modal-lg">
 	<!-- widget -->
@@ -95,11 +96,11 @@
 									{
 										<button class="btn btn-success btn-block-half" disabled><i class="fa fa-check-circle"></i> 审核已通过！</button>
 									}
-									else if (Model.StatusKey == DeclareKeys.ReviewFailure)
+									@*else if (Model.StatusKey == DeclareKeys.ReviewFailure)
 									{
-										<button type="submit" class="btn btn-primary btn-block-half"><i class="fa fa-check-circle"></i> 提交审核</button>
+										<button type="submit" class="btn btn-primary btn-block-half" id="Submit"><i class="fa fa-check-circle"></i> 提交审核</button>
 										<button type="button" class="btn btn-default btn-block-half" data-dismiss="modal">取消</button>
-									}
+									}*@
 
 								}
 
@@ -134,8 +135,10 @@
 
 	function afterDialogSuccess() {
 		$('#firstModal').modal('hide');
-		$('#bootgrid').bootgrid('reload');
+
 		//loadFrag()
+
+		location.href = location.href;
 	}
 
 </script>

@@ -252,6 +252,7 @@
     <Compile Include="Business\Helper\NoticeHelper.cs" />
     <Compile Include="Business\Log\Logger.cs" />
     <Compile Include="Business\System.Web.Mvc\CacheAttribute.cs" />
+    <Compile Include="Business\System.Web.Mvc\DecalreAttribute.cs" />
     <Compile Include="Business\System.Web.Mvc\PermissonAttribute.cs" />
     <Compile Include="Business\Utilities\Aspose\WordConverter.cs" />
     <Compile Include="Business\Utilities\Aspose\PPTConverter.cs" />
@@ -260,6 +261,7 @@
     <Compile Include="Business\Utilities\Aspose\ExcelConverter.cs" />
     <Compile Include="Controllers\DeclareReviewController.cs" />
     <Compile Include="Controllers\DeclareMaterialController.cs" />
+    <Compile Include="Controllers\DeclarePeriodController.cs" />
     <Compile Include="Controllers\ProfileModifyPeriodController.cs" />
     <Compile Include="Controllers\ExpManageController.cs" />
     <Compile Include="Controllers\ChartController.cs" />
@@ -623,6 +625,8 @@
     <Content Include="Views\DeclareMaterial\Overview.cshtml" />
     <Content Include="Views\DeclareReview\Edit.cshtml" />
     <Content Include="Views\DeclareReview\List.cshtml" />
+    <Content Include="Views\DeclarePeriod\Edit.cshtml" />
+    <Content Include="Views\DeclarePeriod\List.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

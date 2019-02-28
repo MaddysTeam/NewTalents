@@ -25,6 +25,6 @@ create table [log]
 2  所有在bzuserProfile的数据都要添加称号且称号为【普通教师】
 3  将原先的称号信息洗入历史表
 4  将现有其他级别称号的老师改为【普通教师】
-5  将attachment 数据放到cdn
+5  将attachment 数据放到cdn,注意以前的文件在预览时需要转换
 6  称号更改时的问题
 7  称号需要归档

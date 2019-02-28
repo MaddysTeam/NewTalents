@@ -38,7 +38,7 @@ namespace TheSite.Controllers
 
       private static DeclarePeriod _period;
 
-      public DeclarePeriod Period {
+      public  DeclarePeriod Period {
          get
          {
             if (_period == null)

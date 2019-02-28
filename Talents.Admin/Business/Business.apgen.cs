@@ -7344,6 +7344,10 @@ namespace Business {
             
             private DateTimeAPColumnDef _endDate;
             
+            private DateTimeAPColumnDef _declareStartDate;
+            
+            private DateTimeAPColumnDef _declareEndDate;
+            
             private DateTimeAPColumnDef _reveiwStartDate;
             
             private DateTimeAPColumnDef _reveiwEndDate;
@@ -7411,13 +7415,39 @@ namespace Business {
             }
             
             /// <summary>
+            /// DeclareStartDate ColumnDef
+            /// </summary>
+            public virtual DateTimeAPColumnDef DeclareStartDate {
+                get {
+                    if (Object.ReferenceEquals(_declareStartDate, null)) {
+                        _declareStartDate = new DateTimeAPColumnDef(this, "DeclareStartDate", false);
+                        _declareStartDate.Display = "材料填报开始时间";
+                    }
+                    return _declareStartDate;
+                }
+            }
+            
+            /// <summary>
+            /// DeclareEndDate ColumnDef
+            /// </summary>
+            public virtual DateTimeAPColumnDef DeclareEndDate {
+                get {
+                    if (Object.ReferenceEquals(_declareEndDate, null)) {
+                        _declareEndDate = new DateTimeAPColumnDef(this, "DeclareEndDate", false);
+                        _declareEndDate.Display = "材料填报结束时间";
+                    }
+                    return _declareEndDate;
+                }
+            }
+            
+            /// <summary>
             /// ReveiwStartDate ColumnDef
             /// </summary>
             public virtual DateTimeAPColumnDef ReveiwStartDate {
                 get {
                     if (Object.ReferenceEquals(_reveiwStartDate, null)) {
                         _reveiwStartDate = new DateTimeAPColumnDef(this, "ReveiwStartDate", false);
-                        _reveiwStartDate.Display = "审核开始时间（审核提交和操作区间）";
+                        _reveiwStartDate.Display = "审核开始时间";
                     }
                     return _reveiwStartDate;
                 }
@@ -7430,7 +7460,7 @@ namespace Business {
                 get {
                     if (Object.ReferenceEquals(_reveiwEndDate, null)) {
                         _reveiwEndDate = new DateTimeAPColumnDef(this, "ReveiwEndDate", false);
-                        _reveiwEndDate.Display = "审核结束时间（审核提交和操作区间）";
+                        _reveiwEndDate.Display = "审核结束时间";
                     }
                     return _reveiwEndDate;
                 }
@@ -7473,6 +7503,8 @@ namespace Business {
                 data.Name = Name.GetValue<string>(reader, throwIfValidColumnName);
                 data.BeginDate = BeginDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
                 data.EndDate = EndDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
+                data.DeclareStartDate = DeclareStartDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
+                data.DeclareEndDate = DeclareEndDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
                 data.ReveiwStartDate = ReveiwStartDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
                 data.ReveiwEndDate = ReveiwEndDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
                 data.IsCurrent = IsCurrent.GetValue<bool>(reader, throwIfValidColumnName);
@@ -12443,6 +12475,8 @@ namespace Business {
             
             private DateTimeAPColumnDef _uploadDate;
             
+            private StringAPColumnDef _previewUrl;
+            
             public AttachmentsTableDef(string tableName) : 
                     base(tableName) {
             }
@@ -12543,6 +12577,19 @@ namespace Business {
             }
             
             /// <summary>
+            /// PreviewUrl ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef PreviewUrl {
+                get {
+                    if (Object.ReferenceEquals(_previewUrl, null)) {
+                        _previewUrl = new StringAPColumnDef(this, "PreviewUrl", true, 255);
+                        _previewUrl.Display = "附件预览路径";
+                    }
+                    return _previewUrl;
+                }
+            }
+            
+            /// <summary>
             /// Default Index
             /// </summary>
             public virtual APSqlOrderPhrase DefaultOrder {
@@ -12569,6 +12616,7 @@ namespace Business {
                 data.AttachmentUrl = AttachmentUrl.GetValue<string>(reader, throwIfValidColumnName);
                 data.AttachmentName = AttachmentName.GetValue<string>(reader, throwIfValidColumnName);
                 data.UploadDate = UploadDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
+                data.PreviewUrl = PreviewUrl.GetValue<string>(reader, throwIfValidColumnName);
             }
             
             /// <summary>
@@ -16407,7 +16455,7 @@ namespace Business {
                 if ((data.PeriodId == 0)) {
                     data.PeriodId = ((long)(GetNewId(APDBDef.DeclarePeriod.PeriodId)));
                 }
-                var query = APQuery.insert(APDBDef.DeclarePeriod).values(APDBDef.DeclarePeriod.PeriodId.SetValue(data.PeriodId), APDBDef.DeclarePeriod.Name.SetValue(data.Name), APDBDef.DeclarePeriod.BeginDate.SetValue(data.BeginDate), APDBDef.DeclarePeriod.EndDate.SetValue(data.EndDate), APDBDef.DeclarePeriod.ReveiwStartDate.SetValue(data.ReveiwStartDate), APDBDef.DeclarePeriod.ReveiwEndDate.SetValue(data.ReveiwEndDate), APDBDef.DeclarePeriod.IsCurrent.SetValue(data.IsCurrent));
+                var query = APQuery.insert(APDBDef.DeclarePeriod).values(APDBDef.DeclarePeriod.PeriodId.SetValue(data.PeriodId), APDBDef.DeclarePeriod.Name.SetValue(data.Name), APDBDef.DeclarePeriod.BeginDate.SetValue(data.BeginDate), APDBDef.DeclarePeriod.EndDate.SetValue(data.EndDate), APDBDef.DeclarePeriod.DeclareStartDate.SetValue(data.DeclareStartDate), APDBDef.DeclarePeriod.DeclareEndDate.SetValue(data.DeclareEndDate), APDBDef.DeclarePeriod.ReveiwStartDate.SetValue(data.ReveiwStartDate), APDBDef.DeclarePeriod.ReveiwEndDate.SetValue(data.ReveiwEndDate), APDBDef.DeclarePeriod.IsCurrent.SetValue(data.IsCurrent));
                 ExecuteNonQuery(query);
             }
             
@@ -16415,7 +16463,7 @@ namespace Business {
             /// 更新数据。
             /// </summary>
             public virtual void Update(DeclarePeriod data) {
-                var query = APQuery.update(APDBDef.DeclarePeriod).values(APDBDef.DeclarePeriod.Name.SetValue(data.Name), APDBDef.DeclarePeriod.BeginDate.SetValue(data.BeginDate), APDBDef.DeclarePeriod.EndDate.SetValue(data.EndDate), APDBDef.DeclarePeriod.ReveiwStartDate.SetValue(data.ReveiwStartDate), APDBDef.DeclarePeriod.ReveiwEndDate.SetValue(data.ReveiwEndDate), APDBDef.DeclarePeriod.IsCurrent.SetValue(data.IsCurrent)).where((APDBDef.DeclarePeriod.PeriodId == data.PeriodId));
+                var query = APQuery.update(APDBDef.DeclarePeriod).values(APDBDef.DeclarePeriod.Name.SetValue(data.Name), APDBDef.DeclarePeriod.BeginDate.SetValue(data.BeginDate), APDBDef.DeclarePeriod.EndDate.SetValue(data.EndDate), APDBDef.DeclarePeriod.DeclareStartDate.SetValue(data.DeclareStartDate), APDBDef.DeclarePeriod.DeclareEndDate.SetValue(data.DeclareEndDate), APDBDef.DeclarePeriod.ReveiwStartDate.SetValue(data.ReveiwStartDate), APDBDef.DeclarePeriod.ReveiwEndDate.SetValue(data.ReveiwEndDate), APDBDef.DeclarePeriod.IsCurrent.SetValue(data.IsCurrent)).where((APDBDef.DeclarePeriod.PeriodId == data.PeriodId));
                 ExecuteNonQuery(query);
             }
             
@@ -19526,7 +19574,7 @@ namespace Business {
                 if ((data.ID == 0)) {
                     data.ID = ((long)(GetNewId(APDBDef.Attachments.ID)));
                 }
-                var query = APQuery.insert(APDBDef.Attachments).values(APDBDef.Attachments.ID.SetValue(data.ID), APDBDef.Attachments.Type.SetValue(data.Type), APDBDef.Attachments.JoinId.SetValue(data.JoinId), APDBDef.Attachments.UserId.SetValue(data.UserId), APDBDef.Attachments.AttachmentUrl.SetValue(data.AttachmentUrl), APDBDef.Attachments.AttachmentName.SetValue(data.AttachmentName), APDBDef.Attachments.UploadDate.SetValue(data.UploadDate));
+                var query = APQuery.insert(APDBDef.Attachments).values(APDBDef.Attachments.ID.SetValue(data.ID), APDBDef.Attachments.Type.SetValue(data.Type), APDBDef.Attachments.JoinId.SetValue(data.JoinId), APDBDef.Attachments.UserId.SetValue(data.UserId), APDBDef.Attachments.AttachmentUrl.SetValue(data.AttachmentUrl), APDBDef.Attachments.AttachmentName.SetValue(data.AttachmentName), APDBDef.Attachments.UploadDate.SetValue(data.UploadDate), APDBDef.Attachments.PreviewUrl.SetValue(data.PreviewUrl));
                 ExecuteNonQuery(query);
             }
             
@@ -19534,7 +19582,7 @@ namespace Business {
             /// 更新数据。
             /// </summary>
             public virtual void Update(Attachments data) {
-                var query = APQuery.update(APDBDef.Attachments).values(APDBDef.Attachments.Type.SetValue(data.Type), APDBDef.Attachments.JoinId.SetValue(data.JoinId), APDBDef.Attachments.UserId.SetValue(data.UserId), APDBDef.Attachments.AttachmentUrl.SetValue(data.AttachmentUrl), APDBDef.Attachments.AttachmentName.SetValue(data.AttachmentName), APDBDef.Attachments.UploadDate.SetValue(data.UploadDate)).where((APDBDef.Attachments.ID == data.ID));
+                var query = APQuery.update(APDBDef.Attachments).values(APDBDef.Attachments.Type.SetValue(data.Type), APDBDef.Attachments.JoinId.SetValue(data.JoinId), APDBDef.Attachments.UserId.SetValue(data.UserId), APDBDef.Attachments.AttachmentUrl.SetValue(data.AttachmentUrl), APDBDef.Attachments.AttachmentName.SetValue(data.AttachmentName), APDBDef.Attachments.UploadDate.SetValue(data.UploadDate), APDBDef.Attachments.PreviewUrl.SetValue(data.PreviewUrl)).where((APDBDef.Attachments.ID == data.ID));
                 ExecuteNonQuery(query);
             }
             
@@ -39057,6 +39105,16 @@ namespace Business {
         private System.DateTime _endDate;
         
         /// <summary>
+        /// DeclareStartDate
+        /// </summary>
+        private System.DateTime _declareStartDate;
+        
+        /// <summary>
+        /// DeclareEndDate
+        /// </summary>
+        private System.DateTime _declareEndDate;
+        
+        /// <summary>
         /// ReveiwStartDate
         /// </summary>
         private System.DateTime _reveiwStartDate;
@@ -39080,11 +39138,13 @@ namespace Business {
         /// <summary>
         /// 初始化所有字段的构造函数。
         /// </summary>
-        public DeclarePeriodBase(long periodId, string name, System.DateTime beginDate, System.DateTime endDate, System.DateTime reveiwStartDate, System.DateTime reveiwEndDate, bool isCurrent) {
+        public DeclarePeriodBase(long periodId, string name, System.DateTime beginDate, System.DateTime endDate, System.DateTime declareStartDate, System.DateTime declareEndDate, System.DateTime reveiwStartDate, System.DateTime reveiwEndDate, bool isCurrent) {
             _periodId = periodId;
             _name = name;
             _beginDate = beginDate;
             _endDate = endDate;
+            _declareStartDate = declareStartDate;
+            _declareEndDate = declareEndDate;
             _reveiwStartDate = reveiwStartDate;
             _reveiwEndDate = reveiwEndDate;
             _isCurrent = isCurrent;
@@ -39180,9 +39240,53 @@ namespace Business {
         }
         
         /// <summary>
+        /// DeclareStartDate
+        /// </summary>
+        [Display(Name="材料填报开始时间")]
+        public virtual System.DateTime DeclareStartDate {
+            get {
+                return _declareStartDate;
+            }
+            set {
+                _declareStartDate = value;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareStartDate APColumnDef
+        /// </summary>
+        public static DateTimeAPColumnDef DeclareStartDateDef {
+            get {
+                return APDBDef.DeclarePeriod.DeclareStartDate;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareEndDate
+        /// </summary>
+        [Display(Name="材料填报结束时间")]
+        public virtual System.DateTime DeclareEndDate {
+            get {
+                return _declareEndDate;
+            }
+            set {
+                _declareEndDate = value;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareEndDate APColumnDef
+        /// </summary>
+        public static DateTimeAPColumnDef DeclareEndDateDef {
+            get {
+                return APDBDef.DeclarePeriod.DeclareEndDate;
+            }
+        }
+        
+        /// <summary>
         /// ReveiwStartDate
         /// </summary>
-        [Display(Name="审核开始时间（审核提交和操作区间）")]
+        [Display(Name="审核开始时间")]
         public virtual System.DateTime ReveiwStartDate {
             get {
                 return _reveiwStartDate;
@@ -39204,7 +39308,7 @@ namespace Business {
         /// <summary>
         /// ReveiwEndDate
         /// </summary>
-        [Display(Name="审核结束时间（审核提交和操作区间）")]
+        [Display(Name="审核结束时间")]
         public virtual System.DateTime ReveiwEndDate {
             get {
                 return _reveiwEndDate;
@@ -39271,6 +39375,8 @@ namespace Business {
             Name = data.Name;
             BeginDate = data.BeginDate;
             EndDate = data.EndDate;
+            DeclareStartDate = data.DeclareStartDate;
+            DeclareEndDate = data.DeclareEndDate;
             ReveiwStartDate = data.ReveiwStartDate;
             ReveiwEndDate = data.ReveiwEndDate;
             IsCurrent = data.IsCurrent;
@@ -39290,6 +39396,12 @@ namespace Business {
                 return false;
             }
             if ((EndDate != data.EndDate)) {
+                return false;
+            }
+            if ((DeclareStartDate != data.DeclareStartDate)) {
+                return false;
+            }
+            if ((DeclareEndDate != data.DeclareEndDate)) {
                 return false;
             }
             if ((ReveiwStartDate != data.ReveiwStartDate)) {
@@ -39397,8 +39509,8 @@ namespace Business {
         /// <summary>
         /// 初始化所有字段的构造函数。
         /// </summary>
-        public DeclarePeriod(long periodId, string name, System.DateTime beginDate, System.DateTime endDate, System.DateTime reveiwStartDate, System.DateTime reveiwEndDate, bool isCurrent) : 
-                base(periodId, name, beginDate, endDate, reveiwStartDate, reveiwEndDate, isCurrent) {
+        public DeclarePeriod(long periodId, string name, System.DateTime beginDate, System.DateTime endDate, System.DateTime declareStartDate, System.DateTime declareEndDate, System.DateTime reveiwStartDate, System.DateTime reveiwEndDate, bool isCurrent) : 
+                base(periodId, name, beginDate, endDate, declareStartDate, declareEndDate, reveiwStartDate, reveiwEndDate, isCurrent) {
         }
     }
     
@@ -48851,6 +48963,11 @@ namespace Business {
         private System.DateTime _uploadDate;
         
         /// <summary>
+        /// PreviewUrl
+        /// </summary>
+        private string _previewUrl;
+        
+        /// <summary>
         /// 默认构造函数。
         /// </summary>
         public AttachmentsBase() {
@@ -48859,7 +48976,7 @@ namespace Business {
         /// <summary>
         /// 初始化所有字段的构造函数。
         /// </summary>
-        public AttachmentsBase(long iD, string type, long joinId, long userId, string attachmentUrl, string attachmentName, System.DateTime uploadDate) {
+        public AttachmentsBase(long iD, string type, long joinId, long userId, string attachmentUrl, string attachmentName, System.DateTime uploadDate, string previewUrl) {
             _iD = iD;
             _type = type;
             _joinId = joinId;
@@ -48867,6 +48984,7 @@ namespace Business {
             _attachmentUrl = attachmentUrl;
             _attachmentName = attachmentName;
             _uploadDate = uploadDate;
+            _previewUrl = previewUrl;
         }
         
         /// <summary>
@@ -49027,6 +49145,29 @@ namespace Business {
         }
         
         /// <summary>
+        /// PreviewUrl
+        /// </summary>
+        [Display(Name="附件预览路径")]
+        [StringLength(255)]
+        public virtual string PreviewUrl {
+            get {
+                return _previewUrl;
+            }
+            set {
+                _previewUrl = value;
+            }
+        }
+        
+        /// <summary>
+        /// PreviewUrl APColumnDef
+        /// </summary>
+        public static StringAPColumnDef PreviewUrlDef {
+            get {
+                return APDBDef.Attachments.PreviewUrl;
+            }
+        }
+        
+        /// <summary>
         /// AttachmentsTableDef APTableDef
         /// </summary>
         public static APDBDef.AttachmentsTableDef TableDef {
@@ -49055,6 +49196,7 @@ namespace Business {
             AttachmentUrl = data.AttachmentUrl;
             AttachmentName = data.AttachmentName;
             UploadDate = data.UploadDate;
+            PreviewUrl = data.PreviewUrl;
         }
         
         /// <summary>
@@ -49080,6 +49222,9 @@ namespace Business {
                 return false;
             }
             if ((UploadDate != data.UploadDate)) {
+                return false;
+            }
+            if ((PreviewUrl != data.PreviewUrl)) {
                 return false;
             }
             return true;
@@ -49178,8 +49323,8 @@ namespace Business {
         /// <summary>
         /// 初始化所有字段的构造函数。
         /// </summary>
-        public Attachments(long iD, string type, long joinId, long userId, string attachmentUrl, string attachmentName, System.DateTime uploadDate) : 
-                base(iD, type, joinId, userId, attachmentUrl, attachmentName, uploadDate) {
+        public Attachments(long iD, string type, long joinId, long userId, string attachmentUrl, string attachmentName, System.DateTime uploadDate, string previewUrl) : 
+                base(iD, type, joinId, userId, attachmentUrl, attachmentName, uploadDate, previewUrl) {
         }
     }
     

@@ -17,6 +17,10 @@ namespace System.Web.Mvc
 			=> helper.ViewContext.HttpContext.GetUserProfile();
 
 
+      public static DeclarePeriod GetDeclarePeriod(this HtmlHelper helper) 
+         => helper.ViewContext.HttpContext.GetDeclarePeriod();
+
+
 		public static bool IsRole(this HtmlHelper helper, string roleName)
 			=> helper.ViewContext.HttpContext.IsRole(roleName);
 
