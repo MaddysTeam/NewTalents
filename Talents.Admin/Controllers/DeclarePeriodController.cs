@@ -64,6 +64,9 @@ namespace TheSite.Controllers
 			}
 			else
 			{
+            model.BeginDate = DateTime.Now.AddYears(-3);
+            model.EndDate = DateTime.Now.AddYears(1);
+
 				db.DeclarePeriodDal.Insert(model);
 			}
 
@@ -78,19 +81,19 @@ namespace TheSite.Controllers
 
 		//	POST-Ajax: EvalPeriod/Remove		
 
-		[HttpPost]
-		public ActionResult Remove(long id)
-		{
-			ThrowNotAjax();
+		//[HttpPost]
+		//public ActionResult Remove(long id)
+		//{
+		//	ThrowNotAjax();
 
-			db.DeclarePeriodDal.PrimaryDelete(id);
+		//	db.DeclarePeriodDal.PrimaryDelete(id);
 
-			return Json(new
-			{
-				result = AjaxResults.Success,
-				msg = "信息已删除"
-			});
-		}
+		//	return Json(new
+		//	{
+		//		result = AjaxResults.Success,
+		//		msg = "信息已删除"
+		//	});
+		//}
 
 
 		//	POST-Ajax: EvalPeriod/SetCurrent	

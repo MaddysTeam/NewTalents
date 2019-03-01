@@ -29,20 +29,24 @@ namespace System.Web.Mvc
          if (!Period.IsInDeclarePeriod)
          {
             var request = filterContext.HttpContext.Request;
-            if (filterContext.HttpContext.Request.IsAjaxRequest() && request.RequestType == "POST")
+            var formDeclare = request.Form["IsDeclare"];
+            var isFormDeclare = !string.IsNullOrEmpty(formDeclare) && formDeclare.IndexOf("true") >= 0;
+            var isRequestDeclare = request["IsDeclare"] != null && request["IsDeclare"].IndexOf("True") >= 0;
+            if (filterContext.HttpContext.Request.IsAjaxRequest()
+               && request.RequestType == "POST")
             {
-               filterContext.Result = new JsonResult()
-               {
-                  Data = new
+               if (isFormDeclare || isRequestDeclare)
+                  filterContext.Result = new JsonResult()
                   {
-                     result = AjaxResults.Error,
-                     msg = "当前不在填报周期，请联系校管理员!"
-                  }
-               };
+                     Data = new
+                     {
+                        result = AjaxResults.Error,
+                        msg = "当前不在填报周期，请联系校管理员!"
+                     }
+                  };
             }
             else
                filterContext.Result = new ContentResult { Content = "当前不在填报周期，请联系校管理员!" };
-               //throw new Exception("当前不在填报周期，请联系校管理员!");
          }
       }
 

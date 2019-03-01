@@ -163,26 +163,7 @@ namespace TheSite.Controllers
 
       public ActionResult Preview(long id)
       {
-         id = 116154;
          var attachment = db.AttachmentsDal.PrimaryGet(id);
-         var ext = Path.GetExtension(attachment.AttachmentName);
-
-         if (needConvertExt.IndexOf(ext) >= 0 && string.IsNullOrEmpty(attachment.PreviewUrl) && attachment.UserId != UserProfile.UserId)
-         {
-            ////WebClient client = new WebClient();
-            ////var fileStream = client.OpenRead(attachment.AttachmentUrl,);
-            ////if (needConvertExt.IndexOf(ext) >= 0)
-            ////{
-            ////   var pdfStream = fileStream.ConvertToPDF(ext);
-            ////   var filePath = GenerateFilePath(attachment.AttachmentName.Replace(ext, string.Empty) + ".pdf");
-            ////   var result = Upload(pdfStream, filePath, false);
-            ////   if (result.IsSuccess)
-            ////   {
-            ////      db.AttachmentsDal.UpdatePartial(id, new { PreviewUrl = attachment.PreviewUrl });
-            ////   }
-            ////}
-         }
-
          return View(attachment);
       }
 
@@ -229,7 +210,7 @@ namespace TheSite.Controllers
 
       private string GenerateFilePath(string fileName)
       {
-         return $"hktd/{DateTime.Today.ToString("yyyyMMdd")}/{fileName}";
+         return $"hktd2/{DateTime.Today.ToString("yyyyMMdd")}/{fileName}";
       }
 
    }

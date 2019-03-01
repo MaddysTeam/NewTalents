@@ -60,7 +60,8 @@
       public const string Vertify = "证明";
 
       public const string ImageSuffix = ".jpg,.gif,.jpeg,.png,.bnp";
-      public const string DocumentSuffix = ".doc,.docx,.xls,.xlsx,.pdf,.pptx,.csv";
+      public const string DocumentSuffix = ".doc,.docx,.xls,.xlsx,.pdf,.pptx,.csv,.txt";
+      public const string NeedConvertPDFSuffix = ".xlsx,.xls,.ppt,.pptx,.doc,.docx,.csv";
 
    }
 

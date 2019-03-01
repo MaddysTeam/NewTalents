@@ -24,16 +24,19 @@
 								@foreach (var item in Model)
 								{
 									var isMine = item.UserId == Html.GetUserProfile().UserId;
-									var extName = Path.GetExtension(item.AttachmentName);
+									var extName = Path.GetExtension(item.AttachmentName).ToLower();
 									<tr>
 										<td>	
-											@if (allType.IndexOf(extName) <= 0)
+											@if (allType.IndexOf(extName) >= 0)
 											{
+												if(isMine || AttachmentsKeys.NeedConvertPDFSuffix.IndexOf(extName)<0)
+												{
 												<a href="@Url.Content(item.AttachmentUrl)" target="_blank" title="@item.AttachmentName">@(item.AttachmentName.Length > 40 ? item.AttachmentName.Substring(0, 37) + "..." : item.AttachmentName)</a>
-											}
-											else 
-											{
-												<a href="@Url.Action("Preview", "Attachment", new {id=item.ID})" target="_blank" title="@item.AttachmentName">@(item.AttachmentName.Length > 40 ? item.AttachmentName.Substring(0, 37) + "..." : item.AttachmentName)</a>
+												}
+												else
+												{
+														<a href="@Url.Action("Preview", "Attachment", new {id=item.ID})" target="_blank" title="@item.AttachmentName">@(item.AttachmentName.Length > 40 ? item.AttachmentName.Substring(0, 37) + "..." : item.AttachmentName)</a>
+												}
 											}
 										</td>
 									</tr>
