@@ -122,7 +122,7 @@ namespace TheSite.Controllers
          #region [ 制度建设 ]
 
 
-         if (targetId == DeclareTargetIds.GaodLisz || targetId == DeclareTargetIds.JidZhucr || targetId == DeclareTargetIds.GongzsZhucr)
+         if (targetId == DeclareTargetIds.GaodLisz || targetId == DeclareTargetIds.JidZhucr || targetId == DeclareTargetIds.GongzsZhucr || targetId==DeclareTargetIds.PutLaos)
          {
             list.Add(new json_treenode { id = DeclareKeys.ZhidJians, text = "制度建设", type = json_treenode_types.database, children = new List<json_treenode>() });
          }
@@ -216,7 +216,7 @@ namespace TheSite.Controllers
          #region [ 配合教研员工作 ]
 
 
-         if (model.AllowFitResearcher)
+         if (model.AllowFitResearcher || targetId == DeclareTargetIds.PutLaos)
          {
             list.Add(new json_treenode { id = DeclareKeys.PeihJiaoyyGongz, text = "配合教研员工作", type = json_treenode_types.database, children = new List<json_treenode>() });
          }

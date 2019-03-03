@@ -535,6 +535,43 @@
 				</columns>			
 			</table>
 
+			<table name="DeclareEvalResult" comment="申报-评价-结果">
+				<columns>
+
+					<add name="ResultId" type="long" primaryKey="true" identityType="Provider" display="评价结果ID"/>
+					<add name="PeriodId" type="long" display="周期ID"/>
+					<add name="DeclareTargetPKID" type="long" display="申报（担任）称号" comment="PickList - PLKey_DeclareTarget"/>
+					<add name="TeacherId" type="long" display="教师ID"/>
+
+					<!-- General Information -->
+					<add name="FullScore" type="double" display="总分"/>
+					<add name="Score" type="double" display="得分"/>
+					<add name="Characteristic" type="double" display="特色分"/>
+					<add name="DynamicScore1" type="double" display="备用分1"/>
+					<add name="DynamicScore2" type="double" display="备用分2"/>
+					<add name="DynamicScore3" type="double" display="备用分3"/>
+					<add name="Comment" type="string" dataLength="10000" display="总评" comment="每位专家的评语"/>
+					<add name="GroupId" type="long" display="专家组" comment="关联专家组"/>
+					<add name="Accesser" type="long" display="考评人" comment="关联考评人"/>
+					<add name="AccessDate" type="DateTime" display="考评时间"/>
+
+				</columns>
+			</table>
+
+			<table name="DeclareEvalResultItem" comment="申报-评价-结果项">
+				<columns>
+
+					<add name="ResultItemId" type="long" primaryKey="true" identityType="Provider" display="结果项ID"/>
+					<add name="ResultId" type="long" display="评价结果ID"/>
+
+					<!-- General Information -->
+					<add name="EvalItemKey" type="string" dataLength="200" display="指标项" comment="用点分符做完字符串分割"/>
+					<add name="ChooseValue" type="string" dataLength="20" display="选择值"/>
+					<add name="ResultValue" type="string" dataLength="100" display="输入值"/>
+
+				</columns>
+			</table>
+
 
 			<!-- 梯队.基本情况 -->
 			

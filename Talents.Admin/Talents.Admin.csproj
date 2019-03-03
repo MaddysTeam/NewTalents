@@ -282,6 +282,7 @@
     <Compile Include="Controllers\SchoolEvalController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="EvalAnalysis\AnalysisUnits.cs" />
+    <Compile Include="EvalAnalysis\DeclareEngine.DeclareEvalUnit.cs" />
     <Compile Include="EvalAnalysis\DeclareEngine.cs" />
     <Compile Include="EvalAnalysis\AnnualEngine.QualityEvalUnit.cs" />
     <Compile Include="EvalAnalysis\AnnualEngine.QualityEvalUnit5002.cs" />

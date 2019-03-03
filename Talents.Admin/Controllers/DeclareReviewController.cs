@@ -35,6 +35,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult Edit(DeclareReview review)
       {
          var cd = APDBDef.CompanyDeclare;
@@ -48,14 +49,14 @@ namespace TheSite.Controllers
             });
          }
 
-         //if (!Period.IsInReviewPeriod)
-         //{
-         //   return Json(new
-         //   {
-         //      result = AjaxResults.Error,
-         //      msg = "未在评审期,请联系管理员!"
-         //   });
-         //}
+         if (!Period.IsInReviewPeriod)
+         {
+            return Json(new
+            {
+               result = AjaxResults.Error,
+               msg = "未在评审期,请联系管理员!"
+            });
+         }
 
          var isExist = db.DeclareReviewDal.ConditionQueryCount(
             dr.TeacherId == UserProfile.UserId
@@ -113,7 +114,7 @@ namespace TheSite.Controllers
          });
       }
 
-
+      [DecalrePeriod]
       public ActionResult List(long companyId)
       {
          return View();
@@ -125,7 +126,7 @@ namespace TheSite.Controllers
          var u = APDBDef.BzUserProfile;
          var u2 = APDBDef.BzUserProfile.As("reviewer");
          var c = APDBDef.Company;
-         var currentPeriod = Period;
+         var currentPeriod = Period ?? new DeclarePeriod();
          var query = APQuery.select(dr.ReviewId, dr.ReviewComment, dr.StatusKey, dr.TeacherId, dr.ReviewerId, u.RealName, u2.RealName.As("reviewer"), c.CompanyName)
                           .from(dr,
                                 u.JoinInner(dr.TeacherId == u.UserId),

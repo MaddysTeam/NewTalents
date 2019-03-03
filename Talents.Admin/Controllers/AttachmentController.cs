@@ -164,6 +164,8 @@ namespace TheSite.Controllers
       public ActionResult Preview(long id)
       {
          var attachment = db.AttachmentsDal.PrimaryGet(id);
+         var ext = Path.GetExtension(attachment.AttachmentName);
+         attachment.AttachmentUrl = attachment.AttachmentUrl.Replace(ext,".pdf");
          return View(attachment);
       }
 

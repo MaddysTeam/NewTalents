@@ -1,4 +1,4 @@
-﻿	TeamActive , DeclareActive,Notice 表contenValue字段手动设置为nvarchar(max)
+﻿		TeamActive , DeclareActive,Notice 表contenValue字段手动设置为nvarchar(max)
 
 	BzUserProfileHistory 和 DeclareBaseHistory  id 字段设置为数据库自增列
 
@@ -21,10 +21,56 @@ create table [log]
 新功能：申报功能
 
 洗数据：
-
-2  所有在bzuserProfile的数据都要添加称号且称号为【普通教师】
+1  洗去重复数据
+2  将TeamActive declareAcitive,news, notice,TeamActiveItem,TeamActiveResult,TeamContent,TeamMember,TeamSpecialCourse,TeamSpecialCourseItem 表 的content 从ntext 改为nvarchar(max)
+3  在字典表里新增【5010】普通教师称号
 3  将原先的称号信息洗入历史表
-4  将现有其他级别称号的老师改为【普通教师】
-5  将attachment 数据放到cdn,注意以前的文件在预览时需要转换
-6  称号更改时的问题
-7  称号需要归档
+4  所有在bzuserProfile的数据都要添加称号且称号为【普通教师】
+5  将现有其他级别称号的老师改为【普通教师】
+6  将attachment 数据放到cdn,注意以前的文件在预览时需要转换
+7  称号更改时的问题
+8  新增当前申报周期
+9  导入最新的学校信息
+10 洗一下学校管理员的profile 的companyId 的数据
+
+
+8 单位表刷新，部分学校名字修改
+9 依据BzUserProfile 的companyId 字段将洗过的数据导入CompanyDeclare 
+
+
+具体步骤和sql
+
+select * from DeclareContent where DeclareContentId=29864
+delete from DeclareContent where DeclareContentId=29864 and TeacherId=11632
+
+delete from DeclareActive where  DeclareActiveId=27508 and CreateDate='2018-06-29 10:00:00'
+delete from DeclareActive where  DeclareActiveId=27551 and TeacherId=6256
+delete from DeclareActive where  DeclareActiveId=27623 and TeacherId=7146
+
+需要插入
+--27623	7146	自身发展.自我研修	2018-06-18 00:00:00	上海市南湖职校二分校	无	终身学习体会	区级					虹口区教师进修学院			0	0	2018-06-29 13:31:00	7146	2018-10-10 18:14:00	7146
+
+
+delete from Attachments where ID='86803'and UploadDate>'2018-06-25 14:34:00.413'
+delete from Attachments where ID='81008'
+delete from Attachments where ID='88408' and attachmentUrl=''
+delete from Attachments where ID='100877' and attachmentUrl='' 
+delete from Attachments where ID='100877' and UploadDate < '2018-06-29 13:16:01.900'
+delete from Attachments where ID='95152' and userid='8280' and UploadDate <= '2018-06-28 10:25:07.367'
+delete from Attachments where ID='100468' and UserId<>6256
+delete from Attachments where ID='100168' and UploadDate<'2018-06-29 10:00:39.180'
+delete from Attachments where ID='108856' and UploadDate<'2018-10-08 13:34:16.347'
+delete from Attachments where ID='94893' and UploadDate<'2018-06-28 09:20:15.067'
+
+
+
+需要插入
+95152	自身发展.教育教学科研成果.论文发表证明	9236	8540	/Attachments/20180628/201806281024141622.jpg	205872341098367758.jpg	2018-06-28 10:24:54.097
+95152	自身发展.市、区级大活动证明	26810	10074	/Attachments/20180628/201806281023205045.jpg	饮酒笔记.jpg	2018-06-28 10:24:37.130
+
+100468	带教活动.编辑	15429	8678	/Attachments/20180629/201806291103392275.doc	化学作业卷的编制.doc	2018-06-29 11:03:44.947
+100468	自身发展.教学活动.参加教学评比证明	27543	9430	/Attachments/20180629/201806291101451809.jpg	微信图片_20180629104120.jpg	2018-06-29 11:02:03.320
+
+
+  update DeclareBase set DeclareTargetPKID=5010
+  update Attachments set AttachmentUrl=REPLACE(AttachmentUrl,'/Attachments/','http://cdn.sser.shdjg.net/hktd2/')

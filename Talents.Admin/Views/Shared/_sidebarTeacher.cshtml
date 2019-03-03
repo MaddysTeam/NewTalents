@@ -1,5 +1,7 @@
 ﻿@{
 	var up = Html.GetUserProfile();
+	var declarePeriod = Html.GetDeclarePeriod();
+	var isInDeclare = declarePeriod != null && declarePeriod.IsInDeclarePeriod;
 }
 <!-- left sidebar -->
 <div class="col-md-2 left-sidebar">
@@ -59,27 +61,36 @@
 					</div>
 					<!-- END WIDGET ACTIVITY FEED -->
 				}
+				if (isInDeclare)
+				{
+					<li>
+						<a href="@Url.Action("Overview", "DeclareMaterial", new { id = up.UserId })" target="_blank">
+							<i class="fa fa-external-link fa-fw"></i>
+							<span class="text">查看申报材料</span>
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("List", "DeclareMaterial", new {  teacherId = up.UserId })">
+							<i class="fa fa-share-alt-square fa-fw"></i>
+							<span class="text">申报材料管理</span>
+						</a>
+					</li>
+				}
+				else
+				{
 				<li>
-					<a href="@Url.Action("Overview", "Declare", new {  id = up.UserId })" target="_blank">
+					<a href="@Url.Action("Overview", "Declare", new { id = up.UserId })" target="_blank">
 						<i class="fa fa-external-link fa-fw"></i>
 						<span class="text">查看材料</span>
 					</a>
 				</li>
 				<li>
-					<a href="@Url.Action("List", "DeclareMaterial", new {  teacherId = up.UserId })">
+					<a href="@Url.Action("DeclareList", "ShareManage", new {  teacherId = up.UserId })">
 						<i class="fa fa-share-alt-square fa-fw"></i>
-						<span class="text">申报材料管理</span>
+						<span class="text">共享管理</span>
 					</a>
 				</li>
-				//if (Html.GetDeclarePeriod() == null)
-				//{
-					@*<li>
-						<a href="@Url.Action("DeclareList", "ShareManage", new { teacherId = up.UserId })">
-							<i class="fa fa-share-alt-square fa-fw"></i>
-							<span class="text">共享管理</span>
-						</a>
-					</li>*@
-				//}
+				}
 			}
             @if (up.IsExpert)
             {

@@ -829,7 +829,7 @@
 			</table>
 
 
-			@if (targetId == DeclareTargetIds.GaodLisz || targetId == DeclareTargetIds.JidZhucr || targetId == DeclareTargetIds.GongzsZhucr)
+			@if (targetId == DeclareTargetIds.GaodLisz || targetId == DeclareTargetIds.JidZhucr || targetId == DeclareTargetIds.GongzsZhucr || targetId==DeclareTargetIds.PutLaos)
 			{
 				<a id="@DeclareKeys.ZhidJians@proxy"></a>
 
@@ -1447,8 +1447,8 @@
 			}
 
 
-			@if (DeclareBase.AllowFitResearcher)
-			{
+			@*@if (DeclareBase.AllowFitResearcher)
+			{*@
 				<!-- 配合教研员工作.教研信息 -->
 				<a id="@DeclareKeys.PeihJiaoyyGongz@proxy"></a>
 				<a id="@DeclareKeys.PeihJiaoyyGongz_JiaoyXinx@proxy"></a>
@@ -1577,7 +1577,7 @@
 						}
 					</tbody>
 				</table>
-			}
+			@*}*@
 
 
 			<!-- 年底总结.第一年 -->

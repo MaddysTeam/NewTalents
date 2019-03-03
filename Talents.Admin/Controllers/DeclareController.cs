@@ -2141,7 +2141,7 @@ namespace TheSite.Controllers
 
          try
          {
-            SetDeclareContent(model.Key, model.Key, model.IsDeclare);
+            SetDeclareContent(model.Key, model.Summary, model.IsDeclare);
 
             db.Commit();
          }

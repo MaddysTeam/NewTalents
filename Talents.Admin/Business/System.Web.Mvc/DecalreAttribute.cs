@@ -26,7 +26,7 @@ namespace System.Web.Mvc
       public override void OnActionExecuting(ActionExecutingContext filterContext)
       {
          var Period = db.GetCurrentDeclarePeriod();
-         if (!Period.IsInDeclarePeriod)
+         if (Period == null || !Period.IsInDeclarePeriod)
          {
             var request = filterContext.HttpContext.Request;
             var formDeclare = request.Form["IsDeclare"];
@@ -46,7 +46,7 @@ namespace System.Web.Mvc
                   };
             }
             else
-               filterContext.Result = new ContentResult { Content = "当前不在填报周期，请联系校管理员!" };
+               throw new ApplicationException("当前不在填报周期");
          }
       }
 

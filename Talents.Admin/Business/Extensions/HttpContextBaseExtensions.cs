@@ -62,7 +62,7 @@ namespace System.Web
             httpContext.Items[declarePeriodInHttpContext] = period;
          }
 
-         return period;
+         return period ?? new DeclarePeriod();
       }
 
 

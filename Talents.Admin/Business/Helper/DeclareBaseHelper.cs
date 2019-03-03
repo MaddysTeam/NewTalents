@@ -30,6 +30,7 @@ namespace Business.Helper
 
    public static class DeclareMaterialHelper
    {
+
       static APDBDef.DeclareMaterialTableDef dm = APDBDef.DeclareMaterial;
 
 
@@ -45,7 +46,9 @@ namespace Business.Helper
                   ParentType = "DeclareContent",
                   CreateDate = DateTime.Now,
                   PubishDate = DateTime.Now,
-                  Title = SubString(content.ContentValue),
+                  Title = content.ContentKey==DeclareKeys.NiandZongj_Dien || content.ContentKey == DeclareKeys.NiandZongj_Disn || content.ContentKey== DeclareKeys.NiandZongj_Diyn?
+                            content.ContentKey:
+                            SubString(content.ContentValue),
                   Type = content.ContentKey,
                   TeacherId = content.TeacherId,
                   PeriodId = period.PeriodId
@@ -116,6 +119,7 @@ namespace Business.Helper
          }
       }
 
+
       public static void AddDeclareMaterial(DeclareOrgConst org, DeclarePeriod period, APDBDef db)
       {
          if (org != null && period != null)
@@ -179,10 +183,28 @@ namespace Business.Helper
       }
 
 
+      public static void AddDeclareMaterial(TeamContent content, DeclarePeriod period, APDBDef db)
+      {
+         if (content!=null && period != null)
+         {
+            db.DeclareMaterialDal.ConditionDelete(dm.ItemId == content.TeamContentId & dm.PeriodId == period.PeriodId);
+            if (content.IsDeclare)
+               db.DeclareMaterialDal.Insert(new DeclareMaterial
+               {
+                  ItemId = content.TeamContentId,
+                  ParentType = "TeamContent",
+                  CreateDate = DateTime.Now,
+                  PubishDate = DateTime.Now,
+                  Title = content.ContentKey == TeamKeys.DaijJih_Memo2 ? content.ContentKey : content.ContentValue,
+                  Type = content.ContentKey,
+                  TeacherId = content.TeamId,
+                  PeriodId = period.PeriodId
+               });
+         }
+      }
 
       private static string SubString(string str)
          => str.Length > 50 ? str.Substring(0, 50) + "..." : str;
-
 
    }
 

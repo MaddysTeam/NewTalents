@@ -470,7 +470,8 @@ namespace TheSite.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Memo1(long? id, TeamContent model)
+      [DecalrePeriod]
+      public ActionResult Memo1(long? id, TeamContent model)
 		{
 			ThrowNotAjax();
 
@@ -496,9 +497,9 @@ namespace TheSite.Controllers
 					model.ModifyDate,
                model.IsDeclare
 				});
-			}
+         }
 
-         AddDeclareMaterial(model, Period);
+         DeclareMaterialHelper.AddDeclareMaterial(model, Period,db);
 
          //记录日志
          var doSomthing = id == null ? "新增:" + id : "修改:" + id;
@@ -543,11 +544,10 @@ namespace TheSite.Controllers
 
 		[HttpPost]
 		[ValidateInput(false)]
-		public ActionResult Memo2(long? id, TeamJutJihModel model)
+      [DecalrePeriod]
+      public ActionResult Memo2(long? id, TeamJutJihModel model)
 		{
 			ThrowNotAjax();
-
-         var data = id == null ? new TeamContent() : db.TeamContentDal.PrimaryGet(id.Value);
 
          var atta = new AttachmentsDataModel()
 			{
@@ -559,7 +559,9 @@ namespace TheSite.Controllers
 			};
 
 
-			db.BeginTrans();
+         TeamContent data = null;
+
+         db.BeginTrans();
 
 			try
 			{
@@ -588,13 +590,15 @@ namespace TheSite.Controllers
                   IsDeclare=model.IsDeclare
                });
 
-					AttachmentsExtensions.DeleteAtta(db, UserProfile.UserId, AttachmentsKeys.DaijJih_Memo2);
+               data = db.TeamContentDal.PrimaryGet(id.Value);
+
+               AttachmentsExtensions.DeleteAtta(db, UserProfile.UserId, AttachmentsKeys.DaijJih_Memo2);
 				}
 
 				AttachmentsExtensions.InsertAtta(db, atta);
 
             data.IsDeclare = model.IsDeclare;
-            AddDeclareMaterial(data, Period);
+            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db);
 
             db.Commit();
 
@@ -655,11 +659,10 @@ namespace TheSite.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Memo3(long? id, TeamDaijXiaojModel model)
+      [DecalrePeriod]
+      public ActionResult Memo3(long? id, TeamDaijXiaojModel model)
 		{
 			ThrowNotAjax();
-
-         var data = id == null ? new TeamContent() : db.TeamContentDal.PrimaryGet(id.Value);
 
          var atta = new AttachmentsDataModel()
 			{
@@ -670,8 +673,9 @@ namespace TheSite.Controllers
 				JoinId = UserProfile.UserId
 			};
 
+         TeamContent data = null;
 
-			db.BeginTrans();
+         db.BeginTrans();
 
 			try
 			{
@@ -701,12 +705,15 @@ namespace TheSite.Controllers
                });
 
 					AttachmentsExtensions.DeleteAtta(db, UserProfile.UserId, AttachmentsKeys.DaijJih_Memo3);
-				}
+
+               data = db.TeamContentDal.PrimaryGet(id.Value);
+
+            }
 
 				AttachmentsExtensions.InsertAtta(db, atta);
 
             data.IsDeclare = model.IsDeclare;
-            AddDeclareMaterial(data, Period);
+            DeclareMaterialHelper.AddDeclareMaterial(data, Period,db);
 
             db.Commit();
 
@@ -742,24 +749,7 @@ namespace TheSite.Controllers
 
 
       #region [Helper]
-
-
-      private void AddDeclareMaterial(TeamContent content, DeclarePeriod period)
-      {
-         db.DeclareMaterialDal.ConditionDelete(dm.ItemId == content.TeamContentId & dm.PeriodId == period.PeriodId);
-         if (content.IsDeclare)
-            db.DeclareMaterialDal.Insert(new DeclareMaterial
-            {
-               ItemId = content.TeamContentId,
-               ParentType = "TeamContent",
-               CreateDate = DateTime.Now,
-               PubishDate = DateTime.Now,
-               Title = content.ContentKey==TeamKeys.DaijJih_Memo2? content.ContentKey: content.ContentValue,
-               Type = content.ContentKey,
-               TeacherId = UserProfile.UserId,
-               PeriodId = period.PeriodId
-            });
-      }
+  
 
       private void Log(string where, string doSomthing)
       {

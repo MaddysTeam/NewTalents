@@ -469,7 +469,7 @@ namespace TheSite.Controllers
 
          ViewBag.DeclareAchievement = QueryDeclareAchievementList(id, currentPeriod);
 
-         ViewBag.DeclareOrgConst = db.DeclareOrgConstDal.ConditionQuery(d.TeacherId == id, null, null, null);
+         ViewBag.DeclareOrgConst = db.DeclareOrgConstDal.ConditionQuery(d.TeacherId == id & d.IsDeclare==true, null, null, null);
 
          ViewBag.DeclareBase = GetDeclareBase(id);
 
@@ -524,10 +524,6 @@ namespace TheSite.Controllers
       private List<DeclareContent> QueryDeclareContent(long teacherId, DeclarePeriod period)
       => db.DeclareContentDal.ConditionQuery(
          dc.TeacherId == teacherId
-         & dc.CreateDate >= period.BeginDate
-         & dc.CreateDate <= period.EndDate
-         & dc.ModifyDate >= period.BeginDate
-         & dc.ModifyDate <= period.EndDate
          & dc.IsDeclare == true,
          null, null, null);
 
@@ -565,18 +561,13 @@ namespace TheSite.Controllers
       private List<DeclareActive> QueryDeclareActiveList(long teacherId, DeclarePeriod period)
         => db.DeclareActiveDal.ConditionQuery(
            da.TeacherId == teacherId
-           & da.CreateDate >= period.BeginDate
-           & da.CreateDate <= period.EndDate
-           & da.Date >= period.BeginDate
-           & da.Date <= period.EndDate
            & da.IsDeclare == true,
            null, null, null);
 
 
       private List<DeclareAchievement> QueryDeclareAchievementList(long teacherId, DeclarePeriod period)
        => db.DeclareAchievementDal.ConditionQuery(
-          dac.TeacherId == teacherId & dac.CreateDate >= period.BeginDate
-          & dac.CreateDate <= period.EndDate
+          dac.TeacherId == teacherId 
           & dac.IsDeclare==true,
           null, null, null);
 
@@ -593,8 +584,6 @@ namespace TheSite.Controllers
          list = APQuery.select(t.Asterisk, p.Name)
             .from(t, p.JoinInner(t.ActiveType == p.PicklistItemId))
             .where(t.TeamId == teamId
-            & t.CreateDate >= current.BeginDate & t.CreateDate <= current.EndDate
-            & t.Date >= current.BeginDate & t.Date <= current.EndDate
             & t.IsDeclare == true)
             .query(db, r =>
             {
