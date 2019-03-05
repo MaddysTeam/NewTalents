@@ -133,6 +133,19 @@ namespace TheSite.Controllers
             case DeclareKeys.NiandZongj_Disn:
             case DeclareKeys.NiandZongj_Dien:
                return NiandZongj(key);
+
+            case DeclareKeys.GaodLisz:
+               return PartialView();
+            case DeclareKeys.JidZhucr:
+               return View();
+            case DeclareKeys.GongzsZhucr:
+               return View();
+            case DeclareKeys.GugJiaos:
+               return View();
+            case DeclareKeys.JiaoxNengs:
+               return View();
+            case DeclareKeys.JiaoxXinx:
+               return View();
          }
 
          return PartialView("PromptInfo");

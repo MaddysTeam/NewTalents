@@ -16,19 +16,33 @@
 			</li>
 			@if (up.IsDeclare)
 			{
-				<li>
-					<a href="@Url.Action("Index", "Declare")">
-						<i class="fa fa-book fa-fw"></i>
-						<span class="text">材料填写</span>
-					</a>
-				</li>
+				if (!isInDeclare)
+				{
+					<li>
+						<a href="@Url.Action("Index", "Declare")">
+							<i class="fa fa-book fa-fw"></i>
+							<span class="text">材料填写</span>
+						</a>
+					</li>
+				}
+				else
+				{
+
+					<li>
+						<a href="@Url.Action("Index", "Declare")">
+							<i class="fa fa-book fa-fw"></i>
+							<span class="text">材料申报</span>
+						</a>
+					</li>
+				}
+
 				<!-- WIDGET ACTIVITY FEED -->
 				<div class="widget widget-treeview" style="display:none">
 					<div class="widget-content">
 						<div id="treeview-declare"></div>
 					</div>
 				</div>
-				if (up.IsMaster)
+				if (up.IsMaster && !isInDeclare)
 				{
 					<!-- END WIDGET ACTIVITY FEED -->
 					<li>
@@ -45,7 +59,7 @@
 					</div>
 					<!-- END WIDGET ACTIVITY FEED -->
 				}
-				if (up.IsMember)
+				if (up.IsMember && !isInDeclare)
 				{
 					<li>
 						<a href="@Url.Action("Member", "Team")">
@@ -61,46 +75,31 @@
 					</div>
 					<!-- END WIDGET ACTIVITY FEED -->
 				}
-				if (isInDeclare)
-				{
-					<li>
-						<a href="@Url.Action("Overview", "DeclareMaterial", new { id = up.UserId })" target="_blank">
-							<i class="fa fa-external-link fa-fw"></i>
-							<span class="text">查看申报材料</span>
-						</a>
-					</li>
-					<li>
-						<a href="@Url.Action("List", "DeclareMaterial", new {  teacherId = up.UserId })">
-							<i class="fa fa-share-alt-square fa-fw"></i>
-							<span class="text">申报材料管理</span>
-						</a>
-					</li>
-				}
-				else
-				{
 				<li>
 					<a href="@Url.Action("Overview", "Declare", new { id = up.UserId })" target="_blank">
 						<i class="fa fa-external-link fa-fw"></i>
 						<span class="text">查看材料</span>
 					</a>
 				</li>
-				<li>
-					<a href="@Url.Action("DeclareList", "ShareManage", new {  teacherId = up.UserId })">
-						<i class="fa fa-share-alt-square fa-fw"></i>
-						<span class="text">共享管理</span>
-					</a>
-				</li>
+				if (!isInDeclare)
+				{
+					<li>
+						<a href="@Url.Action("DeclareList", "ShareManage", new {  teacherId = up.UserId })">
+							<i class="fa fa-share-alt-square fa-fw"></i>
+							<span class="text">共享管理</span>
+						</a>
+					</li>
 				}
 			}
-            @if (up.IsExpert)
-            {
-            <li>
-                <a href="@Url.Action("Index", "QualityEval")">
-                    <i class="fa fa-gear fa-fw"></i>
-                    <span class="text">专家任务</span>
-                </a>
-            </li>
-            }
+			@if (up.IsExpert)
+			{
+				<li>
+					<a href="@Url.Action("Index", "QualityEval")">
+						<i class="fa fa-gear fa-fw"></i>
+						<span class="text">专家任务</span>
+					</a>
+				</li>
+			}
 		</ul>
 	</nav>
 	<!-- /main-nav -->

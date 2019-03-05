@@ -128,6 +128,16 @@
       public const string ReviewSuccess = "审核通过";
       public const string ReviewProcess = "待审核";
       public const string ReviewFailure = "审核不通过";
+
+      public const string GaodLisz = "高地理事长";
+      public const string JidZhucr = "基地主持人";
+      public const string GongzsZhucr = "工作室主持人";
+      public const string XuekDaitr = "学科带头人";
+      public const string XuekDaitr_Shenb = "学科带头人.申报";
+      public const string GugJiaos = "骨干教师";
+      public const string JiaoxNengs = "教学能手";
+      public const string JiaoxXinx = "教学新秀";
+
    }
 
 }
