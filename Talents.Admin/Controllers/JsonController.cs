@@ -536,7 +536,7 @@ namespace TheSite.Controllers
 
          List<json_treenode> list = new List<json_treenode>();
 
-         var gaodLisZhang = new json_treenode { id = "5002", text = "学科高地理事长", type = json_treenode_types.database, children = new List<json_treenode>() };
+         var gaodLisZhang = new json_treenode { id = DeclareKeys.GaodLisz, text = "学科高地理事长", type = json_treenode_types.database, children = new List<json_treenode>() };
          var jiDZhucReng = new json_treenode { id = "5003", text = "学科培训基地主持人", type = json_treenode_types.database, children = new List<json_treenode>() };
          var gongzShiZhucReng = new json_treenode { id = "5004", text = "学科培训工作室主持人", type = json_treenode_types.database, children = new List<json_treenode>() };
          var xuekDaitReng = new json_treenode { id = "5005", text = "学科带头人", type = json_treenode_types.database, children = new List<json_treenode>() };

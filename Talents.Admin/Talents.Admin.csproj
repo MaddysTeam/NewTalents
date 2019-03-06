@@ -628,6 +628,8 @@
     <Content Include="Views\DeclareReview\List.cshtml" />
     <Content Include="Views\DeclarePeriod\Edit.cshtml" />
     <Content Include="Views\DeclarePeriod\List.cshtml" />
+    <Content Include="Views\DeclareMaterial\MaterialView5002.cshtml" />
+    <Content Include="Views\DeclareMaterial\Index.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
