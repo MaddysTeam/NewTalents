@@ -1,0 +1,183 @@
+﻿@model QualityEvalParam
+@{
+	var pageTitle = ViewBag.Title = "教师申报";
+	var items = ViewBag.ResultItems as Dictionary<string, EvalQualityResultItem>;
+	var ZisFaz_DusHuod = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ZisFaz_DusHuod, "2C");
+
+	var declare = ViewBag.Declare as DeclareModel;
+	var result = ViewBag.Result as EvalQualityResult;
+	var comment = result == null ? string.Empty : result.Comment;
+}
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
+				<li class="active">@pageTitle</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-gear"></i> @pageTitle</h2>
+			<em></em>
+		</div>
+
+		<div class="main-content">
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-9 alert alert-danger errorMessage"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+
+					<!-- widget -->
+					<div class="widget">
+						<div class="widget-header">
+							<h3>基本信息</h3>
+							<div class="btn-group widget-header-toolbar">
+								<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+								<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+							</div>
+						</div>
+						<div class="widget-content">
+						@Html.Partial("~/Views/EvalUtilities/_DeclareInfo.cshtml", declare)
+						</div>
+					</div>
+					<!-- /widget -->
+
+				</div>
+				<div class="col-md-9">
+
+					@using (Html.BeginForm("Eval", "QualityEval"))
+					{
+						@Html.HiddenFor(m => m.PeriodId)
+						@Html.HiddenFor(m => m.TargetId)
+						@Html.HiddenFor(m => m.TeacherId)
+						@Html.HiddenFor(m => m.AccesserId)
+						@Html.HiddenFor(m => m.GroupId)
+
+			<!-- widget -->
+						<div class="widget">
+							<div class="widget-header">
+								<h3>虹口区教育系统教师专业人才梯队 <strong class="red">教师申报</strong> 考核指标</h3>
+								<div class="btn-group widget-header-toolbar">
+									<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+									<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+								</div>
+								<div class="btn-group widget-header-toolbar pull-right">
+									<button type="submit" class="btn btn-custom-primary btn-sm btn_submit">
+										<i class="fa fa-floppy-o"></i> <span>保存</span>
+									</button>
+									@*<a href="#" class="btn btn-sm btn-info">返回</a>*@
+								</div>
+								<ul class="nav nav-tabs pull-right">
+									<li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-tag"></i> 自身发展</a></li>
+									<li><a href="#tab2" data-toggle="tab"><i class="fa fa-tag"></i> 培训课程</a></li>
+									<li><a href="#tab3" data-toggle="tab"><i class="fa fa-tag"></i> 带教教师</a></li>
+									<li><a href="#tab4" data-toggle="tab"><i class="fa fa-tag"></i> 特色</a></li>
+									<li><a href="#tab5" data-toggle="tab"><i class="fa fa-tag"></i> 总评</a></li>
+								</ul>
+							</div>
+							<div class="widget-content">
+								<div class="tab-content no-padding">
+
+									<!-- 自身发展 -->
+									<div class="tab-pane fade in active" id="tab1">
+										<table class="table table-bordered table-striped">
+											<thead>
+												<tr>
+													<th class="table-col-10p">评价指标</th>
+													<th class="table-col-10p">指标说明</th>
+													<th class="table-col-20p">任务要求</th>
+													<th class="table-col-10p">考核分类</th>
+													<th class="table-col-20p">指标项</th>
+													<th class="table-col-10p">分值/统计标准</th>
+													<th class="table-col-20p">输入分值</th>
+												</tr>
+											</thead>
+											<!-- 读书活动 -->
+											<tbody>
+												<tr>
+													<td rowspan="7">读书活动</td>
+													<td rowspan="7"></td>
+													<td rowspan="7">
+                                                        1.书目类别：专业类、教育类、人文类、科学类、管理类。数量要求：至少2本/年<br />
+                                                        2.撰写读书心得：至少2篇/年（800字以上/篇）<br />
+													</td>
+													<td rowspan="4">达量质考</td>
+													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_DusHuod, "1A", isChecked: ZisFaz_DusHuod.ChooseValue == "1A") A：高质量的读书心得，达到在刊物上发表的水平</label></td>
+													<td>5.4分--6.0分</td>
+													<td class="flotValue" data-min="5.4" data-max="6" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_DusHuod_Def"></td>
+												</tr>
+												<tr>
+													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_DusHuod, "1B", isChecked: ZisFaz_DusHuod.ChooseValue == "1B") B：完成读书要求，读书心得内容质量总体较高，值得推荐、交流</label></td>
+													<td>4.8分--5.4分</td>
+													<td class="flotValue" data-min="4.8" data-max="5.4" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_DusHuod_Def"></td>
+												</tr>
+												<tr>
+													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_DusHuod, "1C", isChecked: ZisFaz_DusHuod.ChooseValue == "1C") C：完成读书要求，读书心得内容质量总体较好，能看出有价值的内容</label></td>
+													<td>4.2分--4.8分</td>
+													<td class="flotValue" data-min="4.2" data-max="4.8" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_DusHuod_Def"></td>
+												</tr>
+												<tr>
+													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_DusHuod, "1D", isChecked: ZisFaz_DusHuod.ChooseValue == "1D") D：读书心得内容质量一般，文字量较少（有的篇幅少于800字）</label></td>
+													<td>3.6分--4.2分</td>
+													<td class="flotValue" data-min="3.6" data-max="4.2" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_DusHuod_Def"></td>
+												</tr>
+												<tr>
+													<td rowspan="3">减量质考</td>
+													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_DusHuod, "2A", isChecked: ZisFaz_DusHuod.ChooseValue == "2A") A：已完成的任务质量较高，值得推荐、发表</label></td>
+													<td>3.6分--4.2分</td>
+													<td class="flotValue" data-min="3.6" data-max="4.2" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_DusHuod_Def"></td>
+												</tr>
+												<tr>
+													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_DusHuod, "2B", isChecked: ZisFaz_DusHuod.ChooseValue == "2B") B：已完成的任务质量一般</label></td>
+													<td>1.8分--2.4分</td>
+													<td class="flotValue" data-min="1.8" data-max="2.4" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_DusHuod_Def"></td>
+												</tr>
+												<tr>
+													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_DusHuod, "2C", isChecked: ZisFaz_DusHuod.ChooseValue == "2C") C：没有提交读书心得；或者提交的材料没有价值</label></td>
+													<td>0分</td>
+													<td class="flotValue" data-min="0" data-max="0" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_DusHuod_Def"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+									<div id="tab5" class="tab-pane fade">
+										<table class="table table-bordered table-striped">
+											<thead>
+												<tr>
+													<th>*填写总评</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														@Html.TextArea("Comment", comment, new { @class= "commentValue", @style = " margin:0; padding:0;width:100%; height:160px;" })
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+			<!-- /widget -->
+							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ZisFaz_DusHuod" name="@EvalQualityRuleKeys.ZisFaz_DusHuod_Def" value="@ZisFaz_DusHuod.ResultValue" />
+					}
+
+				</div>
+			</div>
+
+		</div>
+		<!-- /main-content -->
+	</div>
+	<!-- /main -->
+</div>
+@section Scripts{
+	@Html.Partial("../EvalUtilities/_ScoreInputJS")
+}

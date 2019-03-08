@@ -111,7 +111,7 @@
 				}
 
 			}).on('loaded.jstree', function () {
-				//treeviewApp.jstree('open_all');
+				$treeviewApp.jstree('open_all');
 				//treeviewApp.jstree('open_node', '#root');
 			}).on('changed.jstree', function (e, data) {
 				lastNode = data.instance.get_node(data.selected);

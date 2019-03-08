@@ -1,0 +1,41 @@
+﻿<!-- WIDGET TABBED CONTENT -->
+<!-- 学科带头人申报表 -->
+<div class="widget">
+	<div class="widget-header">
+		<h3>学科带头人 <strong class="red">申报表</strong></h3>
+		<ul class="nav nav-tabs pull-right">
+			<li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-tag"></i> 基本情况</a></li>
+			<li><a href="#tab2" data-toggle="tab"><i class="fa fa-tag"></i> 校内履职和教育教学</a></li>
+			<li><a href="#tab3" data-toggle="tab"><i class="fa fa-tag"></i> 教育科研和教师培训</a></li>
+			<li><a href="#tab4" data-toggle="tab"><i class="fa fa-tag"></i> 个人特色</a></li>
+			<li><a href="#tab5" data-toggle="tab"><i class="fa fa-tag"></i> 申报理由</a></li>
+		</ul>
+	</div>
+	<div class="widget-content">
+		<div class="tab-content no-padding items">
+
+			<!-- 基本情况 -->
+			<div class="tab-pane fade in active" id="tab1">
+			 @*@Html.Partial("_profile5005")*@
+			</div>
+
+			<!-- 其他项 对应 _items(xxxx) 页面 -->
+
+		</div>
+	</div>
+</div>
+
+<script>
+
+	$.get('@Url.Action("BasicProfileEdit", "DeclareMaterial")', function (html) {
+		$('#tab1').html(html);
+	});
+
+	$.get('@Url.Action("Items", "DeclareMaterial")', function (html) {
+		$('.items').append(html);
+	});
+
+</script>
+
+<!-- END WIDGET TABBED CONTENT -->
+@*@Html.Partial("../Utilities/_partialJS")*@

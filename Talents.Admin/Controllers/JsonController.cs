@@ -540,9 +540,9 @@ namespace TheSite.Controllers
          var jiDZhucReng = new json_treenode { id = "5003", text = "学科培训基地主持人", type = json_treenode_types.database, children = new List<json_treenode>() };
          var gongzShiZhucReng = new json_treenode { id = "5004", text = "学科培训工作室主持人", type = json_treenode_types.database, children = new List<json_treenode>() };
          var xuekDaitReng = new json_treenode { id = "5005", text = "学科带头人", type = json_treenode_types.database, children = new List<json_treenode>() };
-         xuekDaitReng.children.Add(new json_treenode { id = "500501", text = "申报" });
-         xuekDaitReng.children.Add(new json_treenode { id = "500502", text = "职称破格" });
-         xuekDaitReng.children.Add(new json_treenode { id = "500503", text = "材料破格" });
+         xuekDaitReng.children.Add(new json_treenode { id = DeclareKeys.XuekDaitr_Shenb, text = "申报" });
+         xuekDaitReng.children.Add(new json_treenode { id = DeclareKeys.XuekDaitr_ZhicPog, text = "职称破格" });
+         xuekDaitReng.children.Add(new json_treenode { id = DeclareKeys.XuekDaitr_CaiLPog, text = "材料破格" });
          var gugJiaos = new json_treenode { id ="5006", text = "骨干教师", type = json_treenode_types.database, children = new List<json_treenode>() };
          gugJiaos.children.Add(new json_treenode { id = "500601", text = "申报" });
          gugJiaos.children.Add(new json_treenode { id = "500602", text = "职称破格" });

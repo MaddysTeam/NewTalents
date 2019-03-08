@@ -314,6 +314,7 @@
     <Compile Include="Controllers\JsonController.cs" />
     <Compile Include="Controllers\EvalManageController.cs" />
     <Compile Include="Controllers\TeamPopController .cs" />
+    <Compile Include="Models\DeclareMaterialViewModel .cs" />
     <Compile Include="Models\EvalResultViewModels.cs" />
     <Compile Include="Models\AttachmentsModel.cs" />
     <Compile Include="Models\DeclareAchievementDataModel.cs" />
@@ -630,6 +631,10 @@
     <Content Include="Views\DeclarePeriod\List.cshtml" />
     <Content Include="Views\DeclareMaterial\MaterialView5002.cshtml" />
     <Content Include="Views\DeclareMaterial\Index.cshtml" />
+    <Content Include="Views\DeclareMaterial\_reason.cshtml" />
+    <Content Include="Views\DeclareMaterial\_profile5005.cshtml" />
+    <Content Include="Views\DeclareMaterial\MaterialView5005.cshtml" />
+    <Content Include="Views\DeclareMaterial\_items5005.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

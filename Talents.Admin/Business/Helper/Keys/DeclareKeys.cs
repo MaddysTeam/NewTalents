@@ -134,6 +134,8 @@
       public const string GongzsZhucr = "工作室主持人";
       public const string XuekDaitr = "学科带头人";
       public const string XuekDaitr_Shenb = "学科带头人.申报";
+      public const string XuekDaitr_ZhicPog = "学科带头人.职称破格";
+      public const string XuekDaitr_CaiLPog = "学科带头人.材料破格";
       public const string GugJiaos = "骨干教师";
       public const string JiaoxNengs = "教学能手";
       public const string JiaoxXinx = "教学新秀";

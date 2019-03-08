@@ -34,54 +34,54 @@ namespace TheSite.Controllers
       // GET: DeclareMaterial/List
       // POST: DeclareMaterial/List
 
-      public ActionResult List(long? teacherId)
-      {
-         return View();
-      }
+      //public ActionResult List(long? teacherId)
+      //{
+      //   return View();
+      //}
 
-      [HttpPost]
-      public ActionResult List(long? teacherId, int current, int rowCount, AjaxOrder sort, string searchPhrase)
-      {
-         var period = db.DeclarePeriodDal.ConditionQuery(p.IsCurrent == true, null, null, null).FirstOrDefault();
-         if (period == null)
-            throw new ApplicationException("请设置申报周期");
+      //[HttpPost]
+      //public ActionResult List(long? teacherId, int current, int rowCount, AjaxOrder sort, string searchPhrase)
+      //{
+      //   var period = db.DeclarePeriodDal.ConditionQuery(p.IsCurrent == true, null, null, null).FirstOrDefault();
+      //   if (period == null)
+      //      throw new ApplicationException("请设置申报周期");
 
-         var query = APQuery
-             .select(dm.MaterialId, dm.ItemId, dm.TeacherId, dm.Title, dm.Type, dm.ParentType,
-                     u.RealName)
-             .from(dm, u.JoinInner(u.UserId == dm.TeacherId))
-             .primary(dm.MaterialId)
-             .skip((current - 1) * rowCount)
-             .take(rowCount)
-             .where(dm.TeacherId == teacherId & dm.PeriodId == period.PeriodId);
+      //   var query = APQuery
+      //       .select(dm.MaterialId, dm.ItemId, dm.TeacherId, dm.Title, dm.Type, dm.ParentType,
+      //               u.RealName)
+      //       .from(dm, u.JoinInner(u.UserId == dm.TeacherId))
+      //       .primary(dm.MaterialId)
+      //       .skip((current - 1) * rowCount)
+      //       .take(rowCount)
+      //       .where(dm.TeacherId == teacherId & dm.PeriodId == period.PeriodId);
 
-         if (teacherId > 0)
-            query = query.where_and(dm.TeacherId == teacherId);
+      //   if (teacherId > 0)
+      //      query = query.where_and(dm.TeacherId == teacherId);
 
-         var total = db.ExecuteSizeOfSelect(query);
+      //   var total = db.ExecuteSizeOfSelect(query);
 
-         var result = query.query(db, r =>
-         {
-            return new
-            {
-               id = dm.MaterialId.GetValue(r),
-               itemId = dm.ItemId.GetValue(r),
-               userId = dm.TeacherId.GetValue(r),
-               realName = u.RealName.GetValue(r),
-               type = dm.Type.GetValue(r),
-               parentType = dm.ParentType.GetValue(r),
-               title = SubString(dm.Title.GetValue(r))
-            };
-         }).ToList();
+      //   var result = query.query(db, r =>
+      //   {
+      //      return new
+      //      {
+      //         id = dm.MaterialId.GetValue(r),
+      //         itemId = dm.ItemId.GetValue(r),
+      //         userId = dm.TeacherId.GetValue(r),
+      //         realName = u.RealName.GetValue(r),
+      //         type = dm.Type.GetValue(r),
+      //         parentType = dm.ParentType.GetValue(r),
+      //         title = SubString(dm.Title.GetValue(r))
+      //      };
+      //   }).ToList();
 
-         return Json(new
-         {
-            rows = result,
-            current,
-            rowCount,
-            total
-         });
-      }
+      //   return Json(new
+      //   {
+      //      rows = result,
+      //      current,
+      //      rowCount,
+      //      total
+      //   });
+      //}
 
 
       // POST-Ajax: DeclareMaterial/DeclareActive  申报活动材料
@@ -226,12 +226,67 @@ namespace TheSite.Controllers
 
       public ActionResult Fragment(string key)
       {
-         if (key == DeclareKeys.GaodLisz)
+         if (key == DeclareKeys.XuekDaitr_Shenb || key==DeclareKeys.XuekDaitr_ZhicPog)
          {
-            return PartialView("MaterialView5002");
+            return PartialView("MaterialView5005");
          }
 
          return View();
+      }
+
+
+      // Get: DeclareMaterial/BasicMaterialEdit
+      // POST-Ajax: DeclareMaterial/BasicMaterialEdit
+
+      public ActionResult BasicProfileEdit()
+      {
+         var profile = db.BzUserProfileDal.PrimaryGet(UserProfile.UserId);
+         return PartialView("_profile5005", profile);
+      }
+
+      [HttpPost]
+      public ActionResult BasicProfileEdit(BzUserProfile model)
+      {
+         db.BzUserProfileDal.UpdatePartial(UserProfile.UserId, new
+         {
+            model.RealName,
+            model.GenderPKID,
+            model.Birthday,
+            model.CompanyId,
+            model.TrainNo,
+            model.PoliticalStatusPKID,
+            model.CourseCountPerWeek,
+            model.NationalityPKID,
+            model.EduSubjectPKID,
+            model.SkillTitlePKID,
+            model.RankTitlePKID,
+            model.Hiredate,
+            model.Phonemobile,
+            model.Phone,
+            model.Email
+         });
+
+         return Json(new
+         {
+            result = AjaxResults.Success,
+            msg = "操作成功！"
+         });
+      }
+
+
+      // Get: DeclareMaterial/Items
+
+      public ActionResult Items()
+      {
+         var actives = APQuery.select(dm.MaterialId, da.Asterisk)
+            .from(dm, da.JoinLeft(dm.ItemId == da.DeclareActiveId))
+            .query(db,r=> new DeclareActive());
+
+         var achievements= APQuery.select(dm.MaterialId, da.Asterisk)
+            .from(dm, da.JoinLeft(dm.ItemId == da.DeclareActiveId))
+            .query(db, r => new DeclareAchievement());
+
+         return PartialView("_items5005");
       }
 
 
@@ -243,4 +298,5 @@ namespace TheSite.Controllers
       #endregion
 
    }
+
 }

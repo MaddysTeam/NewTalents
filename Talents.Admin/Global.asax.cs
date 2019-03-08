@@ -11,7 +11,7 @@ namespace TheSite.Mvc
 	{
 		protected void Application_Start()
 		{
-			Symber.Web.Compilation.APGenManager.SyncAndInitData();
+			//Symber.Web.Compilation.APGenManager.SyncAndInitData();
 
 			AreaRegistration.RegisterAllAreas();
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

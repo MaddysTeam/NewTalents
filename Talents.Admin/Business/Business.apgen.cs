@@ -75,6 +75,10 @@ namespace Business {
         
         private static DeclareReviewTableDef _declareReview;
         
+        private static DeclareEvalResultTableDef _declareEvalResult;
+        
+        private static DeclareEvalResultItemTableDef _declareEvalResultItem;
+        
         private static TeamMemberTableDef _teamMember;
         
         private static TeamContentTableDef _teamContent;
@@ -178,6 +182,10 @@ namespace Business {
         private APDalDef.DeclarePeriodDal _declarePeriodDal;
         
         private APDalDef.DeclareReviewDal _declareReviewDal;
+        
+        private APDalDef.DeclareEvalResultDal _declareEvalResultDal;
+        
+        private APDalDef.DeclareEvalResultItemDal _declareEvalResultItemDal;
         
         private APDalDef.TeamMemberDal _teamMemberDal;
         
@@ -546,6 +554,30 @@ namespace Business {
                     _declareReview = new DeclareReviewTableDef("DeclareReview");
                 }
                 return _declareReview;
+            }
+        }
+        
+        /// <summary>
+        /// 申报-评价-结果 TableDef
+        /// </summary>
+        public static DeclareEvalResultTableDef DeclareEvalResult {
+            get {
+                if ((_declareEvalResult == null)) {
+                    _declareEvalResult = new DeclareEvalResultTableDef("DeclareEvalResult");
+                }
+                return _declareEvalResult;
+            }
+        }
+        
+        /// <summary>
+        /// 申报-评价-结果项 TableDef
+        /// </summary>
+        public static DeclareEvalResultItemTableDef DeclareEvalResultItem {
+            get {
+                if ((_declareEvalResultItem == null)) {
+                    _declareEvalResultItem = new DeclareEvalResultItemTableDef("DeclareEvalResultItem");
+                }
+                return _declareEvalResultItem;
             }
         }
         
@@ -1162,6 +1194,30 @@ namespace Business {
         }
         
         /// <summary>
+        /// 申报-评价-结果 Dal
+        /// </summary>
+        public virtual APDalDef.DeclareEvalResultDal DeclareEvalResultDal {
+            get {
+                if ((_declareEvalResultDal == null)) {
+                    _declareEvalResultDal = new APDalDef.DeclareEvalResultDal(this);
+                }
+                return _declareEvalResultDal;
+            }
+        }
+        
+        /// <summary>
+        /// 申报-评价-结果项 Dal
+        /// </summary>
+        public virtual APDalDef.DeclareEvalResultItemDal DeclareEvalResultItemDal {
+            get {
+                if ((_declareEvalResultItemDal == null)) {
+                    _declareEvalResultItemDal = new APDalDef.DeclareEvalResultItemDal(this);
+                }
+                return _declareEvalResultItemDal;
+            }
+        }
+        
+        /// <summary>
         /// 梯队-学员 Dal
         /// </summary>
         public virtual APDalDef.TeamMemberDal TeamMemberDal {
@@ -1502,6 +1558,8 @@ namespace Business {
                 db.DeclareMaterialDal.InitData(db);
                 db.DeclarePeriodDal.InitData(db);
                 db.DeclareReviewDal.InitData(db);
+                db.DeclareEvalResultDal.InitData(db);
+                db.DeclareEvalResultItemDal.InitData(db);
                 db.TeamMemberDal.InitData(db);
                 db.TeamContentDal.InitData(db);
                 db.TeamActiveDal.InitData(db);
@@ -2856,6 +2914,10 @@ namespace Business {
             
             private Int64APColumnDef _rankTitlePKID;
             
+            private StringAPColumnDef _courseCountPerWeek;
+            
+            private DateTimeAPColumnDef _hiredate;
+            
             private Int64APColumnDef _eduBgPKID;
             
             private Int64APColumnDef _eduDegreePKID;
@@ -2867,6 +2929,8 @@ namespace Business {
             private StringAPColumnDef _phonemobile;
             
             private StringAPColumnDef _email;
+            
+            private StringAPColumnDef _phone;
             
             private Int64APColumnDef _periodId;
             
@@ -3163,6 +3227,32 @@ namespace Business {
             }
             
             /// <summary>
+            /// CourseCountPerWeek ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef CourseCountPerWeek {
+                get {
+                    if (Object.ReferenceEquals(_courseCountPerWeek, null)) {
+                        _courseCountPerWeek = new StringAPColumnDef(this, "CourseCountPerWeek", true, 20);
+                        _courseCountPerWeek.Display = "周课时数";
+                    }
+                    return _courseCountPerWeek;
+                }
+            }
+            
+            /// <summary>
+            /// Hiredate ColumnDef
+            /// </summary>
+            public virtual DateTimeAPColumnDef Hiredate {
+                get {
+                    if (Object.ReferenceEquals(_hiredate, null)) {
+                        _hiredate = new DateTimeAPColumnDef(this, "Hiredate", true);
+                        _hiredate.Display = "评聘日期";
+                    }
+                    return _hiredate;
+                }
+            }
+            
+            /// <summary>
             /// EduBgPKID ColumnDef
             /// </summary>
             public virtual Int64APColumnDef EduBgPKID {
@@ -3241,6 +3331,19 @@ namespace Business {
             }
             
             /// <summary>
+            /// Phone ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef Phone {
+                get {
+                    if (Object.ReferenceEquals(_phone, null)) {
+                        _phone = new StringAPColumnDef(this, "Phone", true, 20);
+                        _phone.Display = "办公室电话";
+                    }
+                    return _phone;
+                }
+            }
+            
+            /// <summary>
             /// PeriodId ColumnDef
             /// </summary>
             public virtual Int64APColumnDef PeriodId {
@@ -3294,12 +3397,15 @@ namespace Business {
                 data.CompanyNameOuter = CompanyNameOuter.GetValue<string>(reader, throwIfValidColumnName);
                 data.Companyaddress = Companyaddress.GetValue<string>(reader, throwIfValidColumnName);
                 data.RankTitlePKID = RankTitlePKID.GetValue<long>(reader, throwIfValidColumnName);
+                data.CourseCountPerWeek = CourseCountPerWeek.GetValue<string>(reader, throwIfValidColumnName);
+                data.Hiredate = Hiredate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
                 data.EduBgPKID = EduBgPKID.GetValue<long>(reader, throwIfValidColumnName);
                 data.EduDegreePKID = EduDegreePKID.GetValue<long>(reader, throwIfValidColumnName);
                 data.GraduateSchool = GraduateSchool.GetValue<string>(reader, throwIfValidColumnName);
                 data.GraduateDate = GraduateDate.GetValue<System.Nullable<System.DateTime>>(reader, throwIfValidColumnName);
                 data.Phonemobile = Phonemobile.GetValue<string>(reader, throwIfValidColumnName);
                 data.Email = Email.GetValue<string>(reader, throwIfValidColumnName);
+                data.Phone = Phone.GetValue<string>(reader, throwIfValidColumnName);
                 data.PeriodId = PeriodId.GetValue<long>(reader, throwIfValidColumnName);
             }
             
@@ -7761,6 +7867,478 @@ namespace Business {
             /// </summary>
             public virtual List<DeclareReview> TolerantMapList(IDataReader reader) {
                 List<DeclareReview> list = new List<DeclareReview>();
+                try {
+                    for (; reader.Read(); ) {
+                        list.Add(TolerantMap(reader));
+                    }
+                }
+                finally {
+                    reader.Close();
+                }
+                return list;
+            }
+        }
+        
+        [Serializable()]
+        public partial class DeclareEvalResultTableDef : APTableDef {
+            
+            private Int64APColumnDef _resultId;
+            
+            private Int64APColumnDef _periodId;
+            
+            private Int64APColumnDef _declareTargetPKID;
+            
+            private Int64APColumnDef _teacherId;
+            
+            private DoubleAPColumnDef _fullScore;
+            
+            private DoubleAPColumnDef _score;
+            
+            private DoubleAPColumnDef _characteristic;
+            
+            private DoubleAPColumnDef _dynamicScore1;
+            
+            private DoubleAPColumnDef _dynamicScore2;
+            
+            private DoubleAPColumnDef _dynamicScore3;
+            
+            private StringAPColumnDef _comment;
+            
+            private Int64APColumnDef _groupId;
+            
+            private Int64APColumnDef _accesser;
+            
+            private DateTimeAPColumnDef _accessDate;
+            
+            public DeclareEvalResultTableDef(string tableName) : 
+                    base(tableName) {
+            }
+            
+            protected DeclareEvalResultTableDef(string tableName, string alias) : 
+                    base(tableName, alias) {
+            }
+            
+            /// <summary>
+            /// ResultId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef ResultId {
+                get {
+                    if (Object.ReferenceEquals(_resultId, null)) {
+                        _resultId = new Int64APColumnDef(this, "ResultId", false);
+                        _resultId.Display = "评价结果ID";
+                    }
+                    return _resultId;
+                }
+            }
+            
+            /// <summary>
+            /// PeriodId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef PeriodId {
+                get {
+                    if (Object.ReferenceEquals(_periodId, null)) {
+                        _periodId = new Int64APColumnDef(this, "PeriodId", false);
+                        _periodId.Display = "周期ID";
+                    }
+                    return _periodId;
+                }
+            }
+            
+            /// <summary>
+            /// DeclareTargetPKID ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef DeclareTargetPKID {
+                get {
+                    if (Object.ReferenceEquals(_declareTargetPKID, null)) {
+                        _declareTargetPKID = new Int64APColumnDef(this, "DeclareTargetPKID", false);
+                        _declareTargetPKID.Display = "申报（担任）称号";
+                    }
+                    return _declareTargetPKID;
+                }
+            }
+            
+            /// <summary>
+            /// TeacherId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef TeacherId {
+                get {
+                    if (Object.ReferenceEquals(_teacherId, null)) {
+                        _teacherId = new Int64APColumnDef(this, "TeacherId", false);
+                        _teacherId.Display = "教师ID";
+                    }
+                    return _teacherId;
+                }
+            }
+            
+            /// <summary>
+            /// FullScore ColumnDef
+            /// </summary>
+            public virtual DoubleAPColumnDef FullScore {
+                get {
+                    if (Object.ReferenceEquals(_fullScore, null)) {
+                        _fullScore = new DoubleAPColumnDef(this, "FullScore", false);
+                        _fullScore.Display = "总分";
+                    }
+                    return _fullScore;
+                }
+            }
+            
+            /// <summary>
+            /// Score ColumnDef
+            /// </summary>
+            public virtual DoubleAPColumnDef Score {
+                get {
+                    if (Object.ReferenceEquals(_score, null)) {
+                        _score = new DoubleAPColumnDef(this, "Score", false);
+                        _score.Display = "得分";
+                    }
+                    return _score;
+                }
+            }
+            
+            /// <summary>
+            /// Characteristic ColumnDef
+            /// </summary>
+            public virtual DoubleAPColumnDef Characteristic {
+                get {
+                    if (Object.ReferenceEquals(_characteristic, null)) {
+                        _characteristic = new DoubleAPColumnDef(this, "Characteristic", false);
+                        _characteristic.Display = "特色分";
+                    }
+                    return _characteristic;
+                }
+            }
+            
+            /// <summary>
+            /// DynamicScore1 ColumnDef
+            /// </summary>
+            public virtual DoubleAPColumnDef DynamicScore1 {
+                get {
+                    if (Object.ReferenceEquals(_dynamicScore1, null)) {
+                        _dynamicScore1 = new DoubleAPColumnDef(this, "DynamicScore1", false);
+                        _dynamicScore1.Display = "备用分1";
+                    }
+                    return _dynamicScore1;
+                }
+            }
+            
+            /// <summary>
+            /// DynamicScore2 ColumnDef
+            /// </summary>
+            public virtual DoubleAPColumnDef DynamicScore2 {
+                get {
+                    if (Object.ReferenceEquals(_dynamicScore2, null)) {
+                        _dynamicScore2 = new DoubleAPColumnDef(this, "DynamicScore2", false);
+                        _dynamicScore2.Display = "备用分2";
+                    }
+                    return _dynamicScore2;
+                }
+            }
+            
+            /// <summary>
+            /// DynamicScore3 ColumnDef
+            /// </summary>
+            public virtual DoubleAPColumnDef DynamicScore3 {
+                get {
+                    if (Object.ReferenceEquals(_dynamicScore3, null)) {
+                        _dynamicScore3 = new DoubleAPColumnDef(this, "DynamicScore3", false);
+                        _dynamicScore3.Display = "备用分3";
+                    }
+                    return _dynamicScore3;
+                }
+            }
+            
+            /// <summary>
+            /// Comment ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef Comment {
+                get {
+                    if (Object.ReferenceEquals(_comment, null)) {
+                        _comment = new StringAPColumnDef(this, "Comment", false, 10000);
+                        _comment.Display = "总评";
+                    }
+                    return _comment;
+                }
+            }
+            
+            /// <summary>
+            /// GroupId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef GroupId {
+                get {
+                    if (Object.ReferenceEquals(_groupId, null)) {
+                        _groupId = new Int64APColumnDef(this, "GroupId", false);
+                        _groupId.Display = "专家组";
+                    }
+                    return _groupId;
+                }
+            }
+            
+            /// <summary>
+            /// Accesser ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef Accesser {
+                get {
+                    if (Object.ReferenceEquals(_accesser, null)) {
+                        _accesser = new Int64APColumnDef(this, "Accesser", false);
+                        _accesser.Display = "考评人";
+                    }
+                    return _accesser;
+                }
+            }
+            
+            /// <summary>
+            /// AccessDate ColumnDef
+            /// </summary>
+            public virtual DateTimeAPColumnDef AccessDate {
+                get {
+                    if (Object.ReferenceEquals(_accessDate, null)) {
+                        _accessDate = new DateTimeAPColumnDef(this, "AccessDate", false);
+                        _accessDate.Display = "考评时间";
+                    }
+                    return _accessDate;
+                }
+            }
+            
+            /// <summary>
+            /// Default Index
+            /// </summary>
+            public virtual APSqlOrderPhrase DefaultOrder {
+                get {
+                    return null;
+                }
+            }
+            
+            /// <summary>
+            /// Create a alias table
+            /// </summary>
+            public virtual DeclareEvalResultTableDef As(string name) {
+                return new DeclareEvalResultTableDef("DeclareEvalResult", name);
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual void Fullup(IDataReader reader, DeclareEvalResult data, bool throwIfValidColumnName) {
+                data.ResultId = ResultId.GetValue<long>(reader, throwIfValidColumnName);
+                data.PeriodId = PeriodId.GetValue<long>(reader, throwIfValidColumnName);
+                data.DeclareTargetPKID = DeclareTargetPKID.GetValue<long>(reader, throwIfValidColumnName);
+                data.TeacherId = TeacherId.GetValue<long>(reader, throwIfValidColumnName);
+                data.FullScore = FullScore.GetValue<double>(reader, throwIfValidColumnName);
+                data.Score = Score.GetValue<double>(reader, throwIfValidColumnName);
+                data.Characteristic = Characteristic.GetValue<double>(reader, throwIfValidColumnName);
+                data.DynamicScore1 = DynamicScore1.GetValue<double>(reader, throwIfValidColumnName);
+                data.DynamicScore2 = DynamicScore2.GetValue<double>(reader, throwIfValidColumnName);
+                data.DynamicScore3 = DynamicScore3.GetValue<double>(reader, throwIfValidColumnName);
+                data.Comment = Comment.GetValue<string>(reader, throwIfValidColumnName);
+                data.GroupId = GroupId.GetValue<long>(reader, throwIfValidColumnName);
+                data.Accesser = Accesser.GetValue<long>(reader, throwIfValidColumnName);
+                data.AccessDate = AccessDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual DeclareEvalResult Map(IDataReader reader) {
+                DeclareEvalResult data = new DeclareEvalResult();
+                Fullup(reader, data, true);
+                return data;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual DeclareEvalResult TolerantMap(IDataReader reader) {
+                DeclareEvalResult data = new DeclareEvalResult();
+                Fullup(reader, data, false);
+                return data;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual List<DeclareEvalResult> MapList(IDataReader reader) {
+                List<DeclareEvalResult> list = new List<DeclareEvalResult>();
+                try {
+                    for (; reader.Read(); ) {
+                        list.Add(Map(reader));
+                    }
+                }
+                finally {
+                    reader.Close();
+                }
+                return list;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual List<DeclareEvalResult> TolerantMapList(IDataReader reader) {
+                List<DeclareEvalResult> list = new List<DeclareEvalResult>();
+                try {
+                    for (; reader.Read(); ) {
+                        list.Add(TolerantMap(reader));
+                    }
+                }
+                finally {
+                    reader.Close();
+                }
+                return list;
+            }
+        }
+        
+        [Serializable()]
+        public partial class DeclareEvalResultItemTableDef : APTableDef {
+            
+            private Int64APColumnDef _resultItemId;
+            
+            private Int64APColumnDef _resultId;
+            
+            private StringAPColumnDef _evalItemKey;
+            
+            private StringAPColumnDef _chooseValue;
+            
+            private StringAPColumnDef _resultValue;
+            
+            public DeclareEvalResultItemTableDef(string tableName) : 
+                    base(tableName) {
+            }
+            
+            protected DeclareEvalResultItemTableDef(string tableName, string alias) : 
+                    base(tableName, alias) {
+            }
+            
+            /// <summary>
+            /// ResultItemId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef ResultItemId {
+                get {
+                    if (Object.ReferenceEquals(_resultItemId, null)) {
+                        _resultItemId = new Int64APColumnDef(this, "ResultItemId", false);
+                        _resultItemId.Display = "结果项ID";
+                    }
+                    return _resultItemId;
+                }
+            }
+            
+            /// <summary>
+            /// ResultId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef ResultId {
+                get {
+                    if (Object.ReferenceEquals(_resultId, null)) {
+                        _resultId = new Int64APColumnDef(this, "ResultId", false);
+                        _resultId.Display = "评价结果ID";
+                    }
+                    return _resultId;
+                }
+            }
+            
+            /// <summary>
+            /// EvalItemKey ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef EvalItemKey {
+                get {
+                    if (Object.ReferenceEquals(_evalItemKey, null)) {
+                        _evalItemKey = new StringAPColumnDef(this, "EvalItemKey", false, 200);
+                        _evalItemKey.Display = "指标项";
+                    }
+                    return _evalItemKey;
+                }
+            }
+            
+            /// <summary>
+            /// ChooseValue ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef ChooseValue {
+                get {
+                    if (Object.ReferenceEquals(_chooseValue, null)) {
+                        _chooseValue = new StringAPColumnDef(this, "ChooseValue", false, 20);
+                        _chooseValue.Display = "选择值";
+                    }
+                    return _chooseValue;
+                }
+            }
+            
+            /// <summary>
+            /// ResultValue ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef ResultValue {
+                get {
+                    if (Object.ReferenceEquals(_resultValue, null)) {
+                        _resultValue = new StringAPColumnDef(this, "ResultValue", false, 100);
+                        _resultValue.Display = "输入值";
+                    }
+                    return _resultValue;
+                }
+            }
+            
+            /// <summary>
+            /// Default Index
+            /// </summary>
+            public virtual APSqlOrderPhrase DefaultOrder {
+                get {
+                    return null;
+                }
+            }
+            
+            /// <summary>
+            /// Create a alias table
+            /// </summary>
+            public virtual DeclareEvalResultItemTableDef As(string name) {
+                return new DeclareEvalResultItemTableDef("DeclareEvalResultItem", name);
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual void Fullup(IDataReader reader, DeclareEvalResultItem data, bool throwIfValidColumnName) {
+                data.ResultItemId = ResultItemId.GetValue<long>(reader, throwIfValidColumnName);
+                data.ResultId = ResultId.GetValue<long>(reader, throwIfValidColumnName);
+                data.EvalItemKey = EvalItemKey.GetValue<string>(reader, throwIfValidColumnName);
+                data.ChooseValue = ChooseValue.GetValue<string>(reader, throwIfValidColumnName);
+                data.ResultValue = ResultValue.GetValue<string>(reader, throwIfValidColumnName);
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual DeclareEvalResultItem Map(IDataReader reader) {
+                DeclareEvalResultItem data = new DeclareEvalResultItem();
+                Fullup(reader, data, true);
+                return data;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual DeclareEvalResultItem TolerantMap(IDataReader reader) {
+                DeclareEvalResultItem data = new DeclareEvalResultItem();
+                Fullup(reader, data, false);
+                return data;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual List<DeclareEvalResultItem> MapList(IDataReader reader) {
+                List<DeclareEvalResultItem> list = new List<DeclareEvalResultItem>();
+                try {
+                    for (; reader.Read(); ) {
+                        list.Add(Map(reader));
+                    }
+                }
+                finally {
+                    reader.Close();
+                }
+                return list;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual List<DeclareEvalResultItem> TolerantMapList(IDataReader reader) {
+                List<DeclareEvalResultItem> list = new List<DeclareEvalResultItem>();
                 try {
                     for (; reader.Read(); ) {
                         list.Add(TolerantMap(reader));
@@ -14022,7 +14600,7 @@ namespace Business {
             /// 添加数据。
             /// </summary>
             public virtual void Insert(BzUserProfile data) {
-                var query = APQuery.insert(APDBDef.BzUserProfile).values(APDBDef.BzUserProfile.UserId.SetValue(data.UserId), APDBDef.BzUserProfile.UUID.SetValue(data.UUID), APDBDef.BzUserProfile.CompanyId.SetValue(data.CompanyId), APDBDef.BzUserProfile.UserName.SetValue(data.UserName), APDBDef.BzUserProfile.UserType.SetValue(data.UserType), APDBDef.BzUserProfile.RealName.SetValue(data.RealName), APDBDef.BzUserProfile.IDCard.SetValue(data.IDCard), APDBDef.BzUserProfile.TrainNo.SetValue(data.TrainNo), APDBDef.BzUserProfile.GenderPKID.SetValue(data.GenderPKID), APDBDef.BzUserProfile.Birthday.SetValue(data.Birthday), APDBDef.BzUserProfile.PoliticalStatusPKID.SetValue(data.PoliticalStatusPKID), APDBDef.BzUserProfile.NationalityPKID.SetValue(data.NationalityPKID), APDBDef.BzUserProfile.EduSubjectPKID.SetValue(data.EduSubjectPKID), APDBDef.BzUserProfile.EduStagePKID.SetValue(data.EduStagePKID), APDBDef.BzUserProfile.JobDate.SetValue(data.JobDate), APDBDef.BzUserProfile.SkillTitlePKID.SetValue(data.SkillTitlePKID), APDBDef.BzUserProfile.SkillDate.SetValue(data.SkillDate), APDBDef.BzUserProfile.CompanyName.SetValue(data.CompanyName), APDBDef.BzUserProfile.CompanyNameOuter.SetValue(data.CompanyNameOuter), APDBDef.BzUserProfile.Companyaddress.SetValue(data.Companyaddress), APDBDef.BzUserProfile.RankTitlePKID.SetValue(data.RankTitlePKID), APDBDef.BzUserProfile.EduBgPKID.SetValue(data.EduBgPKID), APDBDef.BzUserProfile.EduDegreePKID.SetValue(data.EduDegreePKID), APDBDef.BzUserProfile.GraduateSchool.SetValue(data.GraduateSchool), APDBDef.BzUserProfile.GraduateDate.SetValue(data.GraduateDate), APDBDef.BzUserProfile.Phonemobile.SetValue(data.Phonemobile), APDBDef.BzUserProfile.Email.SetValue(data.Email), APDBDef.BzUserProfile.PeriodId.SetValue(data.PeriodId));
+                var query = APQuery.insert(APDBDef.BzUserProfile).values(APDBDef.BzUserProfile.UserId.SetValue(data.UserId), APDBDef.BzUserProfile.UUID.SetValue(data.UUID), APDBDef.BzUserProfile.CompanyId.SetValue(data.CompanyId), APDBDef.BzUserProfile.UserName.SetValue(data.UserName), APDBDef.BzUserProfile.UserType.SetValue(data.UserType), APDBDef.BzUserProfile.RealName.SetValue(data.RealName), APDBDef.BzUserProfile.IDCard.SetValue(data.IDCard), APDBDef.BzUserProfile.TrainNo.SetValue(data.TrainNo), APDBDef.BzUserProfile.GenderPKID.SetValue(data.GenderPKID), APDBDef.BzUserProfile.Birthday.SetValue(data.Birthday), APDBDef.BzUserProfile.PoliticalStatusPKID.SetValue(data.PoliticalStatusPKID), APDBDef.BzUserProfile.NationalityPKID.SetValue(data.NationalityPKID), APDBDef.BzUserProfile.EduSubjectPKID.SetValue(data.EduSubjectPKID), APDBDef.BzUserProfile.EduStagePKID.SetValue(data.EduStagePKID), APDBDef.BzUserProfile.JobDate.SetValue(data.JobDate), APDBDef.BzUserProfile.SkillTitlePKID.SetValue(data.SkillTitlePKID), APDBDef.BzUserProfile.SkillDate.SetValue(data.SkillDate), APDBDef.BzUserProfile.CompanyName.SetValue(data.CompanyName), APDBDef.BzUserProfile.CompanyNameOuter.SetValue(data.CompanyNameOuter), APDBDef.BzUserProfile.Companyaddress.SetValue(data.Companyaddress), APDBDef.BzUserProfile.RankTitlePKID.SetValue(data.RankTitlePKID), APDBDef.BzUserProfile.CourseCountPerWeek.SetValue(data.CourseCountPerWeek), APDBDef.BzUserProfile.Hiredate.SetValue(data.Hiredate), APDBDef.BzUserProfile.EduBgPKID.SetValue(data.EduBgPKID), APDBDef.BzUserProfile.EduDegreePKID.SetValue(data.EduDegreePKID), APDBDef.BzUserProfile.GraduateSchool.SetValue(data.GraduateSchool), APDBDef.BzUserProfile.GraduateDate.SetValue(data.GraduateDate), APDBDef.BzUserProfile.Phonemobile.SetValue(data.Phonemobile), APDBDef.BzUserProfile.Email.SetValue(data.Email), APDBDef.BzUserProfile.Phone.SetValue(data.Phone), APDBDef.BzUserProfile.PeriodId.SetValue(data.PeriodId));
                 ExecuteNonQuery(query);
             }
             
@@ -14030,7 +14608,7 @@ namespace Business {
             /// 更新数据。
             /// </summary>
             public virtual void Update(BzUserProfile data) {
-                var query = APQuery.update(APDBDef.BzUserProfile).values(APDBDef.BzUserProfile.UUID.SetValue(data.UUID), APDBDef.BzUserProfile.CompanyId.SetValue(data.CompanyId), APDBDef.BzUserProfile.UserName.SetValue(data.UserName), APDBDef.BzUserProfile.UserType.SetValue(data.UserType), APDBDef.BzUserProfile.RealName.SetValue(data.RealName), APDBDef.BzUserProfile.IDCard.SetValue(data.IDCard), APDBDef.BzUserProfile.TrainNo.SetValue(data.TrainNo), APDBDef.BzUserProfile.GenderPKID.SetValue(data.GenderPKID), APDBDef.BzUserProfile.Birthday.SetValue(data.Birthday), APDBDef.BzUserProfile.PoliticalStatusPKID.SetValue(data.PoliticalStatusPKID), APDBDef.BzUserProfile.NationalityPKID.SetValue(data.NationalityPKID), APDBDef.BzUserProfile.EduSubjectPKID.SetValue(data.EduSubjectPKID), APDBDef.BzUserProfile.EduStagePKID.SetValue(data.EduStagePKID), APDBDef.BzUserProfile.JobDate.SetValue(data.JobDate), APDBDef.BzUserProfile.SkillTitlePKID.SetValue(data.SkillTitlePKID), APDBDef.BzUserProfile.SkillDate.SetValue(data.SkillDate), APDBDef.BzUserProfile.CompanyName.SetValue(data.CompanyName), APDBDef.BzUserProfile.CompanyNameOuter.SetValue(data.CompanyNameOuter), APDBDef.BzUserProfile.Companyaddress.SetValue(data.Companyaddress), APDBDef.BzUserProfile.RankTitlePKID.SetValue(data.RankTitlePKID), APDBDef.BzUserProfile.EduBgPKID.SetValue(data.EduBgPKID), APDBDef.BzUserProfile.EduDegreePKID.SetValue(data.EduDegreePKID), APDBDef.BzUserProfile.GraduateSchool.SetValue(data.GraduateSchool), APDBDef.BzUserProfile.GraduateDate.SetValue(data.GraduateDate), APDBDef.BzUserProfile.Phonemobile.SetValue(data.Phonemobile), APDBDef.BzUserProfile.Email.SetValue(data.Email), APDBDef.BzUserProfile.PeriodId.SetValue(data.PeriodId)).where((APDBDef.BzUserProfile.UserId == data.UserId));
+                var query = APQuery.update(APDBDef.BzUserProfile).values(APDBDef.BzUserProfile.UUID.SetValue(data.UUID), APDBDef.BzUserProfile.CompanyId.SetValue(data.CompanyId), APDBDef.BzUserProfile.UserName.SetValue(data.UserName), APDBDef.BzUserProfile.UserType.SetValue(data.UserType), APDBDef.BzUserProfile.RealName.SetValue(data.RealName), APDBDef.BzUserProfile.IDCard.SetValue(data.IDCard), APDBDef.BzUserProfile.TrainNo.SetValue(data.TrainNo), APDBDef.BzUserProfile.GenderPKID.SetValue(data.GenderPKID), APDBDef.BzUserProfile.Birthday.SetValue(data.Birthday), APDBDef.BzUserProfile.PoliticalStatusPKID.SetValue(data.PoliticalStatusPKID), APDBDef.BzUserProfile.NationalityPKID.SetValue(data.NationalityPKID), APDBDef.BzUserProfile.EduSubjectPKID.SetValue(data.EduSubjectPKID), APDBDef.BzUserProfile.EduStagePKID.SetValue(data.EduStagePKID), APDBDef.BzUserProfile.JobDate.SetValue(data.JobDate), APDBDef.BzUserProfile.SkillTitlePKID.SetValue(data.SkillTitlePKID), APDBDef.BzUserProfile.SkillDate.SetValue(data.SkillDate), APDBDef.BzUserProfile.CompanyName.SetValue(data.CompanyName), APDBDef.BzUserProfile.CompanyNameOuter.SetValue(data.CompanyNameOuter), APDBDef.BzUserProfile.Companyaddress.SetValue(data.Companyaddress), APDBDef.BzUserProfile.RankTitlePKID.SetValue(data.RankTitlePKID), APDBDef.BzUserProfile.CourseCountPerWeek.SetValue(data.CourseCountPerWeek), APDBDef.BzUserProfile.Hiredate.SetValue(data.Hiredate), APDBDef.BzUserProfile.EduBgPKID.SetValue(data.EduBgPKID), APDBDef.BzUserProfile.EduDegreePKID.SetValue(data.EduDegreePKID), APDBDef.BzUserProfile.GraduateSchool.SetValue(data.GraduateSchool), APDBDef.BzUserProfile.GraduateDate.SetValue(data.GraduateDate), APDBDef.BzUserProfile.Phonemobile.SetValue(data.Phonemobile), APDBDef.BzUserProfile.Email.SetValue(data.Email), APDBDef.BzUserProfile.Phone.SetValue(data.Phone), APDBDef.BzUserProfile.PeriodId.SetValue(data.PeriodId)).where((APDBDef.BzUserProfile.UserId == data.UserId));
                 ExecuteNonQuery(query);
             }
             
@@ -16704,6 +17282,278 @@ namespace Business {
             }
             
             public DeclareReviewDal(APDatabase db) : 
+                    base(db) {
+            }
+        }
+        
+        /// <summary>
+        /// 申报-评价-结果 DalBase
+        /// </summary>
+        public partial class DeclareEvalResultDalBase : APDal {
+            
+            public DeclareEvalResultDalBase() {
+            }
+            
+            public DeclareEvalResultDalBase(APDatabase db) : 
+                    base(db) {
+            }
+            
+            /// <summary>
+            /// 添加数据。
+            /// </summary>
+            public virtual void Insert(DeclareEvalResult data) {
+                if ((data.ResultId == 0)) {
+                    data.ResultId = ((long)(GetNewId(APDBDef.DeclareEvalResult.ResultId)));
+                }
+                var query = APQuery.insert(APDBDef.DeclareEvalResult).values(APDBDef.DeclareEvalResult.ResultId.SetValue(data.ResultId), APDBDef.DeclareEvalResult.PeriodId.SetValue(data.PeriodId), APDBDef.DeclareEvalResult.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.DeclareEvalResult.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareEvalResult.FullScore.SetValue(data.FullScore), APDBDef.DeclareEvalResult.Score.SetValue(data.Score), APDBDef.DeclareEvalResult.Characteristic.SetValue(data.Characteristic), APDBDef.DeclareEvalResult.DynamicScore1.SetValue(data.DynamicScore1), APDBDef.DeclareEvalResult.DynamicScore2.SetValue(data.DynamicScore2), APDBDef.DeclareEvalResult.DynamicScore3.SetValue(data.DynamicScore3), APDBDef.DeclareEvalResult.Comment.SetValue(data.Comment), APDBDef.DeclareEvalResult.GroupId.SetValue(data.GroupId), APDBDef.DeclareEvalResult.Accesser.SetValue(data.Accesser), APDBDef.DeclareEvalResult.AccessDate.SetValue(data.AccessDate));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public virtual void Update(DeclareEvalResult data) {
+                var query = APQuery.update(APDBDef.DeclareEvalResult).values(APDBDef.DeclareEvalResult.PeriodId.SetValue(data.PeriodId), APDBDef.DeclareEvalResult.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.DeclareEvalResult.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareEvalResult.FullScore.SetValue(data.FullScore), APDBDef.DeclareEvalResult.Score.SetValue(data.Score), APDBDef.DeclareEvalResult.Characteristic.SetValue(data.Characteristic), APDBDef.DeclareEvalResult.DynamicScore1.SetValue(data.DynamicScore1), APDBDef.DeclareEvalResult.DynamicScore2.SetValue(data.DynamicScore2), APDBDef.DeclareEvalResult.DynamicScore3.SetValue(data.DynamicScore3), APDBDef.DeclareEvalResult.Comment.SetValue(data.Comment), APDBDef.DeclareEvalResult.GroupId.SetValue(data.GroupId), APDBDef.DeclareEvalResult.Accesser.SetValue(data.Accesser), APDBDef.DeclareEvalResult.AccessDate.SetValue(data.AccessDate)).where((APDBDef.DeclareEvalResult.ResultId == data.ResultId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public virtual void UpdatePartial(long resultId, Object metadata) {
+                var query = APQuery.update(APDBDef.DeclareEvalResult).values(APSqlSetPhraseSelector.Select(APDBDef.DeclareEvalResult, metadata)).where((APDBDef.DeclareEvalResult.ResultId == resultId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 删除数据。
+            /// </summary>
+            public virtual void PrimaryDelete(long resultId) {
+                var query = APQuery.delete(APDBDef.DeclareEvalResult).where((APDBDef.DeclareEvalResult.ResultId == resultId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 条件删除数据。
+            /// </summary>
+            public virtual void ConditionDelete(APSqlWherePhrase condition) {
+                var query = APQuery.delete(APDBDef.DeclareEvalResult).where(condition);
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 根据条件查询数量。
+            /// </summary>
+            public virtual int ConditionQueryCount(APSqlWherePhrase condition) {
+                var query = APQuery.select(APDBDef.DeclareEvalResult.Asterisk.Count()).from(APDBDef.DeclareEvalResult).where(condition);
+                return ExecuteCount(query);
+            }
+            
+            /// <summary>
+            /// 根据主键获取数据。
+            /// </summary>
+            public virtual DeclareEvalResult PrimaryGet(long resultId) {
+                var query = APQuery.select(APDBDef.DeclareEvalResult.Asterisk).from(APDBDef.DeclareEvalResult).where((APDBDef.DeclareEvalResult.ResultId == resultId));
+                IDataReader reader = ExecuteReader(query);
+                try {
+                    if (reader.Read()) {
+                        return APDBDef.DeclareEvalResult.Map(reader);
+                    }
+                    return null;
+                }
+                finally {
+                    reader.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public virtual List<DeclareEvalResult> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+                var query = APQuery.select(APDBDef.DeclareEvalResult.Asterisk).from(APDBDef.DeclareEvalResult);
+                if ((condition != null)) {
+                    query.where(condition);
+                }
+                if ((orderBy != null)) {
+                    query.order_by(orderBy);
+                }
+                if ((take != null)) {
+                    query.take(take);
+                }
+                if ((skip != null)) {
+                    query.skip(skip);
+                }
+                query.primary(APDBDef.DeclareEvalResult.ResultId);
+                IDataReader reader = ExecuteReader(query);
+                return APDBDef.DeclareEvalResult.MapList(reader);
+            }
+            
+            /// <summary>
+            /// 获得表的初始化数据。
+            /// </summary>
+            public virtual List<DeclareEvalResult> GetInitData() {
+                return new List<DeclareEvalResult>();
+            }
+            
+            /// <summary>
+            /// 初始化数据。
+            /// </summary>
+            public virtual void InitData(APDBDef db) {
+                List<DeclareEvalResult> list = GetInitData();
+                for (int i = 0; (i < list.Count); i = (i + 1)) {
+                    DeclareEvalResult data = list[i];
+                    if ((PrimaryGet(data.ResultId) == null)) {
+                        Insert(data);
+                    }
+                }
+            }
+        }
+        
+        /// <summary>
+        /// 申报-评价-结果 Dal
+        /// </summary>
+        public partial class DeclareEvalResultDal : DeclareEvalResultDalBase {
+            
+            public DeclareEvalResultDal() {
+            }
+            
+            public DeclareEvalResultDal(APDatabase db) : 
+                    base(db) {
+            }
+        }
+        
+        /// <summary>
+        /// 申报-评价-结果项 DalBase
+        /// </summary>
+        public partial class DeclareEvalResultItemDalBase : APDal {
+            
+            public DeclareEvalResultItemDalBase() {
+            }
+            
+            public DeclareEvalResultItemDalBase(APDatabase db) : 
+                    base(db) {
+            }
+            
+            /// <summary>
+            /// 添加数据。
+            /// </summary>
+            public virtual void Insert(DeclareEvalResultItem data) {
+                if ((data.ResultItemId == 0)) {
+                    data.ResultItemId = ((long)(GetNewId(APDBDef.DeclareEvalResultItem.ResultItemId)));
+                }
+                var query = APQuery.insert(APDBDef.DeclareEvalResultItem).values(APDBDef.DeclareEvalResultItem.ResultItemId.SetValue(data.ResultItemId), APDBDef.DeclareEvalResultItem.ResultId.SetValue(data.ResultId), APDBDef.DeclareEvalResultItem.EvalItemKey.SetValue(data.EvalItemKey), APDBDef.DeclareEvalResultItem.ChooseValue.SetValue(data.ChooseValue), APDBDef.DeclareEvalResultItem.ResultValue.SetValue(data.ResultValue));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public virtual void Update(DeclareEvalResultItem data) {
+                var query = APQuery.update(APDBDef.DeclareEvalResultItem).values(APDBDef.DeclareEvalResultItem.ResultId.SetValue(data.ResultId), APDBDef.DeclareEvalResultItem.EvalItemKey.SetValue(data.EvalItemKey), APDBDef.DeclareEvalResultItem.ChooseValue.SetValue(data.ChooseValue), APDBDef.DeclareEvalResultItem.ResultValue.SetValue(data.ResultValue)).where((APDBDef.DeclareEvalResultItem.ResultItemId == data.ResultItemId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public virtual void UpdatePartial(long resultItemId, Object metadata) {
+                var query = APQuery.update(APDBDef.DeclareEvalResultItem).values(APSqlSetPhraseSelector.Select(APDBDef.DeclareEvalResultItem, metadata)).where((APDBDef.DeclareEvalResultItem.ResultItemId == resultItemId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 删除数据。
+            /// </summary>
+            public virtual void PrimaryDelete(long resultItemId) {
+                var query = APQuery.delete(APDBDef.DeclareEvalResultItem).where((APDBDef.DeclareEvalResultItem.ResultItemId == resultItemId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 条件删除数据。
+            /// </summary>
+            public virtual void ConditionDelete(APSqlWherePhrase condition) {
+                var query = APQuery.delete(APDBDef.DeclareEvalResultItem).where(condition);
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 根据条件查询数量。
+            /// </summary>
+            public virtual int ConditionQueryCount(APSqlWherePhrase condition) {
+                var query = APQuery.select(APDBDef.DeclareEvalResultItem.Asterisk.Count()).from(APDBDef.DeclareEvalResultItem).where(condition);
+                return ExecuteCount(query);
+            }
+            
+            /// <summary>
+            /// 根据主键获取数据。
+            /// </summary>
+            public virtual DeclareEvalResultItem PrimaryGet(long resultItemId) {
+                var query = APQuery.select(APDBDef.DeclareEvalResultItem.Asterisk).from(APDBDef.DeclareEvalResultItem).where((APDBDef.DeclareEvalResultItem.ResultItemId == resultItemId));
+                IDataReader reader = ExecuteReader(query);
+                try {
+                    if (reader.Read()) {
+                        return APDBDef.DeclareEvalResultItem.Map(reader);
+                    }
+                    return null;
+                }
+                finally {
+                    reader.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public virtual List<DeclareEvalResultItem> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+                var query = APQuery.select(APDBDef.DeclareEvalResultItem.Asterisk).from(APDBDef.DeclareEvalResultItem);
+                if ((condition != null)) {
+                    query.where(condition);
+                }
+                if ((orderBy != null)) {
+                    query.order_by(orderBy);
+                }
+                if ((take != null)) {
+                    query.take(take);
+                }
+                if ((skip != null)) {
+                    query.skip(skip);
+                }
+                query.primary(APDBDef.DeclareEvalResultItem.ResultItemId);
+                IDataReader reader = ExecuteReader(query);
+                return APDBDef.DeclareEvalResultItem.MapList(reader);
+            }
+            
+            /// <summary>
+            /// 获得表的初始化数据。
+            /// </summary>
+            public virtual List<DeclareEvalResultItem> GetInitData() {
+                return new List<DeclareEvalResultItem>();
+            }
+            
+            /// <summary>
+            /// 初始化数据。
+            /// </summary>
+            public virtual void InitData(APDBDef db) {
+                List<DeclareEvalResultItem> list = GetInitData();
+                for (int i = 0; (i < list.Count); i = (i + 1)) {
+                    DeclareEvalResultItem data = list[i];
+                    if ((PrimaryGet(data.ResultItemId) == null)) {
+                        Insert(data);
+                    }
+                }
+            }
+        }
+        
+        /// <summary>
+        /// 申报-评价-结果项 Dal
+        /// </summary>
+        public partial class DeclareEvalResultItemDal : DeclareEvalResultItemDalBase {
+            
+            public DeclareEvalResultItemDal() {
+            }
+            
+            public DeclareEvalResultItemDal(APDatabase db) : 
                     base(db) {
             }
         }
@@ -23977,6 +24827,304 @@ namespace Business {
         }
         
         /// <summary>
+        /// 申报-评价-结果 BplBase
+        /// </summary>
+        public partial class DeclareEvalResultBplBase {
+            
+            /// <summary>
+            /// 添加数据。
+            /// </summary>
+            public static void Insert(DeclareEvalResult data) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareEvalResultDal.Insert(data);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public static void Update(DeclareEvalResult data) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareEvalResultDal.Update(data);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public static void UpdatePartial(long resultId, Object metadata) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareEvalResultDal.UpdatePartial(resultId, metadata);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 删除数据。
+            /// </summary>
+            public static void PrimaryDelete(long resultId) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareEvalResultDal.PrimaryDelete(resultId);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 条件删除数据。
+            /// </summary>
+            public static void ConditionDelete(APSqlWherePhrase condition) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareEvalResultDal.ConditionDelete(condition);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据条件查询数量。
+            /// </summary>
+            public static int ConditionQueryCount(APSqlWherePhrase condition) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareEvalResultDal.ConditionQueryCount(condition);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据主键获取数据。
+            /// </summary>
+            public static DeclareEvalResult PrimaryGet(long resultId) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareEvalResultDal.PrimaryGet(resultId);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<DeclareEvalResult> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareEvalResultDal.ConditionQuery(condition, orderBy, take, skip);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<DeclareEvalResult> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareEvalResultDal.ConditionQuery(condition, orderBy, take, null);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<DeclareEvalResult> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareEvalResultDal.ConditionQuery(condition, orderBy, null, null);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 获取所有数据。
+            /// </summary>
+            public static List<DeclareEvalResult> GetAll() {
+                return ConditionQuery(null, null);
+            }
+        }
+        
+        /// <summary>
+        /// 申报-评价-结果 Dal
+        /// </summary>
+        public partial class DeclareEvalResultBpl : DeclareEvalResultBplBase {
+        }
+        
+        /// <summary>
+        /// 申报-评价-结果项 BplBase
+        /// </summary>
+        public partial class DeclareEvalResultItemBplBase {
+            
+            /// <summary>
+            /// 添加数据。
+            /// </summary>
+            public static void Insert(DeclareEvalResultItem data) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareEvalResultItemDal.Insert(data);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public static void Update(DeclareEvalResultItem data) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareEvalResultItemDal.Update(data);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public static void UpdatePartial(long resultItemId, Object metadata) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareEvalResultItemDal.UpdatePartial(resultItemId, metadata);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 删除数据。
+            /// </summary>
+            public static void PrimaryDelete(long resultItemId) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareEvalResultItemDal.PrimaryDelete(resultItemId);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 条件删除数据。
+            /// </summary>
+            public static void ConditionDelete(APSqlWherePhrase condition) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareEvalResultItemDal.ConditionDelete(condition);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据条件查询数量。
+            /// </summary>
+            public static int ConditionQueryCount(APSqlWherePhrase condition) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareEvalResultItemDal.ConditionQueryCount(condition);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据主键获取数据。
+            /// </summary>
+            public static DeclareEvalResultItem PrimaryGet(long resultItemId) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareEvalResultItemDal.PrimaryGet(resultItemId);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<DeclareEvalResultItem> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareEvalResultItemDal.ConditionQuery(condition, orderBy, take, skip);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<DeclareEvalResultItem> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareEvalResultItemDal.ConditionQuery(condition, orderBy, take, null);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<DeclareEvalResultItem> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareEvalResultItemDal.ConditionQuery(condition, orderBy, null, null);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 获取所有数据。
+            /// </summary>
+            public static List<DeclareEvalResultItem> GetAll() {
+                return ConditionQuery(null, null);
+            }
+        }
+        
+        /// <summary>
+        /// 申报-评价-结果项 Dal
+        /// </summary>
+        public partial class DeclareEvalResultItemBpl : DeclareEvalResultItemBplBase {
+        }
+        
+        /// <summary>
         /// 梯队-学员 BplBase
         /// </summary>
         public partial class TeamMemberBplBase {
@@ -30281,6 +31429,16 @@ namespace Business {
         private long _rankTitlePKID;
         
         /// <summary>
+        /// CourseCountPerWeek
+        /// </summary>
+        private string _courseCountPerWeek;
+        
+        /// <summary>
+        /// Hiredate
+        /// </summary>
+        private System.DateTime _hiredate;
+        
+        /// <summary>
         /// PickList - EduBg
         /// </summary>
         private long _eduBgPKID;
@@ -30309,6 +31467,11 @@ namespace Business {
         /// 用于联系的电子邮箱
         /// </summary>
         private string _email;
+        
+        /// <summary>
+        /// Phone
+        /// </summary>
+        private string _phone;
         
         /// <summary>
         /// PeriodId
@@ -30346,12 +31509,15 @@ namespace Business {
                     string companyNameOuter, 
                     string companyaddress, 
                     long rankTitlePKID, 
+                    string courseCountPerWeek, 
+                    System.DateTime hiredate, 
                     long eduBgPKID, 
                     long eduDegreePKID, 
                     string graduateSchool, 
                     System.Nullable<System.DateTime> graduateDate, 
                     string phonemobile, 
                     string email, 
+                    string phone, 
                     long periodId) {
             _userId = userId;
             _uUID = uUID;
@@ -30374,12 +31540,15 @@ namespace Business {
             _companyNameOuter = companyNameOuter;
             _companyaddress = companyaddress;
             _rankTitlePKID = rankTitlePKID;
+            _courseCountPerWeek = courseCountPerWeek;
+            _hiredate = hiredate;
             _eduBgPKID = eduBgPKID;
             _eduDegreePKID = eduDegreePKID;
             _graduateSchool = graduateSchool;
             _graduateDate = graduateDate;
             _phonemobile = phonemobile;
             _email = email;
+            _phone = phone;
             _periodId = periodId;
         }
         
@@ -30866,6 +32035,51 @@ namespace Business {
         }
         
         /// <summary>
+        /// CourseCountPerWeek
+        /// </summary>
+        [Display(Name="周课时数")]
+        [StringLength(20)]
+        public virtual string CourseCountPerWeek {
+            get {
+                return _courseCountPerWeek;
+            }
+            set {
+                _courseCountPerWeek = value;
+            }
+        }
+        
+        /// <summary>
+        /// CourseCountPerWeek APColumnDef
+        /// </summary>
+        public static StringAPColumnDef CourseCountPerWeekDef {
+            get {
+                return APDBDef.BzUserProfile.CourseCountPerWeek;
+            }
+        }
+        
+        /// <summary>
+        /// Hiredate
+        /// </summary>
+        [Display(Name="评聘日期")]
+        public virtual System.DateTime Hiredate {
+            get {
+                return _hiredate;
+            }
+            set {
+                _hiredate = value;
+            }
+        }
+        
+        /// <summary>
+        /// Hiredate APColumnDef
+        /// </summary>
+        public static DateTimeAPColumnDef HiredateDef {
+            get {
+                return APDBDef.BzUserProfile.Hiredate;
+            }
+        }
+        
+        /// <summary>
         /// PickList - EduBg
         /// </summary>
         [Display(Name="学历")]
@@ -31001,6 +32215,29 @@ namespace Business {
         }
         
         /// <summary>
+        /// Phone
+        /// </summary>
+        [Display(Name="办公室电话")]
+        [StringLength(20)]
+        public virtual string Phone {
+            get {
+                return _phone;
+            }
+            set {
+                _phone = value;
+            }
+        }
+        
+        /// <summary>
+        /// Phone APColumnDef
+        /// </summary>
+        public static StringAPColumnDef PhoneDef {
+            get {
+                return APDBDef.BzUserProfile.Phone;
+            }
+        }
+        
+        /// <summary>
         /// PeriodId
         /// </summary>
         [Display(Name="修改周期ID")]
@@ -31065,12 +32302,15 @@ namespace Business {
             CompanyNameOuter = data.CompanyNameOuter;
             Companyaddress = data.Companyaddress;
             RankTitlePKID = data.RankTitlePKID;
+            CourseCountPerWeek = data.CourseCountPerWeek;
+            Hiredate = data.Hiredate;
             EduBgPKID = data.EduBgPKID;
             EduDegreePKID = data.EduDegreePKID;
             GraduateSchool = data.GraduateSchool;
             GraduateDate = data.GraduateDate;
             Phonemobile = data.Phonemobile;
             Email = data.Email;
+            Phone = data.Phone;
             PeriodId = data.PeriodId;
         }
         
@@ -31141,6 +32381,12 @@ namespace Business {
             if ((RankTitlePKID != data.RankTitlePKID)) {
                 return false;
             }
+            if ((CourseCountPerWeek != data.CourseCountPerWeek)) {
+                return false;
+            }
+            if ((Hiredate != data.Hiredate)) {
+                return false;
+            }
             if ((EduBgPKID != data.EduBgPKID)) {
                 return false;
             }
@@ -31157,6 +32403,9 @@ namespace Business {
                 return false;
             }
             if ((Email != data.Email)) {
+                return false;
+            }
+            if ((Phone != data.Phone)) {
                 return false;
             }
             if ((PeriodId != data.PeriodId)) {
@@ -31280,14 +32529,17 @@ namespace Business {
                     string companyNameOuter, 
                     string companyaddress, 
                     long rankTitlePKID, 
+                    string courseCountPerWeek, 
+                    System.DateTime hiredate, 
                     long eduBgPKID, 
                     long eduDegreePKID, 
                     string graduateSchool, 
                     System.Nullable<System.DateTime> graduateDate, 
                     string phonemobile, 
                     string email, 
+                    string phone, 
                     long periodId) : 
-                base(userId, uUID, companyId, userName, userType, realName, iDCard, trainNo, genderPKID, birthday, politicalStatusPKID, nationalityPKID, eduSubjectPKID, eduStagePKID, jobDate, skillTitlePKID, skillDate, companyName, companyNameOuter, companyaddress, rankTitlePKID, eduBgPKID, eduDegreePKID, graduateSchool, graduateDate, phonemobile, email, periodId) {
+                base(userId, uUID, companyId, userName, userType, realName, iDCard, trainNo, genderPKID, birthday, politicalStatusPKID, nationalityPKID, eduSubjectPKID, eduStagePKID, jobDate, skillTitlePKID, skillDate, companyName, companyNameOuter, companyaddress, rankTitlePKID, courseCountPerWeek, hiredate, eduBgPKID, eduDegreePKID, graduateSchool, graduateDate, phonemobile, email, phone, periodId) {
         }
     }
     
@@ -39916,6 +41168,912 @@ namespace Business {
         /// </summary>
         public DeclareReview(long reviewId, long teacherId, long reviewerId, long declareBaseId, string statusKey, long periodId, long companyId, string reviewComment) : 
                 base(reviewId, teacherId, reviewerId, declareBaseId, statusKey, periodId, companyId, reviewComment) {
+        }
+    }
+    
+    /// <summary>
+    /// 申报-评价-结果 Base
+    /// </summary>
+    [Serializable()]
+    public abstract partial class DeclareEvalResultBase {
+        
+        /// <summary>
+        /// ResultId
+        /// </summary>
+        private long _resultId;
+        
+        /// <summary>
+        /// PeriodId
+        /// </summary>
+        private long _periodId;
+        
+        /// <summary>
+        /// PickList - PLKey_DeclareTarget
+        /// </summary>
+        private long _declareTargetPKID;
+        
+        /// <summary>
+        /// TeacherId
+        /// </summary>
+        private long _teacherId;
+        
+        /// <summary>
+        /// FullScore
+        /// </summary>
+        private double _fullScore;
+        
+        /// <summary>
+        /// Score
+        /// </summary>
+        private double _score;
+        
+        /// <summary>
+        /// Characteristic
+        /// </summary>
+        private double _characteristic;
+        
+        /// <summary>
+        /// DynamicScore1
+        /// </summary>
+        private double _dynamicScore1;
+        
+        /// <summary>
+        /// DynamicScore2
+        /// </summary>
+        private double _dynamicScore2;
+        
+        /// <summary>
+        /// DynamicScore3
+        /// </summary>
+        private double _dynamicScore3;
+        
+        /// <summary>
+        /// 每位专家的评语
+        /// </summary>
+        private string _comment = string.Empty;
+        
+        /// <summary>
+        /// 关联专家组
+        /// </summary>
+        private long _groupId;
+        
+        /// <summary>
+        /// 关联考评人
+        /// </summary>
+        private long _accesser;
+        
+        /// <summary>
+        /// AccessDate
+        /// </summary>
+        private System.DateTime _accessDate;
+        
+        /// <summary>
+        /// 默认构造函数。
+        /// </summary>
+        public DeclareEvalResultBase() {
+        }
+        
+        /// <summary>
+        /// 初始化所有字段的构造函数。
+        /// </summary>
+        public DeclareEvalResultBase(long resultId, long periodId, long declareTargetPKID, long teacherId, double fullScore, double score, double characteristic, double dynamicScore1, double dynamicScore2, double dynamicScore3, string comment, long groupId, long accesser, System.DateTime accessDate) {
+            _resultId = resultId;
+            _periodId = periodId;
+            _declareTargetPKID = declareTargetPKID;
+            _teacherId = teacherId;
+            _fullScore = fullScore;
+            _score = score;
+            _characteristic = characteristic;
+            _dynamicScore1 = dynamicScore1;
+            _dynamicScore2 = dynamicScore2;
+            _dynamicScore3 = dynamicScore3;
+            _comment = comment;
+            _groupId = groupId;
+            _accesser = accesser;
+            _accessDate = accessDate;
+        }
+        
+        /// <summary>
+        /// ResultId
+        /// </summary>
+        [Display(Name="评价结果ID")]
+        public virtual long ResultId {
+            get {
+                return _resultId;
+            }
+            set {
+                _resultId = value;
+            }
+        }
+        
+        /// <summary>
+        /// ResultId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef ResultIdDef {
+            get {
+                return APDBDef.DeclareEvalResult.ResultId;
+            }
+        }
+        
+        /// <summary>
+        /// PeriodId
+        /// </summary>
+        [Display(Name="周期ID")]
+        public virtual long PeriodId {
+            get {
+                return _periodId;
+            }
+            set {
+                _periodId = value;
+            }
+        }
+        
+        /// <summary>
+        /// PeriodId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef PeriodIdDef {
+            get {
+                return APDBDef.DeclareEvalResult.PeriodId;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - PLKey_DeclareTarget
+        /// </summary>
+        [Display(Name="申报（担任）称号")]
+        public virtual long DeclareTargetPKID {
+            get {
+                return _declareTargetPKID;
+            }
+            set {
+                _declareTargetPKID = value;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - PLKey_DeclareTarget APColumnDef
+        /// </summary>
+        public static Int64APColumnDef DeclareTargetPKIDDef {
+            get {
+                return APDBDef.DeclareEvalResult.DeclareTargetPKID;
+            }
+        }
+        
+        /// <summary>
+        /// TeacherId
+        /// </summary>
+        [Display(Name="教师ID")]
+        public virtual long TeacherId {
+            get {
+                return _teacherId;
+            }
+            set {
+                _teacherId = value;
+            }
+        }
+        
+        /// <summary>
+        /// TeacherId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef TeacherIdDef {
+            get {
+                return APDBDef.DeclareEvalResult.TeacherId;
+            }
+        }
+        
+        /// <summary>
+        /// FullScore
+        /// </summary>
+        [Display(Name="总分")]
+        public virtual double FullScore {
+            get {
+                return _fullScore;
+            }
+            set {
+                _fullScore = value;
+            }
+        }
+        
+        /// <summary>
+        /// FullScore APColumnDef
+        /// </summary>
+        public static DoubleAPColumnDef FullScoreDef {
+            get {
+                return APDBDef.DeclareEvalResult.FullScore;
+            }
+        }
+        
+        /// <summary>
+        /// Score
+        /// </summary>
+        [Display(Name="得分")]
+        public virtual double Score {
+            get {
+                return _score;
+            }
+            set {
+                _score = value;
+            }
+        }
+        
+        /// <summary>
+        /// Score APColumnDef
+        /// </summary>
+        public static DoubleAPColumnDef ScoreDef {
+            get {
+                return APDBDef.DeclareEvalResult.Score;
+            }
+        }
+        
+        /// <summary>
+        /// Characteristic
+        /// </summary>
+        [Display(Name="特色分")]
+        public virtual double Characteristic {
+            get {
+                return _characteristic;
+            }
+            set {
+                _characteristic = value;
+            }
+        }
+        
+        /// <summary>
+        /// Characteristic APColumnDef
+        /// </summary>
+        public static DoubleAPColumnDef CharacteristicDef {
+            get {
+                return APDBDef.DeclareEvalResult.Characteristic;
+            }
+        }
+        
+        /// <summary>
+        /// DynamicScore1
+        /// </summary>
+        [Display(Name="备用分1")]
+        public virtual double DynamicScore1 {
+            get {
+                return _dynamicScore1;
+            }
+            set {
+                _dynamicScore1 = value;
+            }
+        }
+        
+        /// <summary>
+        /// DynamicScore1 APColumnDef
+        /// </summary>
+        public static DoubleAPColumnDef DynamicScore1Def {
+            get {
+                return APDBDef.DeclareEvalResult.DynamicScore1;
+            }
+        }
+        
+        /// <summary>
+        /// DynamicScore2
+        /// </summary>
+        [Display(Name="备用分2")]
+        public virtual double DynamicScore2 {
+            get {
+                return _dynamicScore2;
+            }
+            set {
+                _dynamicScore2 = value;
+            }
+        }
+        
+        /// <summary>
+        /// DynamicScore2 APColumnDef
+        /// </summary>
+        public static DoubleAPColumnDef DynamicScore2Def {
+            get {
+                return APDBDef.DeclareEvalResult.DynamicScore2;
+            }
+        }
+        
+        /// <summary>
+        /// DynamicScore3
+        /// </summary>
+        [Display(Name="备用分3")]
+        public virtual double DynamicScore3 {
+            get {
+                return _dynamicScore3;
+            }
+            set {
+                _dynamicScore3 = value;
+            }
+        }
+        
+        /// <summary>
+        /// DynamicScore3 APColumnDef
+        /// </summary>
+        public static DoubleAPColumnDef DynamicScore3Def {
+            get {
+                return APDBDef.DeclareEvalResult.DynamicScore3;
+            }
+        }
+        
+        /// <summary>
+        /// 每位专家的评语
+        /// </summary>
+        [Display(Name="总评")]
+        [StringLength(10000)]
+        public virtual string Comment {
+            get {
+                return _comment;
+            }
+            set {
+                _comment = value;
+            }
+        }
+        
+        /// <summary>
+        /// 每位专家的评语 APColumnDef
+        /// </summary>
+        public static StringAPColumnDef CommentDef {
+            get {
+                return APDBDef.DeclareEvalResult.Comment;
+            }
+        }
+        
+        /// <summary>
+        /// 关联专家组
+        /// </summary>
+        [Display(Name="专家组")]
+        public virtual long GroupId {
+            get {
+                return _groupId;
+            }
+            set {
+                _groupId = value;
+            }
+        }
+        
+        /// <summary>
+        /// 关联专家组 APColumnDef
+        /// </summary>
+        public static Int64APColumnDef GroupIdDef {
+            get {
+                return APDBDef.DeclareEvalResult.GroupId;
+            }
+        }
+        
+        /// <summary>
+        /// 关联考评人
+        /// </summary>
+        [Display(Name="考评人")]
+        public virtual long Accesser {
+            get {
+                return _accesser;
+            }
+            set {
+                _accesser = value;
+            }
+        }
+        
+        /// <summary>
+        /// 关联考评人 APColumnDef
+        /// </summary>
+        public static Int64APColumnDef AccesserDef {
+            get {
+                return APDBDef.DeclareEvalResult.Accesser;
+            }
+        }
+        
+        /// <summary>
+        /// AccessDate
+        /// </summary>
+        [Display(Name="考评时间")]
+        public virtual System.DateTime AccessDate {
+            get {
+                return _accessDate;
+            }
+            set {
+                _accessDate = value;
+            }
+        }
+        
+        /// <summary>
+        /// AccessDate APColumnDef
+        /// </summary>
+        public static DateTimeAPColumnDef AccessDateDef {
+            get {
+                return APDBDef.DeclareEvalResult.AccessDate;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareEvalResultTableDef APTableDef
+        /// </summary>
+        public static APDBDef.DeclareEvalResultTableDef TableDef {
+            get {
+                return APDBDef.DeclareEvalResult;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareEvalResultTableDef APSqlAsteriskExpr
+        /// </summary>
+        public static APSqlAsteriskExpr Asterisk {
+            get {
+                return APDBDef.DeclareEvalResult.Asterisk;
+            }
+        }
+        
+        /// <summary>
+        /// 赋值。
+        /// </summary>
+        public virtual void Assignment(DeclareEvalResult data) {
+            ResultId = data.ResultId;
+            PeriodId = data.PeriodId;
+            DeclareTargetPKID = data.DeclareTargetPKID;
+            TeacherId = data.TeacherId;
+            FullScore = data.FullScore;
+            Score = data.Score;
+            Characteristic = data.Characteristic;
+            DynamicScore1 = data.DynamicScore1;
+            DynamicScore2 = data.DynamicScore2;
+            DynamicScore3 = data.DynamicScore3;
+            Comment = data.Comment;
+            GroupId = data.GroupId;
+            Accesser = data.Accesser;
+            AccessDate = data.AccessDate;
+        }
+        
+        /// <summary>
+        /// 比较。
+        /// </summary>
+        public virtual bool CompareEquals(DeclareEvalResult data) {
+            if ((ResultId != data.ResultId)) {
+                return false;
+            }
+            if ((PeriodId != data.PeriodId)) {
+                return false;
+            }
+            if ((DeclareTargetPKID != data.DeclareTargetPKID)) {
+                return false;
+            }
+            if ((TeacherId != data.TeacherId)) {
+                return false;
+            }
+            if ((FullScore != data.FullScore)) {
+                return false;
+            }
+            if ((Score != data.Score)) {
+                return false;
+            }
+            if ((Characteristic != data.Characteristic)) {
+                return false;
+            }
+            if ((DynamicScore1 != data.DynamicScore1)) {
+                return false;
+            }
+            if ((DynamicScore2 != data.DynamicScore2)) {
+                return false;
+            }
+            if ((DynamicScore3 != data.DynamicScore3)) {
+                return false;
+            }
+            if ((Comment != data.Comment)) {
+                return false;
+            }
+            if ((GroupId != data.GroupId)) {
+                return false;
+            }
+            if ((Accesser != data.Accesser)) {
+                return false;
+            }
+            if ((AccessDate != data.AccessDate)) {
+                return false;
+            }
+            return true;
+        }
+        
+        /// <summary>
+        /// 添加数据。
+        /// </summary>
+        public virtual void Insert() {
+            APBplDef.DeclareEvalResultBpl.Insert(((DeclareEvalResult)(this)));
+        }
+        
+        /// <summary>
+        /// 更新数据。
+        /// </summary>
+        public virtual void Update() {
+            APBplDef.DeclareEvalResultBpl.Update(((DeclareEvalResult)(this)));
+        }
+        
+        /// <summary>
+        /// 更新数据。
+        /// </summary>
+        public static void UpdatePartial(long resultId, Object metadata) {
+            APBplDef.DeclareEvalResultBpl.UpdatePartial(resultId, metadata);
+        }
+        
+        /// <summary>
+        /// 删除数据。
+        /// </summary>
+        public static void PrimaryDelete(long resultId) {
+            APBplDef.DeclareEvalResultBpl.PrimaryDelete(resultId);
+        }
+        
+        /// <summary>
+        /// 条件删除数据。
+        /// </summary>
+        public static void ConditionDelete(APSqlWherePhrase condition) {
+            APBplDef.DeclareEvalResultBpl.ConditionDelete(condition);
+        }
+        
+        /// <summary>
+        /// 根据条件查询数量。
+        /// </summary>
+        public static int ConditionQueryCount(APSqlWherePhrase condition) {
+            return APBplDef.DeclareEvalResultBpl.ConditionQueryCount(condition);
+        }
+        
+        /// <summary>
+        /// 根据主键获取数据。
+        /// </summary>
+        public static DeclareEvalResult PrimaryGet(long resultId) {
+            return APBplDef.DeclareEvalResultBpl.PrimaryGet(resultId);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<DeclareEvalResult> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take, int skip) {
+            return APBplDef.DeclareEvalResultBpl.ConditionQuery(condition, orderBy, take, skip);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<DeclareEvalResult> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take) {
+            return APBplDef.DeclareEvalResultBpl.ConditionQuery(condition, orderBy, take);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<DeclareEvalResult> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+            return APBplDef.DeclareEvalResultBpl.ConditionQuery(condition, orderBy);
+        }
+        
+        /// <summary>
+        /// 获取所有数据。
+        /// </summary>
+        public static List<DeclareEvalResult> GetAll() {
+            return APBplDef.DeclareEvalResultBpl.GetAll();
+        }
+    }
+    
+    /// <summary>
+    /// 申报-评价-结果
+    /// </summary>
+    [Serializable()]
+    public partial class DeclareEvalResult : DeclareEvalResultBase {
+        
+        /// <summary>
+        /// 默认构造函数。
+        /// </summary>
+        public DeclareEvalResult() {
+        }
+        
+        /// <summary>
+        /// 初始化所有字段的构造函数。
+        /// </summary>
+        public DeclareEvalResult(long resultId, long periodId, long declareTargetPKID, long teacherId, double fullScore, double score, double characteristic, double dynamicScore1, double dynamicScore2, double dynamicScore3, string comment, long groupId, long accesser, System.DateTime accessDate) : 
+                base(resultId, periodId, declareTargetPKID, teacherId, fullScore, score, characteristic, dynamicScore1, dynamicScore2, dynamicScore3, comment, groupId, accesser, accessDate) {
+        }
+    }
+    
+    /// <summary>
+    /// 申报-评价-结果项 Base
+    /// </summary>
+    [Serializable()]
+    public abstract partial class DeclareEvalResultItemBase {
+        
+        /// <summary>
+        /// ResultItemId
+        /// </summary>
+        private long _resultItemId;
+        
+        /// <summary>
+        /// ResultId
+        /// </summary>
+        private long _resultId;
+        
+        /// <summary>
+        /// 用点分符做完字符串分割
+        /// </summary>
+        private string _evalItemKey = string.Empty;
+        
+        /// <summary>
+        /// ChooseValue
+        /// </summary>
+        private string _chooseValue = string.Empty;
+        
+        /// <summary>
+        /// ResultValue
+        /// </summary>
+        private string _resultValue = string.Empty;
+        
+        /// <summary>
+        /// 默认构造函数。
+        /// </summary>
+        public DeclareEvalResultItemBase() {
+        }
+        
+        /// <summary>
+        /// 初始化所有字段的构造函数。
+        /// </summary>
+        public DeclareEvalResultItemBase(long resultItemId, long resultId, string evalItemKey, string chooseValue, string resultValue) {
+            _resultItemId = resultItemId;
+            _resultId = resultId;
+            _evalItemKey = evalItemKey;
+            _chooseValue = chooseValue;
+            _resultValue = resultValue;
+        }
+        
+        /// <summary>
+        /// ResultItemId
+        /// </summary>
+        [Display(Name="结果项ID")]
+        public virtual long ResultItemId {
+            get {
+                return _resultItemId;
+            }
+            set {
+                _resultItemId = value;
+            }
+        }
+        
+        /// <summary>
+        /// ResultItemId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef ResultItemIdDef {
+            get {
+                return APDBDef.DeclareEvalResultItem.ResultItemId;
+            }
+        }
+        
+        /// <summary>
+        /// ResultId
+        /// </summary>
+        [Display(Name="评价结果ID")]
+        public virtual long ResultId {
+            get {
+                return _resultId;
+            }
+            set {
+                _resultId = value;
+            }
+        }
+        
+        /// <summary>
+        /// ResultId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef ResultIdDef {
+            get {
+                return APDBDef.DeclareEvalResultItem.ResultId;
+            }
+        }
+        
+        /// <summary>
+        /// 用点分符做完字符串分割
+        /// </summary>
+        [Display(Name="指标项")]
+        [StringLength(200)]
+        public virtual string EvalItemKey {
+            get {
+                return _evalItemKey;
+            }
+            set {
+                _evalItemKey = value;
+            }
+        }
+        
+        /// <summary>
+        /// 用点分符做完字符串分割 APColumnDef
+        /// </summary>
+        public static StringAPColumnDef EvalItemKeyDef {
+            get {
+                return APDBDef.DeclareEvalResultItem.EvalItemKey;
+            }
+        }
+        
+        /// <summary>
+        /// ChooseValue
+        /// </summary>
+        [Display(Name="选择值")]
+        [StringLength(20)]
+        public virtual string ChooseValue {
+            get {
+                return _chooseValue;
+            }
+            set {
+                _chooseValue = value;
+            }
+        }
+        
+        /// <summary>
+        /// ChooseValue APColumnDef
+        /// </summary>
+        public static StringAPColumnDef ChooseValueDef {
+            get {
+                return APDBDef.DeclareEvalResultItem.ChooseValue;
+            }
+        }
+        
+        /// <summary>
+        /// ResultValue
+        /// </summary>
+        [Display(Name="输入值")]
+        [StringLength(100)]
+        public virtual string ResultValue {
+            get {
+                return _resultValue;
+            }
+            set {
+                _resultValue = value;
+            }
+        }
+        
+        /// <summary>
+        /// ResultValue APColumnDef
+        /// </summary>
+        public static StringAPColumnDef ResultValueDef {
+            get {
+                return APDBDef.DeclareEvalResultItem.ResultValue;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareEvalResultItemTableDef APTableDef
+        /// </summary>
+        public static APDBDef.DeclareEvalResultItemTableDef TableDef {
+            get {
+                return APDBDef.DeclareEvalResultItem;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareEvalResultItemTableDef APSqlAsteriskExpr
+        /// </summary>
+        public static APSqlAsteriskExpr Asterisk {
+            get {
+                return APDBDef.DeclareEvalResultItem.Asterisk;
+            }
+        }
+        
+        /// <summary>
+        /// 赋值。
+        /// </summary>
+        public virtual void Assignment(DeclareEvalResultItem data) {
+            ResultItemId = data.ResultItemId;
+            ResultId = data.ResultId;
+            EvalItemKey = data.EvalItemKey;
+            ChooseValue = data.ChooseValue;
+            ResultValue = data.ResultValue;
+        }
+        
+        /// <summary>
+        /// 比较。
+        /// </summary>
+        public virtual bool CompareEquals(DeclareEvalResultItem data) {
+            if ((ResultItemId != data.ResultItemId)) {
+                return false;
+            }
+            if ((ResultId != data.ResultId)) {
+                return false;
+            }
+            if ((EvalItemKey != data.EvalItemKey)) {
+                return false;
+            }
+            if ((ChooseValue != data.ChooseValue)) {
+                return false;
+            }
+            if ((ResultValue != data.ResultValue)) {
+                return false;
+            }
+            return true;
+        }
+        
+        /// <summary>
+        /// 添加数据。
+        /// </summary>
+        public virtual void Insert() {
+            APBplDef.DeclareEvalResultItemBpl.Insert(((DeclareEvalResultItem)(this)));
+        }
+        
+        /// <summary>
+        /// 更新数据。
+        /// </summary>
+        public virtual void Update() {
+            APBplDef.DeclareEvalResultItemBpl.Update(((DeclareEvalResultItem)(this)));
+        }
+        
+        /// <summary>
+        /// 更新数据。
+        /// </summary>
+        public static void UpdatePartial(long resultItemId, Object metadata) {
+            APBplDef.DeclareEvalResultItemBpl.UpdatePartial(resultItemId, metadata);
+        }
+        
+        /// <summary>
+        /// 删除数据。
+        /// </summary>
+        public static void PrimaryDelete(long resultItemId) {
+            APBplDef.DeclareEvalResultItemBpl.PrimaryDelete(resultItemId);
+        }
+        
+        /// <summary>
+        /// 条件删除数据。
+        /// </summary>
+        public static void ConditionDelete(APSqlWherePhrase condition) {
+            APBplDef.DeclareEvalResultItemBpl.ConditionDelete(condition);
+        }
+        
+        /// <summary>
+        /// 根据条件查询数量。
+        /// </summary>
+        public static int ConditionQueryCount(APSqlWherePhrase condition) {
+            return APBplDef.DeclareEvalResultItemBpl.ConditionQueryCount(condition);
+        }
+        
+        /// <summary>
+        /// 根据主键获取数据。
+        /// </summary>
+        public static DeclareEvalResultItem PrimaryGet(long resultItemId) {
+            return APBplDef.DeclareEvalResultItemBpl.PrimaryGet(resultItemId);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<DeclareEvalResultItem> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take, int skip) {
+            return APBplDef.DeclareEvalResultItemBpl.ConditionQuery(condition, orderBy, take, skip);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<DeclareEvalResultItem> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take) {
+            return APBplDef.DeclareEvalResultItemBpl.ConditionQuery(condition, orderBy, take);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<DeclareEvalResultItem> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+            return APBplDef.DeclareEvalResultItemBpl.ConditionQuery(condition, orderBy);
+        }
+        
+        /// <summary>
+        /// 获取所有数据。
+        /// </summary>
+        public static List<DeclareEvalResultItem> GetAll() {
+            return APBplDef.DeclareEvalResultItemBpl.GetAll();
+        }
+    }
+    
+    /// <summary>
+    /// 申报-评价-结果项
+    /// </summary>
+    [Serializable()]
+    public partial class DeclareEvalResultItem : DeclareEvalResultItemBase {
+        
+        /// <summary>
+        /// 默认构造函数。
+        /// </summary>
+        public DeclareEvalResultItem() {
+        }
+        
+        /// <summary>
+        /// 初始化所有字段的构造函数。
+        /// </summary>
+        public DeclareEvalResultItem(long resultItemId, long resultId, string evalItemKey, string chooseValue, string resultValue) : 
+                base(resultItemId, resultId, evalItemKey, chooseValue, resultValue) {
         }
     }
     
