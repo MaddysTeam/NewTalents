@@ -57,10 +57,10 @@
 @section Scripts {
 	<script>
 		var lastNode;
-		function loadFrag(cond) {
+		function loadTreeFrag(cond) {
 			var param;
 			if (cond) { param = cond; }
-			else { param = { key: lastNode.id }; }
+			else { param = { key: lastNode.id}; }
 			$.get('/DeclareMaterial/Fragment', param, function (data, status) {
 				$('.main-content').html(data);
 			})
@@ -114,8 +114,10 @@
 				$treeviewApp.jstree('open_all');
 				//treeviewApp.jstree('open_node', '#root');
 			}).on('changed.jstree', function (e, data) {
+				
 				lastNode = data.instance.get_node(data.selected);
-				loadFrag();
+				console.log(lastNode)
+				loadTreeFrag();
 			})
 
 			$treeviewApp.parent().parent().show();

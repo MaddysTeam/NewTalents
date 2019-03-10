@@ -348,7 +348,18 @@ function insureSummernot(selector) {
 		height: 300,
 		focus: true,
 		placeholder: '请输入内容',
-
+		toolbar: [
+                //['fontname', ['fontname']], //字体系列                                 
+                ['style', ['bold', 'italic', 'underline', 'clear']], // 字体粗体、字体斜体、字体下划线、字体格式清除       
+               // ['font', ['strikethrough', 'superscript', 'subscript']], //字体划线、字体上标、字体下标   
+                //['fontsize', ['fontsize']], //字体大小                                
+                ['color', ['color']], //字体颜色     
+                ['style', ['style']],//样式
+                ['para', ['ul', 'ol', 'paragraph']], //无序列表、有序列表、段落对齐方式
+                ['height', ['height']], //行高
+                ['undo',['undo']], //撤销
+                ['redo',['redo']], //取消撤销
+		],
 		callbacks: {
 			onInit: function () {
 				$node = $(this);

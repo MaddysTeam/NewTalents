@@ -34,7 +34,7 @@ namespace Business.Helper
       static APDBDef.DeclareMaterialTableDef dm = APDBDef.DeclareMaterial;
 
 
-      public static void AddDeclareMaterial(DeclareContent content, DeclarePeriod period,APDBDef db)
+      public static void AddDeclareMaterial(DeclareContent content, DeclarePeriod period, APDBDef db)
       {
          if (content != null && period != null)
          {
@@ -46,8 +46,8 @@ namespace Business.Helper
                   ParentType = "DeclareContent",
                   CreateDate = DateTime.Now,
                   PubishDate = DateTime.Now,
-                  Title = content.ContentKey==DeclareKeys.NiandZongj_Dien || content.ContentKey == DeclareKeys.NiandZongj_Disn || content.ContentKey== DeclareKeys.NiandZongj_Diyn?
-                            content.ContentKey:
+                  Title = content.ContentKey == DeclareKeys.NiandZongj_Dien || content.ContentKey == DeclareKeys.NiandZongj_Disn || content.ContentKey == DeclareKeys.NiandZongj_Diyn ?
+                            content.ContentKey :
                             SubString(content.ContentValue),
                   Type = content.ContentKey,
                   TeacherId = content.TeacherId,
@@ -57,7 +57,7 @@ namespace Business.Helper
       }
 
 
-      public static void AddDeclareMaterial(DeclareActive active, DeclarePeriod period, APDBDef db)
+      public static void AddDeclareMaterial(DeclareActive active, DeclarePeriod period, APDBDef db, long declareTargetId = 0)
       {
          if (active != null && period != null)
          {
@@ -72,13 +72,14 @@ namespace Business.Helper
                   Title = active.ContentValue,
                   Type = active.ActiveKey,
                   TeacherId = active.TeacherId,
-                  PeriodId = period.PeriodId
+                  PeriodId = period.PeriodId,
+                  DeclareTargetPKID= declareTargetId
                });
          }
       }
 
 
-      public static void AddDeclareMaterial(DeclareAchievement achievement, DeclarePeriod period, APDBDef db)
+      public static void AddDeclareMaterial(DeclareAchievement achievement, DeclarePeriod period, APDBDef db, long declareTargetId = 0)
       {
          if (achievement != null && period != null)
          {
@@ -93,7 +94,8 @@ namespace Business.Helper
                   Title = achievement.NameOrTitle,
                   Type = achievement.AchievementKey,
                   TeacherId = achievement.TeacherId,
-                  PeriodId = period.PeriodId
+                  PeriodId = period.PeriodId,
+                  DeclareTargetPKID= declareTargetId
                });
          }
       }
@@ -185,7 +187,7 @@ namespace Business.Helper
 
       public static void AddDeclareMaterial(TeamContent content, DeclarePeriod period, APDBDef db)
       {
-         if (content!=null && period != null)
+         if (content != null && period != null)
          {
             db.DeclareMaterialDal.ConditionDelete(dm.ItemId == content.TeamContentId & dm.PeriodId == period.PeriodId);
             if (content.IsDeclare)

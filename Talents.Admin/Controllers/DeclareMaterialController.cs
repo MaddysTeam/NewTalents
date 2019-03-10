@@ -15,15 +15,16 @@ namespace TheSite.Controllers
    {
 
       private static APDBDef.DeclareMaterialTableDef dm = APDBDef.DeclareMaterial;
-      private static APDBDef.AttachmentsTableDef att = APDBDef.Attachments;
-      private static APDBDef.BzUserProfileTableDef u = APDBDef.BzUserProfile;
+      //private static APDBDef.AttachmentsTableDef att = APDBDef.Attachments;
+      //private static APDBDef.BzUserProfileTableDef u = APDBDef.BzUserProfile;
       private static APDBDef.DeclareActiveTableDef da = APDBDef.DeclareActive;
       private static APDBDef.DeclareAchievementTableDef dac = APDBDef.DeclareAchievement;
       private static APDBDef.DeclareContentTableDef dc = APDBDef.DeclareContent;
       private static APDBDef.DeclarePeriodTableDef p = APDBDef.DeclarePeriod;
-      private static APDBDef.TeamActiveTableDef t = APDBDef.TeamActive;
-      private static APDBDef.TeamActiveResultTableDef tar = APDBDef.TeamActiveResult;
-      private static APDBDef.TeamSpecialCourseTableDef tsc = APDBDef.TeamSpecialCourse;
+      private static APDBDef.DeclareFormTableDef df = APDBDef.DeclareForm;
+      //private static APDBDef.TeamActiveTableDef t = APDBDef.TeamActive;
+      //private static APDBDef.TeamActiveResultTableDef tar = APDBDef.TeamActiveResult;
+      //private static APDBDef.TeamSpecialCourseTableDef tsc = APDBDef.TeamSpecialCourse;
 
 
       public ActionResult Index()
@@ -31,64 +32,12 @@ namespace TheSite.Controllers
          return View();
       }
 
-      // GET: DeclareMaterial/List
-      // POST: DeclareMaterial/List
 
-      //public ActionResult List(long? teacherId)
-      //{
-      //   return View();
-      //}
-
-      //[HttpPost]
-      //public ActionResult List(long? teacherId, int current, int rowCount, AjaxOrder sort, string searchPhrase)
-      //{
-      //   var period = db.DeclarePeriodDal.ConditionQuery(p.IsCurrent == true, null, null, null).FirstOrDefault();
-      //   if (period == null)
-      //      throw new ApplicationException("请设置申报周期");
-
-      //   var query = APQuery
-      //       .select(dm.MaterialId, dm.ItemId, dm.TeacherId, dm.Title, dm.Type, dm.ParentType,
-      //               u.RealName)
-      //       .from(dm, u.JoinInner(u.UserId == dm.TeacherId))
-      //       .primary(dm.MaterialId)
-      //       .skip((current - 1) * rowCount)
-      //       .take(rowCount)
-      //       .where(dm.TeacherId == teacherId & dm.PeriodId == period.PeriodId);
-
-      //   if (teacherId > 0)
-      //      query = query.where_and(dm.TeacherId == teacherId);
-
-      //   var total = db.ExecuteSizeOfSelect(query);
-
-      //   var result = query.query(db, r =>
-      //   {
-      //      return new
-      //      {
-      //         id = dm.MaterialId.GetValue(r),
-      //         itemId = dm.ItemId.GetValue(r),
-      //         userId = dm.TeacherId.GetValue(r),
-      //         realName = u.RealName.GetValue(r),
-      //         type = dm.Type.GetValue(r),
-      //         parentType = dm.ParentType.GetValue(r),
-      //         title = SubString(dm.Title.GetValue(r))
-      //      };
-      //   }).ToList();
-
-      //   return Json(new
-      //   {
-      //      rows = result,
-      //      current,
-      //      rowCount,
-      //      total
-      //   });
-      //}
-
-
-      // POST-Ajax: DeclareMaterial/DeclareActive  申报活动材料
+      // POST-Ajax: DeclareMaterial/DeclareActive 申报活动 TODO: declareTargetId 表示当前正在申报的称号
 
       [HttpPost]
       [DecalrePeriod]
-      public ActionResult DeclareActive(long id, bool isDeclare)
+      public ActionResult DeclareActive(long id, bool isDeclare, long declareTargetId)
       {
          ThrowNotAjax();
 
@@ -104,7 +53,7 @@ namespace TheSite.Controllers
             {
                db.DeclareActiveDal.UpdatePartial(id, new { isDeclare = active.IsDeclare });
 
-               DeclareMaterialHelper.AddDeclareMaterial(active, period, db);
+               DeclareMaterialHelper.AddDeclareMaterial(active, period, db, declareTargetId);
 
                db.Commit();
             }
@@ -135,11 +84,11 @@ namespace TheSite.Controllers
 
       }
 
-      // POST-Ajax: DeclareMaterial/DeclareAchievement 申报成果材料
+      // POST-Ajax: DeclareMaterial/DeclareAchievement 申报成果材料 TODO: declareTargetId 表示当前正在申报的称号
 
       [HttpPost]
       [DecalrePeriod]
-      public ActionResult DeclareAchievement(long id, bool isDeclare)
+      public ActionResult DeclareAchievement(long id, bool isDeclare,long declareTargetId)
       {
          ThrowNotAjax();
 
@@ -155,7 +104,7 @@ namespace TheSite.Controllers
             {
                db.DeclareAchievementDal.UpdatePartial(id, new { IsDeclare = achievement.IsDeclare });
 
-               DeclareMaterialHelper.AddDeclareMaterial(achievement, period, db);
+               DeclareMaterialHelper.AddDeclareMaterial(achievement, period, db, declareTargetId);
 
                db.Commit();
             }
@@ -226,19 +175,57 @@ namespace TheSite.Controllers
 
       public ActionResult Fragment(string key)
       {
-         if (key == DeclareKeys.XuekDaitr_Shenb || key==DeclareKeys.XuekDaitr_ZhicPog)
+         if (key == DeclareKeys.XuekDaitr_Shenb || key == DeclareKeys.XuekDaitr_ZhicPog)
          {
-            return PartialView("MaterialView5005");
+            return PartialView("MaterialView5005", key);
          }
 
          return View();
       }
 
 
+      // Get: DeclareMaterial/Submit
+      // POST-Ajax: DeclareMaterial/Submit
+
+      public ActionResult FormIndexEdit(string key)
+      {
+         var decalreForm = db.DeclareFormDal.ConditionQuery(df.PeriodId == Period.PeriodId & df.TeacherId == UserProfile.UserId, null, null, null).FirstOrDefault();
+         decalreForm = decalreForm ?? new DeclareForm();
+         return PartialView("_index", decalreForm);
+      }
+
+      [HttpPost]
+      public ActionResult FormIndexEdit(DeclareForm model)
+      {
+         model.PeriodId = Period.PeriodId;
+         model.TeacherId = UserProfile.UserId;
+         if (model.DeclareFormId == 0)
+         {
+            db.DeclareFormDal.Insert(model);
+         }
+         else
+         {
+            db.DeclareFormDal.UpdatePartial(model.DeclareFormId, new
+            {
+               model.CompanyId,
+               model.DeclareTargetPKID,
+               model.DeclareSubjectPKID,
+               model.IsBrokenRoles,
+               model.Reason
+            });
+         }
+
+         return Json(new
+         {
+            result = AjaxResults.Success,
+            msg = "操作成功！"
+         });
+      }
+
       // Get: DeclareMaterial/BasicMaterialEdit
       // POST-Ajax: DeclareMaterial/BasicMaterialEdit
 
-      public ActionResult BasicProfileEdit()
+      public ActionResult BasicProfileEdit(string key)
       {
          var profile = db.BzUserProfileDal.PrimaryGet(UserProfile.UserId);
          return PartialView("_profile5005", profile);
@@ -274,19 +261,57 @@ namespace TheSite.Controllers
       }
 
 
-      // Get: DeclareMaterial/Items
+      // Get: DeclareMaterial/DeclareActiveList   TODO:declareTargetId表示当前申报的称号
 
-      public ActionResult Items()
+      public ActionResult DeclareActiveList(string itemKey, long declareTargetId)
       {
-         var actives = APQuery.select(dm.MaterialId, da.Asterisk)
-            .from(dm, da.JoinLeft(dm.ItemId == da.DeclareActiveId))
-            .query(db,r=> new DeclareActive());
+         var results = db.DeclareActiveDal.ConditionQuery(da.TeacherId == UserProfile.UserId & da.IsDeclare == false & da.ActiveKey == itemKey, null, null, null);
 
-         var achievements= APQuery.select(dm.MaterialId, da.Asterisk)
-            .from(dm, da.JoinLeft(dm.ItemId == da.DeclareActiveId))
-            .query(db, r => new DeclareAchievement());
+         return PartialView("_declare_active_list", results);
+      }
+
+
+      // Get: DeclareMaterial/Items   TODO:declareTargetId表示当前申报的称号
+
+      public ActionResult Items(long declareTargetId)
+      {
+         var teacherId = UserProfile.UserId;
+         var actives = APQuery.select(dm.MaterialId, dm.DeclareTargetPKID, da.Asterisk)
+            .from(dm, da.JoinInner(dm.ItemId == da.DeclareActiveId))
+            .where(dm.PeriodId == Period.PeriodId & dm.TeacherId == teacherId & da.Creator == teacherId & dm.DeclareTargetPKID == declareTargetId)
+            .query(db, r =>
+            {
+               var active = new DeclareActive();
+               da.Fullup(r, active, false);
+
+               return active;
+            }).ToList();
+
+         var achievements = APQuery.select(dm.MaterialId, dm.DeclareTargetPKID, dac.Asterisk)
+            .from(dm, dac.JoinInner(dm.ItemId == dac.DeclareAchievementId))
+            .where(dm.PeriodId == Period.PeriodId & dm.TeacherId == teacherId & dac.Creator == teacherId & dm.DeclareTargetPKID == declareTargetId)
+            .query(db, r =>
+            {
+               var achievement = new DeclareAchievement();
+               dac.Fullup(r, achievement, false);
+
+               return achievement;
+            }).ToList();
+
+
+         ViewBag.DeclareActives = actives;
+
+         ViewBag.DecalreAchievements = achievements;
 
          return PartialView("_items5005");
+      }
+
+
+      // Get: DeclareMaterial/Items
+
+      public ActionResult Preview()
+      {
+         return View();
       }
 
 

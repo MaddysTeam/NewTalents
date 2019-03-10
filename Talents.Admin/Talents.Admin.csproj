@@ -314,7 +314,6 @@
     <Compile Include="Controllers\JsonController.cs" />
     <Compile Include="Controllers\EvalManageController.cs" />
     <Compile Include="Controllers\TeamPopController .cs" />
-    <Compile Include="Models\DeclareMaterialViewModel .cs" />
     <Compile Include="Models\EvalResultViewModels.cs" />
     <Compile Include="Models\AttachmentsModel.cs" />
     <Compile Include="Models\DeclareAchievementDataModel.cs" />
@@ -623,18 +622,18 @@
     <Content Include="Views\Company\Edit.cshtml" />
     <Content Include="Views\Home\EvalComments.cshtml" />
     <Content Include="Views\Attachment\Preview.cshtml" />
-    <Content Include="Views\DeclareMaterial\List.cshtml" />
-    <Content Include="Views\DeclareMaterial\Overview.cshtml" />
+    <Content Include="Views\DeclareMaterial\_declare_active_list.cshtml" />
+    <Content Include="Views\DeclareMaterial\Preview.cshtml" />
     <Content Include="Views\DeclareReview\Edit.cshtml" />
     <Content Include="Views\DeclareReview\List.cshtml" />
     <Content Include="Views\DeclarePeriod\Edit.cshtml" />
     <Content Include="Views\DeclarePeriod\List.cshtml" />
     <Content Include="Views\DeclareMaterial\MaterialView5002.cshtml" />
     <Content Include="Views\DeclareMaterial\Index.cshtml" />
-    <Content Include="Views\DeclareMaterial\_reason.cshtml" />
     <Content Include="Views\DeclareMaterial\_profile5005.cshtml" />
     <Content Include="Views\DeclareMaterial\MaterialView5005.cshtml" />
     <Content Include="Views\DeclareMaterial\_items5005.cshtml" />
+    <Content Include="Views\DeclareMaterial\_index.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

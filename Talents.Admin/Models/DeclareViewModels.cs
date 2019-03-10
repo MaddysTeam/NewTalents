@@ -176,6 +176,22 @@ namespace TheSite.Models
    }
 
 
+   public class ZisFaz_GongkKe
+   {
+      public DateTime Date { get; set; }
+
+      public string Location { get; set; }
+
+      public string Class { get; set; }
+
+      public string TitleOrContent { get; set; }
+
+      public string Level { get; set; }
+      
+      public string Org { get; set; }
+   }
+
+
    public class ZisFaz_ZiwFazJihModel
    {
 
@@ -402,6 +418,7 @@ namespace TheSite.Models
       public string Dynamic1 { get; set; }
 
    }
+
 
    public class ZisFaz_PeixJiangz_DingxxKecModel : DeclareActiveModel
    {
@@ -1058,6 +1075,19 @@ namespace TheSite.Models
 
       [Display(Name = "是否申报")]
       public bool IsDeclare { get; set; }
+   }
+
+
+   public class HistoryDeclareItemModel
+   {
+      public long Id { get; set; }
+      public string Dynamic1 { get; set; }
+      public string Dynamic2 { get; set; }
+      public string Dynamic3 { get; set; }
+      public string Dynamic4 { get; set; }
+      public string Dynamic5 { get; set; }
+      public string Dynamic6 { get; set; }
+      public string Dynamic7 { get; set; }
    }
 
 }

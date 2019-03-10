@@ -2217,8 +2217,8 @@ namespace TheSite.Controllers
          var memberDaList = APQuery.select(da.Asterisk, dcl.DeclareTargetPKID)
             .from(da, dcl.JoinInner(da.TeacherId == dcl.TeacherId))
             .where(
-            da.CreateDate >= currentPeriod.BeginDate & da.CreateDate <= currentPeriod.EndDate &
-            da.Date >= currentPeriod.BeginDate & da.Date <= currentPeriod.EndDate &
+            //da.CreateDate >= currentPeriod.BeginDate & da.CreateDate <= currentPeriod.EndDate &
+            //da.Date >= currentPeriod.BeginDate & da.Date <= currentPeriod.EndDate &
             da.TeacherId.In(subQuery) & (da.ActiveKey == DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk |
                                                 da.ActiveKey == DeclareKeys.ZisFaz_JiaoxHuod_Yantk |
                                                 da.ActiveKey == DeclareKeys.ZisFaz_JiaoxHuod_JiaoxPingb))
@@ -2233,7 +2233,7 @@ namespace TheSite.Controllers
          var memberDacList = APQuery.select(dac.Asterisk, dcl.DeclareTargetPKID)
             .from(dac, dcl.JoinInner(dac.TeacherId == dcl.TeacherId))
             .where(
-            dac.CreateDate >= currentPeriod.BeginDate & dac.CreateDate <= currentPeriod.EndDate &
+            //dac.CreateDate >= currentPeriod.BeginDate & dac.CreateDate <= currentPeriod.EndDate &
             dac.TeacherId.In(subQuery) & (dac.AchievementKey == DeclareKeys.ZisFaz_KeyChengg_KetYanj | dac.AchievementKey == DeclareKeys.ZisFaz_KeyChengg_FabLunw))
             .query(db, r =>
             {
@@ -2313,11 +2313,11 @@ namespace TheSite.Controllers
 
       private List<DeclareActive> QueryDeclareActiveList(long teacherId, EvalPeriod period)
          => db.DeclareActiveDal.ConditionQuery(
-            da.TeacherId == teacherId
-            & da.CreateDate >= period.BeginDate
-            & da.CreateDate <= period.EndDate
-            & da.Date >= period.BeginDate
-            & da.Date <= period.EndDate,
+            da.TeacherId == teacherId,
+            //& da.CreateDate >= period.BeginDate
+            //& da.CreateDate <= period.EndDate
+            //& da.Date >= period.BeginDate
+            //& da.Date <= period.EndDate,
             null, null, null);
 
 
@@ -2335,7 +2335,8 @@ namespace TheSite.Controllers
 
       private List<DeclareAchievement> QueryDeclareAchievementList(long teacherId, EvalPeriod period)
          => db.DeclareAchievementDal.ConditionQuery(
-            tat.TeacherId == teacherId & tat.CreateDate >= period.BeginDate & tat.CreateDate <= period.EndDate,
+            tat.TeacherId == teacherId ,
+            //& tat.CreateDate >= period.BeginDate & tat.CreateDate <= period.EndDate,
             null, null, null);
 
 
@@ -2362,8 +2363,9 @@ namespace TheSite.Controllers
          list = APQuery.select(t.Asterisk, p.Name)
             .from(t, p.JoinInner(t.ActiveType == p.PicklistItemId))
             .where(t.TeamId == teamId
-            & t.CreateDate >= current.BeginDate & t.CreateDate <= current.EndDate
-            & t.Date >= current.BeginDate & t.Date <= current.EndDate)
+            //& t.CreateDate >= current.BeginDate & t.CreateDate <= current.EndDate
+            //& t.Date >= current.BeginDate & t.Date <= current.EndDate
+            )
             .query(db, r =>
             {
                return new TeamActiveViewModel()

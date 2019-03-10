@@ -76,7 +76,7 @@
 			}
 		});
 
-		$('.widget .btn-declare').click(function (e) {
+		$('.btn-declare,.btn-cancelDeclare').off('click').on('click',function (e) {
 			e.preventDefault();
 
 			//if (confirm("确定要申报该材料吗？")) {
@@ -86,12 +86,13 @@
 				$.post(url, null, function (data, status) {
 					popupMessage(data, {
 						success: function () {
-							loadFrag();
+							loadFrag($this,data);
 						}
 					});
 				})
 			//}
 		});
+
 
 		insureSummernot($('#sum'));
 	})

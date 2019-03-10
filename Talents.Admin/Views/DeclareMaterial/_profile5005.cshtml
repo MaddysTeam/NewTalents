@@ -1,6 +1,9 @@
 ﻿@model BzUserProfile
+@{ 
+	var isBrokeRole = Request["key"] == DeclareKeys.XuekDaitr_ZhicPog;
+}
 <!-- WIDGET TABBED CONTENT -->
-<form action="@Url.Action("BasicProfileEdit", "DeclareMaterial")" method="post" class="form-horizontal form-group-sm" role="form" novalidate="novalidate">
+<form id="FormProfile" action="@Url.Action("BasicProfileEdit", "DeclareMaterial")" method="post" class="form-horizontal form-group-sm" role="form" novalidate="novalidate">
 	<input data-val="true" data-val-number="字段 修改周期ID 必须是一个数字。" data-val-required="修改周期ID 字段是必需的。" id="PeriodId" name="PeriodId" type="hidden" value="0">
 	<div class="row">
 		<fieldset class="col-md-6">
@@ -110,6 +113,20 @@
 
 		</fieldset>
 	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">校内履职-近三年考核情况</h4>
+		</div>
+		<div class="panel-body">
+			<div class="form-group">
+				<div class="col-md-3">2016学年<input type="text" value="" class="form-control"  /></div>
+				<div class="col-md-3">2017学年<input type="text" value="" class="form-control" /></div>
+				<div class="col-md-3">2018学年<input type="text" value="" class="form-control"  /></div>
+			</div>
+		</div>
+	</div>
+
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h4 class="panel-title">市“双名工程”上一轮人才梯队任职情况</h4>
@@ -125,10 +142,25 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">目前在市级及以上专业委员会任职情况（名称、职务）</h4>
+		</div>
+		<div class="panel-body">
+			<div class="form-group">
+				<div class="col-md-12">@Html.TextArea("temp","",5,10,new {@class="form-control" })</div>
+
+			</div>
+		</div>
+	</div>
+
 	<div class="form-group">
 		<div class="col-md-offset-5">
 			<button type="submit" class="btn btn-lg btn-custom-primary btn-save"><i class="fa fa-save"></i> 保存</button>
 		</div>
 	</div>
 </form>
-@Html.Partial("../Utilities/_partialJS")
+<script>
+	ajaxSubmitForm($('#FormProfile'));
+</script>
