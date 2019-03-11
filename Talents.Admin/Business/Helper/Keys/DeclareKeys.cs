@@ -140,6 +140,8 @@
       public const string ZhongzJihLingxReng = "种子计划领衔人";
       public const string GaodJiaoSYanxBanXuey = "高端教师研修班学员";
 
+      public const string Preview = "我的申报";
+
    }
 
 }

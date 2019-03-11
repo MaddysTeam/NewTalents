@@ -10,21 +10,14 @@
 </div>
 <div class="widget">
 	<div class="widget-header">
-		@if (Model == DeclareKeys.XuekDaitr_ZhicPog)
-		{
-			<h3>学科带头人 <strong class="red">职称破格申报表</strong></h3>
-			}
-		else
-		{
-			<h3>学科带头人 <strong class="red">申报表</strong></h3>
-			}
+		
+			<h3>学科带头人 <strong class="red">材料破格申报表</strong></h3>
+	   
+
 
 		<ul class="nav nav-tabs pull-right">
 			<li class="active"><a href="#tab0" data-toggle="tab"><i class="fa fa-tag"></i> 申报表首页</a></li>
 			<li><a href="#tab1" data-toggle="tab"><i class="fa fa-tag"></i> 基本情况和校内履职</a></li>
-			<li><a href="#tab2" data-toggle="tab"><i class="fa fa-tag"></i> 教育教学</a></li>
-			<li><a href="#tab3" data-toggle="tab"><i class="fa fa-tag"></i> 教育科研和教师培训</a></li>
-			<li><a href="#tab4" data-toggle="tab"><i class="fa fa-tag"></i> 个人特色</a></li>
 		</ul>
 	</div>
 	<div class="widget-content">
@@ -41,7 +34,7 @@
 <script>
 	$(function () {
 
-		$.get('@Url.Action("FormIndexEdit", "DeclareMaterial")?typeKey=@Model&view=_index5005&declareTargetId=@DeclareTargetIds.XuekDaitr', function (html) {
+		$.get('@Url.Action("FormIndexEdit", "DeclareMaterial")?typeKey=@Model&view=_index9999&declareTargetId=@DeclareTargetIds.XuekDaitr', function (html) {
 			$('#tab0').append(html);
 			$('#declareSubmit').click(function () {
 				$('#StatusKey').val('@DeclareKeys.ReviewProcess');
@@ -49,12 +42,8 @@
 			});
 		});
 
-		$.get('@Url.Action("BasicProfileEdit", "DeclareMaterial")?key=@Model&view=_profile5005', function (html) {
+		$.get('@Url.Action("BasicProfileEdit", "DeclareMaterial")?key=@Model&view=_profile9999', function (html) {
 			$('#tab1').html(html);
-		});
-
-		$.get('@Url.Action("Items", "DeclareMaterial")?declareTargetId=@DeclareTargetIds.XuekDaitr&view=_items5005', function (html) {
-			$('.items').append(html);
 		});
 
 	});

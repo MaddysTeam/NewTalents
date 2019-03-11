@@ -633,7 +633,10 @@
     <Content Include="Views\DeclareMaterial\_profile5005.cshtml" />
     <Content Include="Views\DeclareMaterial\MaterialView5005.cshtml" />
     <Content Include="Views\DeclareMaterial\_items5005.cshtml" />
-    <Content Include="Views\DeclareMaterial\_index.cshtml" />
+    <Content Include="Views\DeclareMaterial\_index5005.cshtml" />
+    <Content Include="Views\DeclareMaterial\MaterialView9999.cshtml" />
+    <Content Include="Views\DeclareMaterial\_profile9999.cshtml" />
+    <Content Include="Views\DeclareMaterial\_index9999.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

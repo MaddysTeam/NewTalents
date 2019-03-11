@@ -81,7 +81,7 @@ namespace TheSite.Controllers
 
       [HttpPost]
       [DecalrePeriod]
-      public ActionResult DeclareAchievement(long id, bool isDeclare,long declareTargetId)
+      public ActionResult DeclareAchievement(long id, bool isDeclare, long declareTargetId)
       {
          ThrowNotAjax();
 
@@ -142,7 +142,6 @@ namespace TheSite.Controllers
          {
             db.BeginTrans();
 
-
             db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == Period.PeriodId);
 
             APQuery.update(dc).set(dc.IsDeclare.SetValue(false)).where(dc.DeclareContentId == id).execute(db);
@@ -172,6 +171,14 @@ namespace TheSite.Controllers
          {
             return PartialView("MaterialView5005", key);
          }
+         else if (key == DeclareKeys.XuekDaitr_CaiLPog)
+         {
+            return PartialView("MaterialView9999", key);
+         }
+         else if (key == DeclareKeys.Preview)
+         {
+            return PartialView("Preview");
+         }
 
          return View();
       }
@@ -180,21 +187,35 @@ namespace TheSite.Controllers
       // Get: DeclareMaterial/Submit
       // POST-Ajax: DeclareMaterial/Submit
 
-      public ActionResult FormIndexEdit(string key)
+      public ActionResult FormIndexEdit(DeclareParam param)
       {
-         var decalreForm = db.DeclareFormDal.ConditionQuery(df.PeriodId == Period.PeriodId & df.TeacherId == UserProfile.UserId, null, null, null).FirstOrDefault();
-         decalreForm = decalreForm ?? new DeclareForm();
-         return PartialView("_index", decalreForm);
+         var poge = ".职称破格";
+         var isZcPoge = param.TypeKey.IndexOf(poge) > 0;
+         var decalreForm = db.DeclareFormDal.ConditionQuery(df.PeriodId == Period.PeriodId
+                         & df.TeacherId == UserProfile.UserId
+                         & df.TypeKey == (isZcPoge ? param.TypeKey.Replace(poge, ".申报") : param.TypeKey)
+                         & df.DeclareTargetPKID == param.DeclareTargetId
+                         , null, null, null).FirstOrDefault();
+
+         decalreForm = decalreForm ?? new DeclareForm { DeclareTargetPKID = param.DeclareTargetId, TypeKey = param.TypeKey };
+         return PartialView(param.View, decalreForm);
       }
 
       [HttpPost]
       public ActionResult FormIndexEdit(DeclareForm model)
       {
+         var poge = ".职称破格";
+         if (model.TypeKey.IndexOf(poge) > 0)
+            model.TypeKey = model.TypeKey.Replace(poge, ".申报");
+
          model.PeriodId = Period.PeriodId;
          model.TeacherId = UserProfile.UserId;
+
          if (model.DeclareFormId == 0)
          {
-            db.DeclareFormDal.Insert(model);
+            //var isExists = db.DeclareFormDal.ConditionQueryCount(df.TeacherId == model.TeacherId & df.PeriodId == Period.PeriodId & df.DeclareTargetPKID == model.DeclareTargetPKID) > 0;
+            //if (!isExists)
+               db.DeclareFormDal.Insert(model);
          }
          else
          {
@@ -207,14 +228,17 @@ namespace TheSite.Controllers
                model.Reason,
                model.AllowFlowToDowngrade,
                model.AllowFlowToSchool,
-               model.AllowFitResearcher
+               model.AllowFitResearcher,
+               model.StatusKey,
+               model.TypeKey
             });
          }
 
          return Json(new
          {
             result = AjaxResults.Success,
-            msg = "操作成功！"
+            msg = "操作成功！",
+            data = model
          });
       }
 
@@ -222,10 +246,10 @@ namespace TheSite.Controllers
       // Get: DeclareMaterial/BasicMaterialEdit
       // POST-Ajax: DeclareMaterial/BasicMaterialEdit
 
-      public ActionResult BasicProfileEdit(string key)
+      public ActionResult BasicProfileEdit(string key, string view)
       {
          var profile = db.BzUserProfileDal.PrimaryGet(UserProfile.UserId);
-         return PartialView("_profile5005", profile);
+         return PartialView(view, profile);
       }
 
       [HttpPost]
@@ -275,7 +299,7 @@ namespace TheSite.Controllers
 
       // Get: DeclareMaterial/Items   TODO:declareTargetId表示当前申报的称号
 
-      public ActionResult Items(long declareTargetId)
+      public ActionResult Items(long declareTargetId, string view)
       {
          var teacherId = UserProfile.UserId;
          var actives = APQuery.select(dm.MaterialId, dm.DeclareTargetPKID, da.Asterisk)
@@ -305,7 +329,7 @@ namespace TheSite.Controllers
 
          ViewBag.DecalreAchievements = achievements;
 
-         return PartialView("_items5005");
+         return PartialView(view);
       }
 
 
@@ -314,23 +338,6 @@ namespace TheSite.Controllers
       public ActionResult Preview()
       {
          return View();
-      }
-
-
-      // POST-Ajax: DeclareMaterial/Submit
-
-      [HttpPost]
-      public ActionResult Submit(long formId)
-      {
-         db.DeclareFormDal.UpdatePartial(formId, new {
-            StatusKey = DeclareKeys.ReviewProcess
-         });
-
-         return Json(new
-         {
-            result = AjaxResults.Success,
-            msg = "操作成功！"
-         });
       }
 
 

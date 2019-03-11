@@ -13,7 +13,14 @@ namespace TheSite.Models
 		public string Subject { get; set; }
 		public string Stage { get; set; }
 		public string CompanyName { get; set; }
-
 	}
+
+
+   public class DeclareParam
+   {
+      public long DeclareTargetId { get; set; }
+      public string TypeKey { get; set; }
+      public string View { get; set; }
+   }
 
 }

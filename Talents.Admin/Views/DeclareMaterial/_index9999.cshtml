@@ -1,0 +1,90 @@
+﻿@model DeclareForm
+
+<form action="@Url.Action("FormIndexEdit", "DeclareMaterial")" method="post" class="form-horizontal form-group-sm" role="form" novalidate="novalidate" id="FormIndex">
+	<input data-val="true" data-val-number="字段 修改周期ID 必须是一个数字。" data-val-required="修改周期ID 字段是必需的。" id="PeriodId" name="PeriodId" type="hidden" value="0">
+	<div class="row">
+		<fieldset class="col-md-9">
+			<div>
+				@Html.HiddenFor(m => m.DeclareFormId)
+				@Html.HiddenFor(m => m.TeacherId)
+				@Html.HiddenFor(m => m.StatusKey)
+				@Html.HiddenFor(m => m.TypeKey)
+				@Html.HiddenFor(m => m.DeclareTargetPKID)
+				<div class="form-group">
+					@Html.LabelFor(m => m.DeclareTargetPKID, new { @class = "col-md-2 control-label" })
+					<div class="col-md-9">
+						<strong>@Html.Label("temp", DeclareKeys.XuekDaitr)</strong>
+					</div>
+				</div><div class="form-group">
+					@Html.Label("teacherName", "姓名", new { @class = "col-md-2 control-label" })
+					<div class="col-md-9">
+						<strong>@Html.Label("realname", Html.GetUserProfile().RealName)</strong>
+					</div>
+				</div>
+
+				<div class="form-group">
+					@Html.LabelFor(m => m.CompanyId, new { @class = "col-md-2 control-label" })
+					<div class="col-md-9">
+						@Html.DropDownListFor(m => m.CompanyId, CompanyHelper.GetCompanySelectList(), new { @class = "form-control" })
+					</div>
+				</div>
+
+				<div class="form-group">
+					@Html.LabelFor(m => m.DeclareSubjectPKID, new { @class = "col-md-2 control-label" })
+					<div class="col-md-9">
+						@Html.DropDownListFor(m => m.DeclareSubjectPKID, BzUserProfileHelper.EduSubject.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
+					</div>
+				</div>
+
+				<div class="form-group">
+					@Html.LabelFor(m => m.Reason, new { @class = "col-md-2 control-label" })
+					<div class="col-md-9">
+						专业发展自我陈述（包括：本人教育理念、实践探索、教书育人成效等。500字左右。）
+						@Html.TextAreaFor(m => m.Reason, 30, 10, new { @class = "form-control" })
+						@*<div class="summernote-frame no-padding">
+								<div id="sum" class="summernote required" data-whatever="Summary"></div>
+							</div>*@
+					</div>
+				</div>
+
+			</div>
+		</fieldset>
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-offset-4">
+			<button type="submit" id="submit" class="btn btn-lg btn-danger btn-save"><i class="fa fa-save"></i>保存</button>
+		</div>
+
+	</div>
+</form>
+<script>
+	function afterDialogSuccess(data) {
+		$('#DeclareFormId').val(data.DeclareFormId);
+	}
+
+	$(function () {
+
+		ajaxSubmitForm($('#FormIndex'));
+
+	});
+
+
+	function ajaxSubmitForm(selector) {
+		$.validator.unobtrusive.parse(selector);
+
+		selector.submit(function (e) {
+			e.preventDefault();
+			var $this = $(this);
+			$this.valid() && $.post($this.attr('action'), $this.serialize(), function (data, status) {
+				popupMessage(data, {
+					success: function () {
+						afterDialogSuccess(data.data);
+					}
+				});
+			})
+		});
+	}
+
+	//insureSummernot($('#sum'));
+</script>

@@ -1,0 +1,179 @@
+﻿@model BzUserProfile
+@{
+	var isBrokeRole = Request["key"] == DeclareKeys.XuekDaitr_ZhicPog;
+}
+<!-- WIDGET TABBED CONTENT -->
+<form id="FormProfile" action="@Url.Action("BasicProfileEdit", "DeclareMaterial")" method="post" class="form-horizontal form-group-sm" role="form" novalidate="novalidate">
+	<input data-val="true" data-val-number="字段 修改周期ID 必须是一个数字。" data-val-required="修改周期ID 字段是必需的。" id="PeriodId" name="PeriodId" type="hidden" value="0">
+	<div class="row">
+		<fieldset class="col-md-6">
+			<div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.RealName, new { @class = "col-md-3 control-label" })
+					<div class="col-md-9">
+						@Html.TextBoxFor(m => m.RealName, new { @class = "form-control" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.GenderPKID, new { @class = "col-md-3 control-label" })
+					<div class="col-md-9">
+						@Html.DropDownListFor(m => m.GenderPKID, BzUserProfileHelper.Gender.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.Birthday, new { @class = "col-md-3 control-label" })
+					<div class="col-md-9">
+						<div class="input-group date" data-provide="datepicker" data-date-language="zh-CN" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
+							@Html.TextBoxFor(m => m.Birthday, "{0:yyyy-MM-dd}", new { @class = "form-control" })
+							<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.CompanyId, new { @class = "col-md-3 control-label" })
+					<div class="col-md-9">
+						@Html.DropDownListFor(m => m.CompanyId, CompanyHelper.GetCompanySelectList(), new { @class = "form-control" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.TrainNo, new { @class = "col-md-3 control-label" })
+					<div class="col-md-9">
+						@Html.TextBoxFor(m => m.TrainNo, new { @class = "form-control" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.PoliticalStatusPKID, new { @class = "col-md-3 control-label" })
+					<div class="col-md-9">
+						@Html.DropDownListFor(m => m.PoliticalStatusPKID, BzUserProfileHelper.PoliticalStatus.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.CourseCountPerWeek, new { @class = "col-md-3 control-label" })
+					<div class="col-md-9">
+						@Html.TextBoxFor(m => m.CourseCountPerWeek, new { @class = "form-control" })
+					</div>
+				</div>
+
+			</div>
+		</fieldset>
+		<fieldset class="col-md-6">
+			<div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.NationalityPKID, new { @class = "col-md-3 control-label" })
+					<div class="col-md-9">
+						@Html.DropDownListFor(m => m.NationalityPKID, BzUserProfileHelper.Nationality.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.EduSubjectPKID, new { @class = "col-md-3 control-label" })
+					<div class="col-md-9">
+						@Html.DropDownListFor(m => m.EduSubjectPKID, BzUserProfileHelper.EduSubject.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.SkillTitlePKID, new { @class = "col-md-3 control-label" })
+					<div class="col-md-9">
+						@Html.DropDownListFor(m => m.SkillTitlePKID, BzUserProfileHelper.SkillTitle.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.RankTitlePKID, new { @class = "col-md-3 control-label" })
+					<div class="col-md-9">
+						@Html.DropDownListFor(m => m.RankTitlePKID, BzUserProfileHelper.RankTitle.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.Hiredate, new { @class = "col-md-3 control-label" })
+					<div class="col-md-9">
+						<div class="input-group date" data-provide="datepicker" data-date-language="zh-CN" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
+							@Html.TextBoxFor(m => m.Hiredate, "{0:yyyy-MM-dd}", new { @class = "form-control" })
+							<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.Phonemobile, new { @class = "col-md-3 control-label" })
+					<div class="col-md-9">
+						@Html.TextBoxFor(m => m.Phonemobile, new { @class = "form-control" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.Phone, new { @class = "col-md-3 control-label" })
+					<div class="col-md-9">
+						@Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.Email, new { @class = "col-md-3 control-label" })
+					<div class="col-md-9">
+						@Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+					</div>
+				</div>
+			</div>
+		</fieldset>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">校内履职-近三年考核情况</h4>
+		</div>
+		<div class="panel-body">
+			<div class="form-group">
+				<div class="col-md-3">2016学年 @Html.TextBoxFor(m => m.Dynamic1, new { @class = "form-control" })</div>
+				<div class="col-md-3">2017学年 @Html.TextBoxFor(m => m.Dynamic2, new { @class = "form-control" })</div>
+				<div class="col-md-3">2018学年 @Html.TextBoxFor(m => m.Dynamic3, new { @class = "form-control" })</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">市“双名工程”上一轮人才梯队任职情况</h4>
+		</div>
+		<div class="panel-body">
+			<div class="form-group">
+				<div class="col-md-3">
+					@Html.RadioButton("Dynamic4", DeclareKeys.GonggJihChengy, Model.Dynamic4 == DeclareKeys.GonggJihChengy, new { @style = "vertical-align:middle;width:20px;height:20px" })
+					&nbsp;&nbsp;<span style="vertical-align:middle;">上一轮是“公关计划成员”主持人</span>
+				</div>
+				<div class="col-md-3">
+					@Html.RadioButton("Dynamic4", DeclareKeys.ZhongzJihLingxReng, Model.Dynamic4 == DeclareKeys.ZhongzJihLingxReng, new { @style = "vertical-align:middle;width:20px;height:20px" })
+					&nbsp;&nbsp;<span style="vertical-align:middle;">上一轮是“种子计划”领衔人</span>
+				</div>
+				<div class="col-md-3">
+					@Html.RadioButton("Dynamic4", DeclareKeys.GongzsZhucr, Model.Dynamic4 == DeclareKeys.GongzsZhucr, new { @style = "vertical-align:middle;width:20px;height:20px" })
+					&nbsp;&nbsp;<span style="vertical-align:middle;">上一轮是学科培训工作室主持人</span>
+				</div>
+				<div class="col-md-3">
+					@Html.RadioButton("Dynamic4", DeclareKeys.XuekDaitr, Model.Dynamic4 == DeclareKeys.XuekDaitr, new { @style = "vertical-align:middle;width:20px;height:20px" })
+					&nbsp;&nbsp;<span style="vertical-align:middle;">上一轮是学科带头人</span>
+				</div>
+				<div class="col-md-3">
+					@Html.RadioButton("Dynamic4", DeclareKeys.GugJiaos, Model.Dynamic4 == DeclareKeys.GugJiaos, new { @style = "vertical-align:middle;width:20px;height:20px" })
+					&nbsp;&nbsp;<span style="vertical-align:middle;">上一轮是骨干教师</span>
+				</div>
+				<div class="col-md-3">
+					@Html.RadioButton("Dynamic4", DeclareKeys.GaodJiaoSYanxBanXuey, Model.Dynamic4 == DeclareKeys.GaodJiaoSYanxBanXuey, new { @style = "vertical-align:middle;width:20px;height:20px" })
+					&nbsp;&nbsp;<span style="vertical-align:middle;">高端教师研修班学员</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">目前在区级及以上专业委员会任职情况（名称、职务）</h4>
+		</div>
+		<div class="panel-body">
+			<div class="form-group">
+				<div class="col-md-12">@Html.TextAreaFor(m => m.Dynamic5, 5, 10, new { @class = "form-control" })</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-offset-5">
+			<button type="submit" class="btn btn-lg btn-custom-primary btn-save"><i class="fa fa-save"></i> 保存</button>
+		</div>
+	</div>
+</form>
+<script>
+	ajaxSubmitForm($('#FormProfile'));
+</script>

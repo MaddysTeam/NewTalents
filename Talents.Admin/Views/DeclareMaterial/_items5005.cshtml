@@ -311,7 +311,7 @@
 }
 <script>
 	function loadFrag() {
-		$.get('@Url.Action("Items", "DeclareMaterial")?declareTargetId=@declareTargetId', function (html) {
+		$.get('@Url.Action("Items", "DeclareMaterial")?declareTargetId=@declareTargetId&view=_items5005', function (html) {
 			$('#tab2,#tab3,#tab4').remove();
 			$('.items').append(html);
 			$('a[href="#tab3"]').tab('show');

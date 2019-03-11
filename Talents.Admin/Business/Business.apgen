@@ -510,6 +510,7 @@
 					<add name="PeriodId" type="long" display="申报周期ID"/>
 					<add name="Reason" type="string" dataLength="40000" display="申报理由"/>
 					<add name="AllowFlowToDowngrade" type="bool" display="若落选，是否愿意参加低一层级称号的评选"/>
+					<add name="TypeKey" type="string" dataLength="100" display="表单类型"/>
 					<add name="StatusKey" type="string" dataLength="100" display="审核状态"/>
 					<add name="ReviewComment" type="string" dataLength="2000" display="校管理员审批意见" />
 					

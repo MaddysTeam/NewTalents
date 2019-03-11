@@ -72,7 +72,7 @@
 			$treeviewApp.jstree({
 				'core': {
 					'data': {
-						'url': '/Json/GetDecalreMaterial'
+						'url': '/Json/GetDecalreMaterial?userId=@Html.GetUserProfile().UserId'
 					},
 					'check_callback': true,
 				},

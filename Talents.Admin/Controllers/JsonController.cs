@@ -563,9 +563,10 @@ namespace TheSite.Controllers
 
          if (declareForm != null)
          {
-            //预览菜单
+            list.Add(new json_treenode { id = DeclareKeys.Preview, text = "我的申报", type = json_treenode_types.database });
          }
-         else {
+         else
+         {
             list.Add(gaodLisZhang);
             list.Add(jiDZhucReng);
             list.Add(xuekDaitReng);
