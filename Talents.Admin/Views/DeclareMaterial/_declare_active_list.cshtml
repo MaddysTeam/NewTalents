@@ -2,6 +2,7 @@
 @{
 	var pageTitle = ViewBag.Title = "历史库";
 	var isGongkk = Request["itemKey"] == DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk;
+	var isPingb = Request["itemKey"] == DeclareKeys.ZisFaz_JiaoxHuod_JiaoxPingb;
 	var declareTargetId = Request["declareTargetId"];
 }
 
@@ -44,6 +45,45 @@
 									</td>
 									<td>
 										@item.Dynamic1
+									</td>
+									<td>
+										@item.ContentValue
+									</td>
+									<td>
+										@item.Level
+									</td>
+									<td>
+										@item.Dynamic2
+									</td>
+									<td>
+										<a target="_blank" class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareActive", "DeclareMaterial", new {id=item.DeclareActiveId, isDeclare=true, declareTargetId= declareTargetId })" href="#"><i class="fa fa-external-link"></i>申报</a>
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				}
+				else if (isPingb)
+				{
+					<table class="table table-striped table-hover table-dark-header">
+						<thead>
+							<tr>
+								<th>时间</th>
+								<th>地点、班级</th>
+								<th>课题/内容</th>
+								<th>级别</th>
+								<th>组织、单位</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model)
+							{
+								<tr>
+									<td>
+										@item.Date.ToString("yyyy-MM-dd")
+									</td>
+									<td>
+										@item.Location
 									</td>
 									<td>
 										@item.ContentValue

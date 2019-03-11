@@ -65,7 +65,6 @@ namespace System.Web
          return period ?? new DeclarePeriod();
       }
 
-
       public static bool IsRole(this HttpContextBase httpContext, string roleName)
           => (httpContext.User.Identity as ClaimsIdentity)
                   .HasClaim(c => c.Type == ClaimTypes.Role && c.Value == roleName);

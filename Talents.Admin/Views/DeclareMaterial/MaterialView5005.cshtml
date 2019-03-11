@@ -5,22 +5,22 @@
 	<strong>*注意！点击【提交申报】后将无法选择和填写当前或其他称号的申报表单！</strong>
 </div>
 <div class="gallery-buttons  bottom-30px">
-	<a href="@Url.Action("Preview","DeclareMaterial")" target="_blank" class="btn btn-info" ><i class="fa fa-eye"> 预览申报</i></a> &nbsp; &nbsp;
-	<button class="btn btn-primary"><i class="fa fa-pencil"> 申报提交</i></button>
+	<a href="@Url.Action("Preview","DeclareMaterial")" target="_blank" class="btn btn-info"><i class="fa fa-eye"> 预览申报</i></a> &nbsp; &nbsp;
+	<button class="btn btn-primary" id="declareSubmit"><i class="fa fa-pencil"> 申报提交</i></button>
 </div>
 <div class="widget">
 	<div class="widget-header">
 		@if (Model == DeclareKeys.XuekDaitr_ZhicPog)
 		{
 			<h3>学科带头人 <strong class="red">职称破格申报表</strong></h3>
-		}
+			}
 		else
 		{
 			<h3>学科带头人 <strong class="red">申报表</strong></h3>
-		}
-		
+			}
+
 		<ul class="nav nav-tabs pull-right">
-			<li  class="active"><a href="#tab0" data-toggle="tab"><i class="fa fa-tag"></i> 申报表首页</a></li>
+			<li class="active"><a href="#tab0" data-toggle="tab"><i class="fa fa-tag"></i> 申报表首页</a></li>
 			<li><a href="#tab1" data-toggle="tab"><i class="fa fa-tag"></i> 基本情况和校内履职</a></li>
 			<li><a href="#tab2" data-toggle="tab"><i class="fa fa-tag"></i> 教育教学</a></li>
 			<li><a href="#tab3" data-toggle="tab"><i class="fa fa-tag"></i> 教育科研和教师培训</a></li>
@@ -29,34 +29,34 @@
 	</div>
 	<div class="widget-content">
 		<div class="tab-content no-padding items">
-
 			<!-- 首页 -->
 			<div class="tab-pane fade in active" id="tab0">
 			</div>
-
 			<!-- 基本情况 -->
 			<div class="tab-pane fade in" id="tab1">
 			</div>
-
 		</div>
 	</div>
 </div>
-
 <script>
+	$(function () {
 
-	$.get('@Url.Action("FormIndexEdit", "DeclareMaterial")?key=@Model', function (html) {
-		$('#tab0').append(html);
+		$.get('@Url.Action("FormIndexEdit", "DeclareMaterial")?key=@Model', function (html) {
+			$('#tab0').append(html);
+		});
+
+		$.get('@Url.Action("BasicProfileEdit", "DeclareMaterial")?key=@Model', function (html) {
+			$('#tab1').html(html);
+		});
+
+		$.get('@Url.Action("Items", "DeclareMaterial")?declareTargetId=@DeclareTargetIds.XuekDaitr', function (html) {
+			$('.items').append(html);
+		});
+
+		@*$('#')
+		$.post('@Url.Action("Submit", "DeclareMaterial")')*@
+		$('#declareSubmit').click(function () {
+			$('#submit').click();
+		}); 
 	});
-
-	$.get('@Url.Action("BasicProfileEdit", "DeclareMaterial")?key=@Model', function (html) {
-		$('#tab1').html(html);
-	});
-
-	$.get('@Url.Action("Items", "DeclareMaterial")?declareTargetId=@DeclareTargetIds.XuekDaitr', function (html) {
-		$('.items').append(html);
-	});
-
 </script>
-
-<!-- END WIDGET TABBED CONTENT -->
-@*@Html.Partial("../Utilities/_partialJS")*@

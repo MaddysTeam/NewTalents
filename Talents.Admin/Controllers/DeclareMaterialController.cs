@@ -15,23 +15,16 @@ namespace TheSite.Controllers
    {
 
       private static APDBDef.DeclareMaterialTableDef dm = APDBDef.DeclareMaterial;
-      //private static APDBDef.AttachmentsTableDef att = APDBDef.Attachments;
-      //private static APDBDef.BzUserProfileTableDef u = APDBDef.BzUserProfile;
       private static APDBDef.DeclareActiveTableDef da = APDBDef.DeclareActive;
       private static APDBDef.DeclareAchievementTableDef dac = APDBDef.DeclareAchievement;
       private static APDBDef.DeclareContentTableDef dc = APDBDef.DeclareContent;
       private static APDBDef.DeclarePeriodTableDef p = APDBDef.DeclarePeriod;
       private static APDBDef.DeclareFormTableDef df = APDBDef.DeclareForm;
-      //private static APDBDef.TeamActiveTableDef t = APDBDef.TeamActive;
-      //private static APDBDef.TeamActiveResultTableDef tar = APDBDef.TeamActiveResult;
-      //private static APDBDef.TeamSpecialCourseTableDef tsc = APDBDef.TeamSpecialCourse;
-
 
       public ActionResult Index()
       {
          return View();
       }
-
 
       // POST-Ajax: DeclareMaterial/DeclareActive 申报活动 TODO: declareTargetId 表示当前正在申报的称号
 
@@ -211,7 +204,10 @@ namespace TheSite.Controllers
                model.DeclareTargetPKID,
                model.DeclareSubjectPKID,
                model.IsBrokenRoles,
-               model.Reason
+               model.Reason,
+               model.AllowFlowToDowngrade,
+               model.AllowFlowToSchool,
+               model.AllowFitResearcher
             });
          }
 
@@ -221,6 +217,7 @@ namespace TheSite.Controllers
             msg = "操作成功！"
          });
       }
+
 
       // Get: DeclareMaterial/BasicMaterialEdit
       // POST-Ajax: DeclareMaterial/BasicMaterialEdit
@@ -250,7 +247,12 @@ namespace TheSite.Controllers
             model.Hiredate,
             model.Phonemobile,
             model.Phone,
-            model.Email
+            model.Email,
+            model.Dynamic1,
+            model.Dynamic2,
+            model.Dynamic3,
+            model.Dynamic4,
+            model.Dynamic5
          });
 
          return Json(new
@@ -312,6 +314,23 @@ namespace TheSite.Controllers
       public ActionResult Preview()
       {
          return View();
+      }
+
+
+      // POST-Ajax: DeclareMaterial/Submit
+
+      [HttpPost]
+      public ActionResult Submit(long formId)
+      {
+         db.DeclareFormDal.UpdatePartial(formId, new {
+            StatusKey = DeclareKeys.ReviewProcess
+         });
+
+         return Json(new
+         {
+            result = AjaxResults.Success,
+            msg = "操作成功！"
+         });
       }
 
 

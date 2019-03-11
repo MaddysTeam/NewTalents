@@ -1,12 +1,11 @@
-﻿@{ 
+﻿@{
 	var activeItems = ViewBag.DeclareActives as List<DeclareActive>;
 	var gongkKe = activeItems.FindAll(at => at.ActiveKey == DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk);
+	var jiaoxPingb = activeItems.FindAll(at => at.ActiveKey == DeclareKeys.ZisFaz_JiaoxHuod_JiaoxPingb);
 	var declareTargetId = Request["declareTargetId"];
 }
-
 <!-- 教育教学 -->
 <div class="tab-pane fade itmes" id="tab2">
-
 	<!-- WIDGET TABBED CONTENT -->
 	<div class="widget">
 		<div class="widget-header">
@@ -20,13 +19,12 @@
 						<a class="btn btn-warning pull-right" data-url="@Url.Action("ZisFaz_JiaoxHuod_JiaoxGongkk", "DeclarePop")" data-toggle="ajax-modal" data-target="#firstModal">新增申报</a>
 						<a class="btn btn-info pull-right" data-url="@Url.Action("DeclareActiveList", "DeclareMaterial",new { itemKey =DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk, declareTargetId=declareTargetId})" data-toggle="ajax-modal" data-target="#firstModal">历史库</a>
 					}
-					
 				</div>
 				<div>
 					近三年 “公开课”情况（最多填两项）<br />（提示：本栏内容来源“自身发展”之“教学活动-开设教学公开课”）
 				</div>
 			</div>
-		
+
 			<div class="table-responsive">
 				<table class="table table-condensed table-striped table-hover">
 					<thead>
@@ -67,11 +65,10 @@
 									<button class="btn btn-danger btn-sm btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_JiaoxHuod_JiaoxGongkk })" data-target="#firstModal" title="查看附件">查看附件</button>
 								</td>
 							</tr>
-						}					
+						}
 					</tbody>
 				</table>
 			</div>
-
 		</div>
 	</div>
 	<!-- END WIDGET TABBED CONTENT -->
@@ -81,6 +78,16 @@
 			<h3><i class="fa fa-paperclip"></i>教育教学-教育教学评比</h3>
 		</div>
 		<div class="widget-content">
+			<div>
+				@if (gongkKe != null && gongkKe.Count < 2)
+				{
+					<a class="btn btn-warning pull-right" data-url="@Url.Action("ZisFaz_JiaoxHuod_JiaoxPingb", "DeclarePop")" data-toggle="ajax-modal" data-target="#firstModal">新增申报</a>
+					<a class="btn btn-info pull-right" data-url="@Url.Action("DeclareActiveList", "DeclareMaterial",new { itemKey =DeclareKeys.ZisFaz_JiaoxHuod_JiaoxPingb, declareTargetId=declareTargetId})" data-toggle="ajax-modal" data-target="#firstModal">
+						历史库
+					</a>
+				}
+			</div>
+
 			<div class="alert alert-info">
 				近三年区级及以上“课堂教学评比或其他教育评比”情况（最多填两项）<br />（提示：本栏内容来源“自身发展”之“教学活动-参加教育教学评比”）
 			</div>
@@ -89,18 +96,41 @@
 					<thead>
 						<tr>
 							<th>时间</th>
-							<th>地点</th>
-							<th>班级</th>
+							<th>地点、班级</th>
 							<th>课题/内容</th>
-							<th>级别</th>
+							<th>奖项名称、等第</th>
 							<th>组织单位、部门</th>
 							<th class="width240">操作</th>
 						</tr>
 					</thead>
-					<tbody></tbody>
+					<tbody>
+						@foreach (var item in jiaoxPingb)
+						{
+							<tr>
+								<td>
+									@item.Date.ToString("yyyy-MM-dd")
+								</td>
+								<td>
+									@item.Location
+								</td>
+								<td>
+									@item.ContentValue
+								</td>
+								<td>
+									@item.Dynamic2
+								</td>
+								<td>
+									@item.Dynamic3
+								</td>
+								<td>
+									<a target="_blank" class="btn btn-warning btn-sm  btn-cancelDeclare" data-url="@Url.Action("DeclareActive", "DeclareMaterial", new {id=item.DeclareActiveId, isDeclare=false, declareTargetId = declareTargetId })" href="#">取消申报</a>
+									<button class="btn btn-danger btn-sm btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_JiaoxHuod_JiaoxGongkk })" data-target="#firstModal" title="查看附件">查看附件</button>
+								</td>
+							</tr>
+						}
+					</tbody>
 				</table>
 			</div>
-
 		</div>
 	</div>
 	<!-- END WIDGET TABBED CONTENT -->
@@ -128,7 +158,6 @@
 					<tbody></tbody>
 				</table>
 			</div>
-
 		</div>
 	</div>
 	<!-- END WIDGET TABBED CONTENT -->
@@ -157,16 +186,12 @@
 					<tbody></tbody>
 				</table>
 			</div>
-
 		</div>
 	</div>
 	<!-- END WIDGET TABBED CONTENT -->
-
 </div>
-
 <!-- 教育科研和教师培训 -->
 <div class="tab-pane fade" id="tab3">
-
 	<!-- WIDGET TABBED CONTENT -->
 	<div class="widget">
 		<div class="widget-header">
@@ -193,16 +218,12 @@
 					<tbody></tbody>
 				</table>
 			</div>
-
 		</div>
 	</div>
 	<!-- END WIDGET TABBED CONTENT -->
-
 </div>
-
 <!-- 个人特色 -->
 <div class="tab-pane fade" id="tab4">
-
 	<!-- WIDGET TABBED CONTENT -->
 	<div class="widget">
 		<div class="widget-header">
@@ -226,7 +247,6 @@
 					<tbody></tbody>
 				</table>
 			</div>
-
 		</div>
 	</div>
 	<!-- END WIDGET TABBED CONTENT -->
@@ -253,7 +273,6 @@
 					<tbody></tbody>
 				</table>
 			</div>
-
 		</div>
 	</div>
 	<!-- END WIDGET TABBED CONTENT -->
@@ -280,23 +299,19 @@
 					<tbody></tbody>
 				</table>
 			</div>
-
 		</div>
 	</div>
 	<!-- END WIDGET TABBED CONTENT -->
-
 </div>
-
 @section Modals {
 	<!-- Modal start -->
 	<div class="modal" id="firstModal" tabindex="-1" role="dialog" aria-labelledby="firstModalLabel" aria-hidden="true">
 	</div>
 	<!-- Modal end -->
 }
-
 <script>
 	function loadFrag() {
-		$.get('@Url.Action("Items", "DeclareMaterial")', function (html) {
+		$.get('@Url.Action("Items", "DeclareMaterial")?declareTargetId=@declareTargetId', function (html) {
 			$('#tab2,#tab3,#tab4').remove();
 			$('.items').append(html);
 			$('a[href="#tab3"]').tab('show');

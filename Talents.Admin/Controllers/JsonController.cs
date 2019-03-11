@@ -528,11 +528,13 @@ namespace TheSite.Controllers
       }
 
 
-      //	GET: Json/GetAllDeclare
+      //	GET: Json/GetDecalreMaterial
 
-      public ActionResult GetAllDeclare(long? userId)
+      public ActionResult GetDecalreMaterial(long? userId)
       {
          ThrowNotAjax();
+
+         var df = APDBDef.DeclareForm;
 
          List<json_treenode> list = new List<json_treenode>();
 
@@ -543,22 +545,34 @@ namespace TheSite.Controllers
          xuekDaitReng.children.Add(new json_treenode { id = DeclareKeys.XuekDaitr_Shenb, text = "申报" });
          xuekDaitReng.children.Add(new json_treenode { id = DeclareKeys.XuekDaitr_ZhicPog, text = "职称破格" });
          xuekDaitReng.children.Add(new json_treenode { id = DeclareKeys.XuekDaitr_CaiLPog, text = "材料破格" });
-         var gugJiaos = new json_treenode { id ="5006", text = "骨干教师", type = json_treenode_types.database, children = new List<json_treenode>() };
+         var gugJiaos = new json_treenode { id = "5006", text = "骨干教师", type = json_treenode_types.database, children = new List<json_treenode>() };
          gugJiaos.children.Add(new json_treenode { id = "500601", text = "申报" });
          gugJiaos.children.Add(new json_treenode { id = "500602", text = "职称破格" });
          gugJiaos.children.Add(new json_treenode { id = "500603", text = "材料破格" });
          var jiaoxNengs = new json_treenode { id = "5007", text = "教学能手", type = json_treenode_types.database, children = new List<json_treenode>() };
-         jiaoxNengs.children.Add(new json_treenode { id ="500701", text = "申报" });
-         jiaoxNengs.children.Add(new json_treenode { id = "500702",text = "职称破格" });
+         jiaoxNengs.children.Add(new json_treenode { id = "500701", text = "申报" });
+         jiaoxNengs.children.Add(new json_treenode { id = "500702", text = "职称破格" });
          jiaoxNengs.children.Add(new json_treenode { id = "500703", text = "材料破格" });
          var jiaoxXinx = new json_treenode { id = "5008", text = "教学新秀", type = json_treenode_types.database, children = new List<json_treenode>() };
 
-         list.Add(gaodLisZhang);
-         list.Add(jiDZhucReng);
-         list.Add(xuekDaitReng);
-         list.Add(gugJiaos);
-         list.Add(jiaoxNengs);
-         list.Add(jiaoxXinx);
+
+         string[] submitStatus = { DeclareKeys.ReviewProcess, DeclareKeys.ReviewSuccess, DeclareKeys.ReviewFailure };
+         var declareForm = db.DeclareFormDal
+            .ConditionQuery(df.TeacherId == userId & df.PeriodId == Period.PeriodId & df.StatusKey.In(submitStatus), null, null, null)
+            .FirstOrDefault();
+
+         if (declareForm != null)
+         {
+            //预览菜单
+         }
+         else {
+            list.Add(gaodLisZhang);
+            list.Add(jiDZhucReng);
+            list.Add(xuekDaitReng);
+            list.Add(gugJiaos);
+            list.Add(jiaoxNengs);
+            list.Add(jiaoxXinx);
+         }
 
          return Json(list, JsonRequestBehavior.AllowGet);
       }
@@ -639,6 +653,6 @@ namespace TheSite.Controllers
          return Json(list, JsonRequestBehavior.AllowGet);
       }
 
-   } 
+   }
 
 }

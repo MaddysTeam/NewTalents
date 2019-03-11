@@ -1,7 +1,7 @@
 ﻿@{
 	var pageTitle = ViewBag.Title = "首页";
 	var userIsExpert = Html.GetUserProfile().IsExpert;
-	var review = ViewBag.DeclareReview as DeclareReview;
+	//var review = ViewBag.DeclareReview as DeclareReview;
 	var period = Html.GetDeclarePeriod();
 }
 <div class="col-md-10 content-wrapper">
@@ -46,7 +46,7 @@
 									<div class="widget-header">
 										<h3><i class="fa fa-tasks"></i>我的申报</h3>
 									</div>
-									<div class="widget-content">
+									@*<div class="widget-content">
 										<div class="alert alert-info alert-dismissable">
 											<strong> <i class="fa fa-warning"></i> 重要提示</strong>	提示： 只有在申报提交期间点击【申报提交】按钮，填写表单并提交校管理员审核
 										</div>
@@ -79,7 +79,7 @@
 										}
 	
 										<a target="_blank" class="btn btn-warning btn-view" href="@Url.Action("overview", "declareMaterial", new { id = Html.GetUserProfile().UserId })"><i class="fa fa-external-link"></i> <span>查看已申报材料</span></a>
-									</div>
+									</div>*@
 								</div>
 							</div>
 						</div>

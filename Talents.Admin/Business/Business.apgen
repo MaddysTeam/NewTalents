@@ -175,7 +175,14 @@
 					<add name="Phonemobile" type="string" dataLength="20" isNullable="true"   display="手机号码"/>
 					<add name="Email" type="string" dataLength="255" isNullable="true"   display="电子邮箱" comment="用于联系的电子邮箱"/>
 					<add name="Phone" type="string" dataLength="20" isNullable="true"   display="办公室电话"/>
-
+					
+					<!-- Dynamic Information 备用字段 -->
+					<add name="Dynamic1" type="string" dataLength="255" isNullable="true"   display="2016学年" comment="2016学年考核情况"/>
+					<add name="Dynamic2" type="string" dataLength="255" isNullable="true"   display="2017学年" comment="2017学年考核情况"/>
+					<add name="Dynamic3" type="string" dataLength="255" isNullable="true"   display="2018学年" comment="2018学年考核情况"/>
+					<add name="Dynamic4" type="string" dataLength="255" isNullable="true"   comment="上一轮梯队任职情况"/>
+					<add name="Dynamic5" type="string" dataLength="2000" isNullable="true"   comment="目前在市(区)级及以上专业委员会任职情况"/>
+					<!--<add name="Dynamic6" type="string" dataLength="2000" isNullable="true"   comment="目前在区级及以上专业委员会任职情况"/>-->
 					<!--Modify Period-->
 					<add name="PeriodId" type="long" isNullable="true"  display="修改周期ID"/>
 				
@@ -497,12 +504,14 @@
 					<add name="CompanyId" type="long" display="单位" />
 					<add name="DeclareTargetPKID" type="long" display="申报称号" comment="PickList - PLKey_DeclareTarget"/>
 					<add name="DeclareSubjectPKID" type="long" display="申报学科" comment="PickList - PLKey_DeclareSubject"/>
-					<add name="AllowFlowToSchool" type="bool" display="流入学校开展工作"/>
+					<add name="AllowFlowToSchool" type="bool" display="是否愿意参与区内流动"/>
 					<add name="AllowFitResearcher" type="bool" display="配合教研员开展工作"/>
 					<add name="IsBrokenRoles" type="bool" display="是否职称破格"/>
 					<add name="PeriodId" type="long" display="申报周期ID"/>
 					<add name="Reason" type="string" dataLength="40000" display="申报理由"/>
-					<add name="AllowFlowToDowngrade" type="bool" />
+					<add name="AllowFlowToDowngrade" type="bool" display="若落选，是否愿意参加低一层级称号的评选"/>
+					<add name="StatusKey" type="string" dataLength="100" display="审核状态"/>
+					<add name="ReviewComment" type="string" dataLength="2000" display="校管理员审批意见" />
 					
 				</columns>
 			</table>
@@ -542,7 +551,7 @@
 				</columns>
 			</table>
 
-			<table name="DeclareReview" comment="申报审核">
+			<!--<table name="DeclareReview" comment="申报审核">
 				<columns>
 					
 					<add name="ReviewId" type="long" primaryKey="true" identityType="Provider" display="周期ID"/>
@@ -552,12 +561,11 @@
 					<add name="StatusKey" type="string" dataLength="100" display="审核状态"/>
 					<add name="PeriodId" type="long" display="申报周期ID"/>
 					<add name="CompanyId" type="long" display="所在单位"/>
-					<!--<add name="ContentValue" type="string" dataLength="10000" required="true" display="审核内容" />-->
+					--><!--<add name="ContentValue" type="string" dataLength="10000" required="true" display="审核内容" />--><!--
 					<add name="ReviewComment" type="string" dataLength="2000" display="校管理员审批意见" />
 					
 				</columns>			
-			</table>
-
+			</table>-->
 
 
 			<!-- 梯队.基本情况 -->

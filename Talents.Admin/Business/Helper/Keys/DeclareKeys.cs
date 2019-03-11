@@ -118,13 +118,10 @@
 		public const string NiandZongj_Dien = "年底总结.第二年";
 		public const string NiandZongj_Disn = "年底总结.第三年";
 
-
       // overview 页面
       public const string ZisFaz_ZhansKec = "自身发展.展示课程";
       public const string ZisFaz_PingwGongzHuoPbiHuoj = "自身发展.评委工作或评比获奖";
 
-
-      //review 
       public const string ReviewSuccess = "审核通过";
       public const string ReviewProcess = "待审核";
       public const string ReviewFailure = "审核不通过";
@@ -139,6 +136,9 @@
       public const string GugJiaos = "骨干教师";
       public const string JiaoxNengs = "教学能手";
       public const string JiaoxXinx = "教学新秀";
+      public const string GonggJihChengy = "公关计划成员";
+      public const string ZhongzJihLingxReng = "种子计划领衔人";
+      public const string GaodJiaoSYanxBanXuey = "高端教师研修班学员";
 
    }
 
