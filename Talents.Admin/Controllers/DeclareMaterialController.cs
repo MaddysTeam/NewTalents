@@ -348,7 +348,12 @@ namespace TheSite.Controllers
 
       public ActionResult Preview()
       {
-         return View();
+         var model = new DeclarePreviewViewModel();
+         model.DeclareTargetId = 5005;
+         model.RealName = "王某某";
+         model.Company = "上海教育软件有限责任公司";
+         model.Subject = "小学语文";
+         return View("Preview5005", model);
       }
 
 
