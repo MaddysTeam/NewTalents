@@ -715,7 +715,7 @@ namespace TheSite.Controllers
       //	GET-Ajax:			DeclarePop/ZisFaz_PeixJiangz_JiaosPeixKec
       //	POST-Ajax:			DeclarePop/ZisFaz_PeixJiangz_JiaosPeixKec
 
-      public ActionResult ZisFaz_PeixJiangz_JiaosPeixKec(long? id)
+      public ActionResult ZisFaz_PeixJiangz_JiaosPeixKec(long? id, long? declareTargetId)
       {
          var model = new ZisFaz_PeixJiangzModel() { Date = System.DateTime.Now, AttachmentName = "" };
 
@@ -733,7 +733,8 @@ namespace TheSite.Controllers
                   Dynamic1 = list.Dynamic1,
                   Dynamic2 = list.Dynamic2,
                   IsShare = list.IsShare,
-                  IsDeclare = list.IsDeclare
+                  IsDeclare = list.IsDeclare,
+                  DeclareTargetId = declareTargetId ?? 0
                };
 
                var allAts = AttachmentsExtensions.GetAttachmentList(db, id.Value);
@@ -829,7 +830,7 @@ namespace TheSite.Controllers
 
             //TODO: AddOrDelShare(atta.JoinId, model.ContentValue, ShareKeys.ActiveShare, model.IsShare);
 
-            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db);
+            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
 
             db.Commit();
 
@@ -868,7 +869,7 @@ namespace TheSite.Controllers
       //	GET-Ajax:			DeclarePop/ZisFaz_PeixJiangz_ZhuantJiangz
       //	POST-Ajax:			DeclarePop/ZisFaz_PeixJiangz_ZhuantJiangz
 
-      public ActionResult ZisFaz_PeixJiangz_ZhuantJiangz(long? id)
+      public ActionResult ZisFaz_PeixJiangz_ZhuantJiangz(long? id, long? declareTargetId)
       {
          var model = new ZisFaz_PeixJiangz_ZhuantJiangzModel() { Date = System.DateTime.Now, AttachmentName = "" };
 
@@ -888,6 +889,7 @@ namespace TheSite.Controllers
                   Dynamic1 = list.Dynamic1,
                   IsShare = list.IsShare,
                   IsDeclare = list.IsDeclare,
+                  DeclareTargetId = declareTargetId ?? 0
                };
 
                var allAts = AttachmentsExtensions.GetAttachmentList(db, id.Value);
@@ -984,7 +986,7 @@ namespace TheSite.Controllers
 
             //TODO:AddOrDelShare(atta.JoinId, model.ContentValue, ShareKeys.ActiveShare, model.IsShare);
 
-            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db);
+            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
 
             db.Commit();
 
@@ -1346,7 +1348,7 @@ namespace TheSite.Controllers
       //	GET-Ajax:			DeclarePop/ZisFaz_XuesHuod
       //	POST-Ajax:			DeclarePop/ZisFaz_XuesHuod
 
-      public ActionResult ZisFaz_XuesHuod(long? id)
+      public ActionResult ZisFaz_XuesHuod(long? id, long? declareTargetId)
       {
          var model = new ZisFaz_XuesHuodModel() { Date = System.DateTime.Now, AttachmentName = "" };
 
@@ -1367,7 +1369,8 @@ namespace TheSite.Controllers
                   Dynamic9 = list.Dynamic9,
                   Level = list.Level,
                   IsShare = list.IsShare,
-                  IsDeclare = list.IsDeclare
+                  IsDeclare = list.IsDeclare,
+                  DeclareTargetId = declareTargetId ?? 0
                };
 
                var allAts = AttachmentsExtensions.GetAttachmentList(db, id.Value);
@@ -1469,7 +1472,7 @@ namespace TheSite.Controllers
 
             //AddOrDelShare(atta.JoinId, model.ContentValue, ShareKeys.ActiveShare, model.IsShare);
 
-            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db);
+            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
 
             db.Commit();
 
@@ -1510,7 +1513,7 @@ namespace TheSite.Controllers
       //	GET-Ajax:			DeclarePop/ZisFaz_KeyChengg_KetYanj
       //	POST-Ajax:			DeclarePop/ZisFaz_KeyChengg_KetYanj
 
-      public ActionResult ZisFaz_KeyChengg_KetYanj(long? id)
+      public ActionResult ZisFaz_KeyChengg_KetYanj(long? id, long? declareTargetId)
       {
          var model = new ZisFaz_KeyChengg_KetYanjModel() { AttachmentName = "" };
 
@@ -1530,7 +1533,8 @@ namespace TheSite.Controllers
                   NameOrTitle = list.NameOrTitle,
                   Dynamic6 = list.Dynamic6,
                   IsShare = list.IsShare,
-                  IsDeclare = list.IsDeclare
+                  IsDeclare = list.IsDeclare,
+                  DeclareTargetId = declareTargetId ?? 0
                };
 
                var allAts = AttachmentsExtensions.GetAttachmentList(db, id.Value);
@@ -1629,7 +1633,7 @@ namespace TheSite.Controllers
 
             //TODO:AddOrDelShare(atta.JoinId, model.NameOrTitle, ShareKeys.AchievementShare, model.IsShare);
 
-            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db);
+            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
 
             db.Commit();
 
@@ -1670,7 +1674,7 @@ namespace TheSite.Controllers
       //	GET-Ajax:			DeclarePop/ZisFaz_KeyChengg_FabLunw
       //	POST-Ajax:			DeclarePop/ZisFaz_KeyChengg_FabLunw
 
-      public ActionResult ZisFaz_KeyChengg_FabLunw(long? id)
+      public ActionResult ZisFaz_KeyChengg_FabLunw(long? id, long? declareTargetId)
       {
          var model = new ZisFaz_KeyChengg_FabLunwModel() { Date = System.DateTime.Now, AttachmentName = "" };
 
@@ -1689,7 +1693,8 @@ namespace TheSite.Controllers
                   Level = list.Level,
                   NameOrTitle = list.NameOrTitle,
                   IsShare = list.IsShare,
-                  IsDeclare = list.IsDeclare
+                  IsDeclare = list.IsDeclare,
+                  DeclareTargetId = declareTargetId ?? 0
                };
 
                var allAts = AttachmentsExtensions.GetAttachmentList(db, id.Value);
@@ -1786,7 +1791,7 @@ namespace TheSite.Controllers
 
             //TODO: AddOrDelShare(atta.JoinId, model.NameOrTitle, ShareKeys.AchievementShare, model.IsShare);
 
-            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db);
+            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
 
             db.Commit();
 
@@ -1827,7 +1832,7 @@ namespace TheSite.Controllers
       //	GET-Ajax:			DeclarePop/ZisFaz_KeyChengg_LunzQingk
       //	POST-Ajax:			DeclarePop/ZisFaz_KeyChengg_LunzQingk
 
-      public ActionResult ZisFaz_KeyChengg_LunzQingk(long? id)
+      public ActionResult ZisFaz_KeyChengg_LunzQingk(long? id, long? declareTargetId)
       {
          var model = new ZisFaz_KeyChengg_LunzQingkModel() { Date = System.DateTime.Now, AttachmentName = "" };
 
@@ -1845,7 +1850,8 @@ namespace TheSite.Controllers
                   Dynamic2 = bool.Parse(list.Dynamic2),
                   NameOrTitle = list.NameOrTitle,
                   IsShare = list.IsShare,
-                  IsDeclare = list.IsDeclare
+                  IsDeclare = list.IsDeclare,
+                  DeclareTargetId = declareTargetId ?? 0
                };
 
                var allAts = AttachmentsExtensions.GetAttachmentList(db, id.Value);
@@ -1941,7 +1947,7 @@ namespace TheSite.Controllers
 
             //TODO: AddOrDelShare(atta.JoinId, model.NameOrTitle, ShareKeys.AchievementShare, model.IsShare);
 
-            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db);
+            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db,model.DeclareTargetId);
 
             db.Commit();
 
@@ -3915,7 +3921,7 @@ namespace TheSite.Controllers
       //	GET-Ajax:			DeclarePop/PeihJiaoyyGongz_XuekMingt
       //	POST-Ajax:			DeclarePop/PeihJiaoyyGongz_XuekMingt
 
-      public ActionResult PeihJiaoyyGongz_XuekMingt(long? id)
+      public ActionResult PeihJiaoyyGongz_XuekMingt(long? id, long? declareTargetId)
       {
          var model = new PeihJiaoyyGongz_XuekMingtModel() { Date = System.DateTime.Now, AttachmentName = "" };
 
@@ -3933,7 +3939,8 @@ namespace TheSite.Controllers
                   Dynamic1 = list.Dynamic1,
                   Dynamic2 = list.Dynamic2,
                   Dynamic3 = list.Dynamic3,
-                  IsDeclare = model.IsDeclare
+                  IsDeclare = model.IsDeclare,
+                  DeclareTargetId = declareTargetId ?? 0
                };
 
                var atta = AttachmentsExtensions.GetAttachment(
@@ -4006,7 +4013,7 @@ namespace TheSite.Controllers
 
             AttachmentsExtensions.InsertAtta(db, atta);
 
-            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db);
+            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
 
             db.Commit();
 
@@ -4162,6 +4169,318 @@ namespace TheSite.Controllers
          });
       }
 
+
+      #endregion
+
+
+      #region [ 教育教学.教研活动.发挥作用 ]
+
+
+      //	GET-Ajax:			DeclarePop/ZisFaz_JiaoxHuod_JiaoxGongkk
+      //	POST-Ajax:			DeclarePop/ZisFaz_JiaoxHuod_JiaoxGongkk
+
+      public ActionResult Shenb_JiaoyHuod_FahZuoy(long? id, long? declareTargetId)
+      {
+         var model = new JiaoyJiaox_JiaoyHuod_FahZuoyModel() { Date = System.DateTime.Now, AttachmentName = "" };
+
+         if (id != null)
+         {
+            var list = db.DeclareActiveDal.PrimaryGet(id.Value);
+
+            if (list != null)
+            {
+               model = new JiaoyJiaox_JiaoyHuod_FahZuoyModel()
+               {
+                  DeclareActiveId = list.DeclareActiveId,
+                  Date = list.Date,
+                  Location = list.Location,
+                  ContentValue = list.ContentValue,
+                  Level = list.Level,
+                  Dynamic1 = list.Dynamic1,
+                  Dynamic2 = list.Dynamic2,
+                  IsShare = list.IsShare,
+                  IsDeclare = list.IsDeclare,
+                  DeclareTargetId = declareTargetId ?? 0
+               };
+
+               var allAts = AttachmentsExtensions.GetAttachmentList(db, id.Value);
+               if (allAts.Count > 0)
+               {
+                  var ats = allAts.FindAll(a => a.Type == AttachmentsKeys.Shenb_JiaoyHuod_FahZuoy);
+                  var vts = allAts.FindAll(a => a.Type == AttachmentsKeys.Shenb_JiaoyHuod_FahZuoy + AttachmentsKeys.Vertify);
+                  var at = AttachmentsExtensions.GetAttachment(ats);
+                  var vt = AttachmentsExtensions.GetAttachment(vts);
+                  model.AttachmentName = at.Name;
+                  model.AttachmentUrl = at.Url;
+                  model.VertificationName = vt.Name;
+                  model.VertificationUrl = vt.Name;
+               }
+            }
+         }
+
+         return PartialView("Shenb_JiaoyHuod_FahZuoy", model);
+      }
+
+      [HttpPost]
+      [DecalrePeriod]
+      public ActionResult Shenb_JiaoyHuod_FahZuoy(long? id, JiaoyJiaox_JiaoyHuod_FahZuoyModel model)
+      {
+         ThrowNotAjax();
+
+         var attachmentTypeKey = AttachmentsKeys.Shenb_JiaoyHuod_FahZuoy;
+         var vertifyTypeKey = AttachmentsKeys.Shenb_JiaoyHuod_FahZuoy + AttachmentsKeys.Vertify;
+         var atta = new AttachmentsDataModel
+         {
+            Type = attachmentTypeKey,
+            Name = model.AttachmentName,
+            Url = model.AttachmentUrl,
+            UserId = UserProfile.UserId
+         };
+         var vertAtta = new AttachmentsDataModel
+         {
+            Type = vertifyTypeKey,
+            Name = model.VertificationName,
+            Url = model.VertificationUrl,
+            UserId = UserProfile.UserId
+         };
+
+         DeclareActive data = null;
+
+         db.BeginTrans();
+
+         try
+         {
+            if (id == null)
+            {
+               data = new DeclareActive()
+               {
+                  TeacherId = UserProfile.UserId,
+                  ActiveKey = DeclareKeys.JiaoyJiaox_JiaoyHuod_FahZuoy,
+                  Date = model.Date,
+                  Location = model.Location,
+                  ContentValue = model.ContentValue,
+                  Dynamic1 = model.Dynamic1,
+                  Dynamic2 = model.Dynamic2,
+                  Level = model.Level,
+                  IsShare = model.IsShare,
+                  Creator = UserProfile.UserId,
+                  CreateDate = DateTime.Now,
+                  IsDeclare = model.IsDeclare
+               };
+
+               db.DeclareActiveDal.Insert(data);
+               atta.JoinId = data.DeclareActiveId;
+               vertAtta.JoinId = data.DeclareActiveId;
+            }
+            else
+            {
+               APQuery.update(t)
+                  .set(t.Date.SetValue(model.Date))
+                  .set(t.Location.SetValue(model.Location))
+                  .set(t.ContentValue.SetValue(model.ContentValue))
+                  .set(t.Dynamic1.SetValue(model.Dynamic1))
+                  .set(t.Dynamic2.SetValue(model.Dynamic2))
+                  .set(t.Level.SetValue(model.Level))
+                  //.set(t.IsShare.SetValue(model.IsShare))
+                  .set(t.IsDeclare.SetValue(model.IsDeclare))
+                  .set(t.Modifier.SetValue(UserProfile.UserId))
+                  .set(t.ModifyDate.SetValue(DateTime.Now))
+                  .where(t.DeclareActiveId == id.Value)
+                  .execute(db);
+
+               AttachmentsExtensions.DeleteAttas(db, id.Value, new string[] { attachmentTypeKey, vertifyTypeKey });
+
+               atta.JoinId = id.Value;
+               vertAtta.JoinId = id.Value;
+
+               data = db.DeclareActiveDal.PrimaryGet(id.Value);
+            }
+
+            AttachmentsExtensions.InsertAttas(db, new AttachmentsDataModel[] { atta, vertAtta });
+
+            // AddOrDelShare(atta.JoinId, model.ContentValue, ShareKeys.ActiveShare, model.IsShare);
+
+            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
+
+            db.Commit();
+
+            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
+            if (!string.IsNullOrEmpty(atta.Name))
+               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
+
+            Log(DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk, doSomthing);
+         }
+         catch (Exception ex)
+         {
+            db.Rollback();
+
+            return Json(new
+            {
+               result = AjaxResults.Error,
+               msg = ex.Message
+            });
+         }
+
+
+         return Json(new
+         {
+            result = AjaxResults.Success,
+            msg = "信息已保存！"
+         });
+      }
+
+      #endregion
+
+
+      #region [ 个人特色.其他身份 ]
+
+
+      //	GET-Ajax:			DeclarePop/ZisFaz_JiaoxHuod_JiaoxGongkk
+      //	POST-Ajax:			DeclarePop/ZisFaz_JiaoxHuod_JiaoxGongkk
+
+      public ActionResult GerTes_QitShenf(long? id, long? declareTargetId)
+      {
+         var model = new GerTes_QitShenfModel() {  AttachmentName = "" };
+
+         if (id != null)
+         {
+            var list = db.DeclareAchievementDal.PrimaryGet(id.Value);
+
+            if (list != null)
+            {
+               model = new GerTes_QitShenfModel()
+               {
+                  DeclareAchievementId = list.DeclareAchievementId,
+                  NameOrTitle=list.NameOrTitle,
+                  Dynamic1 = list.Dynamic1,
+                  Dynamic2 =list.Dynamic2,
+                  Dynamic3 =list.Dynamic3,
+                  IsShare = list.IsShare,
+                  IsDeclare = list.IsDeclare,
+                  DeclareTargetId = declareTargetId ?? 0
+               };
+
+               var allAts = AttachmentsExtensions.GetAttachmentList(db, id.Value);
+               if (allAts.Count > 0)
+               {
+                  var ats = allAts.FindAll(a => a.Type == AttachmentsKeys.GerTes_QitShenf);
+                  var vts = allAts.FindAll(a => a.Type == AttachmentsKeys.GerTes_QitShenf + AttachmentsKeys.Vertify);
+                  var at = AttachmentsExtensions.GetAttachment(ats);
+                  var vt = AttachmentsExtensions.GetAttachment(vts);
+                  model.AttachmentName = at.Name;
+                  model.AttachmentUrl = at.Url;
+                  model.VertificationName = vt.Name;
+                  model.VertificationUrl = vt.Name;
+               }
+            }
+         }
+
+         return PartialView("GerTes_QitShenf", model);
+      }
+
+      [HttpPost]
+      [DecalrePeriod]
+      public ActionResult GerTes_QitShenf(long? id, GerTes_QitShenfModel model)
+      {
+         ThrowNotAjax();
+
+         var attachmentTypeKey = AttachmentsKeys.GerTes_QitShenf;
+         var vertifyTypeKey = AttachmentsKeys.GerTes_QitShenf + AttachmentsKeys.Vertify;
+         var atta = new AttachmentsDataModel
+         {
+            Type = attachmentTypeKey,
+            Name = model.AttachmentName,
+            Url = model.AttachmentUrl,
+            UserId = UserProfile.UserId
+         };
+         var vertAtta = new AttachmentsDataModel
+         {
+            Type = vertifyTypeKey,
+            Name = model.VertificationName,
+            Url = model.VertificationUrl,
+            UserId = UserProfile.UserId
+         };
+
+         DeclareAchievement data = null;
+
+         db.BeginTrans();
+
+         try
+         {
+            if (id == null)
+            {
+               data = new DeclareAchievement()
+               {
+                  TeacherId = UserProfile.UserId,
+                  AchievementKey = DeclareKeys.GerTes_QitShenf,
+                  Dynamic1 = model.Dynamic1,
+                  Dynamic2 = model.Dynamic2,
+                  Dynamic3 = model.Dynamic3,
+                  NameOrTitle = model.NameOrTitle,
+                  IsShare = model.IsShare,
+                  IsDeclare = model.IsDeclare,
+                  Creator = UserProfile.UserId,
+                  CreateDate = DateTime.Now
+               };
+
+               db.DeclareAchievementDal.Insert(data);
+               atta.JoinId = data.DeclareAchievementId;
+               vertAtta.JoinId = data.DeclareAchievementId;
+            }
+            else
+            {
+               APQuery.update(ta)
+                  .set(ta.Dynamic1.SetValue(model.Dynamic1))
+                  .set(ta.Dynamic2.SetValue(model.Dynamic2))
+                  .set(ta.Dynamic3.SetValue(model.Dynamic3))
+                  .set(ta.NameOrTitle.SetValue(model.NameOrTitle))
+                  //.set(t.IsShare.SetValue(model.IsShare))
+                  .set(ta.IsDeclare.SetValue(model.IsDeclare))
+                  .set(ta.Modifier.SetValue(UserProfile.UserId))
+                  .set(ta.ModifyDate.SetValue(DateTime.Now))
+                  .where(ta.DeclareAchievementId == id.Value)
+                  .execute(db);
+
+               AttachmentsExtensions.DeleteAttas(db, id.Value, new string[] { attachmentTypeKey, vertifyTypeKey });
+
+               atta.JoinId = id.Value;
+               vertAtta.JoinId = id.Value;
+
+               data = db.DeclareAchievementDal.PrimaryGet(id.Value);
+            }
+
+            AttachmentsExtensions.InsertAttas(db, new AttachmentsDataModel[] { atta, vertAtta });
+
+            // AddOrDelShare(atta.JoinId, model.ContentValue, ShareKeys.ActiveShare, model.IsShare);
+
+            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
+
+            db.Commit();
+
+            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
+            if (!string.IsNullOrEmpty(atta.Name))
+               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
+
+            Log(DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk, doSomthing);
+         }
+         catch (Exception ex)
+         {
+            db.Rollback();
+
+            return Json(new
+            {
+               result = AjaxResults.Error,
+               msg = ex.Message
+            });
+         }
+
+
+         return Json(new
+         {
+            result = AjaxResults.Success,
+            msg = "信息已保存！"
+         });
+      }
 
       #endregion
 

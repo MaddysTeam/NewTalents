@@ -1,6 +1,6 @@
-﻿@model ZisFaz_KeyChengg_LunzQingkModel
+﻿@model GerTes_QitShenfModel
 @{
-	var pageTitle = ViewBag.Title = DeclareKeys.ZisFaz_KeyChengg_LunzQingk;
+	var pageTitle = ViewBag.Title = DeclareKeys.GerTes_QitShenf;
 }
 <div class="modal-dialog modal-lg">
 
@@ -13,47 +13,39 @@
 			</div>
 		</div>
 		<div class="widget-content">
-		@using (Html.BeginForm("ZisFaz_KeyChengg_LunzQingk", "DeclarePop", Model.DeclareAchievementId == 0 ? null : new { id = Model.DeclareAchievementId }, FormMethod.Post, new { @class = "form-horizontal", data_after_success = "afterDialogSuccess()" }))
+		@using (Html.BeginForm("GerTes_QitShenf", "DeclarePop", Model.DeclareAchievementId == 0 ? null : new { id = Model.DeclareAchievementId }, FormMethod.Post, new { @class = "form-horizontal", data_after_success = "afterDialogSuccess()" }))
 		{
-			@Html.HiddenFor(m=>m.DeclareTargetId)
+			@Html.HiddenFor(x=>x.DeclareTargetId)
 			<div class="row">
 				<fieldset class="col-md-12">
 					<div class="form-group">
-						@Html.LabelFor(m => m.Date, new { @class = "control-label col-md-3" })
+						@Html.LabelFor(m => m.Dynamic1,new { @class = "control-label col-md-3" })
 						<div class="col-md-9">
-							<div class="input-group date" data-provide="datepicker" data-date-language="zh-CN" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
-								@Html.TextBoxFor(m => m.Date, "{0:yyyy-MM-dd}", new { @class = "form-control" })
-								<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-							</div>
-							@Html.ValidationMessageFor(m => m.Date)
-						</div>
-					</div>
-					<div class="form-group">
-						@Html.LabelFor(m => m.NameOrTitle, new { @class = "control-label col-md-3" })
-						<div class="col-md-9">
-							@Html.TextBoxFor(m => m.NameOrTitle, new { @class = "form-control" })
-							@Html.ValidationMessageFor(m => m.NameOrTitle)
-						</div>
-					</div>
-					<div class="form-group">
-						@Html.LabelFor(m => m.Dynamic1, new { @class = "control-label col-md-3" })
-						<div class="col-md-9">
-							@Html.TextBoxFor(m => m.Dynamic1, new { @class = "form-control" })
+						   @Html.TextBoxFor(m => m.Dynamic1, new { @class = "form-control" })
 							@Html.ValidationMessageFor(m => m.Dynamic1)
 						</div>
 					</div>
 					<div class="form-group">
 						@Html.LabelFor(m => m.Dynamic2, new { @class = "control-label col-md-3" })
 						<div class="col-md-9">
-							@Html.CheckBoxFor(m => m.Dynamic2, new { @style = "width:20px; height:20px;" })
+							@Html.TextBoxFor(m => m.Dynamic2, new { @class = "form-control" })
+							@Html.ValidationMessageFor(m => m.Dynamic2)
 						</div>
 					</div>
-					@*<div class="form-group">
-						@Html.LabelFor(m => m.IsShare, new { @class = "control-label col-md-3" })
+					<div class="form-group">
+						@Html.LabelFor(m => m.NameOrTitle, new { @class = "control-label col-md-3" })
 						<div class="col-md-9">
-							@Html.CheckBoxFor(m => m.IsShare)
+							@Html.TextAreaFor(m => m.NameOrTitle, 5, 5, new { @class = "form-control" })
+							@Html.ValidationMessageFor(m => m.NameOrTitle)
 						</div>
-					</div>*@
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.Dynamic3, new { @class = "control-label col-md-3" })
+						<div class="col-md-9">
+							@Html.TextBoxFor(m => m.Dynamic3, new { @class = "form-control" })
+							@Html.ValidationMessageFor(m => m.Dynamic3)
+						</div>
+					</div>
 					<div class="form-group">
 						@Html.LabelFor(m => m.IsDeclare, new { @class = "control-label col-md-3" })
 						<div class="col-md-9">
@@ -67,7 +59,6 @@
 							@Html.TextAreaFor(m => m.AttachmentName, 5, 5, new { @style = "visibility:hidden;position:absolute;" })
 							<div class="input-group">
 								<div id="uploadName" class="form-control oversize upload-control">
-
 									@if (Model.AttachmentName != null && Model.AttachmentName != "")
 									{
 										foreach (var item in Model.AttachmentName.Split('|'))
@@ -82,14 +73,15 @@
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload">附件上传</button>
 								</span>
 							</div>
-							@Html.ValidationMessageFor(m => m.AttachmentName)
+							@Html.ValidationMessageFor(m => m.AttachmentName )
 						</div>
 					</div>
+
 					<div class="form-group">
 						@Html.LabelFor(m => m.VertificationName, new { @class = "control-label col-md-3" })
 						<div class="col-md-9">
 							@Html.HiddenFor(m => m.VertificationUrl)
-							@Html.TextBoxFor(m => m.VertificationName, new { @style = "visibility:hidden;" })
+							@Html.TextBoxFor(m => m.VertificationName, new { @style="visibility:hidden;" }) 
 							<div class="input-group">
 								<div id="simpleUploadName" class="form-control">
 									@Html.Label("", Model.VertificationName)
@@ -101,6 +93,7 @@
 							@Html.ValidationMessageFor(m => m.VertificationName)
 						</div>
 					</div>
+
 					<div class="form-group">
 						<div class="col-sm-9 col-lg-offset-3">
 							<button type="submit" class="btn btn-primary btn-block-half"><i class="fa fa-check-circle"></i> 保存</button>
@@ -131,15 +124,15 @@
 			$('#VertificationUrl').val(data.url);
 			$('#VertificationName').val(data.filename);
 			$('#simpleUploadName').html(data.filename);
-		}, function (file, message) {
+		}, function (file,message) {
 			popupMessage({ result: 'error', msg: message });
 		});
-
+		
 	})
 
 	function afterDialogSuccess() {
 		$('#firstModal').modal('hide');
-		loadFrag()
+		loadFrag();
 	}
 
 </script>

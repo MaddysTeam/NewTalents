@@ -1,6 +1,6 @@
-﻿@model ZisFaz_KeyChengg_LunzQingkModel
+﻿@model JiaoyJiaox_JiaoyHuod_FahZuoyModel
 @{
-	var pageTitle = ViewBag.Title = DeclareKeys.ZisFaz_KeyChengg_LunzQingk;
+	var pageTitle = ViewBag.Title = DeclareKeys.JiaoyJiaox_JiaoyHuod_FahZuoy;
 }
 <div class="modal-dialog modal-lg">
 
@@ -13,9 +13,9 @@
 			</div>
 		</div>
 		<div class="widget-content">
-		@using (Html.BeginForm("ZisFaz_KeyChengg_LunzQingk", "DeclarePop", Model.DeclareAchievementId == 0 ? null : new { id = Model.DeclareAchievementId }, FormMethod.Post, new { @class = "form-horizontal", data_after_success = "afterDialogSuccess()" }))
+		@using (Html.BeginForm("Shenb_JiaoyHuod_FahZuoy", "DeclarePop", Model.DeclareActiveId == 0 ? null : new { id = Model.DeclareActiveId }, FormMethod.Post, new { @class = "form-horizontal", data_after_success = "afterDialogSuccess()" }))
 		{
-			@Html.HiddenFor(m=>m.DeclareTargetId)
+			@Html.HiddenFor(x=>x.DeclareTargetId)
 			<div class="row">
 				<fieldset class="col-md-12">
 					<div class="form-group">
@@ -29,10 +29,24 @@
 						</div>
 					</div>
 					<div class="form-group">
-						@Html.LabelFor(m => m.NameOrTitle, new { @class = "control-label col-md-3" })
+						@Html.LabelFor(m => m.Location, new { @class = "control-label col-md-3" })
 						<div class="col-md-9">
-							@Html.TextBoxFor(m => m.NameOrTitle, new { @class = "form-control" })
-							@Html.ValidationMessageFor(m => m.NameOrTitle)
+							@Html.TextBoxFor(m => m.Location, new { @class = "form-control" })
+							@Html.ValidationMessageFor(m => m.Location)
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.Level, new { @class = "control-label col-md-3" })
+						<div class="col-md-9">
+							@Html.DropDownListFor(m => m.Level, new SelectList(LevelNames.JiaoxHuod_JiaoxGongkk), new { @class = "form-control" })
+							@Html.ValidationMessageFor(m => m.Level)
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.ContentValue, new { @class = "control-label col-md-3" })
+						<div class="col-md-9">
+							@Html.TextAreaFor(m => m.ContentValue, 5, 5, new { @class = "form-control" })
+							@Html.ValidationMessageFor(m => m.ContentValue)
 						</div>
 					</div>
 					<div class="form-group">
@@ -45,13 +59,14 @@
 					<div class="form-group">
 						@Html.LabelFor(m => m.Dynamic2, new { @class = "control-label col-md-3" })
 						<div class="col-md-9">
-							@Html.CheckBoxFor(m => m.Dynamic2, new { @style = "width:20px; height:20px;" })
+							@Html.TextBoxFor(m => m.Dynamic2, new { @class = "form-control" })
+							@Html.ValidationMessageFor(m => m.Dynamic2)
 						</div>
-					</div>
+					</div>	
 					@*<div class="form-group">
 						@Html.LabelFor(m => m.IsShare, new { @class = "control-label col-md-3" })
 						<div class="col-md-9">
-							@Html.CheckBoxFor(m => m.IsShare)
+							@Html.CheckBoxFor(m => m.IsShare, new { @style = "width:20px; height:20px;" })
 						</div>
 					</div>*@
 					<div class="form-group">
@@ -82,14 +97,15 @@
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload">附件上传</button>
 								</span>
 							</div>
-							@Html.ValidationMessageFor(m => m.AttachmentName)
+							@Html.ValidationMessageFor(m => m.AttachmentName )
 						</div>
 					</div>
+
 					<div class="form-group">
 						@Html.LabelFor(m => m.VertificationName, new { @class = "control-label col-md-3" })
 						<div class="col-md-9">
 							@Html.HiddenFor(m => m.VertificationUrl)
-							@Html.TextBoxFor(m => m.VertificationName, new { @style = "visibility:hidden;" })
+							@Html.TextBoxFor(m => m.VertificationName, new { @style="visibility:hidden;" }) 
 							<div class="input-group">
 								<div id="simpleUploadName" class="form-control">
 									@Html.Label("", Model.VertificationName)
@@ -101,6 +117,7 @@
 							@Html.ValidationMessageFor(m => m.VertificationName)
 						</div>
 					</div>
+
 					<div class="form-group">
 						<div class="col-sm-9 col-lg-offset-3">
 							<button type="submit" class="btn btn-primary btn-block-half"><i class="fa fa-check-circle"></i> 保存</button>
@@ -131,15 +148,15 @@
 			$('#VertificationUrl').val(data.url);
 			$('#VertificationName').val(data.filename);
 			$('#simpleUploadName').html(data.filename);
-		}, function (file, message) {
+		}, function (file,message) {
 			popupMessage({ result: 'error', msg: message });
 		});
-
+		
 	})
 
 	function afterDialogSuccess() {
 		$('#firstModal').modal('hide');
-		loadFrag()
+		loadFrag();
 	}
 
 </script>

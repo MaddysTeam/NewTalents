@@ -34,7 +34,7 @@ namespace Business.Helper
       static APDBDef.DeclareMaterialTableDef dm = APDBDef.DeclareMaterial;
 
 
-      public static void AddDeclareMaterial(DeclareContent content, DeclarePeriod period, APDBDef db)
+      public static void AddDeclareMaterial(DeclareContent content, DeclarePeriod period, APDBDef db, long declareTargetId = 0)
       {
          if (content != null && period != null)
          {
@@ -51,7 +51,8 @@ namespace Business.Helper
                             SubString(content.ContentValue),
                   Type = content.ContentKey,
                   TeacherId = content.TeacherId,
-                  PeriodId = period.PeriodId
+                  PeriodId = period.PeriodId,
+                  DeclareTargetPKID= declareTargetId
                });
          }
       }

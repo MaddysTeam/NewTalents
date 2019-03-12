@@ -15,6 +15,7 @@
 		<div class="widget-content">
 		@using (Html.BeginForm("ZisFaz_KeyChengg_KetYanj", "DeclarePop", Model.DeclareAchievementId == 0 ? null : new { id = Model.DeclareAchievementId }, FormMethod.Post, new { @class = "form-horizontal", data_after_success = "afterDialogSuccess()" }))
 		{
+			@Html.HiddenFor(m=>m.DeclareTargetId)
 			<div class="row">
 				<fieldset class="col-md-12">
 					<div class="form-group">

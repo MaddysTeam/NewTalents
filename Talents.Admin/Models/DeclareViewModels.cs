@@ -29,6 +29,9 @@ namespace TheSite.Models
       [Display(Name = "证明文件名称")]
       public string VertificationName { get; set; }
 
+      // 申报的称号
+      public long DeclareTargetId { get; set; }
+
    }
 
 
@@ -47,6 +50,9 @@ namespace TheSite.Models
       [Required]
       [Display(Name = "证明文件名称")]
       public string VertificationName { get; set; }
+
+      // 申报的称号
+      public long DeclareTargetId { get; set; }
 
    }
 
@@ -187,7 +193,7 @@ namespace TheSite.Models
       public string TitleOrContent { get; set; }
 
       public string Level { get; set; }
-      
+
       public string Org { get; set; }
    }
 
@@ -557,7 +563,7 @@ namespace TheSite.Models
    }
 
 
-   public class ZisFaz_KeyChengg_LunzQingkModel: DeclareAchievementModel
+   public class ZisFaz_KeyChengg_LunzQingkModel : DeclareAchievementModel
    {
 
       public long DeclareAchievementId { get; set; }
@@ -1088,6 +1094,67 @@ namespace TheSite.Models
       public string Dynamic5 { get; set; }
       public string Dynamic6 { get; set; }
       public string Dynamic7 { get; set; }
+   }
+
+
+   public class JiaoyJiaox_JiaoyHuod_FahZuoyModel : DeclareActiveModel
+   {
+
+      [Required]
+      [Display(Name = "时间")]
+      public DateTime Date { get; set; }
+
+      [Required]
+      [Display(Name = "地点")]
+      public string Location { get; set; }
+
+      [Required]
+      [Display(Name = "课程内容")]
+      public string ContentValue { get; set; }
+
+      [Required]
+      [Display(Name = "级别")]
+      public string Level { get; set; }
+
+      [Required]
+      [Display(Name = "参加对象")]
+      public string Dynamic1 { get; set; }
+
+      [Required]
+      [Display(Name = "组织单位、部门")]
+      public string Dynamic2 { get; set; }
+
+   }
+
+
+   public class GerTes_QitShenfModel:DeclareAchievementModel
+   {
+
+      public long DeclareAchievementId { get; set; }
+
+      [Required]
+      [Display(Name = "起止时间")]
+      public string Dynamic1 { get; set; }
+
+      [Required]
+      [Display(Name = "身份名称")]
+      public string Dynamic2 { get; set; }
+
+      [Required]
+      [Display(Name = "工作内容")]
+      public string NameOrTitle { get; set; }
+
+      [Required]
+      [Display(Name = "赋予身份的单位部门")]
+      public string Dynamic3 { get; set; }
+
+
+      [Display(Name = "附件路径")]
+      public string AttachmentUrl { get; set; }
+
+      [Required]
+      [Display(Name = "附件名称")]
+      public string AttachmentName { get; set; }
    }
 
 }

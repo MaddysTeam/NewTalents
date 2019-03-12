@@ -1,0 +1,213 @@
+﻿@model List<DeclareAchievement>
+@{
+	var pageTitle = ViewBag.Title = "历史库";
+	var isKetYanj = Request["itemKey"] == DeclareKeys.ZisFaz_KeyChengg_KetYanj;
+	var isLunwFab = Request["itemKey"] == DeclareKeys.ZisFaz_KeyChengg_FabLunw;
+	var isLunzQingk = Request["itemKey"] == DeclareKeys.ZisFaz_KeyChengg_LunzQingk;
+	var isGerTes= Request["itemKey"] == DeclareKeys.GerTes_QitShenf;
+	var declareTargetId = Request["declareTargetId"];
+}
+
+<div class="modal-dialog modal-lg">
+
+	<!-- widget -->
+	<div class="widget">
+		<div class="widget-header">
+			<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
+			<div class="btn-group widget-header-toolbar">
+				<a href="#" title="关闭" class="btn-borderless" data-dismiss="modal"><i class="fa fa-close"></i></a>
+			</div>
+		</div>
+		<div class="widget-content">
+
+			<!-- Grid -->
+			<div class="table-responsive">
+				@if (isKetYanj)
+				{
+					<table class="table table-condensed table-striped table-hover">
+						<thead>
+							<tr>
+								<th class="width180">级别</th>
+								<th class="width180">类型</th>
+								<th class="width180">主持或参与</th>
+								<th style="width:600px">课题、项目名称</th>
+								<th class="width180">负责人</th>
+								<th class="width180">立项、结束时间</th>
+								<th class="width240">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model)
+							{
+								<tr>
+									<td>
+										@item.Level
+									</td>
+									<td>
+										@PicklistHelper.Dynamic6.GetName(item.Dynamic6)
+									</td>
+									<td>
+										@(item.Dynamic1 == "True" ? "是" : "否")	
+									</td>
+									<td>
+										@item.NameOrTitle
+									</td>
+									<td>
+										@item.Dynamic2
+									</td>
+									<td>
+										@item.DateRegion
+									</td>
+									<td>
+										<a target="_blank" class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareAchievement", "DeclareMaterial", new {id=item.DeclareAchievementId, isDeclare=true, declareTargetId= declareTargetId })" href="#"><i class="fa fa-external-link"></i>申报</a>
+									</td>
+								</tr>
+							}
+
+						</tbody>
+					</table>
+				}
+				else if (isLunwFab)
+				{
+					<table class="table table-condensed table-striped table-hover">
+						<thead>
+							<tr>
+								<th class="width180">级别</th>
+								<th class="width180">发表时间</th>
+								<th style="width:600px">论文名称</th>
+								<th class="width180">作者名次</th>
+								<th class="width180">刊物名称</th>
+								<th class="width240">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model)
+							{
+								<tr>
+									<td>
+										@item.Level
+									</td>
+									<td>
+										@item.Date
+									</td>
+									<td>
+										@item.NameOrTitle
+									</td>
+									<td>
+										@item.Dynamic2
+									</td>
+									<td>
+										@item.Dynamic1
+									</td>
+									<td>
+										<a target="_blank" class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareAchievement", "DeclareMaterial", new {id=item.DeclareAchievementId, isDeclare=true, declareTargetId= declareTargetId })" href="#"><i class="fa fa-external-link"></i>申报</a>
+									</td>
+								</tr>
+							}
+
+						</tbody>
+					</table>
+				}
+				else if (isLunzQingk)
+				{
+					<table class="table table-condensed table-striped table-hover">
+						<thead>
+							<tr>
+								<th class="width180">出版时间</th>
+								<th style="width:700px">著作名称</th>
+								<th class="width180">出版社</th>
+								<th class="width180">是否独立完成</th>
+								<th class="width240">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model)
+							{
+								<tr>
+									<td>
+										@item.Date
+									</td>
+									<td>
+										@item.NameOrTitle
+									</td>
+									<td>
+										@item.Dynamic1
+									</td>
+									<td>
+										@(item.Dynamic2 == "True" ? "是" : "否")
+									</td>
+									<td>
+										<a target="_blank" class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareAchievement", "DeclareMaterial", new {id=item.DeclareAchievementId, isDeclare=true, declareTargetId= declareTargetId })" href="#"><i class="fa fa-external-link"></i>申报</a>
+									</td>
+								</tr>
+							}
+
+						</tbody>
+					</table>
+				}
+				else if (isGerTes)
+				{
+					<table class="table table-condensed table-striped table-hover">
+						<thead>
+							<tr>
+								<th class="width180">起止时间</th>
+								<th style="width:700px">身份名称</th>
+								<th class="width180">工作内容</th>
+								<th class="width180">赋予身份的单位部门</th>
+								<th class="width240">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model)
+							{
+								<tr>
+									<td>
+										@item.Dynamic1
+									</td>
+									<td>
+										@item.Dynamic2
+									</td>
+									<td>
+										@item.NameOrTitle
+									</td>
+									<td>
+										@item.Dynamic3
+									</td>
+									<td>
+										<a target="_blank" class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareAchievement", "DeclareMaterial", new {id=item.DeclareAchievementId, isDeclare=true, declareTargetId= declareTargetId })" href="#"><i class="fa fa-external-link"></i>申报</a>
+									</td>
+								</tr>
+							}
+
+						</tbody>
+					</table>
+				}
+			</div>
+			<!-- end Grid-->
+
+		</div>
+		<!-- /widget content -->
+	</div>
+	<!-- /widget -->
+
+</div>
+<script>
+	$(function () {
+
+		$('.btn-declare,.btn-cancelDeclare').off('click').on('click', function (e) {
+			e.preventDefault();
+
+			var $this = $(this);
+			var url = $this.data('url');
+
+			$.post(url, null, function (data, status) {
+				popupMessage(data, {
+					success: function () {
+						loadFrag($this, data);
+					}
+				});
+			})
+		});
+
+	})
+</script>

@@ -204,6 +204,7 @@ namespace TheSite.Controllers
       [HttpPost]
       public ActionResult FormIndexEdit(DeclareForm model)
       {
+         // 职称破格和申报公用一张表
          var poge = ".职称破格";
          if (model.TypeKey.IndexOf(poge) > 0)
             model.TypeKey = model.TypeKey.Replace(poge, ".申报");
@@ -287,7 +288,7 @@ namespace TheSite.Controllers
       }
 
 
-      // Get: DeclareMaterial/DeclareActiveList   TODO:declareTargetId表示当前申报的称号
+      // Get: DeclareMaterial/DeclareActiveList   TODO: 历史库 declareTargetId表示当前申报的称号
 
       public ActionResult DeclareActiveList(string itemKey, long declareTargetId)
       {
@@ -297,7 +298,17 @@ namespace TheSite.Controllers
       }
 
 
-      // Get: DeclareMaterial/Items   TODO:declareTargetId表示当前申报的称号
+      // Get: DeclareMaterial/DeclareActiveList   TODO: 历史库 declareTargetId表示当前申报的称号
+
+      public ActionResult DeclareAchievementList(string itemKey, long declareTargetId)
+      {
+         var results = db.DeclareAchievementDal.ConditionQuery(dac.TeacherId == UserProfile.UserId & dac.IsDeclare == false & dac.AchievementKey == itemKey, null, null, null);
+
+         return PartialView("_declare_achievement_list", results);
+      }
+
+
+      // Get: DeclareMaterial/Items   TODO: declareTargetId表示当前申报的称号
 
       public ActionResult Items(long declareTargetId, string view)
       {

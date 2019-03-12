@@ -622,7 +622,7 @@
     <Content Include="Views\Company\Edit.cshtml" />
     <Content Include="Views\Home\EvalComments.cshtml" />
     <Content Include="Views\Attachment\Preview.cshtml" />
-    <Content Include="Views\DeclareMaterial\_declare_active_list.cshtml" />
+    <Content Include="Views\DeclareMaterial\_declare_achievement_list.cshtml" />
     <Content Include="Views\DeclareMaterial\Preview.cshtml" />
     <Content Include="Views\DeclareReview\Edit.cshtml" />
     <Content Include="Views\DeclareReview\List.cshtml" />
@@ -637,6 +637,9 @@
     <Content Include="Views\DeclareMaterial\MaterialView9999.cshtml" />
     <Content Include="Views\DeclareMaterial\_profile9999.cshtml" />
     <Content Include="Views\DeclareMaterial\_index9999.cshtml" />
+    <Content Include="Views\DeclarePop\JiaoyJiaox_JiaoyHuod_FahZuoy.cshtml" />
+    <Content Include="Views\DeclareMaterial\_declare_active_list.cshtml" />
+    <Content Include="Views\DeclarePop\GerTes_QitShenf.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
