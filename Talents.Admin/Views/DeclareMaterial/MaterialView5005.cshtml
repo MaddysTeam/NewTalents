@@ -5,8 +5,8 @@
 	<strong>*注意！点击【提交申报】后将无法选择和填写当前或其他称号的申报表单！</strong>
 </div>
 <div class="gallery-buttons  bottom-30px">
-	<a href="@Url.Action("Preview","DeclareMaterial")" target="_blank" class="btn btn-info"><i class="fa fa-eye"> 预览申报</i></a> &nbsp; &nbsp;
-	<a href="@Url.Action("Preview","DeclareMaterial")?IsExport=true" target="_blank" class="btn btn-custom-primary"><i class="fa fa-download"> 下载表单</i></a> &nbsp; &nbsp;
+	<a href="@Url.Action("Preview","DeclareMaterial",new {TypeKey=Model,View="MaterialPreview5005",DeclareTargetId=DeclareTargetIds.XuekDaitr })" target="_blank" class="btn btn-info"><i class="fa fa-eye"> 预览申报</i></a> &nbsp; &nbsp;
+	<a href="@Url.Action("Preview","DeclareMaterial",new {TypeKey=Model,View="MaterialPreview5005",DeclareTargetId=DeclareTargetIds.XuekDaitr,IsExport=true })" target="_blank" class="btn btn-custom-primary"><i class="fa fa-download"> 下载表单</i></a> &nbsp; &nbsp;
 	<button class="btn btn-primary" id="declareSubmit"><i class="fa fa-pencil"> 申报提交</i></button>
 </div>
 <div class="widget">
@@ -14,11 +14,11 @@
 		@if (Model == DeclareKeys.XuekDaitr_ZhicPog)
 		{
 			<h3>学科带头人 <strong class="red">职称破格申报表</strong></h3>
-			}
+		}
 		else
 		{
 			<h3>学科带头人 <strong class="red">申报表</strong></h3>
-			}
+		}
 
 		<ul class="nav nav-tabs pull-right">
 			<li class="active"><a href="#tab0" data-toggle="tab"><i class="fa fa-tag"></i> 申报表首页</a></li>
@@ -42,7 +42,7 @@
 <script>
 	$(function () {
 
-		$.get('@Url.Action("FormIndexEdit", "DeclareMaterial")?typeKey=@Model&view=_index5005&declareTargetId=@DeclareTargetIds.XuekDaitr', function (html) {
+		$.get('@Url.Action("FormIndexEdit", "DeclareMaterial")?declareTargetId=@DeclareTargetIds.XuekDaitr&view=_index5005&typeKey=@Model', function (html) {
 			$('#tab0').append(html);
 			$('#declareSubmit').click(function () {
 				if (confirm('确定要提交报表，提交后将无法选择和填写当前或其他称号的申报表单，只能够预览和打印表单！')) {
@@ -52,7 +52,7 @@
 			});
 		});
 
-		$.get('@Url.Action("BasicProfileEdit", "DeclareMaterial")?key=@Model&view=_profile5005', function (html) {
+		$.get('@Url.Action("BasicProfileEdit", "DeclareMaterial")?typeKey=@Model&view=_profile5005', function (html) {
 			$('#tab1').html(html);
 		});
 

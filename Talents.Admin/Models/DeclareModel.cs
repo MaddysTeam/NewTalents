@@ -25,6 +25,11 @@ namespace TheSite.Models
       public string View { get; set; }
    }
 
+   public class DeclarePreviewParam: DeclareParam
+   {
+      public bool? IsExport { get; set; }
+   }
+
 
    public class DeclarePreviewViewModel
    {

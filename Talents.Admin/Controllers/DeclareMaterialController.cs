@@ -176,12 +176,14 @@ namespace TheSite.Controllers
          {
             return PartialView("MaterialView9999", key);
          }
-         else if (key == DeclareKeys.Preview)
+         else
          {
-            return Preview(null);
+            var form = db.DeclareFormDal.PrimaryGet(Convert.ToInt64(key));
+            if (form == null) throw new ApplicationException("正在开发中");
+            var isMaterialBreakRole = form.TypeKey.IndexOf("材料破格") >= 0;
+            var declareTargetId = isMaterialBreakRole ? 9999 : form.DeclareTargetPKID;
+            return Preview(new DeclarePreviewParam { IsExport = false, DeclareTargetId = form.DeclareTargetPKID, TypeKey = form.TypeKey, View = $"MaterialPreview{declareTargetId}" });
          }
-
-         return View();
       }
 
 
@@ -190,15 +192,17 @@ namespace TheSite.Controllers
 
       public ActionResult FormIndexEdit(DeclareParam param)
       {
+         var typeKey = param.TypeKey;
+         var declareTargetId = param.DeclareTargetId;
          var poge = ".职称破格";
-         var isZcPoge = param.TypeKey.IndexOf(poge) > 0;
+         var isZcPoge = typeKey.IndexOf(poge) > 0;
          var decalreForm = db.DeclareFormDal.ConditionQuery(df.PeriodId == Period.PeriodId
                          & df.TeacherId == UserProfile.UserId
-                         & df.TypeKey == (isZcPoge ? param.TypeKey.Replace(poge, ".申报") : param.TypeKey)
-                         & df.DeclareTargetPKID == param.DeclareTargetId
+                         & df.TypeKey == (isZcPoge ? typeKey.Replace(poge, ".申报") : typeKey)
+                         & df.DeclareTargetPKID == declareTargetId
                          , null, null, null).FirstOrDefault();
 
-         decalreForm = decalreForm ?? new DeclareForm { DeclareTargetPKID = param.DeclareTargetId, TypeKey = param.TypeKey };
+         decalreForm = decalreForm ?? new DeclareForm { DeclareTargetPKID = declareTargetId, TypeKey = typeKey };
          return PartialView(param.View, decalreForm);
       }
 
@@ -248,10 +252,10 @@ namespace TheSite.Controllers
       // Get: DeclareMaterial/BasicMaterialEdit
       // POST-Ajax: DeclareMaterial/BasicMaterialEdit
 
-      public ActionResult BasicProfileEdit(string key, string view)
+      public ActionResult BasicProfileEdit(DeclareParam param)
       {
          var profile = db.BzUserProfileDal.PrimaryGet(UserProfile.UserId);
-         return PartialView(view, profile);
+         return PartialView(param.View, profile);
       }
 
       [HttpPost]
@@ -314,12 +318,12 @@ namespace TheSite.Controllers
 
       // Get: DeclareMaterial/Items   TODO: declareTargetId表示当前申报的称号
 
-      public ActionResult Items(long declareTargetId, string view)
+      public ActionResult Items(DeclareParam param)
       {
          var teacherId = UserProfile.UserId;
          var actives = APQuery.select(dm.MaterialId, dm.DeclareTargetPKID, da.Asterisk)
             .from(dm, da.JoinInner(dm.ItemId == da.DeclareActiveId))
-            .where(dm.PeriodId == Period.PeriodId & dm.TeacherId == teacherId & da.Creator == teacherId & dm.DeclareTargetPKID == declareTargetId)
+            .where(dm.PeriodId == Period.PeriodId & dm.TeacherId == teacherId & da.Creator == teacherId & dm.DeclareTargetPKID == param.DeclareTargetId)
             .query(db, r =>
             {
                var active = new DeclareActive();
@@ -330,7 +334,7 @@ namespace TheSite.Controllers
 
          var achievements = APQuery.select(dm.MaterialId, dm.DeclareTargetPKID, dac.Asterisk)
             .from(dm, dac.JoinInner(dm.ItemId == dac.DeclareAchievementId))
-            .where(dm.PeriodId == Period.PeriodId & dm.TeacherId == teacherId & dac.Creator == teacherId & dm.DeclareTargetPKID == declareTargetId)
+            .where(dm.PeriodId == Period.PeriodId & dm.TeacherId == teacherId & dac.Creator == teacherId & dm.DeclareTargetPKID == param.DeclareTargetId)
             .query(db, r =>
             {
                var achievement = new DeclareAchievement();
@@ -344,30 +348,33 @@ namespace TheSite.Controllers
 
          ViewBag.DecalreAchievements = achievements;
 
-         return PartialView(view);
+         return PartialView(param.View);
       }
 
 
       // Get: DeclareMaterial/Items
 
-      public ActionResult Preview(bool? IsExport)
+      public ActionResult Preview(DeclarePreviewParam param)
       {
          var u = APDBDef.BzUserProfile;
          var c = APDBDef.Company;
          var pdfRender = new HtmlRender();
          var model = new DeclarePreviewViewModel();
          var profile = db.BzUserProfileDal.PrimaryGet(UserProfile.UserId);
-         var company = db.CompanyDal.ConditionQuery(c.CompanyId == profile.CompanyId, null, null, null).FirstOrDefault();
+         var company = db.CompanyDal.ConditionQuery(c.CompanyId == profile.CompanyId, null, null, null).FirstOrDefault() ?? new Company();
          var form = db.DeclareFormDal.ConditionQuery(
             df.TeacherId == profile.UserId &
             df.PeriodId == Period.PeriodId &
             df.DeclareTargetPKID == 5005 &
-            df.TypeKey == "学科带头人.申报", null, null, null).FirstOrDefault();
-         var declareActives = GetDeclareActives(5005, profile.UserId);
-         var declareAchievement = GetDeclareAchievements(5005, profile.UserId);
+            df.TypeKey == param.TypeKey, null, null, null).FirstOrDefault();
+         form = form ?? new DeclareForm();
+
+         var declareActives = GetDeclareActives(param.DeclareTargetId, profile.UserId);
+         var declareAchievement = GetDeclareAchievements(param.DeclareTargetId, profile.UserId);
+         var poge = ".职称破格";
 
          model.DeclareTargetId = 5005;
-         model.Decalre = "学科带头人";
+         model.Decalre = DeclareBaseHelper.DeclareTarget.GetName(param.DeclareTargetId);
          model.DeclareSubject = BzUserProfileHelper.EduSubject.GetName(form.DeclareSubjectPKID);
          model.DeclareCompany = company.CompanyName;
          model.RealName = profile.RealName;
@@ -403,16 +410,17 @@ namespace TheSite.Controllers
          model.DeclareActies = declareActives;
          model.DeclareAchievements = declareAchievement;
          model.Reason = form.Reason;
-         model.IsBrokRoles = form.IsBrokenRoles;
+         // 职称破格和申报公用一张表 所以要用form IsBrokenRoles 和 param.TypeKey 一起判断
+         model.IsBrokRoles =form.IsBrokenRoles || param.TypeKey.IndexOf(poge) > 0;
 
-         if (IsExport!=null && IsExport.Value)
+         if (param.IsExport != null && param.IsExport.Value)
          {
-            var htmlText = pdfRender.RenderViewToString(this, "Preview5005", model);
+            var htmlText = pdfRender.RenderViewToString(this, param.View, model);
             byte[] pdfFile = FormatConverter.ConvertHtmlTextToPDF(htmlText);
             return new BinaryContentResult($"temp.pdf", "application/pdf", pdfFile);
          }
 
-         return PartialView("Preview5005",model);
+         return PartialView(param.View, model);
       }
 
 

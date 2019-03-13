@@ -1,6 +1,6 @@
 ﻿@model BzUserProfile
 @{
-	var isBrokeRole = Request["key"] == DeclareKeys.XuekDaitr_ZhicPog;
+	var isBrokeRole = Request["TypeKey"] == DeclareKeys.XuekDaitr_ZhicPog;
 }
 <!-- WIDGET TABBED CONTENT -->
 <form id="FormProfile" action="@Url.Action("BasicProfileEdit", "DeclareMaterial")" method="post" class="form-horizontal form-group-sm" role="form" novalidate="novalidate">

@@ -60,7 +60,13 @@
 </form>
 <script>
 	function afterDialogSuccess(data) {
-		$('#DeclareFormId').val(data.DeclareFormId);
+		//如果提交则刷新页面
+		if ($('#StatusKey').val() != '') {
+			location.href = location.href;
+		}
+		else {
+			$('#DeclareFormId').val(data.DeclareFormId);
+		}
 	}
 
 	$(function () {

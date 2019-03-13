@@ -563,7 +563,7 @@ namespace TheSite.Controllers
 
          if (declareForm != null)
          {
-            list.Add(new json_treenode { id = DeclareKeys.Preview, text = "我的申报", type = json_treenode_types.database });
+            list.Add(new json_treenode { id = declareForm.DeclareFormId.ToString(), text = "我的申报", type = json_treenode_types.database });
          }
          else
          {
