@@ -14,6 +14,7 @@
 				@Html.HiddenFor(m => m.StatusKey)
 				@Html.HiddenFor(m => m.TypeKey)
 				@Html.HiddenFor(m => m.DeclareTargetPKID)
+				@Html.HiddenFor(m => m.IsBrokenRoles)
 				<div class="form-group">
 					@Html.LabelFor(m => m.DeclareTargetPKID, new { @class = "col-md-2 control-label" })
 					<div class="col-md-9">
@@ -82,7 +83,13 @@
 </form>
 <script>
 	function afterDialogSuccess(data) {
-		$('#DeclareFormId').val(data.DeclareFormId);
+		//如果提交则刷新页面
+		if ($('#StatusKey').val() != '') {
+			location.href = location.href;
+		}
+		else {
+			$('#DeclareFormId').val(data.DeclareFormId);
+		}
 	}
 
 	$(function () {

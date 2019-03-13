@@ -76,6 +76,14 @@
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Business\Utilities\ITextSharp\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Business\Utilities\ITextSharp\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
@@ -122,6 +130,10 @@
     <Reference Include="NPOI.OpenXmlFormats, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="O2S.Components.PDFRender4NET, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Business\Utilities\ITextSharp\O2S.Components.PDFRender4NET.dll</HintPath>
     </Reference>
     <Reference Include="office, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -251,8 +263,11 @@
     <Compile Include="Business\Helper\Keys\ExpertKeys.cs" />
     <Compile Include="Business\Helper\NoticeHelper.cs" />
     <Compile Include="Business\Log\Logger.cs" />
+    <Compile Include="Business\System.Web.Mvc\BinaryContentResult.cs" />
     <Compile Include="Business\System.Web.Mvc\CacheAttribute.cs" />
     <Compile Include="Business\System.Web.Mvc\DecalreAttribute.cs" />
+    <Compile Include="Business\Utilities\FormatConverter.cs" />
+    <Compile Include="Business\System.Web.Mvc\HtmlRender.cs" />
     <Compile Include="Business\System.Web.Mvc\PermissonAttribute.cs" />
     <Compile Include="Business\Utilities\Aspose\WordConverter.cs" />
     <Compile Include="Business\Utilities\Aspose\PPTConverter.cs" />
@@ -504,6 +519,9 @@
     <Content Include="Business\Log\dll\Camoran.GodLog.dll" />
     <Content Include="Business\Log\dll\Dapper.dll" />
     <Content Include="Business\Utilities\Aspose\Aspose.Words.dll" />
+    <Content Include="Business\Utilities\ITextSharp\itextsharp.dll" />
+    <Content Include="Business\Utilities\ITextSharp\itextsharp.xmlworker.dll" />
+    <Content Include="Business\Utilities\ITextSharp\O2S.Components.PDFRender4NET.dll" />
     <Content Include="Business\Utilities\wangsu\WcsLib.dll" />
     <Content Include="Business\Utilities\wangsu\WcsLib.pdb" />
     <Content Include="Views\Declare\ZisFaz_PeixJiangz_JiaosPeixKec.cshtml" />

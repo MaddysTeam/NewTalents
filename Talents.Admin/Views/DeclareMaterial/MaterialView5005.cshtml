@@ -6,6 +6,7 @@
 </div>
 <div class="gallery-buttons  bottom-30px">
 	<a href="@Url.Action("Preview","DeclareMaterial")" target="_blank" class="btn btn-info"><i class="fa fa-eye"> 预览申报</i></a> &nbsp; &nbsp;
+	<a href="@Url.Action("Preview","DeclareMaterial")?IsExport=true" target="_blank" class="btn btn-custom-primary"><i class="fa fa-download"> 下载表单</i></a> &nbsp; &nbsp;
 	<button class="btn btn-primary" id="declareSubmit"><i class="fa fa-pencil"> 申报提交</i></button>
 </div>
 <div class="widget">
@@ -44,8 +45,10 @@
 		$.get('@Url.Action("FormIndexEdit", "DeclareMaterial")?typeKey=@Model&view=_index5005&declareTargetId=@DeclareTargetIds.XuekDaitr', function (html) {
 			$('#tab0').append(html);
 			$('#declareSubmit').click(function () {
-				$('#StatusKey').val('@DeclareKeys.ReviewProcess');
-				$('#submit').trigger('click');
+				if (confirm('确定要提交报表，提交后将无法选择和填写当前或其他称号的申报表单，只能够预览和打印表单！')) {
+					$('#StatusKey').val('@DeclareKeys.ReviewProcess');
+					$('#submit').trigger('click');
+				}
 			});
 		});
 

@@ -1,5 +1,6 @@
 ﻿using Business;
 using Business.Helper;
+using Business.Utilities;
 using Symber.Web.Data;
 using System;
 using System.Collections.Generic;
@@ -177,7 +178,7 @@ namespace TheSite.Controllers
          }
          else if (key == DeclareKeys.Preview)
          {
-            return PartialView("Preview");
+            return Preview(null);
          }
 
          return View();
@@ -216,7 +217,7 @@ namespace TheSite.Controllers
          {
             //var isExists = db.DeclareFormDal.ConditionQueryCount(df.TeacherId == model.TeacherId & df.PeriodId == Period.PeriodId & df.DeclareTargetPKID == model.DeclareTargetPKID) > 0;
             //if (!isExists)
-               db.DeclareFormDal.Insert(model);
+            db.DeclareFormDal.Insert(model);
          }
          else
          {
@@ -231,7 +232,7 @@ namespace TheSite.Controllers
                model.AllowFlowToSchool,
                model.AllowFitResearcher,
                model.StatusKey,
-               model.TypeKey
+               model.TypeKey,
             });
          }
 
@@ -266,13 +267,16 @@ namespace TheSite.Controllers
             model.PoliticalStatusPKID,
             model.CourseCountPerWeek,
             model.NationalityPKID,
-            model.EduSubjectPKID,
             model.SkillTitlePKID,
             model.RankTitlePKID,
             model.Hiredate,
             model.Phonemobile,
             model.Phone,
             model.Email,
+            model.EduBgPKID,
+            model.EduDegreePKID,
+            model.EduStagePKID,
+            model.EduSubjectPKID,
             model.Dynamic1,
             model.Dynamic2,
             model.Dynamic3,
@@ -346,14 +350,69 @@ namespace TheSite.Controllers
 
       // Get: DeclareMaterial/Items
 
-      public ActionResult Preview()
+      public ActionResult Preview(bool? IsExport)
       {
+         var u = APDBDef.BzUserProfile;
+         var c = APDBDef.Company;
+         var pdfRender = new HtmlRender();
          var model = new DeclarePreviewViewModel();
+         var profile = db.BzUserProfileDal.PrimaryGet(UserProfile.UserId);
+         var company = db.CompanyDal.ConditionQuery(c.CompanyId == profile.CompanyId, null, null, null).FirstOrDefault();
+         var form = db.DeclareFormDal.ConditionQuery(
+            df.TeacherId == profile.UserId &
+            df.PeriodId == Period.PeriodId &
+            df.DeclareTargetPKID == 5005 &
+            df.TypeKey == "学科带头人.申报", null, null, null).FirstOrDefault();
+         var declareActives = GetDeclareActives(5005, profile.UserId);
+         var declareAchievement = GetDeclareAchievements(5005, profile.UserId);
+
          model.DeclareTargetId = 5005;
-         model.RealName = "王某某";
-         model.Company = "上海教育软件有限责任公司";
-         model.Subject = "小学语文";
-         return View("Preview5005", model);
+         model.Decalre = "学科带头人";
+         model.DeclareSubject = BzUserProfileHelper.EduSubject.GetName(form.DeclareSubjectPKID);
+         model.DeclareCompany = company.CompanyName;
+         model.RealName = profile.RealName;
+         model.RankTitle = profile.RankTitle;
+         model.SkillTitle = profile.SkillTitle;
+         model.TrainNo = profile.TrainNo;
+         model.Plitics = profile.PoliticalStatus;
+         model.EduBg = profile.EduBg;
+         model.CourseCount = profile.CourseCountPerWeek;
+         model.Company = company == null ? string.Empty : company.CompanyName;
+         model.Mobile = profile.Phonemobile;
+         model.Phone = profile.Phone;
+         model.Email = profile.Email;
+         model.Hiredate = profile.Hiredate.ToString("yyyy-MM-dd");
+         model.Birthday = profile.Birthday.ToString("yyyy-MM-dd");
+         model.Gender = profile.Gender;
+         model.Nation = profile.Nationality;
+         model.Subject = profile.EduStage + profile.EduSubject;
+         model.EduBg = profile.EduBg + profile.EduDegree;
+         model.FirstYearScore = profile.Dynamic1;
+         model.SecondYearScore = profile.Dynamic2;
+         model.ThirdYearScore = profile.Dynamic3;
+         model.Is1000 = profile.Dynamic4 == DeclareKeys.GonggJihChengy;
+         model.Is2000 = profile.Dynamic4 == DeclareKeys.ZhongzJihLingxReng;
+         model.Is5004 = profile.Dynamic4 == DeclareKeys.GongzsZhucr;
+         model.Is5005 = profile.Dynamic4 == DeclareKeys.XuekDaitr;
+         model.Is5006 = profile.Dynamic4 == DeclareKeys.GugJiaos;
+         model.Is5007 = profile.Dynamic4 == DeclareKeys.JiaoxNengs;
+         model.Is6000 = profile.Dynamic4 == DeclareKeys.GaodJiaoSYanxBanXuey;
+         model.Comment1 = profile.Dynamic5;
+         model.IsAllowDownGrade = form.AllowFlowToDowngrade;
+         model.IsAllowdFlow = form.AllowFlowToSchool;
+         model.DeclareActies = declareActives;
+         model.DeclareAchievements = declareAchievement;
+         model.Reason = form.Reason;
+         model.IsBrokRoles = form.IsBrokenRoles;
+
+         if (IsExport!=null && IsExport.Value)
+         {
+            var htmlText = pdfRender.RenderViewToString(this, "Preview5005", model);
+            byte[] pdfFile = FormatConverter.ConvertHtmlTextToPDF(htmlText);
+            return new BinaryContentResult($"temp.pdf", "application/pdf", pdfFile);
+         }
+
+         return PartialView("Preview5005",model);
       }
 
 
@@ -361,6 +420,30 @@ namespace TheSite.Controllers
 
       private string SubString(string str)
     => str.Length > 50 ? str.Substring(0, 50) + "..." : str;
+
+      private List<DeclareActive> GetDeclareActives(long declareTargetId, long teacherId) =>
+         APQuery.select(dm.MaterialId, dm.DeclareTargetPKID, da.Asterisk)
+          .from(dm, da.JoinInner(dm.ItemId == da.DeclareActiveId))
+          .where(dm.PeriodId == Period.PeriodId & dm.TeacherId == teacherId & da.Creator == teacherId & dm.DeclareTargetPKID == declareTargetId)
+          .query(db, r =>
+          {
+             var active = new DeclareActive();
+             da.Fullup(r, active, false);
+
+             return active;
+          }).ToList();
+
+      private List<DeclareAchievement> GetDeclareAchievements(long declareTargetId, long teacherId) =>
+         APQuery.select(dm.MaterialId, dm.DeclareTargetPKID, dac.Asterisk)
+            .from(dm, dac.JoinInner(dm.ItemId == dac.DeclareAchievementId))
+            .where(dm.PeriodId == Period.PeriodId & dm.TeacherId == teacherId & dac.Creator == teacherId & dm.DeclareTargetPKID == declareTargetId)
+            .query(db, r =>
+            {
+               var achievement = new DeclareAchievement();
+               dac.Fullup(r, achievement, false);
+
+               return achievement;
+            }).ToList();
 
       #endregion
 

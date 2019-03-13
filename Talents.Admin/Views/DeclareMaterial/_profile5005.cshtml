@@ -53,11 +53,22 @@
 						@Html.TextBoxFor(m => m.CourseCountPerWeek, new { @class = "form-control" })
 					</div>
 				</div>
-
+				<div class="form-group">
+					@Html.LabelFor(m => m.EduBgPKID, new { @class = "col-md-3 control-label" })
+					<div class="col-md-9">
+						@Html.DropDownListFor(m => m.EduBgPKID, BzUserProfileHelper.EduBg.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.EduDegreePKID, new { @class = "col-md-3 control-label" })
+					<div class="col-md-9">
+						@Html.DropDownListFor(m => m.EduDegreePKID, BzUserProfileHelper.EduDegree.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
+					</div>
+				</div>
 			</div>
 		</fieldset>
 		<fieldset class="col-md-6">
-			<div>
+			<div>			
 				<div class="form-group">
 					@Html.LabelFor(m => m.NationalityPKID, new { @class = "col-md-3 control-label" })
 					<div class="col-md-9">
@@ -68,6 +79,12 @@
 					@Html.LabelFor(m => m.EduSubjectPKID, new { @class = "col-md-3 control-label" })
 					<div class="col-md-9">
 						@Html.DropDownListFor(m => m.EduSubjectPKID, BzUserProfileHelper.EduSubject.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.EduStagePKID, new { @class = "col-md-3 control-label" })
+					<div class="col-md-9">
+						@Html.DropDownListFor(m => m.EduStagePKID, BzUserProfileHelper.EduStage.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
 					</div>
 				</div>
 				<div class="form-group">
