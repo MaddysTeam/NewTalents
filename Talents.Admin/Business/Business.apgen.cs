@@ -69,7 +69,7 @@ namespace Business {
         
         private static DeclareOrgConstTableDef _declareOrgConst;
         
-        private static DeclareFormTableDef _declareForm;
+        private static DeclareReviewTableDef _declareReview;
         
         private static DeclareMaterialTableDef _declareMaterial;
         
@@ -173,7 +173,7 @@ namespace Business {
         
         private APDalDef.DeclareOrgConstDal _declareOrgConstDal;
         
-        private APDalDef.DeclareFormDal _declareFormDal;
+        private APDalDef.DeclareReviewDal _declareReviewDal;
         
         private APDalDef.DeclareMaterialDal _declareMaterialDal;
         
@@ -514,14 +514,14 @@ namespace Business {
         }
         
         /// <summary>
-        /// 申报表单 TableDef
+        /// 申报审核 TableDef
         /// </summary>
-        public static DeclareFormTableDef DeclareForm {
+        public static DeclareReviewTableDef DeclareReview {
             get {
-                if ((_declareForm == null)) {
-                    _declareForm = new DeclareFormTableDef("DeclareForm");
+                if ((_declareReview == null)) {
+                    _declareReview = new DeclareReviewTableDef("DeclareReview");
                 }
-                return _declareForm;
+                return _declareReview;
             }
         }
         
@@ -1126,14 +1126,14 @@ namespace Business {
         }
         
         /// <summary>
-        /// 申报表单 Dal
+        /// 申报审核 Dal
         /// </summary>
-        public virtual APDalDef.DeclareFormDal DeclareFormDal {
+        public virtual APDalDef.DeclareReviewDal DeclareReviewDal {
             get {
-                if ((_declareFormDal == null)) {
-                    _declareFormDal = new APDalDef.DeclareFormDal(this);
+                if ((_declareReviewDal == null)) {
+                    _declareReviewDal = new APDalDef.DeclareReviewDal(this);
                 }
-                return _declareFormDal;
+                return _declareReviewDal;
             }
         }
         
@@ -1499,7 +1499,7 @@ namespace Business {
                 db.DeclareActiveDal.InitData(db);
                 db.DeclareAchievementDal.InitData(db);
                 db.DeclareOrgConstDal.InitData(db);
-                db.DeclareFormDal.InitData(db);
+                db.DeclareReviewDal.InitData(db);
                 db.DeclareMaterialDal.InitData(db);
                 db.DeclarePeriodDal.InitData(db);
                 db.TeamMemberDal.InitData(db);
@@ -7234,9 +7234,9 @@ namespace Business {
         }
         
         [Serializable()]
-        public partial class DeclareFormTableDef : APTableDef {
+        public partial class DeclareReviewTableDef : APTableDef {
             
-            private Int64APColumnDef _declareFormId;
+            private Int64APColumnDef _declareReviewId;
             
             private Int64APColumnDef _teacherId;
             
@@ -7264,24 +7264,26 @@ namespace Business {
             
             private StringAPColumnDef _reviewComment;
             
-            public DeclareFormTableDef(string tableName) : 
+            private Int64APColumnDef _reviewerId;
+            
+            public DeclareReviewTableDef(string tableName) : 
                     base(tableName) {
             }
             
-            protected DeclareFormTableDef(string tableName, string alias) : 
+            protected DeclareReviewTableDef(string tableName, string alias) : 
                     base(tableName, alias) {
             }
             
             /// <summary>
-            /// DeclareFormId ColumnDef
+            /// DeclareReviewId ColumnDef
             /// </summary>
-            public virtual Int64APColumnDef DeclareFormId {
+            public virtual Int64APColumnDef DeclareReviewId {
                 get {
-                    if (Object.ReferenceEquals(_declareFormId, null)) {
-                        _declareFormId = new Int64APColumnDef(this, "DeclareFormId", false);
-                        _declareFormId.Display = "DeclareFormId";
+                    if (Object.ReferenceEquals(_declareReviewId, null)) {
+                        _declareReviewId = new Int64APColumnDef(this, "DeclareReviewId", false);
+                        _declareReviewId.Display = "DeclareReviewId";
                     }
-                    return _declareFormId;
+                    return _declareReviewId;
                 }
             }
             
@@ -7455,6 +7457,19 @@ namespace Business {
             }
             
             /// <summary>
+            /// ReviewerId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef ReviewerId {
+                get {
+                    if (Object.ReferenceEquals(_reviewerId, null)) {
+                        _reviewerId = new Int64APColumnDef(this, "ReviewerId", false);
+                        _reviewerId.Display = "审核人";
+                    }
+                    return _reviewerId;
+                }
+            }
+            
+            /// <summary>
             /// Default Index
             /// </summary>
             public virtual APSqlOrderPhrase DefaultOrder {
@@ -7466,15 +7481,15 @@ namespace Business {
             /// <summary>
             /// Create a alias table
             /// </summary>
-            public virtual DeclareFormTableDef As(string name) {
-                return new DeclareFormTableDef("DeclareForm", name);
+            public virtual DeclareReviewTableDef As(string name) {
+                return new DeclareReviewTableDef("DeclareReview", name);
             }
             
             /// <summary>
             /// Fill the data.
             /// </summary>
-            public virtual void Fullup(IDataReader reader, DeclareForm data, bool throwIfValidColumnName) {
-                data.DeclareFormId = DeclareFormId.GetValue<long>(reader, throwIfValidColumnName);
+            public virtual void Fullup(IDataReader reader, DeclareReview data, bool throwIfValidColumnName) {
+                data.DeclareReviewId = DeclareReviewId.GetValue<long>(reader, throwIfValidColumnName);
                 data.TeacherId = TeacherId.GetValue<long>(reader, throwIfValidColumnName);
                 data.CompanyId = CompanyId.GetValue<long>(reader, throwIfValidColumnName);
                 data.DeclareTargetPKID = DeclareTargetPKID.GetValue<long>(reader, throwIfValidColumnName);
@@ -7488,13 +7503,14 @@ namespace Business {
                 data.TypeKey = TypeKey.GetValue<string>(reader, throwIfValidColumnName);
                 data.StatusKey = StatusKey.GetValue<string>(reader, throwIfValidColumnName);
                 data.ReviewComment = ReviewComment.GetValue<string>(reader, throwIfValidColumnName);
+                data.ReviewerId = ReviewerId.GetValue<long>(reader, throwIfValidColumnName);
             }
             
             /// <summary>
             /// Fill the data.
             /// </summary>
-            public virtual DeclareForm Map(IDataReader reader) {
-                DeclareForm data = new DeclareForm();
+            public virtual DeclareReview Map(IDataReader reader) {
+                DeclareReview data = new DeclareReview();
                 Fullup(reader, data, true);
                 return data;
             }
@@ -7502,8 +7518,8 @@ namespace Business {
             /// <summary>
             /// Fill the data.
             /// </summary>
-            public virtual DeclareForm TolerantMap(IDataReader reader) {
-                DeclareForm data = new DeclareForm();
+            public virtual DeclareReview TolerantMap(IDataReader reader) {
+                DeclareReview data = new DeclareReview();
                 Fullup(reader, data, false);
                 return data;
             }
@@ -7511,8 +7527,8 @@ namespace Business {
             /// <summary>
             /// Fill the data.
             /// </summary>
-            public virtual List<DeclareForm> MapList(IDataReader reader) {
-                List<DeclareForm> list = new List<DeclareForm>();
+            public virtual List<DeclareReview> MapList(IDataReader reader) {
+                List<DeclareReview> list = new List<DeclareReview>();
                 try {
                     for (; reader.Read(); ) {
                         list.Add(Map(reader));
@@ -7527,8 +7543,8 @@ namespace Business {
             /// <summary>
             /// Fill the data.
             /// </summary>
-            public virtual List<DeclareForm> TolerantMapList(IDataReader reader) {
-                List<DeclareForm> list = new List<DeclareForm>();
+            public virtual List<DeclareReview> TolerantMapList(IDataReader reader) {
+                List<DeclareReview> list = new List<DeclareReview>();
                 try {
                     for (; reader.Read(); ) {
                         list.Add(TolerantMap(reader));
@@ -7545,8 +7561,6 @@ namespace Business {
         public partial class DeclareMaterialTableDef : APTableDef {
             
             private Int64APColumnDef _materialId;
-            
-            private Int64APColumnDef _formId;
             
             private Int64APColumnDef _declareTargetPKID;
             
@@ -7584,19 +7598,6 @@ namespace Business {
                         _materialId.Display = "MaterialId";
                     }
                     return _materialId;
-                }
-            }
-            
-            /// <summary>
-            /// FormId ColumnDef
-            /// </summary>
-            public virtual Int64APColumnDef FormId {
-                get {
-                    if (Object.ReferenceEquals(_formId, null)) {
-                        _formId = new Int64APColumnDef(this, "FormId", false);
-                        _formId.Display = "申报表单ID";
-                    }
-                    return _formId;
                 }
             }
             
@@ -7738,7 +7739,6 @@ namespace Business {
             /// </summary>
             public virtual void Fullup(IDataReader reader, DeclareMaterial data, bool throwIfValidColumnName) {
                 data.MaterialId = MaterialId.GetValue<long>(reader, throwIfValidColumnName);
-                data.FormId = FormId.GetValue<long>(reader, throwIfValidColumnName);
                 data.DeclareTargetPKID = DeclareTargetPKID.GetValue<long>(reader, throwIfValidColumnName);
                 data.PeriodId = PeriodId.GetValue<long>(reader, throwIfValidColumnName);
                 data.TeacherId = TeacherId.GetValue<long>(reader, throwIfValidColumnName);
@@ -16557,49 +16557,49 @@ namespace Business {
         }
         
         /// <summary>
-        /// 申报表单 DalBase
+        /// 申报审核 DalBase
         /// </summary>
-        public partial class DeclareFormDalBase : APDal {
+        public partial class DeclareReviewDalBase : APDal {
             
-            public DeclareFormDalBase() {
+            public DeclareReviewDalBase() {
             }
             
-            public DeclareFormDalBase(APDatabase db) : 
+            public DeclareReviewDalBase(APDatabase db) : 
                     base(db) {
             }
             
             /// <summary>
             /// Insert Data.
             /// </summary>
-            public virtual void Insert(DeclareForm data) {
-                if ((data.DeclareFormId == 0)) {
-                    data.DeclareFormId = ((long)(GetNewId(APDBDef.DeclareForm.DeclareFormId)));
+            public virtual void Insert(DeclareReview data) {
+                if ((data.DeclareReviewId == 0)) {
+                    data.DeclareReviewId = ((long)(GetNewId(APDBDef.DeclareReview.DeclareReviewId)));
                 }
-                var query = APQuery.insert(APDBDef.DeclareForm).values(APDBDef.DeclareForm.DeclareFormId.SetValue(data.DeclareFormId), APDBDef.DeclareForm.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareForm.CompanyId.SetValue(data.CompanyId), APDBDef.DeclareForm.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.DeclareForm.DeclareSubjectPKID.SetValue(data.DeclareSubjectPKID), APDBDef.DeclareForm.AllowFlowToSchool.SetValue(data.AllowFlowToSchool), APDBDef.DeclareForm.AllowFitResearcher.SetValue(data.AllowFitResearcher), APDBDef.DeclareForm.IsBrokenRoles.SetValue(data.IsBrokenRoles), APDBDef.DeclareForm.PeriodId.SetValue(data.PeriodId), APDBDef.DeclareForm.Reason.SetValue(data.Reason), APDBDef.DeclareForm.AllowFlowToDowngrade.SetValue(data.AllowFlowToDowngrade), APDBDef.DeclareForm.TypeKey.SetValue(data.TypeKey), APDBDef.DeclareForm.StatusKey.SetValue(data.StatusKey), APDBDef.DeclareForm.ReviewComment.SetValue(data.ReviewComment));
+                var query = APQuery.insert(APDBDef.DeclareReview).values(APDBDef.DeclareReview.DeclareReviewId.SetValue(data.DeclareReviewId), APDBDef.DeclareReview.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareReview.CompanyId.SetValue(data.CompanyId), APDBDef.DeclareReview.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.DeclareReview.DeclareSubjectPKID.SetValue(data.DeclareSubjectPKID), APDBDef.DeclareReview.AllowFlowToSchool.SetValue(data.AllowFlowToSchool), APDBDef.DeclareReview.AllowFitResearcher.SetValue(data.AllowFitResearcher), APDBDef.DeclareReview.IsBrokenRoles.SetValue(data.IsBrokenRoles), APDBDef.DeclareReview.PeriodId.SetValue(data.PeriodId), APDBDef.DeclareReview.Reason.SetValue(data.Reason), APDBDef.DeclareReview.AllowFlowToDowngrade.SetValue(data.AllowFlowToDowngrade), APDBDef.DeclareReview.TypeKey.SetValue(data.TypeKey), APDBDef.DeclareReview.StatusKey.SetValue(data.StatusKey), APDBDef.DeclareReview.ReviewComment.SetValue(data.ReviewComment), APDBDef.DeclareReview.ReviewerId.SetValue(data.ReviewerId));
                 ExecuteNonQuery(query);
             }
             
             /// <summary>
             /// Update Data.
             /// </summary>
-            public virtual void Update(DeclareForm data) {
-                var query = APQuery.update(APDBDef.DeclareForm).values(APDBDef.DeclareForm.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareForm.CompanyId.SetValue(data.CompanyId), APDBDef.DeclareForm.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.DeclareForm.DeclareSubjectPKID.SetValue(data.DeclareSubjectPKID), APDBDef.DeclareForm.AllowFlowToSchool.SetValue(data.AllowFlowToSchool), APDBDef.DeclareForm.AllowFitResearcher.SetValue(data.AllowFitResearcher), APDBDef.DeclareForm.IsBrokenRoles.SetValue(data.IsBrokenRoles), APDBDef.DeclareForm.PeriodId.SetValue(data.PeriodId), APDBDef.DeclareForm.Reason.SetValue(data.Reason), APDBDef.DeclareForm.AllowFlowToDowngrade.SetValue(data.AllowFlowToDowngrade), APDBDef.DeclareForm.TypeKey.SetValue(data.TypeKey), APDBDef.DeclareForm.StatusKey.SetValue(data.StatusKey), APDBDef.DeclareForm.ReviewComment.SetValue(data.ReviewComment)).where((APDBDef.DeclareForm.DeclareFormId == data.DeclareFormId));
+            public virtual void Update(DeclareReview data) {
+                var query = APQuery.update(APDBDef.DeclareReview).values(APDBDef.DeclareReview.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareReview.CompanyId.SetValue(data.CompanyId), APDBDef.DeclareReview.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.DeclareReview.DeclareSubjectPKID.SetValue(data.DeclareSubjectPKID), APDBDef.DeclareReview.AllowFlowToSchool.SetValue(data.AllowFlowToSchool), APDBDef.DeclareReview.AllowFitResearcher.SetValue(data.AllowFitResearcher), APDBDef.DeclareReview.IsBrokenRoles.SetValue(data.IsBrokenRoles), APDBDef.DeclareReview.PeriodId.SetValue(data.PeriodId), APDBDef.DeclareReview.Reason.SetValue(data.Reason), APDBDef.DeclareReview.AllowFlowToDowngrade.SetValue(data.AllowFlowToDowngrade), APDBDef.DeclareReview.TypeKey.SetValue(data.TypeKey), APDBDef.DeclareReview.StatusKey.SetValue(data.StatusKey), APDBDef.DeclareReview.ReviewComment.SetValue(data.ReviewComment), APDBDef.DeclareReview.ReviewerId.SetValue(data.ReviewerId)).where((APDBDef.DeclareReview.DeclareReviewId == data.DeclareReviewId));
                 ExecuteNonQuery(query);
             }
             
             /// <summary>
             /// Update Data.
             /// </summary>
-            public virtual void UpdatePartial(long declareFormId, Object metadata) {
-                var query = APQuery.update(APDBDef.DeclareForm).values(APSqlSetPhraseSelector.Select(APDBDef.DeclareForm, metadata)).where((APDBDef.DeclareForm.DeclareFormId == declareFormId));
+            public virtual void UpdatePartial(long declareReviewId, Object metadata) {
+                var query = APQuery.update(APDBDef.DeclareReview).values(APSqlSetPhraseSelector.Select(APDBDef.DeclareReview, metadata)).where((APDBDef.DeclareReview.DeclareReviewId == declareReviewId));
                 ExecuteNonQuery(query);
             }
             
             /// <summary>
             /// Delete data by primary key.
             /// </summary>
-            public virtual void PrimaryDelete(long declareFormId) {
-                var query = APQuery.delete(APDBDef.DeclareForm).where((APDBDef.DeclareForm.DeclareFormId == declareFormId));
+            public virtual void PrimaryDelete(long declareReviewId) {
+                var query = APQuery.delete(APDBDef.DeclareReview).where((APDBDef.DeclareReview.DeclareReviewId == declareReviewId));
                 ExecuteNonQuery(query);
             }
             
@@ -16607,7 +16607,7 @@ namespace Business {
             /// Delete data by condition.
             /// </summary>
             public virtual void ConditionDelete(APSqlWherePhrase condition) {
-                var query = APQuery.delete(APDBDef.DeclareForm).where(condition);
+                var query = APQuery.delete(APDBDef.DeclareReview).where(condition);
                 ExecuteNonQuery(query);
             }
             
@@ -16615,19 +16615,19 @@ namespace Business {
             /// Query count by condition.
             /// </summary>
             public virtual int ConditionQueryCount(APSqlWherePhrase condition) {
-                var query = APQuery.select(APDBDef.DeclareForm.Asterisk.Count()).from(APDBDef.DeclareForm).where(condition);
+                var query = APQuery.select(APDBDef.DeclareReview.Asterisk.Count()).from(APDBDef.DeclareReview).where(condition);
                 return ExecuteCount(query);
             }
             
             /// <summary>
             /// Get data by PK.
             /// </summary>
-            public virtual DeclareForm PrimaryGet(long declareFormId) {
-                var query = APQuery.select(APDBDef.DeclareForm.Asterisk).from(APDBDef.DeclareForm).where((APDBDef.DeclareForm.DeclareFormId == declareFormId));
+            public virtual DeclareReview PrimaryGet(long declareReviewId) {
+                var query = APQuery.select(APDBDef.DeclareReview.Asterisk).from(APDBDef.DeclareReview).where((APDBDef.DeclareReview.DeclareReviewId == declareReviewId));
                 IDataReader reader = ExecuteReader(query);
                 try {
                     if (reader.Read()) {
-                        return APDBDef.DeclareForm.Map(reader);
+                        return APDBDef.DeclareReview.Map(reader);
                     }
                     return null;
                 }
@@ -16639,8 +16639,8 @@ namespace Business {
             /// <summary>
             /// Query by condition.
             /// </summary>
-            public virtual List<DeclareForm> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
-                var query = APQuery.select(APDBDef.DeclareForm.Asterisk).from(APDBDef.DeclareForm);
+            public virtual List<DeclareReview> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+                var query = APQuery.select(APDBDef.DeclareReview.Asterisk).from(APDBDef.DeclareReview);
                 if ((condition != null)) {
                     query.where(condition);
                 }
@@ -16653,26 +16653,26 @@ namespace Business {
                 if ((skip != null)) {
                     query.skip(skip);
                 }
-                query.primary(APDBDef.DeclareForm.DeclareFormId);
+                query.primary(APDBDef.DeclareReview.DeclareReviewId);
                 IDataReader reader = ExecuteReader(query);
-                return APDBDef.DeclareForm.MapList(reader);
+                return APDBDef.DeclareReview.MapList(reader);
             }
             
             /// <summary>
             /// Get the initial data of the table.
             /// </summary>
-            public virtual List<DeclareForm> GetInitData() {
-                return new List<DeclareForm>();
+            public virtual List<DeclareReview> GetInitData() {
+                return new List<DeclareReview>();
             }
             
             /// <summary>
             /// Initialize data.
             /// </summary>
             public virtual void InitData(APDBDef db) {
-                List<DeclareForm> list = GetInitData();
+                List<DeclareReview> list = GetInitData();
                 for (int i = 0; (i < list.Count); i = (i + 1)) {
-                    DeclareForm data = list[i];
-                    if ((PrimaryGet(data.DeclareFormId) == null)) {
+                    DeclareReview data = list[i];
+                    if ((PrimaryGet(data.DeclareReviewId) == null)) {
                         Insert(data);
                     }
                 }
@@ -16680,14 +16680,14 @@ namespace Business {
         }
         
         /// <summary>
-        /// 申报表单 Dal
+        /// 申报审核 Dal
         /// </summary>
-        public partial class DeclareFormDal : DeclareFormDalBase {
+        public partial class DeclareReviewDal : DeclareReviewDalBase {
             
-            public DeclareFormDal() {
+            public DeclareReviewDal() {
             }
             
-            public DeclareFormDal(APDatabase db) : 
+            public DeclareReviewDal(APDatabase db) : 
                     base(db) {
             }
         }
@@ -16711,7 +16711,7 @@ namespace Business {
                 if ((data.MaterialId == 0)) {
                     data.MaterialId = ((long)(GetNewId(APDBDef.DeclareMaterial.MaterialId)));
                 }
-                var query = APQuery.insert(APDBDef.DeclareMaterial).values(APDBDef.DeclareMaterial.MaterialId.SetValue(data.MaterialId), APDBDef.DeclareMaterial.FormId.SetValue(data.FormId), APDBDef.DeclareMaterial.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.DeclareMaterial.PeriodId.SetValue(data.PeriodId), APDBDef.DeclareMaterial.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareMaterial.ItemId.SetValue(data.ItemId), APDBDef.DeclareMaterial.Title.SetValue(data.Title), APDBDef.DeclareMaterial.ParentType.SetValue(data.ParentType), APDBDef.DeclareMaterial.Type.SetValue(data.Type), APDBDef.DeclareMaterial.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareMaterial.PubishDate.SetValue(data.PubishDate));
+                var query = APQuery.insert(APDBDef.DeclareMaterial).values(APDBDef.DeclareMaterial.MaterialId.SetValue(data.MaterialId), APDBDef.DeclareMaterial.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.DeclareMaterial.PeriodId.SetValue(data.PeriodId), APDBDef.DeclareMaterial.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareMaterial.ItemId.SetValue(data.ItemId), APDBDef.DeclareMaterial.Title.SetValue(data.Title), APDBDef.DeclareMaterial.ParentType.SetValue(data.ParentType), APDBDef.DeclareMaterial.Type.SetValue(data.Type), APDBDef.DeclareMaterial.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareMaterial.PubishDate.SetValue(data.PubishDate));
                 ExecuteNonQuery(query);
             }
             
@@ -16719,7 +16719,7 @@ namespace Business {
             /// Update Data.
             /// </summary>
             public virtual void Update(DeclareMaterial data) {
-                var query = APQuery.update(APDBDef.DeclareMaterial).values(APDBDef.DeclareMaterial.FormId.SetValue(data.FormId), APDBDef.DeclareMaterial.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.DeclareMaterial.PeriodId.SetValue(data.PeriodId), APDBDef.DeclareMaterial.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareMaterial.ItemId.SetValue(data.ItemId), APDBDef.DeclareMaterial.Title.SetValue(data.Title), APDBDef.DeclareMaterial.ParentType.SetValue(data.ParentType), APDBDef.DeclareMaterial.Type.SetValue(data.Type), APDBDef.DeclareMaterial.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareMaterial.PubishDate.SetValue(data.PubishDate)).where((APDBDef.DeclareMaterial.MaterialId == data.MaterialId));
+                var query = APQuery.update(APDBDef.DeclareMaterial).values(APDBDef.DeclareMaterial.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.DeclareMaterial.PeriodId.SetValue(data.PeriodId), APDBDef.DeclareMaterial.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareMaterial.ItemId.SetValue(data.ItemId), APDBDef.DeclareMaterial.Title.SetValue(data.Title), APDBDef.DeclareMaterial.ParentType.SetValue(data.ParentType), APDBDef.DeclareMaterial.Type.SetValue(data.Type), APDBDef.DeclareMaterial.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareMaterial.PubishDate.SetValue(data.PubishDate)).where((APDBDef.DeclareMaterial.MaterialId == data.MaterialId));
                 ExecuteNonQuery(query);
             }
             
@@ -23786,17 +23786,17 @@ namespace Business {
         }
         
         /// <summary>
-        /// 申报表单 BplBase
+        /// 申报审核 BplBase
         /// </summary>
-        public partial class DeclareFormBplBase {
+        public partial class DeclareReviewBplBase {
             
             /// <summary>
             /// Insert Data.
             /// </summary>
-            public static void Insert(DeclareForm data) {
+            public static void Insert(DeclareReview data) {
                 APDBDef db = new APDBDef();
                 try {
-                    db.DeclareFormDal.Insert(data);
+                    db.DeclareReviewDal.Insert(data);
                 }
                 finally {
                     db.Close();
@@ -23806,10 +23806,10 @@ namespace Business {
             /// <summary>
             /// Update Data.
             /// </summary>
-            public static void Update(DeclareForm data) {
+            public static void Update(DeclareReview data) {
                 APDBDef db = new APDBDef();
                 try {
-                    db.DeclareFormDal.Update(data);
+                    db.DeclareReviewDal.Update(data);
                 }
                 finally {
                     db.Close();
@@ -23819,10 +23819,10 @@ namespace Business {
             /// <summary>
             /// Update Data.
             /// </summary>
-            public static void UpdatePartial(long declareFormId, Object metadata) {
+            public static void UpdatePartial(long declareReviewId, Object metadata) {
                 APDBDef db = new APDBDef();
                 try {
-                    db.DeclareFormDal.UpdatePartial(declareFormId, metadata);
+                    db.DeclareReviewDal.UpdatePartial(declareReviewId, metadata);
                 }
                 finally {
                     db.Close();
@@ -23832,10 +23832,10 @@ namespace Business {
             /// <summary>
             /// Delete data by primary key.
             /// </summary>
-            public static void PrimaryDelete(long declareFormId) {
+            public static void PrimaryDelete(long declareReviewId) {
                 APDBDef db = new APDBDef();
                 try {
-                    db.DeclareFormDal.PrimaryDelete(declareFormId);
+                    db.DeclareReviewDal.PrimaryDelete(declareReviewId);
                 }
                 finally {
                     db.Close();
@@ -23848,7 +23848,7 @@ namespace Business {
             public static void ConditionDelete(APSqlWherePhrase condition) {
                 APDBDef db = new APDBDef();
                 try {
-                    db.DeclareFormDal.ConditionDelete(condition);
+                    db.DeclareReviewDal.ConditionDelete(condition);
                 }
                 finally {
                     db.Close();
@@ -23861,7 +23861,7 @@ namespace Business {
             public static int ConditionQueryCount(APSqlWherePhrase condition) {
                 APDBDef db = new APDBDef();
                 try {
-                    return db.DeclareFormDal.ConditionQueryCount(condition);
+                    return db.DeclareReviewDal.ConditionQueryCount(condition);
                 }
                 finally {
                     db.Close();
@@ -23871,10 +23871,10 @@ namespace Business {
             /// <summary>
             /// Get data by PK.
             /// </summary>
-            public static DeclareForm PrimaryGet(long declareFormId) {
+            public static DeclareReview PrimaryGet(long declareReviewId) {
                 APDBDef db = new APDBDef();
                 try {
-                    return db.DeclareFormDal.PrimaryGet(declareFormId);
+                    return db.DeclareReviewDal.PrimaryGet(declareReviewId);
                 }
                 finally {
                     db.Close();
@@ -23884,10 +23884,10 @@ namespace Business {
             /// <summary>
             /// Query by condition.
             /// </summary>
-            public static List<DeclareForm> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+            public static List<DeclareReview> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
                 APDBDef db = new APDBDef();
                 try {
-                    return db.DeclareFormDal.ConditionQuery(condition, orderBy, take, skip);
+                    return db.DeclareReviewDal.ConditionQuery(condition, orderBy, take, skip);
                 }
                 finally {
                     db.Close();
@@ -23897,10 +23897,10 @@ namespace Business {
             /// <summary>
             /// Query by condition.
             /// </summary>
-            public static List<DeclareForm> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take) {
+            public static List<DeclareReview> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take) {
                 APDBDef db = new APDBDef();
                 try {
-                    return db.DeclareFormDal.ConditionQuery(condition, orderBy, take, null);
+                    return db.DeclareReviewDal.ConditionQuery(condition, orderBy, take, null);
                 }
                 finally {
                     db.Close();
@@ -23910,10 +23910,10 @@ namespace Business {
             /// <summary>
             /// Query by condition.
             /// </summary>
-            public static List<DeclareForm> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+            public static List<DeclareReview> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
                 APDBDef db = new APDBDef();
                 try {
-                    return db.DeclareFormDal.ConditionQuery(condition, orderBy, null, null);
+                    return db.DeclareReviewDal.ConditionQuery(condition, orderBy, null, null);
                 }
                 finally {
                     db.Close();
@@ -23923,15 +23923,15 @@ namespace Business {
             /// <summary>
             /// Get all data.
             /// </summary>
-            public static List<DeclareForm> GetAll() {
+            public static List<DeclareReview> GetAll() {
                 return ConditionQuery(null, null);
             }
         }
         
         /// <summary>
-        /// 申报表单 Dal
+        /// 申报审核 Dal
         /// </summary>
-        public partial class DeclareFormBpl : DeclareFormBplBase {
+        public partial class DeclareReviewBpl : DeclareReviewBplBase {
         }
         
         /// <summary>
@@ -39175,15 +39175,15 @@ namespace Business {
     }
     
     /// <summary>
-    /// 申报表单 Base
+    /// 申报审核 Base
     /// </summary>
     [Serializable()]
-    public abstract partial class DeclareFormBase {
+    public abstract partial class DeclareReviewBase {
         
         /// <summary>
-        /// DeclareFormId
+        /// DeclareReviewId
         /// </summary>
-        private long _declareFormId;
+        private long _declareReviewId;
         
         /// <summary>
         /// TeacherId
@@ -39251,16 +39251,21 @@ namespace Business {
         private string _reviewComment = string.Empty;
         
         /// <summary>
+        /// ReviewerId
+        /// </summary>
+        private long _reviewerId;
+        
+        /// <summary>
         /// Default constructor.
         /// </summary>
-        public DeclareFormBase() {
+        public DeclareReviewBase() {
         }
         
         /// <summary>
         /// Constructor with all field values.
         /// </summary>
-        public DeclareFormBase(long declareFormId, long teacherId, long companyId, long declareTargetPKID, long declareSubjectPKID, bool allowFlowToSchool, bool allowFitResearcher, bool isBrokenRoles, long periodId, string reason, bool allowFlowToDowngrade, string typeKey, string statusKey, string reviewComment) {
-            _declareFormId = declareFormId;
+        public DeclareReviewBase(long declareReviewId, long teacherId, long companyId, long declareTargetPKID, long declareSubjectPKID, bool allowFlowToSchool, bool allowFitResearcher, bool isBrokenRoles, long periodId, string reason, bool allowFlowToDowngrade, string typeKey, string statusKey, string reviewComment, long reviewerId) {
+            _declareReviewId = declareReviewId;
             _teacherId = teacherId;
             _companyId = companyId;
             _declareTargetPKID = declareTargetPKID;
@@ -39274,26 +39279,27 @@ namespace Business {
             _typeKey = typeKey;
             _statusKey = statusKey;
             _reviewComment = reviewComment;
+            _reviewerId = reviewerId;
         }
         
         /// <summary>
-        /// DeclareFormId
+        /// DeclareReviewId
         /// </summary>
-        public virtual long DeclareFormId {
+        public virtual long DeclareReviewId {
             get {
-                return _declareFormId;
+                return _declareReviewId;
             }
             set {
-                _declareFormId = value;
+                _declareReviewId = value;
             }
         }
         
         /// <summary>
-        /// DeclareFormId APColumnDef
+        /// DeclareReviewId APColumnDef
         /// </summary>
-        public static Int64APColumnDef DeclareFormIdDef {
+        public static Int64APColumnDef DeclareReviewIdDef {
             get {
-                return APDBDef.DeclareForm.DeclareFormId;
+                return APDBDef.DeclareReview.DeclareReviewId;
             }
         }
         
@@ -39315,7 +39321,7 @@ namespace Business {
         /// </summary>
         public static Int64APColumnDef TeacherIdDef {
             get {
-                return APDBDef.DeclareForm.TeacherId;
+                return APDBDef.DeclareReview.TeacherId;
             }
         }
         
@@ -39337,7 +39343,7 @@ namespace Business {
         /// </summary>
         public static Int64APColumnDef CompanyIdDef {
             get {
-                return APDBDef.DeclareForm.CompanyId;
+                return APDBDef.DeclareReview.CompanyId;
             }
         }
         
@@ -39359,7 +39365,7 @@ namespace Business {
         /// </summary>
         public static Int64APColumnDef DeclareTargetPKIDDef {
             get {
-                return APDBDef.DeclareForm.DeclareTargetPKID;
+                return APDBDef.DeclareReview.DeclareTargetPKID;
             }
         }
         
@@ -39381,7 +39387,7 @@ namespace Business {
         /// </summary>
         public static Int64APColumnDef DeclareSubjectPKIDDef {
             get {
-                return APDBDef.DeclareForm.DeclareSubjectPKID;
+                return APDBDef.DeclareReview.DeclareSubjectPKID;
             }
         }
         
@@ -39403,7 +39409,7 @@ namespace Business {
         /// </summary>
         public static BooleanAPColumnDef AllowFlowToSchoolDef {
             get {
-                return APDBDef.DeclareForm.AllowFlowToSchool;
+                return APDBDef.DeclareReview.AllowFlowToSchool;
             }
         }
         
@@ -39425,7 +39431,7 @@ namespace Business {
         /// </summary>
         public static BooleanAPColumnDef AllowFitResearcherDef {
             get {
-                return APDBDef.DeclareForm.AllowFitResearcher;
+                return APDBDef.DeclareReview.AllowFitResearcher;
             }
         }
         
@@ -39447,7 +39453,7 @@ namespace Business {
         /// </summary>
         public static BooleanAPColumnDef IsBrokenRolesDef {
             get {
-                return APDBDef.DeclareForm.IsBrokenRoles;
+                return APDBDef.DeclareReview.IsBrokenRoles;
             }
         }
         
@@ -39469,7 +39475,7 @@ namespace Business {
         /// </summary>
         public static Int64APColumnDef PeriodIdDef {
             get {
-                return APDBDef.DeclareForm.PeriodId;
+                return APDBDef.DeclareReview.PeriodId;
             }
         }
         
@@ -39492,7 +39498,7 @@ namespace Business {
         /// </summary>
         public static StringAPColumnDef ReasonDef {
             get {
-                return APDBDef.DeclareForm.Reason;
+                return APDBDef.DeclareReview.Reason;
             }
         }
         
@@ -39514,7 +39520,7 @@ namespace Business {
         /// </summary>
         public static BooleanAPColumnDef AllowFlowToDowngradeDef {
             get {
-                return APDBDef.DeclareForm.AllowFlowToDowngrade;
+                return APDBDef.DeclareReview.AllowFlowToDowngrade;
             }
         }
         
@@ -39537,7 +39543,7 @@ namespace Business {
         /// </summary>
         public static StringAPColumnDef TypeKeyDef {
             get {
-                return APDBDef.DeclareForm.TypeKey;
+                return APDBDef.DeclareReview.TypeKey;
             }
         }
         
@@ -39560,7 +39566,7 @@ namespace Business {
         /// </summary>
         public static StringAPColumnDef StatusKeyDef {
             get {
-                return APDBDef.DeclareForm.StatusKey;
+                return APDBDef.DeclareReview.StatusKey;
             }
         }
         
@@ -39583,33 +39589,55 @@ namespace Business {
         /// </summary>
         public static StringAPColumnDef ReviewCommentDef {
             get {
-                return APDBDef.DeclareForm.ReviewComment;
+                return APDBDef.DeclareReview.ReviewComment;
             }
         }
         
         /// <summary>
-        /// DeclareFormTableDef APTableDef
+        /// ReviewerId
         /// </summary>
-        public static APDBDef.DeclareFormTableDef TableDef {
+        [Display(Name="审核人")]
+        public virtual long ReviewerId {
             get {
-                return APDBDef.DeclareForm;
+                return _reviewerId;
+            }
+            set {
+                _reviewerId = value;
             }
         }
         
         /// <summary>
-        /// DeclareFormTableDef APSqlAsteriskExpr
+        /// ReviewerId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef ReviewerIdDef {
+            get {
+                return APDBDef.DeclareReview.ReviewerId;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareReviewTableDef APTableDef
+        /// </summary>
+        public static APDBDef.DeclareReviewTableDef TableDef {
+            get {
+                return APDBDef.DeclareReview;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareReviewTableDef APSqlAsteriskExpr
         /// </summary>
         public static APSqlAsteriskExpr Asterisk {
             get {
-                return APDBDef.DeclareForm.Asterisk;
+                return APDBDef.DeclareReview.Asterisk;
             }
         }
         
         /// <summary>
         /// Assignment.
         /// </summary>
-        public virtual void Assignment(DeclareForm data) {
-            DeclareFormId = data.DeclareFormId;
+        public virtual void Assignment(DeclareReview data) {
+            DeclareReviewId = data.DeclareReviewId;
             TeacherId = data.TeacherId;
             CompanyId = data.CompanyId;
             DeclareTargetPKID = data.DeclareTargetPKID;
@@ -39623,13 +39651,14 @@ namespace Business {
             TypeKey = data.TypeKey;
             StatusKey = data.StatusKey;
             ReviewComment = data.ReviewComment;
+            ReviewerId = data.ReviewerId;
         }
         
         /// <summary>
         /// Compare equals.
         /// </summary>
-        public virtual bool CompareEquals(DeclareForm data) {
-            if ((DeclareFormId != data.DeclareFormId)) {
+        public virtual bool CompareEquals(DeclareReview data) {
+            if ((DeclareReviewId != data.DeclareReviewId)) {
                 return false;
             }
             if ((TeacherId != data.TeacherId)) {
@@ -39671,6 +39700,9 @@ namespace Business {
             if ((ReviewComment != data.ReviewComment)) {
                 return false;
             }
+            if ((ReviewerId != data.ReviewerId)) {
+                return false;
+            }
             return true;
         }
         
@@ -39678,97 +39710,97 @@ namespace Business {
         /// Insert Data.
         /// </summary>
         public virtual void Insert() {
-            APBplDef.DeclareFormBpl.Insert(((DeclareForm)(this)));
+            APBplDef.DeclareReviewBpl.Insert(((DeclareReview)(this)));
         }
         
         /// <summary>
         /// Update Data.
         /// </summary>
         public virtual void Update() {
-            APBplDef.DeclareFormBpl.Update(((DeclareForm)(this)));
+            APBplDef.DeclareReviewBpl.Update(((DeclareReview)(this)));
         }
         
         /// <summary>
         /// Update Data.
         /// </summary>
-        public static void UpdatePartial(long declareFormId, Object metadata) {
-            APBplDef.DeclareFormBpl.UpdatePartial(declareFormId, metadata);
+        public static void UpdatePartial(long declareReviewId, Object metadata) {
+            APBplDef.DeclareReviewBpl.UpdatePartial(declareReviewId, metadata);
         }
         
         /// <summary>
         /// Delete data by primary key.
         /// </summary>
-        public static void PrimaryDelete(long declareFormId) {
-            APBplDef.DeclareFormBpl.PrimaryDelete(declareFormId);
+        public static void PrimaryDelete(long declareReviewId) {
+            APBplDef.DeclareReviewBpl.PrimaryDelete(declareReviewId);
         }
         
         /// <summary>
         /// Delete data by condition.
         /// </summary>
         public static void ConditionDelete(APSqlWherePhrase condition) {
-            APBplDef.DeclareFormBpl.ConditionDelete(condition);
+            APBplDef.DeclareReviewBpl.ConditionDelete(condition);
         }
         
         /// <summary>
         /// Query count by condition.
         /// </summary>
         public static int ConditionQueryCount(APSqlWherePhrase condition) {
-            return APBplDef.DeclareFormBpl.ConditionQueryCount(condition);
+            return APBplDef.DeclareReviewBpl.ConditionQueryCount(condition);
         }
         
         /// <summary>
         /// Get data by PK.
         /// </summary>
-        public static DeclareForm PrimaryGet(long declareFormId) {
-            return APBplDef.DeclareFormBpl.PrimaryGet(declareFormId);
+        public static DeclareReview PrimaryGet(long declareReviewId) {
+            return APBplDef.DeclareReviewBpl.PrimaryGet(declareReviewId);
         }
         
         /// <summary>
         /// Query by condition.
         /// </summary>
-        public static List<DeclareForm> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take, int skip) {
-            return APBplDef.DeclareFormBpl.ConditionQuery(condition, orderBy, take, skip);
+        public static List<DeclareReview> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take, int skip) {
+            return APBplDef.DeclareReviewBpl.ConditionQuery(condition, orderBy, take, skip);
         }
         
         /// <summary>
         /// Query by condition.
         /// </summary>
-        public static List<DeclareForm> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take) {
-            return APBplDef.DeclareFormBpl.ConditionQuery(condition, orderBy, take);
+        public static List<DeclareReview> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take) {
+            return APBplDef.DeclareReviewBpl.ConditionQuery(condition, orderBy, take);
         }
         
         /// <summary>
         /// Query by condition.
         /// </summary>
-        public static List<DeclareForm> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
-            return APBplDef.DeclareFormBpl.ConditionQuery(condition, orderBy);
+        public static List<DeclareReview> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+            return APBplDef.DeclareReviewBpl.ConditionQuery(condition, orderBy);
         }
         
         /// <summary>
         /// Get all data.
         /// </summary>
-        public static List<DeclareForm> GetAll() {
-            return APBplDef.DeclareFormBpl.GetAll();
+        public static List<DeclareReview> GetAll() {
+            return APBplDef.DeclareReviewBpl.GetAll();
         }
     }
     
     /// <summary>
-    /// 申报表单
+    /// 申报审核
     /// </summary>
     [Serializable()]
-    public partial class DeclareForm : DeclareFormBase {
+    public partial class DeclareReview : DeclareReviewBase {
         
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public DeclareForm() {
+        public DeclareReview() {
         }
         
         /// <summary>
         /// Constructor with all field values.
         /// </summary>
-        public DeclareForm(long declareFormId, long teacherId, long companyId, long declareTargetPKID, long declareSubjectPKID, bool allowFlowToSchool, bool allowFitResearcher, bool isBrokenRoles, long periodId, string reason, bool allowFlowToDowngrade, string typeKey, string statusKey, string reviewComment) : 
-                base(declareFormId, teacherId, companyId, declareTargetPKID, declareSubjectPKID, allowFlowToSchool, allowFitResearcher, isBrokenRoles, periodId, reason, allowFlowToDowngrade, typeKey, statusKey, reviewComment) {
+        public DeclareReview(long declareReviewId, long teacherId, long companyId, long declareTargetPKID, long declareSubjectPKID, bool allowFlowToSchool, bool allowFitResearcher, bool isBrokenRoles, long periodId, string reason, bool allowFlowToDowngrade, string typeKey, string statusKey, string reviewComment, long reviewerId) : 
+                base(declareReviewId, teacherId, companyId, declareTargetPKID, declareSubjectPKID, allowFlowToSchool, allowFitResearcher, isBrokenRoles, periodId, reason, allowFlowToDowngrade, typeKey, statusKey, reviewComment, reviewerId) {
         }
     }
     
@@ -39782,11 +39814,6 @@ namespace Business {
         /// MaterialId
         /// </summary>
         private long _materialId;
-        
-        /// <summary>
-        /// FormId
-        /// </summary>
-        private long _formId;
         
         /// <summary>
         /// PickList - PLKey_DeclareTarget
@@ -39842,9 +39869,8 @@ namespace Business {
         /// <summary>
         /// Constructor with all field values.
         /// </summary>
-        public DeclareMaterialBase(long materialId, long formId, long declareTargetPKID, long periodId, long teacherId, long itemId, string title, string parentType, string type, System.DateTime createDate, System.DateTime pubishDate) {
+        public DeclareMaterialBase(long materialId, long declareTargetPKID, long periodId, long teacherId, long itemId, string title, string parentType, string type, System.DateTime createDate, System.DateTime pubishDate) {
             _materialId = materialId;
-            _formId = formId;
             _declareTargetPKID = declareTargetPKID;
             _periodId = periodId;
             _teacherId = teacherId;
@@ -39874,28 +39900,6 @@ namespace Business {
         public static Int64APColumnDef MaterialIdDef {
             get {
                 return APDBDef.DeclareMaterial.MaterialId;
-            }
-        }
-        
-        /// <summary>
-        /// FormId
-        /// </summary>
-        [Display(Name="申报表单ID")]
-        public virtual long FormId {
-            get {
-                return _formId;
-            }
-            set {
-                _formId = value;
-            }
-        }
-        
-        /// <summary>
-        /// FormId APColumnDef
-        /// </summary>
-        public static Int64APColumnDef FormIdDef {
-            get {
-                return APDBDef.DeclareMaterial.FormId;
             }
         }
         
@@ -40122,7 +40126,6 @@ namespace Business {
         /// </summary>
         public virtual void Assignment(DeclareMaterial data) {
             MaterialId = data.MaterialId;
-            FormId = data.FormId;
             DeclareTargetPKID = data.DeclareTargetPKID;
             PeriodId = data.PeriodId;
             TeacherId = data.TeacherId;
@@ -40139,9 +40142,6 @@ namespace Business {
         /// </summary>
         public virtual bool CompareEquals(DeclareMaterial data) {
             if ((MaterialId != data.MaterialId)) {
-                return false;
-            }
-            if ((FormId != data.FormId)) {
                 return false;
             }
             if ((DeclareTargetPKID != data.DeclareTargetPKID)) {
@@ -40267,8 +40267,8 @@ namespace Business {
         /// <summary>
         /// Constructor with all field values.
         /// </summary>
-        public DeclareMaterial(long materialId, long formId, long declareTargetPKID, long periodId, long teacherId, long itemId, string title, string parentType, string type, System.DateTime createDate, System.DateTime pubishDate) : 
-                base(materialId, formId, declareTargetPKID, periodId, teacherId, itemId, title, parentType, type, createDate, pubishDate) {
+        public DeclareMaterial(long materialId, long declareTargetPKID, long periodId, long teacherId, long itemId, string title, string parentType, string type, System.DateTime createDate, System.DateTime pubishDate) : 
+                base(materialId, declareTargetPKID, periodId, teacherId, itemId, title, parentType, type, createDate, pubishDate) {
         }
     }
     

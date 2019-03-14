@@ -534,7 +534,7 @@ namespace TheSite.Controllers
       {
          ThrowNotAjax();
 
-         var df = APDBDef.DeclareForm;
+         var dr = APDBDef.DeclareReview;
 
          List<json_treenode> list = new List<json_treenode>();
 
@@ -557,13 +557,13 @@ namespace TheSite.Controllers
 
 
          string[] submitStatus = { DeclareKeys.ReviewProcess, DeclareKeys.ReviewSuccess, DeclareKeys.ReviewFailure };
-         var declareForm = db.DeclareFormDal
-            .ConditionQuery(df.TeacherId == userId & df.PeriodId == Period.PeriodId & df.StatusKey.In(submitStatus), null, null, null)
+         var declareForm = db.DeclareReviewDal
+            .ConditionQuery(dr.TeacherId == userId & dr.PeriodId == Period.PeriodId & dr.StatusKey.In(submitStatus), null, null, null)
             .FirstOrDefault();
 
          if (declareForm != null)
          {
-            list.Add(new json_treenode { id = declareForm.DeclareFormId.ToString(), text = "我的申报", type = json_treenode_types.database });
+            list.Add(new json_treenode { id = declareForm.DeclareReviewId.ToString(), text = "我的申报", type = json_treenode_types.database });
          }
          else
          {

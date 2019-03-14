@@ -496,10 +496,10 @@
 				</columns>
 			</table>
 
-			<table name="DeclareForm" comment="申报表单">
+			<table name="DeclareReview" comment="申报审核">
 				<columns>
 
-					<add name="DeclareFormId" type="long" primaryKey="true" identityType="Provider" />
+					<add name="DeclareReviewId" type="long" primaryKey="true" identityType="Provider" />
 					<add name="TeacherId" type="long" display="教师ID" />
 					<add name="CompanyId" type="long" display="单位" />
 					<add name="DeclareTargetPKID" type="long" display="申报称号" comment="PickList - PLKey_DeclareTarget"/>
@@ -513,6 +513,7 @@
 					<add name="TypeKey" type="string" dataLength="100" display="表单类型"/>
 					<add name="StatusKey" type="string" dataLength="100" display="审核状态"/>
 					<add name="ReviewComment" type="string" dataLength="2000" display="校管理员审批意见" />
+					<add name="ReviewerId" type="long" display="审核人" />
 					
 				</columns>
 			</table>
@@ -521,7 +522,6 @@
 				<columns>
 
 					<add name="MaterialId" type="long" primaryKey="true" identityType="Provider" />
-					<add name="FormId" type="long" display="申报表单ID"/>
 					<add name="DeclareTargetPKID" type="long" display="申报（担任）称号" comment="PickList - PLKey_DeclareTarget"/>
 					<add name="PeriodId" type="long" display="申报周期ID"/>
 					<add name="TeacherId" type="long" display="申报老师ID"/>

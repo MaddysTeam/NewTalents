@@ -2,7 +2,7 @@
 @{
 	var pageTitle = "提交申报申请";
 	var company = CompanyHelper.GetCompanySelectList().First(x => x.Value == Model.CompanyId.ToString());
-	var isInReview = Request["isReview"] ;
+	var isInReview = Request["isReview"];
 }
 <div class="modal-dialog modal-lg">
 	<!-- widget -->
@@ -14,9 +14,9 @@
 			</div>
 		</div>
 		<div class="widget-content">
-			@using (Html.BeginForm("Edit", "DeclareReview", Model.ReviewId == 0 ? null : new { id = Model.ReviewId }, FormMethod.Post, new { @class = "form-horizontal", data_after_success = "afterDialogSuccess()" }))
+			@using (Html.BeginForm("Edit", "DeclareReview", Model.DeclareReviewId == 0 ? null : new { id = Model.DeclareReviewId }, FormMethod.Post, new { @class = "form-horizontal", data_after_success = "afterDialogSuccess()" }))
 			{
-				@Html.HiddenFor(x => x.ReviewId)
+				@Html.HiddenFor(x => x.DeclareReviewId)
 				@Html.HiddenFor(x => x.TeacherId)
 				@Html.HiddenFor(x => x.ReviewerId)
 				@Html.HiddenFor(x => x.PeriodId)
@@ -24,25 +24,27 @@
 				<div class="row">
 					<fieldset class="col-md-12">
 
-						@if (Html.GetUserProfile().IsSchoolAdmin)
-						{
-							@Html.HiddenFor(x => x.CompanyId)
-							<div class="form-group">
-								@Html.LabelFor(m => m.CompanyId, new { @class = "col-md-3 control-label" })
-								<div class="col-md-9">
-									@Html.Label("Company", company.Text, new { @class = "form-control" })
-								</div>
+						@Html.HiddenFor(x => x.CompanyId)
+						<div class="form-group">
+							@Html.LabelFor(m => m.CompanyId, new { @class = "col-md-3 control-label" })
+							<div class="col-md-9">
+								@Html.Label("Company", company.Text, new { @class = "form-control" })
 							</div>
-						}
-						else
-						{
-							<div class="form-group">
-								@Html.LabelFor(m => m.CompanyId, new { @class = "col-md-3 control-label" })
-								<div class="col-md-9">
-									@Html.DropDownListFor(m => m.CompanyId, CompanyHelper.GetCompanySelectList(), new { @class = "form-control" })
-								</div>
+						</div>
+						<div class="form-group">
+							@Html.LabelFor(m => m.DeclareTargetPKID, new { @class = "col-md-3 control-label" })
+							<div class="col-md-9">
+								@Html.Label("Target", DeclareBaseHelper.DeclareTarget.GetName(Model.DeclareTargetPKID), new { @class = "form-control" })
 							</div>
-						}
+						</div>
+						<div class="form-group">
+							@Html.LabelFor(m => m.Reason, new { @class = "col-md-3 control-label" })
+							<div class="col-md-9">
+								@Html.TextArea("Reasons", Model.Reason,10,5,new { @class = "form-control",@readonly="readonly"})
+							</div>
+						</div>
+
+
 						@if (Html.GetUserProfile().IsSchoolAdmin)
 						{
 							<div class="form-group">
@@ -58,7 +60,7 @@
 							<div class="form-group">
 								@Html.LabelFor(m => m.ReviewComment, new { @class = "control-label col-md-3" })
 								<div class="col-md-9">
-									@Html.TextAreaFor(m => m.ReviewComment, 5, 5, new { @class = "form-control",@readonly="readonly" })
+									@Html.TextAreaFor(m => m.ReviewComment, 5, 5, new { @class = "form-control", @readonly = "readonly" })
 									@Html.ValidationMessageFor(m => m.ReviewComment)
 								</div>
 							</div>
@@ -67,19 +69,18 @@
 							<div class="col-sm-9 col-lg-offset-3">
 								@if (Html.GetUserProfile().IsSchoolAdmin)
 								{
-									if (Model.StatusKey == DeclareKeys.ReviewProcess)
-									{
+									
 										<button type="submit" class="btn btn-success btn-block-half" id="ReviewSuccess"><i class="fa fa-check-circle"></i> 通过</button>
 										<button type="submit" class="btn btn-danger btn-block-half" id="ReviewFailure">不通过</button>
-									}
-									else if (Model.StatusKey == DeclareKeys.ReviewSuccess)
+								
+									@*else if (Model.StatusKey == DeclareKeys.ReviewSuccess)
 									{
 										<button class="btn btn-success btn-block-half" disabled><i class="fa fa-check-circle"></i> 审核已通过！</button>
 									}
 									else if (Model.StatusKey == DeclareKeys.ReviewFailure)
 									{
 										<button class="btn btn-danger btn-block-half" disabled><i class="fa fa-check-circle"></i> 审核不通过！</button>
-									}
+									}*@
 								}
 								else if (Html.GetUserProfile().IsDeclare)
 								{
@@ -97,10 +98,10 @@
 										<button class="btn btn-success btn-block-half" disabled><i class="fa fa-check-circle"></i> 审核已通过！</button>
 									}
 									@*else if (Model.StatusKey == DeclareKeys.ReviewFailure)
-									{
-										<button type="submit" class="btn btn-primary btn-block-half" id="Submit"><i class="fa fa-check-circle"></i> 提交审核</button>
-										<button type="button" class="btn btn-default btn-block-half" data-dismiss="modal">取消</button>
-									}*@
+										{
+											<button type="submit" class="btn btn-primary btn-block-half" id="Submit"><i class="fa fa-check-circle"></i> 提交审核</button>
+											<button type="button" class="btn btn-default btn-block-half" data-dismiss="modal">取消</button>
+										}*@
 
 								}
 

@@ -651,10 +651,10 @@
     <Content Include="Views\DeclareMaterial\_profile5005.cshtml" />
     <Content Include="Views\DeclareMaterial\MaterialView5005.cshtml" />
     <Content Include="Views\DeclareMaterial\_items5005.cshtml" />
-    <Content Include="Views\DeclareMaterial\_index5005.cshtml" />
+    <Content Include="Views\DeclareMaterial\_review5005.cshtml" />
     <Content Include="Views\DeclareMaterial\MaterialView9999.cshtml" />
     <Content Include="Views\DeclareMaterial\_profile9999.cshtml" />
-    <Content Include="Views\DeclareMaterial\_index9999.cshtml" />
+    <Content Include="Views\DeclareMaterial\_review9999.cshtml" />
     <Content Include="Views\DeclarePop\JiaoyJiaox_JiaoyHuod_FahZuoy.cshtml" />
     <Content Include="Views\DeclareMaterial\_declare_active_list.cshtml" />
     <Content Include="Views\DeclarePop\GerTes_QitShenf.cshtml" />

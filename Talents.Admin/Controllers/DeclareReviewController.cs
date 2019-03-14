@@ -14,175 +14,136 @@ using TheSite.Models;
 namespace TheSite.Controllers
 {
 
+   public class DeclareReviewController : BaseController
+   {
 
-   //public class DeclareReviewController : BaseController
-   //{
+      static APDBDef.DeclareReviewTableDef dr = APDBDef.DeclareReview;
 
-   //   static APDBDef.DeclareReviewTableDef dr = APDBDef.DeclareReview;
+      // GET: DeclareMaterial/Review
+      // POST-Ajax: DeclareMaterial/Review
 
-   //   // GET: DeclareMaterial/Review
-   //   // POST-Ajax: DeclareMaterial/Review
+      public ActionResult Edit(long? id)
+      {
+         DeclareReview review = null;
+         if (id != null)
+         {
+            review = db.DeclareReviewDal.PrimaryGet(id.Value);
+         }
 
-   //   public ActionResult Edit(long? id)
-   //   {
-   //      DeclareReview review = null;
-   //      if (id != null)
-   //      {
-   //         review = db.DeclareReviewDal.PrimaryGet(id.Value);
-   //      }
+         return PartialView(review ?? new DeclareReview());
+      }
 
-   //      return PartialView(review ?? new DeclareReview());
-   //   }
+      [HttpPost]
+      [DecalrePeriod]
+      public ActionResult Edit(DeclareReview review)
+      {
+         var cd = APDBDef.CompanyDeclare;
 
-   //   [HttpPost]
-   //   [DecalrePeriod]
-   //   public ActionResult Edit(DeclareReview review)
-   //   {
-   //      var cd = APDBDef.CompanyDeclare;
+         if (!Period.IsInReviewPeriod)
+         {
+            return Json(new
+            {
+               result = AjaxResults.Error,
+               msg = "未在评审期,请联系管理员!"
+            });
+         }
 
-   //      if (review.CompanyId == 0)
-   //      {
-   //         return Json(new
-   //         {
-   //            result = AjaxResults.Error,
-   //            msg = "必须选择单位!"
-   //         });
-   //      }
+         db.BeginTrans();
 
-   //      if (!Period.IsInReviewPeriod)
-   //      {
-   //         return Json(new
-   //         {
-   //            result = AjaxResults.Error,
-   //            msg = "未在评审期,请联系管理员!"
-   //         });
-   //      }
+         try
+         {
+            db.DeclareReviewDal.UpdatePartial(review.DeclareReviewId, new { StatusKey = review.StatusKey, ReviewComment = review.ReviewComment });
 
-   //      var isExist = db.DeclareReviewDal.ConditionQueryCount(
-   //         dr.TeacherId == UserProfile.UserId
-   //         & dr.StatusKey == DeclareKeys.ReviewProcess
-   //         & dr.PeriodId == Period.PeriodId) > 0;
+            db.CompanyDeclareDal.ConditionDelete(cd.TeacherId == review.TeacherId);
+            db.CompanyDeclareDal.Insert(new CompanyDeclare { CompanyId = review.CompanyId, TeacherId = review.TeacherId });
+            
 
-   //      if (isExist)
-   //      {
-   //         return Json(new
-   //         {
-   //            result = AjaxResults.Error,
-   //            msg = "不能连续发送审核申请!"
-   //         });
-   //      }
+            db.Commit();
+         }
+         catch
+         {
+            db.Rollback();
+         }
 
-   //      db.BeginTrans();
+         return Json(new
+         {
+            result = AjaxResults.Success,
+            msg = "操作成功!"
+         });
+      }
 
-   //      try
-   //      {
-   //         if (review.ReviewId == 0)
-   //         {
-   //            review.TeacherId = UserProfile.UserId;
-   //            review.PeriodId = Period.PeriodId;
-   //            review.StatusKey = DeclareKeys.ReviewProcess;
+      [DecalrePeriod]
+      public ActionResult List(long companyId)
+      {
+         return View();
+      }
 
-   //            db.DeclareReviewDal.Insert(review);
-   //         }
-   //         else
-   //         {
-   //            if (review.TeacherId == UserProfile.UserId)
-   //            {
-   //               review.StatusKey = DeclareKeys.ReviewProcess;
-   //            }
+      [HttpPost]
+      public ActionResult List(long companyId, int current, int rowCount, AjaxOrder sort, string searchPhrase)
+      {
+         var u = APDBDef.BzUserProfile;
+         var u2 = APDBDef.BzUserProfile.As("reviewer");
+         var c = APDBDef.Company;
+         var currentPeriod = Period ?? new DeclarePeriod();
+         var query = APQuery.select(dr.DeclareReviewId, dr.ReviewComment, dr.StatusKey, dr.TeacherId, dr.ReviewerId, dr.DeclareTargetPKID, dr.DeclareSubjectPKID,
+                             u.RealName, u2.RealName.As("reviewer"), c.CompanyName)
+                          .from(dr,
+                                u.JoinInner(dr.TeacherId == u.UserId),
+                                c.JoinInner(c.CompanyId == dr.CompanyId),
+                                u2.JoinLeft(dr.ReviewerId == u2.UserId)
+                                )
+                          .where(dr.PeriodId == currentPeriod.PeriodId & dr.StatusKey != string.Empty);
 
-   //            db.DeclareReviewDal.UpdatePartial(review.ReviewId, new { StatusKey = review.StatusKey, ReviewComment = review.ReviewComment, CompanyId = review.CompanyId });
-   //         }
-
-   //         if (review.TeacherId == UserProfile.UserId)
-   //         {
-   //            db.CompanyDeclareDal.ConditionDelete(cd.TeacherId== review.TeacherId);
-   //            db.CompanyDeclareDal.Insert(new CompanyDeclare { CompanyId = review.CompanyId, TeacherId = review.TeacherId });
-   //         }
-
-   //         db.Commit();
-   //      }
-   //      catch
-   //      {
-   //         db.Rollback();
-   //      }
-
-   //      return Json(new
-   //      {
-   //         result = AjaxResults.Success,
-   //         msg = "操作成功!"
-   //      });
-   //   }
-
-   //   [DecalrePeriod]
-   //   public ActionResult List(long companyId)
-   //   {
-   //      return View();
-   //   }
-
-   //   [HttpPost]
-   //   public ActionResult List(long companyId, int current, int rowCount, AjaxOrder sort, string searchPhrase)
-   //   {
-   //      var u = APDBDef.BzUserProfile;
-   //      var u2 = APDBDef.BzUserProfile.As("reviewer");
-   //      var c = APDBDef.Company;
-   //      var currentPeriod = Period ?? new DeclarePeriod();
-   //      var query = APQuery.select(dr.ReviewId, dr.ReviewComment, dr.StatusKey, dr.TeacherId, dr.ReviewerId, u.RealName, u2.RealName.As("reviewer"), c.CompanyName)
-   //                       .from(dr,
-   //                             u.JoinInner(dr.TeacherId == u.UserId),
-   //                             c.JoinInner(c.CompanyId == dr.CompanyId),
-   //                             u2.JoinLeft(dr.ReviewerId == u2.UserId)
-   //                             )
-   //                       .where(dr.PeriodId == currentPeriod.PeriodId);
-
-   //      if (companyId > 0)
-   //         query = query.where_and(c.CompanyId == companyId);
+         if (companyId > 0)
+            query = query.where_and(c.CompanyId == companyId);
 
 
-   //      //过滤条件
-   //      //模糊搜索姓名,标题
+         //过滤条件
+         //模糊搜索姓名,标题
 
-   //      searchPhrase = searchPhrase.Trim();
-   //      if (searchPhrase != "")
-   //      {
-   //         query.where_and(u.RealName.Match(searchPhrase));
-   //      }
-
-
-   //      //排序条件表达式
-
-   //      if (sort != null)
-   //      {
-   //         switch (sort.ID)
-   //         {
-   //            case "realName": query.order_by(sort.OrderBy(u.RealName)); break;
-   //         }
-   //      }
+         searchPhrase = searchPhrase.Trim();
+         if (searchPhrase != "")
+         {
+            query.where_and(u.RealName.Match(searchPhrase));
+         }
 
 
-   //      var total = db.ExecuteSizeOfSelect(query);
+         //排序条件表达式
+
+         if (sort != null)
+         {
+            switch (sort.ID)
+            {
+               case "realName": query.order_by(sort.OrderBy(u.RealName)); break;
+            }
+         }
 
 
-   //      var result = query.query(db, r => new
-   //      {
-   //         id = dr.ReviewId.GetValue(r),
-   //         comment = dr.ReviewComment.GetValue(r),
-   //         status = dr.StatusKey.GetValue(r),
-   //         teacherId = dr.TeacherId.GetValue(r),
-   //         realName = u.RealName.GetValue(r),
-   //         reviewer = u2.RealName.GetValue(r, "reviewer"),
-   //         company = c.CompanyName.GetValue(r)
-   //      });
+         var total = db.ExecuteSizeOfSelect(query);
 
-   //      return Json(new
-   //      {
-   //         rows = result,
-   //         current,
-   //         rowCount,
-   //         total
-   //      });
-   //   }
 
-   //}
+         var result = query.query(db, r => new
+         {
+            id = dr.DeclareReviewId.GetValue(r),
+            comment = dr.ReviewComment.GetValue(r),
+            status = dr.StatusKey.GetValue(r),
+            teacherId = dr.TeacherId.GetValue(r),
+            realName = u.RealName.GetValue(r),
+            reviewer = u2.RealName.GetValue(r, "reviewer"),
+            company = c.CompanyName.GetValue(r),
+            declare = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
+            // subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(r))
+         }).ToList();
+
+         return Json(new
+         {
+            rows = result,
+            current,
+            rowCount,
+            total
+         });
+      }
+
+   }
 
 }

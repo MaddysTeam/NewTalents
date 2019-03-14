@@ -1,25 +1,19 @@
-﻿@model DeclareForm
-@{
-	Model.IsBrokenRoles =  Request["TypeKey"] == DeclareKeys.XuekDaitr_ZhicPog;
-}
-<!-- WIDGET TABBED CONTENT -->
+﻿@model DeclareReview
 
-<form action="@Url.Action("FormIndexEdit", "DeclareMaterial")" method="post" class="form-horizontal form-group-sm" role="form" novalidate="novalidate" id="FormIndex">
+<form action="@Url.Action("ReviewEdit", "DeclareMaterial")" method="post" class="form-horizontal form-group-sm" role="form" novalidate="novalidate" id="FormIndex">
 	<input data-val="true" data-val-number="字段 修改周期ID 必须是一个数字。" data-val-required="修改周期ID 字段是必需的。" id="PeriodId" name="PeriodId" type="hidden" value="0">
 	<div class="row">
 		<fieldset class="col-md-9">
 			<div>
-				@Html.HiddenFor(m => m.DeclareFormId)
+				@Html.HiddenFor(m => m.DeclareReviewId)
 				@Html.HiddenFor(m => m.TeacherId)
 				@Html.HiddenFor(m => m.StatusKey)
-				@Html.Hidden("TypeKey",HttpUtility.UrlDecode(Model.TypeKey))
+				@Html.HiddenFor(m => m.TypeKey)
 				@Html.HiddenFor(m => m.DeclareTargetPKID)
-				@Html.HiddenFor(m => m.IsBrokenRoles)
 				<div class="form-group">
 					@Html.LabelFor(m => m.DeclareTargetPKID, new { @class = "col-md-2 control-label" })
 					<div class="col-md-9">
 						<strong>@Html.Label("temp", DeclareKeys.XuekDaitr)</strong>
-						@*@Html.DropDownListFor(m => m.DeclareTargetPKID, DeclareBaseHelper.DeclareTarget.GetSelectList(), new { @class = "form-control" })*@
 					</div>
 				</div><div class="form-group">
 					@Html.Label("teacherName", "姓名", new { @class = "col-md-2 control-label" })
@@ -41,29 +35,12 @@
 						@Html.DropDownListFor(m => m.DeclareSubjectPKID, BzUserProfileHelper.EduSubject.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
 					</div>
 				</div>
-				<div class="form-group">
-					@Html.LabelFor(m => m.IsBrokenRoles, new { @class = "col-md-2 control-label" })
-					<div class="col-md-9">
-						<strong class="red">@(Model.IsBrokenRoles ? "是" : "否")</strong>
-					</div>
-				</div>
-				<div class="form-group">
-					@Html.LabelFor(m => m.AllowFlowToSchool, new { @class = "col-md-2 control-label" })
-					<div class="col-md-9">
-						@Html.CheckBoxFor(m => m.AllowFlowToSchool, new { @style = "width:20px; height:20px;" })
-					</div>
-				</div>
-				<div class="form-group">
-					@Html.LabelFor(m => m.AllowFlowToDowngrade, new { @class = "col-md-2 control-label" })
-					<div class="col-md-9">
-						@Html.CheckBoxFor(m => m.AllowFlowToDowngrade, new { @style = "width:20px; height:20px;" })
-					</div>
-				</div>
+
 				<div class="form-group">
 					@Html.LabelFor(m => m.Reason, new { @class = "col-md-2 control-label" })
 					<div class="col-md-9">
 						专业发展自我陈述（包括：本人教育理念、实践探索、教书育人成效等。500字左右。）
-						@Html.TextAreaFor(m => m.Reason, 20, 10, new { @class = "form-control" })
+						@Html.TextAreaFor(m => m.Reason, 30, 10, new { @class = "form-control" })
 						@*<div class="summernote-frame no-padding">
 								<div id="sum" class="summernote required" data-whatever="Summary"></div>
 							</div>*@
@@ -88,7 +65,7 @@
 			location.href = location.href;
 		}
 		else {
-			$('#DeclareFormId').val(data.DeclareFormId);
+			$('#DeclareReviewId').val(data.DeclareReviewId);
 		}
 	}
 

@@ -42,7 +42,7 @@
 <script>
 	$(function () {
 
-		$.get('@Url.Action("FormIndexEdit", "DeclareMaterial")', { DeclareTargetId: @DeclareTargetIds.XuekDaitr, View: '_index5005', TypeKey: '@Model' }, function (html) {
+		$.get('@Url.Action("ReviewEdit", "DeclareMaterial")', { DeclareTargetId: @DeclareTargetIds.XuekDaitr, View: '_review5005', TypeKey: '@Model' }, function (html) {
 			$('#tab0').append(html);
 			$('#declareSubmit').click(function () {
 				if (confirm('确定要提交报表，提交后将无法选择和填写当前或其他称号的申报表单，只能够预览和打印表单！')) {

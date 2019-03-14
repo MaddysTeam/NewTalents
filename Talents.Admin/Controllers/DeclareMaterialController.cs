@@ -21,7 +21,9 @@ namespace TheSite.Controllers
       private static APDBDef.DeclareAchievementTableDef dac = APDBDef.DeclareAchievement;
       private static APDBDef.DeclareContentTableDef dc = APDBDef.DeclareContent;
       private static APDBDef.DeclarePeriodTableDef p = APDBDef.DeclarePeriod;
-      private static APDBDef.DeclareFormTableDef df = APDBDef.DeclareForm;
+      private static APDBDef.DeclareReviewTableDef df = APDBDef.DeclareReview;
+      private static APDBDef.BzUserProfileTableDef u = APDBDef.BzUserProfile;
+      private static APDBDef.CompanyTableDef c = APDBDef.Company;
 
       public ActionResult Index()
       {
@@ -179,7 +181,7 @@ namespace TheSite.Controllers
          }
          else
          {
-            var form = db.DeclareFormDal.PrimaryGet(Convert.ToInt64(key));
+            var form = db.DeclareReviewDal.PrimaryGet(Convert.ToInt64(key));
             if (form == null) return Content("正在开发中");
             var isMaterialBreakRole = form.TypeKey.IndexOf("材料破格") >= 0;
             var declareTargetId = isMaterialBreakRole ? 9999 : form.DeclareTargetPKID;
@@ -187,23 +189,22 @@ namespace TheSite.Controllers
          }
       }
 
+      // Get: DeclareMaterial/FormReviewEdit
+      // POST-Ajax: DeclareMaterial/FormReviewEdit
 
-      // Get: DeclareMaterial/Submit
-      // POST-Ajax: DeclareMaterial/Submit
-      //[HttpPost]
-      public ActionResult FormIndexEdit(DeclareParam param)
+      public ActionResult ReviewEdit(DeclareParam param)
       {
          var typeKey = param.TypeKey;
          var declareTargetId = param.DeclareTargetId;
          var poge = ".职称破格";
          var isZcPoge = typeKey.IndexOf(poge) > 0;
-         var decalreForm = db.DeclareFormDal.ConditionQuery(df.PeriodId == Period.PeriodId
+         var decalreReview = db.DeclareReviewDal.ConditionQuery(df.PeriodId == Period.PeriodId
                          & df.TeacherId == UserProfile.UserId
                          & df.TypeKey == (isZcPoge ? typeKey.Replace(poge, ".申报") : typeKey)
                          & df.DeclareTargetPKID == declareTargetId
                          , null, null, null).FirstOrDefault();
 
-         decalreForm = decalreForm ?? new DeclareForm
+         decalreReview = decalreReview ?? new DeclareReview
          {
             DeclareTargetPKID = declareTargetId,
             TypeKey = HttpUtility.UrlEncode(typeKey),
@@ -211,11 +212,11 @@ namespace TheSite.Controllers
             AllowFlowToDowngrade = true,
             AllowFlowToSchool = true
          };
-         return PartialView(param.View, decalreForm);
+         return PartialView(param.View, decalreReview);
       }
 
       [HttpPost]
-      public ActionResult FormIndexEdit(DeclareForm model)
+      public ActionResult ReviewEdit(DeclareReview model)
       {
          // 职称破格和申报公用一张表
          var poge = ".职称破格";
@@ -225,15 +226,15 @@ namespace TheSite.Controllers
          model.PeriodId = Period.PeriodId;
          model.TeacherId = UserProfile.UserId;
 
-         if (model.DeclareFormId == 0)
+         if (model.DeclareReviewId == 0)
          {
-            //var isExists = db.DeclareFormDal.ConditionQueryCount(df.TeacherId == model.TeacherId & df.PeriodId == Period.PeriodId & df.DeclareTargetPKID == model.DeclareTargetPKID) > 0;
+            //var isExists = db.DeclareReviewDal.ConditionQueryCount(df.TeacherId == model.TeacherId & df.PeriodId == Period.PeriodId & df.DeclareTargetPKID == model.DeclareTargetPKID) > 0;
             //if (!isExists)
-            db.DeclareFormDal.Insert(model);
+            db.DeclareReviewDal.Insert(model);
          }
          else
          {
-            db.DeclareFormDal.UpdatePartial(model.DeclareFormId, new
+            db.DeclareReviewDal.UpdatePartial(model.DeclareReviewId, new
             {
                model.CompanyId,
                model.DeclareTargetPKID,
@@ -370,21 +371,21 @@ namespace TheSite.Controllers
          var model = new DeclarePreviewViewModel();
          var profile = db.BzUserProfileDal.PrimaryGet(UserProfile.UserId);
          var myCompnay = db.CompanyDal.PrimaryGet(profile.CompanyId);
-         var form = db.DeclareFormDal.ConditionQuery(
+         var review = db.DeclareReviewDal.ConditionQuery(
             df.TeacherId == profile.UserId &
             df.PeriodId == Period.PeriodId &
             df.DeclareTargetPKID == 5005 &
             df.TypeKey == param.TypeKey, null, null, null).FirstOrDefault();
-         form = form ?? new DeclareForm();
+         review = review ?? new DeclareReview();
 
-         var declareCompany = db.CompanyDal.PrimaryGet(form.CompanyId);
+         var declareCompany = db.CompanyDal.PrimaryGet(review.CompanyId);
          var declareActives = GetDeclareActives(param.DeclareTargetId, profile.UserId);
          var declareAchievement = GetDeclareAchievements(param.DeclareTargetId, profile.UserId);
          var poge = ".职称破格";
 
          model.DeclareTargetId = 5005;
          model.Decalre = DeclareBaseHelper.DeclareTarget.GetName(param.DeclareTargetId);
-         model.DeclareSubject = BzUserProfileHelper.EduSubject.GetName(form.DeclareSubjectPKID);
+         model.DeclareSubject = BzUserProfileHelper.EduSubject.GetName(review.DeclareSubjectPKID);
          model.DeclareCompany = declareCompany == null ? string.Empty : declareCompany.CompanyName;
          model.RealName = profile.RealName;
          model.RankTitle = profile.RankTitle;
@@ -414,11 +415,11 @@ namespace TheSite.Controllers
          model.Is5007 = profile.Dynamic4 == DeclareKeys.JiaoxNengs;
          model.Is6000 = profile.Dynamic4 == DeclareKeys.GaodJiaoSYanxBanXuey;
          model.Comment1 = profile.Dynamic5;
-         model.IsAllowDownGrade = form.AllowFlowToDowngrade;
-         model.IsAllowdFlow = form.AllowFlowToSchool;
+         model.IsAllowDownGrade = review.AllowFlowToDowngrade;
+         model.IsAllowdFlow = review.AllowFlowToSchool;
          model.DeclareActies = declareActives;
          model.DeclareAchievements = declareAchievement;
-         model.Reason = form.Reason;
+         model.Reason = review.Reason;
          // 职称破格和申报公用一张表 所以要用form IsBrokenRoles 和 param.TypeKey 一起判断
          model.IsBrokRoles = param.TypeKey.IndexOf(poge) > 0;
 

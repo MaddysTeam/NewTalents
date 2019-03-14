@@ -35,7 +35,7 @@
 <script>
 	$(function () {
 
-		$.get('@Url.Action("FormIndexEdit", "DeclareMaterial")?typeKey=@Model&view=_index9999&declareTargetId=@DeclareTargetIds.XuekDaitr', function (html) {
+		$.get('@Url.Action("ReviewEdit", "DeclareMaterial")?typeKey=@Model&view=_review9999&declareTargetId=@DeclareTargetIds.XuekDaitr', function (html) {
 			$('#tab0').append(html);
 			$('#declareSubmit').click(function () {
 				$('#StatusKey').val('@DeclareKeys.ReviewProcess');
