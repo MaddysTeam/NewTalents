@@ -659,6 +659,7 @@
     <Content Include="Views\DeclareMaterial\_declare_active_list.cshtml" />
     <Content Include="Views\DeclarePop\GerTes_QitShenf.cshtml" />
     <Content Include="Views\DeclareMaterial\MaterialPreview9999.cshtml" />
+    <Content Include="Views\DeclarePop\GerTes_XueyChengz.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

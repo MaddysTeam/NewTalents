@@ -1,6 +1,6 @@
 ﻿@model DeclareForm
 @{
-	Model.IsBrokenRoles = Request["TypeKey"] == DeclareKeys.XuekDaitr_ZhicPog;
+	Model.IsBrokenRoles =  Request["TypeKey"] == DeclareKeys.XuekDaitr_ZhicPog;
 }
 <!-- WIDGET TABBED CONTENT -->
 
@@ -12,7 +12,7 @@
 				@Html.HiddenFor(m => m.DeclareFormId)
 				@Html.HiddenFor(m => m.TeacherId)
 				@Html.HiddenFor(m => m.StatusKey)
-				@Html.HiddenFor(m => m.TypeKey)
+				@Html.Hidden("TypeKey",HttpUtility.UrlDecode(Model.TypeKey))
 				@Html.HiddenFor(m => m.DeclareTargetPKID)
 				@Html.HiddenFor(m => m.IsBrokenRoles)
 				<div class="form-group">

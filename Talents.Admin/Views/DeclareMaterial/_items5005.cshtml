@@ -12,6 +12,7 @@
 	var jiangz = activeItems.FindAll(at => at.ActiveKey == DeclareKeys.ZisFaz_PeixJiangz_ZhuantJiangz);
 	var lunzQingk = archievement.FindAll(ac => ac.AchievementKey == DeclareKeys.ZisFaz_KeyChengg_LunzQingk);
 	var qitShenf = archievement.FindAll(ac => ac.AchievementKey == DeclareKeys.GerTes_QitShenf);
+	var xueyChengz=archievement.FindAll(ac => ac.AchievementKey == DeclareKeys.GerTes_XueyChengz);
 	var declareTargetId = Request["declareTargetId"];
 }
 <!-- 教育教学 -->
@@ -88,7 +89,7 @@
 			<h3><i class="fa fa-paperclip"></i>教育教学-教育教学评比</h3>
 			@if (jiaoxPingb != null && jiaoxPingb.Count < 2)
 			{
-			<a class="btn btn-warning btn-sm pull-right" data-url="@Url.Action("ZisFaz_JiaoxHuod_JiaoxPingb", "DeclarePop")" data-toggle="ajax-modal" data-target="#firstModal">新增申报</a>
+			<a class="btn btn-warning btn-sm pull-right" data-url="@Url.Action("ZisFaz_JiaoxHuod_JiaoxPingb", "DeclarePop",new { declareTargetId=DeclareTargetIds.XuekDaitr })" data-toggle="ajax-modal" data-target="#firstModal">新增申报</a>
 			<a class="btn btn-info btn-sm pull-right" data-url="@Url.Action("DeclareActiveList", "DeclareMaterial",new { itemKey =DeclareKeys.ZisFaz_JiaoxHuod_JiaoxPingb, declareTargetId=declareTargetId})" data-toggle="ajax-modal" data-target="#firstModal">
 				历史库
 			</a>
@@ -744,23 +745,54 @@
 	<div class="widget">
 		<div class="widget-header">
 			<h3><i class="fa fa-paperclip"></i>学员成长</h3>
+			@if (xueyChengz != null && xueyChengz.Count < 2)
+			{
+				<a class="btn btn-warning btn-sm pull-right" data-url="@Url.Action("GerTes_XueyChengz", "DeclarePop",new { declareTargetId=DeclareTargetIds.XuekDaitr })" data-toggle="ajax-modal" data-target="#firstModal">
+					新增申报
+				</a>
+				<a class="btn btn-info btn-sm pull-right" data-url="@Url.Action("DeclareAchievementList", "DeclareMaterial",new { itemKey =DeclareKeys.GerTes_XueyChengz, declareTargetId=declareTargetId})" data-toggle="ajax-modal" data-target="#firstModal">
+					历史库
+				</a>
+				}
 		</div>
 		<div class="widget-content">
-			<div class="alert alert-warning">
+			@*<div class="alert alert-warning">
 				近三年所带“学员成长”情况（最多填两项）
-			</div>
+			</div>*@
 			<div class="table-responsive">
 				<table class="table table-condensed table-striped table-hover">
 					<thead>
 						<tr>
-							<th>出版时间</th>
-							<th>地点</th>
-							<th>班级</th>
-							<th>课题/内容</th>
+							<th class="width180">学员名称</th>
+							<th class="width180">单位</th>
+							<th style="width:700px">成长情况</th>
+							<th class="width180">时间</th>
 							<th class="width240">操作</th>
 						</tr>
 					</thead>
-					<tbody></tbody>
+					<tbody>
+						@foreach (var item in xueyChengz)
+						{
+							<tr>
+								<td>
+									@item.Dynamic1
+								</td>
+								<td>
+									@item.Dynamic2
+								</td>
+								<td>
+									@item.NameOrTitle
+								</td>
+								<td>
+									@item.Date
+								</td>
+								<td>
+									<a target="_blank" class="btn btn-warning btn-sm  btn-cancelDeclare" data-url="@Url.Action("DeclareAchievement", "DeclareMaterial", new {id= item.DeclareAchievementId, isDeclare=false, declareTargetId = declareTargetId })" href="#">取消申报</a>
+									<button class="btn btn-danger btn-sm btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareAchievementId, type = AttachmentsKeys.GerTes_XueyChengz  })" data-target="#firstModal" title="查看附件">查看附件</button>
+								</td>
+							</tr>
+						 }
+					</tbody>
 				</table>
 			</div>
 		</div>

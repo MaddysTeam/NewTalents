@@ -5,6 +5,7 @@
 	var isLunwFab = Request["itemKey"] == DeclareKeys.ZisFaz_KeyChengg_FabLunw;
 	var isLunzQingk = Request["itemKey"] == DeclareKeys.ZisFaz_KeyChengg_LunzQingk;
 	var isGerTes= Request["itemKey"] == DeclareKeys.GerTes_QitShenf;
+	var isXueyChengz= Request["itemKey"] == DeclareKeys.GerTes_XueyChengz;
 	var declareTargetId = Request["declareTargetId"];
 }
 
@@ -179,6 +180,42 @@
 								</tr>
 							}
 
+						</tbody>
+					</table>
+					}
+				else if (isXueyChengz)
+				{
+					<table class="table table-condensed table-striped table-hover">
+						<thead>
+							<tr>
+								<th class="width180">学员名称</th>
+								<th class="width180">单位</th>
+								<th style="width:700px">成长情况</th>
+								<th class="width180">时间</th>
+								<th class="width240">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model)
+							{
+								<tr>
+									<td>
+										@item.Dynamic1
+									</td>
+									<td>
+										@item.Dynamic2
+									</td>
+									<td>
+										@item.NameOrTitle
+									</td>
+									<td>
+										@item.Date
+									</td>
+									<td>
+										<a target="_blank" class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareAchievement", "DeclareMaterial", new {id=item.DeclareAchievementId, isDeclare=true, declareTargetId= declareTargetId })" href="#"><i class="fa fa-external-link"></i>申报</a>
+									</td>
+								</tr>
+							}
 						</tbody>
 					</table>
 				}

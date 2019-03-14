@@ -182,20 +182,20 @@ namespace TheSite.Models
    }
 
 
-   public class ZisFaz_GongkKe
-   {
-      public DateTime Date { get; set; }
+   //public class ZisFaz_GongkKe
+   //{
+   //   public DateTime Date { get; set; }
 
-      public string Location { get; set; }
+   //   public string Location { get; set; }
 
-      public string Class { get; set; }
+   //   public string Class { get; set; }
 
-      public string TitleOrContent { get; set; }
+   //   public string TitleOrContent { get; set; }
 
-      public string Level { get; set; }
+   //   public string Level { get; set; }
 
-      public string Org { get; set; }
-   }
+   //   public string Org { get; set; }
+   //}
 
 
    public class ZisFaz_ZiwFazJihModel
@@ -640,6 +640,7 @@ namespace TheSite.Models
 
    }
 
+
    public class ZhidJians_TesHuodKaizModel : DeclareActiveModel
    {
 
@@ -672,6 +673,7 @@ namespace TheSite.Models
       public long Dynamic9 { get; set; }
    }
 
+
    public class QunLiud_LiurXuexModel
    {
 
@@ -700,6 +702,7 @@ namespace TheSite.Models
       public string Dynamic1 { get; set; }
 
    }
+
 
    public class QunLiud_XuekDaitr_KetJiaox_GongkHuibkModel : DeclareActiveModel
    {
@@ -765,6 +768,7 @@ namespace TheSite.Models
       public string Dynamic2 { get; set; }
 
    }
+
 
    public class QunLiud_XuekDaitr_JiaoyKey_ZhuantJiangzModel : DeclareActiveModel
    {
@@ -1156,5 +1160,123 @@ namespace TheSite.Models
       [Display(Name = "附件名称")]
       public string AttachmentName { get; set; }
    }
+
+
+   public class GerTes_XueyChengzModel: DeclareAchievementModel
+   {
+      public long DeclareAchievementId { get; set; }
+
+      [Required]
+      [Display(Name = "学员名称")]
+      public string Dynamic1 { get; set; }
+
+      [Required]
+      [Display(Name = "单位")]
+      public string Dynamic2 { get; set; }
+
+      [Required]
+      [Display(Name = "成长情况")]
+      public string NameOrTitle { get; set; }
+
+      [Required]
+      [Display(Name = "时间")]
+      public string Date { get; set; }
+
+      [Required]
+      [Display(Name = "备用")]
+      public string Dynamic3 { get; set; }
+
+      [Display(Name = "附件路径")]
+      public string AttachmentUrl { get; set; }
+
+      [Required]
+      [Display(Name = "附件名称")]
+      public string AttachmentName { get; set; }
+   }
+
+
+   public class QitZonghxingRongy:DeclareActiveModel
+   {
+      [Required]
+      [Display(Name = "时间")]
+      public DateTime Date { get; set; }
+
+      [Required]
+      [Display(Name = "级别")]
+      public string Level { get; set; }
+
+      [Required]
+      [Display(Name = "荣誉名称")]
+      public string ContentValue { get; set; }
+
+      [Required]
+      [Display(Name = "组织单位、部门")]
+      public string Dynamic1 { get; set; }
+
+   }
+
+   //基本功展示获奖情况
+   public class JibGongZshiHuoj : DeclareActiveModel
+   {
+      [Required]
+      [Display(Name = "时间")]
+      public DateTime Date { get; set; }
+
+      [Required]
+      [Display(Name = "奖项名称")]
+      public string ContentValue { get; set; }
+
+      [Required]
+      [Display(Name = "奖项类别")]
+      public string Dynamic1 { get; set; }
+
+      [Required]
+      [Display(Name = "组织单位、部门/负责人")]
+      public string Dynamic2 { get; set; }
+
+   }
+
+   public class JianxJiaosPingx : DeclareActiveModel
+   {
+      [Required]
+      [Display(Name = "时间")]
+      public DateTime Date { get; set; }
+
+      [Required]
+      [Display(Name = "级别")]
+      public string Level { get; set; }
+
+      [Required]
+      [Display(Name = "奖项名称")]
+      public string ContentValue { get; set; }
+
+      [Required]
+      [Display(Name = "组织单位、部门/负责人")]
+      public string Dynamic1 { get; set; }
+   }
+
+   public class JianxJiaosDasHuoj: DeclareActiveModel
+   {
+      [Required]
+      [Display(Name = "时间")]
+      public DateTime Date { get; set; }
+
+      [Required]
+      [Display(Name = "级别")]
+      public string Level { get; set;}
+
+      [Required]
+      [Display(Name = "奖项名称")]
+      public string ContentValue { get; set; }
+
+      [Required]
+      [Display(Name = "奖项等级")]
+      public string Dynamic1 { get; set; }
+
+      [Required]
+      [Display(Name = "组织单位、部门/负责人")]
+      public string Dynamic2 { get; set; }
+   }
+
 
 }

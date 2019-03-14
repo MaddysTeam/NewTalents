@@ -58,6 +58,7 @@
 
       public const string Shenb_JiaoyHuod_FahZuoy = "教育教学.教研活动.发挥作用";
       public const string GerTes_QitShenf = "个人特色.其他身份";
+      public const string GerTes_XueyChengz = "个人特色.学员成长";
 
       public const string Notice = "通知";
 

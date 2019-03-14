@@ -5,6 +5,7 @@ using Symber.Web.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using TheSite.EvalAnalysis;
 using TheSite.Models;
@@ -179,7 +180,7 @@ namespace TheSite.Controllers
          else
          {
             var form = db.DeclareFormDal.PrimaryGet(Convert.ToInt64(key));
-            if (form == null) throw new ApplicationException("正在开发中");
+            if (form == null) return Content("正在开发中");
             var isMaterialBreakRole = form.TypeKey.IndexOf("材料破格") >= 0;
             var declareTargetId = isMaterialBreakRole ? 9999 : form.DeclareTargetPKID;
             return Preview(new DeclarePreviewParam { IsExport = false, DeclareTargetId = form.DeclareTargetPKID, TypeKey = form.TypeKey, View = $"MaterialPreview{declareTargetId}" });
@@ -189,7 +190,7 @@ namespace TheSite.Controllers
 
       // Get: DeclareMaterial/Submit
       // POST-Ajax: DeclareMaterial/Submit
-
+      //[HttpPost]
       public ActionResult FormIndexEdit(DeclareParam param)
       {
          var typeKey = param.TypeKey;
@@ -202,7 +203,14 @@ namespace TheSite.Controllers
                          & df.DeclareTargetPKID == declareTargetId
                          , null, null, null).FirstOrDefault();
 
-         decalreForm = decalreForm ?? new DeclareForm { DeclareTargetPKID = declareTargetId, TypeKey = typeKey };
+         decalreForm = decalreForm ?? new DeclareForm
+         {
+            DeclareTargetPKID = declareTargetId,
+            TypeKey = HttpUtility.UrlEncode(typeKey),
+            AllowFitResearcher = true,
+            AllowFlowToDowngrade = true,
+            AllowFlowToSchool = true
+         };
          return PartialView(param.View, decalreForm);
       }
 
@@ -361,7 +369,7 @@ namespace TheSite.Controllers
          var pdfRender = new HtmlRender();
          var model = new DeclarePreviewViewModel();
          var profile = db.BzUserProfileDal.PrimaryGet(UserProfile.UserId);
-         var company = db.CompanyDal.ConditionQuery(c.CompanyId == profile.CompanyId, null, null, null).FirstOrDefault() ?? new Company();
+         var myCompnay = db.CompanyDal.PrimaryGet(profile.CompanyId);
          var form = db.DeclareFormDal.ConditionQuery(
             df.TeacherId == profile.UserId &
             df.PeriodId == Period.PeriodId &
@@ -369,6 +377,7 @@ namespace TheSite.Controllers
             df.TypeKey == param.TypeKey, null, null, null).FirstOrDefault();
          form = form ?? new DeclareForm();
 
+         var declareCompany = db.CompanyDal.PrimaryGet(form.CompanyId);
          var declareActives = GetDeclareActives(param.DeclareTargetId, profile.UserId);
          var declareAchievement = GetDeclareAchievements(param.DeclareTargetId, profile.UserId);
          var poge = ".职称破格";
@@ -376,7 +385,7 @@ namespace TheSite.Controllers
          model.DeclareTargetId = 5005;
          model.Decalre = DeclareBaseHelper.DeclareTarget.GetName(param.DeclareTargetId);
          model.DeclareSubject = BzUserProfileHelper.EduSubject.GetName(form.DeclareSubjectPKID);
-         model.DeclareCompany = company.CompanyName;
+         model.DeclareCompany = declareCompany == null ? string.Empty : declareCompany.CompanyName;
          model.RealName = profile.RealName;
          model.RankTitle = profile.RankTitle;
          model.SkillTitle = profile.SkillTitle;
@@ -384,7 +393,7 @@ namespace TheSite.Controllers
          model.Plitics = profile.PoliticalStatus;
          model.EduBg = profile.EduBg;
          model.CourseCount = profile.CourseCountPerWeek;
-         model.Company = company == null ? string.Empty : company.CompanyName;
+         model.Company = myCompnay == null ? string.Empty : myCompnay.CompanyName;
          model.Mobile = profile.Phonemobile;
          model.Phone = profile.Phone;
          model.Email = profile.Email;
@@ -411,7 +420,7 @@ namespace TheSite.Controllers
          model.DeclareAchievements = declareAchievement;
          model.Reason = form.Reason;
          // 职称破格和申报公用一张表 所以要用form IsBrokenRoles 和 param.TypeKey 一起判断
-         model.IsBrokRoles =form.IsBrokenRoles || param.TypeKey.IndexOf(poge) > 0;
+         model.IsBrokRoles = param.TypeKey.IndexOf(poge) > 0;
 
          if (param.IsExport != null && param.IsExport.Value)
          {
