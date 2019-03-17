@@ -23,6 +23,7 @@ namespace TheSite.Models
       public long DeclareTargetId { get; set; }
       public string TypeKey { get; set; }
       public string View { get; set; }
+      public long TeacherId { get; set; }
    }
 
    public class DeclarePreviewParam: DeclareParam

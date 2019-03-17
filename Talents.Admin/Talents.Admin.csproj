@@ -660,6 +660,11 @@
     <Content Include="Views\DeclarePop\GerTes_QitShenf.cshtml" />
     <Content Include="Views\DeclareMaterial\MaterialPreview9999.cshtml" />
     <Content Include="Views\DeclarePop\GerTes_XueyChengz.cshtml" />
+    <Content Include="Views\DeclareMaterial\_review5006.cshtml" />
+    <Content Include="Views\DeclareMaterial\_profile5006.cshtml" />
+    <Content Include="Views\DeclareMaterial\_items5006.cshtml" />
+    <Content Include="Views\DeclareMaterial\MaterialPreview5006.cshtml" />
+    <Content Include="Views\DeclareMaterial\MaterialView5006.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

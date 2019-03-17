@@ -37,6 +37,7 @@ namespace Business.Utilities
 
          Document doc = new Document(PageSize.A4);//要寫PDF的文件，建構子沒填的話預設直式A4
          PdfWriter writer = PdfWriter.GetInstance(doc, outputStream);
+         writer.PageEvent = new PdfPageEvent();
          //指定文件預設開檔時的縮放為100%
          PdfDestination pdfDest = new PdfDestination(PdfDestination.XYZ, 0, doc.PageSize.Height, 1f);
          //開啟Document文件 
@@ -51,6 +52,25 @@ namespace Business.Utilities
          outputStream.Close();
          //回傳PDF檔案 
          return outputStream.ToArray();
+      }
+
+
+      /// <summary>
+      /// 页面完成时触发
+      /// </summary>
+      public class PdfPageEvent: PdfPageEventHelper, IPdfPageEvent
+      {
+         public override void OnEndPage(PdfWriter writer, Document document)
+         {
+            base.OnEndPage(writer, document);
+
+            PdfContentByte cbs = writer.DirectContent;
+            BaseFont bsFont = BaseFont.CreateFont(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "simsun.ttc")+ ",0", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            iTextSharp.text.Font fontfooter = new iTextSharp.text.Font(bsFont, 10, iTextSharp.text.Font.BOLD);
+            Phrase footer = new Phrase(writer.PageNumber.ToString(), fontfooter);
+            ColumnText.ShowTextAligned(cbs, Element.ALIGN_CENTER, footer,
+                      document.Right / 2, document.Bottom - 20, 0);
+         }
       }
 
 

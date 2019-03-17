@@ -232,7 +232,7 @@ namespace TheSite.Controllers
       //	GET-Ajax:			DeclarePop/ZisFaz_JiaoxHuod_JiaoxGongkk
       //	POST-Ajax:			DeclarePop/ZisFaz_JiaoxHuod_JiaoxGongkk
 
-      public ActionResult ZisFaz_JiaoxHuod_JiaoxGongkk(long? id)
+      public ActionResult ZisFaz_JiaoxHuod_JiaoxGongkk(long? id, long? declareTargetId)
       {
          var isInDeclare = Period != null && Period.IsInDeclarePeriod;
          var model = new ZisFaz_JiaoxHuod_JiaoxGongkkModel() { Date = System.DateTime.Now, AttachmentName = "", IsDeclare = isInDeclare };
@@ -253,7 +253,8 @@ namespace TheSite.Controllers
                   Dynamic1 = list.Dynamic1,
                   Dynamic2 = list.Dynamic2,
                   IsShare = list.IsShare,
-                  IsDeclare = list.IsDeclare
+                  IsDeclare = list.IsDeclare,
+                  DeclareTargetId = declareTargetId ?? 0
                };
 
                var allAts = AttachmentsExtensions.GetAttachmentList(db, id.Value);
@@ -319,6 +320,7 @@ namespace TheSite.Controllers
                   Creator = UserProfile.UserId,
                   CreateDate = DateTime.Now,
                   IsDeclare = model.IsDeclare
+                  
                };
 
                db.DeclareActiveDal.Insert(data);
@@ -353,7 +355,7 @@ namespace TheSite.Controllers
 
             // AddOrDelShare(atta.JoinId, model.ContentValue, ShareKeys.ActiveShare, model.IsShare);
 
-            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db);
+            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db,model.DeclareTargetId);
 
             db.Commit();
 
@@ -556,7 +558,7 @@ namespace TheSite.Controllers
       public ActionResult ZisFaz_JiaoxHuod_JiaoxPingb(long? id, long? declareTargetId)
       {
          var isInDeclare = Period != null && Period.IsInDeclarePeriod;
-         var model = new ZisFaz_JiaoxHuod_JiaoxPingbModel() { Date = System.DateTime.Now, AttachmentName = "",IsDeclare=isInDeclare };
+         var model = new ZisFaz_JiaoxHuod_JiaoxPingbModel() { Date = System.DateTime.Now, AttachmentName = "", IsDeclare = isInDeclare };
 
          if (id != null)
          {
@@ -4351,7 +4353,7 @@ namespace TheSite.Controllers
       public ActionResult GerTes_QitShenf(long? id, long? declareTargetId)
       {
          var isInDeclare = Period != null && Period.IsInDeclarePeriod;
-         var model = new GerTes_QitShenfModel() { AttachmentName = "",IsDeclare=isInDeclare };
+         var model = new GerTes_QitShenfModel() { AttachmentName = "", IsDeclare = isInDeclare };
 
          if (id != null)
          {
@@ -4513,7 +4515,7 @@ namespace TheSite.Controllers
                   NameOrTitle = list.NameOrTitle,
                   Date = list.Date,
                   Dynamic1 = list.Dynamic1,
-                  Dynamic2=list.Dynamic2,
+                  Dynamic2 = list.Dynamic2,
                   //IsShare = list.IsShare,
                   IsDeclare = list.IsDeclare,
                   DeclareTargetId = declareTargetId ?? 0
@@ -4571,11 +4573,10 @@ namespace TheSite.Controllers
                data = new DeclareAchievement()
                {
                   TeacherId = UserProfile.UserId,
-                  Date=model.Date,
+                  Date = model.Date,
                   AchievementKey = DeclareKeys.GerTes_XueyChengz,
                   Dynamic1 = model.Dynamic1,
                   Dynamic2 = model.Dynamic2,
-                  Dynamic3 = model.Dynamic3,
                   NameOrTitle = model.NameOrTitle,
                   //IsShare = model.IsShare,
                   IsDeclare = model.IsDeclare,
@@ -4592,7 +4593,6 @@ namespace TheSite.Controllers
                APQuery.update(ta)
                   .set(ta.Dynamic1.SetValue(model.Dynamic1))
                   .set(ta.Dynamic2.SetValue(model.Dynamic2))
-                  .set(ta.Dynamic3.SetValue(model.Dynamic3))
                   .set(ta.NameOrTitle.SetValue(model.NameOrTitle))
                   //.set(t.IsShare.SetValue(model.IsShare))
                   .set(ta.IsDeclare.SetValue(model.IsDeclare))
@@ -4642,7 +4642,7 @@ namespace TheSite.Controllers
          });
       }
 
-    
+
 
 
       #region [ 查看附件 ]

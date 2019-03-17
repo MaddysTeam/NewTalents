@@ -175,7 +175,11 @@ namespace TheSite.Controllers
          {
             return PartialView("MaterialView5005", key);
          }
-         else if (key == DeclareKeys.XuekDaitr_CaiLPog)
+         else if (key == DeclareKeys.GugJiaos_Shenb || key == DeclareKeys.GugJiaos_ZhicPog)
+         {
+            return PartialView("MaterialView5006", key);
+         }
+         else if (key == DeclareKeys.XuekDaitr_CaiLPog || key== DeclareKeys.GugJiaos_CaiLPog)
          {
             return PartialView("MaterialView9999", key);
          }
@@ -225,6 +229,24 @@ namespace TheSite.Controllers
 
          model.PeriodId = Period.PeriodId;
          model.TeacherId = UserProfile.UserId;
+
+         if(model.CompanyId == 0)
+         {
+            return Json(new
+            {
+               result = AjaxResults.Error,
+               msg = "必须选择申报单位！",
+            });
+         }
+
+         if (model.DeclareSubjectPKID == 0)
+         {
+            return Json(new
+            {
+               result = AjaxResults.Error,
+               msg = "必须选择申报学科！",
+            });
+         }
 
          if (model.DeclareReviewId == 0)
          {
@@ -365,25 +387,25 @@ namespace TheSite.Controllers
 
       public ActionResult Preview(DeclarePreviewParam param)
       {
-         var u = APDBDef.BzUserProfile;
-         var c = APDBDef.Company;
+         var isSchoolAdmin = UserProfile.IsSchoolAdmin;
+         var userid = isSchoolAdmin ? param.TeacherId : UserProfile.UserId;
          var pdfRender = new HtmlRender();
          var model = new DeclarePreviewViewModel();
-         var profile = db.BzUserProfileDal.PrimaryGet(UserProfile.UserId);
+         var profile = db.BzUserProfileDal.PrimaryGet(userid);//不从缓存里获取，从数据库获取
          var myCompnay = db.CompanyDal.PrimaryGet(profile.CompanyId);
          var review = db.DeclareReviewDal.ConditionQuery(
-            df.TeacherId == profile.UserId &
+            df.TeacherId == userid &
             df.PeriodId == Period.PeriodId &
-            df.DeclareTargetPKID == 5005 &
+            df.DeclareTargetPKID == param.DeclareTargetId &
             df.TypeKey == param.TypeKey, null, null, null).FirstOrDefault();
          review = review ?? new DeclareReview();
 
          var declareCompany = db.CompanyDal.PrimaryGet(review.CompanyId);
-         var declareActives = GetDeclareActives(param.DeclareTargetId, profile.UserId);
-         var declareAchievement = GetDeclareAchievements(param.DeclareTargetId, profile.UserId);
+         var declareActives = GetDeclareActives(param.DeclareTargetId, userid);
+         var declareAchievement = GetDeclareAchievements(param.DeclareTargetId, userid);
          var poge = ".职称破格";
 
-         model.DeclareTargetId = 5005;
+         model.DeclareTargetId = param.DeclareTargetId;
          model.Decalre = DeclareBaseHelper.DeclareTarget.GetName(param.DeclareTargetId);
          model.DeclareSubject = BzUserProfileHelper.EduSubject.GetName(review.DeclareSubjectPKID);
          model.DeclareCompany = declareCompany == null ? string.Empty : declareCompany.CompanyName;
