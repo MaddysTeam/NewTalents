@@ -675,6 +675,12 @@
     <Content Include="Views\DeclareMaterial\_profile5007.cshtml" />
     <Content Include="Views\DeclareMaterial\_items5007.cshtml" />
     <Content Include="Views\DeclareMaterial\MaterialPreview5007.cshtml" />
+    <Content Include="Views\DeclarePop\Qit_JibGongZshiHuoj.cshtml" />
+    <Content Include="Views\DeclareMaterial\MaterialView5008.cshtml" />
+    <Content Include="Views\DeclareMaterial\_review5008.cshtml" />
+    <Content Include="Views\DeclareMaterial\_profile5008.cshtml" />
+    <Content Include="Views\DeclareMaterial\_items5008.cshtml" />
+    <Content Include="Views\DeclareMaterial\MaterialPreview5008.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

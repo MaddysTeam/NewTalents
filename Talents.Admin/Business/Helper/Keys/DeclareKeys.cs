@@ -144,6 +144,7 @@
       public const string JiaoxNengs_ZhicPog = "教学能手.职称破格";
       public const string JiaoxNengs_CaiLPog = "教学能手.材料破格";
       public const string JiaoxXinx = "教学新秀";
+      public const string JiaoxXinx_Shenb = "教学新秀.申报";
       public const string GonggJihChengy = "公关计划成员";
       public const string ZhongzJihLingxReng = "种子计划领衔人";
       public const string ZhongzJihChengy = "种子计划成员";
@@ -155,6 +156,7 @@
       public const string GerTes_QitShenf = "个人特色.其他身份";
       public const string GerTes_XueyChengz = "个人特色.学员成长";
 
+      public const string Qit_JibGongZshiHuoj = "基本功展示获奖";
 
       public const string Good = "good";
       public const string Normal = "normal";

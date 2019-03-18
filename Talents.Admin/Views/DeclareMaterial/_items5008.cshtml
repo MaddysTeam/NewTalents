@@ -1,0 +1,162 @@
+﻿@model DeclareItemsViewModel
+@{
+	var activeItems = Model.DeclareActives as List<DeclareActive>;
+	var archievement = Model.DeclareAchievements as List<DeclareAchievement>;
+	var gongkKe = activeItems.FindAll(at => at.ActiveKey == DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk);
+	var jiaoxPingb = activeItems.FindAll(at => at.ActiveKey == DeclareKeys.ZisFaz_JiaoxHuod_JiaoxPingb);
+	var declareTargetId = Model.DeclareTargetId; 
+}
+<!-- 教育教学 -->
+<div class="tab-pane fade itmes" id="tab2">
+
+	<!-- WIDGET TABBED CONTENT -->
+	<div class="widget">
+		<div class="widget-header">
+			<h3><i class="fa fa-paperclip"></i>教育教学-公开课 （最多填两项）</h3>
+			@if (gongkKe != null && gongkKe.Count < 2)
+			{
+				<a class="btn btn-warning btn-sm pull-right" data-url="@Url.Action("ZisFaz_JiaoxHuod_JiaoxGongkk", "DeclarePop",new { declareTargetId=declareTargetId}))" data-toggle="ajax-modal" data-target="#firstModal">新增申报</a>
+				<a class="btn btn-info btn-sm pull-right" data-url="@Url.Action("DeclareActiveList", "DeclareMaterial",new { itemKey =DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk, declareTargetId=declareTargetId})" data-toggle="ajax-modal" data-target="#firstModal">历史库</a>
+			}
+		</div>
+		<div class="widget-content">
+			<div class="table-responsive">
+				<table class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th class="width180">时间</th>
+							<th class="width180">地点</th>
+							<th class="width180">班级</th>
+							<th style="width:500px">课题/内容</th>
+							<th class="width180">级别</th>
+							<th class="width180">组织单位、部门</th>
+							<th class="width400">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in gongkKe)
+						{
+							<tr>
+								<td>
+									@item.Date.ToString("yyyy-MM-dd")
+								</td>
+								<td>
+									@item.Location
+								</td>
+								<td>
+									@item.Dynamic1
+								</td>
+								<td>
+									@item.ContentValue
+								</td>
+								<td>
+									@item.Level
+								</td>
+								<td>
+									@item.Dynamic2
+								</td>
+								<td>
+									<div class="btn-group pull-right">
+										<a class="btn btn-success btn-sm" data-url="@Url.Action("ZisFaz_JiaoxHuod_JiaoxGongkk", "DeclarePop",new {id=item.DeclareActiveId, declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">编辑</a>
+										<a target="_blank" class="btn btn-warning btn-sm  btn-cancelDeclare" data-url="@Url.Action("DeclareActive", "DeclareMaterial", new {id=item.DeclareActiveId, isDeclare=false, declareTargetId = declareTargetId })" href="#">取消申报</a>
+										<button class="btn btn-danger btn-sm btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_JiaoxHuod_JiaoxGongkk })" data-target="#firstModal" title="查看附件">查看附件</button>
+									</div>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- END WIDGET TABBED CONTENT -->
+
+	<!-- WIDGET TABBED CONTENT -->
+	<div class="widget">
+		<div class="widget-header">
+			<h3><i class="fa fa-paperclip"></i>教育教学-教育教学评比 （最多填两项）</h3>
+			@if (jiaoxPingb != null && jiaoxPingb.Count < 2)
+			{
+				<a class="btn btn-warning btn-sm pull-right" data-url="@Url.Action("ZisFaz_JiaoxHuod_JiaoxPingb", "DeclarePop",new { declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">新增申报</a>
+				<a class="btn btn-info btn-sm pull-right" data-url="@Url.Action("DeclareActiveList", "DeclareMaterial",new { itemKey =DeclareKeys.ZisFaz_JiaoxHuod_JiaoxPingb, declareTargetId=declareTargetId})" data-toggle="ajax-modal" data-target="#firstModal">
+					历史库
+				</a>
+			}
+		</div>
+		<div class="widget-content">
+			<div class="table-responsive">
+				<table class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th class="width180">时间</th>
+							<th class="width180">年级</th>
+							<th style="width:500px">工作内容</th>
+							<th class="width180">奖项名称、等第</th>
+							<th class="width180">参加对象</th>
+							<th class="width300">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in jiaoxPingb)
+						{
+							<tr>
+								<td>
+									@item.Date.ToString("yyyy-MM-dd")
+								</td>
+								<td>
+									@item.Location
+								</td>
+								<td>
+									@item.ContentValue
+								</td>
+								<td>
+									@item.Dynamic2
+								</td>
+								<td>
+									@item.Dynamic1
+								</td>
+								<td>
+									<div class="btn-group pull-right">
+										<a class="btn btn-success btn-sm" data-url="@Url.Action("ZisFaz_JiaoxHuod_JiaoxPingb", "DeclarePop",new {id=item.DeclareActiveId, declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">编辑</a>
+										<a target="_blank" class="btn btn-warning btn-sm  btn-cancelDeclare" data-url="@Url.Action("DeclareActive", "DeclareMaterial", new {id=item.DeclareActiveId, isDeclare=false, declareTargetId = declareTargetId })" href="#">取消申报</a>
+										<button class="btn btn-danger btn-sm btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_JiaoxHuod_JiaoxPingb })" data-target="#firstModal" title="查看附件">查看附件</button>
+									</div>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- END WIDGET TABBED CONTENT -->
+
+	<div class="col-md-offset-5">
+		<button class="btn btn-custom-primary btn-fake"><i class="fa fa-save"></i> 保存</button>
+	</div>
+</div>
+
+
+@section Modals {
+	<!-- Modal start -->
+	<div class="modal" id="firstModal" tabindex="-1" role="dialog" aria-labelledby="firstModalLabel" aria-hidden="true">
+	</div>
+	<!-- Modal end -->
+}
+<script>
+	function loadFrag(obj) {
+
+		refreshDeclareItems('@declareTargetId', '@Model.View');
+
+		$('#firstModal').modal('hide');
+	}
+
+	$(function () {
+
+		bindDeclareOrCancel();
+
+		$('.btn-fake').on('click', function () {
+			popupMessage({ result: '@AjaxResults.Success', msg: '保存成功！ ' })
+		});
+	});
+</script>

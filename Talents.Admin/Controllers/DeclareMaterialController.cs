@@ -191,6 +191,11 @@ namespace TheSite.Controllers
             key = key == DeclareKeys.JiaoxNengs ? DeclareKeys.JiaoxNengs_Shenb : key;
             return PartialView("MaterialView5007", key);
          }
+         if (key == DeclareKeys.JiaoxXinx || key == DeclareKeys.JiaoxXinx_Shenb)
+         {
+            key = key == DeclareKeys.JiaoxXinx ? DeclareKeys.JiaoxXinx_Shenb : key;
+            return PartialView("MaterialView5008", key);
+         }
          else if (key.IndexOf("-") > 0)
          {
             var typeKey = key.Substring(0, key.IndexOf("-"));
@@ -387,11 +392,13 @@ namespace TheSite.Controllers
             }).ToList();
 
 
-         ViewBag.DeclareActives = actives;
-
-         ViewBag.DecalreAchievements = achievements;
-
-         return PartialView(param.View);
+         return PartialView(param.View, new DeclareItemsViewModel
+         {
+            DeclareTargetId = param.DeclareTargetId,
+            View = param.View,
+            DeclareAchievements = achievements,
+            DeclareActives = actives
+         });
       }
 
 

@@ -32,6 +32,15 @@ namespace TheSite.Models
    }
 
 
+   public class DeclareItemsViewModel
+   {
+      public long DeclareTargetId { get; set; }
+      public string View { get; set; }
+      public List<DeclareActive> DeclareActives { get; set; }
+      public List<DeclareAchievement> DeclareAchievements { get; set; }
+   }
+
+
    public class DeclarePreviewViewModel
    {
 

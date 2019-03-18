@@ -320,7 +320,7 @@ namespace TheSite.Controllers
                   Creator = UserProfile.UserId,
                   CreateDate = DateTime.Now,
                   IsDeclare = model.IsDeclare
-                  
+
                };
 
                db.DeclareActiveDal.Insert(data);
@@ -355,7 +355,7 @@ namespace TheSite.Controllers
 
             // AddOrDelShare(atta.JoinId, model.ContentValue, ShareKeys.ActiveShare, model.IsShare);
 
-            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db,model.DeclareTargetId);
+            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
 
             db.Commit();
 
@@ -4652,7 +4652,7 @@ namespace TheSite.Controllers
       public ActionResult Qit_JibGongZshiHuoj(long? id, long? declareTargetId)
       {
          var isInDeclare = Period != null && Period.IsInDeclarePeriod;
-         var model = new Qit_JibGongZshiHuoj() { AttachmentName = "", IsDeclare = isInDeclare };
+         var model = new Qit_JibGongZshiHuoj() { AttachmentName = "", IsDeclare = isInDeclare,Date=DateTime.Now };
 
          if (id != null)
          {
@@ -4663,7 +4663,7 @@ namespace TheSite.Controllers
                model = new Qit_JibGongZshiHuoj()
                {
                   DeclareActiveId = list.DeclareActiveId,
-                  ContentValue= list.ContentValue,
+                  ContentValue = list.ContentValue,
                   Date = list.Date,
                   Dynamic1 = list.Dynamic1,
                   Dynamic2 = list.Dynamic2,
@@ -4690,6 +4690,8 @@ namespace TheSite.Controllers
          return PartialView("Qit_JibGongZshiHuoj", model);
       }
 
+      [HttpPost]
+      [DecalrePeriod]
       public ActionResult Qit_JibGongZshiHuoj(long? id, Qit_JibGongZshiHuoj model)
       {
          ThrowNotAjax();
@@ -4713,9 +4715,69 @@ namespace TheSite.Controllers
 
          DeclareActive data = null;
 
+         try
+         {
+            if (id == null)
+            {
+               data = new DeclareActive()
+               {
+                  TeacherId = UserProfile.UserId,
+                  Date = model.Date,
+                  ActiveKey = DeclareKeys.Qit_JibGongZshiHuoj,
+                  Dynamic1 = model.Dynamic1,
+                  Dynamic2 = model.Dynamic2,
+                  ContentValue = model.ContentValue,
+                  //IsShare = model.IsShare,
+                  IsDeclare = model.IsDeclare,
+                  Creator = UserProfile.UserId,
+                  CreateDate = DateTime.Now
+               };
 
+               db.DeclareActiveDal.Insert(data);
+               atta.JoinId = data.DeclareActiveId;
+               vertAtta.JoinId = data.DeclareActiveId;
+            }
+            else
+            {
+               APQuery.update(ta)
+                  .set(ta.Date.SetValue(model.Date))
+                  .set(ta.Dynamic1.SetValue(model.Dynamic1))
+                  .set(ta.Dynamic2.SetValue(model.Dynamic2))
+                  .set(ta.NameOrTitle.SetValue(model.ContentValue))
+                  //.set(t.IsShare.SetValue(model.IsShare))
+                  .set(ta.IsDeclare.SetValue(model.IsDeclare))
+                  .set(ta.Modifier.SetValue(UserProfile.UserId))
+                  .set(ta.ModifyDate.SetValue(DateTime.Now))
+                  .where(ta.DeclareAchievementId == id.Value)
+                  .execute(db);
 
-         return null;
+               AttachmentsExtensions.DeleteAttas(db, id.Value, new string[] { attachmentTypeKey, vertifyTypeKey });
+
+               atta.JoinId = id.Value;
+               vertAtta.JoinId = id.Value;
+
+               data = db.DeclareActiveDal.PrimaryGet(id.Value);
+            }
+
+            AttachmentsExtensions.InsertAttas(db, new AttachmentsDataModel[] { atta, vertAtta });
+
+            // AddOrDelShare(atta.JoinId, model.ContentValue, ShareKeys.ActiveShare, model.IsShare);
+
+            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
+
+            db.Commit();
+         }
+         catch
+         {
+            db.Rollback();
+         }
+
+         return Json(new
+         {
+            result = AjaxResults.Success,
+            msg = "信息已保存！"
+         });
+
       }
 
       #endregion

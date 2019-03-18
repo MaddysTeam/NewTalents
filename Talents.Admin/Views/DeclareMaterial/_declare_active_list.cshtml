@@ -8,6 +8,7 @@
 	var isFahZuoy = Request["itemkey"] == DeclareKeys.JiaoyJiaox_JiaoyHuod_FahZuoy;
 	var isPeixKec = Request["itemkey"] == DeclareKeys.ZisFaz_PeixJiangz_JiaosPeixKec;
 	var isJiangZ = Request["itemkey"] == DeclareKeys.ZisFaz_PeixJiangz_ZhuantJiangz;
+	var isJibGong = Request["itemkey"] == DeclareKeys.Qit_JibGongZshiHuoj;
 	var declareTargetId = Request["declareTargetId"];
 }
 
@@ -301,6 +302,42 @@
 								</tr>
 							}
 
+						</tbody>
+					</table>
+				}
+				else if (isJibGong)
+				{
+					<table class="table table-condensed table-striped table-hover">
+						<thead>
+							<tr>
+								<th class="width180">时间</th>
+								<th style="width:500px">奖项名称</th>
+								<th class="width180">奖项类别、等第</th>
+								<th class="width240">组织单位、部门/负责人</th>
+								<th class="width400">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model)
+							{
+								<tr>
+									<td>
+										@item.Date.ToString("yyyy-MM-dd")
+									</td>
+									<td>
+										@item.ContentValue
+									</td>
+									<td>
+										@item.Dynamic1
+									</td>
+									<td>
+										@item.Dynamic2
+									</td>
+									<td>
+										<a target="_blank" class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareActive", "DeclareMaterial", new {id=item.DeclareActiveId, isDeclare=true, declareTargetId= declareTargetId })" href="#"><i class="fa fa-external-link"></i>申报</a>
+									</td>
+								</tr>
+							}
 						</tbody>
 					</table>
 				}

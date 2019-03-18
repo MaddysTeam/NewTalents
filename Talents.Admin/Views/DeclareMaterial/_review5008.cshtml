@@ -1,0 +1,80 @@
+﻿@model DeclareReview
+
+<!-- WIDGET TABBED CONTENT -->
+
+<form action="@Url.Action("ReviewEdit", "DeclareMaterial")" method="post" class="form-horizontal form-group" role="form" novalidate="novalidate" id="FormIndex">
+	<input data-val="true" data-val-number="字段 修改周期ID 必须是一个数字。" data-val-required="修改周期ID 字段是必需的。" id="PeriodId" name="PeriodId" type="hidden" value="0">
+	<div class="row">
+		<fieldset class="col-md-9">
+			<div>
+				@Html.HiddenFor(m => m.DeclareReviewId)
+				@Html.HiddenFor(m => m.TeacherId)
+				@Html.HiddenFor(m => m.StatusKey)
+				@Html.Hidden("TypeKey",HttpUtility.UrlDecode(Model.TypeKey))
+				@Html.HiddenFor(m => m.DeclareTargetPKID)
+				@Html.HiddenFor(m => m.IsBrokenRoles)
+				<div class="form-group">
+					@Html.LabelFor(m => m.DeclareTargetPKID, new { @class = "col-md-2" })
+					<div class="col-md-9">
+						<strong>@Html.Label("temp", DeclareKeys.JiaoxXinx)</strong>
+					</div>
+				</div><div class="form-group">
+					@Html.Label("teacherName", "姓名", new { @class = "col-md-2 control-label" })
+					<div class="col-md-9">
+						<strong>@Html.Label("realname", Html.GetUserProfile().RealName)</strong>
+					</div>
+				</div>
+
+				<div class="form-group">
+					@Html.LabelFor(m => m.CompanyId, new { @class = "col-md-2 control-label" })
+					<div class="col-md-9">
+						@Html.DropDownListFor(m => m.CompanyId, CompanyHelper.GetCompanySelectList(), new { @class = "form-control" })
+					</div>
+					<strong class="red">*必选项</strong>
+				</div>
+
+				<div class="form-group">
+					@Html.LabelFor(m => m.DeclareSubjectPKID, new { @class = "col-md-2 control-label" })
+					<div class="col-md-9">
+						@Html.DropDownListFor(m => m.DeclareSubjectPKID, BzUserProfileHelper.EduSubject.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
+					</div>
+					<strong class="red">*必选项</strong>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.Reason, new { @class = "col-md-2 control-label" })
+					<div class="col-md-9">
+						专业发展自我陈述（包括：本人教育理念、实践探索、教书育人成效等。500字左右。） 
+						@Html.TextAreaFor(m => m.Reason, 20, 10, new { @class = "form-control" })
+					</div>
+				</div>
+
+			</div>
+		</fieldset>
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-offset-4">
+			<button type="submit" id="submit" class="btn  btn-danger btn-save"><i class="fa fa-save"></i>保存</button>
+		</div>
+
+	</div>
+</form>
+<script>
+	function afterDialogSuccess(data) {
+		//如果提交则刷新页面
+		if ($('#StatusKey').val() != '') {
+			location.href = location.href;
+		}
+		else {
+			$('#DeclareReviewId').val(data.DeclareReviewId);
+		}
+	}
+
+	$(function () {
+
+		ajaxSubmitForm($('#FormIndex'));
+
+	});
+
+	//insureSummernot($('#sum'));
+</script>

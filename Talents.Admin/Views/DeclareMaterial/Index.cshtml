@@ -65,6 +65,7 @@
 				$('.main-content').html(data);
 			})
 		}
+
 		$(function () {
 
 			var $treeviewApp = $('#treeview-declare');
@@ -154,6 +155,35 @@
 		function loadItems(declareTargetId, view, typeKey) {
 			$.get('@Url.Action("Items", "DeclareMaterial")', { DeclareTargetId: declareTargetId, View: view, TypeKey: typeKey }, function (html) {
 				$('.items').append(html);
+			});
+		}
+
+		function bindDeclareOrCancel() {
+			$('.btn-declare,.btn-cancelDeclare').on('click', function (e) {
+				e.preventDefault();
+
+				var $this = $(this);
+				var url = $this.data('url');
+
+				$.post(url, null, function (data, status) {
+					popupMessage(data, {
+						success: function () {
+							loadFrag($this, data);
+						}
+					});
+				})
+			});
+		}
+
+		function refreshDeclareItems(declareTargetid, view) {
+			$.get('@Url.Action("Items", "DeclareMaterial")?declareTargetId=' + declareTargetid + '&view=' + view, function (html) {
+				var tempTabId = '#tab1';
+				var currentTabId = $('.nav').find('.active > a').attr('href');
+
+				$('#tab2,#tab3,#tab4').remove();
+				$('.items').append(html);
+				$('a[href="' + tempTabId + '"]').tab('show');
+				$('a[href="' + currentTabId + '"]').tab('show'); // TODO: update tab
 			});
 		}
 	</script>

@@ -553,7 +553,7 @@ namespace TheSite.Controllers
          jiaoxNengs.children.Add(new json_treenode { id = DeclareKeys.JiaoxNengs_Shenb, text = "申报" });
          jiaoxNengs.children.Add(new json_treenode { id = DeclareKeys.JiaoxNengs_ZhicPog, text = "职称破格" });
          jiaoxNengs.children.Add(new json_treenode { id = string.Format("{0}-{1}", DeclareKeys.JiaoxNengs_CaiLPog, DeclareTargetIds.JiaoxNengs), text = "材料破格" });
-         var jiaoxXinx = new json_treenode { id = "5008", text = "教学新秀", type = json_treenode_types.database, children = new List<json_treenode>() };
+         var jiaoxXinx = new json_treenode { id = DeclareKeys.JiaoxXinx, text = "教学新秀", type = json_treenode_types.database, children = new List<json_treenode>() };
 
 
          string[] submitStatus = { DeclareKeys.ReviewProcess, DeclareKeys.ReviewSuccess, DeclareKeys.ReviewFailure };

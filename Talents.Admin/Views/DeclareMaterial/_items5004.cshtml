@@ -1,6 +1,7 @@
-﻿@{
-	var activeItems = ViewBag.DeclareActives as List<DeclareActive>;
-	var archievement = ViewBag.DecalreAchievements as List<DeclareAchievement>;
+﻿@model DeclareItemsViewModel
+@{
+	var activeItems = Model.DeclareActives as List<DeclareActive>;
+	var archievement = Model.DeclareAchievements as List<DeclareAchievement>;
 	var gongkKe = activeItems.FindAll(at => at.ActiveKey == DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk);
 	var jiaoxPingb = activeItems.FindAll(at => at.ActiveKey == DeclareKeys.ZisFaz_JiaoxHuod_JiaoxPingb);
 	var xuekMingt = activeItems.FindAll(at => at.ActiveKey == DeclareKeys.PeihJiaoyyGongz_XuekMingt);
@@ -13,7 +14,7 @@
 	var lunzQingk = archievement.FindAll(ac => ac.AchievementKey == DeclareKeys.ZisFaz_KeyChengg_LunzQingk);
 	var qitShenf = archievement.FindAll(ac => ac.AchievementKey == DeclareKeys.GerTes_QitShenf);
 	var xueyChengz = archievement.FindAll(ac => ac.AchievementKey == DeclareKeys.GerTes_XueyChengz);
-	var declareTargetId = Request["declareTargetId"];
+	var declareTargetId = Model.DeclareTargetId;
 }
 <!-- 教育教学 -->
 <div class="tab-pane fade itmes" id="tab2">
@@ -781,35 +782,15 @@
 }
 <script>
 	function loadFrag(obj) {
-		$.get('@Url.Action("Items", "DeclareMaterial")?declareTargetId=@declareTargetId&view=_items5005', function (html) {
-			var tempTabId = '#tab1';
-			var currentTabId = $('.nav').find('.active > a').attr('href');
 
-			$('#tab2,#tab3,#tab4').remove();
-			$('.items').append(html);
-			$('a[href="' + tempTabId + '"]').tab('show');
-			$('a[href="' + currentTabId + '"]').tab('show'); // TODO: update tab
-		});
+		refreshDeclareItems('@declareTargetId', '@Model.View');
 
 		$('#firstModal').modal('hide');
 	}
 
 	$(function () {
 
-		$('.btn-declare,.btn-cancelDeclare').on('click', function (e) {
-			e.preventDefault();
-
-			var $this = $(this);
-			var url = $this.data('url');
-
-			$.post(url, null, function (data, status) {
-				popupMessage(data, {
-					success: function () {
-						loadFrag($this, data);
-					}
-				});
-			})
-		});
+		bindDeclareOrCancel();
 
 		$('.btn-fake').on('click', function () {
 			popupMessage({ result: '@AjaxResults.Success', msg: '保存成功！ ' })
