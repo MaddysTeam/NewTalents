@@ -501,7 +501,7 @@
 
 					<add name="DeclareReviewId" type="long" primaryKey="true" identityType="Provider" />
 					<add name="TeacherId" type="long" display="教师ID" />
-					<add name="CompanyId" type="long" display="单位" />
+					<add name="CompanyId" type="long" display="申报单位" />
 					<add name="DeclareTargetPKID" type="long" display="申报称号" comment="PickList - PLKey_DeclareTarget"/>
 					<add name="DeclareSubjectPKID" type="long" display="申报学科" comment="PickList - PLKey_DeclareSubject"/>
 					<add name="AllowFlowToSchool" type="bool" display="是否愿意参与区内流动"/>

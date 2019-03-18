@@ -4498,6 +4498,8 @@ namespace TheSite.Controllers
       #endregion
 
 
+      #region [ 个人特色 学员成果 ]
+
       public ActionResult GerTes_XueyChengz(long? id, long? declareTargetId)
       {
          var isInDeclare = Period != null && Period.IsInDeclarePeriod;
@@ -4642,7 +4644,96 @@ namespace TheSite.Controllers
          });
       }
 
+      #endregion
 
+
+      #region [ 其他 基本功展示获奖 ]
+
+      public ActionResult Qit_JibGongZshiHuoj(long? id, long? declareTargetId)
+      {
+         var isInDeclare = Period != null && Period.IsInDeclarePeriod;
+         var model = new Qit_JibGongZshiHuoj() { AttachmentName = "", IsDeclare = isInDeclare };
+
+         if (id != null)
+         {
+            var list = db.DeclareActiveDal.PrimaryGet(id.Value);
+
+            if (list != null)
+            {
+               model = new Qit_JibGongZshiHuoj()
+               {
+                  DeclareActiveId = list.DeclareActiveId,
+                  ContentValue= list.ContentValue,
+                  Date = list.Date,
+                  Dynamic1 = list.Dynamic1,
+                  Dynamic2 = list.Dynamic2,
+                  //IsShare = list.IsShare,
+                  IsDeclare = list.IsDeclare,
+                  DeclareTargetId = declareTargetId ?? 0
+               };
+
+               var allAts = AttachmentsExtensions.GetAttachmentList(db, id.Value);
+               if (allAts.Count > 0)
+               {
+                  var ats = allAts.FindAll(a => a.Type == AttachmentsKeys.Qit_JibGongZshiHuoj);
+                  var vts = allAts.FindAll(a => a.Type == AttachmentsKeys.Qit_JibGongZshiHuoj + AttachmentsKeys.Vertify);
+                  var at = AttachmentsExtensions.GetAttachment(ats);
+                  var vt = AttachmentsExtensions.GetAttachment(vts);
+                  model.AttachmentName = at.Name;
+                  model.AttachmentUrl = at.Url;
+                  model.VertificationName = vt.Name;
+                  model.VertificationUrl = vt.Name;
+               }
+            }
+         }
+
+         return PartialView("Qit_JibGongZshiHuoj", model);
+      }
+
+      public ActionResult Qit_JibGongZshiHuoj(long? id, Qit_JibGongZshiHuoj model)
+      {
+         ThrowNotAjax();
+
+         var attachmentTypeKey = AttachmentsKeys.Qit_JibGongZshiHuoj;
+         var vertifyTypeKey = AttachmentsKeys.Qit_JibGongZshiHuoj + AttachmentsKeys.Vertify;
+         var atta = new AttachmentsDataModel
+         {
+            Type = attachmentTypeKey,
+            Name = model.AttachmentName,
+            Url = model.AttachmentUrl,
+            UserId = UserProfile.UserId
+         };
+         var vertAtta = new AttachmentsDataModel
+         {
+            Type = vertifyTypeKey,
+            Name = model.VertificationName,
+            Url = model.VertificationUrl,
+            UserId = UserProfile.UserId
+         };
+
+         DeclareActive data = null;
+
+
+
+         return null;
+      }
+
+      #endregion
+
+
+      #region [ 其他 综合性荣誉 ]
+
+      public ActionResult Qit_ZonghxingRongy(long? id, long? declareTargetId)
+      {
+         return null;
+      }
+
+      public ActionResult Qit_ZonghxingRongy(long? id, Qit_ZonghxingRongy model)
+      {
+         return null;
+      }
+
+      #endregion
 
 
       #region [ 查看附件 ]

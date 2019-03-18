@@ -1,30 +1,24 @@
 ﻿@model string
 <!-- WIDGET TABBED CONTENT -->
-<!-- 骨干教师申报表 -->
+<!-- 学科带头人申报表 -->
 <div class="alert alert-danger">
 	<strong>*注意！点击【提交申报】后将无法选择和填写当前或其他称号的申报表单！</strong>
 </div>
 <div class="gallery-buttons  bottom-30px">
-	<a href="@Url.Action("Preview","DeclareMaterial",new {TypeKey=Model,View="MaterialPreview5006",DeclareTargetId=DeclareTargetIds.GugJiaos })" target="_blank" class="btn btn-info"><i class="fa fa-eye"> 预览申报</i></a> &nbsp; &nbsp;
-	<a href="@Url.Action("Preview","DeclareMaterial",new {TypeKey=Model,View="MaterialPreview5006",DeclareTargetId=DeclareTargetIds.GugJiaos,IsExport=true })" target="_blank" class="btn btn-custom-primary"><i class="fa fa-download"> 下载表单</i></a> &nbsp; &nbsp;
+	<a href="@Url.Action("Preview","DeclareMaterial",new {TypeKey=Model,View="MaterialPreview5004",DeclareTargetId=DeclareTargetIds.GongzsZhucr })" target="_blank" class="btn btn-info"><i class="fa fa-eye"> 预览申报</i></a> &nbsp; &nbsp;
+	<a href="@Url.Action("Preview","DeclareMaterial",new {TypeKey=Model,View="MaterialPreview5004",DeclareTargetId=DeclareTargetIds.GongzsZhucr,IsExport=true })" target="_blank" class="btn btn-custom-primary"><i class="fa fa-download"> 下载表单</i></a> &nbsp; &nbsp;
 	<button class="btn btn-primary" id="declareSubmit"><i class="fa fa-pencil"> 申报提交</i></button>
 </div>
 <div class="widget">
 	<div class="widget-header">
-		@if (Model == DeclareKeys.XuekDaitr_ZhicPog)
-		{
-			<h3>骨干教师 <strong class="red">职称破格申报表</strong></h3>
-		}
-		else
-		{
-			<h3>骨干教师 <strong class="red">申报表</strong></h3>
-		}
 
+		<h3>学科培训工作室主持人 <strong class="red">申报表</strong></h3>
 		<ul class="nav nav-tabs pull-right">
 			<li class="active"><a href="#tab0" data-toggle="tab"><i class="fa fa-tag"></i> 申报表首页</a></li>
 			<li><a href="#tab1" data-toggle="tab"><i class="fa fa-tag"></i> 基本情况和校内履职</a></li>
 			<li><a href="#tab2" data-toggle="tab"><i class="fa fa-tag"></i> 教育教学</a></li>
 			<li><a href="#tab3" data-toggle="tab"><i class="fa fa-tag"></i> 教育科研和教师培训</a></li>
+			<li><a href="#tab4" data-toggle="tab"><i class="fa fa-tag"></i> 个人特色</a></li>
 		</ul>
 	</div>
 	<div class="widget-content">
@@ -38,12 +32,13 @@
 		</div>
 	</div>
 </div>
+
 <script>
 	$(function () {
 
-		loadReview('@DeclareTargetIds.GugJiaos', '_review5006', '@Model');
-		loadProfile('@DeclareTargetIds.GugJiaos', '_profile5006', '@Model');
-		loadItems('@DeclareTargetIds.GugJiaos', '_items5006', '@Model');
+		loadReview('@DeclareTargetIds.GongzsZhucr', '_review5004', '@Model');
+		loadProfile('@DeclareTargetIds.GongzsZhucr', '_profile5004', '@Model');
+		loadItems('@DeclareTargetIds.GongzsZhucr', '_items5004', '@Model');
 
 	});
 </script>

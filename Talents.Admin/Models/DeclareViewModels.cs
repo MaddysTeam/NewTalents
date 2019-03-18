@@ -1194,8 +1194,8 @@ namespace TheSite.Models
       public string AttachmentName { get; set; }
    }
 
-
-   public class QitZonghxingRongy:DeclareActiveModel
+   //其他综合性荣誉
+   public class Qit_ZonghxingRongy:DeclareActiveModel
    {
       [Required]
       [Display(Name = "时间")]
@@ -1216,7 +1216,7 @@ namespace TheSite.Models
    }
 
    //基本功展示获奖情况
-   public class JibGongZshiHuoj : DeclareActiveModel
+   public class Qit_JibGongZshiHuoj : DeclareActiveModel
    {
       [Required]
       [Display(Name = "时间")]
@@ -1233,7 +1233,6 @@ namespace TheSite.Models
       [Required]
       [Display(Name = "组织单位、部门/负责人")]
       public string Dynamic2 { get; set; }
-
    }
 
    public class JianxJiaosPingx : DeclareActiveModel

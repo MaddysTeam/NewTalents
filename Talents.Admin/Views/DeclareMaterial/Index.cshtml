@@ -114,13 +114,47 @@
 				$treeviewApp.jstree('open_all');
 				//treeviewApp.jstree('open_node', '#root');
 			}).on('changed.jstree', function (e, data) {
-				
+
 				lastNode = data.instance.get_node(data.selected);
 				loadTreeFrag();
 			})
 
 			$treeviewApp.parent().parent().show();
 
-		})
+		});
+
+
+		function loadReview(declareTargetId, view, typeKey) {
+			$.get('@Url.Action("ReviewEdit", "DeclareMaterial")', { DeclareTargetId: declareTargetId, View: view, TypeKey: typeKey }, function (html) {
+				$('#tab0').append(html);
+				$('#declareSubmit').click(function () {
+					if (confirm('确定要提交报表，提交后将无法选择和填写当前或其他称号的申报表单，只能够预览和打印表单！')) {
+						if ($('#CompanyId').val() == "0") {
+							popupMessage({ result: 'error', msg: '必须选择申报单位' });
+							return false;
+						}
+						if ($('#DeclareSubjectPKID').val() == "0") {
+							popupMessage({ result: 'error', msg: '必须选择申报学科' });
+							return false;
+						}
+
+						$('#StatusKey').val('@DeclareKeys.ReviewProcess');
+						$('#submit').trigger('click');
+					}
+				});
+			});
+		}
+
+		function loadProfile(declareTargetId, view, typeKey) {
+			$.get('@Url.Action("BasicProfileEdit", "DeclareMaterial")', { DeclareTargetId: declareTargetId, View: view, TypeKey: typeKey }, function (html) {
+				$('#tab1').html(html);
+			});
+		}
+
+		function loadItems(declareTargetId, view, typeKey) {
+			$.get('@Url.Action("Items", "DeclareMaterial")', { DeclareTargetId: declareTargetId, View: view, TypeKey: typeKey }, function (html) {
+				$('.items').append(html);
+			});
+		}
 	</script>
 }

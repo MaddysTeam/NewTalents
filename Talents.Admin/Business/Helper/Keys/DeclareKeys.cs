@@ -128,7 +128,9 @@
 
       public const string GaodLisz = "高地理事长";
       public const string JidZhucr = "基地主持人";
+
       public const string GongzsZhucr = "工作室主持人";
+      public const string GongzsZhucr_Shenb = "工作室主持人.申报";
       public const string XuekDaitr = "学科带头人";
       public const string XuekDaitr_Shenb = "学科带头人.申报";
       public const string XuekDaitr_ZhicPog = "学科带头人.职称破格";
@@ -138,9 +140,13 @@
       public const string GugJiaos_ZhicPog = "骨干教师.职称破格";
       public const string GugJiaos_CaiLPog = "骨干教师.材料破格";
       public const string JiaoxNengs = "教学能手";
+      public const string JiaoxNengs_Shenb = "教学能手.申报";
+      public const string JiaoxNengs_ZhicPog = "教学能手.职称破格";
+      public const string JiaoxNengs_CaiLPog = "教学能手.材料破格";
       public const string JiaoxXinx = "教学新秀";
       public const string GonggJihChengy = "公关计划成员";
       public const string ZhongzJihLingxReng = "种子计划领衔人";
+      public const string ZhongzJihChengy = "种子计划成员";
       public const string GaodJiaoSYanxBanXuey = "高端教师研修班学员";
 
       public const string Preview = "我的申报";
@@ -149,6 +155,10 @@
       public const string GerTes_QitShenf = "个人特色.其他身份";
       public const string GerTes_XueyChengz = "个人特色.学员成长";
 
+
+      public const string Good = "good";
+      public const string Normal = "normal";
+      public const string Worse = "worse";
    }
 
 }

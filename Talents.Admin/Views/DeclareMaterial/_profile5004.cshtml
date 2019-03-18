@@ -1,9 +1,6 @@
 ﻿@model BzUserProfile
-@{
-	var isBrokeRole = Request["TypeKey"] == DeclareKeys.GugJiaos_ZhicPog;
-}
 <!-- WIDGET TABBED CONTENT -->
-<form id="FormProfile" action="@Url.Action("BasicProfileEdit", "DeclareMaterial")" method="post" class="form-horizontal form-group-sm" role="form" novalidate="novalidate">
+<form id="FormProfile" action="@Url.Action(" BasicProfileEdit", "DeclareMaterial" )" method="post" class="form-horizontal form-group-sm" role="form" novalidate="novalidate">
 	<input data-val="true" data-val-number="字段 修改周期ID 必须是一个数字。" data-val-required="修改周期ID 字段是必需的。" id="PeriodId" name="PeriodId" type="hidden" value="0">
 	<div class="row">
 		<fieldset class="col-md-6">
@@ -30,7 +27,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					@Html.LabelFor(m => m.CompanyId, new { @class = "col-md-3 control-label" })
+					@Html.LabelFor(m => m.CompanyName, new { @class = "col-md-3 control-label" })
 					<div class="col-md-9">
 						@Html.DropDownListFor(m => m.CompanyId, CompanyHelper.GetCompanySelectList(), new { @class = "form-control" })
 					</div>
@@ -68,7 +65,7 @@
 			</div>
 		</fieldset>
 		<fieldset class="col-md-6">
-			<div>			
+			<div>
 				<div class="form-group">
 					@Html.LabelFor(m => m.NationalityPKID, new { @class = "col-md-3 control-label" })
 					<div class="col-md-9">
@@ -137,15 +134,15 @@
 			<div class="form-group">
 				<div class="col-md-3">
 					2016学年<br />
-					@Html.RadioButton("Dynamic1", DeclareKeys.Good, Model.Dynamic1 == DeclareKeys.Good) 优秀 @Html.RadioButton("Dynamic1", DeclareKeys.Normal, Model.Dynamic1 == DeclareKeys.Normal) 合格 @Html.RadioButton("Dynamic1", DeclareKeys.Worse, Model.Dynamic1 == DeclareKeys.Worse) 不合格
+					@Html.RadioButton("Dynamic1", DeclareKeys.Good, Model.Dynamic1 == DeclareKeys.Good) 优秀 @Html.RadioButton("Dynamic1", DeclareKeys.Normal, Model.Dynamic1== DeclareKeys.Normal) 合格 @Html.RadioButton("Dynamic1", DeclareKeys.Worse, Model.Dynamic1 == DeclareKeys.Worse) 不合格
 				</div>
 				<div class="col-md-3">
 					2017学年<br />
-					@Html.RadioButton("Dynamic2", DeclareKeys.Good, Model.Dynamic2 == DeclareKeys.Good) 优秀 @Html.RadioButton("Dynamic2", DeclareKeys.Normal, Model.Dynamic2 == DeclareKeys.Normal) 合格 @Html.RadioButton("Dynamic2", DeclareKeys.Worse, Model.Dynamic2 == DeclareKeys.Worse) 不合格
+					@Html.RadioButton("Dynamic2", DeclareKeys.Good, Model.Dynamic2 == DeclareKeys.Good) 优秀 @Html.RadioButton("Dynamic2", DeclareKeys.Normal, Model.Dynamic2== DeclareKeys.Normal) 合格 @Html.RadioButton("Dynamic2", DeclareKeys.Worse, Model.Dynamic2 == DeclareKeys.Worse) 不合格
 				</div>
 				<div class="col-md-3">
 					2018学年<br />
-					@Html.RadioButton("Dynamic3", DeclareKeys.Good, Model.Dynamic3 == DeclareKeys.Good) 优秀 @Html.RadioButton("Dynamic3", DeclareKeys.Normal, Model.Dynamic3 == DeclareKeys.Normal) 合格 @Html.RadioButton("Dynamic3", DeclareKeys.Worse, Model.Dynamic3 == DeclareKeys.Worse) 不合格
+					@Html.RadioButton("Dynamic3", DeclareKeys.Good, Model.Dynamic3== DeclareKeys.Good) 优秀 @Html.RadioButton("Dynamic3", DeclareKeys.Normal, Model.Dynamic3 == DeclareKeys.Normal) 合格 @Html.RadioButton("Dynamic3", DeclareKeys.Worse, Model.Dynamic3 == DeclareKeys.Worse) 不合格
 				</div>
 			</div>
 		</div>
@@ -183,10 +180,9 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h4 class="panel-title">目前在区级及以上专业委员会任职情况（名称、职务）</h4>
+			<h4 class="panel-title">目前在市级及以上专业委员会任职情况（名称、职务）</h4>
 		</div>
 		<div class="panel-body">
 			<div class="form-group">

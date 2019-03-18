@@ -60,6 +60,8 @@
       public const string GerTes_QitShenf = "个人特色.其他身份";
       public const string GerTes_XueyChengz = "个人特色.学员成长";
 
+      public const string Qit_JibGongZshiHuoj = "其他.基本功展示获奖";
+
       public const string Notice = "通知";
 
       public const string Vertify = "证明";

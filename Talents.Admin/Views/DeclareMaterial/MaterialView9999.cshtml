@@ -1,20 +1,22 @@
 ﻿@model string
+@{
+	long targetId = Convert.ToInt32(ViewBag.DeclareTargetId);
+	string targetName = DeclareBaseHelper.DeclareTarget.GetName(targetId);
+}
 <!-- WIDGET TABBED CONTENT -->
 <!-- 学科带头人申报表 -->
 <div class="alert alert-danger">
 	<strong>*注意！点击【提交申报】后将无法选择和填写当前或其他称号的申报表单！</strong>
 </div>
 <div class="gallery-buttons  bottom-30px">
-	<a href="@Url.Action("Preview","DeclareMaterial",new {TypeKey=Model,View="MaterialPreview9999",DeclareTargetId=DeclareTargetIds.XuekDaitr })" target="_blank" class="btn btn-info"><i class="fa fa-eye"> 预览申报</i></a> &nbsp; &nbsp;
-	<a href="@Url.Action("Preview","DeclareMaterial",new {TypeKey=Model,View="MaterialPreview9999",DeclareTargetId=DeclareTargetIds.XuekDaitr,IsExport=true })" target="_blank" class="btn btn-custom-primary"><i class="fa fa-download"> 下载表单</i></a> &nbsp; &nbsp;
+	<a href="@Url.Action("Preview","DeclareMaterial",new {TypeKey=Model,View="MaterialPreview9999",DeclareTargetId=targetId })" target="_blank" class="btn btn-info"><i class="fa fa-eye"> 预览申报</i></a> &nbsp; &nbsp;
+	<a href="@Url.Action("Preview","DeclareMaterial",new {TypeKey=Model,View="MaterialPreview9999",DeclareTargetId=targetId,IsExport=true })" target="_blank" class="btn btn-custom-primary"><i class="fa fa-download"> 下载表单</i></a> &nbsp; &nbsp;
 	<button class="btn btn-primary" id="declareSubmit"><i class="fa fa-pencil"> 申报提交</i></button>
 </div>
 <div class="widget">
 	<div class="widget-header">
-		
-			<h3>学科带头人 <strong class="red">材料破格申报表</strong></h3>
-	   
 
+		<h3>@targetName <strong class="red">材料破格申报表</strong></h3>
 
 		<ul class="nav nav-tabs pull-right">
 			<li class="active"><a href="#tab0" data-toggle="tab"><i class="fa fa-tag"></i> 申报表首页</a></li>
@@ -35,8 +37,10 @@
 <script>
 	$(function () {
 
-		$.get('@Url.Action("ReviewEdit", "DeclareMaterial")?typeKey=@Model&view=_review9999&declareTargetId=@DeclareTargetIds.XuekDaitr', function (html) {
-			$('#tab0').append(html);
+		var typeKey = '@Model'
+		var declareTargetId = '@targetId';
+		$.get('@Url.Action("ReviewEdit", "DeclareMaterial")?typeKey=' + typeKey + '&view=_review9999&declareTargetId=' + declareTargetId, function (html) {
+			$('#tab0').html('').append(html);
 			$('#declareSubmit').click(function () {
 				$('#StatusKey').val('@DeclareKeys.ReviewProcess');
 				$('#submit').trigger('click');

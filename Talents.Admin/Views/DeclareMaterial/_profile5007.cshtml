@@ -1,6 +1,6 @@
 ﻿@model BzUserProfile
 @{
-	var isBrokeRole = Request["TypeKey"] == DeclareKeys.GugJiaos_ZhicPog;
+	var isBrokeRole = Request["TypeKey"] == DeclareKeys.JiaoxNengs;
 }
 <!-- WIDGET TABBED CONTENT -->
 <form id="FormProfile" action="@Url.Action("BasicProfileEdit", "DeclareMaterial")" method="post" class="form-horizontal form-group-sm" role="form" novalidate="novalidate">
@@ -157,43 +157,21 @@
 		<div class="panel-body">
 			<div class="form-group">
 				<div class="col-md-3">
-					@Html.RadioButton("Dynamic4", DeclareKeys.GonggJihChengy, Model.Dynamic4 == DeclareKeys.GonggJihChengy, new { @style = "vertical-align:middle;width:20px;height:20px" })
-					&nbsp;&nbsp;<span style="vertical-align:middle;">上一轮是“攻关计划成员”主持人</span>
+					@Html.RadioButton("Dynamic4", DeclareKeys.ZhongzJihChengy, Model.Dynamic4 == DeclareKeys.ZhongzJihChengy, new { @style = "vertical-align:middle;width:20px;height:20px" })
+					&nbsp;&nbsp;<span style="vertical-align:middle;">上一轮是“种子计划”成员</span>
 				</div>
 				<div class="col-md-3">
-					@Html.RadioButton("Dynamic4", DeclareKeys.ZhongzJihLingxReng, Model.Dynamic4 == DeclareKeys.ZhongzJihLingxReng, new { @style = "vertical-align:middle;width:20px;height:20px" })
-					&nbsp;&nbsp;<span style="vertical-align:middle;">上一轮是“种子计划”领衔人</span>
+					@Html.RadioButton("Dynamic4", DeclareKeys.JiaoxNengs, Model.Dynamic4 == DeclareKeys.JiaoxNengs, new { @style = "vertical-align:middle;width:20px;height:20px" })
+					&nbsp;&nbsp;<span style="vertical-align:middle;">上一轮是教学能手</span>
 				</div>
 				<div class="col-md-3">
-					@Html.RadioButton("Dynamic4", DeclareKeys.GongzsZhucr, Model.Dynamic4 == DeclareKeys.GongzsZhucr, new { @style = "vertical-align:middle;width:20px;height:20px" })
-					&nbsp;&nbsp;<span style="vertical-align:middle;">上一轮是学科培训工作室主持人</span>
-				</div>
-				<div class="col-md-3">
-					@Html.RadioButton("Dynamic4", DeclareKeys.XuekDaitr, Model.Dynamic4 == DeclareKeys.XuekDaitr, new { @style = "vertical-align:middle;width:20px;height:20px" })
-					&nbsp;&nbsp;<span style="vertical-align:middle;">上一轮是学科带头人</span>
-				</div>
-				<div class="col-md-3">
-					@Html.RadioButton("Dynamic4", DeclareKeys.GugJiaos, Model.Dynamic4 == DeclareKeys.GugJiaos, new { @style = "vertical-align:middle;width:20px;height:20px" })
-					&nbsp;&nbsp;<span style="vertical-align:middle;">上一轮是骨干教师</span>
-				</div>
-				<div class="col-md-3">
-					@Html.RadioButton("Dynamic4", DeclareKeys.GaodJiaoSYanxBanXuey, Model.Dynamic4 == DeclareKeys.GaodJiaoSYanxBanXuey, new { @style = "vertical-align:middle;width:20px;height:20px" })
-					&nbsp;&nbsp;<span style="vertical-align:middle;">高端教师研修班学员</span>
+					@Html.RadioButton("Dynamic4", DeclareKeys.JiaoxXinx, Model.Dynamic4 == DeclareKeys.JiaoxXinx, new { @style = "vertical-align:middle;width:20px;height:20px" })
+					&nbsp;&nbsp;<span style="vertical-align:middle;">上一轮是教学新秀</span>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h4 class="panel-title">目前在区级及以上专业委员会任职情况（名称、职务）</h4>
-		</div>
-		<div class="panel-body">
-			<div class="form-group">
-				<div class="col-md-12">@Html.TextAreaFor(m => m.Dynamic5, 5, 10, new { @class = "form-control" })</div>
-			</div>
-		</div>
-	</div>
 	<div class="form-group">
 		<div class="col-md-offset-5">
 			<button type="submit" class="btn btn-lg btn-custom-primary btn-save"><i class="fa fa-save"></i> 保存</button>

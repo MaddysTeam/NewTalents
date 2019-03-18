@@ -171,30 +171,42 @@ namespace TheSite.Controllers
 
       public ActionResult Fragment(string key)
       {
-         if (key == DeclareKeys.XuekDaitr_Shenb || key == DeclareKeys.XuekDaitr_ZhicPog)
+         if (key == DeclareKeys.GongzsZhucr || key == DeclareKeys.GongzsZhucr_Shenb)
          {
+            key = key == DeclareKeys.GongzsZhucr ? DeclareKeys.GongzsZhucr_Shenb : key;
+            return PartialView("MaterialView5004", key);
+         }
+         else if (key == DeclareKeys.XuekDaitr || key == DeclareKeys.XuekDaitr_Shenb || key == DeclareKeys.XuekDaitr_ZhicPog)
+         {
+            key = key == DeclareKeys.XuekDaitr ? DeclareKeys.XuekDaitr_Shenb : key;
             return PartialView("MaterialView5005", key);
          }
-         else if (key == DeclareKeys.GugJiaos_Shenb || key == DeclareKeys.GugJiaos_ZhicPog)
+         else if (key == DeclareKeys.GugJiaos || key == DeclareKeys.GugJiaos_Shenb || key == DeclareKeys.GugJiaos_ZhicPog)
          {
+            key = key == DeclareKeys.GugJiaos ? DeclareKeys.XuekDaitr_Shenb : key;
             return PartialView("MaterialView5006", key);
          }
-         else if (key == DeclareKeys.XuekDaitr_CaiLPog || key== DeclareKeys.GugJiaos_CaiLPog)
+         else if (key == DeclareKeys.JiaoxNengs || key == DeclareKeys.JiaoxNengs_Shenb || key == DeclareKeys.JiaoxNengs_ZhicPog)
          {
-            return PartialView("MaterialView9999", key);
+            key = key == DeclareKeys.JiaoxNengs ? DeclareKeys.JiaoxNengs_Shenb : key;
+            return PartialView("MaterialView5007", key);
+         }
+         else if (key.IndexOf("-") > 0)
+         {
+            var typeKey = key.Substring(0, key.IndexOf("-"));
+
+            ViewBag.DeclareTargetId = key.Substring(key.IndexOf("-") + 1);
+
+            return PartialView("MaterialView9999", typeKey);
          }
          else
          {
-            var form = db.DeclareReviewDal.PrimaryGet(Convert.ToInt64(key));
-            if (form == null) return Content("正在开发中");
-            var isMaterialBreakRole = form.TypeKey.IndexOf("材料破格") >= 0;
-            var declareTargetId = isMaterialBreakRole ? 9999 : form.DeclareTargetPKID;
-            return Preview(new DeclarePreviewParam { IsExport = false, DeclareTargetId = form.DeclareTargetPKID, TypeKey = form.TypeKey, View = $"MaterialPreview{declareTargetId}" });
+            return Content("正在开发中");
          }
       }
 
-      // Get: DeclareMaterial/FormReviewEdit
-      // POST-Ajax: DeclareMaterial/FormReviewEdit
+      // Get: DeclareMaterial/ReviewEdit
+      // POST-Ajax: DeclareMaterial/ReviewEdit
 
       public ActionResult ReviewEdit(DeclareParam param)
       {
@@ -230,7 +242,7 @@ namespace TheSite.Controllers
          model.PeriodId = Period.PeriodId;
          model.TeacherId = UserProfile.UserId;
 
-         if(model.CompanyId == 0)
+         if (model.CompanyId == 0)
          {
             return Json(new
             {

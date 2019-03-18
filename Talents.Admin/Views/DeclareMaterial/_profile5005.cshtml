@@ -135,9 +135,14 @@
 		</div>
 		<div class="panel-body">
 			<div class="form-group">
-				<div class="col-md-3">2016学年 @Html.TextBoxFor(m => m.Dynamic1, new { @class = "form-control" })</div>
-				<div class="col-md-3">2017学年 @Html.TextBoxFor(m => m.Dynamic2, new { @class = "form-control" })</div>
-				<div class="col-md-3">2018学年 @Html.TextBoxFor(m => m.Dynamic3, new { @class = "form-control" })</div>
+				<div class="col-md-3">2016学年<br /> 
+				@Html.RadioButton("Dynamic1", DeclareKeys.Good, Model.Dynamic1 == DeclareKeys.Good) 优秀 @Html.RadioButton("Dynamic1", DeclareKeys.Normal, Model.Dynamic1== DeclareKeys.Normal) 合格 @Html.RadioButton("Dynamic1", DeclareKeys.Worse, Model.Dynamic1 == DeclareKeys.Worse) 不合格</div>
+				<div class="col-md-3">2017学年<br /> 
+				@Html.RadioButton("Dynamic2", DeclareKeys.Good, Model.Dynamic2 == DeclareKeys.Good) 优秀 @Html.RadioButton("Dynamic2", DeclareKeys.Normal, Model.Dynamic2== DeclareKeys.Normal) 合格 @Html.RadioButton("Dynamic2", DeclareKeys.Worse, Model.Dynamic2 == DeclareKeys.Worse) 不合格</div>
+				<div class="col-md-3">
+					2018学年<br />
+					@Html.RadioButton("Dynamic3", DeclareKeys.Good, Model.Dynamic3== DeclareKeys.Good) 优秀 @Html.RadioButton("Dynamic3", DeclareKeys.Normal, Model.Dynamic3 == DeclareKeys.Normal) 合格 @Html.RadioButton("Dynamic3", DeclareKeys.Worse, Model.Dynamic3 == DeclareKeys.Worse) 不合格
+				</div>
 			</div>
 		</div>
 	</div>

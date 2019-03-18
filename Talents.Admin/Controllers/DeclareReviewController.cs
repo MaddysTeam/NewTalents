@@ -85,7 +85,9 @@ namespace TheSite.Controllers
          var u2 = APDBDef.BzUserProfile.As("reviewer");
          var c = APDBDef.Company;
          var currentPeriod = Period ?? new DeclarePeriod();
-         var query = APQuery.select(dr.DeclareReviewId, dr.ReviewComment, dr.StatusKey, dr.TeacherId, dr.ReviewerId, dr.DeclareTargetPKID, dr.DeclareSubjectPKID,
+         var query = APQuery.select(dr.DeclareReviewId, dr.ReviewComment, dr.StatusKey, 
+                                    dr.TeacherId, dr.ReviewerId,dr.TypeKey, 
+                                    dr.DeclareTargetPKID, dr.DeclareSubjectPKID,
                              u.RealName, u2.RealName.As("reviewer"), c.CompanyName)
                           .from(dr,
                                 u.JoinInner(dr.TeacherId == u.UserId),
@@ -132,6 +134,7 @@ namespace TheSite.Controllers
             reviewer = u2.RealName.GetValue(r, "reviewer"),
             company = c.CompanyName.GetValue(r),
             declare = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
+            typeKey= dr.TypeKey.GetValue(r)
             // subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(r))
          }).ToList();
 

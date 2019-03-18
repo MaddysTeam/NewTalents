@@ -87,7 +87,7 @@
 
 				formatters: {
 					'commands': function (column, row) {
-						var typeKey='@Model';
+						var typeKey = row.typeKey;
 						var targetId = '@DeclareTargetIds.XuekDaitr';
 						var previewUrl = '/DeclareMaterial/Preview?teacherId=' + row.teacherId + '&typeKey=' + typeKey + '&view=MaterialPreview5005&declareTargetId=' + targetId;
 						var downloadUrl = '/DeclareMaterial/Preview?teacherId=' + row.teacherId + '&typeKey=' + typeKey + '&view=MaterialPreview5005&declareTargetId=' + targetId + '&isExport=true';

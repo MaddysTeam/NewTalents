@@ -103,22 +103,5 @@
 
 	});
 
-
-	function ajaxSubmitForm(selector) {
-		$.validator.unobtrusive.parse(selector);
-
-		selector.submit(function (e) {
-			e.preventDefault();
-			var $this = $(this);
-			$this.valid() && $.post($this.attr('action'), $this.serialize(), function (data, status) {
-				popupMessage(data, {
-					success: function () {
-						afterDialogSuccess(data.data);
-					}
-				});
-			})
-		});
-	}
-
 	//insureSummernot($('#sum'));
 </script>
