@@ -67,10 +67,15 @@ namespace TheSite.Models
       public string EduBg { get; set; }
       public bool Is1000 { get; set; } //是否是“攻关计划”学员
       public bool Is2000 { get; set; } //是否是“种子计划”领衔人
+      public bool Is3000 { get; set; } //是否是“高峰计划”主持人
+      public bool Is4000 { get; set; } //是否是“攻关计划”主持人
       public bool Is5004 { get; set; } //是否是“种子计划”领衔人
       public bool Is5005 { get; set; } //上一轮是工作室
       public bool Is5006 { get; set; } //上一轮是骨干教师
       public bool Is5007 { get; set; } //上一轮是教学能手
+      public bool Is5008 { get; set; } //上一轮是教学新秀
+      public bool Is5002 { get; set; } //上一轮是高地理事长
+      public bool Is5003 { get; set; } //上一轮是基地主持人
       public bool Is6000 { get; set; } //高端教师研修班学员
       public string Comment1 { get; set; }
       public string FirstYearScore { get; set; }

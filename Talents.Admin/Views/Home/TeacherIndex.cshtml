@@ -63,12 +63,17 @@
 
 											@if (review != null)
 											{
-												<button class="btn btn-success btn-view" id="DeclareRequestView" data-toggle="ajax-modal" data-url="@Url.Action("Edit", "DeclareReview", new { id = review == null ? 0 : review.DeclareReviewId })" data-target="#firstModal">
+												<a class="btn btn-success btn-view" id="DeclareRequestView" target="_blank" href="@Url.Action("Preview", "DeclareMaterial", new { DeclareTargetId=review.DeclareTargetPKID, TypeKey=review.TypeKey, TeacherId=review.TeacherId,View="MaterialPreview"+review.DeclareTargetPKID })" >
 													<i class="fa fa-eye"></i> <span>预览申报</span>
-												</button>
-}
+												</a>
+												<a target="_blank" class="btn btn-warning btn-view" href="@Url.Action("Preview", "DeclareMaterial", new { DeclareTargetId=review.DeclareTargetPKID, TypeKey=review.TypeKey, TeacherId=review.TeacherId,View="MaterialPreview"+review.DeclareTargetPKID, IsExport = true })"><i class="fa fa-download"></i> <span>下载申报表</span></a>
+											}
+											else
+											{
+												<div class="alert alert-info">点击左侧【教师申报】，然后选择相应的称号进行申报填写</div>
+											}
 
-											<a target="_blank" class="btn btn-warning btn-view" href="@Url.Action("overview", "declareMaterial", new { id = Html.GetUserProfile().UserId })"><i class="fa fa-external-link"></i> <span>下载申报表</span></a>
+
 										</div>
 									</div>
 								</div>

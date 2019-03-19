@@ -45,7 +45,7 @@
 									<th data-column-id="declare" data-order="desc">申报称号</th>
 									<th data-column-id="subject" data-order="desc">申报学科</th>
 									<th data-column-id="status" data-order="desc">审核状态</th>
-									<th data-column-id="commands" data-formatter="commands" data-sortable="false" data-header-Css-Class="width180">操作</th>
+									<th data-column-id="commands" data-formatter="commands" data-sortable="false" data-header-Css-Class="width320">操作</th>
 								</tr>
 							</thead>
 						</table>
@@ -91,11 +91,12 @@
 						var targetId = '@DeclareTargetIds.XuekDaitr';
 						var previewUrl = '/DeclareMaterial/Preview?teacherId=' + row.teacherId + '&typeKey=' + typeKey + '&view=MaterialPreview5005&declareTargetId=' + targetId;
 						var downloadUrl = '/DeclareMaterial/Preview?teacherId=' + row.teacherId + '&typeKey=' + typeKey + '&view=MaterialPreview5005&declareTargetId=' + targetId + '&isExport=true';
-						var temp = '<a target="_blank" href="' + previewUrl + '" class="btn btn-warning btn-overview"><i class="fa fa-external-link"></i>查看材料</a>' +
-							        '<a target="_blank" href="' + downloadUrl + '" class="btn btn-info btn-downlaod"><i class="fa fa-external-link"></i>下载材料</a>';
+						var temp = '<a target="_blank" href="' + previewUrl + '" class="btn btn-success btn-overview"><i class="fa fa-external-link"></i>材料详细</a>' +
+							        '<a target="_blank" href="' + previewUrl + '" class="btn btn-warning btn-overview"><i class="fa fa-external-link"></i>预览申报</a>' +
+							        '<a target="_blank" href="' + downloadUrl + '" class="btn btn-info btn-downlaod"><i class="fa fa-external-link"></i>下载申报</a>';
 						return '<div class="btn-group btn-group-xs pull-right"  data-row-id="' + row.id + '">' +
 								 temp +
-								 '<a class="btn btn-danger btn-review" data-toggle="ajax-modal" data-target="#firstModal" title="申报审核">申报审核</a>' +
+								 '<a class="btn btn-danger btn-review" data-toggle="ajax-modal" data-target="#firstModal" title="申报审核">审核</a>' +
 								 '</div>';
 					},
 				},

@@ -1,10 +1,11 @@
 ﻿@model DeclareReview
 @{
 	Model.IsBrokenRoles =  Request["TypeKey"] == DeclareKeys.GugJiaos_ZhicPog;
+	var typeKey = HttpUtility.UrlDecode(Model.TypeKey);
 }
 <!-- WIDGET TABBED CONTENT -->
 
-<form action="@Url.Action("ReviewEdit", "DeclareMaterial")" method="post" class="form-horizontal form-group" role="form" novalidate="novalidate" id="FormIndex">
+<form action="@Url.Action("ReviewEdit", "DeclareMaterial")" method="post" class="form-horizontal form-group" role="form" novalidate="novalidate" id="FormIndex"  data-after-success = "afterDialogSuccess()">
 	<input data-val="true" data-val-number="字段 修改周期ID 必须是一个数字。" data-val-required="修改周期ID 字段是必需的。" id="PeriodId" name="PeriodId" type="hidden" value="0">
 	<div class="row">
 		<fieldset class="col-md-9">
@@ -12,7 +13,7 @@
 				@Html.HiddenFor(m => m.DeclareReviewId)
 				@Html.HiddenFor(m => m.TeacherId)
 				@Html.HiddenFor(m => m.StatusKey)
-				@Html.Hidden("TypeKey",HttpUtility.UrlDecode(Model.TypeKey))
+				@Html.Hidden("TypeKey", typeKey)
 				@Html.HiddenFor(m => m.DeclareTargetPKID)
 				@Html.HiddenFor(m => m.IsBrokenRoles)
 				<div class="form-group">
@@ -93,7 +94,7 @@
 			location.href = location.href;
 		}
 		else {
-			$('#DeclareReviewId').val(data.DeclareReviewId);
+			loadReview('@DeclareTargetIds.GugJiaos', '_review5006', '@typeKey')
 		}
 	}
 
@@ -103,5 +104,4 @@
 
 	});
 
-	//insureSummernot($('#sum'));
 </script>

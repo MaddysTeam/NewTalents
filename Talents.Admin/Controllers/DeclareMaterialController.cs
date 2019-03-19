@@ -179,7 +179,7 @@ namespace TheSite.Controllers
          {
             return PartialView("MaterialView5003", key);
          }
-         else if(key == DeclareKeys.GongzsZhucr || key == DeclareKeys.GongzsZhucr_Shenb)
+         else if (key == DeclareKeys.GongzsZhucr || key == DeclareKeys.GongzsZhucr_Shenb)
          {
             key = key == DeclareKeys.GongzsZhucr ? DeclareKeys.GongzsZhucr_Shenb : key;
             return PartialView("MaterialView5004", key);
@@ -236,11 +236,12 @@ namespace TheSite.Controllers
          decalreReview = decalreReview ?? new DeclareReview
          {
             DeclareTargetPKID = declareTargetId,
-            TypeKey = HttpUtility.UrlEncode(typeKey),
             AllowFitResearcher = true,
             AllowFlowToDowngrade = true,
             AllowFlowToSchool = true
          };
+         decalreReview.TypeKey = param.TypeKey;
+
          return PartialView(param.View, decalreReview);
       }
 
@@ -366,8 +367,8 @@ namespace TheSite.Controllers
                DeclareSubjectPKID = model.EduSubjectPKID,
                CompanyId = model.CompanyId,
                TypeKey = typeKey,
-               StatusKey = model.StatusKey
             };
+            review.StatusKey = model.StatusKey;
 
             ReviewEdit(review);
          }
@@ -486,10 +487,15 @@ namespace TheSite.Controllers
          model.ThirdYearScore = profile.Dynamic3;
          model.Is1000 = profile.Dynamic4 == DeclareKeys.GonggJihChengy;
          model.Is2000 = profile.Dynamic4 == DeclareKeys.ZhongzJihLingxReng;
+         model.Is3000 = profile.Dynamic4 == DeclareKeys.GaofJihZhucRen;
+         model.Is4000 = profile.Dynamic4 == DeclareKeys.GonggJihZhucRen;
+         model.Is5002 = profile.Dynamic4 == DeclareKeys.GaodLisz;
+         model.Is5003 = profile.Dynamic4 == DeclareKeys.JidZhucr;
          model.Is5004 = profile.Dynamic4 == DeclareKeys.GongzsZhucr;
          model.Is5005 = profile.Dynamic4 == DeclareKeys.XuekDaitr;
          model.Is5006 = profile.Dynamic4 == DeclareKeys.GugJiaos;
          model.Is5007 = profile.Dynamic4 == DeclareKeys.JiaoxNengs;
+         model.Is5008 = profile.Dynamic4 == DeclareKeys.JiaoxXinx;
          model.Is6000 = profile.Dynamic4 == DeclareKeys.GaodJiaoSYanxBanXuey;
          model.Comment1 = profile.Dynamic5;
          model.IsAllowDownGrade = review.AllowFlowToDowngrade;

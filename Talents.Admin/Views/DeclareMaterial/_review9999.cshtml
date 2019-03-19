@@ -1,6 +1,8 @@
 ﻿@model DeclareReview
-
-<form action="@Url.Action("ReviewEdit", "DeclareMaterial")" method="post" class="form-horizontal form-group-sm" role="form" novalidate="novalidate" id="FormIndex">
+@{
+	var typeKey = HttpUtility.UrlDecode(Model.TypeKey);
+}
+<form action="@Url.Action("ReviewEdit", "DeclareMaterial")" method="post" class="form-horizontal form-group-sm" role="form" novalidate="novalidate" id="FormIndex" data-after-success="afterDialogSuccess()">
 	<input data-val="true" data-val-number="字段 修改周期ID 必须是一个数字。" data-val-required="修改周期ID 字段是必需的。" id="PeriodId" name="PeriodId" type="hidden" value="0">
 	<div class="row">
 		<fieldset class="col-md-9">
@@ -8,7 +10,7 @@
 				@Html.HiddenFor(m => m.DeclareReviewId)
 				@Html.HiddenFor(m => m.TeacherId)
 				@Html.HiddenFor(m => m.StatusKey)
-				@Html.HiddenFor(m => m.TypeKey)
+				@Html.Hidden("TypeKey", typeKey)
 				@Html.HiddenFor(m => m.DeclareTargetPKID)
 				<div class="form-group">
 					@Html.LabelFor(m => m.DeclareTargetPKID, new { @class = "col-md-2 control-label" })
@@ -59,13 +61,13 @@
 	</div>
 </form>
 <script>
-	function afterDialogSuccess(data) {
+	function afterDialogSuccess() {
 		//如果提交则刷新页面
 		if ($('#StatusKey').val() != '') {
 			location.href = location.href;
 		}
 		else {
-			$('#DeclareReviewId').val(data.DeclareReviewId);
+			loadReview('@Model.DeclareTargetPKID', '_review9999', '@typeKey')
 		}
 	}
 
@@ -75,22 +77,4 @@
 
 	});
 
-
-	function ajaxSubmitForm(selector) {
-		$.validator.unobtrusive.parse(selector);
-
-		selector.submit(function (e) {
-			e.preventDefault();
-			var $this = $(this);
-			$this.valid() && $.post($this.attr('action'), $this.serialize(), function (data, status) {
-				popupMessage(data, {
-					success: function () {
-						afterDialogSuccess(data.data);
-					}
-				});
-			})
-		});
-	}
-
-	//insureSummernot($('#sum'));
 </script>

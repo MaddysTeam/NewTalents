@@ -127,7 +127,7 @@
 
 		function loadReview(declareTargetId, view, typeKey) {
 			$.get('@Url.Action("ReviewEdit", "DeclareMaterial")', { DeclareTargetId: declareTargetId, View: view, TypeKey: typeKey }, function (html) {
-				$('#tab0').append(html);
+				$('#tab0').html('').append(html);
 				bindDeclareSubmit();
 			});
 		}
@@ -166,7 +166,7 @@
 		}
 
 		function bindDeclareSubmit() {
-			$('#declareSubmit').click(function () {
+			$('#declareSubmit').off('click').on('click',function () {
 				if (confirm('确定要提交报表，提交后将无法选择和填写当前或其他称号的申报表单，只能够预览和打印表单！')) {
 					if ($('#CompanyId').val() == "0") {
 						popupMessage({ result: 'error', msg: '必须选择申报单位' });
@@ -191,7 +191,7 @@
 				$('#tab2,#tab3,#tab4').remove();
 				$('.items').append(html);
 				$('a[href="' + tempTabId + '"]').tab('show');
-				$('a[href="' + currentTabId + '"]').tab('show'); // TODO: update tab
+				$('a[href="' + currentTabId + '"]').tab('show'); // TODO: refresh tab
 			});
 		}
 	</script>

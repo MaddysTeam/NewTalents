@@ -128,7 +128,9 @@ namespace TheSite.Controllers
       public ActionResult TeacherIndex()
       {
          var dr = APDBDef.DeclareReview;
-         ViewBag.DeclareReview = db.DeclareReviewDal.ConditionQuery(dr.TeacherId == UserProfile.UserId & dr.PeriodId==Period.PeriodId, null, null, null).FirstOrDefault();
+         ViewBag.DeclareReview = db.DeclareReviewDal.ConditionQuery(dr.TeacherId == UserProfile.UserId 
+            & dr.StatusKey.In(new string[] {DeclareKeys.ReviewSuccess,DeclareKeys.ReviewFailure,DeclareKeys.ReviewProcess })
+            & dr.PeriodId==Period.PeriodId, null, null, null).FirstOrDefault();
 
          return View("TeacherIndex");
       }
