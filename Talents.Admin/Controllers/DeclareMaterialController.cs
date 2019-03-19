@@ -171,7 +171,15 @@ namespace TheSite.Controllers
 
       public ActionResult Fragment(string key)
       {
-         if (key == DeclareKeys.GongzsZhucr || key == DeclareKeys.GongzsZhucr_Shenb)
+         if (key == DeclareKeys.GaodLisz_ZijBiao)
+         {
+            return PartialView("MaterialView5002", key);
+         }
+         else if (key == DeclareKeys.JidZhucr_ZijBiao)
+         {
+            return PartialView("MaterialView5003", key);
+         }
+         else if(key == DeclareKeys.GongzsZhucr || key == DeclareKeys.GongzsZhucr_Shenb)
          {
             key = key == DeclareKeys.GongzsZhucr ? DeclareKeys.GongzsZhucr_Shenb : key;
             return PartialView("MaterialView5004", key);
@@ -237,6 +245,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult ReviewEdit(DeclareReview model)
       {
          // 职称破格和申报公用一张表
@@ -303,10 +312,19 @@ namespace TheSite.Controllers
       public ActionResult BasicProfileEdit(DeclareParam param)
       {
          var profile = db.BzUserProfileDal.PrimaryGet(UserProfile.UserId);
+
+         //TODO: 高地理事长和基地支持人的自荐表特殊处理
+         if (param.DeclareTargetId == DeclareTargetIds.GaodLisz || param.DeclareTargetId == DeclareTargetIds.JidZhucr)
+         {
+            profile = profile ?? new BzUserProfile();
+            profile.TargetId = param.DeclareTargetId;
+         }
+
          return PartialView(param.View, profile);
       }
 
       [HttpPost]
+      [DecalrePeriod]
       public ActionResult BasicProfileEdit(BzUserProfile model)
       {
          db.BzUserProfileDal.UpdatePartial(UserProfile.UserId, new
@@ -335,6 +353,24 @@ namespace TheSite.Controllers
             model.Dynamic4,
             model.Dynamic5
          });
+
+         //TODO: 高地理事长和基地支持人的自荐表特殊处理
+         if (model.TargetId > 0 && Period != null)
+         {
+            var decalreTargetId = model.TargetId;
+            var typeKey = decalreTargetId == DeclareTargetIds.GaodLisz ? DeclareKeys.GaodLisz_ZijBiao : DeclareKeys.JidZhucr_ZijBiao;
+            var review = db.DeclareReviewDal.ConditionQuery(df.DeclareTargetPKID == decalreTargetId & df.TeacherId == UserProfile.UserId & df.PeriodId == Period.PeriodId, null, null, null).FirstOrDefault();
+            review = review ?? new DeclareReview
+            {
+               DeclareTargetPKID = decalreTargetId,
+               DeclareSubjectPKID = model.EduSubjectPKID,
+               CompanyId = model.CompanyId,
+               TypeKey = typeKey,
+               StatusKey = model.StatusKey
+            };
+
+            ReviewEdit(review);
+         }
 
          return Json(new
          {

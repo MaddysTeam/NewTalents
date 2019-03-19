@@ -3,6 +3,8 @@
 	var jiaoxPingb = Model.DeclareActies.FindAll(da => da.ActiveKey == DeclareKeys.ZisFaz_JiaoxHuod_JiaoxPingb);
 	var xuekMingt = Model.DeclareActies.FindAll(da => da.ActiveKey == DeclareKeys.PeihJiaoyyGongz_XuekMingt);
 	var pingbHuoj= Model.DeclareActies.FindAll(da => da.ActiveKey == DeclareKeys.ZisFaz_XuesHuod);
+	var jibgong = Model.DeclareActies.FindAll(da => da.ActiveKey == DeclareKeys.Qit_JibGongZshiHuoj);
+	var zonghxingryu= Model.DeclareActies.FindAll(da => da.ActiveKey == DeclareKeys.Qit_ZonghxingRongy);
 }
 <html>
 <head>
@@ -699,91 +701,69 @@
 				</td>
 			</tr>
 			<tr style="height:35.4pt">
-				<td colspan="2" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:31.1pt">
+				<td colspan="4" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:31.1pt">
 					<p style="font-size:10.5pt; line-height:150%; margin:0pt; text-align:center">
 						<span style="font-family:宋体; font-size:10.5pt">时间</span>
 					</p>
 				</td>
-				<td colspan="4" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:31.8pt">
+				<td colspan="7" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:31.8pt">
 					<p style="font-size:12pt; line-height:150%; margin:0pt; text-align:center">
-						<span style="font-family:宋体; font-size:12pt">年级</span>
+						<span style="font-family:宋体; font-size:12pt">奖项名称</span>
 					</p>
 				</td>
-				<td colspan="3" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:24.75pt">
+				<td colspan="6" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:24.75pt">
 					<p style="margin:0pt; orphans:0; padding-left:6pt; text-align:center; text-indent:-6pt; widows:0">
-						<span style="font-family:宋体; font-size:10.5pt">级别</span>
+						<span style="font-family:宋体; font-size:10.5pt">奖项类别、等第</span>
 					</p>
 				</td>
 				<td colspan="10" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:146.65pt">
 					<p style="margin:0pt; text-align:center">
-						<span style="font-family:宋体; font-size:10.5pt">工作内容</span>
-					</p>
-				</td>
-				<td colspan="3" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:38.85pt">
-					<p style="margin:0pt; text-align:center">
-						<span style="font-family:宋体; font-size:10.5pt">参加对象</span>
-					</p>
-				</td>
-				<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:67.2pt">
-					<p style="margin:0pt; text-align:center">
-						<span style="font-family:宋体; font-size:10.5pt">组织单位、部门</span>
-						<span style="font-family:宋体; font-size:10.5pt">/负责人</span>
+						<span style="font-family:宋体; font-size:10.5pt">组织单位、部门/负责人</span>
 					</p>
 				</td>
 			</tr>
 		@for (int i = 0; i < 2; i++)
 		{
-			var item = i >= xuekMingt.Count ? null : xuekMingt[i];
+			var item = i >= jibgong.Count ? null : jibgong[i];
 			if (item != null)
 			{
-
 				<tr style="height:34.35pt">
-					<td colspan="2" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:31.1pt">
+					<td colspan="4" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:31.1pt">
 						<p style="font-size:10.5pt; line-height:150%; margin:0pt; text-align:center">
 							<span style="font-family:宋体; font-size:10.5pt">@item.Date.ToString("yyyy-MM-dd")</span>
 						</p>
 					</td>
-					<td colspan="4" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:31.8pt">
+					<td colspan="7" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:31.8pt">
 						<p style="font-size:12pt; line-height:150%; margin:0pt; text-align:center">
-							<span style="font-family:宋体; font-size:12pt">@item.Dynamic2</span>
+							<span style="font-family:宋体; font-size:12pt">@item.ContentValue</span>
 						</p>
 					</td>
-					<td colspan="3" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:24.75pt">
+					<td colspan="6" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:24.75pt">
 						<p style="margin:0pt; orphans:0; padding-left:6pt; text-align:center; text-indent:-6pt; widows:0">
-							<span style="font-family:宋体; font-size:10.5pt">@item.Level</span>
+							<span style="font-family:宋体; font-size:10.5pt">@item.Dynamic1</span>
 						</p>
 					</td>
 					<td colspan="10" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:146.65pt">
 						<p style="margin:0pt; text-align:center">
-							<span style="font-family:宋体; font-size:10.5pt">@item.ContentValue</span>
-						</p>
-					</td>
-					<td colspan="3" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:38.85pt">
-						<p style="margin:0pt; text-align:center">
-							<span style="font-family:宋体; font-size:10.5pt">@item.Dynamic3</span>
-						</p>
-					</td>
-					<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:67.2pt">
-						<p style="margin:0pt; text-align:center">
-							<span style="font-family:宋体; font-size:10.5pt">&#xa0;</span>
+							<span style="font-family:宋体; font-size:10.5pt">@item.Dynamic2</span>
 						</p>
 					</td>
 				</tr>
-			}
+				}
 			else
 			{
-				<tr style="height:36.1pt">
-					<td colspan="2" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:31.1pt">
+				<tr style="height:34.35pt">
+					<td colspan="4" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:31.1pt">
 						<p style="font-size:10.5pt; line-height:150%; margin:0pt; text-align:center">
 							<span style="font-family:宋体; font-size:10.5pt">&#xa0;</span>
 						</p>
 					</td>
-					<td colspan="4" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:31.8pt">
+					<td colspan="7" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:31.8pt">
 						<p style="font-size:12pt; line-height:150%; margin:0pt; text-align:center">
 							<span style="font-family:宋体; font-size:12pt">&#xa0;</span>
 						</p>
 					</td>
-					<td colspan="3" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:24.75pt">
+					<td colspan="6" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:24.75pt">
 						<p style="margin:0pt; orphans:0; padding-left:6pt; text-align:center; text-indent:-6pt; widows:0">
 							<span style="font-family:宋体; font-size:10.5pt">&#xa0;</span>
 						</p>
@@ -793,18 +773,8 @@
 							<span style="font-family:宋体; font-size:10.5pt">&#xa0;</span>
 						</p>
 					</td>
-					<td colspan="3" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:38.85pt">
-						<p style="margin:0pt; text-align:center">
-							<span style="font-family:宋体; font-size:10.5pt">&#xa0;</span>
-						</p>
-					</td>
-					<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:67.2pt">
-						<p style="margin:0pt; text-align:center">
-							<span style="font-family:宋体; font-size:10.5pt">&#xa0;</span>
-						</p>
-					</td>
 				</tr>
-			}
+				}
 		}
 
 			<tr style="height:37.3pt">
@@ -816,37 +786,22 @@
 				</td>
 			</tr>
 			<tr style="height:36.1pt">
-				<td colspan="2" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:31.1pt">
+				<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:31.1pt">
 					<p style="margin:0pt; orphans:0; padding-left:6pt; text-align:center; text-indent:-6pt; widows:0">
 						<span style="font-family:宋体; font-size:10.5pt">时间</span>
 					</p>
 				</td>
-				<td colspan="4" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:31.8pt">
-					<p style="margin:0pt; orphans:0; text-align:center; text-indent:2pt; widows:0">
-						<span style="font-family:宋体; font-size:10.5pt">地点</span>
-					</p>
-				</td>
-				<td colspan="3" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:24.75pt">
-					<p style="margin:0pt; orphans:0; padding-left:6pt; text-align:center; text-indent:-6pt; widows:0">
-						<span style="font-family:宋体; font-size:10.5pt">类型</span>
-					</p>
-				</td>
-				<td colspan="3" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:24.65pt">
+				<td colspan="7" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:24.65pt">
 					<p style="margin:0pt; orphans:0; padding-left:6pt; text-align:center; text-indent:-6pt; widows:0">
 						<span style="font-family:宋体; font-size:10.5pt">级别</span>
 					</p>
 				</td>
 				<td colspan="7" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:111.2pt">
 					<p style="margin:0pt; orphans:0; padding-left:6pt; text-align:center; text-indent:-6pt; widows:0">
-						<span style="font-family:宋体; font-size:10.5pt">工作内容</span>
+						<span style="font-family:宋体; font-size:10.5pt">荣誉名称</span>
 					</p>
 				</td>
-				<td colspan="3" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:38.85pt">
-					<p style="margin:0pt; orphans:0; text-align:center; text-indent:2pt; widows:0">
-						<span style="font-family:宋体; font-size:10.5pt">参加对象</span>
-					</p>
-				</td>
-				<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:67.2pt">
+				<td colspan="8" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:67.2pt">
 					<p style="margin:0pt; orphans:0; text-align:center; text-indent:1.25pt; widows:0">
 						<span style="font-family:宋体; font-size:10.5pt">组织单位、部门</span>
 						<span style="font-family:宋体; font-size:10.5pt">/负责人</span>
@@ -855,27 +810,16 @@
 			</tr>
 			@for (int i = 0; i < 2; i++)
 			{
-				var item = i >= pingbHuoj.Count ? null : pingbHuoj[i];
+				var item = i >= zonghxingryu.Count ? null : zonghxingryu[i];
 				if (item != null)
 				{
-
 					<tr style="height:33.8pt">
-						<td colspan="2" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:31.1pt">
+						<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:31.1pt">
 							<p style="margin:0pt; orphans:0; padding-left:6pt; text-align:center; text-indent:-6pt; widows:0">
 								<span style="font-family:宋体; font-size:10.5pt">@item.Date.ToString("yyyy-MM-dd")</span>
 							</p>
 						</td>
-						<td colspan="4" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:31.8pt">
-							<p style="margin:0pt; orphans:0; text-align:center; text-indent:2pt; widows:0">
-								<span style="font-family:宋体; font-size:10.5pt">@item.Location</span>
-							</p>
-						</td>
-						<td colspan="3" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:24.75pt">
-							<p style="margin:0pt; orphans:0; padding-left:6pt; text-align:center; text-indent:-6pt; widows:0">
-								<span style="font-family:宋体; font-size:10.5pt">@PicklistHelper.XuesHuodType.GetName(item.Dynamic9)</span>
-							</p>
-						</td>
-						<td colspan="3" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:24.65pt">
+						<td colspan="7" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:24.65pt">
 							<p style="margin:0pt; orphans:0; padding-left:6pt; text-align:center; text-indent:-6pt; widows:0">
 								<span style="font-family:宋体; font-size:10.5pt">@item.Level</span>
 							</p>
@@ -885,14 +829,9 @@
 								<span style="font-family:宋体; font-size:10.5pt">@item.ContentValue</span>
 							</p>
 						</td>
-						<td colspan="3" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:38.85pt">
-							<p style="margin:0pt; orphans:0; text-align:center; text-indent:2pt; widows:0">
-								<span style="font-family:宋体; font-size:10.5pt">@item.Dynamic1</span>
-							</p>
-						</td>
-						<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:67.2pt">
+						<td colspan="8" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:67.2pt">
 							<p style="margin:0pt; orphans:0; text-align:center; text-indent:1.25pt; widows:0">
-								<span style="font-family:宋体; font-size:10.5pt">@item.Dynamic2</span>
+								<span style="font-family:宋体; font-size:10.5pt">@item.Dynamic1</span>
 							</p>
 						</td>
 					</tr>
@@ -900,22 +839,12 @@
 				else
 				{
 					<tr style="height:33.8pt">
-						<td colspan="2" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:31.1pt">
+							<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:31.1pt">
 							<p style="margin:0pt; orphans:0; padding-left:6pt; text-align:center; text-indent:-6pt; widows:0">
 								<span style="font-family:宋体; font-size:10.5pt">&#xa0;</span>
 							</p>
 						</td>
-						<td colspan="4" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:31.8pt">
-							<p style="margin:0pt; orphans:0; text-align:center; text-indent:2pt; widows:0">
-								<span style="font-family:宋体; font-size:10.5pt">&#xa0;</span>
-							</p>
-						</td>
-						<td colspan="3" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:24.75pt">
-							<p style="margin:0pt; orphans:0; padding-left:6pt; text-align:center; text-indent:-6pt; widows:0">
-								<span style="font-family:宋体; font-size:10.5pt">&#xa0;</span>
-							</p>
-						</td>
-						<td colspan="3" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:24.65pt">
+						<td colspan="7" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:24.65pt">
 							<p style="margin:0pt; orphans:0; padding-left:6pt; text-align:center; text-indent:-6pt; widows:0">
 								<span style="font-family:宋体; font-size:10.5pt">&#xa0;</span>
 							</p>
@@ -925,12 +854,7 @@
 								<span style="font-family:宋体; font-size:10.5pt">&#xa0;</span>
 							</p>
 						</td>
-						<td colspan="3" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:38.85pt">
-							<p style="margin:0pt; orphans:0; text-align:center; text-indent:2pt; widows:0">
-								<span style="font-family:宋体; font-size:10.5pt">&#xa0;</span>
-							</p>
-						</td>
-						<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:67.2pt">
+						<td colspan="8" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:67.2pt">
 							<p style="margin:0pt; orphans:0; text-align:center; text-indent:1.25pt; widows:0">
 								<span style="font-family:宋体; font-size:10.5pt">&#xa0;</span>
 							</p>

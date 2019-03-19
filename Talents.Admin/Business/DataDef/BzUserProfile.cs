@@ -40,6 +40,9 @@ namespace Business
 
       public long TargetId { get; set; }
 
+      //TODO: 高地理事长和基地支持人的自荐表特殊处理 ,暂存申报提交状态供自荐表使用
+      public string StatusKey { get; set; }
+
     }
 
 }

@@ -1,33 +1,37 @@
 ﻿@model string
 <!-- WIDGET TABBED CONTENT -->
-<!-- 高地理事长自荐表 -->
+<!-- 学科培训基地主持人自荐表 -->
 <div class="alert alert-danger">
 	<strong>*注意！点击【提交申报】后将无法选择和填写当前或其他称号的申报表单！</strong>
 </div>
 <div class="gallery-buttons  bottom-30px">
-	<a href="@Url.Action("Preview","DeclareMaterial",new {TypeKey=Model,View="MaterialPreview5002",DeclareTargetId=DeclareTargetIds.GaodLisz })" target="_blank" class="btn btn-info"><i class="fa fa-eye"> 预览申报</i></a> &nbsp; &nbsp;
-	<a href="@Url.Action("Preview","DeclareMaterial",new {TypeKey=Model,View="MaterialPreview5002",DeclareTargetId=DeclareTargetIds.GaodLisz,IsExport=true })" target="_blank" class="btn btn-custom-primary"><i class="fa fa-download"> 下载表单</i></a> &nbsp; &nbsp;
+	<a href="@Url.Action("Preview","DeclareMaterial",new {TypeKey=Model,View="MaterialPreview5003",DeclareTargetId=DeclareTargetIds.JidZhucr })" target="_blank" class="btn btn-info"><i class="fa fa-eye"> 预览申报</i></a> &nbsp; &nbsp;
+	<a href="@Url.Action("Preview","DeclareMaterial",new {TypeKey=Model,View="MaterialPreview5003",DeclareTargetId=DeclareTargetIds.JidZhucr,IsExport=true })" target="_blank" class="btn btn-custom-primary"><i class="fa fa-download"> 下载表单</i></a> &nbsp; &nbsp;
 	<button class="btn btn-primary" id="declareSubmit"><i class="fa fa-pencil"> 申报提交</i></button>
 </div>
 <div class="widget">
 	<div class="widget-header">
-		<h3>学科高地理事长 <strong class="red">自荐表</strong></h3>
+
+		<h3>学科培训基地主持人 <strong class="red">自荐表</strong></h3>
 		<ul class="nav nav-tabs pull-right">
 			<li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-tag"></i> 自荐表</a></li>
 		</ul>
 	</div>
 	<div class="widget-content">
 		<div class="tab-content no-padding items">
+
 			<!-- 自荐表 -->
 			<div class="tab-pane fade in active" id="tab1">
 			</div>
+
 		</div>
 	</div>
 </div>
+
 <script>
 	$(function () {
 
-		loadProfile('@DeclareTargetIds.GaodLisz', '_profile5002', '@Model');
+		loadProfile('@DeclareTargetIds.JidZhucr', '_profile5003', '@Model');
 
 	});
 </script>

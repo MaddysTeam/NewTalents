@@ -5,6 +5,7 @@
 	var jiaoxPingb = activeItems.FindAll(at => at.ActiveKey == DeclareKeys.ZisFaz_JiaoxHuod_JiaoxPingb);
 	var jibGong = activeItems.FindAll(at => at.ActiveKey == DeclareKeys.Qit_JibGongZshiHuoj);
 	var pingbHuoj = activeItems.FindAll(at => at.ActiveKey == DeclareKeys.ZisFaz_XuesHuod);
+	var zonghXingRongy = activeItems.FindAll(at => at.ActiveKey == DeclareKeys.Qit_ZonghxingRongy);
 	var declareTargetId = Model.DeclareTargetId; //Request["declareTargetId"];
 }
 <!-- 教育教学 -->
@@ -128,10 +129,10 @@
 	<div class="widget">
 		<div class="widget-header">
 			<h3><i class="fa fa-paperclip"></i>近三年校级及以上“其它综合性荣誉”情况（最多填两项）</h3>
-			@if (pingbHuoj != null && pingbHuoj.Count < 2)
+			@if (zonghXingRongy != null && zonghXingRongy.Count < 2)
 			{
-				<a class="btn btn-warning btn-sm pull-right " data-url="@Url.Action("ZisFaz_XuesHuod", "DeclarePop",new { declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">新增申报</a>
-				<a class="btn btn-info btn-sm pull-right" data-url="@Url.Action("DeclareActiveList", "DeclareMaterial",new { itemKey =DeclareKeys.ZisFaz_XuesHuod, declareTargetId=declareTargetId})" data-toggle="ajax-modal" data-target="#firstModal">
+				<a class="btn btn-warning btn-sm pull-right " data-url="@Url.Action("Qit_ZonghxingRongy", "DeclarePop",new { declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">新增申报</a>
+				<a class="btn btn-info btn-sm pull-right" data-url="@Url.Action("DeclareActiveList", "DeclareMaterial",new { itemKey =DeclareKeys.Qit_ZonghxingRongy, declareTargetId=declareTargetId})" data-toggle="ajax-modal" data-target="#firstModal">
 					历史库
 				</a>
 			}
@@ -142,29 +143,23 @@
 					<thead>
 						<tr>
 							<th class="width180">时间</th>
-							<th class="width180">地点</th>
-							<th class="width180">类型</th>
 							<th class="width180">级别</th>
-							<th style="width:500px">工作内容</th>
-							<th class="width180">参加对象</th>
+							<th style="width:500px">荣誉名称</th>
 							<th class="width180">组织单位、部门/负责人</th>
 							<th class="width400">操作</th>
 						</tr>
 					</thead>
 					<tbody>
-						@foreach (var item in pingbHuoj)
+						@foreach (var item in zonghXingRongy)
 						{
 							<tr>
 								<td>@item.Date.ToString("yyyy-MM-dd")</td>
-								<td>@item.Location</td>
-								<td>@PicklistHelper.XuesHuodType.GetName(item.Dynamic9)</td>
 								<td>@item.Level</td>
 								<td>@item.ContentValue</td>
 								<td>@item.Dynamic1</td>
-								<td>@item.Dynamic2</td>
 								<td>
 									<div class="btn-group pull-right">
-										<a class="btn btn-success btn-sm" data-url="@Url.Action("ZisFaz_XuesHuod", "DeclarePop",new {id=item.DeclareActiveId, declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">编辑</a>
+										<a class="btn btn-success btn-sm" data-url="@Url.Action("Qit_ZonghxingRongy", "DeclarePop",new {id=item.DeclareActiveId, declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">编辑</a>
 										<a target="_blank" class="btn btn-warning btn-sm  btn-cancelDeclare" data-url="@Url.Action("DeclareActive", "DeclareMaterial", new {id=item.DeclareActiveId, isDeclare=false, declareTargetId = declareTargetId })" href="#">取消申报</a>
 										<button class="btn btn-danger btn-sm btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_XuesHuod })" data-target="#firstModal" title="查看附件">查看附件</button>
 									</div>

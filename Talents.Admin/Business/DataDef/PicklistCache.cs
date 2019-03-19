@@ -6,162 +6,163 @@ using System.Linq;
 namespace Business
 {
 
-	public static class PicklistCache
-	{
+   public static class PicklistCache
+   {
 
-		public class CacheUnit
-		{
+      public class CacheUnit
+      {
 
-			#region [ Fields ]
-
-
-			private long _pkid;
-			private PicklistItem _defaultItem;
-			private readonly List<PicklistItem> _items = new List<PicklistItem>();
-			private readonly Dictionary<long, PicklistItem> _idItemDict = new Dictionary<long, PicklistItem>();
-			private readonly Dictionary<string, PicklistItem> _nameItemDict = new Dictionary<string, PicklistItem>();
+         #region [ Fields ]
 
 
-			#endregion
+         private long _pkid;
+         private PicklistItem _defaultItem;
+         private readonly List<PicklistItem> _items = new List<PicklistItem>();
+         private readonly Dictionary<long, PicklistItem> _idItemDict = new Dictionary<long, PicklistItem>();
+         private readonly Dictionary<string, PicklistItem> _nameItemDict = new Dictionary<string, PicklistItem>();
 
 
-			#region [ Constructors ]
+         #endregion
 
 
-			public CacheUnit(long pkid, List<PicklistItem> list)
-			{
-				_pkid = pkid;
-				_items.AddRange(list);
-
-				list.ForEach(it => {
-					if (it.IsDefault)
-					{
-						_defaultItem = it;
-					}
-					_idItemDict.Add(it.PicklistItemId, it);
-					_nameItemDict.Add(it.Name, it);
-				});
-			}
+         #region [ Constructors ]
 
 
-			#endregion
+         public CacheUnit(long pkid, List<PicklistItem> list)
+         {
+            _pkid = pkid;
+            _items.AddRange(list);
+
+            list.ForEach(it =>
+            {
+               if (it.IsDefault)
+               {
+                  _defaultItem = it;
+               }
+               _idItemDict.Add(it.PicklistItemId, it);
+               _nameItemDict.Add(it.Name, it);
+            });
+         }
 
 
-			#region [ Properties ]
+         #endregion
 
 
-			public long PKID => _pkid;
+         #region [ Properties ]
 
 
-			public PicklistItem DefaultItem => _defaultItem;
+         public long PKID => _pkid;
 
 
-			public IReadOnlyList<PicklistItem> Items => _items;
+         public PicklistItem DefaultItem => _defaultItem;
 
 
-			public IReadOnlyDictionary<long, PicklistItem> IdItemDict => _idItemDict;
+         public IReadOnlyList<PicklistItem> Items => _items;
 
 
-			public IReadOnlyDictionary<string, PicklistItem> NameItemDict => _nameItemDict;
+         public IReadOnlyDictionary<long, PicklistItem> IdItemDict => _idItemDict;
 
 
-			#endregion
+         public IReadOnlyDictionary<string, PicklistItem> NameItemDict => _nameItemDict;
 
 
-			#region [ Methods ]
+         #endregion
 
 
-			public string GetItemName(long itemId) => _idItemDict[itemId].Name;
+         #region [ Methods ]
 
 
-			public long GetItemId(string itemName) => _nameItemDict[itemName].PicklistItemId;
+         public string GetItemName(long itemId) => _idItemDict[itemId].Name;
 
 
-			#endregion
-
-		}
+         public long GetItemId(string itemName) => _nameItemDict[itemName].PicklistItemId;
 
 
-		public static CacheUnit Cached(string innerKey)
-		{
-			var unitDict = ThisAppCache.GetCache<Dictionary<string, CacheUnit>>();
+         #endregion
 
-			if (unitDict == null)
-			{
-				ThisAppCache.SetCache(unitDict = new Dictionary<string, CacheUnit>());
-			}
-
-			if (!unitDict.ContainsKey(innerKey))
-			{
-				using (APDBDef db = new APDBDef())
-				{
-					var t = APDBDef.PicklistItem;
-					var tp = APDBDef.Picklist;
-
-					var items = APQuery.select(t.Asterisk)
-						.from(t, tp.JoinInner(t.PicklistId == tp.PicklistId))
-						.where(tp.InnerKey == innerKey)
-						.query(db, t.Map).ToList();
-
-					CacheUnit cacheUnit = new CacheUnit(items.Count > 0 ? items[0].PicklistId : 0, items);
-					unitDict[innerKey] = cacheUnit;
-				}
-			}
-
-			return unitDict[innerKey];
-		}
+      }
 
 
-		public static CacheUnit Cached(long pkid)
-		{
-			var unitDict = ThisAppCache.GetCache<Dictionary<string, CacheUnit>>();
+      public static CacheUnit Cached(string innerKey)
+      {
+         var unitDict = ThisAppCache.GetCache<Dictionary<string, CacheUnit>>();
 
-			if (unitDict == null)
-			{
-				ThisAppCache.SetCache(unitDict = new Dictionary<string, CacheUnit>());
-			}
+         if (unitDict == null)
+         {
+            ThisAppCache.SetCache(unitDict = new Dictionary<string, CacheUnit>());
+         }
 
-			foreach(var p in unitDict)
-			{
-				if (p.Value.PKID == pkid)
-					return p.Value;
-			}
+         if (!unitDict.ContainsKey(innerKey))
+         {
+            using (APDBDef db = new APDBDef())
+            {
+               var t = APDBDef.PicklistItem;
+               var tp = APDBDef.Picklist;
 
-			using (APDBDef db = new APDBDef())
-			{
-				var t = APDBDef.PicklistItem;
-				var tp = APDBDef.Picklist;
+               var items = APQuery.select(t.Asterisk)
+                  .from(t, tp.JoinInner(t.PicklistId == tp.PicklistId))
+                  .where(tp.InnerKey == innerKey)
+                  .query(db, t.Map).ToList();
 
-				var innerKey = (string)APQuery.select(tp.InnerKey)
-					.from(tp)
-					.where(tp.PicklistId == pkid)
-					.executeScale(db);
+               CacheUnit cacheUnit = new CacheUnit(items.Count > 0 ? items[0].PicklistId : 0, items);
+                  unitDict[innerKey] = cacheUnit;
+            }
+         }
 
-				var items = APQuery.select(t.Asterisk)
-					.from(t)
-					.where(t.PicklistId == pkid)
-					.query(db, t.Map).ToList();
-
-				CacheUnit cacheUnit = new CacheUnit(items.Count > 0 ? items[0].PicklistId : 0, items);
-				unitDict[innerKey] = cacheUnit;
-
-				return cacheUnit;
-			}
-		}
+         return unitDict[innerKey];
+      }
 
 
-		public static void ClearCache()
-			=> ThisAppCache.RemoveCache<Dictionary<string, CacheUnit>>();
+      public static CacheUnit Cached(long pkid)
+      {
+         var unitDict = ThisAppCache.GetCache<Dictionary<string, CacheUnit>>();
+
+         if (unitDict == null)
+         {
+            ThisAppCache.SetCache(unitDict = new Dictionary<string, CacheUnit>());
+         }
+
+         foreach (var p in unitDict)
+         {
+            if (p.Value.PKID == pkid)
+               return p.Value;
+         }
+
+         using (APDBDef db = new APDBDef())
+         {
+            var t = APDBDef.PicklistItem;
+            var tp = APDBDef.Picklist;
+
+            var innerKey = (string)APQuery.select(tp.InnerKey)
+               .from(tp)
+               .where(tp.PicklistId == pkid)
+               .executeScale(db);
+
+            var items = APQuery.select(t.Asterisk)
+               .from(t)
+               .where(t.PicklistId == pkid)
+               .query(db, t.Map).ToList();
+
+            CacheUnit cacheUnit = new CacheUnit(items.Count > 0 ? items[0].PicklistId : 0, items);
+            unitDict[innerKey] = cacheUnit;
+
+            return cacheUnit;
+         }
+      }
 
 
-		public static void RemoveCache(string innerKey)
-		{
-			var cache = ThisAppCache.GetCache<Dictionary<string, CacheUnit>>();
+      public static void ClearCache()
+         => ThisAppCache.RemoveCache<Dictionary<string, CacheUnit>>();
 
-			if (cache != null && cache.ContainsKey(innerKey))
-				cache.Remove(innerKey);
-		}
 
-	}
+      public static void RemoveCache(string innerKey)
+      {
+         var cache = ThisAppCache.GetCache<Dictionary<string, CacheUnit>>();
+
+         if (cache != null && cache.ContainsKey(innerKey))
+            cache.Remove(innerKey);
+      }
+
+   }
 
 }

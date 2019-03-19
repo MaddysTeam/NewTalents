@@ -1235,7 +1235,7 @@ namespace TheSite.Models
       public string Dynamic2 { get; set; }
    }
 
-   public class JianxJiaosPingx : DeclareActiveModel
+   public class Qit_JianxJiaosPingx : DeclareActiveModel
    {
       [Required]
       [Display(Name = "时间")]
@@ -1254,7 +1254,7 @@ namespace TheSite.Models
       public string Dynamic1 { get; set; }
    }
 
-   public class JianxJiaosDasHuoj: DeclareActiveModel
+   public class Qit_JianxJiaosDasHuoj : DeclareActiveModel
    {
       [Required]
       [Display(Name = "时间")]
@@ -1269,7 +1269,7 @@ namespace TheSite.Models
       public string ContentValue { get; set; }
 
       [Required]
-      [Display(Name = "奖项等级")]
+      [Display(Name = "奖项等第")]
       public string Dynamic1 { get; set; }
 
       [Required]

@@ -4647,7 +4647,7 @@ namespace TheSite.Controllers
       #endregion
 
 
-      #region [ 其他 基本功展示获奖 ]
+      #region [ 其他.基本功展示获奖 ]
 
       public ActionResult Qit_JibGongZshiHuoj(long? id, long? declareTargetId)
       {
@@ -4787,16 +4787,404 @@ namespace TheSite.Controllers
 
       public ActionResult Qit_ZonghxingRongy(long? id, long? declareTargetId)
       {
-         return null;
+         var isInDeclare = Period != null && Period.IsInDeclarePeriod;
+         var model = new Qit_ZonghxingRongy() { AttachmentName = "", IsDeclare = isInDeclare, Date = DateTime.Now };
+
+         if (id != null)
+         {
+            var list = db.DeclareActiveDal.PrimaryGet(id.Value);
+
+            if (list != null)
+            {
+               model = new Qit_ZonghxingRongy()
+               {
+                  DeclareActiveId = list.DeclareActiveId,
+                  ContentValue = list.ContentValue,
+                  Date = list.Date,
+                  Level = list.Level,
+                  Dynamic1=list.Dynamic1,
+                  //IsShare = list.IsShare,
+                  IsDeclare = list.IsDeclare,
+                  DeclareTargetId = declareTargetId ?? 0
+               };
+
+               var allAts = AttachmentsExtensions.GetAttachmentList(db, id.Value);
+               if (allAts.Count > 0)
+               {
+                  var ats = allAts.FindAll(a => a.Type == AttachmentsKeys.Qit_ZonghxingRongy);
+                  var vts = allAts.FindAll(a => a.Type == AttachmentsKeys.Qit_ZonghxingRongy + AttachmentsKeys.Vertify);
+                  var at = AttachmentsExtensions.GetAttachment(ats);
+                  var vt = AttachmentsExtensions.GetAttachment(vts);
+                  model.AttachmentName = at.Name;
+                  model.AttachmentUrl = at.Url;
+                  model.VertificationName = vt.Name;
+                  model.VertificationUrl = vt.Name;
+               }
+            }
+         }
+
+         return PartialView("Qit_ZonghxingRongy", model);
       }
 
+      [HttpPost]
       public ActionResult Qit_ZonghxingRongy(long? id, Qit_ZonghxingRongy model)
       {
-         return null;
+         ThrowNotAjax();
+
+         var attachmentTypeKey = AttachmentsKeys.Qit_ZonghxingRongy;
+         var vertifyTypeKey = AttachmentsKeys.Qit_ZonghxingRongy + AttachmentsKeys.Vertify;
+         var atta = new AttachmentsDataModel
+         {
+            Type = attachmentTypeKey,
+            Name = model.AttachmentName,
+            Url = model.AttachmentUrl,
+            UserId = UserProfile.UserId
+         };
+         var vertAtta = new AttachmentsDataModel
+         {
+            Type = vertifyTypeKey,
+            Name = model.VertificationName,
+            Url = model.VertificationUrl,
+            UserId = UserProfile.UserId
+         };
+
+         DeclareActive data = null;
+
+         try
+         {
+            if (id == null)
+            {
+               data = new DeclareActive()
+               {
+                  TeacherId = UserProfile.UserId,
+                  Date = model.Date,
+                  ActiveKey = DeclareKeys.Qit_ZonghxingRongy,
+                  Level=model.Level,
+                  Dynamic1 = model.Dynamic1,
+                  ContentValue = model.ContentValue,
+                  //IsShare = model.IsShare,
+                  IsDeclare = model.IsDeclare,
+                  Creator = UserProfile.UserId,
+                  CreateDate = DateTime.Now
+               };
+
+               db.DeclareActiveDal.Insert(data);
+               atta.JoinId = data.DeclareActiveId;
+               vertAtta.JoinId = data.DeclareActiveId;
+            }
+            else
+            {
+               APQuery.update(t)
+                  .set(t.Date.SetValue(model.Date))
+                  .set(t.Dynamic1.SetValue(model.Dynamic1))
+                  .set(t.Level.SetValue(model.Level))
+                  .set(t.ContentValue.SetValue(model.ContentValue))
+                  .set(t.IsDeclare.SetValue(model.IsDeclare))
+                  .set(t.Modifier.SetValue(UserProfile.UserId))
+                  .set(t.ModifyDate.SetValue(DateTime.Now))
+                  .where(t.DeclareActiveId == id.Value)
+                  .execute(db);
+
+               AttachmentsExtensions.DeleteAttas(db, id.Value, new string[] { attachmentTypeKey, vertifyTypeKey });
+
+               atta.JoinId = id.Value;
+               vertAtta.JoinId = id.Value;
+
+               data = db.DeclareActiveDal.PrimaryGet(id.Value);
+            }
+
+            AttachmentsExtensions.InsertAttas(db, new AttachmentsDataModel[] { atta, vertAtta });
+
+            // AddOrDelShare(atta.JoinId, model.ContentValue, ShareKeys.ActiveShare, model.IsShare);
+
+            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
+
+            db.Commit();
+         }
+         catch
+         {
+            db.Rollback();
+         }
+
+         return Json(new
+         {
+            result = AjaxResults.Success,
+            msg = "信息已保存！"
+         });
       }
 
       #endregion
 
+
+      #region [其他.见习教师评选]
+
+
+      public ActionResult Qit_JianxJiaosPingx(long? id, long? declareTargetId)
+      {
+         var isInDeclare = Period != null && Period.IsInDeclarePeriod;
+         var model = new Qit_JianxJiaosPingx() { AttachmentName = "", IsDeclare = isInDeclare, Date = DateTime.Now };
+
+         if (id != null)
+         {
+            var list = db.DeclareActiveDal.PrimaryGet(id.Value);
+
+            if (list != null)
+            {
+               model = new Qit_JianxJiaosPingx()
+               {
+                  DeclareActiveId = list.DeclareActiveId,
+                  ContentValue = list.ContentValue,
+                  Date = list.Date,
+                  Level = list.Level,
+                  Dynamic1 = list.Dynamic1,
+                  //IsShare = list.IsShare,
+                  IsDeclare = list.IsDeclare,
+                  DeclareTargetId = declareTargetId ?? 0
+               };
+
+               var allAts = AttachmentsExtensions.GetAttachmentList(db, id.Value);
+               if (allAts.Count > 0)
+               {
+                  var ats = allAts.FindAll(a => a.Type == AttachmentsKeys.Qit_JianxJiaosPingx);
+                  var vts = allAts.FindAll(a => a.Type == AttachmentsKeys.Qit_JianxJiaosPingx + AttachmentsKeys.Vertify);
+                  var at = AttachmentsExtensions.GetAttachment(ats);
+                  var vt = AttachmentsExtensions.GetAttachment(vts);
+                  model.AttachmentName = at.Name;
+                  model.AttachmentUrl = at.Url;
+                  model.VertificationName = vt.Name;
+                  model.VertificationUrl = vt.Name;
+               }
+            }
+         }
+
+         return PartialView("Qit_JianxJiaosPingx", model);
+      }
+
+      [HttpPost]
+      public ActionResult Qit_JianxJiaosPingx(long? id, Qit_JianxJiaosPingx model)
+      {
+         ThrowNotAjax();
+
+         var attachmentTypeKey = AttachmentsKeys.Qit_JianxJiaosPingx;
+         var vertifyTypeKey = AttachmentsKeys.Qit_JianxJiaosPingx + AttachmentsKeys.Vertify;
+         var atta = new AttachmentsDataModel
+         {
+            Type = attachmentTypeKey,
+            Name = model.AttachmentName,
+            Url = model.AttachmentUrl,
+            UserId = UserProfile.UserId
+         };
+         var vertAtta = new AttachmentsDataModel
+         {
+            Type = vertifyTypeKey,
+            Name = model.VertificationName,
+            Url = model.VertificationUrl,
+            UserId = UserProfile.UserId
+         };
+
+         DeclareActive data = null;
+
+         try
+         {
+            if (id == null)
+            {
+               data = new DeclareActive()
+               {
+                  TeacherId = UserProfile.UserId,
+                  Date = model.Date,
+                  ActiveKey = DeclareKeys.Qit_JianxJiaosPingx,
+                  Level = model.Level,
+                  Dynamic1 = model.Dynamic1,
+                  ContentValue = model.ContentValue,
+                  //IsShare = model.IsShare,
+                  IsDeclare = model.IsDeclare,
+                  Creator = UserProfile.UserId,
+                  CreateDate = DateTime.Now
+               };
+
+               db.DeclareActiveDal.Insert(data);
+               atta.JoinId = data.DeclareActiveId;
+               vertAtta.JoinId = data.DeclareActiveId;
+            }
+            else
+            {
+               APQuery.update(t)
+                  .set(t.Date.SetValue(model.Date))
+                  .set(t.Dynamic1.SetValue(model.Dynamic1))
+                  .set(t.Level.SetValue(model.Level))
+                  .set(t.ContentValue.SetValue(model.ContentValue))
+                  .set(t.IsDeclare.SetValue(model.IsDeclare))
+                  .set(t.Modifier.SetValue(UserProfile.UserId))
+                  .set(t.ModifyDate.SetValue(DateTime.Now))
+                  .where(t.DeclareActiveId == id.Value)
+                  .execute(db);
+
+               AttachmentsExtensions.DeleteAttas(db, id.Value, new string[] { attachmentTypeKey, vertifyTypeKey });
+
+               atta.JoinId = id.Value;
+               vertAtta.JoinId = id.Value;
+
+               data = db.DeclareActiveDal.PrimaryGet(id.Value);
+            }
+
+            AttachmentsExtensions.InsertAttas(db, new AttachmentsDataModel[] { atta, vertAtta });
+
+            // AddOrDelShare(atta.JoinId, model.ContentValue, ShareKeys.ActiveShare, model.IsShare);
+
+            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
+
+            db.Commit();
+         }
+         catch
+         {
+            db.Rollback();
+         }
+
+         return Json(new
+         {
+            result = AjaxResults.Success,
+            msg = "信息已保存！"
+         });
+      }
+
+
+      #endregion
+
+
+      #region [其他.见习教师大奖赛获奖]
+
+      public ActionResult Qit_JianxJiaosDasHuoj(long? id, long? declareTargetId)
+      {
+         var isInDeclare = Period != null && Period.IsInDeclarePeriod;
+         var model = new Qit_JianxJiaosDasHuoj() { AttachmentName = "", IsDeclare = isInDeclare, Date = DateTime.Now };
+
+         if (id != null)
+         {
+            var list = db.DeclareActiveDal.PrimaryGet(id.Value);
+
+            if (list != null)
+            {
+               model = new Qit_JianxJiaosDasHuoj()
+               {
+                  DeclareActiveId = list.DeclareActiveId,
+                  ContentValue = list.ContentValue,
+                  Date = list.Date,
+                  Level = list.Level,
+                  Dynamic1 = list.Dynamic1,
+                  Dynamic2=list.Dynamic2,
+                  //IsShare = list.IsShare,
+                  IsDeclare = list.IsDeclare,
+                  DeclareTargetId = declareTargetId ?? 0
+               };
+
+               var allAts = AttachmentsExtensions.GetAttachmentList(db, id.Value);
+               if (allAts.Count > 0)
+               {
+                  var ats = allAts.FindAll(a => a.Type == AttachmentsKeys.Qit_JianxJiaosDasHuoj);
+                  var vts = allAts.FindAll(a => a.Type == AttachmentsKeys.Qit_JianxJiaosDasHuoj + AttachmentsKeys.Vertify);
+                  var at = AttachmentsExtensions.GetAttachment(ats);
+                  var vt = AttachmentsExtensions.GetAttachment(vts);
+                  model.AttachmentName = at.Name;
+                  model.AttachmentUrl = at.Url;
+                  model.VertificationName = vt.Name;
+                  model.VertificationUrl = vt.Name;
+               }
+            }
+         }
+
+         return PartialView("Qit_JianxJiaosDasHuoj", model);
+      }
+
+      [HttpPost]
+      public ActionResult Qit_JianxJiaosDasHuoj(long? id, Qit_JianxJiaosDasHuoj model)
+      {
+         ThrowNotAjax();
+
+         var attachmentTypeKey = AttachmentsKeys.Qit_JianxJiaosDasHuoj;
+         var vertifyTypeKey = AttachmentsKeys.Qit_JianxJiaosDasHuoj + AttachmentsKeys.Vertify;
+         var atta = new AttachmentsDataModel
+         {
+            Type = attachmentTypeKey,
+            Name = model.AttachmentName,
+            Url = model.AttachmentUrl,
+            UserId = UserProfile.UserId
+         };
+         var vertAtta = new AttachmentsDataModel
+         {
+            Type = vertifyTypeKey,
+            Name = model.VertificationName,
+            Url = model.VertificationUrl,
+            UserId = UserProfile.UserId
+         };
+
+         DeclareActive data = null;
+
+         try
+         {
+            if (id == null)
+            {
+               data = new DeclareActive()
+               {
+                  TeacherId = UserProfile.UserId,
+                  Date = model.Date,
+                  ActiveKey = DeclareKeys.Qit_JianxJiaosDasHuoj,
+                  Level = model.Level,
+                  Dynamic1 = model.Dynamic1,
+                  Dynamic2=model.Dynamic2,
+                  ContentValue = model.ContentValue,
+                  //IsShare = model.IsShare,
+                  IsDeclare = model.IsDeclare,
+                  Creator = UserProfile.UserId,
+                  CreateDate = DateTime.Now
+               };
+
+               db.DeclareActiveDal.Insert(data);
+               atta.JoinId = data.DeclareActiveId;
+               vertAtta.JoinId = data.DeclareActiveId;
+            }
+            else
+            {
+               APQuery.update(t)
+                  .set(t.Date.SetValue(model.Date))
+                  .set(t.Dynamic1.SetValue(model.Dynamic1))
+                  .set(t.Level.SetValue(model.Level))
+                  .set(t.Dynamic2.SetValue(model.Dynamic2))
+                  .set(t.ContentValue.SetValue(model.ContentValue))
+                  .set(t.IsDeclare.SetValue(model.IsDeclare))
+                  .set(t.Modifier.SetValue(UserProfile.UserId))
+                  .set(t.ModifyDate.SetValue(DateTime.Now))
+                  .where(t.DeclareActiveId == id.Value)
+                  .execute(db);
+
+               AttachmentsExtensions.DeleteAttas(db, id.Value, new string[] { attachmentTypeKey, vertifyTypeKey });
+
+               atta.JoinId = id.Value;
+               vertAtta.JoinId = id.Value;
+
+               data = db.DeclareActiveDal.PrimaryGet(id.Value);
+            }
+
+            AttachmentsExtensions.InsertAttas(db, new AttachmentsDataModel[] { atta, vertAtta });
+
+            // AddOrDelShare(atta.JoinId, model.ContentValue, ShareKeys.ActiveShare, model.IsShare);
+
+            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
+
+            db.Commit();
+         }
+         catch
+         {
+            db.Rollback();
+         }
+
+         return Json(new
+         {
+            result = AjaxResults.Success,
+            msg = "信息已保存！"
+         });
+      }
+
+      #endregion
 
       #region [ 查看附件 ]
 

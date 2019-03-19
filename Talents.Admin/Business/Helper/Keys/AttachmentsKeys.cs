@@ -61,9 +61,11 @@
       public const string GerTes_XueyChengz = "个人特色.学员成长";
 
       public const string Qit_JibGongZshiHuoj = "其他.基本功展示获奖";
+      public const string Qit_ZonghxingRongy = "其他综合性荣誉";
+      public const string Qit_JianxJiaosPingx = "见习教师评选";
+      public const string Qit_JianxJiaosDasHuoj = "见习教师大奖赛获奖";
 
       public const string Notice = "通知";
-
       public const string Vertify = "证明";
 
       public const string ImageSuffix = ".jpg,.gif,.jpeg,.png,.bnp";

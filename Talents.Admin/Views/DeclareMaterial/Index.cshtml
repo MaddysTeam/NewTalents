@@ -128,27 +128,17 @@
 		function loadReview(declareTargetId, view, typeKey) {
 			$.get('@Url.Action("ReviewEdit", "DeclareMaterial")', { DeclareTargetId: declareTargetId, View: view, TypeKey: typeKey }, function (html) {
 				$('#tab0').append(html);
-				$('#declareSubmit').click(function () {
-					if (confirm('确定要提交报表，提交后将无法选择和填写当前或其他称号的申报表单，只能够预览和打印表单！')) {
-						if ($('#CompanyId').val() == "0") {
-							popupMessage({ result: 'error', msg: '必须选择申报单位' });
-							return false;
-						}
-						if ($('#DeclareSubjectPKID').val() == "0") {
-							popupMessage({ result: 'error', msg: '必须选择申报学科' });
-							return false;
-						}
-
-						$('#StatusKey').val('@DeclareKeys.ReviewProcess');
-						$('#submit').trigger('click');
-					}
-				});
+				bindDeclareSubmit();
 			});
 		}
 
 		function loadProfile(declareTargetId, view, typeKey) {
 			$.get('@Url.Action("BasicProfileEdit", "DeclareMaterial")', { DeclareTargetId: declareTargetId, View: view, TypeKey: typeKey }, function (html) {
 				$('#tab1').html(html);
+				// 由于高地和基地主持人没有review 页面 所以需绑定提交事件
+				if (declareTargetId == '@DeclareTargetIds.GaodLisz' || declareTargetId == '@DeclareTargetIds.JidZhucr') {
+					bindDeclareSubmit();
+				}
 			});
 		}
 
@@ -172,6 +162,24 @@
 						}
 					});
 				})
+			});
+		}
+
+		function bindDeclareSubmit() {
+			$('#declareSubmit').click(function () {
+				if (confirm('确定要提交报表，提交后将无法选择和填写当前或其他称号的申报表单，只能够预览和打印表单！')) {
+					if ($('#CompanyId').val() == "0") {
+						popupMessage({ result: 'error', msg: '必须选择申报单位' });
+						return false;
+					}
+					if ($('#DeclareSubjectPKID').val() == "0") {
+						popupMessage({ result: 'error', msg: '必须选择申报学科' });
+						return false;
+					}
+
+					$('#StatusKey').val('@DeclareKeys.ReviewProcess');
+					$('#submit').trigger('click');
+				}
 			});
 		}
 

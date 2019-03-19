@@ -127,8 +127,9 @@
       public const string ReviewFailure = "审核不通过";
 
       public const string GaodLisz = "高地理事长";
+      public const string GaodLisz_ZijBiao = "高地理事长.自荐表";
       public const string JidZhucr = "基地主持人";
-
+      public const string JidZhucr_ZijBiao = "基地主持人.自荐表";
       public const string GongzsZhucr = "工作室主持人";
       public const string GongzsZhucr_Shenb = "工作室主持人.申报";
       public const string XuekDaitr = "学科带头人";
@@ -145,7 +146,9 @@
       public const string JiaoxNengs_CaiLPog = "教学能手.材料破格";
       public const string JiaoxXinx = "教学新秀";
       public const string JiaoxXinx_Shenb = "教学新秀.申报";
-      public const string GonggJihChengy = "公关计划成员";
+      public const string GaofJihZhucRen = "高峰计划主持人";
+      public const string GonggJihZhucRen = "攻关计划主持人";
+      public const string GonggJihChengy = "攻关计划成员";
       public const string ZhongzJihLingxReng = "种子计划领衔人";
       public const string ZhongzJihChengy = "种子计划成员";
       public const string GaodJiaoSYanxBanXuey = "高端教师研修班学员";
@@ -157,6 +160,9 @@
       public const string GerTes_XueyChengz = "个人特色.学员成长";
 
       public const string Qit_JibGongZshiHuoj = "基本功展示获奖";
+      public const string Qit_ZonghxingRongy = "其他综合性荣誉";
+      public const string Qit_JianxJiaosPingx = "见习教师优秀学员评选";
+      public const string Qit_JianxJiaosDasHuoj = "见习教师大奖赛获奖";
 
       public const string Good = "good";
       public const string Normal = "normal";

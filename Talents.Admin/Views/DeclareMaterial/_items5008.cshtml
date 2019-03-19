@@ -4,7 +4,9 @@
 	var archievement = Model.DeclareAchievements as List<DeclareAchievement>;
 	var gongkKe = activeItems.FindAll(at => at.ActiveKey == DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk);
 	var jiaoxPingb = activeItems.FindAll(at => at.ActiveKey == DeclareKeys.ZisFaz_JiaoxHuod_JiaoxPingb);
-	var declareTargetId = Model.DeclareTargetId; 
+	var jianxJiaosPingx = activeItems.FindAll(at=>at.ActiveKey==DeclareKeys.Qit_JianxJiaosPingx);
+	var jianxJiaosDasHuoj = activeItems.FindAll(at => at.ActiveKey == DeclareKeys.Qit_JianxJiaosDasHuoj);
+	var declareTargetId = Model.DeclareTargetId;
 }
 <!-- 教育教学 -->
 <div class="tab-pane fade itmes" id="tab2">
@@ -120,6 +122,104 @@
 										<a class="btn btn-success btn-sm" data-url="@Url.Action("ZisFaz_JiaoxHuod_JiaoxPingb", "DeclarePop",new {id=item.DeclareActiveId, declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">编辑</a>
 										<a target="_blank" class="btn btn-warning btn-sm  btn-cancelDeclare" data-url="@Url.Action("DeclareActive", "DeclareMaterial", new {id=item.DeclareActiveId, isDeclare=false, declareTargetId = declareTargetId })" href="#">取消申报</a>
 										<button class="btn btn-danger btn-sm btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_JiaoxHuod_JiaoxPingb })" data-target="#firstModal" title="查看附件">查看附件</button>
+									</div>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- END WIDGET TABBED CONTENT -->
+
+	<!-- WIDGET TABBED CONTENT -->
+	<div class="widget">
+		<div class="widget-header">
+			<h3><i class="fa fa-paperclip"></i>“见习教师规范化培训优秀学员评选”情况（最多填两项）</h3>
+			@if (jianxJiaosPingx != null && jianxJiaosPingx.Count < 2)
+			{
+				<a class="btn btn-warning btn-sm pull-right " data-url="@Url.Action("Qit_JianxJiaosPingx", "DeclarePop",new { declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">新增申报</a>
+				<a class="btn btn-info btn-sm pull-right" data-url="@Url.Action("DeclareActiveList", "DeclareMaterial",new { itemKey =DeclareKeys.Qit_JianxJiaosPingx, declareTargetId=declareTargetId})" data-toggle="ajax-modal" data-target="#firstModal">
+					历史库
+				</a>
+				}
+		</div>
+		<div class="widget-content">
+			<div class="table-responsive">
+				<table class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th class="width180">时间</th>
+							<th class="width180">级别</th>
+							<th style="width:500px">奖项名称</th>
+							<th class="width180">组织单位、部门/负责人</th>
+							<th class="width400">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in jianxJiaosPingx)
+						{
+							<tr>
+								<td>@item.Date.ToString("yyyy-MM-dd")</td>
+								<td>@item.Level</td>
+								<td>@item.ContentValue</td>
+								<td>@item.Dynamic1</td>
+								<td>
+									<div class="btn-group pull-right">
+										<a class="btn btn-success btn-sm" data-url="@Url.Action("Qit_JianxJiaosPingx", "DeclarePop",new {id=item.DeclareActiveId, declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">编辑</a>
+										<a target="_blank" class="btn btn-warning btn-sm  btn-cancelDeclare" data-url="@Url.Action("DeclareActive", "DeclareMaterial", new {id=item.DeclareActiveId, isDeclare=false, declareTargetId = declareTargetId })" href="#">取消申报</a>
+										<button class="btn btn-danger btn-sm btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_XuesHuod })" data-target="#firstModal" title="查看附件">查看附件</button>
+									</div>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- END WIDGET TABBED CONTENT -->
+
+	<!-- WIDGET TABBED CONTENT -->
+	<div class="widget">
+		<div class="widget-header">
+			<h3><i class="fa fa-paperclip"></i>市、区“见习教师大奖赛获奖”情况（最多填两项）</h3>
+			@if (jianxJiaosDasHuoj != null && jianxJiaosDasHuoj.Count < 2)
+			{
+				<a class="btn btn-warning btn-sm pull-right " data-url="@Url.Action("Qit_JianxJiaosDasHuoj", "DeclarePop",new { declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">新增申报</a>
+				<a class="btn btn-info btn-sm pull-right" data-url="@Url.Action("DeclareActiveList", "DeclareMaterial",new { itemKey =DeclareKeys.Qit_JianxJiaosDasHuoj, declareTargetId=declareTargetId})" data-toggle="ajax-modal" data-target="#firstModal">
+					历史库
+				</a>
+			}
+		</div>
+		<div class="widget-content">
+			<div class="table-responsive">
+				<table class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th class="width180">时间</th>
+							<th class="width180">级别</th>
+							<th style="width:500px">奖项名称</th>
+							<th class="width180">奖项等第</th>
+							<th class="width180">组织单位、部门/负责人</th>
+							<th class="width400">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in jianxJiaosDasHuoj)
+						{
+							<tr>
+								<td>@item.Date.ToString("yyyy-MM-dd")</td>
+								<td>@item.Level</td>
+								<td>@item.ContentValue</td>
+								<td>@item.Dynamic1</td>
+								<td>@item.Dynamic2</td>
+								<td>
+									<div class="btn-group pull-right">
+										<a class="btn btn-success btn-sm" data-url="@Url.Action("Qit_JianxJiaosDasHuoj", "DeclarePop",new {id=item.DeclareActiveId, declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">编辑</a>
+										<a target="_blank" class="btn btn-warning btn-sm  btn-cancelDeclare" data-url="@Url.Action("DeclareActive", "DeclareMaterial", new {id=item.DeclareActiveId, isDeclare=false, declareTargetId = declareTargetId })" href="#">取消申报</a>
+										<button class="btn btn-danger btn-sm btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_XuesHuod })" data-target="#firstModal" title="查看附件">查看附件</button>
 									</div>
 								</td>
 							</tr>
