@@ -191,7 +191,7 @@ namespace TheSite.Controllers
          }
          else if (key == DeclareKeys.GugJiaos || key == DeclareKeys.GugJiaos_Shenb || key == DeclareKeys.GugJiaos_ZhicPog)
          {
-            key = key == DeclareKeys.GugJiaos ? DeclareKeys.XuekDaitr_Shenb : key;
+            key = key == DeclareKeys.GugJiaos ? DeclareKeys.GugJiaos_Shenb : key;
             return PartialView("MaterialView5006", key);
          }
          else if (key == DeclareKeys.JiaoxNengs || key == DeclareKeys.JiaoxNengs_Shenb || key == DeclareKeys.JiaoxNengs_ZhicPog)
@@ -517,6 +517,7 @@ namespace TheSite.Controllers
          var poge = ".职称破格";
 
          model.DeclareTargetId = param.DeclareTargetId;
+         model.TypeKey = param.TypeKey;
          model.Decalre = DeclareBaseHelper.DeclareTarget.GetName(param.DeclareTargetId);
          model.DeclareSubject = BzUserProfileHelper.EduSubject.GetName(review.DeclareSubjectPKID);
          model.DeclareCompany = declareCompany == null ? string.Empty : declareCompany.CompanyName;
@@ -540,6 +541,7 @@ namespace TheSite.Controllers
          model.FirstYearScore = profile.Dynamic1;
          model.SecondYearScore = profile.Dynamic2;
          model.ThirdYearScore = profile.Dynamic3;
+         model.Is500= profile.Dynamic4 == DeclareKeys.ZhongzJihChengy;
          model.Is1000 = profile.Dynamic4 == DeclareKeys.GonggJihChengy;
          model.Is2000 = profile.Dynamic4 == DeclareKeys.ZhongzJihLingxReng;
          model.Is3000 = profile.Dynamic4 == DeclareKeys.GaofJihZhucRen;

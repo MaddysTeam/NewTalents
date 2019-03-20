@@ -45,6 +45,7 @@ namespace TheSite.Models
    {
 
       public long DeclareTargetId { get; set; }
+      public string TypeKey { get; set; }
       public string Decalre { get; set; }
       public string DeclareSubject { get; set; }
       public string DeclareCompany { get; set; }
@@ -65,7 +66,8 @@ namespace TheSite.Models
       public string RankTitle { get; set; }
       public string Hiredate { get; set; }
       public string EduBg { get; set; }
-      public bool Is1000 { get; set; } //是否是“攻关计划”学员
+      public bool Is500 { get; set; } //是否是“种子计划”学员
+      public bool Is1000 { get; set; } //是否是“攻关计划”学员 
       public bool Is2000 { get; set; } //是否是“种子计划”领衔人
       public bool Is3000 { get; set; } //是否是“高峰计划”主持人
       public bool Is4000 { get; set; } //是否是“攻关计划”主持人

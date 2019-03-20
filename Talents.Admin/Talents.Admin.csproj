@@ -690,6 +690,11 @@
     <Content Include="Views\DeclareMaterial\_profile5002.cshtml" />
     <Content Include="Views\DeclareMaterial\MaterialPreview5002.cshtml" />
     <Content Include="Views\DeclareMaterial\Overview5005.cshtml" />
+    <Content Include="Views\DeclareMaterial\Overview5006.cshtml" />
+    <Content Include="Views\DeclareMaterial\Overview9999.cshtml" />
+    <Content Include="Views\DeclareMaterial\Overview5004.cshtml" />
+    <Content Include="Views\DeclareMaterial\Overview5007.cshtml" />
+    <Content Include="Views\DeclareMaterial\Overview5008.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
