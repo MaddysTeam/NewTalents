@@ -285,6 +285,40 @@ namespace TheSite.Controllers
       }
 
 
+      public ActionResult GetDeclareViewMenu(long userId)
+      {
+         ThrowNotAjax();
+
+
+         var model = db.DeclareBaseDal.PrimaryGet(userId);
+         var targetId = model.DeclareTargetPKID;
+
+
+         List<json_treenode> list = new List<json_treenode>();
+
+         list.Add(new json_treenode { id = DeclareKeys.ShenbQingk, text = "申报情况", type = json_treenode_types.database, children = new List<json_treenode>() });
+         list.Add(new json_treenode { id = DeclareKeys.ShenbLiy, text = "申报理由", type = json_treenode_types.database, children = new List<json_treenode>() });
+         list.Add(new json_treenode { id = DeclareKeys.GerJibQingk, text = "个人基本情况", type = json_treenode_types.database, children = new List<json_treenode>() });
+         list.Add(new json_treenode { id = DeclareKeys.SannKaohQingk, text = "校内履职-近三年考核情况", type = json_treenode_types.database, children = new List<json_treenode>() });
+         list.Add(new json_treenode { id = DeclareKeys.ShangyRenTidQingk, text = "市“双名工程”上一轮人才梯队任职情况", type = json_treenode_types.database, children = new List<json_treenode>() });
+         list.Add(new json_treenode { id = DeclareKeys.ZhuanyWeiyHuiQingk, text = "目前在市级及以上专业委员会任职情况（名称、职务）", type = json_treenode_types.database, children = new List<json_treenode>() });
+         list.Add(new json_treenode { id = DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk, text = "近三年 “公开课”情况", type = json_treenode_types.database, children = new List<json_treenode>() });
+         list.Add(new json_treenode { id = DeclareKeys.ZisFaz_JiaoxHuod_JiaoyJiaoxPingb, text = "近三年区级及以上“课堂教学评比或其他教育评比”情况", type = json_treenode_types.database, children = new List<json_treenode>() });
+         list.Add(new json_treenode { id = DeclareKeys.PeihJiaoyyGongz_XuekMingt, text = "近三年区级及以上“命题工作”（除幼教、特教外）情况", type = json_treenode_types.database, children = new List<json_treenode>() });
+         list.Add(new json_treenode { id = DeclareKeys.ZisFaz_PingwGongzHuoPbiHuoj, text = "教育教学-评委工作或评比获奖", type = json_treenode_types.database, children = new List<json_treenode>() });
+         list.Add(new json_treenode { id = DeclareKeys.JiaoyJiaox_JiaoyHuod_FahZuoy, text = "近三年在市、区“教研活动发挥作用”（幼教、特教填写）情况", type = json_treenode_types.database, children = new List<json_treenode>() });
+         list.Add(new json_treenode { id = DeclareKeys.ZisFaz_KeyChengg_KetYanj, text = "近三年区级及以上“课题、项目”情况", type = json_treenode_types.database, children = new List<json_treenode>() });
+         list.Add(new json_treenode { id = DeclareKeys.ZisFaz_KeyChengg_FabLunw, text = "近三年“发表论文”情况", type = json_treenode_types.database, children = new List<json_treenode>() });
+         list.Add(new json_treenode { id = DeclareKeys.ZisFaz_PeixJiangz_JiaosPeixKec, text = "近三年开设校级及以上“教师培训课程”情况", type = json_treenode_types.database, children = new List<json_treenode>() });
+         list.Add(new json_treenode { id = DeclareKeys.ZisFaz_PeixJiangz_ZhuantJiangz, text = "近三年校级及以上“学术讲座”情况", type = json_treenode_types.database, children = new List<json_treenode>() });
+         list.Add(new json_treenode { id = DeclareKeys.ZisFaz_KeyChengg_LunzQingk, text = "近三年正式出版“论著”情况", type = json_treenode_types.database, children = new List<json_treenode>() });
+         list.Add(new json_treenode { id = DeclareKeys.GerTes_QitShenf, text = "近三年“其他身份”（与申报学科相关）情况", type = json_treenode_types.database, children = new List<json_treenode>() });
+         list.Add(new json_treenode { id = DeclareKeys.GerTes_XueyChengz, text = "近三年所带“学员成长”情况", type = json_treenode_types.database, children = new List<json_treenode>() });
+
+         return Json(list, JsonRequestBehavior.AllowGet);
+      }
+
+
       //	GET: Json/GetDeclare
 
       public ActionResult GetDeclare(long? userId)

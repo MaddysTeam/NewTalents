@@ -439,13 +439,68 @@ namespace TheSite.Controllers
       }
 
 
-      // Get: DeclareMaterial/Items
+      // Get: DeclareMaterial/Preview
 
       public ActionResult Preview(DeclarePreviewParam param)
       {
+         var pdfRender = new HtmlRender();
+         var model=GetPreviewViewModel(param);
+
+         if (param.IsExport != null && param.IsExport.Value)
+         {
+            var htmlText = pdfRender.RenderViewToString(this, param.View, model);
+            byte[] pdfFile = FormatConverter.ConvertHtmlTextToPDF(htmlText);
+            return new BinaryContentResult($"temp.pdf", "application/pdf", pdfFile);
+         }
+
+         return PartialView(param.View, model);
+      }
+
+
+      // Get: DeclareMaterial/Overview
+
+      public ActionResult Overview(DeclarePreviewParam param)
+      {
+         var model = GetPreviewViewModel(param);
+
+         return View(param.View, model);
+      }
+
+
+      #region [ Helper ]
+
+      private string SubString(string str)
+    => str.Length > 50 ? str.Substring(0, 50) + "..." : str;
+
+      private List<DeclareActive> GetDeclareActives(long declareTargetId, long teacherId) =>
+         APQuery.select(dm.MaterialId, dm.DeclareTargetPKID, da.Asterisk)
+          .from(dm, da.JoinInner(dm.ItemId == da.DeclareActiveId))
+          .where(dm.PeriodId == Period.PeriodId & dm.TeacherId == teacherId & da.Creator == teacherId & dm.DeclareTargetPKID == declareTargetId)
+          .query(db, r =>
+          {
+             var active = new DeclareActive();
+             da.Fullup(r, active, false);
+
+             return active;
+          }).ToList();
+
+      private List<DeclareAchievement> GetDeclareAchievements(long declareTargetId, long teacherId) =>
+         APQuery.select(dm.MaterialId, dm.DeclareTargetPKID, dac.Asterisk)
+            .from(dm, dac.JoinInner(dm.ItemId == dac.DeclareAchievementId))
+            .where(dm.PeriodId == Period.PeriodId & dm.TeacherId == teacherId & dac.Creator == teacherId & dm.DeclareTargetPKID == declareTargetId)
+            .query(db, r =>
+            {
+               var achievement = new DeclareAchievement();
+               dac.Fullup(r, achievement, false);
+
+               return achievement;
+            }).ToList();
+
+
+      private DeclarePreviewViewModel GetPreviewViewModel(DeclarePreviewParam param)
+      {
          var isSchoolAdmin = UserProfile.IsSchoolAdmin;
          var userid = isSchoolAdmin ? param.TeacherId : UserProfile.UserId;
-         var pdfRender = new HtmlRender();
          var model = new DeclarePreviewViewModel();
          var profile = db.BzUserProfileDal.PrimaryGet(userid);//不从缓存里获取，从数据库获取
          var myCompnay = db.CompanyDal.PrimaryGet(profile.CompanyId);
@@ -506,45 +561,8 @@ namespace TheSite.Controllers
          // 职称破格和申报公用一张表 所以要用form IsBrokenRoles 和 param.TypeKey 一起判断
          model.IsBrokRoles = param.TypeKey.IndexOf(poge) > 0;
 
-         if (param.IsExport != null && param.IsExport.Value)
-         {
-            var htmlText = pdfRender.RenderViewToString(this, param.View, model);
-            byte[] pdfFile = FormatConverter.ConvertHtmlTextToPDF(htmlText);
-            return new BinaryContentResult($"temp.pdf", "application/pdf", pdfFile);
-         }
-
-         return PartialView(param.View, model);
+         return model;
       }
-
-
-      #region [ Helper ]
-
-      private string SubString(string str)
-    => str.Length > 50 ? str.Substring(0, 50) + "..." : str;
-
-      private List<DeclareActive> GetDeclareActives(long declareTargetId, long teacherId) =>
-         APQuery.select(dm.MaterialId, dm.DeclareTargetPKID, da.Asterisk)
-          .from(dm, da.JoinInner(dm.ItemId == da.DeclareActiveId))
-          .where(dm.PeriodId == Period.PeriodId & dm.TeacherId == teacherId & da.Creator == teacherId & dm.DeclareTargetPKID == declareTargetId)
-          .query(db, r =>
-          {
-             var active = new DeclareActive();
-             da.Fullup(r, active, false);
-
-             return active;
-          }).ToList();
-
-      private List<DeclareAchievement> GetDeclareAchievements(long declareTargetId, long teacherId) =>
-         APQuery.select(dm.MaterialId, dm.DeclareTargetPKID, dac.Asterisk)
-            .from(dm, dac.JoinInner(dm.ItemId == dac.DeclareAchievementId))
-            .where(dm.PeriodId == Period.PeriodId & dm.TeacherId == teacherId & dac.Creator == teacherId & dm.DeclareTargetPKID == declareTargetId)
-            .query(db, r =>
-            {
-               var achievement = new DeclareAchievement();
-               dac.Fullup(r, achievement, false);
-
-               return achievement;
-            }).ToList();
 
       #endregion
 

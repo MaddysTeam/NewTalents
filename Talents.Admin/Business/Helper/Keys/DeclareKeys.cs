@@ -164,9 +164,16 @@
       public const string Qit_JianxJiaosPingx = "见习教师优秀学员评选";
       public const string Qit_JianxJiaosDasHuoj = "见习教师大奖赛获奖";
 
-      public const string Good = "good";
-      public const string Normal = "normal";
-      public const string Worse = "worse";
+      public const string Good = "优秀";
+      public const string Normal = "合格";
+      public const string Worse = "不合格";
+
+      public const string ShenbQingk = "申报情况";
+      public const string ShenbLiy = "申报理由";
+      public const string GerJibQingk = "个人基本情况";
+      public const string SannKaohQingk = "三年考核情况";
+      public const string ShangyRenTidQingk = "上一轮人才梯队任职情况";
+      public const string ZhuanyWeiyHuiQingk = "专业委员会任职情况";
    }
 
 }
