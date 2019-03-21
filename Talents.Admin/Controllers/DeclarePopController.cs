@@ -1806,11 +1806,11 @@ namespace TheSite.Controllers
 
 
             //记录日志
-            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
+            //var doSomthing = id == null ? "新增:" + id : "修改:" + id;
+            //if (!string.IsNullOrEmpty(atta.Name))
+            //   doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
 
-            Log(DeclareKeys.ZisFaz_KeyChengg_FabLunw, doSomthing);
+            //Log(DeclareKeys.ZisFaz_KeyChengg_FabLunw, doSomthing);
          }
          catch (Exception ex)
          {
@@ -1963,11 +1963,11 @@ namespace TheSite.Controllers
 
 
             //记录日志
-            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
+            //var doSomthing = id == null ? "新增:" + id : "修改:" + id;
+            //if (!string.IsNullOrEmpty(atta.Name))
+            //   doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
 
-            Log(DeclareKeys.ZisFaz_KeyChengg_LunzQingk, doSomthing);
+            //Log(DeclareKeys.ZisFaz_KeyChengg_LunzQingk, doSomthing);
          }
          catch (Exception ex)
          {

@@ -213,7 +213,7 @@ namespace TheSite.Controllers
          else
          {
             var review = db.DeclareReviewDal.PrimaryGet(Convert.ToInt64(key));
-            return RedirectToAction("Overview",new DeclarePreviewParam { TeacherId= review.TeacherId, DeclareTargetId= review.DeclareTargetPKID, View="Overview"+ review.DeclareTargetPKID, IsPartialView=true, TypeKey= review.TypeKey});
+            return RedirectToAction("Overview", new DeclarePreviewParam { TeacherId = review.TeacherId, DeclareTargetId = review.DeclareTargetPKID, View = "Overview" + review.DeclareTargetPKID, IsPartialView = true, TypeKey = review.TypeKey });
             //return Content("正在开发中");
          }
       }
@@ -249,13 +249,24 @@ namespace TheSite.Controllers
       [DecalrePeriod]
       public ActionResult ReviewEdit(DeclareReview model)
       {
-         // 职称破格和申报公用一张表
-         var poge = ".职称破格";
-         if (model.TypeKey.IndexOf(poge) > 0)
-            model.TypeKey = model.TypeKey.Replace(poge, ".申报");
+         var existReviews = db.DeclareReviewDal.ConditionQuery(df.TeacherId == model.TeacherId & df.PeriodId == Period.PeriodId, null, null, null);
+         if (existReviews.Exists(x => model.DeclareReviewId != x.DeclareReviewId && !string.IsNullOrEmpty(x.StatusKey)))
+         {
+            return Json(new
+            {
+               result = AjaxResults.Error,
+               msg = "您已提交过表单！",
+            });
+         }
 
-         model.PeriodId = Period.PeriodId;
-         model.TeacherId = UserProfile.UserId;
+         if (string.IsNullOrEmpty(model.TypeKey))
+         {
+            return Json(new
+            {
+               result = AjaxResults.Error,
+               msg = "必须选择申报类型！",
+            });
+         }
 
          if (model.CompanyId == 0)
          {
@@ -275,11 +286,18 @@ namespace TheSite.Controllers
             });
          }
 
+         // 职称破格和申报公用一张表
+         var poge = ".职称破格";
+         if (model.TypeKey.IndexOf(poge) > 0)
+            model.TypeKey = model.TypeKey.Replace(poge, ".申报");
+
+         model.PeriodId = Period.PeriodId;
+         model.TeacherId = UserProfile.UserId;
+
          if (model.DeclareReviewId == 0)
          {
-            //var isExists = db.DeclareReviewDal.ConditionQueryCount(df.TeacherId == model.TeacherId & df.PeriodId == Period.PeriodId & df.DeclareTargetPKID == model.DeclareTargetPKID) > 0;
-            //if (!isExists)
-            db.DeclareReviewDal.Insert(model);
+            if (!existReviews.Exists(x => x.TypeKey == model.TypeKey))
+               db.DeclareReviewDal.Insert(model);
          }
          else
          {
@@ -444,7 +462,7 @@ namespace TheSite.Controllers
       public ActionResult Preview(DeclarePreviewParam param)
       {
          var pdfRender = new HtmlRender();
-         var model=GetPreviewViewModel(param);
+         var model = GetPreviewViewModel(param);
 
          if (param.IsExport != null && param.IsExport.Value)
          {
@@ -465,7 +483,7 @@ namespace TheSite.Controllers
 
          if (param.IsPartialView)
          {
-            return PartialView(param.View,model);
+            return PartialView(param.View, model);
          }
 
          return View(param.View, model);
@@ -546,7 +564,7 @@ namespace TheSite.Controllers
          model.FirstYearScore = profile.Dynamic1;
          model.SecondYearScore = profile.Dynamic2;
          model.ThirdYearScore = profile.Dynamic3;
-         model.Is500= profile.Dynamic4 == DeclareKeys.ZhongzJihChengy;
+         model.Is500 = profile.Dynamic4 == DeclareKeys.ZhongzJihChengy;
          model.Is1000 = profile.Dynamic4 == DeclareKeys.GonggJihChengy;
          model.Is2000 = profile.Dynamic4 == DeclareKeys.ZhongzJihLingxReng;
          model.Is3000 = profile.Dynamic4 == DeclareKeys.GaofJihZhucRen;
@@ -567,7 +585,7 @@ namespace TheSite.Controllers
          model.Reason = review.Reason;
          model.IsPartialView = param.IsPartialView;
          // 职称破格和申报公用一张表 所以要用form IsBrokenRoles 和 param.TypeKey 一起判断
-         model.IsBrokRoles = string.IsNullOrEmpty(param.TypeKey)? false : param.TypeKey.IndexOf(poge) > 0;
+         model.IsBrokRoles = string.IsNullOrEmpty(param.TypeKey) ? false : param.TypeKey.IndexOf(poge) > 0;
 
          return model;
       }
