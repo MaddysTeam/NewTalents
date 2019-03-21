@@ -695,6 +695,8 @@
     <Content Include="Views\DeclareMaterial\Overview5004.cshtml" />
     <Content Include="Views\DeclareMaterial\Overview5007.cshtml" />
     <Content Include="Views\DeclareMaterial\Overview5008.cshtml" />
+    <Content Include="Views\DeclareMaterial\Overview5003.cshtml" />
+    <Content Include="Views\DeclareMaterial\Overview5002.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

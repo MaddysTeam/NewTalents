@@ -1,0 +1,280 @@
+﻿@model DeclarePreviewViewModel
+@{
+	Layout = Model.IsPartialView ? "" : "~/Views/Shared/_overView.cshtml";
+	var declareTargetId = Model.DeclareTargetId;
+	var proxy = "_proxy";
+}
+@if (!Model.IsPartialView)
+{
+	<div class="col-md-2 left-sidebar">
+	</div>
+		<!-- left sidebar -->
+	<div class="col-md-2 left-sidebar left-sidebar-fixed">
+			<!-- main-nav -->
+			<nav class="main-nav">
+				<ul class="main-menu">
+					<li>
+						<a href="javascript:;">
+							<i class="fa fa-book fa-fw"></i>
+							<span class="text">查看申报材料</span>
+						</a>
+					</li>
+					<!-- WIDGET ACTIVITY FEED -->
+					<div class="widget widget-treeview">
+						<div class="widget-content">
+							<div id="treeview-declare"></div>
+						</div>
+					</div>
+				</ul>
+			</nav>
+			<!-- /main-nav -->
+			<div class="sidebar-minified js-toggle-minified">
+				<i class="fa fa-angle-left"></i>
+			</div>
+		</div>
+}
+
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				
+			</ul>
+		</div>
+	</div>
+
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-home"></i>学科培训基地主持人 自荐表</h2>
+			<em>查看申报材料</em>
+		</div>
+		<!-- main-content -->
+		<div class="main-content declare-overview">
+
+			<!-- 个人基本情况 -->
+			<a id="@DeclareKeys.GerJibQingk@proxy"></a>
+			<h3>自荐表</h3>
+			<table class="table table-bordered no-margin table-condensed table-borderbold">
+				<tbody>
+					<tr>
+						<td class="height-100">
+							<strong>姓 名</strong>
+						</td>
+						<td class="height-100">
+							<strong>@Model.RealName</strong>
+						</td>
+						<td class="height-100">
+							<strong>民 族</strong>
+						</td>
+						<td class="height-100">
+							<strong>@Model.Nation</strong>
+						</td>
+					</tr>
+					<tr>
+						<td class="height-100">
+							<strong>性 别</strong>
+						</td>
+						<td class="height-100">
+							<strong>@Model.Gender</strong>
+						</td>
+						<td class="height-100">
+							<strong>任教学段学科</strong>
+						</td>
+						<td class="height-100">
+							<strong>@Model.Subject</strong>
+						</td>
+					</tr>
+					<tr>
+						<td class="height-100">
+							<strong>单 位</strong>
+						</td>
+						<td class="height-100">
+							<strong>@Model.Company</strong>
+						</td>
+						<td class="height-100">
+							<strong>出生年月</strong>
+						</td>
+						<td class="height-100">
+							<strong>@Model.Birthday</strong>
+						</td>
+					</tr>
+					<tr>
+						<td class="height-100">
+							<strong>现任专技职称</strong>
+						</td>
+						<td class="height-100">
+							<strong>@Model.SkillTitle</strong>
+						</td>
+						<td class="height-100">
+							<strong>师训编号</strong>
+						</td>
+						<td class="height-100">
+							<strong>@Model.TrainNo</strong>
+						</td>
+					</tr>
+					<tr>
+						<td class="height-100">
+							<strong>行政职务</strong>
+						</td>
+						<td class="height-100">
+							<strong>@Model.RankTitle</strong>
+						</td>
+						<td class="height-100">
+							<strong>政治面貌</strong>
+						</td>
+						<td class="height-100">
+							<strong>@Model.Plitics</strong>
+						</td>
+					</tr>
+					<tr>				
+						<td class="height-100">
+							<strong>评聘日期</strong>
+						</td>
+						<td class="height-100">
+							<strong>@Model.Hiredate</strong>
+						</td>
+						<td class="height-100">
+							<strong>周课时数</strong>
+						</td>
+						<td class="height-100">
+							<strong>@Model.Hiredate</strong>
+						</td>
+					</tr>
+					<tr>
+						<td class="height-100">
+							<strong>手机号码</strong>
+						</td>
+						<td class="height-100">
+							<strong>@Model.Mobile</strong>
+						</td>
+						<td class="height-100">
+							<strong>学历学位</strong>
+						</td>
+						<td class="height-100">
+							<strong>@Model.EduBg</strong>
+						</td>
+					</tr>
+					<tr>
+						<td class="height-100">
+							<strong>办公室电话</strong>
+						</td>
+						<td class="height-100">
+							<strong>@Model.Phone</strong>
+						</td>
+						<td class="height-100">
+							<strong>电子邮箱</strong>
+						</td>
+						<td class="height-100">
+							<strong>@Model.Email</strong>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<a id="@DeclareKeys.ShangyRenTidQingk@proxy"></a>
+			<h3>市“双名工程”上一轮人才梯队任职情况</h3>
+			<table class="table table-bordered no-margin table-condensed table-borderbold">
+				<thead>
+					@*<tr>
+						<th>任职情况</th>
+					</tr>*@
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<p style="font-size:12pt; line-height:115%; margin:0pt; text-align:center"><span style="font-family:宋体; font-size:12pt">市“双名工程”</span></p><p style="font-size:12pt; line-height:115%; margin:0pt; text-align:center"><span style="font-family:宋体; font-size:12pt">上一轮区</span><span style="font-family:宋体; font-size:12pt">高地、基地</span></p><p style="font-size:12pt; line-height:115%; margin:0pt; text-align:center"><span style="font-family:宋体; font-size:12pt">任职</span><span style="font-family:宋体; font-size:12pt">情况</span></p><p style="font-size:12pt; line-height:115%; margin:0pt 0pt 10pt; text-align:center"><span style="font-family:宋体; font-size:12pt">（</span><span style="font-family:宋体; font-size:12pt">填“</span><span style="font-family:Arial; font-size:12pt">√</span><span style="font-family:宋体; font-size:12pt">”</span><span style="font-family:宋体; font-size:12pt">表示</span><span style="font-family:宋体; font-size:12pt">）</span></p>
+						</td>
+						<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:293.6pt">
+							<p style="font-size:12pt; line-height:115%; margin:0pt 0pt 10pt; text-align:justify"><span style="font-family:宋体; font-size:12pt">“高峰计划”主</span><span style="font-family:宋体; font-size:12pt">持人</span><span style="font-family:宋体; font-size:12pt">（ @(Model.Is3000 ? "√" : "")）</span></p><p style="font-size:12pt; line-height:115%; margin:0pt 0pt 10pt; text-align:justify"><span style="font-family:宋体; font-size:12pt">“攻关计划”主持人（ </span><span style="font-family:宋体; font-size:12pt">@(Model.Is4000 ? "√" : "") </span><span style="font-family:宋体; font-size:12pt"> ）</span></p><p style="font-size:12pt; line-height:115%; margin:0pt 0pt 10pt; text-align:justify"><span style="font-family:宋体; font-size:12pt">上一轮</span><span style="font-family:宋体; font-size:12pt">是</span><span style="font-family:宋体; font-size:12pt">学科高地理事长（</span><span style="font-family:宋体; font-size:12pt">@(Model.Is5002 ? "√" : "") </span><span style="font-family:宋体; font-size:12pt"> </span><span style="font-family:宋体; font-size:12pt"> ）</span></p><p style="font-size:12pt; line-height:115%; margin:0pt 0pt 10pt; text-align:justify"><span style="font-family:宋体; font-size:12pt">上一轮</span><span style="font-family:宋体; font-size:12pt">是</span><span style="font-family:宋体; font-size:12pt">学科</span><span style="font-family:宋体; font-size:12pt">培训</span><span style="font-family:宋体; font-size:12pt">基地主持人（</span>@(Model.Is5003 ? "√" : "")<span style="font-family:宋体; font-size:12pt"> ）</span></p><p style="font-size:12pt; line-height:115%; margin:0pt 0pt 10pt; text-align:justify"><span style="font-family:宋体; font-size:12pt">&nbsp;</span></p>
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+
+		</div>
+
+		<!-- /main-content -->	
+		<a class="btn btn-md btn-custom-primary hidden" id="aProxy" href="#">代理</a>
+	</div>
+	<!-- /main -->
+
+</div>
+
+@section Modals {
+	<!-- Modal start -->
+	<div class="modal" id="firstModal" tabindex="-1" role="dialog" aria-labelledby="firstModalLabel" aria-hidden="true">
+	</div>
+	<!-- Modal end -->
+}
+
+@section Plugins{
+	@Scripts.Render("~/js/jstree")
+}
+
+@section Scripts{
+	<script>
+		$(function () {
+
+			var $treeviewApp = $('#treeview-declare');
+
+			$('#aProxy').attr('href', '#proxy');
+
+			$treeviewApp.jstree({
+				'core': {
+					'data': {
+							'url': '/Json/GetDeclareViewMenu?userId=' + @Html.GetUserProfile().UserId + '&typeKey=@Model.TypeKey&targetid=@Model.DeclareTargetId',
+					},
+					'check_callback': true,
+				},
+				'plugins': ['contextmenu', 'types'],
+				'types': {
+					'root': {
+						'icon': 'fa fa-desktop'
+					},
+					'default': {
+						'icon': 'fa fa-folder yellow-font'
+					},
+					'database': {
+						'icon': 'fa fa-database yellow-font'
+					},
+					'table': {
+						'icon': 'fa fa-table green-font'
+					},
+					'view': {
+						'icon': 'fa fa-search text-primary'
+					},
+					'procedure': {
+						'icon': 'fa fa-play-circle green-font'
+					},
+					'key': {
+						'icon': 'fa fa-key text-primary'
+					},
+					'folder': {
+						'icon': 'fa fa-folder yellow-font'
+					},
+					'content': {
+						'icon': 'fa fa-pencil-square-o text-primary'
+					},
+					'active': {
+						'icon': 'fa fa-table green-font'
+					},
+				}
+
+			}).on('loaded.jstree', function (e, data) {
+				$treeviewApp.jstree('open_all');
+
+			}).on('changed.jstree', function (e, data) {
+				$('#aProxy').attr('href', '#' + data.selected + '@proxy');
+				$('#aProxy')[0].click();
+			});
+
+		});
+	</script>
+
+}
+
+
+
+

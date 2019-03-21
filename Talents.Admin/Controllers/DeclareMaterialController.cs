@@ -5,9 +5,7 @@ using Symber.Web.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using TheSite.EvalAnalysis;
 using TheSite.Models;
 
 namespace TheSite.Controllers
@@ -214,7 +212,9 @@ namespace TheSite.Controllers
          }
          else
          {
-            return Content("正在开发中");
+            var review = db.DeclareReviewDal.PrimaryGet(Convert.ToInt64(key));
+            return RedirectToAction("Overview",new DeclarePreviewParam { TeacherId= review.TeacherId, DeclareTargetId= review.DeclareTargetPKID, View="Overview"+ review.DeclareTargetPKID, IsPartialView=true, TypeKey= review.TypeKey});
+            //return Content("正在开发中");
          }
       }
 
@@ -463,6 +463,11 @@ namespace TheSite.Controllers
       {
          var model = GetPreviewViewModel(param);
 
+         if (param.IsPartialView)
+         {
+            return PartialView(param.View,model);
+         }
+
          return View(param.View, model);
       }
 
@@ -560,8 +565,9 @@ namespace TheSite.Controllers
          model.DeclareActies = declareActives;
          model.DeclareAchievements = declareAchievement;
          model.Reason = review.Reason;
+         model.IsPartialView = param.IsPartialView;
          // 职称破格和申报公用一张表 所以要用form IsBrokenRoles 和 param.TypeKey 一起判断
-         model.IsBrokRoles = param.TypeKey.IndexOf(poge) > 0;
+         model.IsBrokRoles = string.IsNullOrEmpty(param.TypeKey)? false : param.TypeKey.IndexOf(poge) > 0;
 
          return model;
       }

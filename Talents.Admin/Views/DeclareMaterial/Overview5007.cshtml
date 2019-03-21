@@ -1,6 +1,6 @@
 ﻿@model DeclarePreviewViewModel
 @{
-	Layout = "~/Views/Shared/_overView.cshtml";
+	Layout = Model.IsPartialView ? "" : "~/Views/Shared/_overView.cshtml";
 	var jiaoxPingb = Model.DeclareActies.FindAll(da => da.ActiveKey == DeclareKeys.ZisFaz_JiaoxHuod_JiaoxPingb);
 	var xuekMingt = Model.DeclareActies.FindAll(da => da.ActiveKey == DeclareKeys.PeihJiaoyyGongz_XuekMingt);
 	var pingbHuoj = Model.DeclareActies.FindAll(da => da.ActiveKey == DeclareKeys.ZisFaz_XuesHuod);
@@ -9,35 +9,36 @@
 	var declareTargetId = Model.DeclareTargetId;
 	var proxy = "_proxy";
 }
-<div class="col-md-2 left-sidebar">
-
-</div>
-<!-- left sidebar -->
-<div class="col-md-2 left-sidebar left-sidebar-fixed">
-	<!-- main-nav -->
-	<nav class="main-nav">
-		<ul class="main-menu">
-			<li>
-				<a href="javascript:;">
-					<i class="fa fa-book fa-fw"></i>
-					<span class="text">查看申报材料</span>
-				</a>
-			</li>
-			<!-- WIDGET ACTIVITY FEED -->
-			<div class="widget widget-treeview">
-				<div class="widget-content">
-					<div id="treeview-declare"></div>
-				</div>
-			</div>
-		</ul>
-	</nav>
-	<!-- /main-nav -->
-
-	<div class="sidebar-minified js-toggle-minified">
-		<i class="fa fa-angle-left"></i>
+@if (!Model.IsPartialView)
+{
+	<div class="col-md-2 left-sidebar">
 	</div>
-</div>
-<!-- /left sidebar -->
+	<!-- left sidebar -->
+	<div class="col-md-2 left-sidebar left-sidebar-fixed">
+		<!-- main-nav -->
+		<nav class="main-nav">
+			<ul class="main-menu">
+				<li>
+					<a href="javascript:;">
+						<i class="fa fa-book fa-fw"></i>
+						<span class="text">查看申报材料</span>
+					</a>
+				</li>
+				<!-- WIDGET ACTIVITY FEED -->
+				<div class="widget widget-treeview">
+					<div class="widget-content">
+						<div id="treeview-declare"></div>
+					</div>
+				</div>
+			</ul>
+		</nav>
+		<!-- /main-nav -->
+		<div class="sidebar-minified js-toggle-minified">
+			<i class="fa fa-angle-left"></i>
+		</div>
+	</div>
+	<!-- /left sidebar -->
+}
 
 <div class="col-md-10 content-wrapper">
 	<div class="row">

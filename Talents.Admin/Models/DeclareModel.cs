@@ -29,6 +29,7 @@ namespace TheSite.Models
    public class DeclarePreviewParam: DeclareParam
    {
       public bool? IsExport { get; set; }
+      public bool IsPartialView { get; set; }
    }
 
 
@@ -86,6 +87,7 @@ namespace TheSite.Models
       public string Reason { get; set; }
       public bool IsAllowdFlow { get; set; }
       public bool IsAllowDownGrade { get; set; }
+      public bool IsPartialView { get; set; }
       public List<DeclareActive> DeclareActies { get; set; }
       public List<DeclareAchievement> DeclareAchievements { get; set; }
 

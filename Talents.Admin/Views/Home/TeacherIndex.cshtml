@@ -63,7 +63,7 @@
 
 											@if (review != null)
 											{
-												<a class="btn btn-success btn-view" id="DeclareRequestView" target="_blank" href="@Url.Action("Preview", "DeclareMaterial", new { DeclareTargetId=review.DeclareTargetPKID, TypeKey=review.TypeKey, TeacherId=review.TeacherId,View="MaterialPreview"+review.DeclareTargetPKID })" >
+												<a class="btn btn-success btn-view" id="DeclareRequestView" target="_blank" href="@Url.Action("Overview", "DeclareMaterial", new { DeclareTargetId=review.DeclareTargetPKID, TypeKey=review.TypeKey, TeacherId=review.TeacherId,View="Overview"+review.DeclareTargetPKID })" >
 													<i class="fa fa-eye"></i> <span>预览申报</span>
 												</a>
 												<a target="_blank" class="btn btn-warning btn-view" href="@Url.Action("Preview", "DeclareMaterial", new { DeclareTargetId=review.DeclareTargetPKID, TypeKey=review.TypeKey, TeacherId=review.TeacherId,View="MaterialPreview"+review.DeclareTargetPKID, IsExport = true })"><i class="fa fa-download"></i> <span>下载申报表</span></a>
@@ -100,7 +100,7 @@
 						</div>
 					<!-- 教师查看量评结果 end -->
 
-						<div id="evalComments"></div>
+						<div id="evalComments"></div>	
 					}
 
 					<div id="declareActiveTotal"></div>

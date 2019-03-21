@@ -291,7 +291,11 @@ namespace TheSite.Controllers
 
          List<json_treenode> list = new List<json_treenode>();
 
-         if (targetId == DeclareTargetIds.GongzsZhucr || targetId == DeclareTargetIds.XuekDaitr || targetId == DeclareTargetIds.GugJiaos || targetId == DeclareTargetIds.JiaoxNengs || targetId == DeclareTargetIds.JiaoxXinx)
+         if (targetId == DeclareTargetIds.GaodLisz || targetId == DeclareTargetIds.JidZhucr)
+         {
+            list.Add(new json_treenode { id = DeclareKeys.ShenbQingk, text = "申报情况", type = json_treenode_types.database, children = new List<json_treenode>() });
+         }
+         else if (targetId == DeclareTargetIds.GongzsZhucr || targetId == DeclareTargetIds.XuekDaitr || targetId == DeclareTargetIds.GugJiaos || targetId == DeclareTargetIds.JiaoxNengs || targetId == DeclareTargetIds.JiaoxXinx)
          {
             list.Add(new json_treenode { id = DeclareKeys.ShenbQingk, text = "申报情况", type = json_treenode_types.database, children = new List<json_treenode>() });
             list.Add(new json_treenode { id = DeclareKeys.ShenbLiy, text = "申报理由", type = json_treenode_types.database, children = new List<json_treenode>() });

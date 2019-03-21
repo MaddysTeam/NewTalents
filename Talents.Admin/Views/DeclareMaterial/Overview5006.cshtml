@@ -1,6 +1,6 @@
 ﻿@model DeclarePreviewViewModel
 @{
-	Layout = "~/Views/Shared/_overView.cshtml";
+	Layout = Model.IsPartialView ? "" : "~/Views/Shared/_overView.cshtml";
 	var activeItems = Model.DeclareActies as List<DeclareActive>;
 	var archievement = Model.DeclareAchievements as List<DeclareAchievement>;
 	var gongkKe = activeItems.FindAll(at => at.ActiveKey == DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk);
@@ -18,6 +18,8 @@
 	var declareTargetId = Model.DeclareTargetId;
 	var proxy = "_proxy";
 }
+@if (!Model.IsPartialView)
+{
 <div class="col-md-2 left-sidebar">
 
 </div>
@@ -47,7 +49,7 @@
 	</div>
 </div>
 <!-- /left sidebar -->
-
+}
 <div class="col-md-10 content-wrapper">
 	<div class="row">
 		<div class="col-lg-4 ">

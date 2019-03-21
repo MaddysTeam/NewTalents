@@ -1,6 +1,6 @@
 ﻿@model DeclarePreviewViewModel
 @{
-	Layout = "~/Views/Shared/_overView.cshtml";
+   Layout = Model.IsPartialView ? "" : "~/Views/Shared/_overView.cshtml";
 	var activeItems = Model.DeclareActies as List<DeclareActive>;
 	var archievement = Model.DeclareAchievements as List<DeclareAchievement>;
 	var gongkKe = activeItems.FindAll(at => at.ActiveKey == DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk);
@@ -18,34 +18,37 @@
 	var declareTargetId = Model.DeclareTargetId;
 	var proxy = "_proxy";
 }
-<div class="col-md-2 left-sidebar">
+	@if (!Model.IsPartialView)
+	{
+		<div class="col-md-2 left-sidebar">
 
-</div>
-<!-- left sidebar -->
-<div class="col-md-2 left-sidebar left-sidebar-fixed">
-	<!-- main-nav -->
-	<nav class="main-nav">
-		<ul class="main-menu">
-			<li>
-				<a href="javascript:;">
-					<i class="fa fa-book fa-fw"></i>
-					<span class="text">查看申报材料</span>
-				</a>
-			</li>
-			<!-- WIDGET ACTIVITY FEED -->
-			<div class="widget widget-treeview">
-				<div class="widget-content">
-					<div id="treeview-declare"></div>
-				</div>
+		</div>
+		<!-- left sidebar -->
+		<div class="col-md-2 left-sidebar left-sidebar-fixed">
+			<!-- main-nav -->
+			<nav class="main-nav">
+				<ul class="main-menu">
+					<li>
+						<a href="javascript:;">
+							<i class="fa fa-book fa-fw"></i>
+							<span class="text">查看申报材料</span>
+						</a>
+					</li>
+					<!-- WIDGET ACTIVITY FEED -->
+					<div class="widget widget-treeview">
+						<div class="widget-content">
+							<div id="treeview-declare"></div>
+						</div>
+					</div>
+				</ul>
+			</nav>
+			<!-- /main-nav -->
+			<div class="sidebar-minified js-toggle-minified">
+				<i class="fa fa-angle-left"></i>
 			</div>
-		</ul>
-	</nav>
-	<!-- /main-nav -->
+		</div>
+	}
 
-	<div class="sidebar-minified js-toggle-minified">
-		<i class="fa fa-angle-left"></i>
-	</div>
-</div>
 <!-- /left sidebar -->
 
 <div class="col-md-10 content-wrapper">
@@ -845,56 +848,58 @@
 
 			var $treeviewApp = $('#treeview-declare');
 
-			$('#aProxy').attr('href', '#proxy');
 
-			$treeviewApp.jstree({
-				'core': {
-					'data': {
+				$('#aProxy').attr('href', '#proxy');
+
+				$treeviewApp.jstree({
+					'core': {
+						'data': {
 							'url': '/Json/GetDeclareViewMenu?userId=' + @Html.GetUserProfile().UserId + '&typeKey=@Model.TypeKey&targetid=@Model.DeclareTargetId',
+						},
+						'check_callback': true,
 					},
-					'check_callback': true,
-				},
-				'plugins': ['contextmenu', 'types'],
-				'types': {
-					'root': {
-						'icon': 'fa fa-desktop'
-					},
-					'default': {
-						'icon': 'fa fa-folder yellow-font'
-					},
-					'database': {
-						'icon': 'fa fa-database yellow-font'
-					},
-					'table': {
-						'icon': 'fa fa-table green-font'
-					},
-					'view': {
-						'icon': 'fa fa-search text-primary'
-					},
-					'procedure': {
-						'icon': 'fa fa-play-circle green-font'
-					},
-					'key': {
-						'icon': 'fa fa-key text-primary'
-					},
-					'folder': {
-						'icon': 'fa fa-folder yellow-font'
-					},
-					'content': {
-						'icon': 'fa fa-pencil-square-o text-primary'
-					},
-					'active': {
-						'icon': 'fa fa-table green-font'
-					},
-				}
+					'plugins': ['contextmenu', 'types'],
+					'types': {
+						'root': {
+							'icon': 'fa fa-desktop'
+						},
+						'default': {
+							'icon': 'fa fa-folder yellow-font'
+						},
+						'database': {
+							'icon': 'fa fa-database yellow-font'
+						},
+						'table': {
+							'icon': 'fa fa-table green-font'
+						},
+						'view': {
+							'icon': 'fa fa-search text-primary'
+						},
+						'procedure': {
+							'icon': 'fa fa-play-circle green-font'
+						},
+						'key': {
+							'icon': 'fa fa-key text-primary'
+						},
+						'folder': {
+							'icon': 'fa fa-folder yellow-font'
+						},
+						'content': {
+							'icon': 'fa fa-pencil-square-o text-primary'
+						},
+						'active': {
+							'icon': 'fa fa-table green-font'
+						},
+					}
 
-			}).on('loaded.jstree', function (e, data) {
-				$treeviewApp.jstree('open_all');
+				}).on('loaded.jstree', function (e, data) {
+					$treeviewApp.jstree('open_all');
 
-			}).on('changed.jstree', function (e, data) {
-				$('#aProxy').attr('href', '#' + data.selected + '@proxy');
-				$('#aProxy')[0].click();
-			});
+				}).on('changed.jstree', function (e, data) {
+					$('#aProxy').attr('href', '#' + data.selected + '@proxy');
+					$('#aProxy')[0].click();
+				});
+			
 
 		});
 	</script>
