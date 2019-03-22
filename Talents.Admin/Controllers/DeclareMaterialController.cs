@@ -249,8 +249,8 @@ namespace TheSite.Controllers
       [DecalrePeriod]
       public ActionResult ReviewEdit(DeclareReview model)
       {
-         var existReviews = db.DeclareReviewDal.ConditionQuery(df.TeacherId == model.TeacherId & df.PeriodId == Period.PeriodId, null, null, null);
-         if (existReviews.Exists(x => model.DeclareReviewId != x.DeclareReviewId && !string.IsNullOrEmpty(x.StatusKey)))
+         var existReviews = db.DeclareReviewDal.ConditionQuery(df.TeacherId == UserProfile.UserId & df.PeriodId == Period.PeriodId, null, null, null);
+         if (existReviews.Exists(x => !string.IsNullOrEmpty(x.StatusKey)))
          {
             return Json(new
             {
@@ -403,7 +403,7 @@ namespace TheSite.Controllers
 
       public ActionResult DeclareActiveList(string itemKey, long declareTargetId)
       {
-         var results = db.DeclareActiveDal.ConditionQuery(da.TeacherId == UserProfile.UserId & da.IsDeclare == false & da.ActiveKey == itemKey, null, null, null);
+         var results = db.DeclareActiveDal.ConditionQuery(da.TeacherId == UserProfile.UserId  & da.ActiveKey == itemKey, null, null, null);
 
          return PartialView("_declare_active_list", results);
       }

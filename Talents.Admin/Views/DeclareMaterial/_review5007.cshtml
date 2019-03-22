@@ -70,9 +70,7 @@
 					<div class="col-md-9">
 						专业发展自我陈述（包括：本人教育理念、实践探索、教书育人成效等。500字左右。） 
 						@Html.TextAreaFor(m => m.Reason, 20, 10, new { @class = "form-control" })
-						@*<div class="summernote-frame no-padding"> 
-								<div id="sum" class="summernote required" data-whatever="Summary"></div>
-							</div>*@
+						@Html.ValidationMessageFor(m => m.Reason)
 					</div>
 				</div>
 

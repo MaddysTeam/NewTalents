@@ -3353,7 +3353,7 @@ namespace Business {
             public virtual StringAPColumnDef Dynamic5 {
                 get {
                     if (Object.ReferenceEquals(_dynamic5, null)) {
-                        _dynamic5 = new StringAPColumnDef(this, "Dynamic5", true, 2000);
+                        _dynamic5 = new StringAPColumnDef(this, "Dynamic5", true, 300);
                         _dynamic5.Display = "Dynamic5";
                     }
                     return _dynamic5;
@@ -7397,7 +7397,7 @@ namespace Business {
             public virtual StringAPColumnDef Reason {
                 get {
                     if (Object.ReferenceEquals(_reason, null)) {
-                        _reason = new StringAPColumnDef(this, "Reason", false, 40000);
+                        _reason = new StringAPColumnDef(this, "Reason", false, 2000);
                         _reason.Display = "申报理由";
                     }
                     return _reason;
@@ -31474,7 +31474,7 @@ namespace Business {
         /// <summary>
         /// 目前在市(区)级及以上专业委员会任职情况
         /// </summary>
-        [StringLength(2000)]
+        [StringLength(300)]
         public virtual string Dynamic5 {
             get {
                 return _dynamic5;
@@ -39483,7 +39483,7 @@ namespace Business {
         /// Reason
         /// </summary>
         [Display(Name="申报理由")]
-        [StringLength(40000)]
+        [StringLength(2000)]
         public virtual string Reason {
             get {
                 return _reason;

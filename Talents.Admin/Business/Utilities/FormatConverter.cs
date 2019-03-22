@@ -64,12 +64,16 @@ namespace Business.Utilities
          {
             base.OnEndPage(writer, document);
 
-            PdfContentByte cbs = writer.DirectContent;
-            BaseFont bsFont = BaseFont.CreateFont(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "simsun.ttc")+ ",0", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-            iTextSharp.text.Font fontfooter = new iTextSharp.text.Font(bsFont, 10, iTextSharp.text.Font.BOLD);
-            Phrase footer = new Phrase(writer.PageNumber.ToString(), fontfooter);
-            ColumnText.ShowTextAligned(cbs, Element.ALIGN_CENTER, footer,
-                      document.Right / 2, document.Bottom - 20, 0);
+            int pageNumber = writer.PageNumber;
+            if (pageNumber > 2)
+            {
+               PdfContentByte cbs = writer.DirectContent;
+               BaseFont bsFont = BaseFont.CreateFont(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "simsun.ttc") + ",0", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+               iTextSharp.text.Font fontfooter = new iTextSharp.text.Font(bsFont, 10, iTextSharp.text.Font.BOLD);
+               Phrase footer = new Phrase((pageNumber - 2).ToString(), fontfooter);
+               ColumnText.ShowTextAligned(cbs, Element.ALIGN_CENTER, footer,
+                         document.Right / 2, document.Bottom - 20, 0);
+            }
          }
       }
 

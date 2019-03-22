@@ -33,7 +33,6 @@ namespace Business.Helper
 
       static APDBDef.DeclareMaterialTableDef dm = APDBDef.DeclareMaterial;
 
-
       public static void AddDeclareMaterial(DeclareContent content, DeclarePeriod period, APDBDef db, long declareTargetId = 0)
       {
          if (content != null && period != null)
@@ -52,7 +51,7 @@ namespace Business.Helper
                   Type = content.ContentKey,
                   TeacherId = content.TeacherId,
                   PeriodId = period.PeriodId,
-                  DeclareTargetPKID= declareTargetId
+                  DeclareTargetPKID = declareTargetId
                });
          }
       }
@@ -64,18 +63,23 @@ namespace Business.Helper
          {
             db.DeclareMaterialDal.ConditionDelete(dm.ItemId == active.DeclareActiveId & dm.PeriodId == period.PeriodId);
             if (active.IsDeclare)
-               db.DeclareMaterialDal.Insert(new DeclareMaterial
-               {
-                  ItemId = active.DeclareActiveId,
-                  ParentType = "DeclareActive",
-                  CreateDate = DateTime.Now,
-                  PubishDate = DateTime.Now,
-                  Title = active.ContentValue,
-                  Type = active.ActiveKey,
-                  TeacherId = active.TeacherId,
-                  PeriodId = period.PeriodId,
-                  DeclareTargetPKID= declareTargetId
-               });
+            {
+               //if (db.DeclareMaterialDal.ConditionQueryCount(dm.PeriodId == period.PeriodId & dm.TeacherId == active.Creator & dm.Type == active.ActiveKey) <= 2)
+               //{
+                  db.DeclareMaterialDal.Insert(new DeclareMaterial
+                  {
+                     ItemId = active.DeclareActiveId,
+                     ParentType = "DeclareActive",
+                     CreateDate = DateTime.Now,
+                     PubishDate = DateTime.Now,
+                     Title = active.ContentValue,
+                     Type = active.ActiveKey,
+                     TeacherId = active.TeacherId,
+                     PeriodId = period.PeriodId,
+                     DeclareTargetPKID = declareTargetId
+                  });
+               //}
+            }
          }
       }
 
@@ -96,7 +100,7 @@ namespace Business.Helper
                   Type = achievement.AchievementKey,
                   TeacherId = achievement.TeacherId,
                   PeriodId = period.PeriodId,
-                  DeclareTargetPKID= declareTargetId
+                  DeclareTargetPKID = declareTargetId
                });
          }
       }

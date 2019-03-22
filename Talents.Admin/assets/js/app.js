@@ -248,7 +248,7 @@ function ajaxBindFileUpload() {
 		dictResponseError: '上传出错',
 		dictFileTooBig: '上传文件大小({{filesize}}MiB) 最大文件大小 ({{maxFilesize}}MiB)',
 		uploadMultiple: false,
-		maxFilesize: 2046,
+		maxFilesize: 200,
 		init: function () {
 			this.on("processing", function (i) {
 				$('.progress').remove();
@@ -290,8 +290,9 @@ function ajaxSimpleFileUpload(dropzoneId, btnUploadId, whenSuccess, whenError) {
 	$(dropzoneId).dropzone({
 		addedContainer: '#flyArea',
 		dictResponseError: '上传出错',
+		dictFileTooBig: '上传文件大小({{filesize}}MiB) 最大文件大小 ({{maxFilesize}}MiB)',
 		uploadMultiple: false,
-		maxFilesize: 200,
+		maxFilesize: 50.0,
 		init: function () {
 			this.on('success', function (file, data) {
 				whenSuccess & whenSuccess(file,data);

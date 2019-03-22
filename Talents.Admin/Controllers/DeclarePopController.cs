@@ -358,12 +358,6 @@ namespace TheSite.Controllers
             DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
 
             db.Commit();
-
-            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
-
-            Log(DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk, doSomthing);
          }
          catch (Exception ex)
          {
@@ -681,13 +675,6 @@ namespace TheSite.Controllers
             DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
 
             db.Commit();
-
-
-            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
-
-            Log(DeclareKeys.ZisFaz_JiaoxHuod_JiaoxPingb, doSomthing);
          }
          catch (Exception ex)
          {
@@ -838,12 +825,6 @@ namespace TheSite.Controllers
             DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
 
             db.Commit();
-
-            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
-
-            Log(DeclareKeys.ZisFaz_PeixJiangz_JiaosPeixKec, doSomthing);
          }
          catch (Exception ex)
          {
@@ -995,14 +976,6 @@ namespace TheSite.Controllers
             DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
 
             db.Commit();
-
-
-            //记录日志
-            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
-
-            Log(DeclareKeys.ZisFaz_PeixJiangz_ZhuantJiangz, doSomthing);
          }
          catch (Exception ex)
          {
@@ -1157,14 +1130,6 @@ namespace TheSite.Controllers
             DeclareMaterialHelper.AddDeclareMaterial(data, Period, db);
 
             db.Commit();
-
-
-            //记录日志
-            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
-
-            Log(DeclareKeys.ZisFaz_PeixJiangz_DingxxKec, doSomthing);
          }
          catch (Exception ex)
          {
@@ -1316,14 +1281,6 @@ namespace TheSite.Controllers
             DeclareMaterialHelper.AddDeclareMaterial(data, Period, db);
 
             db.Commit();
-
-
-            //记录日志
-            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
-
-            Log(DeclareKeys.ZisFaz_PeixJiangz_KecZiyKaif, doSomthing);
          }
          catch (Exception ex)
          {
@@ -1482,14 +1439,6 @@ namespace TheSite.Controllers
             DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
 
             db.Commit();
-
-
-            //记录日志
-            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
-
-            Log(DeclareKeys.ZisFaz_XuesHuod, doSomthing);
          }
          catch (Exception ex)
          {
@@ -1644,14 +1593,6 @@ namespace TheSite.Controllers
             DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
 
             db.Commit();
-
-
-            //记录日志
-            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
-
-            Log(DeclareKeys.ZisFaz_KeyChengg_KetYanj, doSomthing);
          }
          catch (Exception ex)
          {
@@ -1803,14 +1744,6 @@ namespace TheSite.Controllers
             DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
 
             db.Commit();
-
-
-            //记录日志
-            //var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            //if (!string.IsNullOrEmpty(atta.Name))
-            //   doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
-
-            //Log(DeclareKeys.ZisFaz_KeyChengg_FabLunw, doSomthing);
          }
          catch (Exception ex)
          {
@@ -1960,14 +1893,6 @@ namespace TheSite.Controllers
             DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
 
             db.Commit();
-
-
-            //记录日志
-            //var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            //if (!string.IsNullOrEmpty(atta.Name))
-            //   doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
-
-            //Log(DeclareKeys.ZisFaz_KeyChengg_LunzQingk, doSomthing);
          }
          catch (Exception ex)
          {
@@ -2117,14 +2042,6 @@ namespace TheSite.Controllers
             DeclareMaterialHelper.AddDeclareMaterial(data, Period, db);
 
             db.Commit();
-
-
-            //记录日志
-            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
-
-            Log(DeclareKeys.ZisFaz_ShiqjHuod, doSomthing);
          }
          catch (Exception ex)
          {
@@ -2272,13 +2189,6 @@ namespace TheSite.Controllers
             DeclareMaterialHelper.AddDeclareMaterial(data, Period, db);
 
             db.Commit();
-
-            //记录日志
-            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
-
-            Log(DeclareKeys.ZhidJians_YingxlDeGongz, doSomthing);
          }
          catch (Exception ex)
          {
@@ -2435,13 +2345,6 @@ namespace TheSite.Controllers
             DeclareMaterialHelper.AddDeclareMaterial(data, Period, db);
 
             db.Commit();
-
-            //记录日志
-            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
-
-            Log(DeclareKeys.ZhidJians_TesHuodKaiz, doSomthing);
          }
          catch (Exception ex)
          {
@@ -2535,10 +2438,6 @@ namespace TheSite.Controllers
          {
             db.Rollback();
          }
-
-
-         //记录日志
-         Log(DeclareKeys.ZhidJians_DangaJians, id == null ? "新增" : "修改");
 
          return Json(new
          {
@@ -3894,13 +3793,6 @@ namespace TheSite.Controllers
             DeclareMaterialHelper.AddDeclareMaterial(data, Period, db);
 
             db.Commit();
-
-            //记录日志
-            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
-
-            Log(DeclareKeys.PeihJiaoyyGongz_XuekJiaoy, doSomthing);
          }
          catch (Exception ex)
          {
@@ -4027,14 +3919,6 @@ namespace TheSite.Controllers
             DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
 
             db.Commit();
-
-
-            //记录日志
-            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
-
-            Log(DeclareKeys.PeihJiaoyyGongz_XuekMingt, doSomthing);
          }
          catch (Exception ex)
          {
@@ -4151,15 +4035,8 @@ namespace TheSite.Controllers
             }
 
             AttachmentsExtensions.InsertAtta(db, atta);
+
             db.Commit();
-
-
-            //记录日志
-            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
-
-            Log(DeclareKeys.PeihJiaoyyGongz_JicXuexTiaoy, doSomthing);
          }
          catch (Exception ex)
          {
@@ -4315,12 +4192,6 @@ namespace TheSite.Controllers
             DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
 
             db.Commit();
-
-            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
-
-            Log(DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk, doSomthing);
          }
          catch (Exception ex)
          {
@@ -4469,12 +4340,6 @@ namespace TheSite.Controllers
             DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
 
             db.Commit();
-
-            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
-
-            Log(DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk, doSomthing);
          }
          catch (Exception ex)
          {
@@ -4618,12 +4483,6 @@ namespace TheSite.Controllers
             DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
 
             db.Commit();
-
-            //var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            //if (!string.IsNullOrEmpty(atta.Name))
-            //   doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
-
-            //Log(DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk, doSomthing);
          }
          catch (Exception ex)
          {
@@ -5185,6 +5044,7 @@ namespace TheSite.Controllers
       }
 
       #endregion
+
 
       #region [ 查看附件 ]
 

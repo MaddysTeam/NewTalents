@@ -71,7 +71,7 @@
 }
 @section Scripts {
 	<script>
-
+		var isAdmin = '@Html.GetUserProfile().IsSystemAdmin';
 		function getGlobalRequest() {
 			return {
 
@@ -93,10 +93,17 @@
 						var downloadUrl = '/DeclareMaterial/Preview?teacherId=' + row.teacherId + '&typeKey=' + typeKey + '&view=MaterialPreview'+targetId+'&declareTargetId=' + targetId + '&isExport=true';
 						var temp = '<a target="_blank" href="' + previewUrl + '" class="btn btn-warning btn-overview"><i class="fa fa-external-link"></i>查看申报材料</a>' +
 							        '<a target="_blank" href="' + downloadUrl + '" class="btn btn-info btn-downlaod"><i class="fa fa-external-link"></i>下载申报</a>';
-						return '<div class="btn-group btn-group-xs pull-right"  data-row-id="' + row.id + '">' +
-								 temp +
-								 '<a class="btn btn-danger btn-review" data-toggle="ajax-modal" data-target="#firstModal" title="申报审核">审核</a>' +
-								 '</div>';
+						if (isAdmin) {
+							return '<div class="btn-group btn-group-xs pull-right"  data-row-id="' + row.id + '">' +
+									 temp +
+									 '</div>';
+						}
+						else {
+							return '<div class="btn-group btn-group-xs pull-right"  data-row-id="' + row.id + '">' +
+									 temp +
+									 '<a class="btn btn-danger btn-review" data-toggle="ajax-modal" data-target="#firstModal" title="申报审核">审核</a>' +
+									 '</div>';
+						}
 					},
 				},
 
