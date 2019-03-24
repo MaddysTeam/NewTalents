@@ -3846,10 +3846,18 @@ namespace TheSite.Controllers
                   DeclareTargetId = declareTargetId ?? 0
                };
 
-               var atta = AttachmentsExtensions.GetAttachment(
-                  AttachmentsExtensions.GetAttachmentList(db, id.Value, AttachmentsKeys.PeihJiaoyyGongz_XuekMingt));
-               model.AttachmentName = atta.Name;
-               model.AttachmentUrl = atta.Url;
+               var allAts = AttachmentsExtensions.GetAttachmentList(db, id.Value);
+               if (allAts.Count > 0)
+               {
+                  var ats = allAts.FindAll(a => a.Type == AttachmentsKeys.PeihJiaoyyGongz_XuekMingt);
+                  var vts = allAts.FindAll(a => a.Type == AttachmentsKeys.PeihJiaoyyGongz_XuekMingt + AttachmentsKeys.Vertify);
+                  var at = AttachmentsExtensions.GetAttachment(ats);
+                  var vt = AttachmentsExtensions.GetAttachment(vts);
+                  model.AttachmentName = at.Name;
+                  model.AttachmentUrl = at.Url;
+                  model.VertificationName = vt.Name;
+                  model.VertificationUrl = vt.Name;
+               }
             }
          }
 
@@ -3862,12 +3870,20 @@ namespace TheSite.Controllers
       {
          ThrowNotAjax();
 
-
+         var attachmentTypeKey = AttachmentsKeys.PeihJiaoyyGongz_XuekMingt;
+         var vertifyTypeKey = AttachmentsKeys.PeihJiaoyyGongz_XuekMingt + AttachmentsKeys.Vertify;
          var atta = new AttachmentsDataModel()
          {
-            Type = AttachmentsKeys.PeihJiaoyyGongz_XuekMingt,
+            Type = attachmentTypeKey,
             Name = model.AttachmentName,
             Url = model.AttachmentUrl,
+            UserId = UserProfile.UserId
+         }; 
+         var vertAtta = new AttachmentsDataModel
+         {
+            Type = vertifyTypeKey,
+            Name = model.VertificationName,
+            Url = model.VertificationUrl,
             UserId = UserProfile.UserId
          };
 
@@ -3893,6 +3909,7 @@ namespace TheSite.Controllers
 
                db.DeclareActiveDal.Insert(data);
                atta.JoinId = data.DeclareActiveId;
+               vertAtta.JoinId = data.DeclareActiveId;
             }
             else
             {
@@ -3908,13 +3925,14 @@ namespace TheSite.Controllers
                   .where(t.DeclareActiveId == id.Value)
                   .execute(db);
 
-               AttachmentsExtensions.DeleteAtta(db, id.Value, AttachmentsKeys.PeihJiaoyyGongz_XuekMingt);
+               AttachmentsExtensions.DeleteAttas(db, id.Value, new string[] { attachmentTypeKey,vertifyTypeKey });
                atta.JoinId = id.Value;
+               vertAtta.JoinId = id.Value;
 
-               data = db.DeclareActiveDal.PrimaryGet(id.Value);
+              data = db.DeclareActiveDal.PrimaryGet(id.Value);
             }
 
-            AttachmentsExtensions.InsertAtta(db, atta);
+            AttachmentsExtensions.InsertAttas(db, new AttachmentsDataModel[] { atta, vertAtta });
 
             DeclareMaterialHelper.AddDeclareMaterial(data, Period, db, model.DeclareTargetId);
 

@@ -413,7 +413,7 @@ namespace TheSite.Controllers
 
       public ActionResult DeclareAchievementList(string itemKey, long declareTargetId)
       {
-         var results = db.DeclareAchievementDal.ConditionQuery(dac.TeacherId == UserProfile.UserId & dac.IsDeclare == false & dac.AchievementKey == itemKey, null, null, null);
+         var results = db.DeclareAchievementDal.ConditionQuery(dac.TeacherId == UserProfile.UserId & dac.AchievementKey == itemKey, null, null, null);
 
          return PartialView("_declare_achievement_list", results);
       }
@@ -468,7 +468,8 @@ namespace TheSite.Controllers
          {
             var htmlText = pdfRender.RenderViewToString(this, param.View, model);
             byte[] pdfFile = FormatConverter.ConvertHtmlTextToPDF(htmlText);
-            return new BinaryContentResult($"temp.pdf", "application/pdf", pdfFile);
+                string fileName = $"{model.RealName}的{model.Decalre}申报表单";
+            return new BinaryContentResult($"{fileName}.pdf", "application/pdf", pdfFile);
          }
 
          return PartialView(param.View, model);
@@ -522,6 +523,7 @@ namespace TheSite.Controllers
 
       private DeclarePreviewViewModel GetPreviewViewModel(DeclarePreviewParam param)
       {
+         var poge = ".职称破格";
          var isSchoolAdmin = UserProfile.IsSchoolAdmin;
          var userid = isSchoolAdmin ? param.TeacherId : UserProfile.UserId;
          var model = new DeclarePreviewViewModel();
@@ -531,13 +533,12 @@ namespace TheSite.Controllers
             df.TeacherId == userid &
             df.PeriodId == Period.PeriodId &
             df.DeclareTargetPKID == param.DeclareTargetId &
-            df.TypeKey == param.TypeKey, null, null, null).FirstOrDefault();
+            df.TypeKey == param.TypeKey.Replace(poge, ".申报"), null, null, null).FirstOrDefault();
          review = review ?? new DeclareReview();
 
          var declareCompany = db.CompanyDal.PrimaryGet(review.CompanyId);
          var declareActives = GetDeclareActives(param.DeclareTargetId, userid);
-         var declareAchievement = GetDeclareAchievements(param.DeclareTargetId, userid);
-         var poge = ".职称破格";
+         var declareAchievement = GetDeclareAchievements(param.DeclareTargetId, userid);        
 
          model.DeclareTargetId = param.DeclareTargetId;
          model.TypeKey = param.TypeKey;
