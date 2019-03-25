@@ -286,7 +286,7 @@ function ajaxBindFileUpload() {
 function ajaxSimpleFileUpload(dropzoneId, btnUploadId, whenSuccess, whenError) {
 	// dropzone
 	Dropzone.autoDiscover = false;
-	var dropzoneId = '#' + dropzoneId;
+    dropzoneId = '#' + dropzoneId;
 	$(dropzoneId).dropzone({
 		addedContainer: '#flyArea',
 		dictResponseError: '上传出错',

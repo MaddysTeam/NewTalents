@@ -53,15 +53,15 @@
 				<div class="form-group">
 					@Html.LabelFor(m => m.AllowFlowToSchool, new { @class = "col-md-2 control-label" })
 					<div class="col-md-9">
-						&nbsp;&nbsp;是 @Html.RadioButton("AllowFlowToSchool", Model.AllowFlowToSchool, Model.AllowFlowToSchool, new { @style = "width:15px; height:15px;" })
-						&nbsp;&nbsp;否 @Html.RadioButton("AllowFlowToSchool", !Model.AllowFlowToSchool, !Model.AllowFlowToSchool, new { @style = "width:15px; height:15px;" })
+						&nbsp;&nbsp;是 @Html.RadioButton("AllowFlowToSchool", true, Model.AllowFlowToSchool, new { @style = "width:15px; height:15px;" })
+						&nbsp;&nbsp;否 @Html.RadioButton("AllowFlowToSchool", false, !Model.AllowFlowToSchool, new { @style = "width:15px; height:15px;" })
 					</div>
 				</div>
 				<div class="form-group">
 					@Html.LabelFor(m => m.AllowFlowToDowngrade, new { @class = "col-md-2 control-label" })
 					<div class="col-md-9">
-						&nbsp;&nbsp;是 @Html.RadioButton("AllowFlowToDowngrade", Model.AllowFlowToDowngrade, Model.AllowFlowToDowngrade, new { @style = "width:15px; height:15px;" })
-						&nbsp;&nbsp;否 @Html.RadioButton("AllowFlowToDowngrade", !Model.AllowFlowToDowngrade, !Model.AllowFlowToDowngrade, new { @style = "width:15px; height:15px;" })
+						&nbsp;&nbsp;是 @Html.RadioButton("AllowFlowToDowngrade", true, Model.AllowFlowToDowngrade, new { @style = "width:15px; height:15px;" })
+						&nbsp;&nbsp;否 @Html.RadioButton("AllowFlowToDowngrade", false, !Model.AllowFlowToDowngrade, new { @style = "width:15px; height:15px;" })
 						@*@Html.CheckBoxFor(m => m.AllowFlowToDowngrade, new { @style = "width:20px; height:20px;" })*@
 					</div>
 				</div>
@@ -100,6 +100,7 @@
 
 		ajaxSubmitForm($('#FormIndex'));
 
+		bindMulitSelection($('#FormIndex').find('select'));
 	});
 
 	//insureSummernot($('#sum'));

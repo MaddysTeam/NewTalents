@@ -45,6 +45,9 @@
 	</div>
 	<!-- /main -->
 </div>
+@section Css{
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+}
 @section Modals {
 	<!-- Modal start -->
 	<div class="modal" id="firstModal" tabindex="-1" role="dialog" aria-labelledby="firstModalLabel" aria-hidden="true">
@@ -52,6 +55,7 @@
 	<!-- Modal end -->
 }
 @section Plugins{
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
 @Scripts.Render("~/js/jstree")
 }
 @section Scripts {
@@ -127,7 +131,7 @@
 
 		function loadReview(declareTargetId, view, typeKey) {
 			$.get('@Url.Action("ReviewEdit", "DeclareMaterial")', { DeclareTargetId: declareTargetId, View: view, TypeKey: typeKey }, function (html) {
-				$('#tab0').html('').append(html);
+				$('#tab0').html(html);
 				bindDeclareSubmit();
 			});
 		}
@@ -192,6 +196,16 @@
 				$('.items').append(html);
 				$('a[href="' + tempTabId + '"]').tab('show');
 				$('a[href="' + currentTabId + '"]').tab('show'); // TODO: refresh tab
+			});
+		}
+
+		function bindMulitSelection(dropdown) {
+			$(dropdown).select2({
+				language: {
+					noResults: function (param) {
+						return "暂无数据";
+					}
+				}
 			});
 		}
 	</script>

@@ -61,11 +61,14 @@ namespace Business.Helper
       {
          if (active != null && period != null)
          {
-            db.DeclareMaterialDal.ConditionDelete(dm.ItemId == active.DeclareActiveId & dm.PeriodId == period.PeriodId);
+            var existItems = db.DeclareMaterialDal.ConditionQuery(dm.PeriodId == period.PeriodId
+                  & dm.TeacherId == active.Creator
+                  & dm.Type == active.ActiveKey
+                  & dm.DeclareTargetPKID == declareTargetId, null, null, null);
+            if (existItems.Count >= 2 && active.IsDeclare) return;
             if (active.IsDeclare)
             {
-               //if (db.DeclareMaterialDal.ConditionQueryCount(dm.PeriodId == period.PeriodId & dm.TeacherId == active.Creator & dm.Type == active.ActiveKey) <= 2)
-               //{
+               if (!existItems.Exists(x => x.ItemId == active.DeclareActiveId))
                   db.DeclareMaterialDal.Insert(new DeclareMaterial
                   {
                      ItemId = active.DeclareActiveId,
@@ -78,7 +81,10 @@ namespace Business.Helper
                      PeriodId = period.PeriodId,
                      DeclareTargetPKID = declareTargetId
                   });
-               //}
+            }
+            else
+            {
+               db.DeclareMaterialDal.ConditionDelete(dm.ItemId == active.DeclareActiveId & dm.PeriodId == period.PeriodId);
             }
          }
       }
@@ -88,20 +94,33 @@ namespace Business.Helper
       {
          if (achievement != null && period != null)
          {
-            db.DeclareMaterialDal.ConditionDelete(dm.ItemId == achievement.DeclareAchievementId & dm.PeriodId == period.PeriodId);
+            var existItems = db.DeclareMaterialDal.ConditionQuery(dm.PeriodId == period.PeriodId
+                  & dm.TeacherId == achievement.Creator
+                  & dm.Type == achievement.AchievementKey
+                  & dm.DeclareTargetPKID == declareTargetId, null, null, null);
+            if (existItems.Count >= 2 && achievement.IsDeclare) return;
             if (achievement.IsDeclare)
-               db.DeclareMaterialDal.Insert(new DeclareMaterial
+            {
+               if (!existItems.Exists(x => x.ItemId == achievement.DeclareAchievementId))
                {
-                  ItemId = achievement.DeclareAchievementId,
-                  ParentType = "DeclareAchievement",
-                  CreateDate = DateTime.Now,
-                  PubishDate = DateTime.Now,
-                  Title = achievement.NameOrTitle,
-                  Type = achievement.AchievementKey,
-                  TeacherId = achievement.TeacherId,
-                  PeriodId = period.PeriodId,
-                  DeclareTargetPKID = declareTargetId
-               });
+                  db.DeclareMaterialDal.Insert(new DeclareMaterial
+                  {
+                     ItemId = achievement.DeclareAchievementId,
+                     ParentType = "DeclareAchievement",
+                     CreateDate = DateTime.Now,
+                     PubishDate = DateTime.Now,
+                     Title = achievement.NameOrTitle,
+                     Type = achievement.AchievementKey,
+                     TeacherId = achievement.TeacherId,
+                     PeriodId = period.PeriodId,
+                     DeclareTargetPKID = declareTargetId
+                  });
+               }
+            }
+            else
+            {
+               db.DeclareMaterialDal.ConditionDelete(dm.ItemId == achievement.DeclareAchievementId & dm.PeriodId == period.PeriodId);
+            }
          }
       }
 
