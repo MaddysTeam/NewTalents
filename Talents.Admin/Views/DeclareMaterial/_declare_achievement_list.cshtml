@@ -231,20 +231,7 @@
 <script>
 	$(function () {
 
-		$('.btn-declare,.btn-cancelDeclare').off('click').on('click', function (e) {
-			e.preventDefault();
+		bindDeclareOrCancel();
 
-			var $this = $(this);
-			var url = $this.data('url');
-
-			$.post(url, null, function (data, status) {
-				popupMessage(data, {
-					success: function () {
-						loadFrag($this, data);
-					}
-				});
-			})
-		});
-
-	})
+	});
 </script>

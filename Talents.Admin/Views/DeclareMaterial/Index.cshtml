@@ -132,6 +132,7 @@
 		function loadReview(declareTargetId, view, typeKey) {
 			$.get('@Url.Action("ReviewEdit", "DeclareMaterial")', { DeclareTargetId: declareTargetId, View: view, TypeKey: typeKey }, function (html) {
 				$('#tab0').html(html);
+				$('#tab1').removeClass('active') //TODO 有一个bug
 				bindDeclareSubmit();
 			});
 		}

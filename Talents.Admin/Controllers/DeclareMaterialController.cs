@@ -414,7 +414,7 @@ namespace TheSite.Controllers
          //});
 
          //TODO: 高地理事长和基地支持人的自荐表特殊处理
-         if (model.DeclareTargetPKID > 0 && Period != null)
+         if (model.DeclareTargetPKID== DeclareTargetIds.GaodLisz || model.DeclareTargetPKID == DeclareTargetIds.JidZhucr)
          {
             var decalreTargetId = model.DeclareTargetPKID;
             var typeKey = decalreTargetId == DeclareTargetIds.GaodLisz ? DeclareKeys.GaodLisz_ZijBiao : DeclareKeys.JidZhucr_ZijBiao;
@@ -428,7 +428,7 @@ namespace TheSite.Controllers
             };
             review.StatusKey = model.StatusKey;
 
-            ReviewEdit(review);
+            return ReviewEdit(review);
          }
 
          return Json(new

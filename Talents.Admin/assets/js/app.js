@@ -227,8 +227,12 @@ function ajaxSubmitForm(selector) {
 	selector.submit(function (e) {
 		e.preventDefault();
 		var $this = $(this);
-		$this.find('button').attr('disabled','disabled');
-		$this.valid() && $.post($this.attr('action'), $this.serialize(), function (data, status) {
+		$this.find('button').attr('disabled', 'disabled');
+		if (!$this.valid()) {
+			$this.find('button').removeAttr('disabled');
+			return false;
+		}
+	   $.post($this.attr('action'), $this.serialize(), function (data, status) {
 			$this.find('button').removeAttr('disabled');
 			popupMessage(data, {
 				success: function () {
