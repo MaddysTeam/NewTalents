@@ -227,11 +227,13 @@ function ajaxSubmitForm(selector) {
 	selector.submit(function (e) {
 		e.preventDefault();
 		var $this = $(this);
+		$this.find('button').attr('disabled','disabled');
 		$this.valid() && $.post($this.attr('action'), $this.serialize(), function (data, status) {
+			$this.find('button').removeAttr('disabled');
 			popupMessage(data, {
 				success: function () {
 					var afterSuccess = $this.data('afterSuccess');
-					if (afterSuccess) {
+					if (afterSuccess) {	
 						eval(afterSuccess);
 					}
 				}

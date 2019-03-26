@@ -297,6 +297,11 @@ textarea.form-control {
 .table th.commands-100 {
 	width: 100px;
 }*/
+.table{
+	word-break:break-all; 
+	word-wrap:break-all;
+}
+
 .table th.width40per {
 	width: 40%;
 }

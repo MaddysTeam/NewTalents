@@ -21,6 +21,7 @@ namespace TheSite.Controllers
       private static APDBDef.DeclarePeriodTableDef p = APDBDef.DeclarePeriod;
       private static APDBDef.DeclareReviewTableDef df = APDBDef.DeclareReview;
       private static APDBDef.BzUserProfileTableDef u = APDBDef.BzUserProfile;
+      private static APDBDef.DeclareProfileTableDef dp = APDBDef.DeclareProfile;
       private static APDBDef.CompanyTableDef c = APDBDef.Company;
 
       public ActionResult Index()
@@ -249,7 +250,7 @@ namespace TheSite.Controllers
       [DecalrePeriod]
       public ActionResult ReviewEdit(DeclareReview model)
       {
-         var existReviews = db.DeclareReviewDal.ConditionQuery(df.TeacherId == UserProfile.UserId & df.PeriodId == Period.PeriodId, null, null, null);
+         var existReviews = db.DeclareReviewDal.ConditionQuery(df.TeacherId == UserProfile.UserId & df.PeriodId == Period.PeriodId & df.DeclareTargetPKID==model.DeclareTargetPKID, null, null, null);
          if (existReviews.Exists(x => !string.IsNullOrEmpty(x.StatusKey)))
          {
             return Json(new
@@ -330,13 +331,14 @@ namespace TheSite.Controllers
 
       public ActionResult BasicProfileEdit(DeclareParam param)
       {
-         var profile = db.BzUserProfileDal.PrimaryGet(UserProfile.UserId);
+         var profile = db.DeclareProfileDal.ConditionQuery
+            (dp.UserId == UserProfile.UserId & dp.PeriodId == Period.PeriodId & dp.DeclareTargetPKID == param.DeclareTargetId,
+            null, null, null).FirstOrDefault();
 
-         //TODO: 高地理事长和基地支持人的自荐表特殊处理
-         if (param.DeclareTargetId == DeclareTargetIds.GaodLisz || param.DeclareTargetId == DeclareTargetIds.JidZhucr)
+         profile = profile ?? MappingProfile();
+         if (profile.DeclareTargetPKID == 0)
          {
-            profile = profile ?? new BzUserProfile();
-            profile.TargetId = param.DeclareTargetId;
+            profile.DeclareTargetPKID = param.DeclareTargetId;
          }
 
          return PartialView(param.View, profile);
@@ -344,39 +346,77 @@ namespace TheSite.Controllers
 
       [HttpPost]
       [DecalrePeriod]
-      public ActionResult BasicProfileEdit(BzUserProfile model)
+      public ActionResult BasicProfileEdit(DeclareProfile model)
       {
-         db.BzUserProfileDal.UpdatePartial(UserProfile.UserId, new
+         if (model.DeclareProfileId == 0)
          {
-            model.RealName,
-            model.GenderPKID,
-            model.Birthday,
-            model.CompanyId,
-            model.TrainNo,
-            model.PoliticalStatusPKID,
-            model.CourseCountPerWeek,
-            model.NationalityPKID,
-            model.SkillTitlePKID,
-            model.RankTitlePKID,
-            model.Hiredate,
-            model.Phonemobile,
-            model.Phone,
-            model.Email,
-            model.EduBgPKID,
-            model.EduDegreePKID,
-            model.EduStagePKID,
-            model.EduSubjectPKID,
-            model.Dynamic1,
-            model.Dynamic2,
-            model.Dynamic3,
-            model.Dynamic4,
-            model.Dynamic5
-         });
+            model.PeriodId = Period.PeriodId;
+            model.UserId = UserProfile.UserId;
+            model.RealName = UserProfile.RealName;
+
+            db.DeclareProfileDal.Insert(model);
+         }
+         else
+         {
+            db.DeclareProfileDal.UpdatePartial(model.DeclareProfileId,UserProfile.UserId, new
+            {
+               model.GenderPKID,
+               model.Birthday,
+               model.CompanyId,
+               model.TrainNo,
+               model.PoliticalStatusPKID,
+               model.CourseCountPerWeek,
+               model.NationalityPKID,
+               model.SkillTitlePKID,
+               model.RankTitlePKID,
+               model.Hiredate,
+               model.Phonemobile,
+               model.Phone,
+               model.Email,
+               model.EduBgPKID,
+               model.EduDegreePKID,
+               model.EduStagePKID,
+               model.EduSubjectPKID,
+               model.Dynamic1,
+               model.Dynamic2,
+               model.Dynamic3,
+               model.Dynamic4,
+               model.Dynamic5,
+               model.StatusKey
+            });
+         }
+
+         //db.BzUserProfileDal.UpdatePartial(UserProfile.UserId, new
+         //{
+         //   //model.RealName,
+         //   model.GenderPKID,
+         //   model.Birthday,
+         //   model.CompanyId,
+         //   model.TrainNo,
+         //   model.PoliticalStatusPKID,
+         //   model.CourseCountPerWeek,
+         //   model.NationalityPKID,
+         //   model.SkillTitlePKID,
+         //   model.RankTitlePKID,
+         //   model.Hiredate,
+         //   model.Phonemobile,
+         //   model.Phone,
+         //   model.Email,
+         //   model.EduBgPKID,
+         //   model.EduDegreePKID,
+         //   model.EduStagePKID,
+         //   model.EduSubjectPKID,
+         //   model.Dynamic1,
+         //   model.Dynamic2,
+         //   model.Dynamic3,
+         //   model.Dynamic4,
+         //   model.Dynamic5
+         //});
 
          //TODO: 高地理事长和基地支持人的自荐表特殊处理
-         if (model.TargetId > 0 && Period != null)
+         if (model.DeclareTargetPKID > 0 && Period != null)
          {
-            var decalreTargetId = model.TargetId;
+            var decalreTargetId = model.DeclareTargetPKID;
             var typeKey = decalreTargetId == DeclareTargetIds.GaodLisz ? DeclareKeys.GaodLisz_ZijBiao : DeclareKeys.JidZhucr_ZijBiao;
             var review = db.DeclareReviewDal.ConditionQuery(df.DeclareTargetPKID == decalreTargetId & df.TeacherId == UserProfile.UserId & df.PeriodId == Period.PeriodId, null, null, null).FirstOrDefault();
             review = review ?? new DeclareReview
@@ -403,7 +443,7 @@ namespace TheSite.Controllers
 
       public ActionResult DeclareActiveList(string itemKey, long declareTargetId)
       {
-         var results = db.DeclareActiveDal.ConditionQuery(da.TeacherId == UserProfile.UserId  & da.ActiveKey == itemKey, null, null, null);
+         var results = db.DeclareActiveDal.ConditionQuery(da.TeacherId == UserProfile.UserId & da.ActiveKey == itemKey, null, null, null);
 
          return PartialView("_declare_active_list", results);
       }
@@ -468,7 +508,7 @@ namespace TheSite.Controllers
          {
             var htmlText = pdfRender.RenderViewToString(this, param.View, model);
             byte[] pdfFile = FormatConverter.ConvertHtmlTextToPDF(htmlText);
-                string fileName = $"{model.RealName}的{model.Decalre}申报表单";
+            string fileName = $"{model.RealName}的{model.Decalre}申报表单";
             return new BinaryContentResult($"{fileName}.pdf", "application/pdf", pdfFile);
          }
 
@@ -520,6 +560,31 @@ namespace TheSite.Controllers
                return achievement;
             }).ToList();
 
+      private DeclareProfile MappingProfile()
+      {
+         var profile = UserProfile;
+         return new DeclareProfile
+         {
+            RealName = profile.RealName,
+            Birthday = profile.Birthday,
+            CompanyId = profile.CompanyId,
+            CompanyName = profile.CompanyName,
+            CourseCountPerWeek = profile.CourseCountPerWeek,
+            EduBgPKID = profile.EduBgPKID,
+            EduDegreePKID = profile.EduDegreePKID,
+            EduStagePKID = profile.EduStagePKID,
+            EduSubjectPKID = profile.EduSubjectPKID,
+            Email = profile.Email,
+            GenderPKID = profile.GenderPKID,
+            NationalityPKID = profile.NationalityPKID,
+            TrainNo = profile.TrainNo,
+            PoliticalStatusPKID = profile.PoliticalStatusPKID,
+            SkillTitlePKID = profile.SkillTitlePKID,
+            RankTitlePKID = profile.RankTitlePKID,
+            Phonemobile = profile.Phonemobile,
+            Phone = profile.Phone,
+         };
+      }
 
       private DeclarePreviewViewModel GetPreviewViewModel(DeclarePreviewParam param)
       {
@@ -527,7 +592,12 @@ namespace TheSite.Controllers
          var isSchoolAdmin = UserProfile.IsSchoolAdmin;
          var userid = isSchoolAdmin ? param.TeacherId : UserProfile.UserId;
          var model = new DeclarePreviewViewModel();
-         var profile = db.BzUserProfileDal.PrimaryGet(userid);//不从缓存里获取，从数据库获取
+         // var profile = db.BzUserProfileDal.PrimaryGet(userid);//不从缓存里获取，从数据库获取
+         var profile = db.DeclareProfileDal.ConditionQuery
+           (dp.UserId == userid & dp.PeriodId == Period.PeriodId & dp.DeclareTargetPKID == param.DeclareTargetId,
+           null, null, null).FirstOrDefault();
+         profile = profile ?? MappingProfile();
+
          var myCompnay = db.CompanyDal.PrimaryGet(profile.CompanyId);
          var review = db.DeclareReviewDal.ConditionQuery(
             df.TeacherId == userid &
@@ -538,7 +608,7 @@ namespace TheSite.Controllers
 
          var declareCompany = db.CompanyDal.PrimaryGet(review.CompanyId);
          var declareActives = GetDeclareActives(param.DeclareTargetId, userid);
-         var declareAchievement = GetDeclareAchievements(param.DeclareTargetId, userid);        
+         var declareAchievement = GetDeclareAchievements(param.DeclareTargetId, userid);
 
          model.DeclareTargetId = param.DeclareTargetId;
          model.TypeKey = param.TypeKey;

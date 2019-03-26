@@ -234,6 +234,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Business\Business.apgen.cs" />
     <Compile Include="Business\DataDef\BzPermissionCache.cs" />
+    <Compile Include="Business\DataDef\DeclareProfile.cs" />
     <Compile Include="Business\DataDef\TeamActiveResult.cs" />
     <Compile Include="Business\DataDef\EvalQualitySubmitResult.cs" />
     <Compile Include="Business\DataDef\EvalQualityResult.cs" />

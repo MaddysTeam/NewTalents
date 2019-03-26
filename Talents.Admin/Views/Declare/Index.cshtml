@@ -1,6 +1,7 @@
 ﻿@{ 
 	var pageTitle = ViewBag.Title = "材料填写";
-	var menuDataUrl = (bool)ViewBag.IsInDeclarePeriod ? "/Json/GetAllDeclare" : "/Json/GetDeclare";
+	var period = Html.GetDeclarePeriod();
+	var menuDataUrl = period.IsInDeclarePeriod && period.IsInReviewPeriod ? "/Json/GetDecalreMaterial" : "/Json/GetDeclare";
 }
 <div class="col-md-10 content-wrapper">
 	<div class="row">

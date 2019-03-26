@@ -73,6 +73,8 @@ namespace Business {
         
         private static DeclareMaterialTableDef _declareMaterial;
         
+        private static DeclareProfileTableDef _declareProfile;
+        
         private static DeclarePeriodTableDef _declarePeriod;
         
         private static TeamMemberTableDef _teamMember;
@@ -176,6 +178,8 @@ namespace Business {
         private APDalDef.DeclareReviewDal _declareReviewDal;
         
         private APDalDef.DeclareMaterialDal _declareMaterialDal;
+        
+        private APDalDef.DeclareProfileDal _declareProfileDal;
         
         private APDalDef.DeclarePeriodDal _declarePeriodDal;
         
@@ -534,6 +538,18 @@ namespace Business {
                     _declareMaterial = new DeclareMaterialTableDef("DeclareMaterial");
                 }
                 return _declareMaterial;
+            }
+        }
+        
+        /// <summary>
+        /// 申报材料，基本信息 TableDef
+        /// </summary>
+        public static DeclareProfileTableDef DeclareProfile {
+            get {
+                if ((_declareProfile == null)) {
+                    _declareProfile = new DeclareProfileTableDef("DeclareProfile");
+                }
+                return _declareProfile;
             }
         }
         
@@ -1150,6 +1166,18 @@ namespace Business {
         }
         
         /// <summary>
+        /// 申报材料，基本信息 Dal
+        /// </summary>
+        public virtual APDalDef.DeclareProfileDal DeclareProfileDal {
+            get {
+                if ((_declareProfileDal == null)) {
+                    _declareProfileDal = new APDalDef.DeclareProfileDal(this);
+                }
+                return _declareProfileDal;
+            }
+        }
+        
+        /// <summary>
         /// 申报周期 Dal
         /// </summary>
         public virtual APDalDef.DeclarePeriodDal DeclarePeriodDal {
@@ -1501,6 +1529,7 @@ namespace Business {
                 db.DeclareOrgConstDal.InitData(db);
                 db.DeclareReviewDal.InitData(db);
                 db.DeclareMaterialDal.InitData(db);
+                db.DeclareProfileDal.InitData(db);
                 db.DeclarePeriodDal.InitData(db);
                 db.TeamMemberDal.InitData(db);
                 db.TeamContentDal.InitData(db);
@@ -7789,6 +7818,560 @@ namespace Business {
             /// </summary>
             public virtual List<DeclareMaterial> TolerantMapList(IDataReader reader) {
                 List<DeclareMaterial> list = new List<DeclareMaterial>();
+                try {
+                    for (; reader.Read(); ) {
+                        list.Add(TolerantMap(reader));
+                    }
+                }
+                finally {
+                    reader.Close();
+                }
+                return list;
+            }
+        }
+        
+        [Serializable()]
+        public partial class DeclareProfileTableDef : APTableDef {
+            
+            private Int64APColumnDef _declareProfileId;
+            
+            private Int64APColumnDef _userId;
+            
+            private Int64APColumnDef _periodId;
+            
+            private Int64APColumnDef _declareTargetPKID;
+            
+            private Int64APColumnDef _companyId;
+            
+            private StringAPColumnDef _realName;
+            
+            private StringAPColumnDef _trainNo;
+            
+            private Int64APColumnDef _genderPKID;
+            
+            private DateTimeAPColumnDef _birthday;
+            
+            private Int64APColumnDef _politicalStatusPKID;
+            
+            private Int64APColumnDef _nationalityPKID;
+            
+            private Int64APColumnDef _eduSubjectPKID;
+            
+            private Int64APColumnDef _eduStagePKID;
+            
+            private Int64APColumnDef _skillTitlePKID;
+            
+            private StringAPColumnDef _companyName;
+            
+            private Int64APColumnDef _rankTitlePKID;
+            
+            private StringAPColumnDef _courseCountPerWeek;
+            
+            private DateTimeAPColumnDef _hiredate;
+            
+            private Int64APColumnDef _eduBgPKID;
+            
+            private Int64APColumnDef _eduDegreePKID;
+            
+            private StringAPColumnDef _phonemobile;
+            
+            private StringAPColumnDef _email;
+            
+            private StringAPColumnDef _phone;
+            
+            private StringAPColumnDef _dynamic1;
+            
+            private StringAPColumnDef _dynamic2;
+            
+            private StringAPColumnDef _dynamic3;
+            
+            private StringAPColumnDef _dynamic4;
+            
+            private StringAPColumnDef _dynamic5;
+            
+            private StringAPColumnDef _statusKey;
+            
+            public DeclareProfileTableDef(string tableName) : 
+                    base(tableName) {
+            }
+            
+            protected DeclareProfileTableDef(string tableName, string alias) : 
+                    base(tableName, alias) {
+            }
+            
+            /// <summary>
+            /// DeclareProfileId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef DeclareProfileId {
+                get {
+                    if (Object.ReferenceEquals(_declareProfileId, null)) {
+                        _declareProfileId = new Int64APColumnDef(this, "DeclareProfileId", false);
+                        _declareProfileId.Display = "DeclareProfileId";
+                    }
+                    return _declareProfileId;
+                }
+            }
+            
+            /// <summary>
+            /// UserId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef UserId {
+                get {
+                    if (Object.ReferenceEquals(_userId, null)) {
+                        _userId = new Int64APColumnDef(this, "UserId", false);
+                        _userId.Display = "用户ID";
+                    }
+                    return _userId;
+                }
+            }
+            
+            /// <summary>
+            /// PeriodId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef PeriodId {
+                get {
+                    if (Object.ReferenceEquals(_periodId, null)) {
+                        _periodId = new Int64APColumnDef(this, "PeriodId", false);
+                        _periodId.Display = "申报周期ID";
+                    }
+                    return _periodId;
+                }
+            }
+            
+            /// <summary>
+            /// DeclareTargetPKID ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef DeclareTargetPKID {
+                get {
+                    if (Object.ReferenceEquals(_declareTargetPKID, null)) {
+                        _declareTargetPKID = new Int64APColumnDef(this, "DeclareTargetPKID", false);
+                        _declareTargetPKID.Display = "申报（担任）称号";
+                    }
+                    return _declareTargetPKID;
+                }
+            }
+            
+            /// <summary>
+            /// CompanyId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef CompanyId {
+                get {
+                    if (Object.ReferenceEquals(_companyId, null)) {
+                        _companyId = new Int64APColumnDef(this, "CompanyId", false);
+                        _companyId.Display = "单位ID";
+                    }
+                    return _companyId;
+                }
+            }
+            
+            /// <summary>
+            /// RealName ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef RealName {
+                get {
+                    if (Object.ReferenceEquals(_realName, null)) {
+                        _realName = new StringAPColumnDef(this, "RealName", false, 40);
+                        _realName.Display = "真实姓名";
+                        _realName.Required = true;
+                    }
+                    return _realName;
+                }
+            }
+            
+            /// <summary>
+            /// TrainNo ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef TrainNo {
+                get {
+                    if (Object.ReferenceEquals(_trainNo, null)) {
+                        _trainNo = new StringAPColumnDef(this, "TrainNo", false, 20);
+                        _trainNo.Display = "师训编号";
+                    }
+                    return _trainNo;
+                }
+            }
+            
+            /// <summary>
+            /// GenderPKID ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef GenderPKID {
+                get {
+                    if (Object.ReferenceEquals(_genderPKID, null)) {
+                        _genderPKID = new Int64APColumnDef(this, "GenderPKID", false);
+                        _genderPKID.Display = "性别";
+                        _genderPKID.Required = true;
+                    }
+                    return _genderPKID;
+                }
+            }
+            
+            /// <summary>
+            /// Birthday ColumnDef
+            /// </summary>
+            public virtual DateTimeAPColumnDef Birthday {
+                get {
+                    if (Object.ReferenceEquals(_birthday, null)) {
+                        _birthday = new DateTimeAPColumnDef(this, "Birthday", false);
+                        _birthday.Display = "出生年月";
+                        _birthday.Required = true;
+                    }
+                    return _birthday;
+                }
+            }
+            
+            /// <summary>
+            /// PoliticalStatusPKID ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef PoliticalStatusPKID {
+                get {
+                    if (Object.ReferenceEquals(_politicalStatusPKID, null)) {
+                        _politicalStatusPKID = new Int64APColumnDef(this, "PoliticalStatusPKID", false);
+                        _politicalStatusPKID.Display = "政治面貌";
+                        _politicalStatusPKID.Required = true;
+                    }
+                    return _politicalStatusPKID;
+                }
+            }
+            
+            /// <summary>
+            /// NationalityPKID ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef NationalityPKID {
+                get {
+                    if (Object.ReferenceEquals(_nationalityPKID, null)) {
+                        _nationalityPKID = new Int64APColumnDef(this, "NationalityPKID", false);
+                        _nationalityPKID.Display = "民族";
+                        _nationalityPKID.Required = true;
+                    }
+                    return _nationalityPKID;
+                }
+            }
+            
+            /// <summary>
+            /// EduSubjectPKID ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef EduSubjectPKID {
+                get {
+                    if (Object.ReferenceEquals(_eduSubjectPKID, null)) {
+                        _eduSubjectPKID = new Int64APColumnDef(this, "EduSubjectPKID", false);
+                        _eduSubjectPKID.Display = "任教学科";
+                    }
+                    return _eduSubjectPKID;
+                }
+            }
+            
+            /// <summary>
+            /// EduStagePKID ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef EduStagePKID {
+                get {
+                    if (Object.ReferenceEquals(_eduStagePKID, null)) {
+                        _eduStagePKID = new Int64APColumnDef(this, "EduStagePKID", false);
+                        _eduStagePKID.Display = "任教学段";
+                    }
+                    return _eduStagePKID;
+                }
+            }
+            
+            /// <summary>
+            /// SkillTitlePKID ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef SkillTitlePKID {
+                get {
+                    if (Object.ReferenceEquals(_skillTitlePKID, null)) {
+                        _skillTitlePKID = new Int64APColumnDef(this, "SkillTitlePKID", false);
+                        _skillTitlePKID.Display = "现任专技职称";
+                    }
+                    return _skillTitlePKID;
+                }
+            }
+            
+            /// <summary>
+            /// CompanyName ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef CompanyName {
+                get {
+                    if (Object.ReferenceEquals(_companyName, null)) {
+                        _companyName = new StringAPColumnDef(this, "CompanyName", false, 100);
+                        _companyName.Display = "单位";
+                        _companyName.Required = true;
+                    }
+                    return _companyName;
+                }
+            }
+            
+            /// <summary>
+            /// RankTitlePKID ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef RankTitlePKID {
+                get {
+                    if (Object.ReferenceEquals(_rankTitlePKID, null)) {
+                        _rankTitlePKID = new Int64APColumnDef(this, "RankTitlePKID", false);
+                        _rankTitlePKID.Display = "行政职务";
+                    }
+                    return _rankTitlePKID;
+                }
+            }
+            
+            /// <summary>
+            /// CourseCountPerWeek ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef CourseCountPerWeek {
+                get {
+                    if (Object.ReferenceEquals(_courseCountPerWeek, null)) {
+                        _courseCountPerWeek = new StringAPColumnDef(this, "CourseCountPerWeek", true, 20);
+                        _courseCountPerWeek.Display = "周课时数";
+                    }
+                    return _courseCountPerWeek;
+                }
+            }
+            
+            /// <summary>
+            /// Hiredate ColumnDef
+            /// </summary>
+            public virtual DateTimeAPColumnDef Hiredate {
+                get {
+                    if (Object.ReferenceEquals(_hiredate, null)) {
+                        _hiredate = new DateTimeAPColumnDef(this, "Hiredate", true);
+                        _hiredate.Display = "评聘日期";
+                    }
+                    return _hiredate;
+                }
+            }
+            
+            /// <summary>
+            /// EduBgPKID ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef EduBgPKID {
+                get {
+                    if (Object.ReferenceEquals(_eduBgPKID, null)) {
+                        _eduBgPKID = new Int64APColumnDef(this, "EduBgPKID", false);
+                        _eduBgPKID.Display = "学历";
+                    }
+                    return _eduBgPKID;
+                }
+            }
+            
+            /// <summary>
+            /// EduDegreePKID ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef EduDegreePKID {
+                get {
+                    if (Object.ReferenceEquals(_eduDegreePKID, null)) {
+                        _eduDegreePKID = new Int64APColumnDef(this, "EduDegreePKID", false);
+                        _eduDegreePKID.Display = "学位";
+                    }
+                    return _eduDegreePKID;
+                }
+            }
+            
+            /// <summary>
+            /// Phonemobile ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef Phonemobile {
+                get {
+                    if (Object.ReferenceEquals(_phonemobile, null)) {
+                        _phonemobile = new StringAPColumnDef(this, "Phonemobile", true, 20);
+                        _phonemobile.Display = "手机号码";
+                    }
+                    return _phonemobile;
+                }
+            }
+            
+            /// <summary>
+            /// Email ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef Email {
+                get {
+                    if (Object.ReferenceEquals(_email, null)) {
+                        _email = new StringAPColumnDef(this, "Email", true, 255);
+                        _email.Display = "电子邮箱";
+                    }
+                    return _email;
+                }
+            }
+            
+            /// <summary>
+            /// Phone ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef Phone {
+                get {
+                    if (Object.ReferenceEquals(_phone, null)) {
+                        _phone = new StringAPColumnDef(this, "Phone", true, 20);
+                        _phone.Display = "办公室电话";
+                    }
+                    return _phone;
+                }
+            }
+            
+            /// <summary>
+            /// Dynamic1 ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef Dynamic1 {
+                get {
+                    if (Object.ReferenceEquals(_dynamic1, null)) {
+                        _dynamic1 = new StringAPColumnDef(this, "Dynamic1", true, 255);
+                        _dynamic1.Display = "2016学年";
+                    }
+                    return _dynamic1;
+                }
+            }
+            
+            /// <summary>
+            /// Dynamic2 ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef Dynamic2 {
+                get {
+                    if (Object.ReferenceEquals(_dynamic2, null)) {
+                        _dynamic2 = new StringAPColumnDef(this, "Dynamic2", true, 255);
+                        _dynamic2.Display = "2017学年";
+                    }
+                    return _dynamic2;
+                }
+            }
+            
+            /// <summary>
+            /// Dynamic3 ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef Dynamic3 {
+                get {
+                    if (Object.ReferenceEquals(_dynamic3, null)) {
+                        _dynamic3 = new StringAPColumnDef(this, "Dynamic3", true, 255);
+                        _dynamic3.Display = "2018学年";
+                    }
+                    return _dynamic3;
+                }
+            }
+            
+            /// <summary>
+            /// Dynamic4 ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef Dynamic4 {
+                get {
+                    if (Object.ReferenceEquals(_dynamic4, null)) {
+                        _dynamic4 = new StringAPColumnDef(this, "Dynamic4", true, 255);
+                        _dynamic4.Display = "Dynamic4";
+                    }
+                    return _dynamic4;
+                }
+            }
+            
+            /// <summary>
+            /// Dynamic5 ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef Dynamic5 {
+                get {
+                    if (Object.ReferenceEquals(_dynamic5, null)) {
+                        _dynamic5 = new StringAPColumnDef(this, "Dynamic5", true, 300);
+                        _dynamic5.Display = "Dynamic5";
+                    }
+                    return _dynamic5;
+                }
+            }
+            
+            /// <summary>
+            /// StatusKey ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef StatusKey {
+                get {
+                    if (Object.ReferenceEquals(_statusKey, null)) {
+                        _statusKey = new StringAPColumnDef(this, "StatusKey", false, 100);
+                        _statusKey.Display = "审核状态";
+                    }
+                    return _statusKey;
+                }
+            }
+            
+            /// <summary>
+            /// Default Index
+            /// </summary>
+            public virtual APSqlOrderPhrase DefaultOrder {
+                get {
+                    return null;
+                }
+            }
+            
+            /// <summary>
+            /// Create a alias table
+            /// </summary>
+            public virtual DeclareProfileTableDef As(string name) {
+                return new DeclareProfileTableDef("DeclareProfile", name);
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual void Fullup(IDataReader reader, DeclareProfile data, bool throwIfValidColumnName) {
+                data.DeclareProfileId = DeclareProfileId.GetValue<long>(reader, throwIfValidColumnName);
+                data.UserId = UserId.GetValue<long>(reader, throwIfValidColumnName);
+                data.PeriodId = PeriodId.GetValue<long>(reader, throwIfValidColumnName);
+                data.DeclareTargetPKID = DeclareTargetPKID.GetValue<long>(reader, throwIfValidColumnName);
+                data.CompanyId = CompanyId.GetValue<long>(reader, throwIfValidColumnName);
+                data.RealName = RealName.GetValue<string>(reader, throwIfValidColumnName);
+                data.TrainNo = TrainNo.GetValue<string>(reader, throwIfValidColumnName);
+                data.GenderPKID = GenderPKID.GetValue<long>(reader, throwIfValidColumnName);
+                data.Birthday = Birthday.GetValue<System.DateTime>(reader, throwIfValidColumnName);
+                data.PoliticalStatusPKID = PoliticalStatusPKID.GetValue<long>(reader, throwIfValidColumnName);
+                data.NationalityPKID = NationalityPKID.GetValue<long>(reader, throwIfValidColumnName);
+                data.EduSubjectPKID = EduSubjectPKID.GetValue<long>(reader, throwIfValidColumnName);
+                data.EduStagePKID = EduStagePKID.GetValue<long>(reader, throwIfValidColumnName);
+                data.SkillTitlePKID = SkillTitlePKID.GetValue<long>(reader, throwIfValidColumnName);
+                data.CompanyName = CompanyName.GetValue<string>(reader, throwIfValidColumnName);
+                data.RankTitlePKID = RankTitlePKID.GetValue<long>(reader, throwIfValidColumnName);
+                data.CourseCountPerWeek = CourseCountPerWeek.GetValue<string>(reader, throwIfValidColumnName);
+                data.Hiredate = Hiredate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
+                data.EduBgPKID = EduBgPKID.GetValue<long>(reader, throwIfValidColumnName);
+                data.EduDegreePKID = EduDegreePKID.GetValue<long>(reader, throwIfValidColumnName);
+                data.Phonemobile = Phonemobile.GetValue<string>(reader, throwIfValidColumnName);
+                data.Email = Email.GetValue<string>(reader, throwIfValidColumnName);
+                data.Phone = Phone.GetValue<string>(reader, throwIfValidColumnName);
+                data.Dynamic1 = Dynamic1.GetValue<string>(reader, throwIfValidColumnName);
+                data.Dynamic2 = Dynamic2.GetValue<string>(reader, throwIfValidColumnName);
+                data.Dynamic3 = Dynamic3.GetValue<string>(reader, throwIfValidColumnName);
+                data.Dynamic4 = Dynamic4.GetValue<string>(reader, throwIfValidColumnName);
+                data.Dynamic5 = Dynamic5.GetValue<string>(reader, throwIfValidColumnName);
+                data.StatusKey = StatusKey.GetValue<string>(reader, throwIfValidColumnName);
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual DeclareProfile Map(IDataReader reader) {
+                DeclareProfile data = new DeclareProfile();
+                Fullup(reader, data, true);
+                return data;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual DeclareProfile TolerantMap(IDataReader reader) {
+                DeclareProfile data = new DeclareProfile();
+                Fullup(reader, data, false);
+                return data;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual List<DeclareProfile> MapList(IDataReader reader) {
+                List<DeclareProfile> list = new List<DeclareProfile>();
+                try {
+                    for (; reader.Read(); ) {
+                        list.Add(Map(reader));
+                    }
+                }
+                finally {
+                    reader.Close();
+                }
+                return list;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual List<DeclareProfile> TolerantMapList(IDataReader reader) {
+                List<DeclareProfile> list = new List<DeclareProfile>();
                 try {
                     for (; reader.Read(); ) {
                         list.Add(TolerantMap(reader));
@@ -16829,6 +17412,142 @@ namespace Business {
         }
         
         /// <summary>
+        /// 申报材料，基本信息 DalBase
+        /// </summary>
+        public partial class DeclareProfileDalBase : APDal {
+            
+            public DeclareProfileDalBase() {
+            }
+            
+            public DeclareProfileDalBase(APDatabase db) : 
+                    base(db) {
+            }
+            
+            /// <summary>
+            /// 添加数据。
+            /// </summary>
+            public virtual void Insert(DeclareProfile data) {
+                if ((data.DeclareProfileId == 0)) {
+                    data.DeclareProfileId = ((long)(GetNewId(APDBDef.DeclareProfile.DeclareProfileId)));
+                }
+                var query = APQuery.insert(APDBDef.DeclareProfile).values(APDBDef.DeclareProfile.DeclareProfileId.SetValue(data.DeclareProfileId), APDBDef.DeclareProfile.UserId.SetValue(data.UserId), APDBDef.DeclareProfile.PeriodId.SetValue(data.PeriodId), APDBDef.DeclareProfile.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.DeclareProfile.CompanyId.SetValue(data.CompanyId), APDBDef.DeclareProfile.RealName.SetValue(data.RealName), APDBDef.DeclareProfile.TrainNo.SetValue(data.TrainNo), APDBDef.DeclareProfile.GenderPKID.SetValue(data.GenderPKID), APDBDef.DeclareProfile.Birthday.SetValue(data.Birthday), APDBDef.DeclareProfile.PoliticalStatusPKID.SetValue(data.PoliticalStatusPKID), APDBDef.DeclareProfile.NationalityPKID.SetValue(data.NationalityPKID), APDBDef.DeclareProfile.EduSubjectPKID.SetValue(data.EduSubjectPKID), APDBDef.DeclareProfile.EduStagePKID.SetValue(data.EduStagePKID), APDBDef.DeclareProfile.SkillTitlePKID.SetValue(data.SkillTitlePKID), APDBDef.DeclareProfile.CompanyName.SetValue(data.CompanyName), APDBDef.DeclareProfile.RankTitlePKID.SetValue(data.RankTitlePKID), APDBDef.DeclareProfile.CourseCountPerWeek.SetValue(data.CourseCountPerWeek), APDBDef.DeclareProfile.Hiredate.SetValue(data.Hiredate), APDBDef.DeclareProfile.EduBgPKID.SetValue(data.EduBgPKID), APDBDef.DeclareProfile.EduDegreePKID.SetValue(data.EduDegreePKID), APDBDef.DeclareProfile.Phonemobile.SetValue(data.Phonemobile), APDBDef.DeclareProfile.Email.SetValue(data.Email), APDBDef.DeclareProfile.Phone.SetValue(data.Phone), APDBDef.DeclareProfile.Dynamic1.SetValue(data.Dynamic1), APDBDef.DeclareProfile.Dynamic2.SetValue(data.Dynamic2), APDBDef.DeclareProfile.Dynamic3.SetValue(data.Dynamic3), APDBDef.DeclareProfile.Dynamic4.SetValue(data.Dynamic4), APDBDef.DeclareProfile.Dynamic5.SetValue(data.Dynamic5), APDBDef.DeclareProfile.StatusKey.SetValue(data.StatusKey));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public virtual void Update(DeclareProfile data) {
+                var query = APQuery.update(APDBDef.DeclareProfile).values(APDBDef.DeclareProfile.PeriodId.SetValue(data.PeriodId), APDBDef.DeclareProfile.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.DeclareProfile.CompanyId.SetValue(data.CompanyId), APDBDef.DeclareProfile.RealName.SetValue(data.RealName), APDBDef.DeclareProfile.TrainNo.SetValue(data.TrainNo), APDBDef.DeclareProfile.GenderPKID.SetValue(data.GenderPKID), APDBDef.DeclareProfile.Birthday.SetValue(data.Birthday), APDBDef.DeclareProfile.PoliticalStatusPKID.SetValue(data.PoliticalStatusPKID), APDBDef.DeclareProfile.NationalityPKID.SetValue(data.NationalityPKID), APDBDef.DeclareProfile.EduSubjectPKID.SetValue(data.EduSubjectPKID), APDBDef.DeclareProfile.EduStagePKID.SetValue(data.EduStagePKID), APDBDef.DeclareProfile.SkillTitlePKID.SetValue(data.SkillTitlePKID), APDBDef.DeclareProfile.CompanyName.SetValue(data.CompanyName), APDBDef.DeclareProfile.RankTitlePKID.SetValue(data.RankTitlePKID), APDBDef.DeclareProfile.CourseCountPerWeek.SetValue(data.CourseCountPerWeek), APDBDef.DeclareProfile.Hiredate.SetValue(data.Hiredate), APDBDef.DeclareProfile.EduBgPKID.SetValue(data.EduBgPKID), APDBDef.DeclareProfile.EduDegreePKID.SetValue(data.EduDegreePKID), APDBDef.DeclareProfile.Phonemobile.SetValue(data.Phonemobile), APDBDef.DeclareProfile.Email.SetValue(data.Email), APDBDef.DeclareProfile.Phone.SetValue(data.Phone), APDBDef.DeclareProfile.Dynamic1.SetValue(data.Dynamic1), APDBDef.DeclareProfile.Dynamic2.SetValue(data.Dynamic2), APDBDef.DeclareProfile.Dynamic3.SetValue(data.Dynamic3), APDBDef.DeclareProfile.Dynamic4.SetValue(data.Dynamic4), APDBDef.DeclareProfile.Dynamic5.SetValue(data.Dynamic5), APDBDef.DeclareProfile.StatusKey.SetValue(data.StatusKey)).where((APDBDef.DeclareProfile.DeclareProfileId == data.DeclareProfileId), (APDBDef.DeclareProfile.UserId == data.UserId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public virtual void UpdatePartial(long declareProfileId, long userId, Object metadata) {
+                var query = APQuery.update(APDBDef.DeclareProfile).values(APSqlSetPhraseSelector.Select(APDBDef.DeclareProfile, metadata)).where((APDBDef.DeclareProfile.DeclareProfileId == declareProfileId), (APDBDef.DeclareProfile.UserId == userId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 删除数据。
+            /// </summary>
+            public virtual void PrimaryDelete(long declareProfileId, long userId) {
+                var query = APQuery.delete(APDBDef.DeclareProfile).where((APDBDef.DeclareProfile.DeclareProfileId == declareProfileId), (APDBDef.DeclareProfile.UserId == userId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 条件删除数据。
+            /// </summary>
+            public virtual void ConditionDelete(APSqlWherePhrase condition) {
+                var query = APQuery.delete(APDBDef.DeclareProfile).where(condition);
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 根据条件查询数量。
+            /// </summary>
+            public virtual int ConditionQueryCount(APSqlWherePhrase condition) {
+                var query = APQuery.select(APDBDef.DeclareProfile.Asterisk.Count()).from(APDBDef.DeclareProfile).where(condition);
+                return ExecuteCount(query);
+            }
+            
+            /// <summary>
+            /// 根据主键获取数据。
+            /// </summary>
+            public virtual DeclareProfile PrimaryGet(long declareProfileId, long userId) {
+                var query = APQuery.select(APDBDef.DeclareProfile.Asterisk).from(APDBDef.DeclareProfile).where((APDBDef.DeclareProfile.DeclareProfileId == declareProfileId), (APDBDef.DeclareProfile.UserId == userId));
+                IDataReader reader = ExecuteReader(query);
+                try {
+                    if (reader.Read()) {
+                        return APDBDef.DeclareProfile.Map(reader);
+                    }
+                    return null;
+                }
+                finally {
+                    reader.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public virtual List<DeclareProfile> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+                var query = APQuery.select(APDBDef.DeclareProfile.Asterisk).from(APDBDef.DeclareProfile);
+                if ((condition != null)) {
+                    query.where(condition);
+                }
+                if ((orderBy != null)) {
+                    query.order_by(orderBy);
+                }
+                if ((take != null)) {
+                    query.take(take);
+                }
+                if ((skip != null)) {
+                    query.skip(skip);
+                }
+                query.primary(APDBDef.DeclareProfile.DeclareProfileId);
+                IDataReader reader = ExecuteReader(query);
+                return APDBDef.DeclareProfile.MapList(reader);
+            }
+            
+            /// <summary>
+            /// 获得表的初始化数据。
+            /// </summary>
+            public virtual List<DeclareProfile> GetInitData() {
+                return new List<DeclareProfile>();
+            }
+            
+            /// <summary>
+            /// 初始化数据。
+            /// </summary>
+            public virtual void InitData(APDBDef db) {
+                List<DeclareProfile> list = GetInitData();
+                for (int i = 0; (i < list.Count); i = (i + 1)) {
+                    DeclareProfile data = list[i];
+                    if ((PrimaryGet(data.DeclareProfileId, data.UserId) == null)) {
+                        Insert(data);
+                    }
+                }
+            }
+        }
+        
+        /// <summary>
+        /// 申报材料，基本信息 Dal
+        /// </summary>
+        public partial class DeclareProfileDal : DeclareProfileDalBase {
+            
+            public DeclareProfileDal() {
+            }
+            
+            public DeclareProfileDal(APDatabase db) : 
+                    base(db) {
+            }
+        }
+        
+        /// <summary>
         /// 申报周期 DalBase
         /// </summary>
         public partial class DeclarePeriodDalBase : APDal {
@@ -24081,6 +24800,155 @@ namespace Business {
         /// 申报材料，用于申报流程 Dal
         /// </summary>
         public partial class DeclareMaterialBpl : DeclareMaterialBplBase {
+        }
+        
+        /// <summary>
+        /// 申报材料，基本信息 BplBase
+        /// </summary>
+        public partial class DeclareProfileBplBase {
+            
+            /// <summary>
+            /// 添加数据。
+            /// </summary>
+            public static void Insert(DeclareProfile data) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareProfileDal.Insert(data);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public static void Update(DeclareProfile data) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareProfileDal.Update(data);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public static void UpdatePartial(long declareProfileId, long userId, Object metadata) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareProfileDal.UpdatePartial(declareProfileId, userId, metadata);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 删除数据。
+            /// </summary>
+            public static void PrimaryDelete(long declareProfileId, long userId) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareProfileDal.PrimaryDelete(declareProfileId, userId);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 条件删除数据。
+            /// </summary>
+            public static void ConditionDelete(APSqlWherePhrase condition) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.DeclareProfileDal.ConditionDelete(condition);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据条件查询数量。
+            /// </summary>
+            public static int ConditionQueryCount(APSqlWherePhrase condition) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareProfileDal.ConditionQueryCount(condition);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据主键获取数据。
+            /// </summary>
+            public static DeclareProfile PrimaryGet(long declareProfileId, long userId) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareProfileDal.PrimaryGet(declareProfileId, userId);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<DeclareProfile> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareProfileDal.ConditionQuery(condition, orderBy, take, skip);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<DeclareProfile> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareProfileDal.ConditionQuery(condition, orderBy, take, null);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<DeclareProfile> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.DeclareProfileDal.ConditionQuery(condition, orderBy, null, null);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 获取所有数据。
+            /// </summary>
+            public static List<DeclareProfile> GetAll() {
+                return ConditionQuery(null, null);
+            }
+        }
+        
+        /// <summary>
+        /// 申报材料，基本信息 Dal
+        /// </summary>
+        public partial class DeclareProfileBpl : DeclareProfileBplBase {
         }
         
         /// <summary>
@@ -40269,6 +41137,1155 @@ namespace Business {
         /// </summary>
         public DeclareMaterial(long materialId, long declareTargetPKID, long periodId, long teacherId, long itemId, string title, string parentType, string type, System.DateTime createDate, System.DateTime pubishDate) : 
                 base(materialId, declareTargetPKID, periodId, teacherId, itemId, title, parentType, type, createDate, pubishDate) {
+        }
+    }
+    
+    /// <summary>
+    /// 申报材料，基本信息 Base
+    /// </summary>
+    [Serializable()]
+    public abstract partial class DeclareProfileBase {
+        
+        /// <summary>
+        /// DeclareProfileId
+        /// </summary>
+        private long _declareProfileId;
+        
+        /// <summary>
+        /// UserId
+        /// </summary>
+        private long _userId;
+        
+        /// <summary>
+        /// PeriodId
+        /// </summary>
+        private long _periodId;
+        
+        /// <summary>
+        /// PickList - PLKey_DeclareTarget
+        /// </summary>
+        private long _declareTargetPKID;
+        
+        /// <summary>
+        /// CompanyId
+        /// </summary>
+        private long _companyId;
+        
+        /// <summary>
+        /// RealName
+        /// </summary>
+        private string _realName = string.Empty;
+        
+        /// <summary>
+        /// TrainNo
+        /// </summary>
+        private string _trainNo = string.Empty;
+        
+        /// <summary>
+        /// PickList - Gender
+        /// </summary>
+        private long _genderPKID;
+        
+        /// <summary>
+        /// Birthday
+        /// </summary>
+        private System.DateTime _birthday;
+        
+        /// <summary>
+        /// PickList - PoliticalStatus
+        /// </summary>
+        private long _politicalStatusPKID;
+        
+        /// <summary>
+        /// PickList - Nationality
+        /// </summary>
+        private long _nationalityPKID;
+        
+        /// <summary>
+        /// PickList - EduSubject
+        /// </summary>
+        private long _eduSubjectPKID;
+        
+        /// <summary>
+        /// PickList - EduStage
+        /// </summary>
+        private long _eduStagePKID;
+        
+        /// <summary>
+        /// PickList - SkillTitle
+        /// </summary>
+        private long _skillTitlePKID;
+        
+        /// <summary>
+        /// CompanyName
+        /// </summary>
+        private string _companyName = string.Empty;
+        
+        /// <summary>
+        /// PickList - RankTitle
+        /// </summary>
+        private long _rankTitlePKID;
+        
+        /// <summary>
+        /// CourseCountPerWeek
+        /// </summary>
+        private string _courseCountPerWeek;
+        
+        /// <summary>
+        /// Hiredate
+        /// </summary>
+        private System.DateTime _hiredate;
+        
+        /// <summary>
+        /// PickList - EduBg
+        /// </summary>
+        private long _eduBgPKID;
+        
+        /// <summary>
+        /// PickList - EduDegree
+        /// </summary>
+        private long _eduDegreePKID;
+        
+        /// <summary>
+        /// Phonemobile
+        /// </summary>
+        private string _phonemobile;
+        
+        /// <summary>
+        /// 用于联系的电子邮箱
+        /// </summary>
+        private string _email;
+        
+        /// <summary>
+        /// Phone
+        /// </summary>
+        private string _phone;
+        
+        /// <summary>
+        /// 2016学年考核情况
+        /// </summary>
+        private string _dynamic1;
+        
+        /// <summary>
+        /// 2017学年考核情况
+        /// </summary>
+        private string _dynamic2;
+        
+        /// <summary>
+        /// 2018学年考核情况
+        /// </summary>
+        private string _dynamic3;
+        
+        /// <summary>
+        /// 上一轮梯队任职情况
+        /// </summary>
+        private string _dynamic4;
+        
+        /// <summary>
+        /// 目前在市(区)级及以上专业委员会任职情况
+        /// </summary>
+        private string _dynamic5;
+        
+        /// <summary>
+        /// StatusKey
+        /// </summary>
+        private string _statusKey = string.Empty;
+        
+        /// <summary>
+        /// 默认构造函数。
+        /// </summary>
+        public DeclareProfileBase() {
+        }
+        
+        /// <summary>
+        /// 初始化所有字段的构造函数。
+        /// </summary>
+        public DeclareProfileBase(
+                    long declareProfileId, 
+                    long userId, 
+                    long periodId, 
+                    long declareTargetPKID, 
+                    long companyId, 
+                    string realName, 
+                    string trainNo, 
+                    long genderPKID, 
+                    System.DateTime birthday, 
+                    long politicalStatusPKID, 
+                    long nationalityPKID, 
+                    long eduSubjectPKID, 
+                    long eduStagePKID, 
+                    long skillTitlePKID, 
+                    string companyName, 
+                    long rankTitlePKID, 
+                    string courseCountPerWeek, 
+                    System.DateTime hiredate, 
+                    long eduBgPKID, 
+                    long eduDegreePKID, 
+                    string phonemobile, 
+                    string email, 
+                    string phone, 
+                    string dynamic1, 
+                    string dynamic2, 
+                    string dynamic3, 
+                    string dynamic4, 
+                    string dynamic5, 
+                    string statusKey) {
+            _declareProfileId = declareProfileId;
+            _userId = userId;
+            _periodId = periodId;
+            _declareTargetPKID = declareTargetPKID;
+            _companyId = companyId;
+            _realName = realName;
+            _trainNo = trainNo;
+            _genderPKID = genderPKID;
+            _birthday = birthday;
+            _politicalStatusPKID = politicalStatusPKID;
+            _nationalityPKID = nationalityPKID;
+            _eduSubjectPKID = eduSubjectPKID;
+            _eduStagePKID = eduStagePKID;
+            _skillTitlePKID = skillTitlePKID;
+            _companyName = companyName;
+            _rankTitlePKID = rankTitlePKID;
+            _courseCountPerWeek = courseCountPerWeek;
+            _hiredate = hiredate;
+            _eduBgPKID = eduBgPKID;
+            _eduDegreePKID = eduDegreePKID;
+            _phonemobile = phonemobile;
+            _email = email;
+            _phone = phone;
+            _dynamic1 = dynamic1;
+            _dynamic2 = dynamic2;
+            _dynamic3 = dynamic3;
+            _dynamic4 = dynamic4;
+            _dynamic5 = dynamic5;
+            _statusKey = statusKey;
+        }
+        
+        /// <summary>
+        /// DeclareProfileId
+        /// </summary>
+        public virtual long DeclareProfileId {
+            get {
+                return _declareProfileId;
+            }
+            set {
+                _declareProfileId = value;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareProfileId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef DeclareProfileIdDef {
+            get {
+                return APDBDef.DeclareProfile.DeclareProfileId;
+            }
+        }
+        
+        /// <summary>
+        /// UserId
+        /// </summary>
+        [Display(Name="用户ID")]
+        public virtual long UserId {
+            get {
+                return _userId;
+            }
+            set {
+                _userId = value;
+            }
+        }
+        
+        /// <summary>
+        /// UserId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef UserIdDef {
+            get {
+                return APDBDef.DeclareProfile.UserId;
+            }
+        }
+        
+        /// <summary>
+        /// PeriodId
+        /// </summary>
+        [Display(Name="申报周期ID")]
+        public virtual long PeriodId {
+            get {
+                return _periodId;
+            }
+            set {
+                _periodId = value;
+            }
+        }
+        
+        /// <summary>
+        /// PeriodId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef PeriodIdDef {
+            get {
+                return APDBDef.DeclareProfile.PeriodId;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - PLKey_DeclareTarget
+        /// </summary>
+        [Display(Name="申报（担任）称号")]
+        public virtual long DeclareTargetPKID {
+            get {
+                return _declareTargetPKID;
+            }
+            set {
+                _declareTargetPKID = value;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - PLKey_DeclareTarget APColumnDef
+        /// </summary>
+        public static Int64APColumnDef DeclareTargetPKIDDef {
+            get {
+                return APDBDef.DeclareProfile.DeclareTargetPKID;
+            }
+        }
+        
+        /// <summary>
+        /// CompanyId
+        /// </summary>
+        [Display(Name="单位ID")]
+        public virtual long CompanyId {
+            get {
+                return _companyId;
+            }
+            set {
+                _companyId = value;
+            }
+        }
+        
+        /// <summary>
+        /// CompanyId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef CompanyIdDef {
+            get {
+                return APDBDef.DeclareProfile.CompanyId;
+            }
+        }
+        
+        /// <summary>
+        /// RealName
+        /// </summary>
+        [Display(Name="真实姓名")]
+        [Required()]
+        [StringLength(40)]
+        public virtual string RealName {
+            get {
+                return _realName;
+            }
+            set {
+                _realName = value;
+            }
+        }
+        
+        /// <summary>
+        /// RealName APColumnDef
+        /// </summary>
+        public static StringAPColumnDef RealNameDef {
+            get {
+                return APDBDef.DeclareProfile.RealName;
+            }
+        }
+        
+        /// <summary>
+        /// TrainNo
+        /// </summary>
+        [Display(Name="师训编号")]
+        [StringLength(20)]
+        public virtual string TrainNo {
+            get {
+                return _trainNo;
+            }
+            set {
+                _trainNo = value;
+            }
+        }
+        
+        /// <summary>
+        /// TrainNo APColumnDef
+        /// </summary>
+        public static StringAPColumnDef TrainNoDef {
+            get {
+                return APDBDef.DeclareProfile.TrainNo;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - Gender
+        /// </summary>
+        [Display(Name="性别")]
+        [Required()]
+        public virtual long GenderPKID {
+            get {
+                return _genderPKID;
+            }
+            set {
+                _genderPKID = value;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - Gender APColumnDef
+        /// </summary>
+        public static Int64APColumnDef GenderPKIDDef {
+            get {
+                return APDBDef.DeclareProfile.GenderPKID;
+            }
+        }
+        
+        /// <summary>
+        /// Birthday
+        /// </summary>
+        [Display(Name="出生年月")]
+        [Required()]
+        public virtual System.DateTime Birthday {
+            get {
+                return _birthday;
+            }
+            set {
+                _birthday = value;
+            }
+        }
+        
+        /// <summary>
+        /// Birthday APColumnDef
+        /// </summary>
+        public static DateTimeAPColumnDef BirthdayDef {
+            get {
+                return APDBDef.DeclareProfile.Birthday;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - PoliticalStatus
+        /// </summary>
+        [Display(Name="政治面貌")]
+        [Required()]
+        public virtual long PoliticalStatusPKID {
+            get {
+                return _politicalStatusPKID;
+            }
+            set {
+                _politicalStatusPKID = value;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - PoliticalStatus APColumnDef
+        /// </summary>
+        public static Int64APColumnDef PoliticalStatusPKIDDef {
+            get {
+                return APDBDef.DeclareProfile.PoliticalStatusPKID;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - Nationality
+        /// </summary>
+        [Display(Name="民族")]
+        [Required()]
+        public virtual long NationalityPKID {
+            get {
+                return _nationalityPKID;
+            }
+            set {
+                _nationalityPKID = value;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - Nationality APColumnDef
+        /// </summary>
+        public static Int64APColumnDef NationalityPKIDDef {
+            get {
+                return APDBDef.DeclareProfile.NationalityPKID;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - EduSubject
+        /// </summary>
+        [Display(Name="任教学科")]
+        public virtual long EduSubjectPKID {
+            get {
+                return _eduSubjectPKID;
+            }
+            set {
+                _eduSubjectPKID = value;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - EduSubject APColumnDef
+        /// </summary>
+        public static Int64APColumnDef EduSubjectPKIDDef {
+            get {
+                return APDBDef.DeclareProfile.EduSubjectPKID;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - EduStage
+        /// </summary>
+        [Display(Name="任教学段")]
+        public virtual long EduStagePKID {
+            get {
+                return _eduStagePKID;
+            }
+            set {
+                _eduStagePKID = value;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - EduStage APColumnDef
+        /// </summary>
+        public static Int64APColumnDef EduStagePKIDDef {
+            get {
+                return APDBDef.DeclareProfile.EduStagePKID;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - SkillTitle
+        /// </summary>
+        [Display(Name="现任专技职称")]
+        public virtual long SkillTitlePKID {
+            get {
+                return _skillTitlePKID;
+            }
+            set {
+                _skillTitlePKID = value;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - SkillTitle APColumnDef
+        /// </summary>
+        public static Int64APColumnDef SkillTitlePKIDDef {
+            get {
+                return APDBDef.DeclareProfile.SkillTitlePKID;
+            }
+        }
+        
+        /// <summary>
+        /// CompanyName
+        /// </summary>
+        [Display(Name="单位")]
+        [Required()]
+        [StringLength(100)]
+        public virtual string CompanyName {
+            get {
+                return _companyName;
+            }
+            set {
+                _companyName = value;
+            }
+        }
+        
+        /// <summary>
+        /// CompanyName APColumnDef
+        /// </summary>
+        public static StringAPColumnDef CompanyNameDef {
+            get {
+                return APDBDef.DeclareProfile.CompanyName;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - RankTitle
+        /// </summary>
+        [Display(Name="行政职务")]
+        public virtual long RankTitlePKID {
+            get {
+                return _rankTitlePKID;
+            }
+            set {
+                _rankTitlePKID = value;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - RankTitle APColumnDef
+        /// </summary>
+        public static Int64APColumnDef RankTitlePKIDDef {
+            get {
+                return APDBDef.DeclareProfile.RankTitlePKID;
+            }
+        }
+        
+        /// <summary>
+        /// CourseCountPerWeek
+        /// </summary>
+        [Display(Name="周课时数")]
+        [StringLength(20)]
+        public virtual string CourseCountPerWeek {
+            get {
+                return _courseCountPerWeek;
+            }
+            set {
+                _courseCountPerWeek = value;
+            }
+        }
+        
+        /// <summary>
+        /// CourseCountPerWeek APColumnDef
+        /// </summary>
+        public static StringAPColumnDef CourseCountPerWeekDef {
+            get {
+                return APDBDef.DeclareProfile.CourseCountPerWeek;
+            }
+        }
+        
+        /// <summary>
+        /// Hiredate
+        /// </summary>
+        [Display(Name="评聘日期")]
+        public virtual System.DateTime Hiredate {
+            get {
+                return _hiredate;
+            }
+            set {
+                _hiredate = value;
+            }
+        }
+        
+        /// <summary>
+        /// Hiredate APColumnDef
+        /// </summary>
+        public static DateTimeAPColumnDef HiredateDef {
+            get {
+                return APDBDef.DeclareProfile.Hiredate;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - EduBg
+        /// </summary>
+        [Display(Name="学历")]
+        public virtual long EduBgPKID {
+            get {
+                return _eduBgPKID;
+            }
+            set {
+                _eduBgPKID = value;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - EduBg APColumnDef
+        /// </summary>
+        public static Int64APColumnDef EduBgPKIDDef {
+            get {
+                return APDBDef.DeclareProfile.EduBgPKID;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - EduDegree
+        /// </summary>
+        [Display(Name="学位")]
+        public virtual long EduDegreePKID {
+            get {
+                return _eduDegreePKID;
+            }
+            set {
+                _eduDegreePKID = value;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - EduDegree APColumnDef
+        /// </summary>
+        public static Int64APColumnDef EduDegreePKIDDef {
+            get {
+                return APDBDef.DeclareProfile.EduDegreePKID;
+            }
+        }
+        
+        /// <summary>
+        /// Phonemobile
+        /// </summary>
+        [Display(Name="手机号码")]
+        [StringLength(20)]
+        public virtual string Phonemobile {
+            get {
+                return _phonemobile;
+            }
+            set {
+                _phonemobile = value;
+            }
+        }
+        
+        /// <summary>
+        /// Phonemobile APColumnDef
+        /// </summary>
+        public static StringAPColumnDef PhonemobileDef {
+            get {
+                return APDBDef.DeclareProfile.Phonemobile;
+            }
+        }
+        
+        /// <summary>
+        /// 用于联系的电子邮箱
+        /// </summary>
+        [Display(Name="电子邮箱")]
+        [StringLength(255)]
+        public virtual string Email {
+            get {
+                return _email;
+            }
+            set {
+                _email = value;
+            }
+        }
+        
+        /// <summary>
+        /// 用于联系的电子邮箱 APColumnDef
+        /// </summary>
+        public static StringAPColumnDef EmailDef {
+            get {
+                return APDBDef.DeclareProfile.Email;
+            }
+        }
+        
+        /// <summary>
+        /// Phone
+        /// </summary>
+        [Display(Name="办公室电话")]
+        [StringLength(20)]
+        public virtual string Phone {
+            get {
+                return _phone;
+            }
+            set {
+                _phone = value;
+            }
+        }
+        
+        /// <summary>
+        /// Phone APColumnDef
+        /// </summary>
+        public static StringAPColumnDef PhoneDef {
+            get {
+                return APDBDef.DeclareProfile.Phone;
+            }
+        }
+        
+        /// <summary>
+        /// 2016学年考核情况
+        /// </summary>
+        [Display(Name="2016学年")]
+        [StringLength(255)]
+        public virtual string Dynamic1 {
+            get {
+                return _dynamic1;
+            }
+            set {
+                _dynamic1 = value;
+            }
+        }
+        
+        /// <summary>
+        /// 2016学年考核情况 APColumnDef
+        /// </summary>
+        public static StringAPColumnDef Dynamic1Def {
+            get {
+                return APDBDef.DeclareProfile.Dynamic1;
+            }
+        }
+        
+        /// <summary>
+        /// 2017学年考核情况
+        /// </summary>
+        [Display(Name="2017学年")]
+        [StringLength(255)]
+        public virtual string Dynamic2 {
+            get {
+                return _dynamic2;
+            }
+            set {
+                _dynamic2 = value;
+            }
+        }
+        
+        /// <summary>
+        /// 2017学年考核情况 APColumnDef
+        /// </summary>
+        public static StringAPColumnDef Dynamic2Def {
+            get {
+                return APDBDef.DeclareProfile.Dynamic2;
+            }
+        }
+        
+        /// <summary>
+        /// 2018学年考核情况
+        /// </summary>
+        [Display(Name="2018学年")]
+        [StringLength(255)]
+        public virtual string Dynamic3 {
+            get {
+                return _dynamic3;
+            }
+            set {
+                _dynamic3 = value;
+            }
+        }
+        
+        /// <summary>
+        /// 2018学年考核情况 APColumnDef
+        /// </summary>
+        public static StringAPColumnDef Dynamic3Def {
+            get {
+                return APDBDef.DeclareProfile.Dynamic3;
+            }
+        }
+        
+        /// <summary>
+        /// 上一轮梯队任职情况
+        /// </summary>
+        [StringLength(255)]
+        public virtual string Dynamic4 {
+            get {
+                return _dynamic4;
+            }
+            set {
+                _dynamic4 = value;
+            }
+        }
+        
+        /// <summary>
+        /// 上一轮梯队任职情况 APColumnDef
+        /// </summary>
+        public static StringAPColumnDef Dynamic4Def {
+            get {
+                return APDBDef.DeclareProfile.Dynamic4;
+            }
+        }
+        
+        /// <summary>
+        /// 目前在市(区)级及以上专业委员会任职情况
+        /// </summary>
+        [StringLength(300)]
+        public virtual string Dynamic5 {
+            get {
+                return _dynamic5;
+            }
+            set {
+                _dynamic5 = value;
+            }
+        }
+        
+        /// <summary>
+        /// 目前在市(区)级及以上专业委员会任职情况 APColumnDef
+        /// </summary>
+        public static StringAPColumnDef Dynamic5Def {
+            get {
+                return APDBDef.DeclareProfile.Dynamic5;
+            }
+        }
+        
+        /// <summary>
+        /// StatusKey
+        /// </summary>
+        [Display(Name="审核状态")]
+        [StringLength(100)]
+        public virtual string StatusKey {
+            get {
+                return _statusKey;
+            }
+            set {
+                _statusKey = value;
+            }
+        }
+        
+        /// <summary>
+        /// StatusKey APColumnDef
+        /// </summary>
+        public static StringAPColumnDef StatusKeyDef {
+            get {
+                return APDBDef.DeclareProfile.StatusKey;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareProfileTableDef APTableDef
+        /// </summary>
+        public static APDBDef.DeclareProfileTableDef TableDef {
+            get {
+                return APDBDef.DeclareProfile;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareProfileTableDef APSqlAsteriskExpr
+        /// </summary>
+        public static APSqlAsteriskExpr Asterisk {
+            get {
+                return APDBDef.DeclareProfile.Asterisk;
+            }
+        }
+        
+        /// <summary>
+        /// 赋值。
+        /// </summary>
+        public virtual void Assignment(DeclareProfile data) {
+            DeclareProfileId = data.DeclareProfileId;
+            UserId = data.UserId;
+            PeriodId = data.PeriodId;
+            DeclareTargetPKID = data.DeclareTargetPKID;
+            CompanyId = data.CompanyId;
+            RealName = data.RealName;
+            TrainNo = data.TrainNo;
+            GenderPKID = data.GenderPKID;
+            Birthday = data.Birthday;
+            PoliticalStatusPKID = data.PoliticalStatusPKID;
+            NationalityPKID = data.NationalityPKID;
+            EduSubjectPKID = data.EduSubjectPKID;
+            EduStagePKID = data.EduStagePKID;
+            SkillTitlePKID = data.SkillTitlePKID;
+            CompanyName = data.CompanyName;
+            RankTitlePKID = data.RankTitlePKID;
+            CourseCountPerWeek = data.CourseCountPerWeek;
+            Hiredate = data.Hiredate;
+            EduBgPKID = data.EduBgPKID;
+            EduDegreePKID = data.EduDegreePKID;
+            Phonemobile = data.Phonemobile;
+            Email = data.Email;
+            Phone = data.Phone;
+            Dynamic1 = data.Dynamic1;
+            Dynamic2 = data.Dynamic2;
+            Dynamic3 = data.Dynamic3;
+            Dynamic4 = data.Dynamic4;
+            Dynamic5 = data.Dynamic5;
+            StatusKey = data.StatusKey;
+        }
+        
+        /// <summary>
+        /// 比较。
+        /// </summary>
+        public virtual bool CompareEquals(DeclareProfile data) {
+            if ((DeclareProfileId != data.DeclareProfileId)) {
+                return false;
+            }
+            if ((UserId != data.UserId)) {
+                return false;
+            }
+            if ((PeriodId != data.PeriodId)) {
+                return false;
+            }
+            if ((DeclareTargetPKID != data.DeclareTargetPKID)) {
+                return false;
+            }
+            if ((CompanyId != data.CompanyId)) {
+                return false;
+            }
+            if ((RealName != data.RealName)) {
+                return false;
+            }
+            if ((TrainNo != data.TrainNo)) {
+                return false;
+            }
+            if ((GenderPKID != data.GenderPKID)) {
+                return false;
+            }
+            if ((Birthday != data.Birthday)) {
+                return false;
+            }
+            if ((PoliticalStatusPKID != data.PoliticalStatusPKID)) {
+                return false;
+            }
+            if ((NationalityPKID != data.NationalityPKID)) {
+                return false;
+            }
+            if ((EduSubjectPKID != data.EduSubjectPKID)) {
+                return false;
+            }
+            if ((EduStagePKID != data.EduStagePKID)) {
+                return false;
+            }
+            if ((SkillTitlePKID != data.SkillTitlePKID)) {
+                return false;
+            }
+            if ((CompanyName != data.CompanyName)) {
+                return false;
+            }
+            if ((RankTitlePKID != data.RankTitlePKID)) {
+                return false;
+            }
+            if ((CourseCountPerWeek != data.CourseCountPerWeek)) {
+                return false;
+            }
+            if ((Hiredate != data.Hiredate)) {
+                return false;
+            }
+            if ((EduBgPKID != data.EduBgPKID)) {
+                return false;
+            }
+            if ((EduDegreePKID != data.EduDegreePKID)) {
+                return false;
+            }
+            if ((Phonemobile != data.Phonemobile)) {
+                return false;
+            }
+            if ((Email != data.Email)) {
+                return false;
+            }
+            if ((Phone != data.Phone)) {
+                return false;
+            }
+            if ((Dynamic1 != data.Dynamic1)) {
+                return false;
+            }
+            if ((Dynamic2 != data.Dynamic2)) {
+                return false;
+            }
+            if ((Dynamic3 != data.Dynamic3)) {
+                return false;
+            }
+            if ((Dynamic4 != data.Dynamic4)) {
+                return false;
+            }
+            if ((Dynamic5 != data.Dynamic5)) {
+                return false;
+            }
+            if ((StatusKey != data.StatusKey)) {
+                return false;
+            }
+            return true;
+        }
+        
+        /// <summary>
+        /// 添加数据。
+        /// </summary>
+        public virtual void Insert() {
+            APBplDef.DeclareProfileBpl.Insert(((DeclareProfile)(this)));
+        }
+        
+        /// <summary>
+        /// 更新数据。
+        /// </summary>
+        public virtual void Update() {
+            APBplDef.DeclareProfileBpl.Update(((DeclareProfile)(this)));
+        }
+        
+        /// <summary>
+        /// 更新数据。
+        /// </summary>
+        public static void UpdatePartial(long declareProfileId, long userId, Object metadata) {
+            APBplDef.DeclareProfileBpl.UpdatePartial(declareProfileId, userId, metadata);
+        }
+        
+        /// <summary>
+        /// 删除数据。
+        /// </summary>
+        public static void PrimaryDelete(long declareProfileId, long userId) {
+            APBplDef.DeclareProfileBpl.PrimaryDelete(declareProfileId, userId);
+        }
+        
+        /// <summary>
+        /// 条件删除数据。
+        /// </summary>
+        public static void ConditionDelete(APSqlWherePhrase condition) {
+            APBplDef.DeclareProfileBpl.ConditionDelete(condition);
+        }
+        
+        /// <summary>
+        /// 根据条件查询数量。
+        /// </summary>
+        public static int ConditionQueryCount(APSqlWherePhrase condition) {
+            return APBplDef.DeclareProfileBpl.ConditionQueryCount(condition);
+        }
+        
+        /// <summary>
+        /// 根据主键获取数据。
+        /// </summary>
+        public static DeclareProfile PrimaryGet(long declareProfileId, long userId) {
+            return APBplDef.DeclareProfileBpl.PrimaryGet(declareProfileId, userId);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<DeclareProfile> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take, int skip) {
+            return APBplDef.DeclareProfileBpl.ConditionQuery(condition, orderBy, take, skip);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<DeclareProfile> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take) {
+            return APBplDef.DeclareProfileBpl.ConditionQuery(condition, orderBy, take);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<DeclareProfile> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+            return APBplDef.DeclareProfileBpl.ConditionQuery(condition, orderBy);
+        }
+        
+        /// <summary>
+        /// 获取所有数据。
+        /// </summary>
+        public static List<DeclareProfile> GetAll() {
+            return APBplDef.DeclareProfileBpl.GetAll();
+        }
+    }
+    
+    /// <summary>
+    /// 申报材料，基本信息
+    /// </summary>
+    [Serializable()]
+    public partial class DeclareProfile : DeclareProfileBase {
+        
+        /// <summary>
+        /// 默认构造函数。
+        /// </summary>
+        public DeclareProfile() {
+        }
+        
+        /// <summary>
+        /// 初始化所有字段的构造函数。
+        /// </summary>
+        public DeclareProfile(
+                    long declareProfileId, 
+                    long userId, 
+                    long periodId, 
+                    long declareTargetPKID, 
+                    long companyId, 
+                    string realName, 
+                    string trainNo, 
+                    long genderPKID, 
+                    System.DateTime birthday, 
+                    long politicalStatusPKID, 
+                    long nationalityPKID, 
+                    long eduSubjectPKID, 
+                    long eduStagePKID, 
+                    long skillTitlePKID, 
+                    string companyName, 
+                    long rankTitlePKID, 
+                    string courseCountPerWeek, 
+                    System.DateTime hiredate, 
+                    long eduBgPKID, 
+                    long eduDegreePKID, 
+                    string phonemobile, 
+                    string email, 
+                    string phone, 
+                    string dynamic1, 
+                    string dynamic2, 
+                    string dynamic3, 
+                    string dynamic4, 
+                    string dynamic5, 
+                    string statusKey) : 
+                base(declareProfileId, userId, periodId, declareTargetPKID, companyId, realName, trainNo, genderPKID, birthday, politicalStatusPKID, nationalityPKID, eduSubjectPKID, eduStagePKID, skillTitlePKID, companyName, rankTitlePKID, courseCountPerWeek, hiredate, eduBgPKID, eduDegreePKID, phonemobile, email, phone, dynamic1, dynamic2, dynamic3, dynamic4, dynamic5, statusKey) {
         }
     }
     

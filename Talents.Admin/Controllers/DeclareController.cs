@@ -32,7 +32,6 @@ namespace TheSite.Controllers
 
       public ActionResult Index()
       {
-         ViewBag.IsInDeclarePeriod = Period != null;
          return View();
       }
 

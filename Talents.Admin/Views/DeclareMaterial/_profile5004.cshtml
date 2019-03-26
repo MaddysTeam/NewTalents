@@ -1,6 +1,8 @@
-﻿@model BzUserProfile
+﻿@model DeclareProfile
 <!-- WIDGET TABBED CONTENT -->
-<form id="FormProfile" action="@Url.Action("BasicProfileEdit", "DeclareMaterial" )" method="post" class="form-horizontal form-group-sm" role="form" novalidate="novalidate">
+<form id="FormProfile" action="@Url.Action("BasicProfileEdit", "DeclareMaterial" )" method="post" class="form-horizontal form-group-sm" role="form" novalidate="novalidate"  data-after-success="afterDialogSuccess2()">
+	@Html.HiddenFor(x => x.DeclareProfileId)
+	@Html.HiddenFor(x => x.DeclareTargetPKID)
 	<input data-val="true" data-val-number="字段 修改周期ID 必须是一个数字。" data-val-required="修改周期ID 字段是必需的。" id="PeriodId" name="PeriodId" type="hidden" value="0">
 	<div class="row">
 		<fieldset class="col-md-6">
@@ -8,7 +10,7 @@
 				<div class="form-group">
 					@Html.LabelFor(m => m.RealName, new { @class = "col-md-3 control-label" })
 					<div class="col-md-9">
-						@Html.TextBoxFor(m => m.RealName, new { @class = "form-control" })
+					@Html.Label("RealName", Model.RealName, new { @class = "form-control" })
 					</div>
 				</div>
 				<div class="form-group">
@@ -197,6 +199,10 @@
 	</div>
 </form>
 <script>
+
+	function afterDialogSuccess2() {
+		loadProfile('@DeclareTargetIds.GongzsZhucr', '_profile5004')
+	}
 	$(function () {
 
 		ajaxSubmitForm($('#FormProfile'));
