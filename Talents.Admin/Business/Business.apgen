@@ -526,7 +526,7 @@
 					<add name="PeriodId" type="long" display="申报周期ID"/>
 					<add name="TeacherId" type="long" display="申报老师ID"/>
 					<add name="ItemId" type="long" display="申报项ID"/>
-					<add name="Title" type="string" dataLength="1000" display="标题/内容"/>
+					<add name="Title" type="string" dataLength="20000" display="标题/内容"/>
 					<add name="ParentType" type="string" dataLength="255" />
 					<add name="Type" type="string" dataLength="255" display="申报类型"/>
 					<add name="CreateDate" type="DateTime" display="创建时间"/>
@@ -546,7 +546,7 @@
 
 					<!-- General Information -->
 					<add name="RealName" type="string" dataLength="40" required="true" display="真实姓名"/>
-					<add name="TrainNo" type="string" dataLength="20"  defaultValue=""  display="师训编号"/>
+					<add name="TrainNo" type="string" dataLength="20"  required="true" display="师训编号"/>
 					<add name="GenderPKID" type="long" display="性别" required="true"  comment="PickList - Gender"/>
 					<add name="Birthday" type="DateTime" required="true"  display="出生年月"/>
 					<add name="PoliticalStatusPKID" type="long" display="政治面貌" required="true"  comment="PickList - PoliticalStatus"/>
@@ -557,17 +557,17 @@
 					<add name="EduStagePKID" type="long" display="任教学段" comment="PickList - EduStage"/>
 					<add name="SkillTitlePKID" type="long" display="现任专技职称" comment="PickList - SkillTitle"/>
 					<add name="CompanyName" type="string" dataLength="100" required="true"  display="单位"/>
-					<add name="RankTitlePKID" type="long" display="行政职务" comment="PickList - RankTitle"/>
-					<add name="CourseCountPerWeek" type="string" dataLength="20" isNullable="true"   display="周课时数"/>
-					<add name="Hiredate" type="DateTime" isNullable="true"  display="评聘日期"/>
+					<add name="RankTitlePKID" type="long" display="职务" required="true" comment="PickList - RankTitle"/>
+					<add name="CourseCountPerWeek" type="string" dataLength="20"  required="true" display="周课时数"/>
+					<add name="Hiredate" type="DateTime" required="true" display="评聘日期"/>
 
 					<!-- Educational Information -->
-					<add name="EduBgPKID" type="long" display="学历" comment="PickList - EduBg"/>
-					<add name="EduDegreePKID" type="long" display="学位" comment="PickList - EduDegree"/>
+					<add name="EduBgPKID" type="long" display="学历" required="true" comment="PickList - EduBg" />
+					<add name="EduDegreePKID" type="long" display="学位" required="true" comment="PickList - EduDegree"/>
 
 					<!-- Contact Information -->
-					<add name="Phonemobile" type="string" dataLength="20" isNullable="true"   display="手机号码"/>
-					<add name="Email" type="string" dataLength="255" isNullable="true"   display="电子邮箱" comment="用于联系的电子邮箱"/>
+					<add name="Phonemobile" type="string" dataLength="20" required="true"  display="手机号码"/>
+					<add name="Email" type="string" dataLength="255" required="true"   display="电子邮箱" comment="用于联系的电子邮箱"/>
 					<add name="Phone" type="string" dataLength="20" isNullable="true"   display="办公室电话"/>
 
 					<!-- Dynamic Information 备用字段 -->

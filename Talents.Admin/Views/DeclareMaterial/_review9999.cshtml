@@ -39,6 +39,22 @@
 				</div>
 
 				<div class="form-group">
+					@Html.LabelFor(m => m.AllowFlowToSchool, new { @class = "col-md-2 control-label" })
+					<div class="col-md-9">
+						&nbsp;&nbsp;是 @Html.RadioButton("AllowFlowToSchool", true, Model.AllowFlowToSchool, new { @style = "width:15px; height:15px;" })
+						&nbsp;&nbsp;否 @Html.RadioButton("AllowFlowToSchool", false, !Model.AllowFlowToSchool, new { @style = "width:15px; height:15px;" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.AllowFlowToDowngrade, new { @class = "col-md-2 control-label" })
+					<div class="col-md-9">
+						&nbsp;&nbsp;是 @Html.RadioButton("AllowFlowToDowngrade", true, Model.AllowFlowToDowngrade, new { @style = "width:15px; height:15px;" })
+						&nbsp;&nbsp;否 @Html.RadioButton("AllowFlowToDowngrade", false, !Model.AllowFlowToDowngrade, new { @style = "width:15px; height:15px;" })
+						@*@Html.CheckBoxFor(m => m.AllowFlowToDowngrade, new { @style = "width:20px; height:20px;" })*@
+					</div>
+				</div>
+
+				<div class="form-group">
 					@Html.LabelFor(m => m.Reason, new { @class = "col-md-2 control-label" })
 					<div class="col-md-9">
 						专业发展自我陈述（包括：本人教育理念、实践探索、教书育人成效等。500字左右。）

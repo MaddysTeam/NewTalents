@@ -7688,7 +7688,7 @@ namespace Business {
             public virtual StringAPColumnDef Title {
                 get {
                     if (Object.ReferenceEquals(_title, null)) {
-                        _title = new StringAPColumnDef(this, "Title", false, 1000);
+                        _title = new StringAPColumnDef(this, "Title", false, 20000);
                         _title.Display = "标题/内容";
                     }
                     return _title;
@@ -7986,6 +7986,7 @@ namespace Business {
                     if (Object.ReferenceEquals(_trainNo, null)) {
                         _trainNo = new StringAPColumnDef(this, "TrainNo", false, 20);
                         _trainNo.Display = "师训编号";
+                        _trainNo.Required = true;
                     }
                     return _trainNo;
                 }
@@ -8107,7 +8108,8 @@ namespace Business {
                 get {
                     if (Object.ReferenceEquals(_rankTitlePKID, null)) {
                         _rankTitlePKID = new Int64APColumnDef(this, "RankTitlePKID", false);
-                        _rankTitlePKID.Display = "行政职务";
+                        _rankTitlePKID.Display = "职务";
+                        _rankTitlePKID.Required = true;
                     }
                     return _rankTitlePKID;
                 }
@@ -8119,8 +8121,9 @@ namespace Business {
             public virtual StringAPColumnDef CourseCountPerWeek {
                 get {
                     if (Object.ReferenceEquals(_courseCountPerWeek, null)) {
-                        _courseCountPerWeek = new StringAPColumnDef(this, "CourseCountPerWeek", true, 20);
+                        _courseCountPerWeek = new StringAPColumnDef(this, "CourseCountPerWeek", false, 20);
                         _courseCountPerWeek.Display = "周课时数";
+                        _courseCountPerWeek.Required = true;
                     }
                     return _courseCountPerWeek;
                 }
@@ -8132,8 +8135,9 @@ namespace Business {
             public virtual DateTimeAPColumnDef Hiredate {
                 get {
                     if (Object.ReferenceEquals(_hiredate, null)) {
-                        _hiredate = new DateTimeAPColumnDef(this, "Hiredate", true);
+                        _hiredate = new DateTimeAPColumnDef(this, "Hiredate", false);
                         _hiredate.Display = "评聘日期";
+                        _hiredate.Required = true;
                     }
                     return _hiredate;
                 }
@@ -8147,6 +8151,7 @@ namespace Business {
                     if (Object.ReferenceEquals(_eduBgPKID, null)) {
                         _eduBgPKID = new Int64APColumnDef(this, "EduBgPKID", false);
                         _eduBgPKID.Display = "学历";
+                        _eduBgPKID.Required = true;
                     }
                     return _eduBgPKID;
                 }
@@ -8160,6 +8165,7 @@ namespace Business {
                     if (Object.ReferenceEquals(_eduDegreePKID, null)) {
                         _eduDegreePKID = new Int64APColumnDef(this, "EduDegreePKID", false);
                         _eduDegreePKID.Display = "学位";
+                        _eduDegreePKID.Required = true;
                     }
                     return _eduDegreePKID;
                 }
@@ -8171,8 +8177,9 @@ namespace Business {
             public virtual StringAPColumnDef Phonemobile {
                 get {
                     if (Object.ReferenceEquals(_phonemobile, null)) {
-                        _phonemobile = new StringAPColumnDef(this, "Phonemobile", true, 20);
+                        _phonemobile = new StringAPColumnDef(this, "Phonemobile", false, 20);
                         _phonemobile.Display = "手机号码";
+                        _phonemobile.Required = true;
                     }
                     return _phonemobile;
                 }
@@ -8184,8 +8191,9 @@ namespace Business {
             public virtual StringAPColumnDef Email {
                 get {
                     if (Object.ReferenceEquals(_email, null)) {
-                        _email = new StringAPColumnDef(this, "Email", true, 255);
+                        _email = new StringAPColumnDef(this, "Email", false, 255);
                         _email.Display = "电子邮箱";
+                        _email.Required = true;
                     }
                     return _email;
                 }
@@ -40863,7 +40871,7 @@ namespace Business {
         /// Title
         /// </summary>
         [Display(Name="标题/内容")]
-        [StringLength(1000)]
+        [StringLength(20000)]
         public virtual string Title {
             get {
                 return _title;
@@ -41229,7 +41237,7 @@ namespace Business {
         /// <summary>
         /// CourseCountPerWeek
         /// </summary>
-        private string _courseCountPerWeek;
+        private string _courseCountPerWeek = string.Empty;
         
         /// <summary>
         /// Hiredate
@@ -41249,12 +41257,12 @@ namespace Business {
         /// <summary>
         /// Phonemobile
         /// </summary>
-        private string _phonemobile;
+        private string _phonemobile = string.Empty;
         
         /// <summary>
         /// 用于联系的电子邮箱
         /// </summary>
-        private string _email;
+        private string _email = string.Empty;
         
         /// <summary>
         /// Phone
@@ -41498,6 +41506,7 @@ namespace Business {
         /// TrainNo
         /// </summary>
         [Display(Name="师训编号")]
+        [Required()]
         [StringLength(20)]
         public virtual string TrainNo {
             get {
@@ -41702,7 +41711,8 @@ namespace Business {
         /// <summary>
         /// PickList - RankTitle
         /// </summary>
-        [Display(Name="行政职务")]
+        [Display(Name="职务")]
+        [Required()]
         public virtual long RankTitlePKID {
             get {
                 return _rankTitlePKID;
@@ -41725,6 +41735,7 @@ namespace Business {
         /// CourseCountPerWeek
         /// </summary>
         [Display(Name="周课时数")]
+        [Required()]
         [StringLength(20)]
         public virtual string CourseCountPerWeek {
             get {
@@ -41748,6 +41759,7 @@ namespace Business {
         /// Hiredate
         /// </summary>
         [Display(Name="评聘日期")]
+        [Required()]
         public virtual System.DateTime Hiredate {
             get {
                 return _hiredate;
@@ -41770,6 +41782,7 @@ namespace Business {
         /// PickList - EduBg
         /// </summary>
         [Display(Name="学历")]
+        [Required()]
         public virtual long EduBgPKID {
             get {
                 return _eduBgPKID;
@@ -41792,6 +41805,7 @@ namespace Business {
         /// PickList - EduDegree
         /// </summary>
         [Display(Name="学位")]
+        [Required()]
         public virtual long EduDegreePKID {
             get {
                 return _eduDegreePKID;
@@ -41814,6 +41828,7 @@ namespace Business {
         /// Phonemobile
         /// </summary>
         [Display(Name="手机号码")]
+        [Required()]
         [StringLength(20)]
         public virtual string Phonemobile {
             get {
@@ -41837,6 +41852,7 @@ namespace Business {
         /// 用于联系的电子邮箱
         /// </summary>
         [Display(Name="电子邮箱")]
+        [Required()]
         [StringLength(255)]
         public virtual string Email {
             get {

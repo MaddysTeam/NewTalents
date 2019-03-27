@@ -3,7 +3,12 @@
 
    public static class DeclareTargetIds
    {
-
+      public const long GonggJihZhucRen = 999;
+      public const long GaofJihZhucRen = 1000;
+      public const long GonggJihChengy = 1001;
+      public const long ZhongzJihLingxReng = 1002;
+      public const long ZhongzJihChengy = 1003;
+      public const long GaodJiaoSYanxBanXuey = 1004;
       public const long WaipDaos = 5001;
       public const long GaodLisz = 5002;
       public const long JidZhucr = 5003;

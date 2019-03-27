@@ -250,7 +250,7 @@ namespace TheSite.Controllers
       [DecalrePeriod]
       public ActionResult ReviewEdit(DeclareReview model)
       {
-         var existReviews = db.DeclareReviewDal.ConditionQuery(df.TeacherId == UserProfile.UserId & df.PeriodId == Period.PeriodId & df.DeclareTargetPKID==model.DeclareTargetPKID, null, null, null);
+         var existReviews = db.DeclareReviewDal.ConditionQuery(df.TeacherId == UserProfile.UserId & df.PeriodId == Period.PeriodId & df.DeclareTargetPKID == model.DeclareTargetPKID, null, null, null);
          if (existReviews.Exists(x => !string.IsNullOrEmpty(x.StatusKey)))
          {
             return Json(new
@@ -341,6 +341,16 @@ namespace TheSite.Controllers
             profile.DeclareTargetPKID = param.DeclareTargetId;
          }
 
+         if (!string.IsNullOrEmpty(profile.Dynamic4))
+         {
+            var targetIds = profile.Dynamic4.Split(',');
+            profile.PrevioursDeclareTargets = new long[targetIds.Length];
+            for (int i = 0; i < targetIds.Length; i++)
+            {
+               profile.PrevioursDeclareTargets[i] = Convert.ToInt64(targetIds[i]);
+            }
+         }
+
          return PartialView(param.View, profile);
       }
 
@@ -348,6 +358,11 @@ namespace TheSite.Controllers
       [DecalrePeriod]
       public ActionResult BasicProfileEdit(DeclareProfile model)
       {
+         if (model.PrevioursDeclareTargets != null && model.PrevioursDeclareTargets.Length > 0)
+         {
+            model.Dynamic4 = string.Join(",", model.PrevioursDeclareTargets);
+         }
+
          if (model.DeclareProfileId == 0)
          {
             model.PeriodId = Period.PeriodId;
@@ -358,7 +373,7 @@ namespace TheSite.Controllers
          }
          else
          {
-            db.DeclareProfileDal.UpdatePartial(model.DeclareProfileId,UserProfile.UserId, new
+            db.DeclareProfileDal.UpdatePartial(model.DeclareProfileId, UserProfile.UserId, new
             {
                model.GenderPKID,
                model.Birthday,
@@ -386,35 +401,8 @@ namespace TheSite.Controllers
             });
          }
 
-         //db.BzUserProfileDal.UpdatePartial(UserProfile.UserId, new
-         //{
-         //   //model.RealName,
-         //   model.GenderPKID,
-         //   model.Birthday,
-         //   model.CompanyId,
-         //   model.TrainNo,
-         //   model.PoliticalStatusPKID,
-         //   model.CourseCountPerWeek,
-         //   model.NationalityPKID,
-         //   model.SkillTitlePKID,
-         //   model.RankTitlePKID,
-         //   model.Hiredate,
-         //   model.Phonemobile,
-         //   model.Phone,
-         //   model.Email,
-         //   model.EduBgPKID,
-         //   model.EduDegreePKID,
-         //   model.EduStagePKID,
-         //   model.EduSubjectPKID,
-         //   model.Dynamic1,
-         //   model.Dynamic2,
-         //   model.Dynamic3,
-         //   model.Dynamic4,
-         //   model.Dynamic5
-         //});
-
          //TODO: 高地理事长和基地支持人的自荐表特殊处理
-         if (model.DeclareTargetPKID== DeclareTargetIds.GaodLisz || model.DeclareTargetPKID == DeclareTargetIds.JidZhucr)
+         if (model.DeclareTargetPKID == DeclareTargetIds.GaodLisz || model.DeclareTargetPKID == DeclareTargetIds.JidZhucr)
          {
             var decalreTargetId = model.DeclareTargetPKID;
             var typeKey = decalreTargetId == DeclareTargetIds.GaodLisz ? DeclareKeys.GaodLisz_ZijBiao : DeclareKeys.JidZhucr_ZijBiao;
@@ -635,19 +623,20 @@ namespace TheSite.Controllers
          model.FirstYearScore = profile.Dynamic1;
          model.SecondYearScore = profile.Dynamic2;
          model.ThirdYearScore = profile.Dynamic3;
-         model.Is500 = profile.Dynamic4 == DeclareKeys.ZhongzJihChengy;
-         model.Is1000 = profile.Dynamic4 == DeclareKeys.GonggJihChengy;
-         model.Is2000 = profile.Dynamic4 == DeclareKeys.ZhongzJihLingxReng;
-         model.Is3000 = profile.Dynamic4 == DeclareKeys.GaofJihZhucRen;
-         model.Is4000 = profile.Dynamic4 == DeclareKeys.GonggJihZhucRen;
-         model.Is5002 = profile.Dynamic4 == DeclareKeys.GaodLisz;
-         model.Is5003 = profile.Dynamic4 == DeclareKeys.JidZhucr;
-         model.Is5004 = profile.Dynamic4 == DeclareKeys.GongzsZhucr;
-         model.Is5005 = profile.Dynamic4 == DeclareKeys.XuekDaitr;
-         model.Is5006 = profile.Dynamic4 == DeclareKeys.GugJiaos;
-         model.Is5007 = profile.Dynamic4 == DeclareKeys.JiaoxNengs;
-         model.Is5008 = profile.Dynamic4 == DeclareKeys.JiaoxXinx;
-         model.Is6000 = profile.Dynamic4 == DeclareKeys.GaodJiaoSYanxBanXuey;
+         profile.Dynamic4 = profile.Dynamic4 ?? string.Empty;
+         model.Is500 = profile.Dynamic4.IndexOf(DeclareTargetIds.ZhongzJihChengy.ToString()) >= 0;
+         model.Is1000 = profile.Dynamic4.IndexOf(DeclareTargetIds.GonggJihChengy.ToString()) >= 0;
+         model.Is2000 = profile.Dynamic4.IndexOf(DeclareTargetIds.ZhongzJihLingxReng.ToString()) >= 0;
+         model.Is3000 = profile.Dynamic4.IndexOf(DeclareTargetIds.GaofJihZhucRen.ToString()) >= 0;
+         model.Is4000 = profile.Dynamic4.IndexOf(DeclareTargetIds.GonggJihZhucRen.ToString()) >= 0;
+         model.Is5002 = profile.Dynamic4.IndexOf(DeclareTargetIds.GaodLisz.ToString()) >= 0;
+         model.Is5003 = profile.Dynamic4.IndexOf(DeclareTargetIds.JidZhucr.ToString()) >= 0;
+         model.Is5004 = profile.Dynamic4.IndexOf(DeclareTargetIds.GongzsZhucr.ToString()) >= 0;
+         model.Is5005 = profile.Dynamic4.IndexOf(DeclareTargetIds.XuekDaitr.ToString()) >= 0;
+         model.Is5006 = profile.Dynamic4.IndexOf(DeclareTargetIds.GugJiaos.ToString()) >= 0;
+         model.Is5007 = profile.Dynamic4.IndexOf(DeclareTargetIds.JiaoxNengs.ToString()) >= 0;
+         model.Is5008 = profile.Dynamic4.IndexOf(DeclareTargetIds.JiaoxXinx.ToString()) >= 0;
+         model.Is6000 = profile.Dynamic4.IndexOf(DeclareTargetIds.GaodJiaoSYanxBanXuey.ToString()) >= 0;
          model.Comment1 = profile.Dynamic5;
          model.IsAllowDownGrade = review.AllowFlowToDowngrade;
          model.IsAllowdFlow = review.AllowFlowToSchool;

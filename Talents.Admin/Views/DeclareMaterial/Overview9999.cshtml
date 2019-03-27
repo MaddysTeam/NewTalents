@@ -76,6 +76,8 @@
 						<th>姓名</th>
 						<th>申报单位</th>
 						<th>申报学科</th>
+						<th>是否愿意参与区内流动</th>
+						<th>如落选是否愿意参加本轮区教学能手评选</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -84,6 +86,8 @@
 						<td>@Model.RealName</td>
 						<td>@Model.DeclareCompany</td>
 						<td>@Model.DeclareSubject</td>
+						<td>@(Model.IsAllowdFlow ? "是" : "否")</td>
+						<td>@(Model.IsAllowDownGrade ? "是" : "否")</td>
 					</tr>
 
 				</tbody>
@@ -267,18 +271,14 @@
 						<span style="font-family:宋体; font-size:12pt"></span>
 						<span style="font-family:宋体; font-size:12pt">）</span>
 					</p>
-					<p style="margin:0pt; text-align:justify">
-						<span style="font-family:宋体; font-size:12pt">上一轮是学科培训工作室主持人</span>
-						<span style="font-family:宋体; font-size:12pt">（@(Model.Is5004 ? "√" : "")</span>
-						<span style="font-family:宋体; font-size:12pt">）</span>
-					</p>
-					<p style="margin:0pt; text-align:justify">
-						<span style="font-family:宋体; font-size:12pt">上一轮是学科带头人</span>
-						<span style="font-family:宋体; font-size:12pt">（</span>
-						<span style="font-family:宋体; font-size:12pt">@(Model.Is5005 ? "√" : "")</span>
-						<span style="font-family:宋体; font-size:12pt"></span>
-						<span style="font-family:宋体; font-size:12pt">）</span>
-					</p>
+							<p style="margin:0pt; text-align:justify">
+
+								<span style="font-family:宋体; font-size:12pt">“种子计划”成员</span>
+								<span style="font-family:宋体; font-size:12pt">（</span>
+								<span style="font-family:宋体; font-size:12pt">@(Model.Is500 ? "√" : "")</span>
+								<span style="font-family:宋体; font-size:12pt"></span>
+								<span style="font-family:宋体; font-size:12pt">）</span>
+							</p>
 					<p style="margin:0pt; text-align:justify">
 						<span style="font-family:宋体; font-size:12pt">上一轮是骨干教师</span>
 						<span style="font-family:宋体; font-size:12pt">（@(Model.Is5006 ? "√" : "")</span>
@@ -287,6 +287,11 @@
 					<p style="margin:0pt; text-align:justify">
 						<span style="font-family:宋体; font-size:12pt">上一轮是教学能手</span>
 						<span style="font-family:宋体; font-size:12pt">（@(Model.Is5007 ? "√" : "")</span>
+						<span style="font-family:宋体; font-size:12pt">）</span>
+					</p>
+	            <p style="margin:0pt; text-align:justify">
+						<span style="font-family:宋体; font-size:12pt">上一轮是教学新秀</span>
+						<span style="font-family:宋体; font-size:12pt">（@(Model.Is5008 ? "√" : "")</span>
 						<span style="font-family:宋体; font-size:12pt">）</span>
 					</p>
 					<p style="margin:0pt; text-align:justify">
