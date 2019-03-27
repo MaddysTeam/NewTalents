@@ -110,7 +110,7 @@ namespace Business
          new List<Target>
            {
                 new Target {Name = DeclareKeys.ZhongzJihChengy, Id =DeclareTargetIds.ZhongzJihChengy },
-                new Target {Name = Target.Prefix+DeclareKeys.JiaoxNengs, Id =DeclareTargetIds.JiaoxNengs }
+                new Target {Name = Target.Prefix+DeclareKeys.JiaoxXinx, Id =DeclareTargetIds.JiaoxXinx }
            };
 
       public List<Target> GetAllTargets5999 =>

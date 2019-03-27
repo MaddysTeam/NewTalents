@@ -29,6 +29,7 @@
 							@Html.TextBoxFor(m => m.Birthday, "{0:yyyy-MM-dd}", new { @class = "form-control" })
 							<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
 						</div>
+						@Html.ValidationMessageFor(m => m.Birthday)
 					</div>
 				</div>
 				<div class="form-group">
@@ -41,6 +42,7 @@
 					@Html.LabelFor(m => m.TrainNo, new { @class = "col-md-3 control-label" })
 					<div class="col-md-9">
 						@Html.TextBoxFor(m => m.TrainNo, new { @class = "form-control" })
+						@Html.ValidationMessageFor(m => m.TrainNo)
 					</div>
 				</div>
 				<div class="form-group">
@@ -53,6 +55,7 @@
 					@Html.LabelFor(m => m.CourseCountPerWeek, new { @class = "col-md-3 control-label" })
 					<div class="col-md-9">
 						@Html.TextBoxFor(m => m.CourseCountPerWeek, new { @class = "form-control" })
+						@Html.ValidationMessageFor(m => m.CourseCountPerWeek)
 					</div>
 				</div>
 				<div class="form-group">
@@ -108,12 +111,14 @@
 							@Html.TextBoxFor(m => m.Hiredate, "{0:yyyy-MM-dd}", new { @class = "form-control" })
 							<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
 						</div>
+						@Html.ValidationMessageFor(m => m.Hiredate)
 					</div>
 				</div>
 				<div class="form-group">
 					@Html.LabelFor(m => m.Phonemobile, new { @class = "col-md-3 control-label" })
 					<div class="col-md-9">
 						@Html.TextBoxFor(m => m.Phonemobile, new { @class = "form-control" })
+						@Html.ValidationMessageFor(m => m.Phonemobile)
 					</div>
 				</div>
 				<div class="form-group">
@@ -126,53 +131,65 @@
 					@Html.LabelFor(m => m.Email, new { @class = "col-md-3 control-label" })
 					<div class="col-md-9">
 						@Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+						@Html.ValidationMessageFor(m => m.Email)
 					</div>
 				</div>
 			</div>
 		</fieldset>
 	</div>
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h4 class="panel-title">校内履职-近三年考核情况</h4>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">校内履职-近三年考核情况</h4>
+				</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<div class="col-md-4">
+							2016学年<br />
+							@Html.RadioButton("Dynamic1", DeclareKeys.Good, Model.Dynamic1 == DeclareKeys.Good) 优秀 @Html.RadioButton("Dynamic1", DeclareKeys.Normal, Model.Dynamic1 == DeclareKeys.Normal) 合格 @Html.RadioButton("Dynamic1", DeclareKeys.Worse, Model.Dynamic1 == DeclareKeys.Worse) 不合格
+						</div>
+						<div class="col-md-4">
+							2017学年<br />
+							@Html.RadioButton("Dynamic2", DeclareKeys.Good, Model.Dynamic2 == DeclareKeys.Good) 优秀 @Html.RadioButton("Dynamic2", DeclareKeys.Normal, Model.Dynamic2 == DeclareKeys.Normal) 合格 @Html.RadioButton("Dynamic2", DeclareKeys.Worse, Model.Dynamic2 == DeclareKeys.Worse) 不合格
+						</div>
+						<div class="col-md-4">
+							2018学年<br />
+							@Html.RadioButton("Dynamic3", DeclareKeys.Good, Model.Dynamic3 == DeclareKeys.Good) 优秀 @Html.RadioButton("Dynamic3", DeclareKeys.Normal, Model.Dynamic3 == DeclareKeys.Normal) 合格 @Html.RadioButton("Dynamic3", DeclareKeys.Worse, Model.Dynamic3 == DeclareKeys.Worse) 不合格
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">目前在区级及以上专业委员会任职情况（名称、职务）</h4>
+				</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<div class="col-md-12">@Html.TextAreaFor(m => m.Dynamic5, 5, 10, new { @class = "form-control" })</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="panel-body">
-			<div class="form-group">
-				<div class="col-md-3">
-					2016学年<br />
-					@Html.RadioButton("Dynamic1", DeclareKeys.Good, Model.Dynamic1 == DeclareKeys.Good) 优秀 @Html.RadioButton("Dynamic1", DeclareKeys.Normal, Model.Dynamic1 == DeclareKeys.Normal) 合格 @Html.RadioButton("Dynamic1", DeclareKeys.Worse, Model.Dynamic1 == DeclareKeys.Worse) 不合格
+
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">市“双名工程”</h4><br />
+					<h4 class="panel-title">上一轮人才梯队任职情况</h4>
 				</div>
-				<div class="col-md-3">
-					2017学年<br />
-					@Html.RadioButton("Dynamic2", DeclareKeys.Good, Model.Dynamic2 == DeclareKeys.Good) 优秀 @Html.RadioButton("Dynamic2", DeclareKeys.Normal, Model.Dynamic2 == DeclareKeys.Normal) 合格 @Html.RadioButton("Dynamic2", DeclareKeys.Worse, Model.Dynamic2 == DeclareKeys.Worse) 不合格
-				</div>
-				<div class="col-md-3">
-					2018学年<br />
-					@Html.RadioButton("Dynamic3", DeclareKeys.Good, Model.Dynamic3 == DeclareKeys.Good) 优秀 @Html.RadioButton("Dynamic3", DeclareKeys.Normal, Model.Dynamic3 == DeclareKeys.Normal) 合格 @Html.RadioButton("Dynamic3", DeclareKeys.Worse, Model.Dynamic3 == DeclareKeys.Worse) 不合格
+				<div class="panel-body">
+					<div style="margin-left:20px; height:228px">
+						@Html.CheckBoxListFor(model => model.PrevioursDeclareTargets, model => model.PrevioursDeclareTargets, Model.GetAllTargets5006, f => f.Id, f => f.Name, false, new Dictionary<string, object> { { "class", "checkbox" } })
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h4 class="panel-title">市“双名工程”</h4><br />
-			<h4 class="panel-title">上一轮人才梯队任职情况</h4>
-		</div>
-		<div class="panel-body">
-			<div class="form-group">
-				@Html.CheckBoxListFor(model => model.PrevioursDeclareTargets, model => model.PrevioursDeclareTargets, Model.GetAllTargets5006, f => f.Id, f => f.Name, false, new Dictionary<string, object> { { "class", "checkbox-inline" } })
-			</div>
-		</div>
-	</div>
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h4 class="panel-title">目前在区级及以上专业委员会任职情况（名称、职务）</h4>
-		</div>
-		<div class="panel-body">
-			<div class="form-group">
-				<div class="col-md-12">@Html.TextAreaFor(m => m.Dynamic5, 5, 10, new { @class = "form-control" })</div>
-			</div>
-		</div>
-	</div>
+	
+	
+
 	<div class="form-group">
 		<div class="col-md-offset-5">
 			<button type="submit" class="btn btn-lg btn-custom-primary btn-save"><i class="fa fa-save"></i> 保存</button>

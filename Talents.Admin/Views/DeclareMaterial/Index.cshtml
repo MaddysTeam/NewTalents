@@ -219,40 +219,38 @@
 			})
 
 			$(form).find('.btn-save').on('click', function () {
-				var errcount=0;
-				var res = false;
-				$('#FormProfile').find('select').each(function () {
-					var $this = $(this);
-					res = showDropErrorIfNotSeclectd($this.val() == 0, $this, $this.data('valRequired'));
+				var errcount = 0;
+				var $this = $(form);
+				$this.find('select').each(function () {
+					var $that = $(this);
+					var res = showDropErrorIfNotSeclectd($that.val() == 0, $that, $that.data('valRequired'));
 					if (!res) {
 						errcount++;
 					}
 				});
 
-				if (errcount>0) return false;
-
-				if (res) {
-					$('input').each(function () {
-						$(this).parent().parent().removeClass("has-error");
-					});
+				if (!$this.valid())
+				{
+					errcount++;
 				}
 
-				return res;
+				return errcount <= 0;
 			});
 		}
 
 		function showDropErrorIfNotSeclectd(error, ele, msg) {
-			ele.parent().find('.field-validation-error').remove();
+			var parent = ele.parent();
+			parent.find('.field-validation-error').remove();
 			var dropError = '<span class="field-validation-error"></span>';
 			if (error) {
-				ele.addClass('input-validation-error');
-				ele.parent().append($(dropError).html(msg));
+				//ele.addClass('input-validation-error');
+				parent.append($(dropError).html(msg));
 				return false;
 			}
 			else {
-				ele.removeClass('input-validation-error');
+				//ele.removeClass('input-validation-error');
 				//ele.parent().parent().removeClass('has-error');
-				ele.parent().find('.field-validation-error').remove();
+				parent.find('.field-validation-error').remove();
 				return true;
 			}
 		}

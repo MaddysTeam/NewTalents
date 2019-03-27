@@ -542,7 +542,7 @@
 					<add name="UserId" type="long" display="用户ID" primaryKey="true" />
 					<add name="PeriodId" type="long" display="申报周期ID"/>
 					<add name="DeclareTargetPKID" type="long" display="申报（担任）称号" comment="PickList - PLKey_DeclareTarget"/>
-					<add name="CompanyId" type="long" display="单位ID" />
+					<add name="CompanyId" type="long" display="单位" />
 
 					<!-- General Information -->
 					<add name="RealName" type="string" dataLength="40" required="true" display="真实姓名"/>

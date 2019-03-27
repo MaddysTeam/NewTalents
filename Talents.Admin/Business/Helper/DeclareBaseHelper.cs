@@ -32,6 +32,7 @@ namespace Business.Helper
    {
 
       static APDBDef.DeclareMaterialTableDef dm = APDBDef.DeclareMaterial;
+      static APDBDef.DeclareReviewTableDef df = APDBDef.DeclareReview;
 
       public static void AddDeclareMaterial(DeclareContent content, DeclarePeriod period, APDBDef db, long declareTargetId = 0)
       {
@@ -61,6 +62,9 @@ namespace Business.Helper
       {
          if (active != null && period != null)
          {
+            //已经提交过表单则直接返回
+            if (IsDeclareSubmit(period.PeriodId, active.TeacherId, db)) throw new ApplicationException("该老师的申报表单已经提交");
+      
             var existItems = db.DeclareMaterialDal.ConditionQuery(dm.PeriodId == period.PeriodId
                   & dm.TeacherId == active.Creator
                   & dm.Type == active.ActiveKey
@@ -94,6 +98,9 @@ namespace Business.Helper
       {
          if (achievement != null && period != null)
          {
+            //已经提交过表单则直接返回
+            if (IsDeclareSubmit(period.PeriodId, achievement.TeacherId, db)) throw new ApplicationException("该老师的申报表单已经提交");
+
             var existItems = db.DeclareMaterialDal.ConditionQuery(dm.PeriodId == period.PeriodId
                   & dm.TeacherId == achievement.Creator
                   & dm.Type == achievement.AchievementKey
@@ -228,6 +235,13 @@ namespace Business.Helper
                });
          }
       }
+
+
+      public static bool IsDeclareSubmit(long periodId, long teacherId, APDBDef db)
+      {
+         return db.DeclareReviewDal.ConditionQueryCount(df.PeriodId == periodId & df.TeacherId == teacherId & (df.StatusKey != string.Empty | df.StatusKey != null)) > 0;
+      }
+
 
       private static string SubString(string str)
          => str.Length > 50 ? str.Substring(0, 50) + "..." : str;

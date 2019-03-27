@@ -250,7 +250,7 @@ namespace TheSite.Controllers
       [DecalrePeriod]
       public ActionResult ReviewEdit(DeclareReview model)
       {
-         var existReviews = db.DeclareReviewDal.ConditionQuery(df.TeacherId == UserProfile.UserId & df.PeriodId == Period.PeriodId & df.DeclareTargetPKID == model.DeclareTargetPKID, null, null, null);
+         var existReviews = db.DeclareReviewDal.ConditionQuery(df.TeacherId == UserProfile.UserId & df.PeriodId == Period.PeriodId, null, null, null);
          if (existReviews.Exists(x => !string.IsNullOrEmpty(x.StatusKey)))
          {
             return Json(new
@@ -358,6 +358,13 @@ namespace TheSite.Controllers
       [DecalrePeriod]
       public ActionResult BasicProfileEdit(DeclareProfile model)
       {
+         if (DeclareMaterialHelper.IsDeclareSubmit(Period.PeriodId, UserProfile.UserId, db))
+            return Json(new
+            {
+               result = AjaxResults.Error,
+               msg = "该老师的申报表单已经提交！"
+            });
+
          if (model.PrevioursDeclareTargets != null && model.PrevioursDeclareTargets.Length > 0)
          {
             model.Dynamic4 = string.Join(",", model.PrevioursDeclareTargets);
@@ -649,6 +656,7 @@ namespace TheSite.Controllers
 
          return model;
       }
+
 
       #endregion
 

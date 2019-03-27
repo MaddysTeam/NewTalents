@@ -97,10 +97,10 @@
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload">附件上传</button>
 								</span>
 							</div>
+							<div class="red">*上传文件类型为文本类型，图片和压缩包，每个文件不大于20M</div>
 							@Html.ValidationMessageFor(m => m.AttachmentName )
 						</div>
 					</div>
-
 					<div class="form-group">
 						@Html.LabelFor(m => m.VertificationName, new { @class = "control-label col-md-3" })
 						<div class="col-md-9">
@@ -114,6 +114,7 @@
 									<button class="btn btn-danger btn-upload" type="button" id="btn-vertifyUpload">证明文件上传</button>
 								</span>
 							</div>
+							<div class="red">*证明文件类型为文本类型或者图片，文件不大于50M</div>
 							@Html.ValidationMessageFor(m => m.VertificationName)
 						</div>
 					</div>

@@ -28,6 +28,7 @@
 							@Html.TextBoxFor(m => m.Birthday, "{0:yyyy-MM-dd}", new { @class = "form-control" })
 							<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
 						</div>
+						@Html.ValidationMessageFor(m => m.Birthday)
 					</div>
 				</div>
 				<div class="form-group">
@@ -40,6 +41,7 @@
 					@Html.LabelFor(m => m.TrainNo, new { @class = "col-md-3 control-label" })
 					<div class="col-md-9">
 						@Html.TextBoxFor(m => m.TrainNo, new { @class = "form-control" })
+						@Html.ValidationMessageFor(m => m.TrainNo)
 					</div>
 				</div>
 				<div class="form-group">
@@ -52,6 +54,7 @@
 					@Html.LabelFor(m => m.CourseCountPerWeek, new { @class = "col-md-3 control-label" })
 					<div class="col-md-9">
 						@Html.TextBoxFor(m => m.CourseCountPerWeek, new { @class = "form-control" })
+						@Html.ValidationMessageFor(m => m.CourseCountPerWeek)
 					</div>
 				</div>
 				<div class="form-group">
@@ -107,24 +110,28 @@
 							@Html.TextBoxFor(m => m.Hiredate, "{0:yyyy-MM-dd}", new { @class = "form-control" })
 							<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
 						</div>
+						@Html.ValidationMessageFor(m => m.Hiredate)
 					</div>
 				</div>
 				<div class="form-group">
 					@Html.LabelFor(m => m.Phonemobile, new { @class = "col-md-3 control-label" })
 					<div class="col-md-9">
 						@Html.TextBoxFor(m => m.Phonemobile, new { @class = "form-control" })
+						@Html.ValidationMessageFor(m => m.Phonemobile)
 					</div>
 				</div>
 				<div class="form-group">
 					@Html.LabelFor(m => m.Phone, new { @class = "col-md-3 control-label" })
 					<div class="col-md-9">
 						@Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+						@Html.ValidationMessageFor(m => m.Phone)
 					</div>
 				</div>
 				<div class="form-group">
 					@Html.LabelFor(m => m.Email, new { @class = "col-md-3 control-label" })
 					<div class="col-md-9">
 						@Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+						@Html.ValidationMessageFor(m => m.Email)
 					</div>
 				</div>
 			</div>
