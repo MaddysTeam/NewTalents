@@ -154,6 +154,7 @@
 
 					<!-- Work Information -->
 					<add name="EduSubjectPKID" type="long" display="任教学科" comment="PickList - EduSubject"/>
+					<add name="DeclareSubjectPKID" type="long"  display="申报学科" comment="PickList - DeclareSubject"/>
 					<add name="EduStagePKID" type="long" display="任教学段" comment="PickList - EduStage"/>
 					<add name="JobDate" type="DateTime?" isNullable="true" required="true"  display="参加教育工作年月"/>
 					<add name="SkillTitlePKID" type="long" display="现任专技职称" comment="PickList - SkillTitle"/>
@@ -500,6 +501,7 @@
 				<columns>
 
 					<add name="DeclareReviewId" type="long" primaryKey="true" identityType="Provider" />
+					<add name="TeacherName"  required="true" type="string" dataLength="100" display="姓名" comment="冗余"/>
 					<add name="TeacherId" type="long" display="教师ID" />
 					<add name="CompanyId" type="long" display="申报单位" />
 					<add name="DeclareTargetPKID" type="long" display="申报称号" comment="PickList - PLKey_DeclareTarget"/>

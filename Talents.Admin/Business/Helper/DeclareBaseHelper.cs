@@ -239,7 +239,8 @@ namespace Business.Helper
 
       public static bool IsDeclareSubmit(long periodId, long teacherId, APDBDef db)
       {
-         return db.DeclareReviewDal.ConditionQueryCount(df.PeriodId == periodId & df.TeacherId == teacherId & (df.StatusKey != string.Empty | df.StatusKey != null)) > 0;
+         var reviews= db.DeclareReviewDal.ConditionQuery(df.TeacherId == teacherId & df.PeriodId == periodId ,null,null,null );
+         return reviews.Exists(review => !string.IsNullOrEmpty(review.StatusKey));
       }
 
 

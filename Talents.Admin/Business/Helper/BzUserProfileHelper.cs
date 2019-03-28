@@ -22,7 +22,8 @@ namespace Business.Helper
 		public static PicklistAPRptColumn PoliticalStatus { get; } = new PicklistAPRptColumn(t.PoliticalStatusPKID, PicklistKeys.PoliticalStatus);
 		public static PicklistAPRptColumn Nationality { get; } = new PicklistAPRptColumn(t.NationalityPKID, PicklistKeys.Nationality);
 		public static PicklistAPRptColumn EduSubject { get; } = new PicklistAPRptColumn(t.EduSubjectPKID, PicklistKeys.EduSubject);
-		public static PicklistAPRptColumn EduStage { get; } = new PicklistAPRptColumn(t.EduStagePKID, PicklistKeys.EduStage);
+      public static PicklistAPRptColumn DeclareSubject { get; } = new PicklistAPRptColumn(t.DeclareSubjectPKID, PicklistKeys.DeclareSubject);
+      public static PicklistAPRptColumn EduStage { get; } = new PicklistAPRptColumn(t.EduStagePKID, PicklistKeys.EduStage);
 		public static DateTimeChineseAPRptColumn JobDate { get; } = new DateTimeChineseAPRptColumn(t.JobDate, APRptDateTimeType.DateOnly);
 		public static PicklistAPRptColumn SkillTitle { get; } = new PicklistAPRptColumn(t.SkillTitlePKID, PicklistKeys.SkillTitle);
 		public static DateTimeChineseAPRptColumn SkillDate { get; } = new DateTimeChineseAPRptColumn(t.SkillDate, APRptDateTimeType.DateOnly);

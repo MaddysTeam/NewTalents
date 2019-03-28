@@ -7,23 +7,23 @@ namespace Business
    public partial class DeclareProfile
    {
 
-      public string Gender => BzUserProfileHelper.Gender.GetName(GenderPKID);
+      public string Gender => BzUserProfileHelper.Gender.GetName(GenderPKID, "", false);
 
-      public string PoliticalStatus => BzUserProfileHelper.PoliticalStatus.GetName(PoliticalStatusPKID);
+      public string PoliticalStatus => BzUserProfileHelper.PoliticalStatus.GetName(PoliticalStatusPKID, "", false);
 
-      public string Nationality => BzUserProfileHelper.Nationality.GetName(NationalityPKID);
+      public string Nationality => BzUserProfileHelper.Nationality.GetName(NationalityPKID, "", false);
 
-      public string EduSubject => BzUserProfileHelper.EduSubject.GetName(EduSubjectPKID);
+      public string EduSubject => BzUserProfileHelper.EduSubject.GetName(EduSubjectPKID, "", false);
 
-      public string EduStage => BzUserProfileHelper.EduStage.GetName(EduStagePKID);
+      public string EduStage => BzUserProfileHelper.EduStage.GetName(EduStagePKID, "", false);
 
-      public string SkillTitle => BzUserProfileHelper.SkillTitle.GetName(SkillTitlePKID);
+      public string SkillTitle => BzUserProfileHelper.SkillTitle.GetName(SkillTitlePKID,"",false);
 
-      public string RankTitle => BzUserProfileHelper.RankTitle.GetName(RankTitlePKID);
+      public string RankTitle => BzUserProfileHelper.RankTitle.GetName(RankTitlePKID, "", false);
 
-      public string EduBg => BzUserProfileHelper.EduBg.GetName(EduBgPKID);
+      public string EduBg => BzUserProfileHelper.EduBg.GetName(EduBgPKID, "", false);
 
-      public string EduDegree => BzUserProfileHelper.EduDegree.GetName(EduDegreePKID);
+      public string EduDegree => BzUserProfileHelper.EduDegree.GetName(EduDegreePKID, "", false);
 
       public bool IsExtLogined { get; set; }
 

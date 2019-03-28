@@ -81,16 +81,14 @@ namespace TheSite.Controllers
       [HttpPost]
       public ActionResult List(long companyId, int current, int rowCount, AjaxOrder sort, string searchPhrase)
       {
-         var u = APDBDef.BzUserProfile;
          var u2 = APDBDef.BzUserProfile.As("reviewer");
          var c = APDBDef.Company;
          var currentPeriod = Period ?? new DeclarePeriod();
-         var query = APQuery.select(dr.DeclareReviewId, dr.ReviewComment, dr.StatusKey, 
+         var query = APQuery.select(dr.DeclareReviewId, dr.ReviewComment, dr.StatusKey, dr.TeacherName,
                                     dr.TeacherId, dr.ReviewerId,dr.TypeKey, 
                                     dr.DeclareTargetPKID, dr.DeclareSubjectPKID,
-                             u.RealName, u2.RealName.As("reviewer"), c.CompanyName)
+                                    u2.RealName.As("reviewer"), c.CompanyName)
                           .from(dr,
-                                u.JoinInner(dr.TeacherId == u.UserId),
                                 c.JoinInner(c.CompanyId == dr.CompanyId),
                                 u2.JoinLeft(dr.ReviewerId == u2.UserId)
                                 )
@@ -106,7 +104,7 @@ namespace TheSite.Controllers
          searchPhrase = searchPhrase.Trim();
          if (searchPhrase != "")
          {
-            query.where_and(u.RealName.Match(searchPhrase));
+            query.where_and(dr.TeacherName.Match(searchPhrase));
          }
 
 
@@ -116,7 +114,7 @@ namespace TheSite.Controllers
          {
             switch (sort.ID)
             {
-               case "realName": query.order_by(sort.OrderBy(u.RealName)); break;
+               case "realName": query.order_by(sort.OrderBy(dr.TeacherName)); break;
             }
          }
 
@@ -130,12 +128,12 @@ namespace TheSite.Controllers
             comment = dr.ReviewComment.GetValue(r),
             status = dr.StatusKey.GetValue(r),
             teacherId = dr.TeacherId.GetValue(r),
-            realName = u.RealName.GetValue(r),
+            realName = dr.TeacherName.GetValue(r),
             reviewer = u2.RealName.GetValue(r, "reviewer"),
             company = c.CompanyName.GetValue(r),
             declare = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
-            typeKey= dr.TypeKey.GetValue(r)
-            // subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(r))
+            typeKey= dr.TypeKey.GetValue(r),
+            targetId= dr.DeclareTargetPKID.GetValue(r)
          }).ToList();
 
          return Json(new

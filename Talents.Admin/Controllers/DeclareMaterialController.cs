@@ -239,7 +239,8 @@ namespace TheSite.Controllers
             DeclareTargetPKID = declareTargetId,
             AllowFitResearcher = true,
             AllowFlowToDowngrade = true,
-            AllowFlowToSchool = true
+            AllowFlowToSchool = true,
+            TeacherName=UserProfile.RealName
          };
          decalreReview.TypeKey = param.TypeKey;
 
@@ -314,6 +315,7 @@ namespace TheSite.Controllers
                model.AllowFitResearcher,
                model.StatusKey,
                model.TypeKey,
+               model.TeacherName
             });
          }
 
@@ -374,7 +376,7 @@ namespace TheSite.Controllers
          {
             model.PeriodId = Period.PeriodId;
             model.UserId = UserProfile.UserId;
-            model.RealName = UserProfile.RealName;
+            //model.RealName = UserProfile.RealName;
 
             db.DeclareProfileDal.Insert(model);
          }
@@ -382,6 +384,7 @@ namespace TheSite.Controllers
          {
             db.DeclareProfileDal.UpdatePartial(model.DeclareProfileId, UserProfile.UserId, new
             {
+               model.RealName,
                model.GenderPKID,
                model.Birthday,
                model.CompanyId,
@@ -503,7 +506,7 @@ namespace TheSite.Controllers
          {
             var htmlText = pdfRender.RenderViewToString(this, param.View, model);
             byte[] pdfFile = FormatConverter.ConvertHtmlTextToPDF(htmlText);
-            string fileName = $"{model.RealName}的{model.Decalre}申报表单";
+            string fileName = $"{model.ReviewTeacherName}的{model.Decalre}申报表单";
             return new BinaryContentResult($"{fileName}.pdf", "application/pdf", pdfFile);
          }
 
@@ -555,9 +558,9 @@ namespace TheSite.Controllers
                return achievement;
             }).ToList();
 
-      private DeclareProfile MappingProfile()
+      private DeclareProfile MappingProfile(BzUserProfile profile=null)
       {
-         var profile = UserProfile;
+         profile = profile ?? UserProfile;
          return new DeclareProfile
          {
             RealName = profile.RealName,
@@ -584,16 +587,17 @@ namespace TheSite.Controllers
       private DeclarePreviewViewModel GetPreviewViewModel(DeclarePreviewParam param)
       {
          var poge = ".职称破格";
-         var isSchoolAdmin = UserProfile.IsSchoolAdmin;
-         var userid = isSchoolAdmin ? param.TeacherId : UserProfile.UserId;
+         var admin = UserProfile.IsSchoolAdmin || UserProfile.IsSystemAdmin;
+         var userid = admin ? param.TeacherId : UserProfile.UserId;
+         var user = db.BzUserProfileDal.PrimaryGet(userid);
          var model = new DeclarePreviewViewModel();
-         // var profile = db.BzUserProfileDal.PrimaryGet(userid);//不从缓存里获取，从数据库获取
          var profile = db.DeclareProfileDal.ConditionQuery
            (dp.UserId == userid & dp.PeriodId == Period.PeriodId & dp.DeclareTargetPKID == param.DeclareTargetId,
            null, null, null).FirstOrDefault();
-         profile = profile ?? MappingProfile();
+         profile = profile ?? MappingProfile(user);
 
          var myCompnay = db.CompanyDal.PrimaryGet(profile.CompanyId);
+        
          var review = db.DeclareReviewDal.ConditionQuery(
             df.TeacherId == userid &
             df.PeriodId == Period.PeriodId &
@@ -607,10 +611,11 @@ namespace TheSite.Controllers
 
          model.DeclareTargetId = param.DeclareTargetId;
          model.TypeKey = param.TypeKey;
-         model.Decalre = DeclareBaseHelper.DeclareTarget.GetName(param.DeclareTargetId);
-         model.DeclareSubject = BzUserProfileHelper.EduSubject.GetName(review.DeclareSubjectPKID);
+         model.Decalre = DeclareBaseHelper.DeclareTarget.GetName(param.DeclareTargetId,string.Empty,false);
+         model.DeclareSubject = BzUserProfileHelper.DeclareSubject.GetName(review.DeclareSubjectPKID, string.Empty, false);
          model.DeclareCompany = declareCompany == null ? string.Empty : declareCompany.CompanyName;
-         model.RealName = profile.RealName;
+         model.ReviewTeacherName = review.TeacherName; //string.IsNullOrEmpty(user.RealName)? review.TeacherName:user.RealName;
+         model.ProfileTeacherName = profile.RealName;
          model.RankTitle = profile.RankTitle;
          model.SkillTitle = profile.SkillTitle;
          model.TrainNo = profile.TrainNo;

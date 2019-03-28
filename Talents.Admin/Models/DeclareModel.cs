@@ -50,7 +50,9 @@ namespace TheSite.Models
       public string Decalre { get; set; }
       public string DeclareSubject { get; set; }
       public string DeclareCompany { get; set; }
-      public string RealName { get; set; }
+      //public string RealName { get; set; }
+      public string ReviewTeacherName { get; set; }
+      public string ProfileTeacherName { get; set; }
       public string Subject { get; set; }
       public bool IsBrokRoles { get; set; }
       public string Gender { get; set; }
