@@ -91,8 +91,9 @@
 					'commands': function (column, row) {
 						var typeKey = row.typeKey;
 						var targetId = row.targetId
-						var previewUrl = '/DeclareMaterial/Overview?teacherId=' + row.teacherId + '&typeKey=' + typeKey + '&view=Overview' + targetId + '&declareTargetId=' + targetId;
-						var downloadUrl = '/DeclareMaterial/Preview?teacherId=' + row.teacherId + '&typeKey=' + typeKey + '&view=MaterialPreview' + targetId + '&declareTargetId=' + targetId + '&isExport=true';
+						var viewNum = row.typeKey.indexOf('@DeclareKeys.CaiLPog') >= 0 ? '9999' :  targetId;
+						var previewUrl = '/DeclareMaterial/Overview?teacherId=' + row.teacherId + '&typeKey=' + typeKey + '&view=Overview' + viewNum + '&declareTargetId=' + targetId;
+						var downloadUrl = '/DeclareMaterial/Preview?teacherId=' + row.teacherId + '&typeKey=' + typeKey + '&view=MaterialPreview' + viewNum + '&declareTargetId=' + targetId + '&isExport=true';
 						var temp = '<a target="_blank" href="' + previewUrl + '" class="btn btn-warning btn-overview"><i class="fa fa-external-link"></i>查看申报材料</a>' +
 							        '<a target="_blank" href="' + downloadUrl + '" class="btn btn-info btn-downlaod"><i class="fa fa-external-link"></i>下载申报</a>';
 						if (isSchoolAdmin || isAdmin) {

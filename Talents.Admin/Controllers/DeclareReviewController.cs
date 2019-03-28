@@ -56,7 +56,7 @@ namespace TheSite.Controllers
 
             db.CompanyDeclareDal.ConditionDelete(cd.TeacherId == review.TeacherId);
             db.CompanyDeclareDal.Insert(new CompanyDeclare { CompanyId = review.CompanyId, TeacherId = review.TeacherId });
-            
+
 
             db.Commit();
          }
@@ -85,14 +85,17 @@ namespace TheSite.Controllers
          var c = APDBDef.Company;
          var currentPeriod = Period ?? new DeclarePeriod();
          var query = APQuery.select(dr.DeclareReviewId, dr.ReviewComment, dr.StatusKey, dr.TeacherName,
-                                    dr.TeacherId, dr.ReviewerId,dr.TypeKey, 
+                                    dr.TeacherId, dr.ReviewerId, dr.TypeKey,
                                     dr.DeclareTargetPKID, dr.DeclareSubjectPKID,
                                     u2.RealName.As("reviewer"), c.CompanyName)
                           .from(dr,
                                 c.JoinInner(c.CompanyId == dr.CompanyId),
                                 u2.JoinLeft(dr.ReviewerId == u2.UserId)
                                 )
-                          .where(dr.PeriodId == currentPeriod.PeriodId & dr.StatusKey != string.Empty);
+                          .primary(dr.DeclareReviewId)
+                          .where(dr.PeriodId == currentPeriod.PeriodId & dr.StatusKey != string.Empty)
+                          .skip((current - 1) * rowCount)
+                          .take(rowCount);
 
          if (companyId > 0)
             query = query.where_and(c.CompanyId == companyId);
@@ -119,6 +122,8 @@ namespace TheSite.Controllers
          }
 
 
+
+
          var total = db.ExecuteSizeOfSelect(query);
 
 
@@ -132,8 +137,9 @@ namespace TheSite.Controllers
             reviewer = u2.RealName.GetValue(r, "reviewer"),
             company = c.CompanyName.GetValue(r),
             declare = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
-            typeKey= dr.TypeKey.GetValue(r),
-            targetId= dr.DeclareTargetPKID.GetValue(r)
+            subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(r), "", false),
+            typeKey = dr.TypeKey.GetValue(r),
+            targetId = dr.DeclareTargetPKID.GetValue(r)
          }).ToList();
 
          return Json(new

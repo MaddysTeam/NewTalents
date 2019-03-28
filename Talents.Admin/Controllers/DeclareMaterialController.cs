@@ -214,8 +214,8 @@ namespace TheSite.Controllers
          else
          {
             var review = db.DeclareReviewDal.PrimaryGet(Convert.ToInt64(key));
-            return RedirectToAction("Overview", new DeclarePreviewParam { TeacherId = review.TeacherId, DeclareTargetId = review.DeclareTargetPKID, View = "Overview" + review.DeclareTargetPKID, IsPartialView = true, TypeKey = review.TypeKey });
-            //return Content("正在开发中");
+            var view = review.TypeKey.IndexOf(DeclareKeys.CaiLPog) >= 0 ? "Overview9999" : "Overview" + review.DeclareTargetPKID;
+            return RedirectToAction("Overview", new DeclarePreviewParam { TeacherId = review.TeacherId, DeclareTargetId = review.DeclareTargetPKID, View = view, IsPartialView = true, TypeKey = review.TypeKey });
          }
       }
 

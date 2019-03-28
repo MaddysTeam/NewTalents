@@ -71,6 +71,7 @@
       public const string ImageSuffix = ".jpg,.gif,.jpeg,.png,.bnp";
       public const string DocumentSuffix = ".doc,.docx,.xls,.xlsx,.pdf,.pptx,.csv,.txt";
       public const string NeedConvertPDFSuffix = ".xlsx,.xls,.ppt,.pptx,.doc,.docx,.csv";
+      public const string ZipSuffix = ".zip,.rar";
 
    }
 

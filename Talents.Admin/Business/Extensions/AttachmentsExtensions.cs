@@ -19,13 +19,14 @@ namespace Business
 
 
       public static List<Attachments> GetAttachmentList(APDBDef db, long joinId, string type)
-			=> db.AttachmentsDal.ConditionQuery(at.Type == type & at.JoinId == joinId, null, null, null);
+			=> db.AttachmentsDal.ConditionQuery(at.Type.Match(type) & at.JoinId == joinId, null, null, null);
 
 
 		public static List<Attachments> GetAttachmentList(APDBDef db, long joinId, long userId, string type)
 			=> db.AttachmentsDal.ConditionQuery(at.Type == type & at.JoinId == joinId & at.UserId == userId, null, null, null);
 
-		public static AttachmentsViewModel GetAttachment(List<Attachments> list)
+
+      public static AttachmentsViewModel GetAttachment(List<Attachments> list)
 		{
 			var model = new AttachmentsViewModel();
 

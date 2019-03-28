@@ -23,8 +23,12 @@
 				@Html.HiddenFor(x => x.StatusKey)
 				<div class="row">
 					<fieldset class="col-md-12">
-
-						@Html.HiddenFor(x => x.CompanyId)
+						<div class="form-group">
+							@Html.LabelFor(m => m.TeacherName, new { @class = "col-md-3 control-label" })
+							<div class="col-md-9">
+								@Html.Label("TeacherName", Model.TeacherName, new { @class = "form-control" })
+							</div>
+						</div>
 						<div class="form-group">
 							@Html.LabelFor(m => m.CompanyId, new { @class = "col-md-3 control-label" })
 							<div class="col-md-9">

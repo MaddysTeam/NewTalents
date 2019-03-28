@@ -5068,7 +5068,7 @@ namespace TheSite.Controllers
 
       public ActionResult AttachmentsView(long id, string type)
       {
-         var list = AttachmentsExtensions.GetAttachmentList(db, id, type);
+         var list = AttachmentsExtensions.GetAttachmentList(db, id,type);
 
          return PartialView(list);
       }
