@@ -60,7 +60,8 @@
 					</div>
 				</div>
 				<div class="form-group">
-					@Html.LabelFor(m => m.AllowFlowToDowngrade, new { @class = "col-md-2 control-label" })
+					@Html.Label("AllowFlowToDowngrade", "若落选又符合教学能手评选条件，是否愿意成为教学能手", new { @class = "col-md-2 control-label" })
+					@*@Html.LabelFor(m => m.AllowFlowToDowngrade, new { @class = "col-md-2 control-label" })*@
 					<div class="col-md-9">
 						&nbsp;&nbsp;是 @Html.RadioButton("AllowFlowToDowngrade", true, Model.AllowFlowToDowngrade, new { @style = "width:15px; height:15px;" })
 						&nbsp;&nbsp;否 @Html.RadioButton("AllowFlowToDowngrade", false, !Model.AllowFlowToDowngrade, new { @style = "width:15px; height:15px;" })

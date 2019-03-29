@@ -1039,6 +1039,10 @@ namespace TheSite.Models
       public string ContentValue { get; set; }
 
       [Required]
+      [Display(Name = "级别")]
+      public string Level { get; set; }
+
+      [Required]
       [Display(Name = "期中/期末")]
       public string Dynamic1 { get; set; }
 
@@ -1049,6 +1053,10 @@ namespace TheSite.Models
       [Required]
       [Display(Name = "参加对象、人数")]
       public string Dynamic3 { get; set; }
+
+      [Required]
+      [Display(Name = "组织单位、部门")]
+      public string Dynamic4 { get; set; }
 
    }
 

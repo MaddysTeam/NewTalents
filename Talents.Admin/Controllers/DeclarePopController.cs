@@ -3842,6 +3842,8 @@ namespace TheSite.Controllers
                   Dynamic1 = list.Dynamic1,
                   Dynamic2 = list.Dynamic2,
                   Dynamic3 = list.Dynamic3,
+                  Dynamic4 = list.Dynamic4,
+                  Level=list.Level,
                   IsDeclare = model.IsDeclare,
                   DeclareTargetId = declareTargetId ?? 0
                };
@@ -3902,6 +3904,8 @@ namespace TheSite.Controllers
                   Dynamic1 = model.Dynamic1,
                   Dynamic2 = model.Dynamic2,
                   Dynamic3 = model.Dynamic3,
+                  Dynamic4 = model.Dynamic4,
+                  Level=model.Level,
                   Creator = UserProfile.UserId,
                   CreateDate = DateTime.Now,
                   IsDeclare = model.IsDeclare
@@ -3916,9 +3920,11 @@ namespace TheSite.Controllers
                APQuery.update(t)
                   .set(t.Date.SetValue(model.Date))
                   .set(t.ContentValue.SetValue(model.ContentValue))
+                  .set(t.Level.SetValue(model.Level))
                   .set(t.Dynamic1.SetValue(model.Dynamic1))
                   .set(t.Dynamic2.SetValue(model.Dynamic2))
                   .set(t.Dynamic3.SetValue(model.Dynamic3))
+                  .set(t.Dynamic4.SetValue(model.Dynamic4))
                   .set(t.Modifier.SetValue(UserProfile.UserId))
                   .set(t.ModifyDate.SetValue(DateTime.Now))
                   .set(t.IsDeclare.SetValue(model.IsDeclare))

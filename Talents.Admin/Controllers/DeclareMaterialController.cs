@@ -5,6 +5,7 @@ using Symber.Web.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web.Mvc;
 using TheSite.Models;
 
@@ -376,6 +377,7 @@ namespace TheSite.Controllers
          {
             model.PeriodId = Period.PeriodId;
             model.UserId = UserProfile.UserId;
+            
             //model.RealName = UserProfile.RealName;
 
             db.DeclareProfileDal.Insert(model);
@@ -506,7 +508,7 @@ namespace TheSite.Controllers
          {
             var htmlText = pdfRender.RenderViewToString(this, param.View, model);
             byte[] pdfFile = FormatConverter.ConvertHtmlTextToPDF(htmlText);
-            string fileName = $"{model.ReviewTeacherName}的{model.Decalre}申报表单";
+            string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + new Random().Next(1000, 10000);
             return new BinaryContentResult($"{fileName}.pdf", "application/pdf", pdfFile);
          }
 
@@ -581,6 +583,7 @@ namespace TheSite.Controllers
             RankTitlePKID = profile.RankTitlePKID,
             Phonemobile = profile.Phonemobile,
             Phone = profile.Phone,
+            Hiredate=DateTime.Now
          };
       }
 
