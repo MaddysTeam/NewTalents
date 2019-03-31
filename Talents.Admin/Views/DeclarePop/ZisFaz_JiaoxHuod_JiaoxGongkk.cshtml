@@ -82,7 +82,8 @@
 							@Html.TextAreaFor(m => m.AttachmentName, 5, 5, new { @style = "visibility:hidden;position:absolute;" })
 							<div class="input-group">
 								<div id="uploadName" class="form-control oversize upload-control">
-
+									@Html.HiddenFor(m => m.AttachmentCount)
+									@Html.HiddenFor(m => m.VertifyFileCount)
 									@if (Model.AttachmentName != null && Model.AttachmentName != "")
 									{
 										foreach (var item in Model.AttachmentName.Split('|'))
@@ -97,7 +98,7 @@
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload">附件上传</button>
 								</span>
 							</div>
-							<div class="red">*上传文件类型为文本类型，图片和压缩包，每个文件不大于20M</div>
+							<div class="red">*支持多文件上传<br />*文件类型支持文本类型，图片和压缩包，每个文件不大于20M, <br /> *单个文件上传进度为100%表示上传成功</div>
 							@Html.ValidationMessageFor(m => m.AttachmentName )
 						</div>
 					</div>
@@ -114,7 +115,7 @@
 									<button class="btn btn-danger btn-upload" type="button" id="btn-vertifyUpload">证明文件上传</button>
 								</span>
 							</div>
-							<div class="red">*证明文件类型为文本类型或者图片，文件不大于50M</div>
+							<div class="red">*证明文件类型为文本类型、图片和压缩包，文件不大于50M</div>
 							@Html.ValidationMessageFor(m => m.VertificationName)
 						</div>
 					</div>

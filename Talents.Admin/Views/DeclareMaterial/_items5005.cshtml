@@ -21,7 +21,7 @@
 	<!-- WIDGET TABBED CONTENT -->
 	<div class="widget">
 		<div class="widget-header">
-			<h3><i class="fa fa-paperclip"></i>教育教学-公开课 （最多填两项）</h3>
+			<h3><i class="fa fa-paperclip"></i>近三年 “公开课”情况 （最多填两项）</h3>
 			@if (gongkKe != null && gongkKe.Count < 2)
 			{
 				<a class="btn btn-warning btn-sm pull-right" data-url="@Url.Action("ZisFaz_JiaoxHuod_JiaoxGongkk", "DeclarePop",new { declareTargetId=declareTargetId})" data-toggle="ajax-modal" data-target="#firstModal">新增申报</a>
@@ -82,7 +82,7 @@
 	<!-- WIDGET TABBED CONTENT -->
 	<div class="widget">
 		<div class="widget-header">
-			<h3><i class="fa fa-paperclip"></i>教育教学-教育教学评比 （最多填两项）</h3>
+			<h3><i class="fa fa-paperclip"></i>近三年区级及以上“课堂教学评比或其他教育评比”情况 （最多填两项）</h3>
 			@if (jiaoxPingb != null && jiaoxPingb.Count < 2)
 			{
 				<a class="btn btn-warning btn-sm pull-right" data-url="@Url.Action("ZisFaz_JiaoxHuod_JiaoxPingb", "DeclarePop",new { declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">新增申报</a>
@@ -141,7 +141,7 @@
 	<!-- WIDGET TABBED CONTENT -->
 	<div class="widget">
 		<div class="widget-header">
-			<h3><i class="fa fa-paperclip"></i>教育教学-学科命题 （最多填两项）</h3>
+			<h3><i class="fa fa-paperclip"></i>近三年区级及以上“命题工作”（除幼教、特教外）情况 （最多填两项）</h3>
 			@if (xuekMingt != null && xuekMingt.Count < 2)
 			{
 				<a class="btn btn-warning btn-sm pull-right" data-url="@Url.Action("PeihJiaoyyGongz_XuekMingt", "DeclarePop",new { declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">新增申报</a>
@@ -204,7 +204,7 @@
 	<!-- WIDGET TABBED CONTENT -->
 	<div class="widget">
 		<div class="widget-header">
-			<h3><i class="fa fa-paperclip"></i>教育教学-评委工作或评比获奖（最多填两项）</h3>
+			<h3><i class="fa fa-paperclip"></i>近三年区级及以上“评委工作”情况（最多填两项）</h3>
 			@if (pingbHuoj != null && pingbHuoj.Count < 2)
 			{
 				<a class="btn btn-warning btn-sm pull-right " data-url="@Url.Action("ZisFaz_XuesHuod", "DeclarePop",new { declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">新增申报</a>
@@ -257,7 +257,7 @@
 	<!-- WIDGET TABBED CONTENT -->
 	<div class="widget">
 		<div class="widget-header">
-			<h3><i class="fa fa-paperclip"></i>教育教学-教研活动（最多填两项）</h3>
+			<h3><i class="fa fa-paperclip"></i>近三年在市、区“教研活动发挥作用”（幼教、特教填写）情况（最多填两项）</h3>
 			@if (fahZuoy != null && fahZuoy.Count < 2)
 			{
 				<a class="btn btn-warning btn-sm pull-right" data-url="@Url.Action("Shenb_JiaoyHuod_FahZuoy", "DeclarePop",new { declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">
@@ -331,7 +331,7 @@
 	<!-- WIDGET TABBED CONTENT 开展课题(项目)研究工作-->
 	<div class="widget">
 		<div class="widget-header">
-			<h3><i class="fa fa-paperclip"></i>教育科研-开展课题(项目)研究工作 （最多填两项）</h3>
+			<h3><i class="fa fa-paperclip"></i>近三年区级及以上“课题、项目”情况 （最多填两项）</h3>
 			@if (ketYanjGongz != null && ketYanjGongz.Count < 2)
 			{
 				<a class="btn btn-warning btn-sm pull-right" data-url="@Url.Action("ZisFaz_KeyChengg_KetYanj", "DeclarePop",new { declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">
@@ -397,7 +397,7 @@
 	<!-- WIDGET TABBED CONTENT 发表论文-->
 	<div class="widget">
 		<div class="widget-header">
-			<h3><i class="fa fa-paperclip"></i>教育科研-发表论文 （最多填两项）</h3>
+			<h3><i class="fa fa-paperclip"></i>近三年“发表论文”情况 （最多填两项）</h3>
 			@if (fabLunw != null && fabLunw.Count < 2)
 			{
 				<a class="btn btn-warning btn-sm pull-right" data-url="@Url.Action("ZisFaz_KeyChengg_FabLunw", "DeclarePop",new { declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">
@@ -459,7 +459,7 @@
 	<!-- WIDGET TABBED CONTENT 教师培训课程-->
 	<div class="widget">
 		<div class="widget-header">
-			<h3><i class="fa fa-paperclip"></i>教师培训-开设教师培训课程 （最多填两项）</h3>
+			<h3><i class="fa fa-paperclip"></i>近三年开设校级及以上“教师培训课程”情况 （最多填两项）</h3>
 			@if (peixKec != null && peixKec.Count < 2)
 			{
 				<a class="btn btn-warning btn-sm pull-right" data-url="@Url.Action("ZisFaz_PeixJiangz_JiaosPeixKec", "DeclarePop",new { declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">
@@ -517,7 +517,7 @@
 	<!-- WIDGET TABBED CONTENT 学术讲座-->
 	<div class="widget">
 		<div class="widget-header">
-			<h3><i class="fa fa-paperclip"></i>教师培训-开设学术讲座 （最多填两项）</h3>
+			<h3><i class="fa fa-paperclip"></i>近三年校级及以上“学术讲座”情况 （最多填两项）</h3>
 			@if (jiangz != null && jiangz.Count < 2)
 			{
 				<a class="btn btn-warning btn-sm pull-right" data-url="@Url.Action("ZisFaz_PeixJiangz_ZhuantJiangz", "DeclarePop",new { declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">
@@ -588,7 +588,7 @@
 	<!-- WIDGET TABBED CONTENT  论著情况-->
 	<div class="widget">
 		<div class="widget-header">
-			<h3><i class="fa fa-paperclip"></i>个人特色-论著情况 （最多填两项）</h3>
+			<h3><i class="fa fa-paperclip"></i>近三年正式出版“论著”情况 （最多填两项）</h3>
 			@if (lunzQingk != null && lunzQingk.Count < 2)
 			{
 				<a class="btn btn-warning btn-sm pull-right" data-url="@Url.Action("ZisFaz_KeyChengg_LunzQingk", "DeclarePop",new { declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">
@@ -649,7 +649,7 @@
 	<!-- WIDGET TABBED CONTENT  其他身份-->
 	<div class="widget">
 		<div class="widget-header">
-			<h3><i class="fa fa-paperclip"></i>个人特色-其他身份 （最多填两项）</h3>
+			<h3><i class="fa fa-paperclip"></i>近三年“其他身份”（与申报学科相关）情况 （最多填两项）</h3>
 			@if (qitShenf != null && qitShenf.Count < 2)
 			{
 				<a class="btn btn-warning btn-sm pull-right" data-url="@Url.Action("GerTes_QitShenf", "DeclarePop",new { declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">
@@ -711,7 +711,7 @@
 	<!-- WIDGET TABBED CONTENT -->
 	<div class="widget">
 		<div class="widget-header">
-			<h3><i class="fa fa-paperclip"></i>学员成长 （最多填两项）</h3>
+			<h3><i class="fa fa-paperclip"></i>近三年所带“学员成长”情况 （最多填两项）</h3>
 			@if (xueyChengz != null && xueyChengz.Count < 2)
 			{
 				<a class="btn btn-warning btn-sm pull-right" data-url="@Url.Action("GerTes_XueyChengz", "DeclarePop",new { declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">

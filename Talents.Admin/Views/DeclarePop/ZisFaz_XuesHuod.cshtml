@@ -104,7 +104,7 @@
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload">附件上传</button>
 								</span>
 							</div>
-							<div class="red">*文件类型支持文本类型，图片和压缩包，每个文件不大于20M</div>
+							<div class="red">*支持多文件上传<br />*文件类型支持文本类型，图片和压缩包，每个文件不大于20M, <br /> *单个文件上传进度为100%表示上传成功</div>
 							@Html.ValidationMessageFor(m => m.AttachmentName)
 						</div>
 					</div>
@@ -121,7 +121,7 @@
 									<button class="btn btn-danger btn-upload" type="button" id="btn-vertifyUpload">证明文件上传</button>
 								</span>
 							</div>
-							<div class="red">*证明文件类型支持文本类型或者图片，文件不大于50M</div>
+							<div class="red">*证明文件类型支持文本类型，图片和压缩包，文件不大于50M</div>
 							@Html.ValidationMessageFor(m => m.VertificationName)
 						</div>
 					</div>

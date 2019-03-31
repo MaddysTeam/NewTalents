@@ -281,6 +281,15 @@ namespace TheSite.Controllers
       {
          ThrowNotAjax();
 
+         if (model.AttachmentCount > 2)
+         {
+            return Json(new
+            {
+               result = AjaxResults.Error,
+               msg = "最多允许上传2个文件！"
+            });
+         }
+
          var attachmentTypeKey = AttachmentsKeys.ZisFaz_JiaoxHuod_JiaoxGongkk;
          var vertifyTypeKey = AttachmentsKeys.ZisFaz_JiaoxHuod_JiaoxGongkk + AttachmentsKeys.Vertify;
          var atta = new AttachmentsDataModel

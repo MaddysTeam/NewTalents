@@ -1,5 +1,6 @@
 ﻿using Business;
 using Business.Config;
+using Business.Helper;
 using Business.Utilities;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace TheSite.Controllers
    public class AttachmentController : BaseController
    {
 
-      public static string needConvertExt = ".xlsx,.xls,.ppt,.pptx,.doc,.docx,.csv";
+     // public static string needConvertExt = ".xlsx,.xls,.ppt,.pptx,.doc,.docx,.csv";
 
       [HttpPost]
       public ActionResult UploadFile(HttpPostedFileBase file)
@@ -27,6 +28,16 @@ namespace TheSite.Controllers
 
          Stream fileStream = file.InputStream;
          Stream pdfStream = file.InputStream;
+         var acceptfileTypes = AttachmentsKeys.DocumentSuffix + AttachmentsKeys.ImageSuffix+ AttachmentsKeys.ZipSuffix;
+         var ext = Path.GetExtension(file.FileName);
+         if (acceptfileTypes.IndexOf(ext.ToLower()) < 0)
+         {
+            return Json(new
+            {
+               result = AjaxResults.Error,
+               msg = "不支持该类型的文件上传"
+            });
+         }
 
          try
          {
@@ -35,8 +46,7 @@ namespace TheSite.Controllers
             var result = Upload(fileStream, filePath, false);
 
             //上传preview 的pdf
-            var ext = Path.GetExtension(file.FileName);
-            if (needConvertExt.IndexOf(ext) >= 0)
+            if (AttachmentsKeys.NeedConvertExt.IndexOf(ext) >= 0)
             {
                pdfStream = fileStream.ConvertToPDF(ext);
 

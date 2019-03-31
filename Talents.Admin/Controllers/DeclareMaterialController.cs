@@ -270,7 +270,7 @@ namespace TheSite.Controllers
                msg = "必须选择申报类型！",
             });
          }
-
+   
          if (model.CompanyId == 0)
          {
             return Json(new
@@ -286,6 +286,16 @@ namespace TheSite.Controllers
             {
                result = AjaxResults.Error,
                msg = "必须选择申报学科！",
+            });
+         }
+
+         if (!string.IsNullOrEmpty(model.StatusKey) && 
+            GetProfile(model.TeacherId,model.PeriodId,model.DeclareTargetPKID)==null)
+         {
+            return Json(new
+            {
+               result = AjaxResults.Error,
+               msg = "提交前必须先完善和保存基本情况和校内履职！",
             });
          }
 
@@ -334,10 +344,7 @@ namespace TheSite.Controllers
 
       public ActionResult BasicProfileEdit(DeclareParam param)
       {
-         var profile = db.DeclareProfileDal.ConditionQuery
-            (dp.UserId == UserProfile.UserId & dp.PeriodId == Period.PeriodId & dp.DeclareTargetPKID == param.DeclareTargetId,
-            null, null, null).FirstOrDefault();
-
+         var profile = GetProfile(UserProfile.UserId, Period.PeriodId, param.DeclareTargetId);
          profile = profile ?? MappingProfile();
          if (profile.DeclareTargetPKID == 0)
          {
@@ -665,6 +672,11 @@ namespace TheSite.Controllers
          return model;
       }
 
+
+      private DeclareProfile GetProfile(long teacherId,long periodId,long targetId) => 
+          db.DeclareProfileDal.ConditionQuery
+            (dp.UserId == UserProfile.UserId & dp.PeriodId == Period.PeriodId & dp.DeclareTargetPKID == targetId,
+            null, null, null).FirstOrDefault();
 
       #endregion
 

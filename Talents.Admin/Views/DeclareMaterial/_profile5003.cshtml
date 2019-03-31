@@ -9,20 +9,20 @@
 		<fieldset class="col-md-6">
 			<div>
 				<div class="form-group">
-					@Html.LabelFor(m => m.RealName, new { @class = "col-md-3 control-label" })
+					@Html.LabelFor(m => m.RealName, new { @class = "col-md-3 control-label isRequired" })
 					<div class="col-md-9">
 						@Html.TextBoxFor(m => m.RealName, new { @class = "form-control" })
 						@Html.ValidationMessageFor(m => m.RealName)
 					</div>
 				</div>
 				<div class="form-group">
-					@Html.LabelFor(m => m.GenderPKID, new { @class = "col-md-3 control-label" })
+					@Html.LabelFor(m => m.GenderPKID, new { @class = "col-md-3 control-label isRequired" })
 					<div class="col-md-9">
 						@Html.DropDownListFor(m => m.GenderPKID, BzUserProfileHelper.Gender.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
 					</div>
 				</div>
 				<div class="form-group">
-					@Html.LabelFor(m => m.Birthday, new { @class = "col-md-3 control-label" })
+					@Html.LabelFor(m => m.Birthday, new { @class = "col-md-3 control-label isRequired" })
 					<div class="col-md-9">
 						<div class="input-group date" data-provide="datepicker" data-date-language="zh-CN" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
 							@Html.TextBoxFor(m => m.Birthday, "{0:yyyy-MM-dd}", new { @class = "form-control" })
@@ -32,39 +32,39 @@
 					</div>
 				</div>
 				<div class="form-group">
-					@Html.LabelFor(m => m.CompanyName, new { @class = "col-md-3 control-label" })
+					@Html.LabelFor(m => m.CompanyName, new { @class = "col-md-3 control-label isRequired" })
 					<div class="col-md-9">
 						@Html.DropDownListFor(m => m.CompanyId, CompanyHelper.GetCompanySelectList(), new { @class = "form-control" })
 					</div>
 				</div>
 				<div class="form-group">
-					@Html.LabelFor(m => m.TrainNo, new { @class = "col-md-3 control-label" })
+					@Html.LabelFor(m => m.TrainNo, new { @class = "col-md-3 control-label isRequired" })
 					<div class="col-md-9">
 						@Html.TextBoxFor(m => m.TrainNo, new { @class = "form-control" })
 						@Html.ValidationMessageFor(m => m.TrainNo)
 					</div>
 				</div>
 				<div class="form-group">
-					@Html.LabelFor(m => m.PoliticalStatusPKID, new { @class = "col-md-3 control-label" })
+					@Html.LabelFor(m => m.PoliticalStatusPKID, new { @class = "col-md-3 control-label isRequired" })
 					<div class="col-md-9">
 						@Html.DropDownListFor(m => m.PoliticalStatusPKID, BzUserProfileHelper.PoliticalStatus.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
 					</div>
 				</div>
 				<div class="form-group">
-					@Html.LabelFor(m => m.CourseCountPerWeek, new { @class = "col-md-3 control-label" })
+					@Html.LabelFor(m => m.CourseCountPerWeek, new { @class = "col-md-3 control-label isRequired" })
 					<div class="col-md-9">
 						@Html.TextBoxFor(m => m.CourseCountPerWeek, new { @class = "form-control" })
 						@Html.ValidationMessageFor(m => m.CourseCountPerWeek)
 					</div>
 				</div>
 				<div class="form-group">
-					@Html.LabelFor(m => m.EduBgPKID, new { @class = "col-md-3 control-label" })
+					@Html.LabelFor(m => m.EduBgPKID, new { @class = "col-md-3 control-label isRequired" })
 					<div class="col-md-9">
 						@Html.DropDownListFor(m => m.EduBgPKID, BzUserProfileHelper.EduBg.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
 					</div>
 				</div>
 				<div class="form-group">
-					@Html.LabelFor(m => m.EduDegreePKID, new { @class = "col-md-3 control-label" })
+					@Html.LabelFor(m => m.EduDegreePKID, new { @class = "col-md-3 control-label isRequired" })
 					<div class="col-md-9">
 						@Html.DropDownListFor(m => m.EduDegreePKID, BzUserProfileHelper.EduDegree.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
 					</div>
@@ -74,37 +74,37 @@
 		<fieldset class="col-md-6">
 			<div>
 				<div class="form-group">
-					@Html.LabelFor(m => m.NationalityPKID, new { @class = "col-md-3 control-label" })
+					@Html.LabelFor(m => m.NationalityPKID, new { @class = "col-md-3 control-label isRequired" })
 					<div class="col-md-9">
 						@Html.DropDownListFor(m => m.NationalityPKID, BzUserProfileHelper.Nationality.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
 					</div>
 				</div>
 				<div class="form-group">
-					@Html.LabelFor(m => m.EduSubjectPKID, new { @class = "col-md-3 control-label" })
+					@Html.LabelFor(m => m.EduSubjectPKID, new { @class = "col-md-3 control-label isRequired" })
 					<div class="col-md-9">
 						@Html.DropDownListFor(m => m.EduSubjectPKID, BzUserProfileHelper.EduSubject.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
 					</div>
 				</div>
 				<div class="form-group">
-					@Html.LabelFor(m => m.EduStagePKID, new { @class = "col-md-3 control-label" })
+					@Html.LabelFor(m => m.EduStagePKID, new { @class = "col-md-3 control-label isRequired" })
 					<div class="col-md-9">
 						@Html.DropDownListFor(m => m.EduStagePKID, BzUserProfileHelper.EduStage.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
 					</div>
 				</div>
 				<div class="form-group">
-					@Html.LabelFor(m => m.SkillTitlePKID, new { @class = "col-md-3 control-label" })
+					@Html.LabelFor(m => m.SkillTitlePKID, new { @class = "col-md-3 control-label isRequired" })
 					<div class="col-md-9">
 						@Html.DropDownListFor(m => m.SkillTitlePKID, BzUserProfileHelper.SkillTitle.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
 					</div>
 				</div>
 				<div class="form-group">
-					@Html.LabelFor(m => m.RankTitlePKID, new { @class = "col-md-3 control-label" })
+					@Html.LabelFor(m => m.RankTitlePKID, new { @class = "col-md-3 control-label isRequired" })
 					<div class="col-md-9">
 						@Html.DropDownListFor(m => m.RankTitlePKID, BzUserProfileHelper.RankTitle.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
 					</div>
 				</div>
 				<div class="form-group">
-					@Html.LabelFor(m => m.Hiredate, new { @class = "col-md-3 control-label" })
+					@Html.LabelFor(m => m.Hiredate, new { @class = "col-md-3 control-label isRequired" })
 					<div class="col-md-9">
 						<div class="input-group date" data-provide="datepicker" data-date-language="zh-CN" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
 							@Html.TextBoxFor(m => m.Hiredate, "{0:yyyy-MM-dd}", new { @class = "form-control" })
@@ -114,7 +114,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					@Html.LabelFor(m => m.Phonemobile, new { @class = "col-md-3 control-label" })
+					@Html.LabelFor(m => m.Phonemobile, new { @class = "col-md-3 control-label isRequired" })
 					<div class="col-md-9">
 						@Html.TextBoxFor(m => m.Phonemobile, new { @class = "form-control" })
 						@Html.ValidationMessageFor(m => m.Phonemobile)
@@ -128,7 +128,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					@Html.LabelFor(m => m.Email, new { @class = "col-md-3 control-label" })
+					@Html.LabelFor(m => m.Email, new { @class = "col-md-3 control-label isRequired" })
 					<div class="col-md-9">
 						@Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
 						@Html.ValidationMessageFor(m => m.Email)

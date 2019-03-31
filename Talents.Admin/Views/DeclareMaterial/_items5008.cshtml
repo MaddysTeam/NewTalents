@@ -14,7 +14,7 @@
 	<!-- WIDGET TABBED CONTENT -->
 	<div class="widget">
 		<div class="widget-header">
-			<h3><i class="fa fa-paperclip"></i>教育教学-公开课 （最多填两项）</h3>
+			<h3><i class="fa fa-paperclip"></i>近三年校级及以上“公开课”情况 （最多填两项）</h3>
 			@if (gongkKe != null && gongkKe.Count < 2)
 			{
 				<a class="btn btn-warning btn-sm pull-right" data-url="@Url.Action("ZisFaz_JiaoxHuod_JiaoxGongkk", "DeclarePop",new { declareTargetId=declareTargetId})" data-toggle="ajax-modal" data-target="#firstModal">新增申报</a>
@@ -76,7 +76,7 @@
 	<!-- WIDGET TABBED CONTENT -->
 	<div class="widget">
 		<div class="widget-header">
-			<h3><i class="fa fa-paperclip"></i>教育教学-教育教学评比 （最多填两项）</h3>
+			<h3><i class="fa fa-paperclip"></i>近三年校级及以上“教育教学、基本功评比获奖”情况 （最多填两项）</h3>
 			@if (jiaoxPingb != null && jiaoxPingb.Count < 2)
 			{
 				<a class="btn btn-warning btn-sm pull-right" data-url="@Url.Action("ZisFaz_JiaoxHuod_JiaoxPingb", "DeclarePop",new { declareTargetId=declareTargetId })" data-toggle="ajax-modal" data-target="#firstModal">新增申报</a>

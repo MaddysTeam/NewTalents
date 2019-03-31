@@ -22,7 +22,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					@Html.Label("teacherName", "姓名", new { @class = "col-md-2 control-label" })
+					@Html.Label("teacherName", "姓名", new { @class = "col-md-2 control-label isRequired" })
 					<div class="col-md-9">
 						@Html.TextBoxFor(m => m.TeacherName, new { @class = "form-control" })
 						@Html.ValidationMessageFor(m => m.TeacherName)
@@ -30,7 +30,7 @@
 				</div>
 
 				<div class="form-group">
-					@Html.LabelFor(m => m.CompanyId, new { @class = "col-md-2 control-label" })
+					@Html.LabelFor(m => m.CompanyId, new { @class = "col-md-2 control-label isRequired" })
 					<div class="col-md-9">
 						@Html.DropDownListFor(m => m.CompanyId, CompanyHelper.GetCompanySelectList(), new { @class = "form-control" })
 					</div>
@@ -38,7 +38,7 @@
 				</div>
 
 				<div class="form-group">
-					@Html.LabelFor(m => m.DeclareSubjectPKID, new { @class = "col-md-2 control-label" })
+					@Html.LabelFor(m => m.DeclareSubjectPKID, new { @class = "col-md-2 control-label isRequired" })
 					<div class="col-md-9">
 						@Html.DropDownListFor(m => m.DeclareSubjectPKID, BzUserProfileHelper.DeclareSubject.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
 					</div>

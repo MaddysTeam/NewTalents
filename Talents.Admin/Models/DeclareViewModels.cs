@@ -32,6 +32,10 @@ namespace TheSite.Models
       // 申报的称号
       public long DeclareTargetId { get; set; }
 
+      public int AttachmentCount { get; set; }
+
+      public int VertifyFileCount { get; set; }
+
    }
 
 

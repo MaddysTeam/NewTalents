@@ -246,26 +246,47 @@ function ajaxSubmitForm(selector) {
 	});
 }
 
+/*
+*由于存在acceptedFiles在chrome浏览中的性能问题，所以用后台的方式检查，同时也弃用控件的maxfileCount 功能，改用后台检查的方式
+*/
 function ajaxBindFileUpload() {
-	// dropzone
+	var clock;
+
 	Dropzone.autoDiscover = false;
 	$('.dropzone').dropzone({
 		addedContainer: '#flyArea',
 		dictResponseError: '上传出错',
 		dictFileTooBig: '上传文件大小({{filesize}}MiB) 最大文件大小 ({{maxFilesize}}MiB)',
-		uploadMultiple: false,
 		maxFilesize: 200,
+		parallelUploads: 1,
+		uploadMultiple: false,
 		init: function () {
 			this.on("processing", function (i) {
+				clearInterval(clock);
+				var i = 0;
 				$('.progress').remove();
 				$('#uploadName').parent().parent().append(function () {
 					return '<div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"><span class="sr-only"></span></div></div>';
 				})
+				clock = setInterval(function () {
+					$('.progress').show();
+					if (i <= 99) {
+						$(".progress-bar").css('width', parseInt(++i) + "%").text(i + '%');
+					}
+				}, 500)
 			})
 			this.on("totaluploadprogress", function (file, progress, bytesSent) {
-				$(".progress-bar").css("width", parseInt(file) + "%");
+				
 			})
 			this.on('success', function (file, data) {
+				clearInterval(clock);
+				if (data.result == 'error') {
+					popupMessage({ result: 'error', msg: data.msg });
+					$('.progress').remove();
+					return;
+				}
+				$(".progress-bar").css('width', '100%').text('100%');
+
 				var url = $('#AttachmentUrl').val();
 				url = url.length > 0 ? url + "|" : url;
 				var name = $('#AttachmentName').val();
@@ -290,6 +311,7 @@ function ajaxBindFileUpload() {
 }
 
 function ajaxSimpleFileUpload(dropzoneId, btnUploadId, whenSuccess, whenError) {
+	var clock;
 	// dropzone
 	Dropzone.autoDiscover = false;
     dropzoneId = '#' + dropzoneId;
@@ -299,8 +321,31 @@ function ajaxSimpleFileUpload(dropzoneId, btnUploadId, whenSuccess, whenError) {
 		dictFileTooBig: '上传文件大小({{filesize}}MiB) 最大文件大小 ({{maxFilesize}}MiB)',
 		uploadMultiple: false,
 		maxFilesize: 50.0,
+		//acceptedFiles: '.rar,.zip,.7z,.doc,.docx,.xls,.xlsx,.pdf,.pptx,.csv,.txt,.jpg,.gif,.jpeg,.png,.bnp', //TODO: Chome 有bug会很卡，文件类型通过服务端检查
 		init: function () {
+			this.on("processing", function (i) {
+				clearInterval(clock);
+				var i = 0;
+				$('.progress').remove();
+				$('#simpleUploadName').parent().parent().append(function () {
+					return '<div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"><span class="sr-only"></span></div></div>';
+				})
+				clock = setInterval(function () {
+					$('.progress').show();
+					if (i <= 99) {
+						$(".progress-bar").css('width', parseInt(++i) + "%").text(i + '%');
+					}
+				}, 500)
+			});
 			this.on('success', function (file, data) {
+				clearInterval(clock);
+				if (data.result == 'error') {
+					popupMessage({ result: 'error', msg: data.msg });
+					$('.progress').remove();
+					return;
+				}
+				$(".progress-bar").css('width', '100%').text('100%');
+
 				whenSuccess & whenSuccess(file,data);
 			});
 			this.on('error', function (file, message) {
@@ -318,7 +363,6 @@ function ajaxSimpleFileUpload(dropzoneId, btnUploadId, whenSuccess, whenError) {
 //	删除附件
 
 function delAttachment(e) {
-
 	var current = $('.btn-delete').index(e);
 
 	var name = $('#AttachmentName').val();
