@@ -299,6 +299,16 @@ namespace TheSite.Controllers
             });
          }
 
+         string errorMessage = string.Empty;
+         if (!string.IsNullOrEmpty(model.StatusKey) && !MaterialHasVertify(model.DeclareTargetPKID,out errorMessage))
+         {
+            return Json(new
+            {
+               result = AjaxResults.Error,
+               msg = errorMessage,
+            });
+         }
+
          // 职称破格和申报公用一张表
          var poge = ".职称破格";
          if (model.TypeKey.IndexOf(poge) > 0)
@@ -677,6 +687,36 @@ namespace TheSite.Controllers
           db.DeclareProfileDal.ConditionQuery
             (dp.UserId == UserProfile.UserId & dp.PeriodId == Period.PeriodId & dp.DeclareTargetPKID == targetId,
             null, null, null).FirstOrDefault();
+
+
+      private bool MaterialHasVertify(long declareTargetId,out string error)
+      {
+         bool result = true;
+         error = "需编辑和完善历史库中选取的申报材料（例如上传证明文件）";
+         var a = APDBDef.Attachments;
+         var userid = UserProfile.UserId;
+         var results = APQuery.select(dm.Type,dm.Title,a.ID).from(dm, a.JoinLeft(dm.ItemId == a.JoinId & a.UserId == userid & a.Type.Match("证明")))
+            .where(
+            dm.TeacherId == userid &
+            dm.PeriodId == Period.PeriodId &
+            dm.DeclareTargetPKID == declareTargetId
+            ).query(db,r=> new {
+               type=dm.Type.GetValue(r),
+               title=dm.Title.GetValue(r),
+               hasVertify=a.ID.GetValue(r)>0
+            }).ToList();
+
+         foreach(var item in results)
+         {
+            if (!item.hasVertify)
+            {
+               error += $"</br>材料名称：{item.title}";
+               result = false;
+            }
+         }
+
+         return result;
+      }
 
       #endregion
 
