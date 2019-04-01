@@ -1,0 +1,306 @@
+﻿@{
+	var pageTitle = ViewBag.Title = "教师信息统计";
+	var companyId = Request["CompanyId"];
+}
+<style>
+	.btn-white {
+    background-color: #fff;
+    border: 1px solid #ccc;
+	}
+</style>
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
+				<li class="active">@pageTitle</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-users"></i> @pageTitle</h2>
+			<em></em>
+		</div>
+
+		<div class="main-content">
+
+			<!-- widget -->
+			<div class="widget">
+				<div class="widget-header">
+					<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
+					<div class="btn-group widget-header-toolbar">
+						<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+						<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+					</div>
+				</div>
+				<div class="widget-content">
+
+					@*<div class="row">
+						<div class="form-horizontal">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">称号</label>
+									<div class="col-md-6">
+										@Html.DropDownList("Target", DeclareBaseHelper.DeclareTarget.GetSelectList(noneLabel: SelectNames.All), new { @class = "multiselect form-control" })
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">单位</label>
+									<div class="col-md-6">
+										@Html.DropDownList("Company", CompanyHelper.GetCompanySelectList(), new { @class = "multiselect form-control" })
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">姓名</label>
+									<div class="col-sm-6">
+										<input id="Name" type="text" class="form-control"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">申报学科</label>
+									<div class="col-md-6">
+										@Html.DropDownList("Subject", DeclareBaseHelper.DeclareSubject.GetSelectList(noneLabel: SelectNames.All), new { @class = "multiselect form-control" })
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">性别</label>
+									<div class="col-md-6">
+										@Html.DropDownList("Gender", BzUserProfileHelper.Gender.GetSelectList(noneLabel: SelectNames.All), new { @class = "multiselect form-control" })
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">出生年月</label>
+									<div class="col-md-6">
+										<div class="input-group date" data-provide="datepicker" data-date-language="zh-CN" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
+											@Html.TextBox("Date", "", new { @class = "form-control" })
+											<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">学历</label>
+									<div class="col-md-6">
+										@Html.DropDownList("EduBg", BzUserProfileHelper.EduBg.GetSelectList(noneLabel: SelectNames.All), new { @class = "multiselect form-control" })
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">学位</label>
+									<div class="col-md-6">
+										@Html.DropDownList("EduDegree", BzUserProfileHelper.EduDegree.GetSelectList(noneLabel: SelectNames.All), new { @class = "multiselect form-control" })
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">现任专技职称</label>
+									<div class="col-md-6">
+										@Html.DropDownList("SkillTitle", BzUserProfileHelper.SkillTitle.GetSelectList(noneLabel: SelectNames.All), new { @class = "multiselect form-control" })
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">政治面貌</label>
+									<div class="col-md-6">
+										@Html.DropDownList("PoliticalStatus", BzUserProfileHelper.PoliticalStatus.GetSelectList(noneLabel: SelectNames.All), new { @class = "multiselect form-control" })
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">民族</label>
+									<div class="col-md-6">
+										@Html.DropDownList("Nationality", BzUserProfileHelper.Nationality.GetSelectList(noneLabel: SelectNames.All), new { @class = "multiselect form-control" })
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">任教学科</label>
+									<div class="col-md-6">
+										@Html.DropDownList("EduSubject", BzUserProfileHelper.EduSubject.GetSelectList(noneLabel: SelectNames.All), new { @class = "multiselect form-control" })
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">任教学段</label>
+									<div class="col-md-6">
+										@Html.DropDownList("EduStage", BzUserProfileHelper.EduStage.GetSelectList(noneLabel: SelectNames.All), new { @class = "multiselect form-control" })
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">行政职务</label>
+									<div class="col-md-6">
+										@Html.DropDownList("RankTitle", BzUserProfileHelper.RankTitle.GetSelectList(noneLabel: SelectNames.All), new { @class = "multiselect form-control" })
+									</div>
+								</div>
+							</div>
+							@*<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">总得分</label>
+									<div class="col-md-3">
+										@Html.TextBox("totalScore_1", "", new { @class = "form-control"}) 
+									</div>
+									<div class="col-md-3">
+										@Html.TextBox("totalScore_2", "", new { @class = "form-control" })
+									</div>
+								</div>
+							</div>*@
+							<div class="col-sm-4">
+								<button class="btn btn-md btn-info" type="button" id="btnexp">导出</button>
+							</div>
+
+					<!-- Grid -->
+					<div class="table-responsive">
+						<table id="bootgrid" class="table table-striped table-hover table-dark-header">
+							<thead>
+								<tr>
+									<th data-column-id="RealName">姓名</th>
+									<th data-column-id="Gender">性别</th>
+									<th data-column-id="CompanyName">单位</th>
+									<th data-column-id="Birthday" data-formatter="DateOnly">出生日期</th>
+									<th data-column-id="Nationality">民族</th>
+									<th data-column-id="EduBg">职务</th>
+									<th data-column-id="Hiredate" data-formatter="DateOnly">评聘日期</th>
+									<th data-column-id="TrainNo">师训编号</th>
+									<th data-column-id="EduBg">职称</th>
+									<th data-column-id="EduBg">学历</th>
+									<th data-column-id="EduDegree">学位</th>
+									<th data-column-id="DeclareTargetPKID">称号</th>
+									<th data-column-id="SkillTitle">现任职称</th>
+									<th data-column-id="EduStage">任教学段</th>
+									<th data-column-id="EduSubject">任教学科</th>
+									<th data-column-id="CourseCountPerWeek">周课时数</th>
+									<th data-column-id="Phonemobile">手机</th>
+									<th data-column-id="Phone">办公室电话</th>
+									<th data-column-id="Email">邮箱</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					<!-- end Grid-->
+						</div>
+					</div>
+
+				
+
+				</div>
+				<!-- /widget content -->
+			</div>
+			<!-- /widget -->
+
+		</div>
+		<!-- /main-content -->
+	</div>
+	<!-- /main -->
+</div>
+@section Modals{
+	<a href="@Url.Action("Export", "TeacherManage")" class="btn btn-primary btn-block" id="aProxy"><i class="fa fa-edit"></i> 代理</a>
+
+	<button class="btn btn-md btn-custom-primary hidden" id="modelProxy" data-toggle="ajax-modal" data-target="#firstModal">代理</button>
+	<!-- Modal start -->
+	<div class="modal" id="firstModal" tabindex="-1" role="dialog" aria-labelledby="firstModalLabel" aria-hidden="true">
+	</div>
+	<!-- Modal end -->
+}
+@section Scripts {
+	<script>
+        @*var hasPermission = '@Html.HasPermission(Admin.UserOperation)' == 'True' ? true : false;*@
+
+		function getGlobalRequest() {
+			return { companyId: '@companyId' };
+			//var control = $('.form-horizontal input[id],.form-horizontal select[id]');
+			//var para = {};
+			//console.log(control);
+			//for (var i = 0; i < control.length; i++) {
+			//	var prop = $(control[i]).attr("id");
+			//	var val = $(control[i]).val();
+			//	if (!para.hasOwnProperty(prop)) {
+			//		para[prop] = val;
+			//	}
+			//}
+			//return para;
+		}
+
+		function getGridOptions() {
+			return $.extend(true, {}, gridOptions, {
+
+				url: window.location.href,
+
+				requestHandler: function (request) { return $.extend(true, request, getGlobalRequest()); },
+
+				formatters: {
+					'link': function (column, row) {
+						return '<a href="#" class="btn-view" data-row-id="' + row.id + '">'
+							+ row.realName + '</a>'
+					}
+				},
+			});
+		}
+
+		$(function () {
+			
+			//$('#btnexp').on('click', function () {
+			//	var para = '';
+			//	var control = $('.form-horizontal input[id],.form-horizontal select[id]');
+			//	console.log(control)
+			//	for (var i = 0; i < control.length; i++) {
+			//		var prop = $(control[i]).attr("id");
+			//		var val = $(control[i]).val();
+			//		console.log(typeof prop)
+			//		if (typeof prop === undefined) {
+			//			alert('')
+			//			continue;
+			//		}
+			//		para += prop + '=' + val + '&';
+			//	}
+			//	para = para.substring(0, para.lastIndexOf('&'));
+			//	console.log(para)
+			//	$('#aProxy').attr("href", "/TeacherManage/Export?" + para)
+			//	$('#aProxy')[0].click();
+			//})
+
+			var grid = $('#bootgrid');
+			grid.bootgrid(getGridOptions())
+			.on('loaded.rs.jquery.bootgrid', function () {
+			});
+
+			//$('.only-num').on('change', function () {
+			//	var $this = $(this)
+			//	var val = $this.val()
+			//	var reg = /^\d+$/
+			//	if (!val.match(reg)) {
+			//		$this.val('')
+			//	}
+			//})
+
+			//$('.multiselect').multiselect({
+			//	enableFiltering: true,
+			//	buttonClass: 'btn btn-white btn-sm',
+			//	maxHeight: 400,
+			//	buttonWidth: 'auto'
+			//})
+		});
+
+	</script>
+}

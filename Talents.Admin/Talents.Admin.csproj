@@ -289,6 +289,7 @@
     <Compile Include="Controllers\QualityEvalManageController.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
     <Compile Include="Controllers\ShareManageController.cs" />
+    <Compile Include="Controllers\DeclareStatisticalController.cs" />
     <Compile Include="Controllers\StatisticalManageController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Controllers\TeacherManageController.cs" />
@@ -698,6 +699,7 @@
     <Content Include="Views\DeclareMaterial\Overview5008.cshtml" />
     <Content Include="Views\DeclareMaterial\Overview5003.cshtml" />
     <Content Include="Views\DeclareMaterial\Overview5002.cshtml" />
+    <Content Include="Views\DeclareStatistical\DeclareProfileList.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

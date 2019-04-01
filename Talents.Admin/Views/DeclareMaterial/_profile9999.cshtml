@@ -126,6 +126,7 @@
 					@Html.LabelFor(m => m.Phone, new { @class = "col-md-3 control-label" })
 					<div class="col-md-9">
 						@Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+						@Html.ValidationMessageFor(m => m.Phone)
 					</div>
 				</div>
 				<div class="form-group">

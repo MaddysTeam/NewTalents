@@ -8154,7 +8154,7 @@ namespace Business {
             public virtual StringAPColumnDef CourseCountPerWeek {
                 get {
                     if (Object.ReferenceEquals(_courseCountPerWeek, null)) {
-                        _courseCountPerWeek = new StringAPColumnDef(this, "CourseCountPerWeek", false, 20);
+                        _courseCountPerWeek = new StringAPColumnDef(this, "CourseCountPerWeek", false, 4);
                         _courseCountPerWeek.Display = "周课时数";
                         _courseCountPerWeek.Required = true;
                     }
@@ -8210,7 +8210,7 @@ namespace Business {
             public virtual StringAPColumnDef Phonemobile {
                 get {
                     if (Object.ReferenceEquals(_phonemobile, null)) {
-                        _phonemobile = new StringAPColumnDef(this, "Phonemobile", false, 20);
+                        _phonemobile = new StringAPColumnDef(this, "Phonemobile", false, 11);
                         _phonemobile.Display = "手机号码";
                         _phonemobile.Required = true;
                     }
@@ -8238,7 +8238,7 @@ namespace Business {
             public virtual StringAPColumnDef Phone {
                 get {
                     if (Object.ReferenceEquals(_phone, null)) {
-                        _phone = new StringAPColumnDef(this, "Phone", true, 20);
+                        _phone = new StringAPColumnDef(this, "Phone", true, 11);
                         _phone.Display = "办公室电话";
                     }
                     return _phone;
@@ -41869,7 +41869,7 @@ namespace Business {
         /// </summary>
         [Display(Name="周课时数")]
         [Required()]
-        [StringLength(20)]
+        [StringLength(4)]
         public virtual string CourseCountPerWeek {
             get {
                 return _courseCountPerWeek;
@@ -41962,7 +41962,7 @@ namespace Business {
         /// </summary>
         [Display(Name="手机号码")]
         [Required()]
-        [StringLength(20)]
+        [StringLength(11)]
         public virtual string Phonemobile {
             get {
                 return _phonemobile;
@@ -42009,7 +42009,7 @@ namespace Business {
         /// Phone
         /// </summary>
         [Display(Name="办公室电话")]
-        [StringLength(20)]
+        [StringLength(11)]
         public virtual string Phone {
             get {
                 return _phone;
