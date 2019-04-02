@@ -510,8 +510,11 @@ namespace TheSite.Models
       [Display(Name = "课题（项目）名称")]
       public string NameOrTitle { get; set; }
 
-      [Display(Name = "是否主持")]
-      public bool Dynamic1 { get; set; }
+      //[Display(Name = "是否主持")]
+      //public bool Dynamic1 { get; set; }
+
+      [Display(Name = "主持或参与")]
+      public string Dynamic3 { get; set; }
 
       [Required]
       [Display(Name = "负责人")]
@@ -530,7 +533,7 @@ namespace TheSite.Models
       [Display(Name = "附件名称")]
       public string AttachmentName { get; set; }
 
-   }
+   }  
 
 
    public class ZisFaz_KeyChengg_FabLunwModel : DeclareAchievementModel
@@ -550,6 +553,7 @@ namespace TheSite.Models
       [Display(Name = "论文名称")]
       public string NameOrTitle { get; set; }
 
+      [Required]
       [Display(Name = "刊物名称")]
       public string Dynamic1 { get; set; }
 
@@ -580,6 +584,7 @@ namespace TheSite.Models
       [Display(Name = "著作名称")]
       public string NameOrTitle { get; set; }
 
+      [Required]
       [Display(Name = "出版社")]
       public string Dynamic1 { get; set; }
 

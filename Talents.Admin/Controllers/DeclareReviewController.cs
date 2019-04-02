@@ -48,6 +48,26 @@ namespace TheSite.Controllers
             });
          }
 
+         var currentRevidew = db.DeclareReviewDal.PrimaryGet(review.DeclareReviewId);
+         if (currentRevidew == null)
+         {
+            return Json(new
+            {
+               result = AjaxResults.Error,
+               msg = "操作异常,请联系管理员!"
+            });
+         }
+         else if (
+            (currentRevidew.StatusKey == DeclareKeys.ReviewSuccess || currentRevidew.StatusKey == DeclareKeys.ReviewFailure)
+             && UserProfile.IsSchoolAdmin)
+         {
+            return Json(new
+            {
+               result = AjaxResults.Error,
+               msg = "您已经审核过该表单，无法再次审核!"
+            });
+         }
+
          db.BeginTrans();
 
          try
@@ -56,7 +76,6 @@ namespace TheSite.Controllers
 
             db.CompanyDeclareDal.ConditionDelete(cd.TeacherId == review.TeacherId);
             db.CompanyDeclareDal.Insert(new CompanyDeclare { CompanyId = review.CompanyId, TeacherId = review.TeacherId });
-
 
             db.Commit();
          }
@@ -121,11 +140,7 @@ namespace TheSite.Controllers
             }
          }
 
-
-
-
          var total = db.ExecuteSizeOfSelect(query);
-
 
          var result = query.query(db, r => new
          {

@@ -241,7 +241,7 @@ namespace TheSite.Controllers
             AllowFitResearcher = true,
             AllowFlowToDowngrade = true,
             AllowFlowToSchool = true,
-            TeacherName=UserProfile.RealName
+            TeacherName = UserProfile.RealName
          };
          decalreReview.TypeKey = param.TypeKey;
 
@@ -270,7 +270,7 @@ namespace TheSite.Controllers
                msg = "必须选择申报类型！",
             });
          }
-   
+
          if (model.CompanyId == 0)
          {
             return Json(new
@@ -289,8 +289,8 @@ namespace TheSite.Controllers
             });
          }
 
-         if (!string.IsNullOrEmpty(model.StatusKey) && 
-            GetProfile(model.TeacherId,model.PeriodId,model.DeclareTargetPKID)==null)
+         if (!string.IsNullOrEmpty(model.StatusKey) &&
+            GetProfile(model.TeacherId, model.PeriodId, model.DeclareTargetPKID) == null)
          {
             return Json(new
             {
@@ -300,7 +300,7 @@ namespace TheSite.Controllers
          }
 
          string errorMessage = string.Empty;
-         if (!string.IsNullOrEmpty(model.StatusKey) && !MaterialHasVertify(model.DeclareTargetPKID,out errorMessage))
+         if (!string.IsNullOrEmpty(model.StatusKey) && !MaterialHasVertify(model.DeclareTargetPKID, out errorMessage))
          {
             return Json(new
             {
@@ -394,7 +394,7 @@ namespace TheSite.Controllers
          {
             model.PeriodId = Period.PeriodId;
             model.UserId = UserProfile.UserId;
-            
+
             //model.RealName = UserProfile.RealName;
 
             db.DeclareProfileDal.Insert(model);
@@ -577,7 +577,7 @@ namespace TheSite.Controllers
                return achievement;
             }).ToList();
 
-      private DeclareProfile MappingProfile(BzUserProfile profile=null)
+      private DeclareProfile MappingProfile(BzUserProfile profile = null)
       {
          profile = profile ?? UserProfile;
          return new DeclareProfile
@@ -600,7 +600,7 @@ namespace TheSite.Controllers
             RankTitlePKID = profile.RankTitlePKID,
             Phonemobile = profile.Phonemobile,
             Phone = profile.Phone,
-            Hiredate=DateTime.Now
+            Hiredate = DateTime.Now
          };
       }
 
@@ -617,7 +617,7 @@ namespace TheSite.Controllers
          profile = profile ?? MappingProfile(user);
 
          var myCompnay = db.CompanyDal.PrimaryGet(profile.CompanyId);
-        
+
          var review = db.DeclareReviewDal.ConditionQuery(
             df.TeacherId == userid &
             df.PeriodId == Period.PeriodId &
@@ -631,7 +631,7 @@ namespace TheSite.Controllers
 
          model.DeclareTargetId = param.DeclareTargetId;
          model.TypeKey = param.TypeKey;
-         model.Decalre = DeclareBaseHelper.DeclareTarget.GetName(param.DeclareTargetId,string.Empty,false);
+         model.Decalre = DeclareBaseHelper.DeclareTarget.GetName(param.DeclareTargetId, string.Empty, false);
          model.DeclareSubject = BzUserProfileHelper.DeclareSubject.GetName(review.DeclareSubjectPKID, string.Empty, false);
          model.DeclareCompany = declareCompany == null ? string.Empty : declareCompany.CompanyName;
          model.ReviewTeacherName = review.TeacherName; //string.IsNullOrEmpty(user.RealName)? review.TeacherName:user.RealName;
@@ -640,7 +640,7 @@ namespace TheSite.Controllers
          model.SkillTitle = profile.SkillTitle;
          model.TrainNo = profile.TrainNo;
          model.Plitics = profile.PoliticalStatus;
-         model.EduBg = profile.EduBg;
+         //model.EduBg = profile.EduBg;
          model.CourseCount = profile.CourseCountPerWeek;
          model.Company = myCompnay == null ? string.Empty : myCompnay.CompanyName;
          model.Mobile = profile.Phonemobile;
@@ -651,7 +651,7 @@ namespace TheSite.Controllers
          model.Gender = profile.Gender;
          model.Nation = profile.Nationality;
          model.Subject = profile.EduStage + profile.EduSubject;
-         model.EduBg = profile.EduBg + profile.EduDegree;
+         model.EduBg = profile.EduBg + profile.EduDegree.Replace("无", string.Empty);
          model.FirstYearScore = profile.Dynamic1;
          model.SecondYearScore = profile.Dynamic2;
          model.ThirdYearScore = profile.Dynamic3;
@@ -683,41 +683,57 @@ namespace TheSite.Controllers
       }
 
 
-      private DeclareProfile GetProfile(long teacherId,long periodId,long targetId) => 
+      private DeclareProfile GetProfile(long teacherId, long periodId, long targetId) =>
           db.DeclareProfileDal.ConditionQuery
             (dp.UserId == UserProfile.UserId & dp.PeriodId == Period.PeriodId & dp.DeclareTargetPKID == targetId,
             null, null, null).FirstOrDefault();
 
 
-      private bool MaterialHasVertify(long declareTargetId,out string error)
+      private bool MaterialHasVertify(long declareTargetId, out string error)
       {
          bool result = true;
          error = "需编辑和完善历史库中选取的申报材料（例如上传证明文件）";
          var a = APDBDef.Attachments;
          var userid = UserProfile.UserId;
-         var results = APQuery.select(dm.Type,dm.Title,a.ID).from(dm, a.JoinLeft(dm.ItemId == a.JoinId & a.UserId == userid & a.Type.Match("证明")))
+         var results = APQuery
+            .select(dm.Type, dm.Title, a.ID, dac.Dynamic1, dac.Dynamic2)
+            .from(dm,
+                  dac.JoinLeft(dac.DeclareAchievementId == dm.ItemId & dm.ParentType == "DeclareAchievement"),
+                  a.JoinLeft(dm.ItemId == a.JoinId & a.UserId == userid & a.Type.Match("证明"))
+                  )
             .where(
             dm.TeacherId == userid &
             dm.PeriodId == Period.PeriodId &
             dm.DeclareTargetPKID == declareTargetId
-            ).query(db,r=> new {
-               type=dm.Type.GetValue(r),
-               title=dm.Title.GetValue(r),
-               hasVertify=a.ID.GetValue(r)>0
+            ).query(db, r => new
+            {
+               type = dm.Type.GetValue(r),
+               title = dm.Title.GetValue(r),
+               hasVertify = a.ID.GetValue(r) > 0,
+               hasEror = string.IsNullOrEmpty(dac.Dynamic1.GetValue(r)) || string.IsNullOrEmpty(dac.Dynamic2.GetValue(r))
             }).ToList();
 
-         foreach(var item in results)
+         foreach (var item in results)
          {
             if (!item.hasVertify)
             {
                error += $"</br>材料名称：{item.title}";
                result = false;
             }
+            if (item.type == DeclareKeys.ZisFaz_KeyChengg_FabLunw && item.hasEror)
+            {
+               error += $"</br>材料名称:{item.title}";
+               result = false;
+            }
+            else if (item.type == DeclareKeys.ZisFaz_KeyChengg_LunzQingk && item.hasEror)
+            {
+               error += $"</br>材料名称:{item.title}";
+               result = false;
+            }
          }
 
          return result;
       }
-
       #endregion
 
    }

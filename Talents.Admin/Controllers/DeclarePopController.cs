@@ -1484,7 +1484,8 @@ namespace TheSite.Controllers
                {
                   DeclareAchievementId = list.DeclareAchievementId,
                   DateRegion = list.DateRegion,
-                  Dynamic1 = bool.Parse(list.Dynamic1),
+                  //Dynamic1 = bool.Parse(list.Dynamic1),
+                  Dynamic3 = list.Dynamic3,
                   Dynamic2 = list.Dynamic2,
                   Level = list.Level,
                   NameOrTitle = list.NameOrTitle,
@@ -1548,7 +1549,8 @@ namespace TheSite.Controllers
                   TeacherId = UserProfile.UserId,
                   AchievementKey = DeclareKeys.ZisFaz_KeyChengg_KetYanj,
                   DateRegion = model.DateRegion,
-                  Dynamic1 = model.Dynamic1.ToString(),
+                  //Dynamic1 = model.Dynamic1.ToString(),
+                  Dynamic3 =model.Dynamic3.ToString(),
                   Dynamic2 = model.Dynamic2,
                   Level = model.Level,
                   NameOrTitle = model.NameOrTitle,
@@ -1567,7 +1569,8 @@ namespace TheSite.Controllers
             {
                APQuery.update(ta)
                   .set(ta.DateRegion.SetValue(model.DateRegion))
-                  .set(ta.Dynamic1.SetValue(model.Dynamic1.ToString()))
+                  //.set(ta.Dynamic1.SetValue(model.Dynamic1.ToString()))
+                  .set(ta.Dynamic3.SetValue(model.Dynamic3.ToString()))
                   .set(ta.Dynamic2.SetValue(model.Dynamic2))
                   .set(ta.Level.SetValue(model.Level))
                   .set(ta.NameOrTitle.SetValue(model.NameOrTitle))

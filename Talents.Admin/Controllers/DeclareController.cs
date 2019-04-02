@@ -1118,7 +1118,8 @@ namespace TheSite.Controllers
             {
                DeclareAchievementId = m.DeclareAchievementId,
                DateRegion = m.DateRegion,
-               Dynamic1 = bool.Parse(m.Dynamic1),
+              // Dynamic1 = bool.Parse(m.Dynamic1),
+               Dynamic3=m.Dynamic3,
                Level = m.Level,
                Dynamic2 = m.Dynamic2,
                NameOrTitle = m.NameOrTitle,

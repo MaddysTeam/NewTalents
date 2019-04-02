@@ -564,7 +564,8 @@
 								@PicklistHelper.Dynamic6.GetName(@item.Dynamic6)
 							</td>
 							<td>
-								@(item.Dynamic1 == "True" ? "是" : "否")
+								@*@(item.Dynamic1 == "True" ? "是" : "否")*@
+								@item.Dynamic3
 							</td>
 							<td>
 								@item.NameOrTitle

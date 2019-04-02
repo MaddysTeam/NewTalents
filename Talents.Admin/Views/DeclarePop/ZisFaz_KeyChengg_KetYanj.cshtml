@@ -40,9 +40,10 @@
 						</div>
 					</div>
 					<div class="form-group">
-						@Html.LabelFor(m => m.Dynamic1, new { @class = "control-label col-md-3" })
+						@Html.LabelFor(m => m.Dynamic3, new { @class = "control-label col-md-3" })
 						<div class="col-md-9">
-							@Html.CheckBoxFor(m => m.Dynamic1)
+							@Html.DropDownListFor(m => m.Dynamic3, new SelectList(new string[] {"主持","参与" }), new { @class = "form-control" })
+							@*@Html.CheckBoxFor(m => m.Dynamic3)*@
 						</div>
 					</div>
 					<div class="form-group">
