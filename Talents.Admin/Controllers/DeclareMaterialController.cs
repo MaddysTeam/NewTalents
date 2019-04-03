@@ -24,6 +24,7 @@ namespace TheSite.Controllers
       private static APDBDef.BzUserProfileTableDef u = APDBDef.BzUserProfile;
       private static APDBDef.DeclareProfileTableDef dp = APDBDef.DeclareProfile;
       private static APDBDef.CompanyTableDef c = APDBDef.Company;
+      private static APDBDef.AttachmentsTableDef at = APDBDef.Attachments;
 
       public ActionResult Index()
       {
@@ -460,7 +461,8 @@ namespace TheSite.Controllers
 
       public ActionResult DeclareActiveList(string itemKey, long declareTargetId)
       {
-         var results = db.DeclareActiveDal.ConditionQuery(da.TeacherId == UserProfile.UserId & da.ActiveKey == itemKey, null, null, null);
+         var subquery = APQuery.select(at.JoinId).from(at).where(at.UserId == UserProfile.UserId & at.Type==itemKey & at.AttachmentUrl.Match("cdn.sser.shdjg.net"));
+         var results = db.DeclareActiveDal.ConditionQuery(da.TeacherId == UserProfile.UserId & da.ActiveKey == itemKey & da.DeclareActiveId.In(subquery), null, null, null);
 
          return PartialView("_declare_active_list", results);
       }
@@ -470,7 +472,8 @@ namespace TheSite.Controllers
 
       public ActionResult DeclareAchievementList(string itemKey, long declareTargetId)
       {
-         var results = db.DeclareAchievementDal.ConditionQuery(dac.TeacherId == UserProfile.UserId & dac.AchievementKey == itemKey, null, null, null);
+         var subquery = APQuery.select(at.JoinId).from(at).where(at.UserId == UserProfile.UserId & at.Type == itemKey & at.AttachmentUrl.Match("cdn.sser.shdjg.net"));
+         var results = db.DeclareAchievementDal.ConditionQuery(dac.TeacherId == UserProfile.UserId & dac.AchievementKey == itemKey & dac.DeclareAchievementId.In(subquery), null, null, null);
 
          return PartialView("_declare_achievement_list", results);
       }

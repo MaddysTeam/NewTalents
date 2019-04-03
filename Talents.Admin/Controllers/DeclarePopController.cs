@@ -267,7 +267,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                  model.VertificationUrl = vt.Url;
                }
             }
          }
@@ -421,7 +421,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                   model.VertificationUrl = vt.Url;
                }
             }
          }
@@ -584,7 +584,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                   model.VertificationUrl = vt.Url;
                }
             }
 
@@ -739,7 +739,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                   model.VertificationUrl = vt.Url;
                }
             }
          }
@@ -889,7 +889,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                   model.VertificationUrl = vt.Url;
                }
             }
          }
@@ -1039,7 +1039,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                   model.VertificationUrl = vt.Url;
                }
             }
 
@@ -1192,7 +1192,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                   model.VertificationUrl = vt.Url;
                }
             }
 
@@ -1347,7 +1347,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                   model.VertificationUrl = vt.Url;
                }
             }
          }
@@ -1505,7 +1505,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                   model.VertificationUrl = vt.Url;
                }
             }
          }
@@ -1660,7 +1660,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                   model.VertificationUrl = vt.Url;
                }
             }
          }
@@ -1810,7 +1810,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                   model.VertificationUrl = vt.Url;
                }
             }
 
@@ -1958,7 +1958,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                   model.VertificationUrl = vt.Url;
                }
             }
          }
@@ -2106,7 +2106,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                   model.VertificationUrl = vt.Url;
                }
             }
 
@@ -2256,7 +2256,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                   model.VertificationUrl = vt.Url;
                }
             }
 
@@ -3861,7 +3861,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                   model.VertificationUrl = vt.Url;
                }
             }
          }
@@ -4129,7 +4129,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                   model.VertificationUrl = vt.Url;
                }
             }
          }
@@ -4281,7 +4281,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                   model.VertificationUrl = vt.Url;
                }
             }
          }
@@ -4425,7 +4425,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                   model.VertificationUrl = vt.Url;
                }
             }
          }
@@ -4568,7 +4568,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                   model.VertificationUrl = vt.Url;
                }
             }
          }
@@ -4704,7 +4704,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                   model.VertificationUrl = vt.Url;
                }
             }
          }
@@ -4838,7 +4838,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                   model.VertificationUrl = vt.Url;
                }
             }
          }
@@ -4973,7 +4973,7 @@ namespace TheSite.Controllers
                   model.AttachmentName = at.Name;
                   model.AttachmentUrl = at.Url;
                   model.VertificationName = vt.Name;
-                  model.VertificationUrl = vt.Name;
+                   model.VertificationUrl = vt.Url;
                }
             }
          }
