@@ -233,12 +233,18 @@ function ajaxSubmitForm(selector) {
 			return false;
 		}
 	   $.post($this.attr('action'), $this.serialize(), function (data, status) {
-			$this.find('button').removeAttr('disabled');
+	   	$this.find('button').removeAttr('disabled');
 			popupMessage(data, {
 				success: function () {
 					var afterSuccess = $this.data('afterSuccess');
 					if (afterSuccess) {	
 						eval(afterSuccess);
+					}
+				},
+				error: function () {
+					var afterError = $this.data('afterError');
+					if (afterError) {
+						eval(afterError);
 					}
 				}
 			});

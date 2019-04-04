@@ -3,7 +3,7 @@
 	var typeKey = HttpUtility.UrlDecode(Model.TypeKey);
 }
 <!-- WIDGET TABBED CONTENT -->
-<form action="@Url.Action("ReviewEdit", "DeclareMaterial" )" method="post" class="form-horizontal form-group-sm" role="form" novalidate="novalidate" id="FormIndex" data-after-success="afterSaveSuccess()">
+<form action="@Url.Action("ReviewEdit", "DeclareMaterial" )" method="post" class="form-horizontal form-group-sm" role="form" novalidate="novalidate" id="FormIndex" data-after-success="afterSaveSuccess()" data-after-error="afterSaveError()">
 	<input data-val="true" data-val-number="字段 修改周期ID 必须是一个数字。" data-val-required="修改周期ID 字段是必需的。" id="PeriodId" name="PeriodId" type="hidden" value="0">
 	<div class="row">
 		<fieldset class="col-md-9">
@@ -82,6 +82,10 @@
 		else {
 			loadReview('@DeclareTargetIds.GongzsZhucr', '_review5004', '@typeKey')
 		}
+	}
+
+	function afterSaveError() {
+		$('#StatusKey').val('');
 	}
 
 	$(function () {
