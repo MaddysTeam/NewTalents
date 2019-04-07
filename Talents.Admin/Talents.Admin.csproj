@@ -235,6 +235,7 @@
     <Compile Include="Business\Business.apgen.cs" />
     <Compile Include="Business\DataDef\BzPermissionCache.cs" />
     <Compile Include="Business\DataDef\DeclareProfile.cs" />
+    <Compile Include="Business\DataDef\DeclareReview.cs" />
     <Compile Include="Business\DataDef\TeamActiveResult.cs" />
     <Compile Include="Business\DataDef\EvalQualitySubmitResult.cs" />
     <Compile Include="Business\DataDef\EvalQualityResult.cs" />
@@ -644,7 +645,7 @@
     <Content Include="Views\Attachment\Preview.cshtml" />
     <Content Include="Views\DeclareMaterial\_declare_achievement_list.cshtml" />
     <Content Include="Views\DeclareMaterial\MaterialPreview5005.cshtml" />
-    <Content Include="Views\DeclareReview\Edit.cshtml" />
+    <Content Include="Views\StatisticalManage\Edit.cshtml" />
     <Content Include="Views\DeclareReview\List.cshtml" />
     <Content Include="Views\DeclarePeriod\Edit.cshtml" />
     <Content Include="Views\DeclarePeriod\List.cshtml" />
@@ -700,6 +701,8 @@
     <Content Include="Views\DeclareMaterial\Overview5003.cshtml" />
     <Content Include="Views\DeclareMaterial\Overview5002.cshtml" />
     <Content Include="Views\DeclareStatistical\DeclareProfileList.cshtml" />
+    <Content Include="Views\DeclareStatistical\DeclareSummaryList.cshtml" />
+    <Content Include="Views\DeclareReview\Edit.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

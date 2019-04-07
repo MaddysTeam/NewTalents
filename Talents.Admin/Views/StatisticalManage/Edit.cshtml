@@ -21,8 +21,6 @@
 				@Html.HiddenFor(x => x.ReviewerId)
 				@Html.HiddenFor(x => x.PeriodId)
 				@Html.HiddenFor(x => x.StatusKey)
-				@Html.HiddenFor(x => x.CompanyId)
-				@Html.HiddenFor(x => x.DeclareSubjectPKID)
 				<div class="row">
 					<fieldset class="col-md-12">
 						<div class="form-group">
@@ -73,7 +71,7 @@
 						}
 						<div class="form-group">
 							<div class="col-sm-9 col-lg-offset-3">
-								@if (Html.GetUserProfile().IsSchoolAdmin || Html.GetUserProfile().IsSystemAdmin)
+								@if (Html.GetUserProfile().IsSchoolAdmin)
 								{
 									
 										<button type="submit" class="btn btn-success btn-block-half" id="ReviewSuccess"><i class="fa fa-check-circle"></i> 通过</button>

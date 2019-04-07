@@ -43,6 +43,8 @@ namespace Business
 
       public long[] PrevioursDeclareTargets { get; set; }
 
+      public string DeclareTargetName { get; set; }
+
 
       public List<Target> GetAllTargets5002 =>
        new List<Target>

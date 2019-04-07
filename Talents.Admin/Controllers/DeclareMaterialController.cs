@@ -253,7 +253,18 @@ namespace TheSite.Controllers
       [DecalrePeriod]
       public ActionResult ReviewEdit(DeclareReview model)
       {
-         var existReviews = db.DeclareReviewDal.ConditionQuery(df.TeacherId == UserProfile.UserId & df.PeriodId == Period.PeriodId, null, null, null);
+         var userId = UserProfile.IsDeclare ? UserProfile.UserId : model.TeacherId;
+         
+         if (userId == 0 || BzUserProfile.PrimaryGet(userId) ==null)
+         {
+            return Json(new
+            {
+               result = AjaxResults.Error,
+               msg = "该用户不存在，请联系管理员！",
+            });
+         }
+
+         var existReviews = db.DeclareReviewDal.ConditionQuery(df.TeacherId == userId & df.PeriodId == Period.PeriodId, null, null, null);
          if (existReviews.Exists(x => !string.IsNullOrEmpty(x.StatusKey)))
          {
             return Json(new
@@ -269,6 +280,15 @@ namespace TheSite.Controllers
             {
                result = AjaxResults.Error,
                msg = "必须选择申报类型！",
+            });
+         }
+
+         if (model.DeclareTargetPKID == 0)
+         {
+            return Json(new
+            {
+               result = AjaxResults.Error,
+               msg = "申报称号异常！请联系管理员",
             });
          }
 
@@ -291,7 +311,7 @@ namespace TheSite.Controllers
          }
 
          if (!string.IsNullOrEmpty(model.StatusKey) &&
-            GetProfile(model.TeacherId, model.PeriodId, model.DeclareTargetPKID) == null)
+            GetProfile(userId, model.PeriodId, model.DeclareTargetPKID) == null)
          {
             return Json(new
             {
@@ -316,15 +336,19 @@ namespace TheSite.Controllers
             model.TypeKey = model.TypeKey.Replace(poge, ".申报");
 
          model.PeriodId = Period.PeriodId;
-         model.TeacherId = UserProfile.UserId;
+         model.TeacherId = userId;
 
          if (model.DeclareReviewId == 0)
          {
             if (!existReviews.Exists(x => x.TypeKey == model.TypeKey))
+            {
+               model.CreateDate = DateTime.Now;
                db.DeclareReviewDal.Insert(model);
+            }
          }
          else
          {
+            model.ModifyDate = DateTime.Now;
             db.DeclareReviewDal.UpdatePartial(model.DeclareReviewId, new
             {
                model.CompanyId,
@@ -337,7 +361,8 @@ namespace TheSite.Controllers
                model.AllowFitResearcher,
                model.StatusKey,
                model.TypeKey,
-               model.TeacherName
+               model.TeacherName,
+               model.ModifyDate
             });
          }
 
@@ -443,8 +468,11 @@ namespace TheSite.Controllers
                DeclareSubjectPKID = model.EduSubjectPKID,
                CompanyId = model.CompanyId,
                TypeKey = typeKey,
+               TeacherName= UserProfile.RealName,
             };
             review.StatusKey = model.StatusKey;
+            review.TeacherName = string.IsNullOrEmpty(review.TeacherName) ? UserProfile.RealName : review.TeacherName;
+            review.CompanyId = model.CompanyId;
 
             return ReviewEdit(review);
          }

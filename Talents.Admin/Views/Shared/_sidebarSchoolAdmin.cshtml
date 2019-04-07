@@ -1,4 +1,7 @@
 ﻿<!-- left sidebar -->
+@{ 
+	var period = Html.GetDeclarePeriod();
+}
 <div class="col-md-2 left-sidebar">
 	<!-- main-nav -->
 	<nav class="main-nav">
@@ -8,32 +11,43 @@
 					<i class="fa fa-home fa-fw"></i>
 					<span class="text">首页</span>
 				</a>
-			</li>
+			</li>		
+			@if (period != null && period.IsInReviewPeriod)
+			{
 			<li>
-				<a href="@Url.Action("SchoolRule", "EvalManage")">
-					<i class="fa fa-gear fa-fw"></i>
-					<span class="text">校评指标</span>
-				</a>
-			</li>
-			<li>
-				<a href="@Url.Action("CurrentList", "SchoolEval")">
-					<i class="fa fa-gear fa-fw"></i>
-					<span class="text">当期校评</span>
-				</a>
-			</li>
-
-			<li>
-				<a href="@Url.Action("List", "DeclareReview", new {companyId=Html.GetUserProfile().CompanyId })">
+				<a href="@Url.Action("List", "DeclareReview", new { companyId = Html.GetUserProfile().CompanyId })">
 					<i class="fa fa-gear fa-fw"></i>
 					<span class="text">申报审核</span>
 				</a>
 			</li>
-			@*<li>
-				<a href="@Url.Action("DeclareProfileList", "DeclareStatistical", new {companyId=Html.GetUserProfile().CompanyId })">
+			<li>
+				<a href="@Url.Action("DeclareProfileList", "DeclareStatistical")">
 					<i class="fa fa-gear fa-fw"></i>
-					<span class="text">申报基本汇总</span>
+					<span class="text">申报基本情况汇总</span>
 				</a>
-			</li>*@
+			</li>
+			<li>
+				<a href="@Url.Action("DeclareSummaryList", "DeclareStatistical")">
+					<i class="fa fa-gear fa-fw"></i>
+					<span class="text">申报汇总表</span>
+				</a>
+			</li>
+			}
+			else
+			{
+				<li>
+					<a href="@Url.Action("SchoolRule", "EvalManage")">
+						<i class="fa fa-gear fa-fw"></i>
+						<span class="text">校评指标</span>
+					</a>
+				</li>
+				<li>
+					<a href="@Url.Action("CurrentList", "SchoolEval")">
+						<i class="fa fa-gear fa-fw"></i>
+						<span class="text">当期校评</span>
+					</a>
+				</li>
+			}
 		</ul>
 	</nav>
 	<!-- /main-nav -->

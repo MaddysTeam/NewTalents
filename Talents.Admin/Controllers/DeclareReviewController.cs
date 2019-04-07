@@ -39,7 +39,7 @@ namespace TheSite.Controllers
       {
          var cd = APDBDef.CompanyDeclare;
 
-         if (!Period.IsInReviewPeriod)
+         if (Period==null || !Period.IsInReviewPeriod)
          {
             return Json(new
             {
@@ -49,7 +49,7 @@ namespace TheSite.Controllers
          }
 
          var currentRevidew = db.DeclareReviewDal.PrimaryGet(review.DeclareReviewId);
-         if (currentRevidew == null)
+         if (currentRevidew == null || !currentRevidew.IsReviewValidate)
          {
             return Json(new
             {
@@ -72,10 +72,13 @@ namespace TheSite.Controllers
 
          try
          {
-            db.DeclareReviewDal.UpdatePartial(review.DeclareReviewId, new { StatusKey = review.StatusKey, ReviewComment = review.ReviewComment });
 
-            db.CompanyDeclareDal.ConditionDelete(cd.TeacherId == review.TeacherId);
-            db.CompanyDeclareDal.Insert(new CompanyDeclare { CompanyId = review.CompanyId, TeacherId = review.TeacherId });
+            db.DeclareReviewDal.UpdatePartial(currentRevidew.DeclareReviewId, new { StatusKey = review.StatusKey, ReviewComment = review.ReviewComment, ModifyDate = DateTime.Now });
+
+            db.CompanyDeclareDal.ConditionDelete(cd.TeacherId == currentRevidew.TeacherId);
+
+            db.CompanyDeclareDal.Insert(new CompanyDeclare { CompanyId = currentRevidew.CompanyId, TeacherId = currentRevidew.TeacherId });
+
 
             db.Commit();
          }
@@ -98,7 +101,8 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
-      public ActionResult List(long companyId, int current, int rowCount, AjaxOrder sort, string searchPhrase)
+      public ActionResult List(long companyId,string statusKey, long targetId, long decalreSubjectId,
+                             int current, int rowCount, AjaxOrder sort, string searchPhrase)
       {
          var u2 = APDBDef.BzUserProfile.As("reviewer");
          var c = APDBDef.Company;
@@ -112,12 +116,30 @@ namespace TheSite.Controllers
                                 u2.JoinLeft(dr.ReviewerId == u2.UserId)
                                 )
                           .primary(dr.DeclareReviewId)
-                          .where(dr.PeriodId == currentPeriod.PeriodId & dr.StatusKey != string.Empty)
+                          .where(dr.PeriodId == currentPeriod.PeriodId & dr.StatusKey!=string.Empty)
                           .skip((current - 1) * rowCount)
                           .take(rowCount);
 
          if (companyId > 0)
             query = query.where_and(c.CompanyId == companyId);
+
+         if (UserProfile.IsSchoolAdmin)
+         {
+            query.where_and(dr.CompanyId == UserProfile.CompanyId);
+         }
+         else if (UserProfile.IsSystemAdmin && companyId > 0)
+         {
+            query.where_and(dr.CompanyId == companyId);
+         }
+
+         if (targetId > 0)
+         {
+            query.where_and(dr.DeclareTargetPKID == targetId);
+         }
+         if (decalreSubjectId > 0)
+         {
+            query.where_and(dr.DeclareSubjectPKID == decalreSubjectId);
+         }
 
 
          //过滤条件
@@ -137,8 +159,13 @@ namespace TheSite.Controllers
             switch (sort.ID)
             {
                case "realName": query.order_by(sort.OrderBy(dr.TeacherName)); break;
+               case "target": query.order_by(sort.OrderBy(dr.DeclareTargetPKID)); break;
+               case "company": query.order_by(sort.OrderBy(dr.CompanyId)); break;
+               case "subject": query.order_by(sort.OrderBy(dr.DeclareSubjectPKID)); break;
+               case "status":query.order_by(sort.OrderBy(dr.StatusKey));break;
             }
          }
+
 
          var total = db.ExecuteSizeOfSelect(query);
 
@@ -151,7 +178,7 @@ namespace TheSite.Controllers
             realName = dr.TeacherName.GetValue(r),
             reviewer = u2.RealName.GetValue(r, "reviewer"),
             company = c.CompanyName.GetValue(r),
-            declare = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
+            target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
             subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(r), "", false),
             typeKey = dr.TypeKey.GetValue(r),
             targetId = dr.DeclareTargetPKID.GetValue(r)

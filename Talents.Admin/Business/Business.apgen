@@ -516,6 +516,8 @@
 					<add name="StatusKey" type="string" dataLength="100" display="审核状态"/>
 					<add name="ReviewComment" type="string" dataLength="2000" display="校管理员审批意见" />
 					<add name="ReviewerId" type="long" display="审核人" />
+					<add name="CreateDate" type="DateTime" display="创建时间"/>
+					<add name="ModifyDate" type="DateTime" display="更新时间"/>
 					
 				</columns>
 			</table>

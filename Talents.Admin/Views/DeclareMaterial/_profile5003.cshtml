@@ -1,6 +1,6 @@
 ﻿@model DeclareProfile
 <!-- WIDGET TABBED CONTENT -->
-<form id="FormProfile" action="@Url.Action("BasicProfileEdit", "DeclareMaterial" )" method="post" class="form-horizontal form-group-sm" role="form" novalidate="novalidate" data-after-success="afterDialogSuccess()">
+<form id="FormProfile" action="@Url.Action("BasicProfileEdit", "DeclareMaterial" )" method="post" class="form-horizontal form-group-sm" role="form" novalidate="novalidate" data-after-success="afterDialogSuccess()" data-after-error="afterSaveError()">
 	@Html.HiddenFor(x => x.StatusKey)
 	@Html.HiddenFor(x => x.DeclareProfileId)
 	@Html.HiddenFor(x => x.DeclareTargetPKID)
@@ -163,6 +163,10 @@
 		else {
 			loadProfile('@DeclareTargetIds.JidZhucr', '_profile5003')
 		}
+	}
+
+	function afterSaveError() {
+		$('#StatusKey').val('');
 	}
 
 	$(function () {
