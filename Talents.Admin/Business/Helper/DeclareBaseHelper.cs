@@ -240,7 +240,8 @@ namespace Business.Helper
       public static bool IsDeclareSubmit(long periodId, long teacherId, APDBDef db)
       {
          var reviews= db.DeclareReviewDal.ConditionQuery(df.TeacherId == teacherId & df.PeriodId == periodId ,null,null,null );
-         return reviews.Exists(review => !string.IsNullOrEmpty(review.StatusKey));
+         return reviews.Exists(review => review.IsSubmit);
+         //return reviews.Exists(review => !string.IsNullOrEmpty(review.StatusKey));
       }
 
 

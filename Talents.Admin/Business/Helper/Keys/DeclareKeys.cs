@@ -125,6 +125,8 @@
       public const string ReviewSuccess = "审核通过";
       public const string ReviewProcess = "待审核";
       public const string ReviewFailure = "审核不通过";
+      public const string ReviewBack = "已退回";
+
 
       public const string CaiLPog = "材料破格";
       public const string GaodLisz = "高地理事长";

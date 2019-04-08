@@ -3,6 +3,8 @@
 	var pageTitle = "提交申报申请";
 	var company = CompanyHelper.GetCompanySelectList().First(x => x.Value == Model.CompanyId.ToString());
 	var isInReview = Request["isReview"];
+	var isSchoolAdmin = Html.GetUserProfile().IsSchoolAdmin;
+	var isSystemAdmin = Html.GetUserProfile().IsSystemAdmin;
 }
 <div class="modal-dialog modal-lg">
 	<!-- widget -->
@@ -51,7 +53,7 @@
 						</div>
 
 
-						@if (Html.GetUserProfile().IsSchoolAdmin)
+						@if (isSchoolAdmin)
 						{
 							<div class="form-group">
 								@Html.LabelFor(m => m.ReviewComment, new { @class = "control-label col-md-3" })
@@ -73,42 +75,23 @@
 						}
 						<div class="form-group">
 							<div class="col-sm-9 col-lg-offset-3">
-								@if (Html.GetUserProfile().IsSchoolAdmin || Html.GetUserProfile().IsSystemAdmin)
+								@if (isSchoolAdmin)
 								{
-									
-										<button type="submit" class="btn btn-success btn-block-half" id="ReviewSuccess"><i class="fa fa-check-circle"></i> 通过</button>
-										<button type="submit" class="btn btn-danger btn-block-half" id="ReviewFailure">不通过</button>
-								
-									@*else if (Model.StatusKey == DeclareKeys.ReviewSuccess)
+									if (Model.IsSubmit)
 									{
-										<button class="btn btn-success btn-block-half" disabled><i class="fa fa-check-circle"></i> 审核已通过！</button>
+									<button type="submit" class="btn btn-success btn-block-half" id="ReviewSuccess"><i class="fa fa-check-circle"></i> 通过</button>
+									<button type="submit" class="btn btn-danger btn-block-half" id="ReviewFailure">不通过</button>
 									}
-									else if (Model.StatusKey == DeclareKeys.ReviewFailure)
+									else
 									{
-										<button class="btn btn-danger btn-block-half" disabled><i class="fa fa-check-circle"></i> 审核不通过！</button>
-									}*@
+										<button class="btn btn-warning btn-block-half disabled" id="ReviewBack">已退回</button>
+									}
 								}
-								else if (Html.GetUserProfile().IsDeclare)
+								else if (isSystemAdmin)
 								{
-									if (Model.StatusKey.IsEmpty())
-									{
-										<button type="submit" class="btn btn-primary btn-block-half"><i class="fa fa-check-circle"></i> 提交审核</button>
-										<button type="button" class="btn btn-default btn-block-half" data-dismiss="modal">取消</button>
-									}
-									if (Model.StatusKey == DeclareKeys.ReviewProcess)
-									{
-										<button class="btn btn-primary btn-block-half" disabled><i class="fa fa-check-circle"></i> 待审核</button>
-									}
-									if (Model.StatusKey == DeclareKeys.ReviewSuccess)
-									{
-										<button class="btn btn-success btn-block-half" disabled><i class="fa fa-check-circle"></i> 审核已通过！</button>
-									}
-									@*else if (Model.StatusKey == DeclareKeys.ReviewFailure)
-										{
-											<button type="submit" class="btn btn-primary btn-block-half" id="Submit"><i class="fa fa-check-circle"></i> 提交审核</button>
-											<button type="button" class="btn btn-default btn-block-half" data-dismiss="modal">取消</button>
-										}*@
-
+									<button type="submit" class="btn btn-success btn-block-half" id="ReviewSuccess"><i class="fa fa-check-circle"></i> 通过</button>
+									<button type="submit" class="btn btn-danger btn-block-half" id="ReviewFailure">不通过</button>
+									<button type="submit" class="btn btn-warning btn-block-half" id="ReviewBack">退回修改</button>
 								}
 
 							</div>
@@ -133,19 +116,19 @@
 			$('#StatusKey').val('@DeclareKeys.ReviewSuccess');
 		});
 
-
 		$('#ReviewFailure').on('click', function () {
-			$('#StatusKey').val('@DeclareKeys.ReviewFailure')
+			$('#StatusKey').val('@DeclareKeys.ReviewFailure');
+		});
+
+		$('#ReviewBack').on('click', function () {
+			$('#StatusKey').val('@DeclareKeys.ReviewBack');
 		});
 
 	})
 
 	function afterDialogSuccess() {
 		$('#firstModal').modal('hide');
-
-		//loadFrag()
-
-		location.href = location.href;
+		history.go(0);
 	}
 
 </script>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Business.Helper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -23,12 +24,16 @@ namespace Business
 
       public string GoodYear { get; set; }
 
-      public string IsBroke { get; set; }
+      public string IsDeclareBroke { get; set; }
+
+      public string IsMaterialBroke { get; set; }
 
       public string PhoneMobile { get; set; }
 
       // 仅仅用在校管理员审核时验证
       public bool IsReviewValidate => TeacherId > 0 && DeclareTargetPKID > 0 && CompanyId > 0 && PeriodId > 0 && !string.IsNullOrEmpty(TypeKey);
+
+      public bool IsSubmit => !string.IsNullOrEmpty(StatusKey) && StatusKey != DeclareKeys.ReviewBack;
    }
 
 }

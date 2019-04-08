@@ -158,7 +158,7 @@
 <script>
 	function afterDialogSuccess() {
 		//如果提交则刷新页面
-		if ($('#StatusKey').val() != '') {
+		if ($('#StatusKey').val() == '@DeclareKeys.ReviewProcess') {
 			location.href = location.href;
 		}
 		else {

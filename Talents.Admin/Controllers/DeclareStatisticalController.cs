@@ -38,18 +38,18 @@ namespace TheSite.Controllers
       public ActionResult DeclareProfileList(long companyId, long eduBgId, long degreeId,
          long skillId, long politicalId, long nationId, long subjectId, long stageId, long rankId,
          int current, int rowCount, AjaxOrder sort, string searchPhrase)
-      {        
+      {
          var query = APQuery
                  .select(dp.Asterisk, c.CompanyName.As("Company"), pi.Name.As("targetName"))
                  .from(dp,
                  p.JoinInner(p.PeriodId == dp.PeriodId),
                  pi.JoinInner(dp.DeclareTargetPKID == pi.PicklistItemId),
-                 df.JoinInner(df.PeriodId==dp.PeriodId & df.TeacherId==dp.UserId & df.DeclareTargetPKID==dp.DeclareTargetPKID),
+                 df.JoinInner(df.PeriodId == dp.PeriodId & df.TeacherId == dp.UserId & df.DeclareTargetPKID == dp.DeclareTargetPKID),
                  c.JoinLeft(c.CompanyId == dp.CompanyId)
                  )
                  .primary(dp.DeclareProfileId)
-         .where(dp.PeriodId==Period.PeriodId
-         & df.StatusKey!=""
+         .where(dp.PeriodId == Period.PeriodId
+         & df.StatusKey != string.Empty & df.StatusKey != DeclareKeys.ReviewBack
          )
          .skip((current - 1) * rowCount)
          .take(rowCount);
@@ -174,7 +174,7 @@ namespace TheSite.Controllers
                c.JoinLeft(c.CompanyId == df.CompanyId)
                )
                .primary(df.DeclareReviewId)
-       .where(df.StatusKey != string.Empty)
+       .where(df.StatusKey != string.Empty & df.StatusKey != DeclareKeys.ReviewBack)
        .skip((current - 1) * rowCount)
        .take(rowCount);
 
@@ -245,7 +245,8 @@ namespace TheSite.Controllers
             review.Subject = BzUserProfileHelper.EduSubject.GetName(dp.EduSubjectPKID.GetValue(rd), "", false);
             review.Gender = BzUserProfileHelper.Gender.GetName(dp.GenderPKID.GetValue(rd), "", false);
             review.GoodYear = string.IsNullOrEmpty(years.Replace(",","")) ? "-" : years;
-            review.IsBroke = review.IsBrokenRoles ? "是" : "否";
+            review.IsDeclareBroke = review.IsBrokenRoles ? "是" : "否";
+            review.IsMaterialBroke = review.TypeKey.IndexOf("材料破格") > 0 ? "是" : "否";
             review.PhoneMobile = dp.Phonemobile.GetValue(rd);
 
             return review;

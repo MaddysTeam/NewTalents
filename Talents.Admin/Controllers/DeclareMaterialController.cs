@@ -265,7 +265,7 @@ namespace TheSite.Controllers
          }
 
          var existReviews = db.DeclareReviewDal.ConditionQuery(df.TeacherId == userId & df.PeriodId == Period.PeriodId, null, null, null);
-         if (existReviews.Exists(x => !string.IsNullOrEmpty(x.StatusKey)))
+         if (existReviews.Exists(x => x.IsSubmit))
          {
             return Json(new
             {
@@ -310,7 +310,7 @@ namespace TheSite.Controllers
             });
          }
 
-         if (!string.IsNullOrEmpty(model.StatusKey) &&
+         if (model.IsSubmit &&
             GetProfile(userId, model.PeriodId, model.DeclareTargetPKID) == null)
          {
             return Json(new
@@ -321,7 +321,7 @@ namespace TheSite.Controllers
          }
 
          string errorMessage = string.Empty;
-         if (!string.IsNullOrEmpty(model.StatusKey) && !MaterialHasVertify(model.DeclareTargetPKID, out errorMessage))
+         if (model.IsSubmit && !MaterialHasVertify(model.DeclareTargetPKID, out errorMessage))
          {
             return Json(new
             {
@@ -387,6 +387,7 @@ namespace TheSite.Controllers
             profile.DeclareTargetPKID = param.DeclareTargetId;
          }
 
+         // 绑定上一轮人才梯队任职情况，为多选
          if (!string.IsNullOrEmpty(profile.Dynamic4))
          {
             var targetIds = profile.Dynamic4.Split(',');
@@ -394,6 +395,16 @@ namespace TheSite.Controllers
             for (int i = 0; i < targetIds.Length; i++)
             {
                profile.PrevioursDeclareTargets[i] = Convert.ToInt64(targetIds[i]);
+            }
+         }
+
+        // 如果是高地或者是基地主持人则 statuskey 从 review表获取
+        if (param.DeclareTargetId == DeclareTargetIds.GaodLisz || param.DeclareTargetId == DeclareTargetIds.JidZhucr)
+        {
+            var review = db.DeclareReviewDal.ConditionQuery(df.DeclareTargetPKID == param.DeclareTargetId & df.TeacherId == UserProfile.UserId & df.PeriodId == Period.PeriodId, null, null, null).FirstOrDefault();
+            if (review != null)
+            {
+               profile.StatusKey = review.StatusKey;
             }
          }
 
@@ -420,8 +431,6 @@ namespace TheSite.Controllers
          {
             model.PeriodId = Period.PeriodId;
             model.UserId = UserProfile.UserId;
-
-            //model.RealName = UserProfile.RealName;
 
             db.DeclareProfileDal.Insert(model);
          }
