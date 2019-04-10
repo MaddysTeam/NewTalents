@@ -49,7 +49,7 @@ namespace TheSite.EvalAnalysis
       /// <summary>
       /// 称号评分算法模块
       /// </summary>
-      public virtual DeclareEvalUnitBase DeclareEval { get; }
+      public virtual IReadOnlyDictionary<long,DeclareEvalUnitBase> DeclareEvals { get; }
 
 
    }

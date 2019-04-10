@@ -11,11 +11,34 @@ namespace TheSite.EvalAnalysis
 
    public partial class DeclareEngine
    {
-    
-      //public partial class DeclareEvalUnit: DeclareEvalUnitBase
-      //{
 
-      //}
+      public abstract class DeclareEvalUnit : DeclareEvalUnitBase
+      {
+         public override string EvalView => "";
+
+
+         public override double FullScroe => 100;
+
+
+         public override double Proportion => 1;
+
+
+         public override string ResultView => "";
+
+
+         public override string RuleView => "";
+
+
+         public override long Eval(APDBDef db, DecalreEvalParam param, FormCollection fc)
+         {
+            throw new NotImplementedException();
+         }
+
+         public override Dictionary<string, EvalDeclareResultItem> GetResultItem(APDBDef db, DecalreEvalParam param)
+         {
+            throw new NotImplementedException();
+         }
+      }
 
    }
 

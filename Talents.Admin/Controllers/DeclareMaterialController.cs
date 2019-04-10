@@ -663,6 +663,10 @@ namespace TheSite.Controllers
             df.PeriodId == Period.PeriodId &
             df.DeclareTargetPKID == param.DeclareTargetId &
             df.TypeKey == param.TypeKey.Replace(poge, ".申报"), null, null, null).FirstOrDefault();
+
+         // 如果review 表数据为空（没点保存按钮）则：职称破格和申报公用一张表 所以要用form IsBrokenRoles 和 param.TypeKey 一起判断，否则绑定IsBrokRoles字段
+         model.IsBrokRoles = review==null ? string.IsNullOrEmpty(param.TypeKey) ? false : param.TypeKey.IndexOf(poge) > 0 : review.IsBrokenRoles;
+
          review = review ?? new DeclareReview();
 
          var declareCompany = db.CompanyDal.PrimaryGet(review.CompanyId);
@@ -716,8 +720,7 @@ namespace TheSite.Controllers
          model.DeclareAchievements = declareAchievement;
          model.Reason = review.Reason;
          model.IsPartialView = param.IsPartialView;
-         // 职称破格和申报公用一张表 所以要用form IsBrokenRoles 和 param.TypeKey 一起判断
-         model.IsBrokRoles = string.IsNullOrEmpty(param.TypeKey) ? false : param.TypeKey.IndexOf(poge) > 0;
+
 
          return model;
       }

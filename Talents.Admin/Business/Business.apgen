@@ -602,22 +602,38 @@
 				</columns>
 			</table>
 
-			<!--<table name="DeclareReview" comment="申报审核">
+			<table name="EvalDeclareResult" comment="申报-考核-结果">
 				<columns>
 					
-					<add name="ReviewId" type="long" primaryKey="true" identityType="Provider" display="周期ID"/>
-					<add name="TeacherId" type="long" display="教师ID"/>
-					<add name="ReviewerId" type="long" display="审核ID"/>
-					<add name="DeclareBaseId" type="long" display="申报ID"/>
-					<add name="StatusKey" type="string" dataLength="100" display="审核状态"/>
+					<add name="ResultId" type="long" primaryKey="true" identityType="Provider" display="评价结果ID"/>
 					<add name="PeriodId" type="long" display="申报周期ID"/>
-					<add name="CompanyId" type="long" display="所在单位"/>
-					--><!--<add name="ContentValue" type="string" dataLength="10000" required="true" display="审核内容" />--><!--
-					<add name="ReviewComment" type="string" dataLength="2000" display="校管理员审批意见" />
-					
-				</columns>			
-			</table>-->
+					<add name="DeclareTargetPKID" type="long" display="申报称号" comment="PickList - PLKey_DeclareTarget"/>
+					<add name="TeacherId" type="long" display="教师ID"/>
 
+					<!-- General Information -->
+					<add name="FullScore" type="double" display="总分"/>
+					<add name="Score" type="double" display="得分"/>
+					<add name="Comment" type="string" dataLength="10000" display="总评" comment="每位专家的评语"/>
+					<add name="GroupId" type="long" display="专家组" comment="关联专家组"/>
+					<add name="Accesser" type="long" display="考评人" comment="关联考评人"/>
+					<add name="AccessDate" type="DateTime" display="考评时间"/>
+
+				</columns>
+			</table>
+				
+			<table name="EvalDeclareResultItem" comment="申报-考核-结果项">
+				<columns>
+
+					<add name="ResultItemId" type="long" primaryKey="true" identityType="Provider" display="结果项ID"/>
+					<add name="ResultId" type="long" display="评价结果ID"/>
+
+					<!-- General Information -->
+					<add name="EvalItemKey" type="string" dataLength="200" display="指标项" comment="用点分符做完字符串分割"/>
+					<add name="ChooseValue" type="string" dataLength="20" display="选择值"/>
+					<add name="ResultValue" type="string" dataLength="100" display="输入值"/>
+
+				</columns>
+			</table>	
 
 			<!-- 梯队.基本情况 -->
 			
@@ -972,7 +988,7 @@
 					<add name="ResultValue" type="string" dataLength="100" display="输入值"/>
 
 				</columns>
-			</table>
+			</table>		
 
 
 			<!-- 新闻 -->

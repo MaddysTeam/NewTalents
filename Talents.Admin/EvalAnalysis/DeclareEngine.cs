@@ -15,7 +15,7 @@ namespace TheSite.EvalAnalysis
 
 
       public override string AnalysisName
-         => "称号评价量表 Ver 1.0";
+         => "称号申请考核表 Ver 1.0";
 
 
       public override string DevelopKey
@@ -25,13 +25,13 @@ namespace TheSite.EvalAnalysis
           => 100;
 
 
-      public override DeclareEvalUnitBase DeclareEval
-      {
-         get
-         {
-            return base.DeclareEval;
-         }
-      }
+      //public override DeclareEvalUnitBase DeclareEvals
+      //{
+      //   get
+      //   {
+      //      return base.DeclareEvals;
+      //   }
+      //}
 
    }
 
