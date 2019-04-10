@@ -47,20 +47,18 @@ namespace TheSite.Controllers
                  df.JoinInner(df.PeriodId == dp.PeriodId & df.TeacherId == dp.UserId & df.DeclareTargetPKID == dp.DeclareTargetPKID),
                  c.JoinLeft(c.CompanyId == dp.CompanyId)
                  )
-                 .primary(dp.DeclareProfileId)
-         .where(dp.PeriodId == Period.PeriodId
-         & df.StatusKey != string.Empty & df.StatusKey != DeclareKeys.ReviewBack
-         )
-         .skip((current - 1) * rowCount)
-         .take(rowCount);
+         .primary(dp.UserId)
+         .where(dp.PeriodId == Period.PeriodId & df.StatusKey != string.Empty);
+         //.skip((current - 1) * rowCount)
+         //.take(rowCount);
 
          if (UserProfile.IsSchoolAdmin)
          {
-            query.where_and(dp.CompanyId == UserProfile.CompanyId | df.CompanyId==UserProfile.CompanyId);
+            query.where_and(dp.CompanyId == UserProfile.CompanyId | df.CompanyId == UserProfile.CompanyId);
          }
          else if (UserProfile.IsSystemAdmin && companyId > 0)
          {
-            query.where_and(dp.CompanyId == companyId | df.CompanyId==companyId);
+            query.where_and(dp.CompanyId == companyId | df.CompanyId == companyId);
          }
          if (eduBgId > 0)
          {
@@ -142,6 +140,11 @@ namespace TheSite.Controllers
             return profile;
          }).ToList();
 
+         if (result.Count > 0)
+         {
+            result = result.Skip((current <= 1 ? 0 : current - 1) * rowCount).Take(rowCount).ToList();
+         }
+
 
          return Json(new
          {
@@ -165,16 +168,16 @@ namespace TheSite.Controllers
          // 申报汇总表了包含：学校名称、申报称号、申报学科、姓名、性别、出生年月、任教学科、联系方式（手机）、年度考核优秀（年份）、是否破格（普通申报、职称破格和材料破格）
 
          var query = APQuery
-               .select(df.Asterisk, c.CompanyName, pi.Name.As("DeclareTarget"), 
-                       dp.EduSubjectPKID, dp.GenderPKID,dp.Dynamic1,dp.Dynamic2,dp.Dynamic3,dp.Phonemobile)
+               .select(df.Asterisk, c.CompanyName, pi.Name.As("DeclareTarget"),
+                       dp.EduSubjectPKID, dp.GenderPKID, dp.Dynamic1, dp.Dynamic2, dp.Dynamic3, dp.Phonemobile)
                .from(df,
                p.JoinInner(p.PeriodId == df.PeriodId),
                pi.JoinInner(df.DeclareTargetPKID == pi.PicklistItemId),
-               dp.JoinInner(dp.UserId == df.TeacherId & dp.PeriodId == df.PeriodId & df.DeclareTargetPKID==dp.DeclareTargetPKID),
+               dp.JoinInner(dp.UserId == df.TeacherId & dp.PeriodId == df.PeriodId & df.DeclareTargetPKID == dp.DeclareTargetPKID),
                c.JoinLeft(c.CompanyId == df.CompanyId)
                )
                .primary(df.DeclareReviewId)
-       .where(df.StatusKey != string.Empty & df.StatusKey != DeclareKeys.ReviewBack)
+       .where(df.StatusKey != string.Empty)
        .skip((current - 1) * rowCount)
        .take(rowCount);
 
@@ -231,7 +234,7 @@ namespace TheSite.Controllers
 
          var result = query.query(db, rd =>
          {
-            var goodYear1 = dp.Dynamic1.GetValue(rd) == "优秀"?"2016":string.Empty;
+            var goodYear1 = dp.Dynamic1.GetValue(rd) == "优秀" ? "2016" : string.Empty;
             var goodYear2 = dp.Dynamic1.GetValue(rd) == "优秀" ? "2017" : string.Empty;
             var goodYear3 = dp.Dynamic1.GetValue(rd) == "优秀" ? "2018" : string.Empty;
             string[] goodYears = { goodYear1, goodYear2, goodYear3 };
@@ -241,10 +244,10 @@ namespace TheSite.Controllers
             df.Fullup(rd, review, false);
             review.DeclareCompnay = c.CompanyName.GetValue(rd);
             review.DeclareTargetName = pi.Name.GetValue(rd, "DeclareTarget");
-            review.DeclareSubject = DeclareBaseHelper.DeclareSubject.GetName(df.DeclareSubjectPKID.GetValue(rd),"",false);
+            review.DeclareSubject = DeclareBaseHelper.DeclareSubject.GetName(df.DeclareSubjectPKID.GetValue(rd), "", false);
             review.Subject = BzUserProfileHelper.EduSubject.GetName(dp.EduSubjectPKID.GetValue(rd), "", false);
             review.Gender = BzUserProfileHelper.Gender.GetName(dp.GenderPKID.GetValue(rd), "", false);
-            review.GoodYear = string.IsNullOrEmpty(years.Replace(",","")) ? "-" : years;
+            review.GoodYear = string.IsNullOrEmpty(years.Replace(",", "")) ? "-" : years;
             review.IsDeclareBroke = review.IsBrokenRoles ? "是" : "否";
             review.IsMaterialBroke = review.TypeKey.IndexOf("材料破格") > 0 ? "是" : "否";
             review.PhoneMobile = dp.Phonemobile.GetValue(rd);
