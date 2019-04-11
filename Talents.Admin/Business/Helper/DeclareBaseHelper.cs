@@ -63,28 +63,28 @@ namespace Business.Helper
          if (active != null && period != null)
          {
             //已经提交过表单则直接返回
-            if (IsDeclareSubmit(period.PeriodId, active.TeacherId, db)) throw new ApplicationException("该老师的申报表单已经提交");
-      
-            var existItems = db.DeclareMaterialDal.ConditionQuery(dm.PeriodId == period.PeriodId
-                  & dm.TeacherId == active.Creator
-                  & dm.Type == active.ActiveKey
-                  & dm.DeclareTargetPKID == declareTargetId, null, null, null);
-            if (existItems.Count >= 2 && active.IsDeclare) return;
+            if (IsDeclareSubmit(period.PeriodId, active.TeacherId, db)) return;
+
             if (active.IsDeclare)
             {
-               if (!existItems.Exists(x => x.ItemId == active.DeclareActiveId))
-                  db.DeclareMaterialDal.Insert(new DeclareMaterial
-                  {
-                     ItemId = active.DeclareActiveId,
-                     ParentType = "DeclareActive",
-                     CreateDate = DateTime.Now,
-                     PubishDate = DateTime.Now,
-                     Title = active.ContentValue,
-                     Type = active.ActiveKey,
-                     TeacherId = active.TeacherId,
-                     PeriodId = period.PeriodId,
-                     DeclareTargetPKID = declareTargetId
-                  });
+               var existItems = db.DeclareMaterialDal.ConditionQuery(dm.PeriodId == period.PeriodId
+                   & dm.TeacherId == active.Creator
+                   & dm.Type == active.ActiveKey
+                   & dm.DeclareTargetPKID == declareTargetId, null, null, null);     
+               if (existItems.Count >= 2 || existItems.Exists(x => x.ItemId == active.DeclareActiveId)) return;
+
+               db.DeclareMaterialDal.Insert(new DeclareMaterial
+               {
+                  ItemId = active.DeclareActiveId,
+                  ParentType = "DeclareActive",
+                  CreateDate = DateTime.Now,
+                  PubishDate = DateTime.Now,
+                  Title = active.ContentValue,
+                  Type = active.ActiveKey,
+                  TeacherId = active.TeacherId,
+                  PeriodId = period.PeriodId,
+                  DeclareTargetPKID = declareTargetId
+               });
             }
             else
             {
@@ -99,30 +99,28 @@ namespace Business.Helper
          if (achievement != null && period != null)
          {
             //已经提交过表单则直接返回
-            if (IsDeclareSubmit(period.PeriodId, achievement.TeacherId, db)) throw new ApplicationException("该老师的申报表单已经提交");
+            if (IsDeclareSubmit(period.PeriodId, achievement.TeacherId, db)) return;
 
-            var existItems = db.DeclareMaterialDal.ConditionQuery(dm.PeriodId == period.PeriodId
+            if (achievement.IsDeclare)
+            {
+               var existItems = db.DeclareMaterialDal.ConditionQuery(dm.PeriodId == period.PeriodId
                   & dm.TeacherId == achievement.Creator
                   & dm.Type == achievement.AchievementKey
                   & dm.DeclareTargetPKID == declareTargetId, null, null, null);
-            if (existItems.Count >= 2 && achievement.IsDeclare) return;
-            if (achievement.IsDeclare)
-            {
-               if (!existItems.Exists(x => x.ItemId == achievement.DeclareAchievementId))
+               if (existItems.Count >= 2 || existItems.Exists(x => x.ItemId == achievement.DeclareAchievementId)) return;
+
+               db.DeclareMaterialDal.Insert(new DeclareMaterial
                {
-                  db.DeclareMaterialDal.Insert(new DeclareMaterial
-                  {
-                     ItemId = achievement.DeclareAchievementId,
-                     ParentType = "DeclareAchievement",
-                     CreateDate = DateTime.Now,
-                     PubishDate = DateTime.Now,
-                     Title = achievement.NameOrTitle,
-                     Type = achievement.AchievementKey,
-                     TeacherId = achievement.TeacherId,
-                     PeriodId = period.PeriodId,
-                     DeclareTargetPKID = declareTargetId
-                  });
-               }
+                  ItemId = achievement.DeclareAchievementId,
+                  ParentType = "DeclareAchievement",
+                  CreateDate = DateTime.Now,
+                  PubishDate = DateTime.Now,
+                  Title = achievement.NameOrTitle,
+                  Type = achievement.AchievementKey,
+                  TeacherId = achievement.TeacherId,
+                  PeriodId = period.PeriodId,
+                  DeclareTargetPKID = declareTargetId
+               });
             }
             else
             {
@@ -239,7 +237,7 @@ namespace Business.Helper
 
       public static bool IsDeclareSubmit(long periodId, long teacherId, APDBDef db)
       {
-         var reviews= db.DeclareReviewDal.ConditionQuery(df.TeacherId == teacherId & df.PeriodId == periodId ,null,null,null );
+         var reviews = db.DeclareReviewDal.ConditionQuery(df.TeacherId == teacherId & df.PeriodId == periodId, null, null, null);
          return reviews.Exists(review => review.IsSubmit);
          //return reviews.Exists(review => !string.IsNullOrEmpty(review.StatusKey));
       }
