@@ -263,7 +263,7 @@ namespace TheSite.Controllers
 
       [HttpPost]
       [ValidateInput(false)]
-      [DecalrePeriod]
+      
       public ActionResult DaijJih(DaijJihModel model)
       {
          ThrowNotAjax();
@@ -346,7 +346,7 @@ namespace TheSite.Controllers
       //	POST-Ajax: Team/RemoveDaijHuod
 
       [HttpPost]
-      [DecalrePeriod]
+      
       public ActionResult RemoveDaijHuod(long id)
       {
          ThrowNotAjax();
@@ -402,7 +402,7 @@ namespace TheSite.Controllers
       //	POST-Ajax: Team/RemoveXueyChengg
 
       [HttpPost]
-      [DecalrePeriod]
+      
       public ActionResult RemoveXueyChengg(long id)
       {
          ThrowNotAjax();
@@ -471,7 +471,7 @@ namespace TheSite.Controllers
 
       [HttpPost]
       [ValidateInput(false)]
-      [DecalrePeriod]
+      
       public ActionResult DaijHuod_Edit(long? id, TeamActiveDataModel model)
       {
          ThrowNotAjax();
@@ -676,7 +676,7 @@ namespace TheSite.Controllers
       //	POST_Ajax: Team/RemoveKecShis
 
       [HttpPost]
-      [DecalrePeriod]
+      
       public ActionResult RemoveKecShis(long id)
       {
          ThrowNotAjax();

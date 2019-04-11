@@ -154,7 +154,7 @@ namespace TheSite.Controllers
       // POST-Ajax: Declare/RemoveActive
 
       [HttpPost]
-      [DecalrePeriod]
+      
       public ActionResult RemoveActive(long id, string type)
       {
          ThrowNotAjax();
@@ -203,7 +203,7 @@ namespace TheSite.Controllers
       // POST-Ajax: Declare/RemoveAchievement
 
       [HttpPost]
-      [DecalrePeriod]
+      
       public ActionResult RemoveAchievement(long id, string type)
       {
          ThrowNotAjax();
@@ -244,7 +244,7 @@ namespace TheSite.Controllers
       // POST-Ajax: Declare/RemoveOrgConst
 
       [HttpPost]
-      [DecalrePeriod]
+      
       public ActionResult RemoveOrgConst(long id)
       {
          ThrowNotAjax();
@@ -446,7 +446,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
-      [DecalrePeriod]
+      
       public ActionResult ZisFaz_GerChengj(ZisFaz_GerChengjModel model)
       {
          ThrowNotAjax();
@@ -602,7 +602,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
-      [DecalrePeriod]
+      
       public ActionResult ZisFaz_GerSWOT(ZisFaz_GerSWOTModel model)
       {
          ThrowNotAjax();
@@ -717,7 +717,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
-      [DecalrePeriod]
+      
       public ActionResult ZisFaz_ZiwFazJih(ZisFaz_ZiwFazJihModel model)
       {
          ThrowNotAjax();
@@ -2145,7 +2145,7 @@ namespace TheSite.Controllers
 
       [HttpPost]
       [ValidateInput(false)]
-      [DecalrePeriod]
+      
       public ActionResult NiandZongj(NiandZongjModel model)
       {
          ThrowNotAjax();

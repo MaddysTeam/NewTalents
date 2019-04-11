@@ -34,7 +34,7 @@ namespace TheSite.Controllers
       // POST-Ajax: DeclareMaterial/DeclareActive 申报活动 TODO: declareTargetId 表示当前正在申报的称号
 
       [HttpPost]
-      [DecalrePeriod]
+     // 
       public ActionResult DeclareActive(long id, bool isDeclare, long declareTargetId)
       {
          ThrowNotAjax();
@@ -85,7 +85,7 @@ namespace TheSite.Controllers
       // POST-Ajax: DeclareMaterial/DeclareAchievement 申报成果材料 TODO: declareTargetId 表示当前正在申报的称号
 
       [HttpPost]
-      [DecalrePeriod]
+    //  
       public ActionResult DeclareAchievement(long id, bool isDeclare, long declareTargetId)
       {
          ThrowNotAjax();
@@ -136,7 +136,7 @@ namespace TheSite.Controllers
       // POST-Ajax: DeclareMaterial/DeclareContent  申报内容材料
 
       [HttpPost]
-      [DecalrePeriod]
+      
       public ActionResult DeclareContent(long id, bool isDeclare)
       {
          ThrowNotAjax();
@@ -250,7 +250,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
-      [DecalrePeriod]
+      
       public ActionResult ReviewEdit(DeclareReview model)
       {
          var userId = UserProfile.IsDeclare ? UserProfile.UserId : model.TeacherId;
@@ -412,7 +412,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
-      [DecalrePeriod]
+      
       public ActionResult BasicProfileEdit(DeclareProfile model)
       {
          if (DeclareMaterialHelper.IsDeclareSubmit(Period.PeriodId, UserProfile.UserId, db))

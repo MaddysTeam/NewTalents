@@ -470,7 +470,7 @@ namespace TheSite.Controllers
 		}
 
 		[HttpPost]
-      [DecalrePeriod]
+      
       public ActionResult Memo1(long? id, TeamContent model)
 		{
 			ThrowNotAjax();
@@ -544,7 +544,7 @@ namespace TheSite.Controllers
 
 		[HttpPost]
 		[ValidateInput(false)]
-      [DecalrePeriod]
+      
       public ActionResult Memo2(long? id, TeamJutJihModel model)
 		{
 			ThrowNotAjax();
@@ -659,7 +659,7 @@ namespace TheSite.Controllers
 		}
 
 		[HttpPost]
-      [DecalrePeriod]
+      
       public ActionResult Memo3(long? id, TeamDaijXiaojModel model)
 		{
 			ThrowNotAjax();

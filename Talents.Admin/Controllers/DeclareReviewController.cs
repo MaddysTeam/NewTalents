@@ -34,7 +34,7 @@ namespace TheSite.Controllers
       }
 
       [HttpPost]
-      [DecalrePeriod]
+      
       public ActionResult Edit(DeclareReview review)
       {
          var cd = APDBDef.CompanyDeclare;
@@ -95,7 +95,7 @@ namespace TheSite.Controllers
          });
       }
 
-      [DecalrePeriod]
+      
       public ActionResult List(long companyId)
       {
          return View();
