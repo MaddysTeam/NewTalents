@@ -276,6 +276,7 @@
     <Compile Include="Business\Utilities\wangsu\FileUploader.cs" />
     <Compile Include="Business\Utilities\PDFHelper.cs" />
     <Compile Include="Business\Utilities\Aspose\ExcelConverter.cs" />
+    <Compile Include="Controllers\DeclareEvalController.cs" />
     <Compile Include="Controllers\DeclareReviewController.cs" />
     <Compile Include="Controllers\DeclareMaterialController.cs" />
     <Compile Include="Controllers\DeclarePeriodController.cs" />
@@ -300,7 +301,9 @@
     <Compile Include="Controllers\SchoolEvalController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="EvalAnalysis\AnalysisUnits.cs" />
-    <Compile Include="EvalAnalysis\DeclareEngine.DeclareEvalUnit.cs" />
+    <Compile Include="EvalAnalysis\DeclareEngine.DeclareEvalUnit5006.cs" />
+    <Compile Include="EvalAnalysis\DeclareEngine.DeclareEvalUnit5005.cs" />
+    <Compile Include="EvalAnalysis\DeclareEngine.DeclareEvalUnit5004.cs" />
     <Compile Include="EvalAnalysis\DeclareEngine.cs" />
     <Compile Include="EvalAnalysis\AnnualEngine.QualityEvalUnit.cs" />
     <Compile Include="EvalAnalysis\AnnualEngine.QualityEvalUnit5002.cs" />
@@ -703,6 +706,9 @@
     <Content Include="Views\DeclareStatistical\DeclareProfileList.cshtml" />
     <Content Include="Views\DeclareStatistical\DeclareSummaryList.cshtml" />
     <Content Include="Views\DeclareReview\Edit.cshtml" />
+    <Content Include="Views\DeclareEval\NotEvalMemberList.cshtml" />
+    <Content Include="Views\DeclareEval\List.cshtml" />
+    <Content Include="Views\DeclareEval\EvalMemberList.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

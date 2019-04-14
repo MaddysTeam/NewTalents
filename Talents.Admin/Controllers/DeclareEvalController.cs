@@ -13,18 +13,19 @@ namespace TheSite.Controllers
 
    public class DeclareEvalController : BaseController
    {
-      //static APDBDef.EvalPeriodTableDef ep = APDBDef.EvalPeriod;
+      static APDBDef.DeclarePeriodTableDef dp = APDBDef.DeclarePeriod;
       //static APDBDef.DeclareBaseTableDef d = APDBDef.DeclareBase;
-      //static APDBDef.BzUserProfileTableDef u = APDBDef.BzUserProfile;
+      static APDBDef.BzUserProfileTableDef u = APDBDef.BzUserProfile;
+      static APDBDef.EvalDeclareResultTableDef er = APDBDef.EvalDeclareResult;
       //static APDBDef.EvalQualityResultTableDef er = APDBDef.EvalQualityResult;
       //static APDBDef.EvalQualityResultItemTableDef eri = APDBDef.EvalQualityResultItem;
       //static APDBDef.EvalQualitySubmitResultTableDef esr = APDBDef.EvalQualitySubmitResult;
-      //static APDBDef.ExpGroupMemberTableDef egm = APDBDef.ExpGroupMember;
-      //static APDBDef.ExpGroupTargetTableDef egt = APDBDef.ExpGroupTarget;
-      //static APDBDef.ExpGroupTableDef eg = APDBDef.ExpGroup;
+      static APDBDef.ExpGroupMemberTableDef egm = APDBDef.ExpGroupMember;
+      static APDBDef.ExpGroupTargetTableDef egt = APDBDef.ExpGroupTarget;
+      static APDBDef.ExpGroupTableDef eg = APDBDef.ExpGroup;
 
 
-      //// GET: QualityEval/Index
+      //// GET: DeclareEval/Index
 
       //public ActionResult Index()
       //{
@@ -40,70 +41,70 @@ namespace TheSite.Controllers
       //}
 
 
-      //// GET: QualityEval/BlockList
-      //// POST-Ajax: QualityEval/BlockList
+      //// GET: DeclareEval/BlockList
+      //// POST-Ajax: DeclareEval/BlockList
 
-      //public ActionResult List()
-      //{
-      //   var groups = APQuery.select(eg.GroupId, eg.Name)
-      //       .from(egm, eg.JoinInner(egm.GroupId == eg.GroupId),
-      //               u.JoinInner(u.UserId == egm.ExpectID))
-      //               .group_by(eg.GroupId, eg.Name)
-      //               .where(egm.ExpectID == UserProfile.UserId)
-      //       .query(db, (rd) =>
-      //        {
-      //           return new ExpGroup
-      //           {
-      //              GroupId = eg.GroupId.GetValue(rd),
-      //              Name = eg.Name.GetValue(rd),
-      //           };
-      //        }).ToList();
+      public ActionResult List()
+      {
+         var groups = APQuery.select(eg.GroupId, eg.Name)
+             .from(egm, eg.JoinInner(egm.GroupId == eg.GroupId),
+                     u.JoinInner(u.UserId == egm.ExpectID))
+                     .group_by(eg.GroupId, eg.Name)
+                     .where(egm.ExpectID == UserProfile.UserId)
+             .query(db, (rd) =>
+              {
+                 return new ExpGroup
+                 {
+                    GroupId = eg.GroupId.GetValue(rd),
+                    Name = eg.Name.GetValue(rd),
+                 };
+              }).ToList();
 
-      //   var result = new ExpGroupList
-      //   {
-      //      Groups = groups
-      //   };
+         var result = new ExpGroupList
+         {
+            Groups = groups
+         };
 
-      //   return View(result);
-      //}
+         return View(result);
+      }
 
-      //[HttpPost]
-      //public JsonResult GetGroupInfo(long groupId, long periodId)
-      //{
-      //   ThrowNotAjax();
-
-
-      //   string leaderName = null;
-
-      //   var memberNames = APQuery.select(egm.IsLeader, u.RealName)
-      //        .from(egm, u.JoinInner(u.UserId == egm.ExpectID))
-      //        .where(egm.GroupId == groupId)
-      //        .query(db, r =>
-      //        {
-      //           var name = u.RealName.GetValue(r);
-      //           if (egm.IsLeader.GetValue(r))
-      //           {
-      //              leaderName = name;
-      //           }
-      //           return name;
-      //        }).ToArray();
-
-      //   var totalCount = db.ExpGroupTargetDal.ConditionQueryCount(egt.GroupId == groupId);
-      //   var evalCount = db.EvalQualityResultDal.ConditionQueryCount(
-      //           er.GroupId == groupId & er.PeriodId == periodId & er.Accesser == UserProfile.UserId);
-
-      //   return Json(new
-      //   {
-      //      leaderName,
-      //      memberNames = String.Join(", ", memberNames),
-      //      evalCount,
-      //      notEvalCount = totalCount - evalCount
-      //   });
-      //}
+      [HttpPost]
+      public JsonResult GetGroupInfo(long groupId, long periodId)
+      {
+         ThrowNotAjax();
 
 
-      //// GET: QualityEval/EvalMemberList
-      //// POST-Ajax: QualityEval/EvalMemberList
+         string leaderName = null;
+
+         var memberNames = APQuery.select(egm.IsLeader, u.RealName)
+              .from(egm, u.JoinInner(u.UserId == egm.ExpectID))
+              .where(egm.GroupId == groupId)
+              .query(db, r =>
+              {
+                 var name = u.RealName.GetValue(r);
+                 if (egm.IsLeader.GetValue(r))
+                 {
+                    leaderName = name;
+                 }
+                 return name;
+              }).ToArray();
+
+         var totalCount = db.ExpGroupTargetDal.ConditionQueryCount(egt.GroupId == groupId);
+         var evalCount = db.EvalQualityResultDal.ConditionQueryCount(
+                 er.GroupId == groupId & er.PeriodId == periodId & er.Accesser == UserProfile.UserId);
+
+         return Json(new
+         {
+            leaderName,
+            memberNames = String.Join(", ", memberNames),
+            evalCount,
+            notEvalCount = totalCount - evalCount
+         });
+      }
+
+
+      //// GET: DeclareEval/EvalMemberList
+      //// POST-Ajax: DeclareEval/EvalMemberList
 
       //public ActionResult EvalMemberList()
       //{
@@ -199,8 +200,8 @@ namespace TheSite.Controllers
       //}
 
 
-      //// GET: QualityEval/NotEvalMemberList
-      //// POST-Ajax: QualityEval/NotEvalMemberList
+      //// GET: DeclareEval/NotEvalMemberList
+      //// POST-Ajax: DeclareEval/NotEvalMemberList
 
       //public ActionResult NotEvalMemberList()
       //{
@@ -277,92 +278,80 @@ namespace TheSite.Controllers
       //}
 
 
-      ////	GET: QualityEval/Eval
-      ////	POST: QualityEval/Eval
+      ////	GET: DeclareEval/Eval
+      ////	POST: DecalreEval/Eval
 
-      //[NoCache]
-      //public ActionResult Eval(QualityEvalParam param)
-      //{
-      //   var IsLeader = db.ExpGroupMemberDal.ConditionQueryCount(
-      //              egm.ExpectID == UserProfile.UserId &
-      //              egm.GroupId == param.GroupId &
-      //              egm.IsLeader == true) > 0;
+      [NoCache]
+      public ActionResult Eval(DeclareEvalParam param)
+      {
+         var IsLeader = db.ExpGroupMemberDal.ConditionQueryCount(
+                    egm.ExpectID == UserProfile.UserId &
+                    egm.GroupId == param.GroupId &
+                    egm.IsLeader == true) > 0;
 
-      //   //if (IsLeader)
-      //   //   return RedirectToAction("SubmitResultView", new QualityEvalParam
-      //   //   {
-      //   //      AccesserId = param.AccesserId,
-      //   //      GroupId = param.GroupId,
-      //   //      PeriodId = param.PeriodId,
-      //   //      ResultId = param.ResultId,
-      //   //      TargetId = param.TargetId,
-      //   //      TeacherId = param.TeacherId
-      //   //   });
+         param.AccesserId = UserProfile.UserId;
 
+         //var isEvalSubmit = db.EvalQualitySubmitResultDal
+         //                                  .ConditionQueryCount(esr.TeacherId == param.TeacherId & esr.PeriodId == param.PeriodId) > 0;
+         var isEvalSubmit = false;
+         var period = db.EvalPeriodDal.PrimaryGet(param.PeriodId);
+         var engines = EngineManager.Engines[period.AnalysisType].DeclareEvals;
+         if (isEvalSubmit || !engines.ContainsKey(param.TargetId))
+         {
+            throw new ApplicationException("当前不支持该学员考评");
+         }
 
-      //   param.AccesserId = UserProfile.UserId;
+         var engine = engines[param.TargetId];
 
-      //   var isEvalSubmit = db.EvalQualitySubmitResultDal
-      //                                     .ConditionQueryCount(esr.TeacherId == param.TeacherId & esr.PeriodId == param.PeriodId) > 0;
+         var result = db.EvalQualityResultDal.ConditionQuery(
+             er.PeriodId == param.PeriodId &
+             er.TeacherId == param.TeacherId &
+             er.Accesser == this.UserProfile.UserId, null, null, null)
+             .FirstOrDefault();
 
-      //   var period = db.EvalPeriodDal.PrimaryGet(param.PeriodId);
-      //   var engines = EngineManager.Engines[period.AnalysisType].QualityEvals;
-      //   if (isEvalSubmit || !engines.ContainsKey(param.TargetId))
-      //   {
-      //      throw new ApplicationException("当前不支持该学员考评");
-      //   }
+         param.ResultId = result == null ? 0 : result.ResultId;
 
-      //   var engine = engines[param.TargetId];
+         ViewBag.Result = engine.GetResult(db, param);
 
-      //   var result = db.EvalQualityResultDal.ConditionQuery(
-      //       er.PeriodId == param.PeriodId &
-      //       er.TeacherId == param.TeacherId &
-      //       er.Accesser == this.UserProfile.UserId, null, null, null)
-      //       .FirstOrDefault();
+         ViewBag.ResultItems = engine.GetResultItem(db, param);
 
-      //   param.ResultId = result == null ? 0 : result.ResultId;
+         ViewBag.Declare = param.GetDeclareInfo(db);
 
-      //   ViewBag.Result = engine.GetResult(db, param);
+         return View(engine.EvalView, param);
+      }
 
-      //   ViewBag.ResultItems = engine.GetResultItem(db, param);
+      [HttpPost]
+      public ActionResult Eval(DeclareEvalParam param, FormCollection fc)
+      {
+         var period = db.EvalPeriodDal.PrimaryGet(param.PeriodId);
 
-      //   ViewBag.Declare = param.GetDeclareInfo(db);
-
-      //   return View(engine.EvalView, param);
-      //}
-
-      //[HttpPost]
-      //public ActionResult Eval(QualityEvalParam param, FormCollection fc)
-      //{
-      //   var period = db.EvalPeriodDal.PrimaryGet(param.PeriodId);
-
-      //   var engine = EngineManager.Engines[period.AnalysisType].QualityEvals;
+         var engine = EngineManager.Engines[period.AnalysisType].DeclareEvals;
 
 
-      //   db.BeginTrans();
+         db.BeginTrans();
 
-      //   try
-      //   {
-      //      var resultId = engine[param.TargetId].Eval(db, param, fc);
+         try
+         {
+            var resultId = engine[param.TargetId].Eval(db, param, fc);
 
-      //      db.Commit();
+            db.Commit();
 
-      //      return RedirectToAction("SubmitResultView", new
-      //      {
-      //         teacherId = param.TeacherId,
-      //         periodId = param.PeriodId,
-      //         groupId = param.GroupId
-      //      });
-      //   }
-      //   catch
-      //   {
-      //      db.Rollback();
-      //      throw;
-      //   }
-      //}
+            return RedirectToAction("SubmitResultView", new
+            {
+               teacherId = param.TeacherId,
+               periodId = param.PeriodId,
+               groupId = param.GroupId
+            });
+         }
+         catch
+         {
+            db.Rollback();
+            throw;
+         }
+      }
 
 
-      ////	POST: QualityEval/SubmitEvalResult
+      ////	POST: DeclareEval/SubmitEvalResult
 
       //[HttpPost]
       //public ActionResult SubmitEvalResult(EvalQualitySubmitResult model)
@@ -385,11 +374,11 @@ namespace TheSite.Controllers
       //}
 
 
-      //// GET: QualityEval/SubmitResultView
+      //// GET: DeclareEval/SubmitResultView
 
-      //public ActionResult SubmitResultView(QualityEvalParam param)
+      //public ActionResult SubmitResultView(DeclareEvalParam param)
       //{
-      //   QualityEvalSubmitPeriodModel model = new QualityEvalSubmitPeriodModel(param);
+      //   DeclareEvalSubmitPeriodModel model = new DeclareEvalSubmitPeriodModel(param);
 
       //   model.Period = db.EvalPeriodDal.PrimaryGet(model.PeriodId);
       //   model.Declare = model.GetDeclareInfo(db);
@@ -400,7 +389,7 @@ namespace TheSite.Controllers
       //   }
       //   else
       //   {
-      //      var engine = EngineManager.Engines[model.Period.AnalysisType].QualityEvals[model.Declare.TargetId];
+      //      var engine = EngineManager.Engines[model.Period.AnalysisType].DeclareEvals[model.Declare.TargetId];
 
       //      model.AnalysisUnit = engine;
       //      model.Result = engine.GetSubmitResult(db, param);
@@ -460,19 +449,19 @@ namespace TheSite.Controllers
       //}
 
 
-      ////	POST-Ajax: QualityEval/ResultView
+      ////	POST-Ajax: DeclareEval/ResultView
 
       //[HttpPost]
-      //public ActionResult ResultView(QualityEvalParam param)
+      //public ActionResult ResultView(DeclareEvalParam param)
       //{
       //   ThrowNotAjax();
 
-      //   QualityEvalPeriodModel model = new QualityEvalPeriodModel(param);
+      //   DeclareEvalPeriodModel model = new DeclareEvalPeriodModel(param);
 
       //   model.Period = db.EvalPeriodDal.PrimaryGet(model.PeriodId);
       //   model.Declare = model.GetDeclareInfo(db);
 
-      //   var engine = EngineManager.Engines[model.Period.AnalysisType].QualityEvals[model.Declare.TargetId];
+      //   var engine = EngineManager.Engines[model.Period.AnalysisType].DeclareEvals[model.Declare.TargetId];
 
       //   model.AnalysisUnit = engine;
       //   model.Result = engine.GetResult(db, param);

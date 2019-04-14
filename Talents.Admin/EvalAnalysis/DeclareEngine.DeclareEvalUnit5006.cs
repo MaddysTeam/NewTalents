@@ -12,7 +12,7 @@ namespace TheSite.EvalAnalysis
    public partial class DeclareEngine
    {
 
-      public abstract class DeclareEvalUnit : DeclareEvalUnitBase
+      public abstract class DeclareEvalUnit5006 : DeclareEvalUnitBase
       {
          public override string EvalView => "";
 
@@ -29,12 +29,12 @@ namespace TheSite.EvalAnalysis
          public override string RuleView => "";
 
 
-         public override long Eval(APDBDef db, DecalreEvalParam param, FormCollection fc)
+         public override long Eval(APDBDef db, DeclareEvalParam param, FormCollection fc)
          {
             throw new NotImplementedException();
          }
 
-         public override Dictionary<string, EvalDeclareResultItem> GetResultItem(APDBDef db, DecalreEvalParam param)
+         public override Dictionary<string, EvalDeclareResultItem> GetResultItem(APDBDef db, DeclareEvalParam param)
          {
             throw new NotImplementedException();
          }

@@ -31,7 +31,7 @@
 
 	}
 
-   public class DecalreEvalParam: EvalParam
+   public class DeclareEvalParam: EvalParam
    {
       public long GroupId { get; set; }
       public long TargetId { get; set; }

@@ -122,15 +122,15 @@ namespace TheSite.EvalAnalysis
 
       public abstract long TargetId { get; }
 
-       public abstract List<EvalDeclareResult> GetResults(APDBDef db, DecalreEvalParam param);
+       public abstract List<EvalDeclareResult> GetResults(APDBDef db, DeclareEvalParam param);
 
-       public abstract EvalDeclareResult GetResult(APDBDef db, DecalreEvalParam param);
+       public abstract EvalDeclareResult GetResult(APDBDef db, DeclareEvalParam param);
 
-       public abstract Dictionary<string, EvalDeclareResultItem> GetResultItem(APDBDef db, DecalreEvalParam param);
+       public abstract Dictionary<string, EvalDeclareResultItem> GetResultItem(APDBDef db, DeclareEvalParam param);
 
        public abstract Dictionary<string, string> ChooseEvalResultItems(Dictionary<string, EvalDeclareResultItem> items);
 
-       public abstract long Eval(APDBDef db, DecalreEvalParam param, System.Web.Mvc.FormCollection fc);
+       public abstract long Eval(APDBDef db, DeclareEvalParam param, System.Web.Mvc.FormCollection fc);
 
    }
 
