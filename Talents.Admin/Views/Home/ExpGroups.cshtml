@@ -1,6 +1,7 @@
 ﻿@model ExpGroupList
 @{
 	var periodId = ViewBag.periodId;
+	var declarePeriod = Html.GetDeclarePeriod(); 
  }
 <div class="row">
 	<div class="col-md-12">
@@ -25,6 +26,18 @@
 											<td>组长</td>
 											<td id="td_leader"></td>
 										</tr>
+										@if (declarePeriod.IsInDeclarePeriod)
+										{
+											<tr>
+												<td>已评学员人数</td>
+												<td class="text-center"><a id="a_evalCount" href="@Url.Action("EvalMemberList","DeclareEval", new { groupId = item.GroupId, periodId = declarePeriod.PeriodId })"></a></td>
+											</tr>
+											<tr>
+												<td>未评学员人数</td>
+												<td class="text-center"><a id="a_notEvalCount" href="@Url.Action("NotEvalMemberList","DeclareEval", new { groupId = item.GroupId, periodId = declarePeriod.PeriodId })"><span></span></a></td>
+											</tr>
+										}
+										else {
 										<tr>
 											<td>已评学员人数</td>
 											<td class="text-center"><a id="a_evalCount" href="@Url.Action("EvalMemberList","QualityEval", new { groupId = item.GroupId, periodId = periodId })"></a></td>
@@ -33,6 +46,7 @@
 											<td>未评学员人数</td>
 											<td class="text-center"><a id="a_notEvalCount" href="@Url.Action("NotEvalMemberList","QualityEval", new { groupId = item.GroupId, periodId = periodId })"><span></span></a></td>
 										</tr>
+										}
 									</tbody>
 								</table>
 							</div>

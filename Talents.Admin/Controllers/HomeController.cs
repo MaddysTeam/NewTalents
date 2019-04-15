@@ -128,9 +128,9 @@ namespace TheSite.Controllers
       public ActionResult TeacherIndex()
       {
          var dr = APDBDef.DeclareReview;
-         ViewBag.DeclareReview = db.DeclareReviewDal.ConditionQuery(dr.TeacherId == UserProfile.UserId 
-            & dr.StatusKey.In(new string[] {DeclareKeys.ReviewSuccess,DeclareKeys.ReviewFailure,DeclareKeys.ReviewProcess })
-            & dr.PeriodId==Period.PeriodId, null, null, null).FirstOrDefault();
+         ViewBag.DeclareReview = db.DeclareReviewDal.ConditionQuery(dr.TeacherId == UserProfile.UserId
+            & dr.StatusKey.In(new string[] { DeclareKeys.ReviewSuccess, DeclareKeys.ReviewFailure, DeclareKeys.ReviewProcess })
+            & dr.PeriodId == Period.PeriodId, null, null, null).FirstOrDefault();
 
          return View("TeacherIndex");
       }
@@ -239,7 +239,7 @@ namespace TheSite.Controllers
                      ev.JoinLeft(e.PeriodId == ev.PeriodId & ev.TeacherId == userId),
                      eq.JoinLeft(e.PeriodId == eq.PeriodId & eq.TeacherId == userId))
              .group_by(e.PeriodId, e.Name, es.Score, es.FullScore, ev.Score, ev.FullScore, eq.Score, eq.FullScore, eq.Characteristic)
-             .where(e.PeriodId== currentPeriodId) //TODO:  需要在检查下为什么会读取“考评周期”
+             .where(e.PeriodId == currentPeriodId) //TODO:  需要在检查下为什么会读取“考评周期”
              .take(5)
              .query(db, r =>
              {
@@ -254,7 +254,7 @@ namespace TheSite.Controllers
                    QualityScore = ev.Score.GetValue(r, "qualityScore") * EvalAnalysis.AnnualEngine.QualityEvalUnit.ProportionValue,
                    QualityFullScore = ev.Score.GetValue(r, "qualityFullScore") * EvalAnalysis.AnnualEngine.QualityEvalUnit.ProportionValue,
                    CharacteristicScore = ev.Score.GetValue(r, "characteristicScore"), // 特色分
-                      FullScore = EngineManager.Engines[currentPeriod.AnalysisType].FullScore
+                   FullScore = EngineManager.Engines[currentPeriod.AnalysisType].FullScore
                 };
              }).ToList();
 
@@ -276,19 +276,21 @@ namespace TheSite.Controllers
          {
             var results = APQuery.select(eqr.Comment, u.UserName, eqr.ResultId)
                .from(eqr, u.JoinInner(eqr.Accesser == u.UserId))
-               .where(eqr.TeacherId== UserProfile.UserId)
+               .where(eqr.TeacherId == UserProfile.UserId)
                .query(db, r => new
                {
                   resultId = eqr.ResultId.GetValue(r),
-                  accessor= u.UserName.GetValue(r),
-                  comment=string.IsNullOrEmpty(eqr.Comment.GetValue(r))? "暂无评价" : eqr.Comment.GetValue(r),
+                  accessor = u.UserName.GetValue(r),
+                  comment = string.IsNullOrEmpty(eqr.Comment.GetValue(r)) ? "暂无评价" : eqr.Comment.GetValue(r),
                });
-            foreach(var item in results)
+            foreach (var item in results)
             {
-               ls.Add(new EvalCommentViewModel {
+               ls.Add(new EvalCommentViewModel
+               {
                   EvalResultId = item.resultId,
                   EvalComment = item.comment,
-                  ExpertName =item.accessor });
+                  ExpertName = item.accessor
+               });
             }
          }
          return PartialView(ls);
@@ -344,6 +346,7 @@ namespace TheSite.Controllers
          var u = APDBDef.BzUserProfile;
          var egt = APDBDef.ExpGroupTarget;
          var er = APDBDef.EvalQualityResult;
+         var edr = APDBDef.EvalDeclareResult; 
 
          string leaderName = null;
 
@@ -361,8 +364,17 @@ namespace TheSite.Controllers
               }).ToArray();
 
          var totalCount = db.ExpGroupTargetDal.ConditionQueryCount(egt.GroupId == groupId);
-         var evalCount = db.EvalQualityResultDal.ConditionQueryCount(
-                 er.GroupId == groupId & er.PeriodId == periodId & er.Accesser == UserProfile.UserId);
+         var evalCount = 0;
+         if (Period != null & Period.IsInDeclarePeriod)
+         {
+            evalCount = db.EvalDeclareResultDal.ConditionQueryCount(
+              edr.GroupId == groupId & edr.PeriodId == Period.PeriodId & edr.Accesser == UserProfile.UserId);
+         }
+         else
+         {
+            evalCount = db.EvalQualityResultDal.ConditionQueryCount(
+              er.GroupId == groupId & er.PeriodId == periodId & er.Accesser == UserProfile.UserId);
+         }
 
          return Json(new
          {

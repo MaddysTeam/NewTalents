@@ -236,6 +236,7 @@
     <Compile Include="Business\DataDef\BzPermissionCache.cs" />
     <Compile Include="Business\DataDef\DeclareProfile.cs" />
     <Compile Include="Business\DataDef\DeclareReview.cs" />
+    <Compile Include="Business\DataDef\EvalDeclareResult.cs" />
     <Compile Include="Business\DataDef\TeamActiveResult.cs" />
     <Compile Include="Business\DataDef\EvalQualitySubmitResult.cs" />
     <Compile Include="Business\DataDef\EvalQualityResult.cs" />
@@ -301,6 +302,7 @@
     <Compile Include="Controllers\SchoolEvalController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="EvalAnalysis\AnalysisUnits.cs" />
+    <Compile Include="EvalAnalysis\DeclareEngine.DeclareEvalUnit.cs" />
     <Compile Include="EvalAnalysis\DeclareEngine.DeclareEvalUnit5006.cs" />
     <Compile Include="EvalAnalysis\DeclareEngine.DeclareEvalUnit5005.cs" />
     <Compile Include="EvalAnalysis\DeclareEngine.DeclareEvalUnit5004.cs" />
@@ -709,6 +711,7 @@
     <Content Include="Views\DeclareEval\NotEvalMemberList.cshtml" />
     <Content Include="Views\DeclareEval\List.cshtml" />
     <Content Include="Views\DeclareEval\EvalMemberList.cshtml" />
+    <Content Include="Views\EvalModel\Decalre\DeclareEvalView5004.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1185,7 +1188,6 @@
     <Folder Include="Attachments\" />
     <Folder Include="Business\Reports\" />
     <Folder Include="Templates\" />
-    <Folder Include="Views\EvalModel\Decalre\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

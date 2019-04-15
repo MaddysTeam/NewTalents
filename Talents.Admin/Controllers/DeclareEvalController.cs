@@ -14,12 +14,9 @@ namespace TheSite.Controllers
    public class DeclareEvalController : BaseController
    {
       static APDBDef.DeclarePeriodTableDef dp = APDBDef.DeclarePeriod;
-      //static APDBDef.DeclareBaseTableDef d = APDBDef.DeclareBase;
+      static APDBDef.DeclareReviewTableDef dr = APDBDef.DeclareReview;
       static APDBDef.BzUserProfileTableDef u = APDBDef.BzUserProfile;
       static APDBDef.EvalDeclareResultTableDef er = APDBDef.EvalDeclareResult;
-      //static APDBDef.EvalQualityResultTableDef er = APDBDef.EvalQualityResult;
-      //static APDBDef.EvalQualityResultItemTableDef eri = APDBDef.EvalQualityResultItem;
-      //static APDBDef.EvalQualitySubmitResultTableDef esr = APDBDef.EvalQualitySubmitResult;
       static APDBDef.ExpGroupMemberTableDef egm = APDBDef.ExpGroupMember;
       static APDBDef.ExpGroupTargetTableDef egt = APDBDef.ExpGroupTarget;
       static APDBDef.ExpGroupTableDef eg = APDBDef.ExpGroup;
@@ -27,18 +24,15 @@ namespace TheSite.Controllers
 
       //// GET: DeclareEval/Index
 
-      //public ActionResult Index()
-      //{
-      //   var period = db.EvalPeriodDal.ConditionQuery(ep.IsCurrent == true, null, null, null)
-      //       .FirstOrDefault();
+      public ActionResult Index()
+      {
+         if (Period == null || !Period.IsInDeclarePeriod)
+         {
+            return View("../EvalPeriod/NotInAccessRegion");
+         }
 
-      //   if (period == null || !period.InAccessDateRegion(DateTime.Now))
-      //   {
-      //      return View("../EvalPeriod/NotInAccessRegion");
-      //   }
-
-      //   return RedirectToAction("List", new { period.PeriodId });
-      //}
+         return RedirectToAction("List", new { Period.PeriodId });
+      }
 
 
       //// GET: DeclareEval/BlockList
@@ -90,8 +84,9 @@ namespace TheSite.Controllers
               }).ToArray();
 
          var totalCount = db.ExpGroupTargetDal.ConditionQueryCount(egt.GroupId == groupId);
-         var evalCount = db.EvalQualityResultDal.ConditionQueryCount(
-                 er.GroupId == groupId & er.PeriodId == periodId & er.Accesser == UserProfile.UserId);
+         var evalCount = db.EvalDeclareResultDal.ConditionQueryCount(
+              er.GroupId == groupId & er.PeriodId == periodId & er.Accesser == UserProfile.UserId);
+
 
          return Json(new
          {
@@ -200,82 +195,82 @@ namespace TheSite.Controllers
       //}
 
 
-      //// GET: DeclareEval/NotEvalMemberList
-      //// POST-Ajax: DeclareEval/NotEvalMemberList
+      // GET: DeclareEval/NotEvalMemberList
+      // POST-Ajax: DeclareEval/NotEvalMemberList
 
-      //public ActionResult NotEvalMemberList()
-      //{
-      //   return View();
-      //}
+      public ActionResult NotEvalMemberList()
+      {
+         return View();
+      }
 
-      //[HttpPost]
-      //public ActionResult NotEvalMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long groupId, long periodId)
-      //{
-      //   ThrowNotAjax();
-
-
-      //   var subQuery = APQuery.select(er.TeacherId)
-      //       .from(er)
-      //       .where(er.Accesser == UserProfile.UserId & er.GroupId == groupId & er.PeriodId == periodId);
-
-      //   var query = APQuery.select(egt.MemberId, u.RealName, d.DeclareTargetPKID, d.DeclareSubjectPKID, d.DeclareStagePKID)
-      //       .from(egt,
-      //                u.JoinInner(u.UserId == egt.MemberId),
-      //                d.JoinInner(d.TeacherId == egt.MemberId)
-      //               )
-      //       .where(egt.GroupId == groupId & egt.MemberId.NotIn(subQuery))
-      //       .primary(egt.MemberId)
-      //       .skip((current - 1) * rowCount)
-      //       .take(rowCount);
+      [HttpPost]
+      public ActionResult NotEvalMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long groupId, long periodId)
+      {
+         ThrowNotAjax();
 
 
-      //   //过滤条件
-      //   //模糊搜索姓名
+         var subQuery = APQuery.select(er.TeacherId)
+             .from(er)
+             .where(er.Accesser == UserProfile.UserId & er.GroupId == groupId & er.PeriodId == periodId);
 
-      //   searchPhrase = searchPhrase.Trim();
-      //   if (searchPhrase != "")
-      //   {
-      //      query.where_and(u.RealName.Match(searchPhrase));
-      //   }
-
-
-      //   //排序条件表达式
-
-      //   if (sort != null)
-      //   {
-      //      switch (sort.ID)
-      //      {
-      //         case "realName": query.order_by(sort.OrderBy(u.RealName)); break;
-      //         case "target": query.order_by(sort.OrderBy(d.DeclareTargetPKID)); break;
-      //         case "subject": query.order_by(sort.OrderBy(d.DeclareSubjectPKID)); break;
-      //         case "stage": query.order_by(sort.OrderBy(d.DeclareStagePKID)); break;
-      //      }
-      //   }
-
-      //   var total = db.ExecuteSizeOfSelect(query);
-
-      //   var result = query.query(db, rd =>
-      //   {
-      //      return new
-      //      {
-      //         id = egt.MemberId.GetValue(rd),
-      //         realName = u.RealName.GetValue(rd),
-      //         target = DeclareBaseHelper.DeclareTarget.GetName(d.DeclareTargetPKID.GetValue(rd)),
-      //         subject = DeclareBaseHelper.DeclareSubject.GetName(d.DeclareSubjectPKID.GetValue(rd)),
-      //         stage = DeclareBaseHelper.DeclareStage.GetName(d.DeclareStagePKID.GetValue(rd)),
-      //         targetId = d.DeclareTargetPKID.GetValue(rd),
-      //      };
-      //   }).ToList();
+         var query = APQuery.select(egt.MemberId, u.RealName, dr.DeclareTargetPKID, dr.DeclareSubjectPKID)
+             .from(egt,
+                      u.JoinInner(u.UserId == egt.MemberId),
+                      dr.JoinInner(dr.TeacherId == egt.MemberId)
+                     )
+             .where(egt.GroupId == groupId & egt.MemberId.NotIn(subQuery))
+             .primary(egt.MemberId)
+             .skip((current - 1) * rowCount)
+             .take(rowCount);
 
 
-      //   return Json(new
-      //   {
-      //      rows = result,
-      //      current,
-      //      rowCount,
-      //      total
-      //   });
-      //}
+         //过滤条件
+         //模糊搜索姓名
+
+         searchPhrase = searchPhrase.Trim();
+         if (searchPhrase != "")
+         {
+            query.where_and(u.RealName.Match(searchPhrase));
+         }
+
+
+         //排序条件表达式
+
+         if (sort != null)
+         {
+            switch (sort.ID)
+            {
+               case "realName": query.order_by(sort.OrderBy(u.RealName)); break;
+               case "target": query.order_by(sort.OrderBy(dr.DeclareTargetPKID)); break;
+               case "subject": query.order_by(sort.OrderBy(dr.DeclareSubjectPKID)); break;
+                  // case "stage": query.order_by(sort.OrderBy(d.DeclareStagePKID)); break;
+            }
+         }
+
+         var total = db.ExecuteSizeOfSelect(query);
+
+         var result = query.query(db, rd =>
+         {
+            return new
+            {
+               id = egt.MemberId.GetValue(rd),
+               realName = u.RealName.GetValue(rd),
+               target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(rd)),
+               subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(rd)),
+               //stage = DeclareBaseHelper.DeclareStage.GetName(d.DeclareStagePKID.GetValue(rd)),
+               targetId = dr.DeclareTargetPKID.GetValue(rd),
+            };
+         }).ToList();
+
+
+         return Json(new
+         {
+            rows = result,
+            current,
+            rowCount,
+            total
+         });
+      }
 
 
       ////	GET: DeclareEval/Eval

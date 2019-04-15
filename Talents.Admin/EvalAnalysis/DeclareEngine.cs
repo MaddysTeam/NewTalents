@@ -11,8 +11,7 @@ namespace TheSite.EvalAnalysis
 
    public partial class DeclareEngine : EvalAnalysisEngine
    {
-      protected const string ViewPath = "../EvalModel/Annual";
-
+      protected const string ViewPath = "../EvalModel/Declare";
 
       public override string AnalysisName
          => "称号申请考核表 Ver 1.0";
@@ -25,13 +24,17 @@ namespace TheSite.EvalAnalysis
           => 100;
 
 
-      //public override DeclareEvalUnitBase DeclareEvals
-      //{
-      //   get
-      //   {
-      //      return base.DeclareEvals;
-      //   }
-      //}
+      public override IReadOnlyDictionary<long, DeclareEvalUnitBase> DeclareEvals
+      {
+         get
+         {
+            return new List<DeclareEvalUnitBase>
+            {
+               new DeclareEvalUnit5004()
+            }
+            .ToDictionary(x => x.TargetId);
+         }
+      }
 
    }
 

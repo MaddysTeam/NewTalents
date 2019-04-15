@@ -93,12 +93,23 @@
 			}
 			@if (up.IsExpert)
 			{
+				if (isInDeclare)
+				{
+					<li>
+						<a href="@Url.Action("Index", "DeclareEval")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">申报考评</span>
+						</a>
+					</li>
+				}
+				else {
 				<li>
 					<a href="@Url.Action("Index", "QualityEval")">
 						<i class="fa fa-gear fa-fw"></i>
-						<span class="text">专家任务</span>
+						<span class="text">专家质评</span>
 					</a>
 				</li>
+				}
 			}
 		</ul>
 	</nav>
