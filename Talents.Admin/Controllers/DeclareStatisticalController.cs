@@ -40,7 +40,7 @@ namespace TheSite.Controllers
          int current, int rowCount, AjaxOrder sort, string searchPhrase)
       {
          var query = APQuery
-                 .select(dp.Asterisk, c.CompanyName.As("Company"), pi.Name.As("targetName"))
+                 .select(dp.Asterisk, c.CompanyName.As("Company"), pi.Name.As("targetName"),df.AllowFlowToDowngrade,df.AllowFlowToSchool)
                  .from(dp,
                  p.JoinInner(p.PeriodId == dp.PeriodId),
                  pi.JoinInner(dp.DeclareTargetPKID == pi.PicklistItemId),
@@ -136,6 +136,8 @@ namespace TheSite.Controllers
             dp.Fullup(rd, profile, false);
             profile.CompanyName = c.CompanyName.GetValue(rd, "Company");
             profile.DeclareTargetName = pi.Name.GetValue(rd, "TargetName");
+            profile.AllowFlowToSchool= df.AllowFlowToSchool.GetValue(rd) ? "是" : "否";
+            profile.AllowFlowToDowngrade= df.AllowFlowToDowngrade.GetValue(rd) ? "是" : "否";
 
             return profile;
          }).ToList();

@@ -150,6 +150,15 @@
 									</div>
 								</div>
 							</div>
+
+							@*<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">区内流动</label>
+									<div class="col-md-6">
+										@Html.DropDownList("AllowFlowToSchool", DeclareBaseHelper.AllowFlowToSchool., new { @class = "multiselect form-control" })
+									</div>
+								</div>
+							</div>*@
 							
 							<div class="col-sm-4">
 								<button class="btn btn-md btn-info" type="button" id="btnserach">搜索</button>
@@ -181,6 +190,8 @@
 									<th data-column-id="Phonemobile">手机</th>
 									<th data-column-id="Phone">办公室电话</th>
 									<th data-column-id="Email">邮箱</th>
+									<th data-column-id="AllowFlowToSchool">区内流动</th>
+									<th data-column-id="AllowFlowToDowngrade">低一层级评选</th>
 								</tr>
 							</thead>
 						</table>

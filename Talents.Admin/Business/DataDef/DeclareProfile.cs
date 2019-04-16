@@ -45,6 +45,10 @@ namespace Business
 
       public string DeclareTargetName { get; set; }
 
+      public string AllowFlowToSchool { get; set; }
+
+      public string AllowFlowToDowngrade { get; set; }
+
 
       public List<Target> GetAllTargets5002 =>
        new List<Target>
