@@ -328,7 +328,7 @@ namespace TheSite.Controllers
               Id = dp.DeclareProfileId.GetValue(r),
               RealName = dp.RealName.GetValue(r),
               Gender = BzUserProfileHelper.Gender.GetName(dp.GenderPKID.GetValue(r)),
-              Company = dp.CompanyName.GetValue(r),
+              Company = c.CompanyName.GetValue(r,"Company"),
               Birthday = dp.Birthday.GetValue(r).ToString("yyyy-MM-dd"),
               Nation = BzUserProfileHelper.Nationality.GetName(dp.NationalityPKID.GetValue(r)),
               HireDate = dp.Hiredate.GetValue(r).ToString("yyyy-MM-dd"),
@@ -451,8 +451,6 @@ namespace TheSite.Controllers
          {
             i++;
             NPOI.SS.UserModel.IRow rowtemp = sheet1.CreateRow(i);
-            sheet1.AddMergedRegion(new NPOI.SS.Util.CellRangeAddress(i + 2, i + 2, 1, 2));
-
             var properties = item.GetType().GetProperties();
             var j = 0;
             foreach (var subItem in properties)

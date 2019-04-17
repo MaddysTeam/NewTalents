@@ -711,7 +711,7 @@
     <Content Include="Views\DeclareEval\NotEvalMemberList.cshtml" />
     <Content Include="Views\DeclareEval\List.cshtml" />
     <Content Include="Views\DeclareEval\EvalMemberList.cshtml" />
-    <Content Include="Views\EvalModel\Decalre\DeclareEvalView5004.cshtml" />
+    <Content Include="Views\EvalModel\Decalre\DeclareSchoolEvalView5004.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
