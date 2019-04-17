@@ -40,6 +40,16 @@
 
 					<div class="row">
 						<div class="form-horizontal">
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">现任职称</label>
+									<div class="col-md-6">
+										@Html.DropDownList("SkillTitle", BzUserProfileHelper.SkillTitle.GetSelectList(noneLabel: SelectNames.All), new { @class = "multiselect form-control" })
+									</div>
+								</div>
+							</div>
+
 							<div class="col-sm-4">
 								<div class="form-group">
 									<label class="col-md-6 control-label">申报称号</label>
@@ -48,6 +58,7 @@
 									</div>
 								</div>
 							</div>
+
 							@if (Html.GetUserProfile().IsSystemAdmin)
 							{
 							<div class="col-sm-4">
@@ -77,9 +88,42 @@
 									</div>
 								</div>
 							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">区内流动</label>
+									<div class="col-md-6">
+										@Html.DropDownList("AllowFlowToSchool",
+									 new List<SelectListItem> {
+										 new SelectListItem { Text= SelectNames.All,Selected=true,Value="0" },
+										 new SelectListItem { Text= "是", Value= "1" },
+										 new SelectListItem { Text= "否", Value= "2" },
+
+								 }, new { @class = "multiselect form-control" })
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">低一层级评选</label>
+									<div class="col-md-6">
+										@Html.DropDownList("AllowFlowToDowngrade",
+									 new List<SelectListItem> {
+										 new SelectListItem { Text= SelectNames.All,Selected=true,Value="0" },
+										 new SelectListItem { Text= "是", Value= "1" },
+										 new SelectListItem { Text= "否", Value= "2" },
+								 }, new { @class = "multiselect form-control" })
+									</div>
+								</div>
+							</div>
 							
-							<div class="col-sm-4 col-sm-offset-11">
+							<div class="col-sm-4">
 								<button class="btn btn-md btn-info" type="button" id="btnserach">搜索</button>
+									@if (Html.GetUserProfile().IsSystemAdmin)
+									{
+								     <a id="btnexp" href="@Url.Action("ExportSummaryList")"  class="btn btn-md btn-warning">导出全部数据</a>
+								   }
 							</div>
 						</div>
 					</div>
@@ -92,14 +136,18 @@
 								<tr>
 									<th data-column-id="TeacherName">姓名</th>
 									<th data-column-id="Gender">性别</th>
+									<th data-column-id="Birthday">出生年月</th>
+									<th data-column-id="SkillTitle">现任职称</th>
 									<th data-column-id="DeclareTargetName">申报称号</th>
 									<th data-column-id="DeclareCompnay">申报单位名称</th>
 									<th data-column-id="DeclareSubject">申报学科</th>
 									<th data-column-id="Subject">任教学科</th>
 									<th data-column-id="PhoneMobile">手机</th>
 									<th data-column-id="GoodYear">年度考核优秀（年份）</th>
-									<th data-column-id="IsDeclareBroke">是否申报破格</th>
+									<th data-column-id="IsDeclareBroke">是否职称破格</th>
 									<th data-column-id="IsMaterialBroke">是否材料破格</th>
+									<th data-column-id="IsAllowFlowToSchool">区内流动</th>
+									<th data-column-id="IsAllowDowngrade">低一层级评选</th>
 								</tr>
 							</thead>
 						</table>
@@ -135,7 +183,10 @@
 				declareCompanyId:isSchoolAdmin?0: $('#Company').val(),
 				decalreSubjectId: $('#DeclareSubject').val(),
 				targetId: $('#Target').val(),
-				subjectId: $('#EduSubject').val()
+				subjectId: $('#EduSubject').val(),
+				skillId: $('#SkillTitle').val(),
+				allowFlowToSchool: $('#AllowFlowToSchool').val(),
+				allowFlowToDowngrade: $('#AllowFlowToDowngrade').val()
 			};
 		}
 

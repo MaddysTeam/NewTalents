@@ -1,5 +1,6 @@
 ﻿using Business.Helper;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace TheSite.Models
 {
@@ -507,5 +508,88 @@ namespace TheSite.Models
 
 		public string ResultValue { get; set; }
 	}
+
+   public class InsepctionDeclareProfile
+   {
+      public long Id { get; set; }
+
+      [Display(Name = "姓名")]
+      public string RealName { get; set; }
+      [Display(Name = "性别")]
+      public string Gender { get; set; }
+      [Display(Name = "单位")]
+      public string Company { get; set; }
+      [Display(Name = "出生日期")]
+      public string Birthday { get; set; }
+      [Display(Name = "民族")]
+      public string Nation { get; set; }
+      [Display(Name = "评聘日期")]
+      public string HireDate { get; set; }
+      [Display(Name = "师训编号")]
+      public string TrainNo { get; set; }
+      [Display(Name = "职务")]
+      public string RankTitle { get; set; }
+      [Display(Name = "学历")]
+      public string EduBg { get; set; }
+      [Display(Name = "学位")]
+      public string EduDegree { get; set; }
+      [Display(Name = "现任职称")]
+      public string SkillTitle { get; set; }
+      [Display(Name = "任教学段")]
+      public string EduStage { get; set; }
+      [Display(Name = "任教学科")]
+      public string EduSubject { get; set; }
+      [Display(Name = "周课时数")]
+      public string WeekCount { get; set; }
+      [Display(Name = "手机")]
+      public string Mobile { get; set; }
+      [Display(Name = "办公室电话")]
+      public string Phone { get; set; }
+      [Display(Name = "邮箱")]
+      public string EMail { get; set; }
+      [Display(Name = "是否愿意区内流动")]
+      public string IsAllowFlowToSchool { get; set; }
+      [Display(Name = "是否允许低一层级评选")]
+      public string IsAllowDowngrade { get; set; }
+   }
+
+   public class InsepctionDeclareReview
+   {
+
+      public long Id { get; set; }
+
+      [Display(Name = "姓名")]
+      public string RealName { get; set; }
+      [Display(Name = "性别")]
+      public string Gender { get; set; }
+      [Display(Name = "出生日期")]
+      public string Birthday { get; set; }
+      [Display(Name = "现任职称")]
+      public string SkillTitle { get; set; }
+
+      [Display(Name = "申报称号")]
+      public string DeclareTarget { get; set; }
+      [Display(Name = "申报单位")]
+      public string DeclareCompany { get; set; }
+      [Display(Name = "申报学科")]
+      public string DeclareSubject { get; set; }
+
+      [Display(Name = "任教学科")]
+      public string EduSubject { get; set; }
+      [Display(Name = "手机")]
+      public string Mobile { get; set; }
+      [Display(Name = "是否愿意区内流动")]
+      public string IsAllowFlowToSchool { get; set; }
+      [Display(Name = "是否允许低一层级评选")]
+      public string IsAllowDowngrade { get; set; }
+
+      [Display(Name = "年度考核优秀(年份)")]
+      public string GoodYear { get; set; }
+      [Display(Name = "是否职称破格")]
+      public string IsDeclareBroke { get; set; }
+      [Display(Name = "是否材料破格")]
+      public string IsMaterialBroke { get; set; }
+
+   }
 
 }

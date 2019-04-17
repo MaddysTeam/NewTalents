@@ -30,6 +30,14 @@ namespace Business
 
       public string PhoneMobile { get; set; }
 
+      public string Birthday { get; set; }
+
+      public string SkillTitle { get; set; }
+
+      public string IsAllowDowngrade { get; set; }
+
+      public string IsAllowFlowToSchool { get; set; }
+
       // 仅仅用在校管理员审核时验证
       public bool IsReviewValidate => TeacherId > 0 && DeclareTargetPKID > 0 && CompanyId > 0 && PeriodId > 0 && !string.IsNullOrEmpty(TypeKey);
 

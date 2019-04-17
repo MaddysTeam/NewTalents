@@ -151,17 +151,41 @@
 								</div>
 							</div>
 
-							@*<div class="col-sm-4">
+							<div class="col-sm-4">
 								<div class="form-group">
 									<label class="col-md-6 control-label">区内流动</label>
 									<div class="col-md-6">
-										@Html.DropDownList("AllowFlowToSchool", DeclareBaseHelper.AllowFlowToSchool., new { @class = "multiselect form-control" })
+										@Html.DropDownList("AllowFlowToSchool",
+									 new List<SelectListItem> {
+										 new SelectListItem { Text= SelectNames.All,Selected=true,Value="0" },
+										 new SelectListItem { Text= "是", Value= "1" },
+										 new SelectListItem { Text= "否", Value= "2" },
+
+								 }, new { @class = "multiselect form-control" })
 									</div>
 								</div>
-							</div>*@
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="col-md-6 control-label">低一层级评选</label>
+									<div class="col-md-6">
+										@Html.DropDownList("AllowFlowToDowngrade",
+									 new List<SelectListItem> {
+										 new SelectListItem { Text= SelectNames.All,Selected=true,Value="0" },
+										 new SelectListItem { Text= "是", Value= "1" },
+										 new SelectListItem { Text= "否", Value= "2" },
+								 }, new { @class = "multiselect form-control" })
+									</div>
+								</div>
+							</div>
 							
 							<div class="col-sm-4">
 								<button class="btn btn-md btn-info" type="button" id="btnserach">搜索</button>
+								@if (Html.GetUserProfile().IsSystemAdmin)
+								{
+								<a class="btn btn-md btn-warning"  href="@Url.Action("ExportProfile")" id="btnexp">导出全部数据</a>
+								}
 							</div>
 						</div>
 					</div>
@@ -220,7 +244,6 @@
 }
 @section Scripts {
 	<script>
-        @*var hasPermission = '@Html.HasPermission(Admin.UserOperation)' == 'True' ? true : false;*@
 		var isSchoolAdmin = '@isSchoolAdmin' == 'True' ? true : false;
 		function getGlobalRequest() {
 			return {
@@ -233,18 +256,9 @@
 				subjectId: $('#EduSubject').val(),
 				stageId: $('#EduStage').val(),
 				rankId: $('#RankTitle').val(),
-			};
-			//var control = $('.form-horizontal input[id],.form-horizontal select[id]');
-			//var para = {};
-			//console.log(control);
-			//for (var i = 0; i < control.length; i++) {
-			//	var prop = $(control[i]).attr("id");
-			//	var val = $(control[i]).val();
-			//	if (!para.hasOwnProperty(prop)) {
-			//		para[prop] = val;
-			//	}
-			//}
-			//return para;
+				allowFlowToSchool: $('#AllowFlowToSchool').val(),
+				allowFlowToDowngrade: $('#AllowFlowToDowngrade').val()
+			}
 		}
 
 		function getGridOptions() {
@@ -265,26 +279,6 @@
 
 		$(function () {
 
-			//$('#btnexp').on('click', function () {
-			//	var para = '';
-			//	var control = $('.form-horizontal input[id],.form-horizontal select[id]');
-			//	console.log(control)
-			//	for (var i = 0; i < control.length; i++) {
-			//		var prop = $(control[i]).attr("id");
-			//		var val = $(control[i]).val();
-			//		console.log(typeof prop)
-			//		if (typeof prop === undefined) {
-			//			alert('')
-			//			continue;
-			//		}
-			//		para += prop + '=' + val + '&';
-			//	}
-			//	para = para.substring(0, para.lastIndexOf('&'));
-			//	console.log(para)
-			//	$('#aProxy').attr("href", "/TeacherManage/Export?" + para)
-			//	$('#aProxy')[0].click();
-			//})
-
 			var grid = $('#bootgrid');
 			grid.bootgrid(getGridOptions())
 			.on('loaded.rs.jquery.bootgrid', function () {
@@ -294,21 +288,6 @@
 				$('#bootgrid').bootgrid('reload');
 			});
 
-			//$('.only-num').on('change', function () {
-			//	var $this = $(this)
-			//	var val = $this.val()
-			//	var reg = /^\d+$/
-			//	if (!val.match(reg)) {
-			//		$this.val('')
-			//	}
-			//})
-
-			//$('.multiselect').multiselect({
-			//	enableFiltering: true,
-			//	buttonClass: 'btn btn-white btn-sm',
-			//	maxHeight: 400,
-			//	buttonWidth: 'auto'
-			//})
 		});
 
 	</script>
