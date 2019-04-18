@@ -17,6 +17,18 @@ namespace TheSite.Models
       public string CompanyName { get; set; }
    }
 
+   public class DeclareReviewModel
+   {
+      public long TeacherId { get; set; }
+      public string RealName { get; set; }
+      public long TargetId { get; set; }
+      public string Target { get; set; }
+      public string Subject { get; set; }
+      public string CompanyName { get; set; }
+      public string TypeKey { get; set; }
+   }
+
+
 
    public class DeclareParam
    {

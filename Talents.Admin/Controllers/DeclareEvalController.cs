@@ -46,13 +46,13 @@ namespace TheSite.Controllers
                      .group_by(eg.GroupId, eg.Name)
                      .where(egm.ExpectID == UserProfile.UserId)
              .query(db, (rd) =>
-              {
-                 return new ExpGroup
-                 {
-                    GroupId = eg.GroupId.GetValue(rd),
-                    Name = eg.Name.GetValue(rd),
-                 };
-              }).ToList();
+             {
+                return new ExpGroup
+                {
+                   GroupId = eg.GroupId.GetValue(rd),
+                   Name = eg.Name.GetValue(rd),
+                };
+             }).ToList();
 
          var result = new ExpGroupList
          {
@@ -98,106 +98,6 @@ namespace TheSite.Controllers
       }
 
 
-      //// GET: DeclareEval/EvalMemberList
-      //// POST-Ajax: DeclareEval/EvalMemberList
-
-      //public ActionResult EvalMemberList()
-      //{
-      //   return View();
-      //}
-
-      //[HttpPost]
-      //public ActionResult EvalMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long groupId, long periodId)
-      //{
-      //   ThrowNotAjax();
-
-
-      //   var query = APQuery.select(er.TeacherId, u.RealName,
-      //           d.DeclareTargetPKID, d.DeclareSubjectPKID, d.DeclareStagePKID,
-      //           er.Score, er.FullScore, er.DynamicScore1, er.DynamicScore2, er.DynamicScore3, er.Characteristic, esr.ResultId)
-      //       .from(er,
-      //                d.JoinInner(er.TeacherId == d.TeacherId),
-      //                u.JoinInner(er.TeacherId == u.UserId),
-      //                esr.JoinLeft(esr.TeacherId == er.TeacherId & esr.PeriodId == periodId)
-      //               )
-      //       .where(er.GroupId == groupId, er.PeriodId == periodId & er.Accesser == UserProfile.UserId)
-      //       .primary(er.ResultId)
-      //       .skip((current - 1) * rowCount)
-      //       .take(rowCount);
-
-
-      //   //过滤条件
-      //   //模糊搜索姓名
-
-      //   searchPhrase = searchPhrase.Trim();
-      //   if (searchPhrase != "")
-      //   {
-      //      query.where_and(u.RealName.Match(searchPhrase));
-      //   }
-
-
-      //   //排序条件表达式
-
-      //   if (sort != null)
-      //   {
-      //      switch (sort.ID)
-      //      {
-      //         case "realName": query.order_by(sort.OrderBy(u.RealName)); break;
-      //         //case "target": query.order_by(sort.OrderBy(d.DeclareTargetPKID)); break;
-      //         //case "subject": query.order_by(sort.OrderBy(d.DeclareSubjectPKID)); break;
-      //         //case "stage": query.order_by(sort.OrderBy(d.DeclareStagePKID)); break;
-      //         case "score": query.order_by(sort.OrderBy(er.Score)); break;
-      //         case "dynamicScore1": query.order_by(sort.OrderBy(er.DynamicScore1)); break;
-      //         case "dynamicScore2": query.order_by(sort.OrderBy(er.DynamicScore2)); break;
-      //         case "dynamicScore3": query.order_by(sort.OrderBy(er.DynamicScore3)); break;
-      //         case "characteristic": query.order_by(sort.OrderBy(er.Characteristic)); break;
-      //         case "submitStatus": query.order_by(sort.OrderBy(esr.ResultId)); break;
-      //      }
-      //   }
-      //   else
-      //   {
-      //      query.order_by(er.DeclareTargetPKID.Asc).order_by_add(er.Score.Desc);
-      //   }
-
-      //   var total = db.ExecuteSizeOfSelect(query);
-
-      //   var result = query.query(db, r =>
-      //   {
-      //      var score = er.Score.GetValue(r);
-      //      var fullScore = er.FullScore.GetValue(r);
-      //      var status = esr.ResultId.GetValue(r);
-
-      //      return new
-      //      {
-      //         id = er.TeacherId.GetValue(r),
-      //         realName = u.RealName.GetValue(r),
-      //         target = DeclareBaseHelper.DeclareTarget.GetName(d.DeclareTargetPKID.GetValue(r)),
-      //         subject = DeclareBaseHelper.DeclareSubject.GetName(d.DeclareSubjectPKID.GetValue(r)),
-      //         stage = DeclareBaseHelper.DeclareStage.GetName(d.DeclareStagePKID.GetValue(r)),
-      //         score = string.Format("{0} / {1}", score, fullScore),
-      //         submitStatus = status == 0 ? "未提交" : "已提交",
-      //         targetId = d.DeclareTargetPKID.GetValue(r),
-      //         dynamicScore1 = er.DynamicScore1.GetValue(r),
-      //         dynamicScore2 = er.DynamicScore2.GetValue(r),
-      //         dynamicScore3 = er.DynamicScore3.GetValue(r),
-      //         characteristic = er.Characteristic.GetValue(r)
-      //      };
-      //   }).ToList();
-
-
-      //   return Json(new
-      //   {
-      //      rows = result,
-      //      current,
-      //      rowCount,
-      //      total
-      //   });
-      //}
-
-
-      // GET: DeclareEval/NotEvalMemberList
-      // POST-Ajax: DeclareEval/NotEvalMemberList
-
       public ActionResult NotEvalMemberList()
       {
          return View();
@@ -218,7 +118,7 @@ namespace TheSite.Controllers
                       u.JoinInner(u.UserId == egt.MemberId),
                       dr.JoinInner(dr.TeacherId == egt.MemberId)
                      )
-             .where(egt.GroupId == groupId & egt.MemberId.NotIn(subQuery))
+             .where(egt.GroupId == groupId & dr.StatusKey != "" & dr.StatusKey != DeclareKeys.ReviewBack & egt.MemberId.NotIn(subQuery))
              .primary(egt.MemberId)
              .skip((current - 1) * rowCount)
              .take(rowCount);
@@ -273,24 +173,109 @@ namespace TheSite.Controllers
       }
 
 
+      // GET: DeclareEval/EvalSchoolMemberList
+      // POST-Ajax: DeclareEval/EvalSchoolMemberList
+
+      public ActionResult EvalSchoolMemberList()
+      {
+         return View();
+      }
+
+      [HttpPost]
+      public ActionResult EvalSchoolMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase)
+      {
+         ThrowNotAjax();
+
+         var query = APQuery.select(dr.TeacherId, u.RealName,
+                 dr.DeclareTargetPKID, dr.DeclareSubjectPKID,
+                 er.Score, er.FullScore, er.ResultId)
+             .from(dr,
+                      er.JoinLeft(er.TeacherId == dr.TeacherId),
+                      u.JoinInner(dr.TeacherId == u.UserId)
+                      //er.JoinLeft(er.Accesser == UserProfile.UserId)
+                     )
+             .where(dr.PeriodId == Period.PeriodId & dr.CompanyId== UserProfile.CompanyId & dr.StatusKey.NotIn(new string[]{string.Empty,DeclareKeys.ReviewBack }))
+             .primary(er.ResultId)
+             .skip((current - 1) * rowCount)
+             .take(rowCount);
+
+
+         //过滤条件
+         //模糊搜索姓名
+
+         searchPhrase = searchPhrase.Trim();
+         if (searchPhrase != "")
+         {
+            query.where_and(u.RealName.Match(searchPhrase));
+         }
+
+
+         //排序条件表达式
+
+         if (sort != null)
+         {
+            switch (sort.ID)
+            {
+               case "realName": query.order_by(sort.OrderBy(u.RealName)); break;
+               case "score": query.order_by(sort.OrderBy(er.Score)); break;
+            }
+         }
+         else
+         {
+            query.order_by(er.DeclareTargetPKID.Asc).order_by_add(er.Score.Desc);
+         }
+
+         var total = db.ExecuteSizeOfSelect(query);
+
+         var result = query.query(db, r =>
+         {
+            var score = er.Score.GetValue(r);
+            var fullScore = er.FullScore.GetValue(r);
+            var status = er.ResultId.GetValue(r);
+
+            return new
+            {
+               id = dr.TeacherId.GetValue(r),
+               periodId= Period.PeriodId,
+               realName = u.RealName.GetValue(r),
+               target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
+               subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(r)),
+               score = string.Format("{0} / {1}", score, fullScore),
+               //submitStatus = status == 0 ? "未提交" : "已提交",
+               submitStatus = status == 0 ? "未评审" : "已评审",
+               targetId = dr.DeclareTargetPKID.GetValue(r)
+            };
+         }).ToList();
+
+
+         return Json(new
+         {
+            rows = result,
+            current,
+            rowCount,
+            total
+         });
+
+      }
+
       ////	GET: DeclareEval/Eval
       ////	POST: DecalreEval/Eval
 
       [NoCache]
       public ActionResult Eval(DeclareEvalParam param)
       {
-         var IsLeader = db.ExpGroupMemberDal.ConditionQueryCount(
-                    egm.ExpectID == UserProfile.UserId &
-                    egm.GroupId == param.GroupId &
-                    egm.IsLeader == true) > 0;
+         //var + = db.ExpGroupMemberDal.ConditionQueryCount(
+         //           egm.ExpectID == UserProfile.UserId &
+         //           egm.GroupId == param.GroupId &
+         //           egm.IsLeader == true) > 0;
 
          param.AccesserId = UserProfile.UserId;
 
          //var isEvalSubmit = db.EvalQualitySubmitResultDal
          //                                  .ConditionQueryCount(esr.TeacherId == param.TeacherId & esr.PeriodId == param.PeriodId) > 0;
          var isEvalSubmit = false;
-         var period = db.EvalPeriodDal.PrimaryGet(param.PeriodId);
-         var engines = EngineManager.Engines[period.AnalysisType].DeclareEvals;
+
+         var engines = EngineManager.Engines[Period.AnalysisType].DeclareEvals;
          if (isEvalSubmit || !engines.ContainsKey(param.TargetId))
          {
             throw new ApplicationException("当前不支持该学员考评");
@@ -298,7 +283,7 @@ namespace TheSite.Controllers
 
          var engine = engines[param.TargetId];
 
-         var result = db.EvalQualityResultDal.ConditionQuery(
+         var result = db.EvalDeclareResultDal.ConditionQuery(
              er.PeriodId == param.PeriodId &
              er.TeacherId == param.TeacherId &
              er.Accesser == this.UserProfile.UserId, null, null, null)
@@ -310,7 +295,7 @@ namespace TheSite.Controllers
 
          ViewBag.ResultItems = engine.GetResultItem(db, param);
 
-         ViewBag.Declare = param.GetDeclareInfo(db);
+         ViewBag.Declare = param.GetDeclareReviewInfo(db);
 
          return View(engine.EvalView, param);
       }

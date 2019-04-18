@@ -25,6 +25,8 @@ namespace Business
 
       public bool IsInDeclarePeriod => DateTime.Now >= DeclareStartDate && DateTime.Now <= DeclareEndDate;
 
+      public string AnalysisType => "Declare_Ver_1.0";
+
    }
 
 }

@@ -45,7 +45,12 @@ namespace Business
 			=> GetDeclareInfo(db, param.TeacherId);
 
 
-		private static DeclareModel GetDeclareInfo(APDBDef db, long teacherId)
+      public static DeclareReviewModel GetDeclareReviewInfo(this DeclareEvalParam param, APDBDef db) 
+         => GetDeclareReviewInfo(db, param.TeacherId);
+
+
+
+      private static DeclareModel GetDeclareInfo(APDBDef db, long teacherId)
 		{
 			APDBDef.DeclareBaseTableDef d = APDBDef.DeclareBase;
 			APDBDef.CompanyDeclareTableDef cd = APDBDef.CompanyDeclare;
@@ -75,6 +80,35 @@ namespace Business
 			return model;
 		}
 
-	}
+      private static DeclareReviewModel GetDeclareReviewInfo(APDBDef db, long teacherId)
+      {
+         APDBDef.DeclareReviewTableDef dr = APDBDef.DeclareReview;
+         APDBDef.CompanyDeclareTableDef cd = APDBDef.CompanyDeclare;
+         APDBDef.CompanyTableDef c = APDBDef.Company;
+
+         var model = APQuery.select(u.RealName, dr.TeacherId, dr.DeclareTargetPKID, dr.DeclareSubjectPKID, dr.TypeKey, c.CompanyName)
+            .from(u,
+                  dr.JoinInner(u.UserId == dr.TeacherId),
+                  c.JoinLeft(c.CompanyId == dr.CompanyId))
+            .where(u.UserId == teacherId)
+            .query(db, rd =>
+            {
+               return new DeclareReviewModel
+               {
+                  TeacherId = dr.TeacherId.GetValue(rd),
+                  RealName = u.RealName.GetValue(rd),
+                  CompanyName = c.CompanyName.GetValue(rd),
+                  TargetId = dr.DeclareTargetPKID.GetValue(rd),
+                  Target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(rd)),
+                  Subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(rd)),
+                  TypeKey=dr.TypeKey.GetValue(rd)
+               };
+            }).FirstOrDefault();
+
+
+         return model;
+      }
+
+   }
 
 }

@@ -252,6 +252,7 @@
     <Compile Include="Business\Helper\CompanyHelper.cs" />
     <Compile Include="Business\Helper\EvalHelper.cs" />
     <Compile Include="Business\Helper\Keys\AttachmentsKeys.cs" />
+    <Compile Include="Business\Helper\Keys\EvalDeclareRuleKeys.cs" />
     <Compile Include="Business\Helper\Keys\TeamActiveKeys.cs" />
     <Compile Include="Business\Helper\Keys\KetYanjKeys.cs" />
     <Compile Include="Business\Helper\Keys\ShareKeys.cs" />
@@ -711,7 +712,9 @@
     <Content Include="Views\DeclareEval\NotEvalMemberList.cshtml" />
     <Content Include="Views\DeclareEval\List.cshtml" />
     <Content Include="Views\DeclareEval\EvalMemberList.cshtml" />
-    <Content Include="Views\EvalModel\Decalre\DeclareSchoolEvalView5004.cshtml" />
+    <Content Include="Views\DeclareEval\EvalSchoolMemberList.cshtml" />
+    <Content Include="Views\EvalModel\Declare\DeclareEvalView5004.cshtml" />
+    <Content Include="Views\EvalUtilities\_DeclareReviewInfo.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

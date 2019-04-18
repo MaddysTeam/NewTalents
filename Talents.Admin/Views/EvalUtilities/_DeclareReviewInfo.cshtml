@@ -1,0 +1,28 @@
+﻿@model DeclareReviewModel
+<table class="table table-condensed">
+	<tr>
+		<th>姓名</th>
+		<td>@Model.RealName</td>
+	</tr>
+	<tr>
+		<th>申报单位</th>
+		<td>@Model.CompanyName</td>
+	</tr>
+	<tr>
+		<th>申报称号</th>
+		<td>@Model.Target</td>
+	</tr>
+	<tr>
+		<th>申报学科</th>
+		<td>@Model.Subject</td>
+	</tr>
+	<tr>
+		<th></th>
+		<td>
+			@{var viewId = Model.TypeKey.IndexOf(DeclareKeys.CaiLPog) > 0 ? "9999" : Model.TargetId.ToString(); }
+			<a class="btn btn-success btn-view" id="DeclareRequestView" target="_blank" href="@Url.Action("Overview", "DeclareMaterial", new { DeclareTargetId=Model.TargetId, TypeKey=Model.TypeKey, TeacherId=Model.TeacherId,View="Overview"+ viewId })">
+				<i class="fa fa-eye"></i> <span>查看申报材料</span>
+			</a>
+		</td>
+	</tr>
+</table>

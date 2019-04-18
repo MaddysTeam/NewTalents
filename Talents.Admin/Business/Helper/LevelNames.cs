@@ -143,8 +143,9 @@ namespace Business.Helper
 		{
 			PeixJiangz_Shij,
 			PeixJiangz_Weikc,
-			PeixJiangz_YanxYit
-		};
+			PeixJiangz_YanxYit,
+         Xiaoj
+      };
 
 	}
 
