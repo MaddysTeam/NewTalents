@@ -1,0 +1,167 @@
+﻿@model DeclareEvalParam
+@{
+	var pageTitle = ViewBag.Title = "申报考评";
+	var items = ViewBag.ResultItems as Dictionary<string, EvalDeclareResultItem>;
+	var XiaonLvz = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.XiaonLvz, "A");
+
+	//var ZisFaz_KaizShik = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ZisFaz_KaizShik,"2B");
+	//var ZisFaz_DanrPingwGongz = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ZisFaz_DanrPingwGongz,"2B");
+
+
+	var declare = ViewBag.Declare as DeclareReviewModel;
+	var result = ViewBag.Result as EvalDeclareResult;
+	var comment = result == null ? string.Empty : result.Comment;
+}
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
+				<li class="active">@pageTitle</li>
+			</ul>
+		</div>
+	</div>
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-gear"></i> @pageTitle</h2>
+			<em></em>
+		</div>
+		<div class="main-content">
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-9 alert alert-danger errorMessage"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<!-- widget -->
+					<div class="widget">
+						<div class="widget-header">
+							<h3>基本信息</h3>
+							<div class="btn-group widget-header-toolbar">
+								<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+								<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+							</div>
+						</div>
+						<div class="widget-content">
+							@Html.Partial("~/Views/EvalUtilities/_DeclareReviewInfo.cshtml", declare)
+						</div>
+					</div>
+					<!-- /widget -->
+				</div>
+				<div class="col-md-9">
+					@using (Html.BeginForm("Eval", "QualityEval"))
+					{
+						@Html.HiddenFor(m => m.PeriodId)
+						@Html.HiddenFor(m => m.TargetId)
+						@Html.HiddenFor(m => m.TeacherId)
+						@Html.HiddenFor(m => m.AccesserId)
+						@Html.HiddenFor(m => m.GroupId)
+
+		<!-- widget -->
+						<div class="widget">
+							<div class="widget-header">
+								<h3>虹口区教育系统教师专业人才梯队 <strong class="red">工作室主持人-申报考评</strong> 考核指标</h3>
+								<div class="btn-group widget-header-toolbar">
+									<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+									<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+								</div>
+								<div class="btn-group widget-header-toolbar pull-right">
+									<button type="submit" class="btn btn-custom-primary btn-sm btn_submit">
+										<i class="fa fa-floppy-o"></i> <span>保存</span>
+									</button>
+									@*<a href="#" class="btn btn-sm btn-info">返回</a>*@
+								</div>
+								<ul class="nav nav-tabs pull-right">
+									@*<li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-tag"></i> 教育教学</a></li>*@
+									@*<li><a href="#tab2" data-toggle="tab"><i class="fa fa-tag"></i> 培训课程</a></li>
+										<li><a href="#tab3" data-toggle="tab"><i class="fa fa-tag"></i> 带教教师</a></li>
+										<li><a href="#tab4" data-toggle="tab"><i class="fa fa-tag"></i> 特色</a></li>
+										<li><a href="#tab5" data-toggle="tab"><i class="fa fa-tag"></i> 总评</a></li>*@
+								</ul>
+							</div>
+							<div class="widget-content">
+								<div class="tab-content no-padding">
+									<div class="tab-pane fade in active" id="tab1">
+										<table class="table table-bordered table-striped">
+											<thead>
+												<tr>
+													<th colspan="3">考核指标（分值/权重）</th>
+													<th colspan="4">要求</th>
+													<th rowspan="2" class="table-col-20p">标准说明</th>
+													<th rowspan="2" class="table-col-20p">分值</th>
+													<th rowspan="2" class="table-col-20p">输入分值</th>
+												</tr>
+												<tr>
+													<th>一级</th>
+													<th>二级</th>
+													<th>三级</th>
+
+													<th>原则要求</th>
+													<th>材料要求</th>
+													<th>证明要求</th>
+													<th>级别要求</th>
+												</tr>
+												<tr></tr>
+											</thead>
+
+											<tbody>
+												<tr>
+													<td rowspan="2">
+														一、校内履职(分值：20分)
+													</td>
+													<td rowspan="2"></td>
+													<td rowspan="2"></td>
+													<td colspan="4" rowspan="2">
+														由所在学校就工作量、教育教学效果、主持学校学科教研组建设、参与重大项目研究进行考评
+													</td>
+													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.XiaonLvz, "1A", isChecked: XiaonLvz.ChooseValue == "A") A：总体情况非常好</label></td>
+													<td>18.0分--20.0分</td>
+													<td class="flotValue" data-min="3.6" data-max="4.0" data-value="" data-hidden="@XiaonLvz.ResultValue"></td>
+												</tr>
+												<tr>
+													<td>
+														<label>@Html.RadioButton(EvalDeclareRuleKeys.XiaonLvz, "1A", isChecked: XiaonLvz.ChooseValue == "B") B：履职较好</label>
+													</td>
+													<td>14.0分--17.9分</td>
+													<td class="flotValue" data-min="3.6" data-max="4.0" data-value="" data-hidden="@XiaonLvz.ResultValue"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+								</div>
+							</div>
+						</div>
+			<!-- /widget -->
+
+						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.XiaonLvz" name="@EvalDeclareRuleKeys.XiaonLvz_Def" value="@XiaonLvz.ResultValue" />
+							
+						@*<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ZisFaz_KaizShik" name="@EvalQualityRuleKeys.ZisFaz_KaizShik_Def" value="@ZisFaz_KaizShik.ResultValue" />
+							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ZisFaz_DanrPingwGongz" name="@EvalQualityRuleKeys.ZisFaz_DanrPingwGongz_Def" value="@ZisFaz_DanrPingwGongz.ResultValue" />
+							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ZisFaz_PingbHuoj" name="@EvalQualityRuleKeys.ZisFaz_PingbHuoj_Def" value="@ZisFaz_PingbHuoj.ResultValue" />
+							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ZisFaz_FabLunw" name="@EvalQualityRuleKeys.ZisFaz_FabLunw_Def" value="@ZisFaz_FabLunw.ResultValue" />
+							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ZisFaz_LixKet" name="@EvalQualityRuleKeys.ZisFaz_LixKet_Def" value="@ZisFaz_LixKet.ResultValue" />
+							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ZisFaz_XiangmYanj" name="@EvalQualityRuleKeys.ZisFaz_XiangmYanj_Def" value="@ZisFaz_XiangmYanj.ResultValue" />
+
+							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.PeixKec_KaisJiaosPeixKec" name="@EvalQualityRuleKeys.PeixKec_KaisJiaosPeixKec_Def" value="@PeixKec_KaisJiaosPeixKec.ResultValue" />
+							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.PeixKec_JiangzBaog" name="@EvalQualityRuleKeys.PeixKec_JiangzBaog_Def" value="@PeixKec_JiangzBaog.ResultValue" />
+							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.PeixKec_KecZiyKaif" name="@EvalQualityRuleKeys.PeixKec_KecZiyKaif_Def" value="@PeixKec_KecZiyKaif.ResultValue" />
+
+							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos_XueyShul," name="@EvalQualityRuleKeys.DaijJiaos_XueyShul_Def" value="@DaijJiaos_XueyShul.ResultValue" />
+							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos_DaijJih" name="@EvalQualityRuleKeys.DaijJiaos_DaijJih_Def" value="@DaijJiaos_DaijJih.ResultValue" />
+							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos_XueyChengzFenx" name="@EvalQualityRuleKeys.DaijJiaos_XueyChengzFenx_Def" value="@DaijJiaos_XueyChengzFenx.ResultValue" />
+							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos_DaijZhid" name="@EvalQualityRuleKeys.DaijJiaos_DaijZhid_Def" value="@DaijJiaos_DaijZhid.ResultValue" />
+							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos_KaizShik" name="@EvalQualityRuleKeys.DaijJiaos_KaizShik_Def" value="@DaijJiaos_KaizShik.ResultValue" />
+							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos_FablunwHuocYukTiyJiu" name="@EvalQualityRuleKeys.DaijJiaos_FablunwHuocYukTiyJiu_Def" value="@DaijJiaos_FablunwHuocYukTiyJiu.ResultValue" />
+							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos_JiaoyJiaoxPingb" name="@EvalQualityRuleKeys.DaijJiaos_JiaoyJiaoxPingb_Def" value="@DaijJiaos_JiaoyJiaoxPingb.ResultValue" />
+							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.Tes" name="@EvalQualityRuleKeys.Tes_Def" value="@Tes.ResultValue" />*@
+					}
+
+				</div>
+			</div>
+		</div>
+		<!-- /main-content -->
+	</div>
+	<!-- /main -->
+</div>
