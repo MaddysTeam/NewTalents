@@ -305,7 +305,7 @@ namespace TheSite.Controllers
       {
          var period = db.EvalPeriodDal.PrimaryGet(param.PeriodId);
 
-         var engine = EngineManager.Engines[period.AnalysisType].DeclareEvals;
+         var engine = EngineManager.Engines[Period.AnalysisType].DeclareEvals;
 
 
          db.BeginTrans();

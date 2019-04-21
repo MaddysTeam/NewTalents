@@ -21,6 +21,10 @@ namespace TheSite.EvalAnalysis
          protected override void AnalysisResult(FormCollection fc,EvalDeclareResult result,Dictionary<string,EvalDeclareResultItem> items)
          {
             // implement analyize result
+
+            var score1 = fc[EvalDeclareRuleKeys.JiaoyJiaox_Gongkk_Def];
+
+            result.Score = 1;
          }
 
       }

@@ -18,12 +18,12 @@
 			{
 				if (!isInDeclare)
 				{
-					<li>
+					@*<li>
 						<a href="@Url.Action("Index", "Declare")">
 							<i class="fa fa-book fa-fw"></i>
 							<span class="text">材料填写</span>
 						</a>
-					</li>
+					</li>*@
 				}
 				else
 				{
@@ -36,28 +36,28 @@
 					</li>
 				}
 
-				<!-- WIDGET ACTIVITY FEED -->
-				<div class="widget widget-treeview" style="display:none">
+	<!-- WIDGET ACTIVITY FEED -->
+				@*<div class="widget widget-treeview" style="display:none">
 					<div class="widget-content">
 						<div id="treeview-declare"></div>
 					</div>
 				</div>
 				if (up.IsMaster && !isInDeclare)
 				{
-					<!-- END WIDGET ACTIVITY FEED -->
+		<!-- END WIDGET ACTIVITY FEED -->
 					<li>
 						<a href="@Url.Action("Master", "Team")">
 							<i class="fa fa-book fa-fw"></i>
 							<span class="text">辅导的梯队</span>
 						</a>
 					</li>
-					<!-- WIDGET ACTIVITY FEED -->
+		<!-- WIDGET ACTIVITY FEED -->
 					<div class="widget widget-treeview" style="display:none">
 						<div class="widget-content">
 							<div id="treeview-team-master"></div>
 						</div>
 					</div>
-					<!-- END WIDGET ACTIVITY FEED -->
+		<!-- END WIDGET ACTIVITY FEED -->
 				}
 				if (up.IsMember && !isInDeclare)
 				{
@@ -65,22 +65,22 @@
 						<a href="@Url.Action("Member", "Team")">
 							<i class="fa fa-book fa-fw"></i>
 							<span class="text">参与的梯队</span>
-						</a>
+						</a>e
 					</li>
-					<!-- WIDGET ACTIVITY FEED -->
+		<!-- WIDGET ACTIVITY FEED -->
 					<div class="widget widget-treeview" style="display:none">
 						<div class="widget-content">
 							<div id="treeview-team-member"></div>
 						</div>
 					</div>
-					<!-- END WIDGET ACTIVITY FEED -->
+		<!-- END WIDGET ACTIVITY FEED -->
 				}
-				@*<li>
+				<li>
 					<a href="@Url.Action("Overview", "Declare", new { id = up.UserId })" target="_blank">
 						<i class="fa fa-external-link fa-fw"></i>
 						<span class="text">查看材料</span>
 					</a>
-				</li>*@
+				</li>
 				if (!isInDeclare)
 				{
 					<li>
@@ -89,27 +89,28 @@
 							<span class="text">共享管理</span>
 						</a>
 					</li>
-				}
+				}*@
 			}
 			@if (up.IsExpert)
 			{
-				if (isInDeclare)
-				{
+				//if (isInDeclare)
+				//{
 					<li>
 						<a href="@Url.Action("Index", "DeclareEval")">
 							<i class="fa fa-gear fa-fw"></i>
 							<span class="text">申报考评</span>
 						</a>
 					</li>
-				}
-				else {
-				<li>
-					<a href="@Url.Action("Index", "QualityEval")">
-						<i class="fa fa-gear fa-fw"></i>
-						<span class="text">专家质评</span>
-					</a>
-				</li>
-				}
+				@*}
+				else
+				{
+					<li>
+						<a href="@Url.Action("Index", "QualityEval")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">专家质评</span>
+						</a>
+					</li>
+				}*@
 			}
 		</ul>
 	</nav>

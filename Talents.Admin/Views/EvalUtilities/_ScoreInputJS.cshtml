@@ -78,10 +78,10 @@
 					err += $(this).data('error') + '</br>'
 				}
 			});
-			if ($('.commentValue').val() == '') {
-				success = false;
-				err+='必须填写总评'+'</br>'
-			}
+			//if ($('.commentValue').val() == '') {
+			//	success = false;
+			//	err+='必须填写总评'+'</br>'
+			//}
 			if (!success) {
 				$('.errorMessage').html(err).show();
 				return false;
