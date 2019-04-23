@@ -460,7 +460,7 @@
 					<add name="DateRegion" type="string" dataLength="100" display="时间区间"/>
 					<add name="Location" type="string" dataLength="100" display="地点" />
 					<add name="Level" type="string" dataLength="100" display="等级"/>
-					<add name="NameOrTitle" type="string" dataLength="100" display="名称或标题"/>
+					<add name="NameOrTitle" type="string" dataLength="100000" display="名称或标题"/>
 					<add name="Dynamic1" type="string" dataLength="2000" display="动态内容1"/>
 					<add name="Dynamic2" type="string" dataLength="2000" display="动态内容2"/>
 					<add name="Dynamic3" type="string" dataLength="2000" display="动态内容3"/>
@@ -562,7 +562,7 @@
 					<add name="SkillTitlePKID" type="long" display="现任专技职称" comment="PickList - SkillTitle"/>
 					<add name="CompanyName" type="string" dataLength="100" required="true"  display="单位"/>
 					<add name="RankTitlePKID" type="long" display="职务" required="true" comment="PickList - RankTitle"/>
-					<add name="CourseCountPerWeek" type="string" dataLength="4"  required="true" display="周课时数"/>
+					<add name="CourseCountPerWeek" type="string" dataLength="20"  required="true" display="周课时数"/>
 					<add name="Hiredate" type="DateTime" required="true" display="评聘日期"/>
 
 					<!-- Educational Information -->
@@ -570,9 +570,9 @@
 					<add name="EduDegreePKID" type="long" display="学位" required="true" comment="PickList - EduDegree"/>
 
 					<!-- Contact Information -->
-					<add name="Phonemobile" type="string" dataLength="11" required="true" display="手机号码"/>
+					<add name="Phonemobile" type="string" dataLength="20" required="true" display="手机号码"/>
 					<add name="Email" type="string" dataLength="255" required="true"   display="电子邮箱" comment="用于联系的电子邮箱"/>
-					<add name="Phone" type="string" dataLength="11" isNullable="true"   display="办公室电话"/>
+					<add name="Phone" type="string" dataLength="20" isNullable="true"   display="办公室电话"/>
 
 					<!-- Dynamic Information 备用字段 -->
 					<add name="Dynamic1" type="string" dataLength="255" isNullable="true"   display="2016学年" comment="2016学年考核情况"/>
