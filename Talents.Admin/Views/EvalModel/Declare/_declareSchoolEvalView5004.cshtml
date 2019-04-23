@@ -3,14 +3,8 @@
 	var pageTitle = ViewBag.Title = "申报考评";
 	var items = ViewBag.ResultItems as Dictionary<string, EvalDeclareResultItem>;
 	var XiaonLvz = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.XiaonLvz, "A");
-
-	//var ZisFaz_KaizShik = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ZisFaz_KaizShik,"2B");
-	//var ZisFaz_DanrPingwGongz = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ZisFaz_DanrPingwGongz,"2B");
-
-
 	var declare = ViewBag.Declare as DeclareReviewModel;
 	var result = ViewBag.Result as EvalDeclareResult;
-	var comment = result == null ? string.Empty : result.Comment;
 }
 <div class="col-md-10 content-wrapper">
 	<div class="row">
@@ -50,13 +44,12 @@
 					<!-- /widget -->
 				</div>
 				<div class="col-md-9">
-					@using (Html.BeginForm("Eval", "QualityEval"))
+					@using (Html.BeginForm("Eval", "DeclareEval"))
 					{
 						@Html.HiddenFor(m => m.PeriodId)
 						@Html.HiddenFor(m => m.TargetId)
 						@Html.HiddenFor(m => m.TeacherId)
 						@Html.HiddenFor(m => m.AccesserId)
-						@Html.HiddenFor(m => m.GroupId)
 
 		<!-- widget -->
 						<div class="widget">
@@ -72,13 +65,6 @@
 									</button>
 									@*<a href="#" class="btn btn-sm btn-info">返回</a>*@
 								</div>
-								<ul class="nav nav-tabs pull-right">
-									@*<li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-tag"></i> 教育教学</a></li>*@
-									@*<li><a href="#tab2" data-toggle="tab"><i class="fa fa-tag"></i> 培训课程</a></li>
-										<li><a href="#tab3" data-toggle="tab"><i class="fa fa-tag"></i> 带教教师</a></li>
-										<li><a href="#tab4" data-toggle="tab"><i class="fa fa-tag"></i> 特色</a></li>
-										<li><a href="#tab5" data-toggle="tab"><i class="fa fa-tag"></i> 总评</a></li>*@
-								</ul>
 							</div>
 							<div class="widget-content">
 								<div class="tab-content no-padding">
@@ -115,16 +101,16 @@
 													<td colspan="4" rowspan="2">
 														由所在学校就工作量、教育教学效果、主持学校学科教研组建设、参与重大项目研究进行考评
 													</td>
-													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.XiaonLvz, "1A", isChecked: XiaonLvz.ChooseValue == "A") A：总体情况非常好</label></td>
+													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.XiaonLvz, "A", isChecked: XiaonLvz.ChooseValue == "A") A：总体情况非常好</label></td>
 													<td>18.0分--20.0分</td>
-													<td class="flotValue" data-min="3.6" data-max="4.0" data-value="" data-hidden="@XiaonLvz.ResultValue"></td>
+													<td class="flotValue" data-min="18.0" data-max="20.0" data-value="" data-hidden="@EvalDeclareRuleKeys.XiaonLvz_Def"></td>
 												</tr>
 												<tr>
 													<td>
-														<label>@Html.RadioButton(EvalDeclareRuleKeys.XiaonLvz, "1A", isChecked: XiaonLvz.ChooseValue == "B") B：履职较好</label>
+														<label>@Html.RadioButton(EvalDeclareRuleKeys.XiaonLvz, "B", isChecked: XiaonLvz.ChooseValue == "B") B：履职较好</label>
 													</td>
 													<td>14.0分--17.9分</td>
-													<td class="flotValue" data-min="3.6" data-max="4.0" data-value="" data-hidden="@XiaonLvz.ResultValue"></td>
+													<td class="flotValue" data-min="14.0" data-max="17.9" data-value="" data-hidden="@EvalDeclareRuleKeys.XiaonLvz_Def"></td>
 												</tr>
 											</tbody>
 										</table>
@@ -136,26 +122,6 @@
 			<!-- /widget -->
 
 						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.XiaonLvz" name="@EvalDeclareRuleKeys.XiaonLvz_Def" value="@XiaonLvz.ResultValue" />
-							
-						@*<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ZisFaz_KaizShik" name="@EvalQualityRuleKeys.ZisFaz_KaizShik_Def" value="@ZisFaz_KaizShik.ResultValue" />
-							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ZisFaz_DanrPingwGongz" name="@EvalQualityRuleKeys.ZisFaz_DanrPingwGongz_Def" value="@ZisFaz_DanrPingwGongz.ResultValue" />
-							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ZisFaz_PingbHuoj" name="@EvalQualityRuleKeys.ZisFaz_PingbHuoj_Def" value="@ZisFaz_PingbHuoj.ResultValue" />
-							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ZisFaz_FabLunw" name="@EvalQualityRuleKeys.ZisFaz_FabLunw_Def" value="@ZisFaz_FabLunw.ResultValue" />
-							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ZisFaz_LixKet" name="@EvalQualityRuleKeys.ZisFaz_LixKet_Def" value="@ZisFaz_LixKet.ResultValue" />
-							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ZisFaz_XiangmYanj" name="@EvalQualityRuleKeys.ZisFaz_XiangmYanj_Def" value="@ZisFaz_XiangmYanj.ResultValue" />
-
-							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.PeixKec_KaisJiaosPeixKec" name="@EvalQualityRuleKeys.PeixKec_KaisJiaosPeixKec_Def" value="@PeixKec_KaisJiaosPeixKec.ResultValue" />
-							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.PeixKec_JiangzBaog" name="@EvalQualityRuleKeys.PeixKec_JiangzBaog_Def" value="@PeixKec_JiangzBaog.ResultValue" />
-							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.PeixKec_KecZiyKaif" name="@EvalQualityRuleKeys.PeixKec_KecZiyKaif_Def" value="@PeixKec_KecZiyKaif.ResultValue" />
-
-							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos_XueyShul," name="@EvalQualityRuleKeys.DaijJiaos_XueyShul_Def" value="@DaijJiaos_XueyShul.ResultValue" />
-							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos_DaijJih" name="@EvalQualityRuleKeys.DaijJiaos_DaijJih_Def" value="@DaijJiaos_DaijJih.ResultValue" />
-							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos_XueyChengzFenx" name="@EvalQualityRuleKeys.DaijJiaos_XueyChengzFenx_Def" value="@DaijJiaos_XueyChengzFenx.ResultValue" />
-							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos_DaijZhid" name="@EvalQualityRuleKeys.DaijJiaos_DaijZhid_Def" value="@DaijJiaos_DaijZhid.ResultValue" />
-							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos_KaizShik" name="@EvalQualityRuleKeys.DaijJiaos_KaizShik_Def" value="@DaijJiaos_KaizShik.ResultValue" />
-							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos_FablunwHuocYukTiyJiu" name="@EvalQualityRuleKeys.DaijJiaos_FablunwHuocYukTiyJiu_Def" value="@DaijJiaos_FablunwHuocYukTiyJiu.ResultValue" />
-							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos_JiaoyJiaoxPingb" name="@EvalQualityRuleKeys.DaijJiaos_JiaoyJiaoxPingb_Def" value="@DaijJiaos_JiaoyJiaoxPingb.ResultValue" />
-							<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.Tes" name="@EvalQualityRuleKeys.Tes_Def" value="@Tes.ResultValue" />*@
 					}
 
 				</div>

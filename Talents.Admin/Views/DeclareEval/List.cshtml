@@ -52,11 +52,11 @@
 										</tr>
 										<tr>
 											<td class="table-col-30p">已评学员人数</td>
-											<td><a id="a_evalCount" href="@Url.Action("EvalMemberList", new { groupId = item.GroupId, periodId = periodId })"></a></td>
+											<td><a id="a_evalCount" href="@Url.Action("EvalExpertMemberList", new { groupId = item.GroupId, periodId = periodId })"></a></td>
 										</tr>
 										<tr>
 											<td class="table-col-30p">未评学员人数</td>
-											<td><a id="a_notEvalCount" href="@Url.Action("NotEvalMemberList", new { groupId = item.GroupId, periodId = periodId })"><span></span></a></td>
+											<td><a id="a_notEvalCount" href="@Url.Action("NotEvalExpertMemberList", new { groupId = item.GroupId, periodId = periodId })"><span></span></a></td>
 										</tr>
 									</tbody>
 								</table>

@@ -26,7 +26,7 @@ namespace TheSite.Controllers
 
       public ActionResult Index()
       {
-         if (Period == null || !Period.IsInDeclarePeriod)
+         if (Period == null)
          {
             return View("../EvalPeriod/NotInAccessRegion");
          }
@@ -98,13 +98,100 @@ namespace TheSite.Controllers
       }
 
 
-      public ActionResult NotEvalMemberList()
+      // GET: DeclareEval/EvalExpertMemberList
+      // POST-Ajax: DeclareEval/EvalExpertMemberList
+
+      public ActionResult EvalExpertMemberList()
       {
          return View();
       }
 
       [HttpPost]
-      public ActionResult NotEvalMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long groupId, long periodId)
+      public ActionResult EvalExpertMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long groupId, long periodId)
+      {
+         ThrowNotAjax();
+
+         var c = APDBDef.Company;
+
+         var query = APQuery.select(er.TeacherId, u.RealName,
+                 dr.DeclareTargetPKID, dr.DeclareSubjectPKID, dr.CompanyId,
+                 er.Score, er.FullScore, c.CompanyName)
+             .from(er,
+                      dr.JoinInner(er.TeacherId == dr.TeacherId),
+                      u.JoinInner(er.TeacherId == u.UserId),
+                      c.JoinInner(dr.CompanyId == c.CompanyId)
+                     )
+             .where(dr.StatusKey==DeclareKeys.ReviewSuccess & er.GroupId == groupId, er.PeriodId == periodId & er.Accesser == UserProfile.UserId)
+             .primary(er.ResultId)
+             .skip((current - 1) * rowCount)
+             .take(rowCount);
+
+
+         //过滤条件
+         //模糊搜索姓名
+
+         searchPhrase = searchPhrase.Trim();
+         if (searchPhrase != "")
+         {
+            query.where_and(u.RealName.Match(searchPhrase));
+         }
+
+
+         //排序条件表达式
+
+         if (sort != null)
+         {
+            switch (sort.ID)
+            {
+               case "realName": query.order_by(sort.OrderBy(u.RealName)); break;
+               case "score": query.order_by(sort.OrderBy(er.Score)); break;
+            }
+         }
+         else
+         {
+            query.order_by(er.DeclareTargetPKID.Asc).order_by_add(er.Score.Desc);
+         }
+
+         var total = db.ExecuteSizeOfSelect(query);
+
+         var result = query.query(db, r =>
+         {
+            var score = er.Score.GetValue(r);
+            var fullScore = er.FullScore.GetValue(r);
+
+            return new
+            {
+               id = er.TeacherId.GetValue(r),
+               realName = u.RealName.GetValue(r),
+               targetId = dr.DeclareTargetPKID.GetValue(r),
+               target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
+               subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(r)),
+               company =c.CompanyName.GetValue(r),
+               score = string.Format("{0} / {1}", score, fullScore),
+            };
+         }).ToList();
+
+
+         return Json(new
+         {
+            rows = result,
+            current,
+            rowCount,
+            total
+         });
+      }
+
+
+      // GET: DeclareEval/NotEvalExpertMemberList
+      // POST-Ajax: DeclareEval/NotEvalExpertMemberList
+
+      public ActionResult NotEvalExpertMemberList()
+      {
+         return View();
+      }
+
+      [HttpPost]
+      public ActionResult NotEvalExpertMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long groupId, long periodId)
       {
          ThrowNotAjax();
 
@@ -192,9 +279,9 @@ namespace TheSite.Controllers
              .from(dr,
                       er.JoinLeft(er.TeacherId == dr.TeacherId),
                       u.JoinInner(dr.TeacherId == u.UserId)
-                      //er.JoinLeft(er.Accesser == UserProfile.UserId)
+                     //er.JoinLeft(er.Accesser == UserProfile.UserId)
                      )
-             .where(dr.PeriodId == Period.PeriodId & dr.CompanyId== UserProfile.CompanyId & dr.StatusKey.NotIn(new string[]{string.Empty,DeclareKeys.ReviewBack }))
+             .where(dr.PeriodId == Period.PeriodId & dr.CompanyId == UserProfile.CompanyId & dr.StatusKey.NotIn(new string[] { string.Empty, DeclareKeys.ReviewBack }))
              .primary(er.ResultId)
              .skip((current - 1) * rowCount)
              .take(rowCount);
@@ -236,7 +323,7 @@ namespace TheSite.Controllers
             return new
             {
                id = dr.TeacherId.GetValue(r),
-               periodId= Period.PeriodId,
+               periodId = Period.PeriodId,
                realName = u.RealName.GetValue(r),
                target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
                subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(r)),
@@ -264,15 +351,8 @@ namespace TheSite.Controllers
       [NoCache]
       public ActionResult Eval(DeclareEvalParam param)
       {
-         //var + = db.ExpGroupMemberDal.ConditionQueryCount(
-         //           egm.ExpectID == UserProfile.UserId &
-         //           egm.GroupId == param.GroupId &
-         //           egm.IsLeader == true) > 0;
-
          param.AccesserId = UserProfile.UserId;
 
-         //var isEvalSubmit = db.EvalQualitySubmitResultDal
-         //                                  .ConditionQueryCount(esr.TeacherId == param.TeacherId & esr.PeriodId == param.PeriodId) > 0;
          var isEvalSubmit = false;
 
          var engines = EngineManager.Engines[Period.AnalysisType].DeclareEvals;
@@ -303,10 +383,7 @@ namespace TheSite.Controllers
       [HttpPost]
       public ActionResult Eval(DeclareEvalParam param, FormCollection fc)
       {
-         var period = db.EvalPeriodDal.PrimaryGet(param.PeriodId);
-
          var engine = EngineManager.Engines[Period.AnalysisType].DeclareEvals;
-
 
          db.BeginTrans();
 
@@ -316,12 +393,29 @@ namespace TheSite.Controllers
 
             db.Commit();
 
-            return RedirectToAction("SubmitResultView", new
+            if (UserProfile.IsSchoolAdmin)
             {
-               teacherId = param.TeacherId,
-               periodId = param.PeriodId,
-               groupId = param.GroupId
-            });
+               return RedirectToAction("EvalSchoolMemberList");
+            }
+            else if (UserProfile.IsExpert)
+            {
+               return RedirectToAction("NotEvalExpertMemberList", new
+               {
+                  teacherId = param.TeacherId,
+                  periodId = param.PeriodId,
+                  groupId = param.GroupId
+               });
+            }
+            else
+            {
+               return RedirectToAction("SubmitResultView", new
+               {
+                  teacherId = param.TeacherId,
+                  periodId = param.PeriodId,
+                  groupId = param.GroupId
+               });
+            }
+
          }
          catch
          {

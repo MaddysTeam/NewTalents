@@ -76,12 +76,12 @@
 					'commands': function (column, row) {
 						var periodId = row.periodId;
 						var html = '<div class="btn-group btn-group-xs pull-right" data-row-id="' + row.id + '">';
-						
+						var evalUrl = '@Url.Action("Eval", "DeclareEval")?teacherId=' + row.id + '&periodId=' + periodId + '&targetId=' + row.targetId + '&groupId=0';
 						if (row.submitStatus == '未评审') {
-							html += '<a class="btn btn-success btn-view" href="@Url.Action("Eval", "DeclareEval")?teacherId=' + row.id + '&periodId=' + periodId + '&targetId=' + row.targetId + '&groupId=0 ">执行考评</a>';
+							html += '<a class="btn btn-success btn-view" href="' + evalUrl + '">执行考评</a>';
 						}
 						else {
-							html += '<a target="_blank" class="btn btn-warning btn-view" href="@Url.Action("SubmitResultView", "DeclareEval")?teacherId=' + row.id + '&periodId=' + periodId + '&groupId=0"><i class="fa fa-external-link"></i>查看</a>';
+							html += '<a target="_blank" class="btn btn-warning btn-view" href="' + evalUrl + '"><i class="fa fa-external-link"></i>继续考评</a>';
 						}
 						html += '</div>';
 						return html;

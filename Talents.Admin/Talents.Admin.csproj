@@ -709,9 +709,9 @@
     <Content Include="Views\DeclareStatistical\DeclareProfileList.cshtml" />
     <Content Include="Views\DeclareStatistical\DeclareSummaryList.cshtml" />
     <Content Include="Views\DeclareReview\Edit.cshtml" />
-    <Content Include="Views\DeclareEval\NotEvalMemberList.cshtml" />
+    <Content Include="Views\DeclareEval\NotEvalExpertMemberList.cshtml" />
     <Content Include="Views\DeclareEval\List.cshtml" />
-    <Content Include="Views\DeclareEval\EvalMemberList.cshtml" />
+    <Content Include="Views\DeclareEval\EvalExpertMemberList.cshtml" />
     <Content Include="Views\DeclareEval\EvalSchoolMemberList.cshtml" />
     <Content Include="Views\EvalModel\Declare\DeclareEvalView5004.cshtml" />
     <Content Include="Views\EvalUtilities\_DeclareReviewInfo.cshtml" />
