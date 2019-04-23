@@ -21,7 +21,7 @@ namespace TheSite.EvalAnalysis
          static APDBDef.EvalDeclareResultTableDef er = APDBDef.EvalDeclareResult;
          static APDBDef.EvalDeclareResultItemTableDef eri = APDBDef.EvalDeclareResultItem;
          static APDBDef.ExpGroupTableDef g = APDBDef.ExpGroup;
-
+         static APDBDef.DeclareReviewTableDef dr = APDBDef.DeclareReview;
 
          public override double FullScroe => 100;
 
@@ -120,6 +120,10 @@ namespace TheSite.EvalAnalysis
             var eval = db.EvalDeclareResultDal.ConditionQuery(er.PeriodId == param.PeriodId & er.TeacherId == param.TeacherId
             & er.Accesser == param.AccesserId, null, null, null).FirstOrDefault();
 
+            var declareReview = db.DeclareReviewDal.ConditionQuery(dr.TeacherId==param.TeacherId & dr.StatusKey==DeclareKeys.ReviewSuccess,null,null,null).FirstOrDefault();
+
+            if (declareReview == null) throw new ApplicationException("该老师的申报请求还未通过校审核！");
+
             var result = new EvalDeclareResult()
             {
                PeriodId = param.PeriodId,
@@ -128,13 +132,13 @@ namespace TheSite.EvalAnalysis
                Accesser = param.AccesserId,
                AccessDate = DateTime.Now,
                DeclareTargetPKID = param.TargetId,
+               DeclareCompanyId = declareReview.CompanyId,
+               DeclareSubjectPKID = declareReview.DeclareSubjectPKID,
                FullScore = FullScroe,
-               Comment = fc["Comment"]
             };
             var items = new Dictionary<string, EvalDeclareResultItem>();
 
             AnalysisResult(fc, result, items);
-
 
             if (eval != null)
             {
@@ -156,46 +160,6 @@ namespace TheSite.EvalAnalysis
 
          public override Dictionary<string, string> ChooseEvalResultItems(Dictionary<string, EvalDeclareResultItem> items)
          {
-            //Dictionary<string, string> keys = new Dictionary<string, string>();
-
-            //keys.Add(EvalQualityRuleKeys.ZisFaz_DusHuod, "读书活动");
-            //keys.Add(EvalQualityRuleKeys.DaijJiaos_XueyShul, "学员数量");
-            //keys.Add(EvalQualityRuleKeys.DaijJiaos_DaijJih, "带教计划（方案）、小结");
-            //keys.Add(EvalQualityRuleKeys.DaijJiaos_XueyChengzFenx, "学员的成长分析");
-            //keys.Add(EvalQualityRuleKeys.DaijJiaos_DaijZhid, "带教指导");
-            //keys.Add(EvalQualityRuleKeys.Tes, "特色");
-
-            //Choose(1,
-            //   items[EvalQualityRuleKeys.ZisFaz_KaizShik],
-            //   items[EvalQualityRuleKeys.ZisFaz_DanrPingwGongz],
-            //   items[EvalQualityRuleKeys.ZisFaz_PingbHuoj])
-            //   .ToList()
-            //   .ForEach(m => keys.Add(m.EvalItemKey, m.EvalItemKey));
-
-            //Choose(1,
-            //   items[EvalQualityRuleKeys.ZisFaz_FabLunw],
-            //   items[EvalQualityRuleKeys.ZisFaz_LixKet],
-            //   items[EvalQualityRuleKeys.ZisFaz_XiangmYanj])
-            //   .ToList()
-            //   .ForEach(m => keys.Add(m.EvalItemKey, m.EvalItemKey));
-
-            //Choose(1,
-            //   items[EvalQualityRuleKeys.PeixKec_JiangzBaog],
-            //   items[EvalQualityRuleKeys.PeixKec_KaisJiaosPeixKec],
-            //   items[EvalQualityRuleKeys.PeixKec_KecZiyKaif])
-            //   .ToList()
-            //   .ForEach(m => keys.Add(m.EvalItemKey, m.EvalItemKey));
-
-            //Choose(2,
-            //   items[EvalQualityRuleKeys.DaijJiaos_KaizShik],
-            //   items[EvalQualityRuleKeys.DaijJiaos_FablunwHuocYukTiyJiu],
-            //   items[EvalQualityRuleKeys.DaijJiaos_JiaoyJiaoxPingb])
-            //   .ToList()
-            //   .ForEach(m => keys.Add(m.EvalItemKey, m.EvalItemKey));
-
-
-            //return keys;
-
             return null;
          }
 

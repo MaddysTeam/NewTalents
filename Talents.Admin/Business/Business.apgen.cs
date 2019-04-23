@@ -8750,7 +8750,11 @@ namespace Business {
             
             private Int64APColumnDef _periodId;
             
+            private Int64APColumnDef _declareCompanyId;
+            
             private Int64APColumnDef _declareTargetPKID;
+            
+            private Int64APColumnDef _declareSubjectPKID;
             
             private Int64APColumnDef _teacherId;
             
@@ -8801,6 +8805,19 @@ namespace Business {
             }
             
             /// <summary>
+            /// DeclareCompanyId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef DeclareCompanyId {
+                get {
+                    if (Object.ReferenceEquals(_declareCompanyId, null)) {
+                        _declareCompanyId = new Int64APColumnDef(this, "DeclareCompanyId", false);
+                        _declareCompanyId.Display = "申报单位";
+                    }
+                    return _declareCompanyId;
+                }
+            }
+            
+            /// <summary>
             /// DeclareTargetPKID ColumnDef
             /// </summary>
             public virtual Int64APColumnDef DeclareTargetPKID {
@@ -8810,6 +8827,19 @@ namespace Business {
                         _declareTargetPKID.Display = "申报称号";
                     }
                     return _declareTargetPKID;
+                }
+            }
+            
+            /// <summary>
+            /// DeclareSubjectPKID ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef DeclareSubjectPKID {
+                get {
+                    if (Object.ReferenceEquals(_declareSubjectPKID, null)) {
+                        _declareSubjectPKID = new Int64APColumnDef(this, "DeclareSubjectPKID", false);
+                        _declareSubjectPKID.Display = "申报学科";
+                    }
+                    return _declareSubjectPKID;
                 }
             }
             
@@ -8926,7 +8956,9 @@ namespace Business {
             public virtual void Fullup(IDataReader reader, EvalDeclareResult data, bool throwIfValidColumnName) {
                 data.ResultId = ResultId.GetValue<long>(reader, throwIfValidColumnName);
                 data.PeriodId = PeriodId.GetValue<long>(reader, throwIfValidColumnName);
+                data.DeclareCompanyId = DeclareCompanyId.GetValue<long>(reader, throwIfValidColumnName);
                 data.DeclareTargetPKID = DeclareTargetPKID.GetValue<long>(reader, throwIfValidColumnName);
+                data.DeclareSubjectPKID = DeclareSubjectPKID.GetValue<long>(reader, throwIfValidColumnName);
                 data.TeacherId = TeacherId.GetValue<long>(reader, throwIfValidColumnName);
                 data.FullScore = FullScore.GetValue<double>(reader, throwIfValidColumnName);
                 data.Score = Score.GetValue<double>(reader, throwIfValidColumnName);
@@ -18241,7 +18273,7 @@ namespace Business {
                 if ((data.ResultId == 0)) {
                     data.ResultId = ((long)(GetNewId(APDBDef.EvalDeclareResult.ResultId)));
                 }
-                var query = APQuery.insert(APDBDef.EvalDeclareResult).values(APDBDef.EvalDeclareResult.ResultId.SetValue(data.ResultId), APDBDef.EvalDeclareResult.PeriodId.SetValue(data.PeriodId), APDBDef.EvalDeclareResult.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.EvalDeclareResult.TeacherId.SetValue(data.TeacherId), APDBDef.EvalDeclareResult.FullScore.SetValue(data.FullScore), APDBDef.EvalDeclareResult.Score.SetValue(data.Score), APDBDef.EvalDeclareResult.Comment.SetValue(data.Comment), APDBDef.EvalDeclareResult.GroupId.SetValue(data.GroupId), APDBDef.EvalDeclareResult.Accesser.SetValue(data.Accesser), APDBDef.EvalDeclareResult.AccessDate.SetValue(data.AccessDate));
+                var query = APQuery.insert(APDBDef.EvalDeclareResult).values(APDBDef.EvalDeclareResult.ResultId.SetValue(data.ResultId), APDBDef.EvalDeclareResult.PeriodId.SetValue(data.PeriodId), APDBDef.EvalDeclareResult.DeclareCompanyId.SetValue(data.DeclareCompanyId), APDBDef.EvalDeclareResult.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.EvalDeclareResult.DeclareSubjectPKID.SetValue(data.DeclareSubjectPKID), APDBDef.EvalDeclareResult.TeacherId.SetValue(data.TeacherId), APDBDef.EvalDeclareResult.FullScore.SetValue(data.FullScore), APDBDef.EvalDeclareResult.Score.SetValue(data.Score), APDBDef.EvalDeclareResult.Comment.SetValue(data.Comment), APDBDef.EvalDeclareResult.GroupId.SetValue(data.GroupId), APDBDef.EvalDeclareResult.Accesser.SetValue(data.Accesser), APDBDef.EvalDeclareResult.AccessDate.SetValue(data.AccessDate));
                 ExecuteNonQuery(query);
             }
             
@@ -18249,7 +18281,7 @@ namespace Business {
             /// 更新数据。
             /// </summary>
             public virtual void Update(EvalDeclareResult data) {
-                var query = APQuery.update(APDBDef.EvalDeclareResult).values(APDBDef.EvalDeclareResult.PeriodId.SetValue(data.PeriodId), APDBDef.EvalDeclareResult.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.EvalDeclareResult.TeacherId.SetValue(data.TeacherId), APDBDef.EvalDeclareResult.FullScore.SetValue(data.FullScore), APDBDef.EvalDeclareResult.Score.SetValue(data.Score), APDBDef.EvalDeclareResult.Comment.SetValue(data.Comment), APDBDef.EvalDeclareResult.GroupId.SetValue(data.GroupId), APDBDef.EvalDeclareResult.Accesser.SetValue(data.Accesser), APDBDef.EvalDeclareResult.AccessDate.SetValue(data.AccessDate)).where((APDBDef.EvalDeclareResult.ResultId == data.ResultId));
+                var query = APQuery.update(APDBDef.EvalDeclareResult).values(APDBDef.EvalDeclareResult.PeriodId.SetValue(data.PeriodId), APDBDef.EvalDeclareResult.DeclareCompanyId.SetValue(data.DeclareCompanyId), APDBDef.EvalDeclareResult.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.EvalDeclareResult.DeclareSubjectPKID.SetValue(data.DeclareSubjectPKID), APDBDef.EvalDeclareResult.TeacherId.SetValue(data.TeacherId), APDBDef.EvalDeclareResult.FullScore.SetValue(data.FullScore), APDBDef.EvalDeclareResult.Score.SetValue(data.Score), APDBDef.EvalDeclareResult.Comment.SetValue(data.Comment), APDBDef.EvalDeclareResult.GroupId.SetValue(data.GroupId), APDBDef.EvalDeclareResult.Accesser.SetValue(data.Accesser), APDBDef.EvalDeclareResult.AccessDate.SetValue(data.AccessDate)).where((APDBDef.EvalDeclareResult.ResultId == data.ResultId));
                 ExecuteNonQuery(query);
             }
             
@@ -44027,9 +44059,19 @@ namespace Business {
         private long _periodId;
         
         /// <summary>
+        /// DeclareCompanyId
+        /// </summary>
+        private long _declareCompanyId;
+        
+        /// <summary>
         /// PickList - PLKey_DeclareTarget
         /// </summary>
         private long _declareTargetPKID;
+        
+        /// <summary>
+        /// PickList - PLKey_DeclareSubject
+        /// </summary>
+        private long _declareSubjectPKID;
         
         /// <summary>
         /// TeacherId
@@ -44075,10 +44117,12 @@ namespace Business {
         /// <summary>
         /// 初始化所有字段的构造函数。
         /// </summary>
-        public EvalDeclareResultBase(long resultId, long periodId, long declareTargetPKID, long teacherId, double fullScore, double score, string comment, long groupId, long accesser, System.DateTime accessDate) {
+        public EvalDeclareResultBase(long resultId, long periodId, long declareCompanyId, long declareTargetPKID, long declareSubjectPKID, long teacherId, double fullScore, double score, string comment, long groupId, long accesser, System.DateTime accessDate) {
             _resultId = resultId;
             _periodId = periodId;
+            _declareCompanyId = declareCompanyId;
             _declareTargetPKID = declareTargetPKID;
+            _declareSubjectPKID = declareSubjectPKID;
             _teacherId = teacherId;
             _fullScore = fullScore;
             _score = score;
@@ -44133,6 +44177,28 @@ namespace Business {
         }
         
         /// <summary>
+        /// DeclareCompanyId
+        /// </summary>
+        [Display(Name="申报单位")]
+        public virtual long DeclareCompanyId {
+            get {
+                return _declareCompanyId;
+            }
+            set {
+                _declareCompanyId = value;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareCompanyId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef DeclareCompanyIdDef {
+            get {
+                return APDBDef.EvalDeclareResult.DeclareCompanyId;
+            }
+        }
+        
+        /// <summary>
         /// PickList - PLKey_DeclareTarget
         /// </summary>
         [Display(Name="申报称号")]
@@ -44151,6 +44217,28 @@ namespace Business {
         public static Int64APColumnDef DeclareTargetPKIDDef {
             get {
                 return APDBDef.EvalDeclareResult.DeclareTargetPKID;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - PLKey_DeclareSubject
+        /// </summary>
+        [Display(Name="申报学科")]
+        public virtual long DeclareSubjectPKID {
+            get {
+                return _declareSubjectPKID;
+            }
+            set {
+                _declareSubjectPKID = value;
+            }
+        }
+        
+        /// <summary>
+        /// PickList - PLKey_DeclareSubject APColumnDef
+        /// </summary>
+        public static Int64APColumnDef DeclareSubjectPKIDDef {
+            get {
+                return APDBDef.EvalDeclareResult.DeclareSubjectPKID;
             }
         }
         
@@ -44333,7 +44421,9 @@ namespace Business {
         public virtual void Assignment(EvalDeclareResult data) {
             ResultId = data.ResultId;
             PeriodId = data.PeriodId;
+            DeclareCompanyId = data.DeclareCompanyId;
             DeclareTargetPKID = data.DeclareTargetPKID;
+            DeclareSubjectPKID = data.DeclareSubjectPKID;
             TeacherId = data.TeacherId;
             FullScore = data.FullScore;
             Score = data.Score;
@@ -44353,7 +44443,13 @@ namespace Business {
             if ((PeriodId != data.PeriodId)) {
                 return false;
             }
+            if ((DeclareCompanyId != data.DeclareCompanyId)) {
+                return false;
+            }
             if ((DeclareTargetPKID != data.DeclareTargetPKID)) {
+                return false;
+            }
+            if ((DeclareSubjectPKID != data.DeclareSubjectPKID)) {
                 return false;
             }
             if ((TeacherId != data.TeacherId)) {
@@ -44473,8 +44569,8 @@ namespace Business {
         /// <summary>
         /// 初始化所有字段的构造函数。
         /// </summary>
-        public EvalDeclareResult(long resultId, long periodId, long declareTargetPKID, long teacherId, double fullScore, double score, string comment, long groupId, long accesser, System.DateTime accessDate) : 
-                base(resultId, periodId, declareTargetPKID, teacherId, fullScore, score, comment, groupId, accesser, accessDate) {
+        public EvalDeclareResult(long resultId, long periodId, long declareCompanyId, long declareTargetPKID, long declareSubjectPKID, long teacherId, double fullScore, double score, string comment, long groupId, long accesser, System.DateTime accessDate) : 
+                base(resultId, periodId, declareCompanyId, declareTargetPKID, declareSubjectPKID, teacherId, fullScore, score, comment, groupId, accesser, accessDate) {
         }
     }
     

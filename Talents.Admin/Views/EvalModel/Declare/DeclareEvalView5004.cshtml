@@ -1,8 +1,12 @@
 ﻿@model DeclareEvalParam
 
-@if (Html.GetUserProfile().IsSchoolAdmin)
+@if (Html.GetUserProfile().IsExpert)
 {
 	Html.RenderPartial("../EvalModel/Declare/_declareExpertEvalView5004", Model);
+}
+else if (Html.GetUserProfile().IsSchoolAdmin)
+{
+	Html.RenderPartial("../EvalModel/Declare/_declareSchoolEvalView5004", Model);
 }
 
 

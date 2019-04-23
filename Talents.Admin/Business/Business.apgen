@@ -607,7 +607,9 @@
 					
 					<add name="ResultId" type="long" primaryKey="true" identityType="Provider" display="评价结果ID"/>
 					<add name="PeriodId" type="long" display="申报周期ID"/>
+					<add name="DeclareCompanyId" type="long" display="申报单位" />
 					<add name="DeclareTargetPKID" type="long" display="申报称号" comment="PickList - PLKey_DeclareTarget"/>
+					<add name="DeclareSubjectPKID" type="long" display="申报学科" comment="PickList - PLKey_DeclareSubject"/>
 					<add name="TeacherId" type="long" display="教师ID"/>
 
 					<!-- General Information -->
