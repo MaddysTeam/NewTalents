@@ -717,6 +717,8 @@
     <Content Include="Views\EvalUtilities\_DeclareReviewInfo.cshtml" />
     <Content Include="Views\EvalModel\Declare\_declareSchoolEvalView5004.cshtml" />
     <Content Include="Views\EvalModel\Declare\_declareExpertEvalView5004.cshtml" />
+    <Content Include="Views\EvalModel\Declare\DeclareResultView5004.cshtml" />
+    <Content Include="Views\EvalModel\Declare\_declareSpecialEvalView5004.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
