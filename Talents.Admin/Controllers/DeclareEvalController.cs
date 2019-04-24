@@ -281,7 +281,8 @@ namespace TheSite.Controllers
                       u.JoinInner(dr.TeacherId == u.UserId)
                      //er.JoinLeft(er.Accesser == UserProfile.UserId)
                      )
-             .where(dr.PeriodId == Period.PeriodId & dr.CompanyId == UserProfile.CompanyId & dr.StatusKey.NotIn(new string[] { string.Empty, DeclareKeys.ReviewBack }))
+             .where(dr.PeriodId == Period.PeriodId & dr.CompanyId == UserProfile.CompanyId & dr.StatusKey==DeclareKeys.ReviewSuccess
+                                                   & dr.DeclareTargetPKID.In(new long[] {DeclareTargetIds.GongzsZhucr,DeclareTargetIds.XuekDaitr, DeclareTargetIds.GugJiaos }))
              .primary(er.ResultId)
              .skip((current - 1) * rowCount)
              .take(rowCount);
@@ -317,7 +318,7 @@ namespace TheSite.Controllers
          var result = query.query(db, r =>
          {
             var score = er.Score.GetValue(r);
-            var fullScore = er.FullScore.GetValue(r);
+            var fullScore = 100; //er.FullScore.GetValue(r);
             var status = er.ResultId.GetValue(r);
 
             return new
