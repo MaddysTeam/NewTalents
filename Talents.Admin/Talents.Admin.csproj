@@ -278,6 +278,7 @@
     <Compile Include="Business\Utilities\wangsu\FileUploader.cs" />
     <Compile Include="Business\Utilities\PDFHelper.cs" />
     <Compile Include="Business\Utilities\Aspose\ExcelConverter.cs" />
+    <Compile Include="Controllers\DeclareEvalManageController.cs" />
     <Compile Include="Controllers\DeclareEvalController.cs" />
     <Compile Include="Controllers\DeclareReviewController.cs" />
     <Compile Include="Controllers\DeclareMaterialController.cs" />
@@ -717,6 +718,10 @@
     <Content Include="Views\EvalUtilities\_DeclareReviewInfo.cshtml" />
     <Content Include="Views\EvalModel\Declare\_declareSchoolEvalView5004.cshtml" />
     <Content Include="Views\EvalModel\Declare\_declareExpertEvalView5004.cshtml" />
+    <Content Include="Views\EvalModel\Declare\DeclareEvalView5005.cshtml" />
+    <Content Include="Views\EvalModel\Declare\_declareSchoolEvalView5005.cshtml" />
+    <Content Include="Views\EvalModel\Declare\DeclareEvalView5006.cshtml" />
+    <Content Include="Views\EvalModel\Declare\_declareSchoolEvalView5006.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

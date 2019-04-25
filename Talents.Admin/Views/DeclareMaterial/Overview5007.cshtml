@@ -68,7 +68,7 @@
 						<th>申报单位</th>
 						<th>申报学科</th>
 						<th>是否职称破格</th>
-						<th>是否愿意参与区内流动</th>
+						@*<th>是否愿意参与区内流动</th>*@
 						<th>如落选是否愿意参加本轮区教学新秀评选</th>
 					</tr>
 				</thead>
@@ -79,7 +79,7 @@
 						<td>@Model.DeclareCompany</td>
 						<td>@Model.DeclareSubject</td>
 						<td>@(Model.IsBrokRoles? "是":"否")</td>
-						<td>@(Model.IsAllowdFlow ? "是" : "否")</td>
+						@*<td>@(Model.IsAllowdFlow ? "是" : "否")</td>*@
 						<td>@(Model.IsAllowDownGrade ? "是" : "否")</td>
 					</tr>
 

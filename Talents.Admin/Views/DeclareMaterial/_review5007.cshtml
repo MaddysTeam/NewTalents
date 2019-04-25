@@ -52,13 +52,13 @@
 						<strong class="red">@(Model.IsBrokenRoles ? "是" : "否")</strong>
 					</div>
 				</div>
-				<div class="form-group">
+				@*<div class="form-group">
 					@Html.LabelFor(m => m.AllowFlowToSchool, new { @class = "col-md-2 control-label" })
 					<div class="col-md-9">
 						&nbsp;&nbsp;是 @Html.RadioButton("AllowFlowToSchool", true, Model.AllowFlowToSchool, new { @style = "width:15px; height:15px;" })
 						&nbsp;&nbsp;否 @Html.RadioButton("AllowFlowToSchool", false, !Model.AllowFlowToSchool, new { @style = "width:15px; height:15px;" })
 					</div>
-				</div>
+				</div>*@
 				<div class="form-group">
 					@Html.Label("AllowFlowToDowngrade", "若落选又符合教学新秀评选条件，是否愿意成为教学新秀", new { @class = "col-md-2 control-label" })
 					<div class="col-md-9">

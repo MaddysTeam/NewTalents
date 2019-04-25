@@ -30,8 +30,10 @@ namespace TheSite.EvalAnalysis
          {
             return new List<DeclareEvalUnitBase>
             {
-               new DeclareEvalUnit5004 { ViewPath=ViewPath }
-            }
+               new DeclareEvalUnit5004 { ViewPath=ViewPath },
+			   new DeclareEvalUnit5005 { ViewPath=ViewPath },
+			   new DeclareEvalUnit5006 { ViewPath=ViewPath }
+			}
             .ToDictionary(x => x.TargetId);
          }
       }

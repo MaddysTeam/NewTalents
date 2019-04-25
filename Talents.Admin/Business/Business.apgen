@@ -473,7 +473,8 @@
 					<add name="CreateDate" type="DateTime" display="创建时间"/>
 					<add name="Creator" type="long" display="创建人"/>
 					<add name="ModifyDate" type="DateTime?" isNullable="true" display="修改时间"/>
-					<add name="Modifier" type="long" display="修改人"/>
+					<add name="Modifier" type="long"  display="修改人"/>
+					
 				</columns>
 			</table>
 

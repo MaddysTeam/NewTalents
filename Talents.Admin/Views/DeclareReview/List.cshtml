@@ -56,6 +56,10 @@
 									</div>
 								</div>
 							}
+							else
+							{
+								Html.Hidden("Company", companyId);
+							}
 
 							<div class="col-sm-4">
 								<div class="form-group">
@@ -65,15 +69,6 @@
 									</div>
 								</div>
 							</div>
-
-							@*<div class="col-sm-4">
-								<div class="form-group">
-									<label class="col-md-6 control-label">任教学科</label>
-									<div class="col-md-6">
-										@Html.DropDownList("EduSubject", BzUserProfileHelper.EduSubject.GetSelectList(noneLabel: SelectNames.All), new { @class = "multiselect form-control" })
-									</div>
-								</div>
-							</div>*@
 
 							<div class="col-sm-4 col-sm-offset-11">
 								<button class="btn btn-md btn-info" type="button" id="btnserach">搜索</button>
@@ -126,7 +121,7 @@
 			return {
 				decalreSubjectId: $('#DeclareSubject').val(),
 				targetId: $('#Target').val(),
-				companyId: '@companyId'
+				companyId: $('#Company').val()
 			};
 		}
 

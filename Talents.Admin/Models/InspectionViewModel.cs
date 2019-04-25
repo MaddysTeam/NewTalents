@@ -7,7 +7,7 @@ namespace TheSite.Models
 
 	public class ZisFaz
 	{
-		
+
 		public double DusHuod_Score { get; set; }
 
 		public double Kaik_Score { get; set; }
@@ -74,7 +74,7 @@ namespace TheSite.Models
 
 		public double QualityScore { get; set; }
 
-		public string Quality_Str {	get { return this.QualityScore + "/15"; } }
+		public string Quality_Str { get { return this.QualityScore + "/15"; } }
 	}
 
 	public class InspectionVolumn
@@ -168,7 +168,7 @@ namespace TheSite.Models
 		{
 			get
 			{
-				var totalScore =	this.DaijJiaos.RicGongxlZhid_Score + this.DaijJiaos.TingkZhid_Score + this.DaijJiaos.JiaoalXiugZhid_Score + this.DaijJiaos.LunwHuoKetXiugZhid_Score;
+				var totalScore = this.DaijJiaos.RicGongxlZhid_Score + this.DaijJiaos.TingkZhid_Score + this.DaijJiaos.JiaoalXiugZhid_Score + this.DaijJiaos.LunwHuoKetXiugZhid_Score;
 				return totalScore > 2 ? 2 : totalScore;
 			}
 		}
@@ -238,12 +238,12 @@ namespace TheSite.Models
 		{
 			get
 			{
-				return string.Format("{0}/{1}", this.ZisFaz.DusHuod_Score, 
+				return string.Format("{0}/{1}", this.ZisFaz.DusHuod_Score,
 					InspectionQualityHelper.GetMaxScore(TargetId, InspectionQualityType.DusHuod));
 			}
 		}
 
-		public double KaikPingwPingb_Score{ get; set; }
+		public double KaikPingwPingb_Score { get; set; }
 
 		public string KaikPingwPingb_Str
 		{
@@ -258,7 +258,7 @@ namespace TheSite.Models
 		{
 			get
 			{
-				return string.Format("{0}/{1}", this.ZisFaz.FabLunw_Score, 
+				return string.Format("{0}/{1}", this.ZisFaz.FabLunw_Score,
 					InspectionQualityHelper.GetMaxScore(TargetId, InspectionQualityType.Key));
 			}
 		}
@@ -267,7 +267,7 @@ namespace TheSite.Models
 		{
 			get
 			{
-				return string.Format("{0}/{1}", this.ZisFaz.LixKet_Score, 
+				return string.Format("{0}/{1}", this.ZisFaz.LixKet_Score,
 					InspectionQualityHelper.GetMaxScore(TargetId, InspectionQualityType.Key));
 			}
 		}
@@ -276,7 +276,7 @@ namespace TheSite.Models
 		{
 			get
 			{
-				return string.Format("{0}/{1}", this.ZisFaz.XiangmYanj_Score, 
+				return string.Format("{0}/{1}", this.ZisFaz.XiangmYanj_Score,
 					InspectionQualityHelper.GetMaxScore(TargetId, InspectionQualityType.Key));
 			}
 		}
@@ -287,7 +287,7 @@ namespace TheSite.Models
 		{
 			get
 			{
-				return string.Format("{0}/{1}", this.Key_Score, 
+				return string.Format("{0}/{1}", this.Key_Score,
 					InspectionQualityHelper.GetMaxScore(TargetId, InspectionQualityType.Key));
 			}
 		}
@@ -296,7 +296,7 @@ namespace TheSite.Models
 		{
 			get
 			{
-				return this.ZisFaz.DusHuod_Score + this.KaikPingwPingb_Score + this.Key_Score;				
+				return this.ZisFaz.DusHuod_Score + this.KaikPingwPingb_Score + this.Key_Score;
 			}
 		}
 
@@ -304,8 +304,8 @@ namespace TheSite.Models
 		{
 			get
 			{
-				var maxScore = InspectionQualityHelper.GetMaxScore(TargetId, InspectionQualityType.DusHuod) + 
-					InspectionQualityHelper.GetMaxScore(TargetId, InspectionQualityType.KaikPingwPingb) + 
+				var maxScore = InspectionQualityHelper.GetMaxScore(TargetId, InspectionQualityType.DusHuod) +
+					InspectionQualityHelper.GetMaxScore(TargetId, InspectionQualityType.KaikPingwPingb) +
 					InspectionQualityHelper.GetMaxScore(TargetId, InspectionQualityType.Key);
 				return string.Format("{0}/{1}", this.ZisFaz_Score, maxScore);
 			}
@@ -322,7 +322,7 @@ namespace TheSite.Models
 		{
 			get
 			{
-				return string.Format("{0}/{1}", this.PeixKec.KaisKec_Score, 
+				return string.Format("{0}/{1}", this.PeixKec.KaisKec_Score,
 					InspectionQualityHelper.GetMaxScore(TargetId, InspectionQualityType.PeixKec));
 			}
 		}
@@ -331,7 +331,7 @@ namespace TheSite.Models
 		{
 			get
 			{
-				return string.Format("{0}/{1}", this.PeixKec.KecZiy_Score, 
+				return string.Format("{0}/{1}", this.PeixKec.KecZiy_Score,
 					InspectionQualityHelper.GetMaxScore(TargetId, InspectionQualityType.PeixKec));
 			}
 		}
@@ -351,7 +351,7 @@ namespace TheSite.Models
 		{
 			get
 			{
-				return string.Format("{0}/{1}", this.PeixKec_Score, 
+				return string.Format("{0}/{1}", this.PeixKec_Score,
 					InspectionQualityHelper.GetMaxScore(TargetId, InspectionQualityType.PeixKec));
 			}
 		}
@@ -379,7 +379,7 @@ namespace TheSite.Models
 		{
 			get
 			{
-				return string.Format("{0}/{1}", this.QitDaijGongz_Score, 
+				return string.Format("{0}/{1}", this.QitDaijGongz_Score,
 					InspectionQualityHelper.GetMaxScore(TargetId, InspectionQualityType.QitDaijGongz));
 			}
 		}
@@ -390,7 +390,7 @@ namespace TheSite.Models
 		{
 			get
 			{
-				return string.Format("{0}/{1}", this.DaijChengg_Score, 
+				return string.Format("{0}/{1}", this.DaijChengg_Score,
 					InspectionQualityHelper.GetMaxScore(TargetId, InspectionQualityType.DaijChengg));
 			}
 		}
@@ -440,15 +440,21 @@ namespace TheSite.Models
 			Quality = new InspectionQuality();
 			Volumn.TargetId = TargetId;
 			Quality.TargetId = TargetId;
-			
+
 		}
 
-		public long TeacherId { get; set ; }
+		public long TeacherId { get; set; }
 
 		private long targetId;
 
-		public long TargetId { get { return this.targetId; } set {
-				this.Quality.TargetId = value; this.targetId = value; } }
+		public long TargetId
+		{
+			get { return this.targetId; }
+			set
+			{
+				this.Quality.TargetId = value; this.targetId = value;
+			}
+		}
 
 		public string TargetName { get; set; }
 
@@ -466,7 +472,7 @@ namespace TheSite.Models
 
 		public double SchoolScore { get { return this.School.VolumnScore + this.School.QualityScore; } }
 
-		public string SchoolStr { get{ return string.Format("{0}/{1}", SchoolScore, 30); } }
+		public string SchoolStr { get { return string.Format("{0}/{1}", SchoolScore, 30); } }
 
 		public double VolumnScore { get { return this.Volumn.ZisFaz_Score + this.Volumn.PeixKec_Score + this.Volumn.DaijJiaos_Score; } }
 
@@ -509,87 +515,105 @@ namespace TheSite.Models
 		public string ResultValue { get; set; }
 	}
 
-   public class InsepctionDeclareProfile
-   {
-      public long Id { get; set; }
+	public class InsepctionDeclareProfile
+	{
+		public long Id { get; set; }
 
-      [Display(Name = "姓名")]
-      public string RealName { get; set; }
-      [Display(Name = "性别")]
-      public string Gender { get; set; }
-      [Display(Name = "单位")]
-      public string Company { get; set; }
-      [Display(Name = "出生日期")]
-      public string Birthday { get; set; }
-      [Display(Name = "民族")]
-      public string Nation { get; set; }
-      [Display(Name = "评聘日期")]
-      public string HireDate { get; set; }
-      [Display(Name = "师训编号")]
-      public string TrainNo { get; set; }
-      [Display(Name = "职务")]
-      public string RankTitle { get; set; }
-      [Display(Name = "学历")]
-      public string EduBg { get; set; }
-      [Display(Name = "学位")]
-      public string EduDegree { get; set; }
-      [Display(Name = "现任职称")]
-      public string SkillTitle { get; set; }
-      [Display(Name = "任教学段")]
-      public string EduStage { get; set; }
-      [Display(Name = "任教学科")]
-      public string EduSubject { get; set; }
-      [Display(Name = "周课时数")]
-      public string WeekCount { get; set; }
-      [Display(Name = "手机")]
-      public string Mobile { get; set; }
-      [Display(Name = "办公室电话")]
-      public string Phone { get; set; }
-      [Display(Name = "邮箱")]
-      public string EMail { get; set; }
-      [Display(Name = "是否愿意区内流动")]
-      public string IsAllowFlowToSchool { get; set; }
-      [Display(Name = "是否允许低一层级评选")]
-      public string IsAllowDowngrade { get; set; }
-   }
+		[Display(Name = "姓名")]
+		public string RealName { get; set; }
+		[Display(Name = "性别")]
+		public string Gender { get; set; }
+		[Display(Name = "单位")]
+		public string Company { get; set; }
+		[Display(Name = "出生日期")]
+		public string Birthday { get; set; }
+		[Display(Name = "民族")]
+		public string Nation { get; set; }
+		[Display(Name = "评聘日期")]
+		public string HireDate { get; set; }
+		[Display(Name = "师训编号")]
+		public string TrainNo { get; set; }
+		[Display(Name = "职务")]
+		public string RankTitle { get; set; }
+		[Display(Name = "学历")]
+		public string EduBg { get; set; }
+		[Display(Name = "学位")]
+		public string EduDegree { get; set; }
+		[Display(Name = "现任职称")]
+		public string SkillTitle { get; set; }
+		[Display(Name = "任教学段")]
+		public string EduStage { get; set; }
+		[Display(Name = "任教学科")]
+		public string EduSubject { get; set; }
+		[Display(Name = "周课时数")]
+		public string WeekCount { get; set; }
+		[Display(Name = "手机")]
+		public string Mobile { get; set; }
+		[Display(Name = "办公室电话")]
+		public string Phone { get; set; }
+		[Display(Name = "邮箱")]
+		public string EMail { get; set; }
+		[Display(Name = "是否愿意区内流动")]
+		public string IsAllowFlowToSchool { get; set; }
+		[Display(Name = "是否允许低一层级评选")]
+		public string IsAllowDowngrade { get; set; }
+	}
 
-   public class InsepctionDeclareReview
-   {
+	public class InsepctionDeclareReview
+	{
 
-      public long Id { get; set; }
+		public long Id { get; set; }
 
-      [Display(Name = "姓名")]
-      public string RealName { get; set; }
-      [Display(Name = "性别")]
-      public string Gender { get; set; }
-      [Display(Name = "出生日期")]
-      public string Birthday { get; set; }
-      [Display(Name = "现任职称")]
-      public string SkillTitle { get; set; }
+		[Display(Name = "姓名")]
+		public string RealName { get; set; }
+		[Display(Name = "性别")]
+		public string Gender { get; set; }
+		[Display(Name = "出生日期")]
+		public string Birthday { get; set; }
+		[Display(Name = "现任职称")]
+		public string SkillTitle { get; set; }
 
-      [Display(Name = "申报称号")]
-      public string DeclareTarget { get; set; }
-      [Display(Name = "申报单位")]
-      public string DeclareCompany { get; set; }
-      [Display(Name = "申报学科")]
-      public string DeclareSubject { get; set; }
+		[Display(Name = "申报称号")]
+		public string DeclareTarget { get; set; }
+		[Display(Name = "申报单位")]
+		public string DeclareCompany { get; set; }
+		[Display(Name = "申报学科")]
+		public string DeclareSubject { get; set; }
 
-      [Display(Name = "任教学科")]
-      public string EduSubject { get; set; }
-      [Display(Name = "手机")]
-      public string Mobile { get; set; }
-      [Display(Name = "是否愿意区内流动")]
-      public string IsAllowFlowToSchool { get; set; }
-      [Display(Name = "是否允许低一层级评选")]
-      public string IsAllowDowngrade { get; set; }
+		[Display(Name = "任教学科")]
+		public string EduSubject { get; set; }
+		[Display(Name = "手机")]
+		public string Mobile { get; set; }
+		[Display(Name = "是否愿意区内流动")]
+		public string IsAllowFlowToSchool { get; set; }
+		[Display(Name = "是否允许低一层级评选")]
+		public string IsAllowDowngrade { get; set; }
 
-      [Display(Name = "年度考核优秀(年份)")]
-      public string GoodYear { get; set; }
-      [Display(Name = "是否职称破格")]
-      public string IsDeclareBroke { get; set; }
-      [Display(Name = "是否材料破格")]
-      public string IsMaterialBroke { get; set; }
+		[Display(Name = "年度考核优秀(年份)")]
+		public string GoodYear { get; set; }
+		[Display(Name = "是否职称破格")]
+		public string IsDeclareBroke { get; set; }
+		[Display(Name = "是否材料破格")]
+		public string IsMaterialBroke { get; set; }
 
-   }
+	}
+
+	public class InsepectionDeclareSchoolEvalResult
+	{
+		public long Id { get; set; }
+
+		[Display(Name = "教师姓名")]
+		public string TeacherName { get; set; }
+		[Display(Name = "申报单位")]
+		public string DeclareCompany { get; set; }
+		[Display(Name = "姓名")]
+		public string DeclareTarget { get; set; }
+		[Display(Name = "得分")]
+		public string Score { get; set; }
+		[Display(Name = "满分")]
+		public string FullScore { get; set; }
+		[Display(Name = "评审状态")]
+		public string Status { get; set; }
+	}
 
 }

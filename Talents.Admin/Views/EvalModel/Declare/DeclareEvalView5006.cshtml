@@ -1,0 +1,15 @@
+﻿@model DeclareEvalParam
+
+@if (Html.GetUserProfile().IsExpert)
+{
+	Html.RenderPartial("../EvalModel/Declare/_declareExpertEvalView5006", Model);
+}
+else if (Html.GetUserProfile().IsSchoolAdmin)
+{
+	Html.RenderPartial("../EvalModel/Declare/_declareSchoolEvalView5006", Model);
+}
+
+
+@section Scripts{
+	@Html.Partial("../EvalUtilities/_ScoreInputJS")
+}

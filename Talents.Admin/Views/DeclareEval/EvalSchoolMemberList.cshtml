@@ -1,5 +1,6 @@
 ﻿@{
-	var pageTitle = ViewBag.Title = "申报评审列表";
+	var pageTitle = ViewBag.Title = "单位申报评审列表";
+	var isSchoolAdmin = Html.GetUserProfile().IsSchoolAdmin;
 }
 <div class="col-md-10 content-wrapper">
 	<div class="row">
@@ -18,10 +19,9 @@
 		</div>
 		<div class="main-content">
 			<!-- top action buttons -->
-			@*<div class="gallery-buttons bottom-30px">
-				<a class="btn btn-md btn-info" href="@Url.Action("EvalMemberList", "DeclareEval", new { groupId = groupId, periodId = periodId })"><span>已评学员</span></a>
-				<a class="btn btn-md btn-info" href="@Url.Action("NotEvalMemberList", "DeclareEval", new { groupId = groupId, periodId = periodId })"><span>未评学员</span></a>
-			</div>*@
+			<div class="gallery-buttons bottom-30px">
+				<a class="btn btn-md btn-info" href="@Url.Action("SchoolEvalExport", "DeclareEvalManage")"><span>导出全部</span></a>
+			</div>
 			<!-- /top action buttons -->
 			<!-- widget -->
 			<div class="widget">
@@ -33,6 +33,18 @@
 					</div>
 				</div>
 				<div class="widget-content">
+					@if (Html.GetUserProfile().IsSystemAdmin)
+					{
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label class="col-md-6 control-label">申报单位</label>
+								<div class="col-md-6">
+									@Html.DropDownList("Company", CompanyHelper.GetCompanySelectList(), new { @class = "form-control" })
+								</div>
+							</div>
+						</div>
+					}
+
 					<!-- Grid -->
 					<div class="table-responsive">
 						<table id="bootgrid" class="table table-striped table-hover table-dark-header">
@@ -60,9 +72,11 @@
 </div>
 @section Scripts {
 	<script>
-
+		var isSchoolAdmin = '@isSchoolAdmin' == 'True' ? true : false;
 		function getGlobalRequest() {
-			return {};
+			return {
+				companyId: isSchoolAdmin ? 0 : $('#Company').val(),
+			};
 		}
 
 		function getGridOptions() {
@@ -77,11 +91,13 @@
 						var periodId = row.periodId;
 						var html = '<div class="btn-group btn-group-xs pull-right" data-row-id="' + row.id + '">';
 						var evalUrl = '@Url.Action("Eval", "DeclareEval")?teacherId=' + row.id + '&periodId=' + periodId + '&targetId=' + row.targetId + '&groupId=0';
-						if (row.submitStatus == '未评审') {
-							html += '<a class="btn btn-success btn-view" href="' + evalUrl + '">执行考评</a>';
-						}
-						else {
-							html += '<a target="_blank" class="btn btn-warning btn-view" href="' + evalUrl + '"><i class="fa fa-external-link"></i>继续考评</a>';
+						if (isSchoolAdmin) {
+							if (row.submitStatus == '未评审') {
+								html += '<a class="btn btn-success btn-view" href="' + evalUrl + '">执行考评</a>';
+							}
+							else {
+								html += '<a target="_blank" class="btn btn-warning btn-view" href="' + evalUrl + '"><i class="fa fa-external-link"></i>继续考评</a>';
+							}
 						}
 						html += '</div>';
 						return html;
