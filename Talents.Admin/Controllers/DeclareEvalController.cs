@@ -230,7 +230,6 @@ namespace TheSite.Controllers
 					case "realName": query.order_by(sort.OrderBy(u.RealName)); break;
 					case "target": query.order_by(sort.OrderBy(dr.DeclareTargetPKID)); break;
 					case "subject": query.order_by(sort.OrderBy(dr.DeclareSubjectPKID)); break;
-						// case "stage": query.order_by(sort.OrderBy(d.DeclareStagePKID)); break;
 				}
 			}
 
@@ -244,7 +243,6 @@ namespace TheSite.Controllers
 					realName = u.RealName.GetValue(rd),
 					target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(rd)),
 					subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(rd)),
-					//stage = DeclareBaseHelper.DeclareStage.GetName(d.DeclareStagePKID.GetValue(rd)),
 					targetId = dr.DeclareTargetPKID.GetValue(rd),
 				};
 			}).ToList();
@@ -268,31 +266,38 @@ namespace TheSite.Controllers
 			return View();
 		}
 
-		[HttpPost]
-		public ActionResult EvalSchoolMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long? companyId)
-		{
-			ThrowNotAjax();
+      [HttpPost]
+      public ActionResult EvalSchoolMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long companyId, long statusId)
+      {
+         ThrowNotAjax();
 
-			var query = APQuery.select(dr.TeacherId, dr.TeacherName, c.CompanyName,
-					dr.DeclareTargetPKID, dr.DeclareSubjectPKID,
-					er.Score, er.FullScore, er.ResultId, er.GroupId)
-				.from(dr,
-						 er.JoinLeft(er.TeacherId == dr.TeacherId & er.GroupId == 0),
-						 c.JoinInner(dr.CompanyId == c.CompanyId)
-						)
-				.where(dr.PeriodId == Period.PeriodId
-					 //& dr.CompanyId == UserProfile.CompanyId
-					 & dr.StatusKey == DeclareKeys.ReviewSuccess
-					 & dr.DeclareTargetPKID.In(new long[] { DeclareTargetIds.GongzsZhucr, DeclareTargetIds.XuekDaitr, DeclareTargetIds.GugJiaos }))
-				.primary(dr.TeacherId)
-				.skip((current - 1) * rowCount)
-				.take(rowCount);
+         var query = APQuery.select(dr.TeacherId, dr.TeacherName, c.CompanyName,
+               dr.DeclareTargetPKID, dr.DeclareSubjectPKID,
+               er.ResultId.As("ResultId"), er.Score, er.FullScore, er.ResultId, er.GroupId)
+            .from(dr,
+                   er.JoinLeft(er.TeacherId == dr.TeacherId & er.GroupId == 0),
+                   c.JoinInner(dr.CompanyId == c.CompanyId)
+                  )
+            .where(dr.PeriodId == Period.PeriodId
+                & dr.StatusKey == DeclareKeys.ReviewSuccess
+                & dr.DeclareTargetPKID.In(new long[] { DeclareTargetIds.GongzsZhucr, DeclareTargetIds.XuekDaitr, DeclareTargetIds.GugJiaos }))
+            .primary(dr.TeacherId)
+            .skip((current - 1) * rowCount)
+            .take(rowCount);
 
-			if (UserProfile.IsSchoolAdmin)
-				query.where_and(dr.CompanyId == UserProfile.CompanyId);
-			else if (UserProfile.IsSystemAdmin && companyId != null && companyId > 0)
-				query.where_and(dr.CompanyId == companyId.Value);
+         if (UserProfile.IsSchoolAdmin)
+            query.where_and(dr.CompanyId == UserProfile.CompanyId);
+         else if (UserProfile.IsSystemAdmin && companyId > 0)
+            query.where_and(dr.CompanyId == companyId);
 
+         if (statusId==1)
+         {
+            query.where_and(er.ResultId>0);
+         }
+         else if(statusId==0)
+         {
+            query.where_and(er.ResultId == 0);
+         }
 
 			//过滤条件
 			//模糊搜索姓名
@@ -300,7 +305,7 @@ namespace TheSite.Controllers
 			searchPhrase = searchPhrase.Trim();
 			if (searchPhrase != "")
 			{
-				query.where_and(u.RealName.Match(searchPhrase));
+				query.where_and(dr.TeacherName.Match(searchPhrase));
 			}
 
 
@@ -310,7 +315,7 @@ namespace TheSite.Controllers
 			{
 				switch (sort.ID)
 				{
-					case "realName": query.order_by(sort.OrderBy(u.RealName)); break;
+					case "realName": query.order_by(sort.OrderBy(dr.TeacherName)); break;
 					case "score": query.order_by(sort.OrderBy(er.Score)); break;
 				}
 			}
@@ -324,7 +329,7 @@ namespace TheSite.Controllers
 			var result = query.query(db, r =>
 			{
 				var score = er.Score.GetValue(r);
-				var fullScore = 100; //er.FullScore.GetValue(r);
+				var fullScore = er.FullScore.GetValue(r);
 				var status = er.ResultId.GetValue(r);
 
 				return new
@@ -335,9 +340,9 @@ namespace TheSite.Controllers
 					target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
 					subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(r)),
 					score = string.Format("{0} / {1}", score, fullScore),
-					//submitStatus = status == 0 ? "未提交" : "已提交",
 					submitStatus = status == 0 ? "未评审" : "已评审",
-					targetId = dr.DeclareTargetPKID.GetValue(r)
+					targetId = dr.DeclareTargetPKID.GetValue(r),
+               resultId=er.ResultId.GetValue(r, "ResultId")
 				};
 			}).ToList();
 
@@ -414,12 +419,13 @@ namespace TheSite.Controllers
 				}
 				else
 				{
-					return RedirectToAction("SubmitResultView", new
-					{
-						teacherId = param.TeacherId,
-						periodId = param.PeriodId,
-						groupId = param.GroupId
-					});
+               //return RedirectToAction("SubmitResultView", new
+               //{
+               //	teacherId = param.TeacherId,
+               //	periodId = param.PeriodId,
+               //	groupId = param.GroupId
+               //});
+               return null;
 				}
 
 			}
@@ -431,126 +437,24 @@ namespace TheSite.Controllers
 		}
 
 
-		////	POST: DeclareEval/SubmitEvalResult
+      //	POST-Ajax: DeclareEval/ResultView
 
-		//[HttpPost]
-		//public ActionResult SubmitEvalResult(EvalQualitySubmitResult model)
-		//{
-		//   model.Score += model.AdjustScore;
-		//   model.AccessDate = DateTime.Now;
+      //[HttpPost]
+      public ActionResult ResultView(DeclareEvalParam param)
+      {
+        // ThrowNotAjax();
 
-		//   var exists = db.EvalQualitySubmitResultDal.ConditionQueryCount(esr.TeacherId == model.TeacherId & esr.PeriodId == model.PeriodId) > 0;
-		//   if (!exists)
-		//   {
-		//      db.EvalQualitySubmitResultDal.Insert(model);
-		//   }
+         var model = new EvalDeclareResultModel(param);
+         var engine = EngineManager.Engines[Period.AnalysisType].DeclareEvals[model.TargetId];
 
-		//   return RedirectToAction("SubmitResultView", new
-		//   {
-		//      model.TeacherId,
-		//      model.PeriodId,
-		//      model.GroupId
-		//   });
-		//}
+         //model.AnalysisUnit = engine;
+         model.Result = engine.GetResult(db, param);
+         model.ResultItems = engine.GetResultItem(db, param);
+
+         return View(engine.ResultView, model);
+      }
 
 
-		//// GET: DeclareEval/SubmitResultView
-
-		//public ActionResult SubmitResultView(DeclareEvalParam param)
-		//{
-		//   DeclareEvalSubmitPeriodModel model = new DeclareEvalSubmitPeriodModel(param);
-
-		//   model.Period = db.EvalPeriodDal.PrimaryGet(model.PeriodId);
-		//   model.Declare = model.GetDeclareInfo(db);
-
-		//   if (!DeclareTargetIds.HasTeam(model.Declare.TargetId))
-		//   {
-		//      model.Message = "申报（担当）称号未纳入当期质评考评。";
-		//   }
-		//   else
-		//   {
-		//      var engine = EngineManager.Engines[model.Period.AnalysisType].DeclareEvals[model.Declare.TargetId];
-
-		//      model.AnalysisUnit = engine;
-		//      model.Result = engine.GetSubmitResult(db, param);
-
-		//      if (model.Result == null && param.GroupId == 0)
-		//      {
-		//         model.Message = "当期质评还未执行!";
-		//      }
-		//      else
-		//      {
-		//         model.EvalResults = engine.GetResults(db, param);
-
-		//         if (param.GroupId != 0)
-		//         {
-		//            model.NotEvalExperts =
-		//                APQuery.select(u.RealName)
-		//                .from(egm,
-		//                    u.JoinInner(egm.ExpectID == u.UserId))
-		//                .where(egm.GroupId == param.GroupId & egm.IsLeader == false & egm.ExpectID.NotIn(
-		//                    APQuery.select(er.Accesser)
-		//                        .from(er)
-		//                        .where(er.GroupId == param.GroupId
-		//                             & er.PeriodId == param.PeriodId
-		//                             & er.TeacherId == param.TeacherId
-		//                         )
-		//                    ))
-		//                .query(db, r => r.GetString(0)).ToList();
-
-
-		//            //  是否是组长
-
-		//            model.IsLeader = db.ExpGroupMemberDal.ConditionQueryCount(
-		//                egm.ExpectID == UserProfile.UserId &
-		//                egm.GroupId == param.GroupId &
-		//                egm.IsLeader == true) > 0;
-		//         }
-		//      }
-
-		//      if (model.CanSubmit)
-		//      {
-		//         model.DoSubmit = new EvalQualitySubmitResult
-		//         {
-		//            PeriodId = param.PeriodId,
-		//            DeclareTargetPKID = model.Declare.TargetId,
-		//            TeacherId = param.TeacherId,
-		//            FullScore = engine.FullScroe,
-		//            Score = model.EvalResults.Count <= 0 ? 0 : model.EvalResults.Average(m => m.Score),
-		//            Characteristic = model.EvalResults.Count <= 0 ? 0 : model.EvalResults.Average(m => m.Characteristic),
-		//            AccesserCount = model.EvalResults.Count <= 0 ? 0 : model.EvalResults.Count,
-		//            GroupId = param.GroupId,
-		//            Accesser = UserProfile.UserId
-		//         };
-		//      }
-		//   }
-
-		//   return View("../EvalUtilities/ResultView", model);
-		//}
-
-
-		////	POST-Ajax: DeclareEval/ResultView
-
-		//[HttpPost]
-		//public ActionResult ResultView(DeclareEvalParam param)
-		//{
-		//   ThrowNotAjax();
-
-		//   DeclareEvalPeriodModel model = new DeclareEvalPeriodModel(param);
-
-		//   model.Period = db.EvalPeriodDal.PrimaryGet(model.PeriodId);
-		//   model.Declare = model.GetDeclareInfo(db);
-
-		//   var engine = EngineManager.Engines[model.Period.AnalysisType].DeclareEvals[model.Declare.TargetId];
-
-		//   model.AnalysisUnit = engine;
-		//   model.Result = engine.GetResult(db, param);
-		//   model.ResultItems = engine.GetResultItem(db, param);
-
-
-		//   return PartialView(engine.ResultView, model);
-		//}
-
-	}
+   }
 
 }

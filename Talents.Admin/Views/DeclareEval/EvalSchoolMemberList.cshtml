@@ -1,5 +1,5 @@
 ﻿@{
-	var pageTitle = ViewBag.Title = "单位申报评审列表";
+	var pageTitle = ViewBag.Title = "单位评审列表";
 	var isSchoolAdmin = Html.GetUserProfile().IsSchoolAdmin;
 }
 <div class="col-md-10 content-wrapper">
@@ -18,11 +18,7 @@
 			<em></em>
 		</div>
 		<div class="main-content">
-			<!-- top action buttons -->
-			<div class="gallery-buttons bottom-30px">
-				<a class="btn btn-md btn-info" href="@Url.Action("SchoolEvalExport", "DeclareEvalManage")"><span>导出全部</span></a>
-			</div>
-			<!-- /top action buttons -->
+
 			<!-- widget -->
 			<div class="widget">
 				<div class="widget-header">
@@ -33,6 +29,8 @@
 					</div>
 				</div>
 				<div class="widget-content">
+					<div class="row">
+
 					@if (Html.GetUserProfile().IsSystemAdmin)
 					{
 						<div class="col-sm-4">
@@ -43,7 +41,27 @@
 								</div>
 							</div>
 						</div>
+
+
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label class="col-md-6 control-label">申报状态</label>
+								<div class="col-md-6">
+									@Html.DropDownList("Status",new List<SelectListItem> { new SelectListItem { Text="全部",Value="-1" },
+																											 new SelectListItem { Text = "已评审", Value = "1" } ,
+								                                                          new SelectListItem { Text = "未评审", Value = "0" } }, new { @class = "form-control" })
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-4">
+							<button class="btn btn-md btn-info" type="button" id="btnserach">搜索</button>
+						
+							<a class="btn btn-md btn-warning" href="@Url.Action("SchoolEvalExport", "DeclareEvalManage")" id="btnexp">导出全部数据</a>
+							
+						</div>
 					}
+					</div>
 
 					<!-- Grid -->
 					<div class="table-responsive">
@@ -76,6 +94,7 @@
 		function getGlobalRequest() {
 			return {
 				companyId: isSchoolAdmin ? 0 : $('#Company').val(),
+				statusId: isSchoolAdmin ? -1 : $('#Status').val()
 			};
 		}
 
@@ -91,12 +110,19 @@
 						var periodId = row.periodId;
 						var html = '<div class="btn-group btn-group-xs pull-right" data-row-id="' + row.id + '">';
 						var evalUrl = '@Url.Action("Eval", "DeclareEval")?teacherId=' + row.id + '&periodId=' + periodId + '&targetId=' + row.targetId + '&groupId=0';
+						var resultUrl = '@Url.Action("ResultView", "DeclareEval")?teacherId=' + row.id + '&periodId=' + periodId + '&targetId=' + row.targetId + '&resultId='+row.resultId;
 						if (isSchoolAdmin) {
 							if (row.submitStatus == '未评审') {
 								html += '<a class="btn btn-success btn-view" href="' + evalUrl + '">执行考评</a>';
 							}
 							else {
 								html += '<a target="_blank" class="btn btn-warning btn-view" href="' + evalUrl + '"><i class="fa fa-external-link"></i>继续考评</a>';
+								html += '<a target="_blank" class="btn btn-info btn-view" href="' + resultUrl + '"><i class="fa fa-eye"></i>查看详细</a>';
+							}
+						}
+						else {
+							if (row.submitStatus == '已评审') {
+								html += '<a target="_blank" class="btn btn-info btn-view" href="' + resultUrl + '"><i class="fa fa-eye"></i>查看详细</a>';
 							}
 						}
 						html += '</div>';
@@ -112,6 +138,10 @@
 			var grid = $('#bootgrid');
 			grid.bootgrid(getGridOptions())
 			.on('loaded.rs.jquery.bootgrid', function () {
+			});
+
+			$('#btnserach').on('click', function () {
+				grid.bootgrid('reload');
 			});
 
 		});

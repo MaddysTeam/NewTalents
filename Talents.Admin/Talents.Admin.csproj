@@ -718,15 +718,13 @@
     <Content Include="Views\EvalUtilities\_DeclareReviewInfo.cshtml" />
     <Content Include="Views\EvalModel\Declare\_declareSchoolEvalView5004.cshtml" />
     <Content Include="Views\EvalModel\Declare\_declareExpertEvalView5004.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\EvalModel\Declare\DeclareEvalView5005.cshtml" />
     <Content Include="Views\EvalModel\Declare\_declareSchoolEvalView5005.cshtml" />
     <Content Include="Views\EvalModel\Declare\DeclareEvalView5006.cshtml" />
     <Content Include="Views\EvalModel\Declare\_declareSchoolEvalView5006.cshtml" />
-=======
     <Content Include="Views\EvalModel\Declare\DeclareResultView5004.cshtml" />
-    <Content Include="Views\EvalModel\Declare\_declareSpecialEvalView5004.cshtml" />
->>>>>>> 49d2cb5d4b9637f36011530660a4af90ea364a03
+    <Content Include="Views\EvalModel\Declare\DeclareResultView5005.cshtml" />
+    <Content Include="Views\EvalModel\Declare\DeclareResultView5006.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

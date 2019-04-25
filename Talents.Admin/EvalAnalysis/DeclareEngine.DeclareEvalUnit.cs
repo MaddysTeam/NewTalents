@@ -9,14 +9,14 @@ using System.Web.Mvc;
 namespace TheSite.EvalAnalysis
 {
 
-	public partial class DeclareEngine
-	{
+   public partial class DeclareEngine
+   {
 
-		public abstract class DeclareEvalUnit : DeclareEvalUnitBase
-		{
+      public abstract class DeclareEvalUnit : DeclareEvalUnitBase
+      {
 
          protected abstract void AnalysisResult(FormCollection fc, EvalDeclareResult result, Dictionary<string, EvalDeclareResultItem> items);
-            
+
          static APDBDef.BzUserProfileTableDef u = APDBDef.BzUserProfile;
          static APDBDef.EvalDeclareResultTableDef er = APDBDef.EvalDeclareResult;
          static APDBDef.EvalDeclareResultItemTableDef eri = APDBDef.EvalDeclareResultItem;
@@ -30,39 +30,15 @@ namespace TheSite.EvalAnalysis
 
 
          public override string RuleView
-         	=> ViewPath + "/DeclareRuleView" + TargetId;
+            => ViewPath + "/DeclareRuleView" + TargetId;
 
 
          public override string EvalView
-         	=> ViewPath + "/DeclareEvalView" + TargetId;
+            => ViewPath + "/DeclareEvalView" + TargetId;
 
 
          public override string ResultView
-         	=> ViewPath + "/DeclareResultView" + TargetId;
-
-
-         //public override string SubmitResultView
-         //	=> ViewPath + "/QualityEvalSubmitView";
-
-
-         //public override EvalQualitySubmitResult GetSubmitResult(APDBDef db, QualityEvalParam param)
-         //{
-         //	var t = APDBDef.EvalQualitySubmitResult;
-
-         //	return APQuery.select(t.Asterisk, g.Name, u.RealName)
-         //		.from(t,
-         //			u.JoinInner(t.Accesser == u.UserId),
-         //			g.JoinInner(t.GroupId == g.GroupId))
-         //		.where(t.PeriodId == param.PeriodId & t.TeacherId == param.TeacherId)
-         //		.query(db, r =>
-         //		{
-         //			EvalQualitySubmitResult data = new EvalQualitySubmitResult();
-         //			t.Fullup(r, data, false);
-         //			data.AccesserName = u.RealName.GetValue(r);
-         //			data.GroupName = g.Name.GetValue(r);
-         //			return data;
-         //		}).FirstOrDefault();
-         //}
+            => ViewPath + "/DeclareResultView" + TargetId;
 
 
          public override List<EvalDeclareResult> GetResults(APDBDef db, DeclareEvalParam param)
@@ -86,15 +62,19 @@ namespace TheSite.EvalAnalysis
          public override EvalDeclareResult GetResult(APDBDef db, DeclareEvalParam param)
          {
             var t = APDBDef.EvalDeclareResult;
+            var u2 = APDBDef.DeclareProfile.As("Target");
 
-            return APQuery.select(t.Asterisk, u.RealName)
-               .from(t, u.JoinInner(t.Accesser == u.UserId))
+            return APQuery.select(t.Asterisk, u.RealName, u2.RealName.As("TeacherName"))
+               .from(t,
+                     u.JoinInner(t.Accesser == u.UserId),
+                     u2.JoinInner(t.TeacherId == u2.UserId))
                .where(t.ResultId == param.ResultId)
                .query(db, r =>
                {
                   EvalDeclareResult data = new EvalDeclareResult();
                   t.Fullup(r, data, false);
                   data.AccesserName = u.RealName.GetValue(r);
+                  data.TeacherName = u.RealName.GetValue(r, "TeacherName");
                   return data;
                }).FirstOrDefault();
          }
@@ -120,7 +100,7 @@ namespace TheSite.EvalAnalysis
             var eval = db.EvalDeclareResultDal.ConditionQuery(er.PeriodId == param.PeriodId & er.TeacherId == param.TeacherId
             & er.Accesser == param.AccesserId, null, null, null).FirstOrDefault();
 
-            var declareReview = db.DeclareReviewDal.ConditionQuery(dr.TeacherId==param.TeacherId & dr.StatusKey==DeclareKeys.ReviewSuccess,null,null,null).FirstOrDefault();
+            var declareReview = db.DeclareReviewDal.ConditionQuery(dr.TeacherId == param.TeacherId & dr.StatusKey == DeclareKeys.ReviewSuccess, null, null, null).FirstOrDefault();
 
             if (declareReview == null) throw new ApplicationException("该老师的申报请求还未通过校审核！");
 
@@ -134,7 +114,7 @@ namespace TheSite.EvalAnalysis
                DeclareTargetPKID = param.TargetId,
                DeclareCompanyId = declareReview.CompanyId,
                DeclareSubjectPKID = declareReview.DeclareSubjectPKID,
-               FullScore = FullScroe,
+               FullScore = param.GroupId == 0 ? CompanyFullScore : ExpertFullScore, //TODO:param.GroupId == 0 暂表示炜校考
             };
             var items = new Dictionary<string, EvalDeclareResultItem>();
 
@@ -168,6 +148,6 @@ namespace TheSite.EvalAnalysis
 
       }
 
-	}
+   }
 
 }

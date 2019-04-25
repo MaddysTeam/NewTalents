@@ -17,8 +17,10 @@ namespace TheSite.EvalAnalysis
 
 			public override long TargetId => 5004;
 
+         public override double CompanyFullScore => 20;
 
-			protected override void AnalysisResult(FormCollection fc, EvalDeclareResult result, Dictionary<string, EvalDeclareResultItem> items)
+
+         protected override void AnalysisResult(FormCollection fc, EvalDeclareResult result, Dictionary<string, EvalDeclareResultItem> items)
 			{
 				double score = 0, score1 = 0, score2 = 0, score3 = 0, score4 = 0;
 
@@ -251,6 +253,7 @@ namespace TheSite.EvalAnalysis
 
 			#endregion
 
+
 			#region [教研工作.中小学命题]
 
 			private double Analysis_JiaoyJiaox_ZhongxXueMingt(EvalDeclareResult result, Dictionary<string, EvalDeclareResultItem> items, string choose, string score)
@@ -289,6 +292,7 @@ namespace TheSite.EvalAnalysis
 			}
 
 			#endregion
+
 
 			#region [教研工作.评委相关工作1]
 

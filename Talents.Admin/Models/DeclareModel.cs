@@ -106,4 +106,27 @@ namespace TheSite.Models
       public List<DeclareAchievement> DeclareAchievements { get; set; }
 
    }
+
+
+
+   public class EvalDeclareResultModel
+   {
+
+      public EvalDeclareResultModel(EvalAnalysis.DeclareEvalParam param)
+      {
+         TeacherId = param.TeacherId;
+         PeriodId = param.PeriodId;
+         ResultId = param.ResultId;
+         TargetId = param.TargetId;
+      }
+
+      public long TeacherId { get; set; }
+      public long ResultId { get; set; }
+      public long PeriodId { get; set; }
+      public long TargetId { get; set; } 
+      public EvalDeclareResult Result { get; set; }
+      public Dictionary<string, EvalDeclareResultItem> ResultItems { get; set; }
+      public Dictionary<string, string> ChooseItems { get; set; }
+   }
+
 }
