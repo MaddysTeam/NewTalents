@@ -11,6 +11,9 @@
 	var danrPingw2 = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2, "A1");
 	var xiangmYanj= EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyKey_XiangmYanj, "A1");
 	var fabLunw = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyKey_FabLunw, "A1");
+	var zhuanz = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.GerTes_Zhuanz, "A1");
+	var qitShenf= EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.GerTes_QitShenf, "A1");
+	var xueyChengz= EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.GerTes_XueyChengz, "A1");
 
 	var declare = ViewBag.Declare as DeclareReviewModel;
 	var result = ViewBag.Result as EvalDeclareResult;
@@ -37,7 +40,7 @@
 				<div class="col-md-9 alert alert-danger errorMessage"></div>
 			</div>
 			<div class="row">
-				<div class="col-md-3">
+				<div class="col-md-12">
 					<!-- widget -->
 					<div class="widget">
 						<div class="widget-header">
@@ -53,7 +56,7 @@
 					</div>
 					<!-- /widget -->
 				</div>
-				<div class="col-md-9">
+				<div class="col-md-12">
 					@using (Html.BeginForm("Eval", "DeclareEval"))
 					{
 						@Html.HiddenFor(m => m.PeriodId)
@@ -94,18 +97,18 @@
 													<th colspan="3">考核指标（分值/权重）</th>
 													<th colspan="4">要求</th>
 													<th rowspan="2" class="table-col-20p">标准说明</th>
-													<th rowspan="2" class="table-col-20p">分值</th>
-													<th rowspan="2" class="table-col-20p">输入分值</th>
+													<th rowspan="2" class="table-col-10p">分值</th>
+													<th rowspan="2" class="table-col-10p">输入分值</th>
 												</tr>
 												<tr>
-													<th>一级</th>
+													<th class="table-col-10p">一级</th>
 													<th>二级</th>
 													<th>三级</th>
 
 													<th>原则要求</th>
 													<th>材料要求</th>
 													<th>证明要求</th>
-													<th>级别要求</th>
+													<th >级别要求</th>
 												</tr>
 												<tr></tr>
 											</thead>
@@ -114,7 +117,7 @@
 												<tr>
 													<!-- 教育教学-公开课 -->
 													<td rowspan="39">
-														教育教学(分值：40分)
+														教育教学 (分值:40分)
 													</td>
 													<td rowspan="4">1 公开课(分值:15分)</td>
 													<td rowspan="4"></td>
@@ -151,7 +154,7 @@
 												<tr>
 													<td>校级</td>
 													<td>
-														<label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyJiaox_Gongkk, "D", isChecked: gongkk.ChooseValue == "D") D：级公开课（或指导公开课）</label>
+														<label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyJiaox_Gongkk, "D", isChecked: gongkk.ChooseValue == "D") D：校级公开课（或指导公开课）</label>
 													</td>
 													<td>3.0分--5.9分</td>
 													<td class="flotValue" data-min="3.0" data-max="5.9" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Gongkk_Def"></td>
@@ -393,8 +396,8 @@
 													<th colspan="3">考核指标（分值/权重）</th>
 													<th colspan="4">要求</th>
 													<th rowspan="2" class="table-col-20p">标准说明</th>
-													<th rowspan="2" class="table-col-20p">分值</th>
-													<th rowspan="2" class="table-col-20p">输入分值</th>
+													<th rowspan="2" class="table-col-10p">分值</th>
+													<th rowspan="2" class="table-col-10p">输入分值</th>
 												</tr>
 												<tr>
 													<th>一级</th>
@@ -513,8 +516,8 @@
 													<th colspan="3">考核指标（分值/权重）</th>
 													<th colspan="4">要求</th>
 													<th rowspan="2" class="table-col-20p">标准说明</th>
-													<th rowspan="2" class="table-col-20p">分值</th>
-													<th rowspan="2" class="table-col-20p">输入分值</th>
+													<th rowspan="2" class="table-col-10p">分值</th>
+													<th rowspan="2" class="table-col-10p">输入分值</th>
 												</tr>
 												<tr>
 													<th>一级</th>
@@ -524,14 +527,76 @@
 													<th>原则要求</th>
 													<th>材料要求</th>
 													<th>证明要求</th>
-													<th>级别要求</th>
+													<th  class="table-col-10p">级别要求</th>
 												</tr>
 												<tr></tr>
 											</thead>
 
-											<tbody></tbody>
+											<tbody>
+												<tr>
+													<td rowspan="6">五、个人特色（分值：10分）自动识别1、2和3最高分，计入</td>
+													<td rowspan="2">1.出版专著（合著）</td>
+													<td rowspan="2"></td>
+													<td rowspan="2">1.同一类中如有两项，选择级别高的评分； <br /> 2.材料或证明不符合规定下降一至二级评分。</td>
+													<td rowspan="2">内容简介</td>
+													<td rowspan="2">
+														封面、目录和含出版时间的封二或封三扫描件或照片
+													</td>
+													<td></td>
+													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.GerTes_Zhuanz, "A1", isChecked: zhuanz.ChooseValue == "A1") A：学科类专著</label></td>
+													<td>10.0分</td>
+													<td class="flotValue" data-min="10.0" data-max="10.0" data-value="" data-hidden="@EvalDeclareRuleKeys.GerTes_Zhuanz_Def"></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.GerTes_Zhuanz, "B1", isChecked: zhuanz.ChooseValue == "B1") B：学科类合著</label></td>
+													<td>8.0分</td>
+													<td class="flotValue" data-min="8.0" data-max="8.0" data-value="" data-hidden="@EvalDeclareRuleKeys.GerTes_Zhuanz_Def"></td>
+												</tr>
+
+												<tr>
+													<td rowspan="2">2.其他身份</td>
+													<td rowspan="2"></td>
+													<td rowspan="2">1.同一类中如有两项，选择级别高的评分； <br /> 2.材料或证明不符合规定下降一至二级评分。</td>
+													<td rowspan="2">聘书或证明</td>
+													<td rowspan="2">聘书或证明</td>
+													<td>市级</td>
+													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.GerTes_QitShenf, "A1", isChecked: qitShenf.ChooseValue == "A1") A：高校特聘教授或学科专业类其他身份</label></td>
+													<td>9.0分</td>
+													<td class="flotValue" data-min="9.0" data-max="9.0" data-value="" data-hidden="@EvalDeclareRuleKeys.GerTes_QitShenf_Def"></td>
+												</tr>
+												<tr>
+													<td>区级</td>
+													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.GerTes_QitShenf, "B1", isChecked: qitShenf.ChooseValue == "B1") B：学科专业类其他身份</label></td>
+													<td>7.0分</td>
+													<td class="flotValue" data-min="7.0" data-max="7.0" data-value="" data-hidden="@EvalDeclareRuleKeys.GerTes_QitShenf_Def"></td>
+												</tr>
+
+												<tr>
+													<td rowspan="2">2.学员成长</td>
+													<td rowspan="2"></td>
+													<td rowspan="2">1.同一类中如有两项，选择级别高的评分； <br /> 2.材料或证明不符合规定下降一至二级评分。</td>
+													<td >学员评为称号文件</td>
+													<td>1.称号证书；<br /> 2.被指导教师写的证明。</td>
+													<td></td>
+													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.GerTes_XueyChengz, "A1", isChecked: qitShenf.ChooseValue == "A1") A：成为市“双名工程”、“攻关计划”名师后备人选、“种子计划”领衔人及学员</label></td>
+													<td>7.0分</td>
+													<td class="flotValue" data-min="7.0" data-max="7.0" data-value="" data-hidden="@EvalDeclareRuleKeys.GerTes_XueyChengz_Def"></td>
+												</tr>
+												<tr>
+													<td>学员职称申报审批表复印件（含职称通过时间）</td>
+													<td>1.职称证书；<br />2.被指导教师写的证明</td>
+													<td></td>
+													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.GerTes_XueyChengz, "B1", isChecked: qitShenf.ChooseValue == "B1") B：2016年——2019年初晋升职称</label></td>
+													<td>7.0分</td>
+													<td class="flotValue" data-min="7.0" data-max="7.0" data-value="" data-hidden="@EvalDeclareRuleKeys.GerTes_XueyChengz_Def"></td>
+												</tr>
+
+
+											</tbody>
 										</table>
 									</div>
+
 
 								</div>
 							</div>
@@ -547,6 +612,9 @@
 						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2" name="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2_Def" value="@danrPingw2.ResultValue" />
 						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyKey_XiangmYanj" name="@EvalDeclareRuleKeys.JiaoyKey_XiangmYanj_Def" value="@xiangmYanj.ResultValue" />
 						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyKey_FabLunw" name="@EvalDeclareRuleKeys.JiaoyKey_FabLunw_Def" value="@fabLunw.ResultValue" />
+						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.GerTes_Zhuanz" name="@EvalDeclareRuleKeys.GerTes_Zhuanz_Def" value="@zhuanz.ResultValue" />
+						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.GerTes_QitShenf" name="@EvalDeclareRuleKeys.GerTes_QitShenf_Def" value="@qitShenf.ResultValue" />
+						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.GerTes_XueyChengz" name="@EvalDeclareRuleKeys.GerTes_XueyChengz_Def" value="@xueyChengz.ResultValue" />
 					}
 
 				</div>

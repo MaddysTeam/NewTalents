@@ -78,9 +78,15 @@ namespace TheSite.Controllers
 		}
 
 
-		#region [ Helper ]
+      public ActionResult EvalSchoolMemberExport(long? companyId)
+      {
+         return null;
+      }
 
-		private HSSFWorkbook CreateBook<T>(Dictionary<long, T> dic) where T : class
+
+      #region [ Helper ]
+
+      private HSSFWorkbook CreateBook<T>(Dictionary<long, T> dic) where T : class
 		{
 			//创建Excel文件的对象
 			NPOI.HSSF.UserModel.HSSFWorkbook book = new NPOI.HSSF.UserModel.HSSFWorkbook();

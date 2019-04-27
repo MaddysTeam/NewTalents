@@ -34,6 +34,15 @@
 		public const string JiaoyKey_FabLunw = "教育科研.发表论文";
 		public const string JiaoyKey_FabLunw_Def = "教育科研.发表论文.得分";
 
-	}
+      public const string GerTes_Zhuanz = "个人特色.专著";
+      public const string GerTes_Zhuanz_Def = "个人特色.专著.得分";
+
+      public const string GerTes_QitShenf = "个人特色.其他身份";
+      public const string GerTes_QitShenf_Def = "个人特色.其他身份.得分";
+
+      public const string GerTes_XueyChengz = "个人特色.学员成长";
+      public const string GerTes_XueyChengz_Def = "个人特色.学员成长.得分";
+
+   }
 
 }
