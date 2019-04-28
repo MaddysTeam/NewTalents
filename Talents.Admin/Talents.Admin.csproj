@@ -714,6 +714,7 @@
     <Content Include="Views\DeclareEval\List.cshtml" />
     <Content Include="Views\DeclareEval\EvalExpertMemberList.cshtml" />
     <Content Include="Views\DeclareEval\EvalSchoolMemberList.cshtml" />
+    <Content Include="Views\DeclareEvalManage\EvalSchoolMemberExport.cshtml" />
     <Content Include="Views\EvalModel\Declare\DeclareEvalView5004.cshtml" />
     <Content Include="Views\EvalUtilities\_DeclareReviewInfo.cshtml" />
     <Content Include="Views\EvalModel\Declare\_declareSchoolEvalView5004.cshtml" />
@@ -725,6 +726,7 @@
     <Content Include="Views\EvalModel\Declare\DeclareResultView5004.cshtml" />
     <Content Include="Views\EvalModel\Declare\DeclareResultView5005.cshtml" />
     <Content Include="Views\EvalModel\Declare\DeclareResultView5006.cshtml" />
+    <Content Include="Views\EvalSchoolMemberExport.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

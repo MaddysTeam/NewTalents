@@ -1,5 +1,6 @@
 ﻿using Business;
 using Business.Helper;
+using Business.Utilities;
 using NPOI.HSSF.UserModel;
 using Symber.Web.Data;
 using System;
@@ -31,21 +32,21 @@ namespace TheSite.Controllers
 
 		public ActionResult SchoolEvalExport(long? companyId)
 		{
-			APSqlSelectCommand query = APQuery.select(dr.TeacherId, dr.TeacherName,c.CompanyName,
+			APSqlSelectCommand query = APQuery.select(dr.TeacherId, dr.TeacherName, c.CompanyName,
 					dr.DeclareTargetPKID, dr.DeclareSubjectPKID,
 					er.Score, er.FullScore, er.ResultId, er.GroupId)
 				.from(dr,
 						 er.JoinLeft(er.TeacherId == dr.TeacherId & er.GroupId == 0),
-						 c.JoinInner(dr.CompanyId==c.CompanyId)
+						 c.JoinInner(dr.CompanyId == c.CompanyId)
 						)
 				.where(dr.PeriodId == Period.PeriodId
-					// & dr.CompanyId == UserProfile.CompanyId
+					 // & dr.CompanyId == UserProfile.CompanyId
 					 & dr.StatusKey == DeclareKeys.ReviewSuccess
 					 & dr.DeclareTargetPKID.In(new long[] { DeclareTargetIds.GongzsZhucr, DeclareTargetIds.XuekDaitr, DeclareTargetIds.GugJiaos }));
 
 			if (UserProfile.IsSchoolAdmin)
 				query.where_and(dr.CompanyId == UserProfile.CompanyId);
-			else if(UserProfile.IsSystemAdmin && companyId!=null && companyId > 0)
+			else if (UserProfile.IsSystemAdmin && companyId != null && companyId > 0)
 				query.where_and(dr.CompanyId == companyId.Value);
 
 			var dic = query.query(db, r =>
@@ -78,15 +79,19 @@ namespace TheSite.Controllers
 		}
 
 
-      public ActionResult EvalSchoolMemberExport(long? companyId)
-      {
-         return null;
-      }
+		public ActionResult EvalSchoolMemberExport()
+		{
+			var pdfRender = new HtmlRender();
+			var htmlText = pdfRender.RenderViewToString(this, "EvalSchoolMemberExport", null);
+			byte[] pdfFile = FormatConverter.ConvertHtmlTextToPDF(htmlText);
+			string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + new Random().Next(1000, 10000);
+			return new BinaryContentResult($"{fileName}.pdf", "application/pdf", pdfFile);
+		}
 
 
-      #region [ Helper ]
+		#region [ Helper ]
 
-      private HSSFWorkbook CreateBook<T>(Dictionary<long, T> dic) where T : class
+		private HSSFWorkbook CreateBook<T>(Dictionary<long, T> dic) where T : class
 		{
 			//创建Excel文件的对象
 			NPOI.HSSF.UserModel.HSSFWorkbook book = new NPOI.HSSF.UserModel.HSSFWorkbook();

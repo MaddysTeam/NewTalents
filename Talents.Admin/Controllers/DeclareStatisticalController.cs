@@ -268,8 +268,8 @@ namespace TheSite.Controllers
          var result = query.query(db, rd =>
          {
             var goodYear1 = dp.Dynamic1.GetValue(rd) == "优秀" ? "2016" : string.Empty;
-            var goodYear2 = dp.Dynamic1.GetValue(rd) == "优秀" ? "2017" : string.Empty;
-            var goodYear3 = dp.Dynamic1.GetValue(rd) == "优秀" ? "2018" : string.Empty;
+            var goodYear2 = dp.Dynamic2.GetValue(rd) == "优秀" ? "2017" : string.Empty;
+            var goodYear3 = dp.Dynamic3.GetValue(rd) == "优秀" ? "2018" : string.Empty;
             string[] goodYears = { goodYear1, goodYear2, goodYear3 };
             string years = string.Join(",", goodYears);
 

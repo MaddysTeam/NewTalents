@@ -14,6 +14,11 @@
 	var danrPingw2 = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2);
 	var xiangmYanj = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyKey_XiangmYanj);
 	var fabLunw = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyKey_FabLunw);
+	var peixKec = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaosPeix_PeixKec);
+	var jiangz = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaosPeix_ZhuantJiangz);
+	var zhuanz = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.GerTes_Zhuanz);
+	var qitShenf = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.GerTes_QitShenf);
+	var xueyChengz = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.GerTes_XueyChengz);
 }
 
 <!-- widget -->
@@ -56,11 +61,10 @@
 						<th>要求</th>
 						<th class="table-col-10p">级别</th>
 						<th class="table-col-10p">指标项</th>
-						<th class="table-col-10p">分值/统计标准</th>
+						<th class="table-col-10p">得分</th>
 					</tr>
 				</thead>
 				<tbody>
-					<!--校内履职-->
 					@if (xiaonLvz.ResultValue != "")
 					{
 						<tr>
@@ -387,7 +391,297 @@
 						</tr>
 					}
 
+					@if(xiangmYanj.ResultValue!="")
+					{
+						<tr>
+							<td rowspan="2">教育科研 (10分)</td>
+							<td>1.立项课题或项目研究（5分）</td>
+							<td></td>
+							<td>
+								【材料要求】按项目进行情况上传申报书或结题报告<br />
+								【证明要求】立项证明、课题结题或项目完成证明（相关教育行政部门盖章）
+							</td>
 
+							@if (xiangmYanj.ChooseValue == "A1")
+							{
+								<td>国家级</td>
+								<td><label>A：学科类课题主持人</label></td>
+								<td><span>@xiangmYanj.ResultValue</span>分</td>
+							}
+							else if (xiangmYanj.ChooseValue == "B1")
+							{
+								<td>国家级</td>
+								<td><label>B：学科类课题核心成员</label></td>
+								<td><span>@xiangmYanj.ResultValue</span>分</td>
+							}
+							else if (xiangmYanj.ChooseValue == "C1")
+							{
+								<td>国家级</td>
+								<td><label>C：学科类课题一般成员</label></td>
+								<td><span>@xiangmYanj.ResultValue</span>分</td>
+							}
+							else if (xiangmYanj.ChooseValue == "A2")
+							{
+								<td>市级</td>
+								<td><label>A：学科类课题主持人</label></td>
+								<td><span>@xiangmYanj.ResultValue</span>分</td>
+							}
+							else if (xiangmYanj.ChooseValue == "B2")
+							{
+								<td>市级</td>
+								<td><label>B：学科类课题核心成员</label></td>
+								<td><span>@xiangmYanj.ResultValue</span>分</td>
+							}
+							else if (xiangmYanj.ChooseValue == "C2")
+							{
+								<td>市级</td>
+								<td><label>C：学科类课题一般成员</label></td>
+								<td><span>@xiangmYanj.ResultValue</span>分</td>
+							}
+							else if (xiangmYanj.ChooseValue == "A3")
+							{
+								<td>区级</td>
+								<td><label>A：学科类课题主持人</label></td>
+								<td><span>@xiangmYanj.ResultValue</span>分</td>
+							}
+							else if (xiangmYanj.ChooseValue == "B3")
+							{
+								<td>区级</td>
+								<td><label>B：学科类课题核心成员</label></td>
+								<td><span>@xiangmYanj.ResultValue</span>分</td>
+							}
+							else if (xiangmYanj.ChooseValue == "C3")
+							{
+								<td>区级</td>
+								<td><label>C：学科类课题一般成员</label></td>
+								<td><span>@xiangmYanj.ResultValue</span>分</td>
+							}
+						
+						</tr>
+					}
+					@if (fabLunw.ResultValue != "")
+					{
+						<tr>
+							<td> 2.发表论文 (5分) </td>
+							<td></td>
+							<td>
+								【材料要求】论文（发表后的扫描件或照片）<br />
+								【证明要求】刊物封面、刊物目录扫描件或照片
+							</td>
+
+							@if (fabLunw.ChooseValue == "A1")
+							{
+								<td>国家级</td>
+								<td><label>A：在核心期刊上发表</label></td>
+								<td><span>@fabLunw.ResultValue</span>分</td>
+							}
+							else if (fabLunw.ChooseValue == "B1")
+							{
+								<td>国家级</td>
+								<td><label>B：在其他期刊上发表</label></td>
+								<td><span>@fabLunw.ResultValue</span>分</td>
+							}
+							else if (fabLunw.ChooseValue == "A2")
+							{
+								<td>市级</td>
+								<td><label>A：在核心期刊上发表</label></td>
+								<td><span>@fabLunw.ResultValue</span>分</td>
+							}
+							else if (fabLunw.ChooseValue == "B2")
+							{
+								<td>市级</td>
+								<td><label>B：在其他期刊上发表</label></td>
+								<td><span>@fabLunw.ResultValue</span>分</td>
+							}
+							else if (fabLunw.ChooseValue == "A3")
+							{
+								<td>区级</td>
+								<td><label>A：在《虹口教育》、《院刊》等区级期刊上发表</label></td>
+								<td><span>@fabLunw.ResultValue</span>分</td>
+							}
+						</tr>
+					}
+
+					@if (peixKec.ResultValue != "")
+					{
+						<tr>
+							@if (jiangz.ResultValue == "")
+							{
+								<td>教师培训 (20分)</td>
+							}
+							else
+							{
+							<td rowspan="2">四、教师培训 (20分)</td>
+							}
+							<td > 1.开设教师培训课程(10分) </td>
+							<td></td>
+							<td>
+								【材料要求】课程纲要<br />
+								【证明要求】课程证明（相关教育行政部门或学校盖章）
+							</td>
+
+							@if (peixKec.ChooseValue == "A1")
+							{
+								<td>市级共享课程</td>
+								<td><label>A：开设市级共享课程</label></td>
+								<td><span>@peixKec.ResultValue</span>分</td>
+							}
+							else if (peixKec.ChooseValue == "B1")
+							{
+								<td>区级共享课程</td>
+								<td><label>A：开设区级共享课程</label></td>
+								<td><span>@peixKec.ResultValue</span>分</td>
+							}
+							else if (peixKec.ChooseValue == "A2")
+							{
+								<td>校级共享课程</td>
+								<td><label>A：开设校级共享课程</label></td>
+								<td><span>@peixKec.ResultValue</span>分</td>
+							}
+						</tr>
+					}
+					@if (jiangz.ResultValue != "")
+					{
+						<tr>
+							@if (peixKec.ResultValue == "")
+							{
+								<td>教师培训 (20分)</td>
+							}
+							<td> 2.专题讲座(10分) </td>
+							<td></td>
+							<td>
+								【材料要求】课程纲要<br />
+								【证明要求】课程证明（相关教育行政部门或学校盖章）
+							</td>
+
+							@if (jiangz.ChooseValue == "A1")
+							{
+								<td>国家级</td>
+								<td><label>A：学科类学术讲座</label></td>
+								<td><span>@jiangz.ResultValue</span>分</td>
+							}
+							else if (jiangz.ChooseValue == "B1")
+							{
+								<td>国家级</td>
+								<td><label>B：开设区级共享课程</label></td>
+								<td><span>@jiangz.ResultValue</span>分</td>
+							}
+							else if (jiangz.ChooseValue == "A2")
+							{
+								<td>市级</td>
+								<td><label>A：学科类学术讲座</label></td>
+								<td><span>@jiangz.ResultValue</span>分</td>
+							}
+							else if (jiangz.ChooseValue == "B2")
+							{
+								<td>市级</td>
+								<td><label>B：开设区级共享课程</label></td>
+								<td><span>@jiangz.ResultValue</span>分</td>
+							}
+							else if (jiangz.ChooseValue == "A3")
+							{
+								<td>区级</td>
+								<td><label>A：学科类学术讲座</label></td>
+								<td><span>@jiangz.ResultValue</span>分</td>
+							}
+							else if (jiangz.ChooseValue == "B3")
+							{
+								<td>区级</td>
+								<td><label>B：开设区级共享课程</label></td>
+								<td><span>@jiangz.ResultValue</span>分</td>
+							}
+							else if (jiangz.ChooseValue == "A4")
+							{
+								<td>校级</td>
+								<td><label>A：学科类学术讲座</label></td>
+								<td><span>@jiangz.ResultValue</span>分</td>
+							}
+							else if (jiangz.ChooseValue == "B4")
+							{
+								<td>校级</td>
+								<td><label>B：开设区级共享课程</label></td>
+								<td><span>@jiangz.ResultValue</span>分</td>
+							}
+						</tr>
+					}
+
+					@if (zhuanz.ResultValue != "")
+					{
+						<tr>	
+							<td rowspan="3">个人特色 (10分)自动识别1、2和3最高分，计入</td>
+							<td> 1.出版专著（合著） </td>
+							<td></td>
+							<td>
+								【材料要求】内容简介<br />
+								【证明要求】封面、目录和含出版时间的封二或封三扫描件或照片
+							</td>
+
+							@if (zhuanz.ChooseValue == "A1")
+							{
+								<td></td>
+								<td><label>A：学科类专著</label></td>
+								<td><span>@zhuanz.ResultValue</span>分</td>
+							}
+							@if (zhuanz.ChooseValue == "B1")
+							{
+								<td></td>
+								<td><label>A：学科类合著</label></td>
+								<td><span>@zhuanz.ResultValue</span>分</td>
+							}
+						</tr>
+					}
+					@if (qitShenf.ResultValue != "")
+					{
+						<tr>
+							<td> 2.其他身份 </td>
+							<td></td>
+							<td>
+								【材料要求】聘书或证明<br />
+								【证明要求】聘书或证明
+							</td>
+
+							@if (qitShenf.ChooseValue == "A1")
+							{
+								<td>市级</td>
+								<td><label>A：高校特聘教授或学科专业类其他身份</label></td>
+								<td><span>@qitShenf.ResultValue</span>分</td>
+							}
+							@if (qitShenf.ChooseValue == "B1")
+							{
+								<td>区级</td>
+								<td><label>B：学科专业类其他身份</label></td>
+								<td><span>@qitShenf.ResultValue</span>分</td>
+							}
+						</tr>
+					}
+					@if (xueyChengz.ResultValue != "")
+					{
+						<tr>
+							<td> 3.学员成长 </td>
+							<td></td>
+							@if (xueyChengz.ChooseValue == "A1")
+							{
+								<td>
+									【材料要求】学员评为称号文件<br />
+									【证明要求】1.称号证书；2.被指导教师写的证明
+								</td>
+								<td></td>
+								<td><label>A：高校特聘教授或学科专业类其他身份</label></td>
+								<td><span>@xueyChengz.ResultValue</span>分</td>
+							}
+							@if (xueyChengz.ChooseValue == "B1")
+							{
+								<td>
+									【材料要求】学员职称申报审批表复印件（含职称通过时间）<br />
+									【证明要求】1.职称证书；2.被指导教师写的证明
+
+								</td>
+								<td></td>
+								<td><label>B：学科专业类其他身份</label></td>
+								<td><span>@xueyChengz.ResultValue</span>分</td>
+							}
+						</tr>
+					}
 				</tbody>
 			</table>
 
