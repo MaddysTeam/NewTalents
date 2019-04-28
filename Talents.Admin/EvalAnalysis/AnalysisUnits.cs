@@ -125,7 +125,9 @@ namespace TheSite.EvalAnalysis
 
       public virtual double CompanyFullScore => 20;
 
-      public virtual double ExpertFullScore => 80;
+      public virtual double ExpertFullScore => 70;
+
+      public virtual double SpecialFullScore => 10;
 
       public abstract List<EvalDeclareResult> GetResults(APDBDef db, DeclareEvalParam param);
 

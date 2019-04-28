@@ -80,7 +80,6 @@
 				<div class="container">
 					<div class="row">
 						@{
-							//var rolename = Html.GetUserProfile().UserType;
 							if (rolename == BzRoleNames.Admin)
 							{
 								@Html.Partial("_sidebarAdmin")
@@ -88,6 +87,10 @@
 							else if (rolename == BzRoleNames.SchoolAdmin)
 							{
 								@Html.Partial("_sidebarSchoolAdmin")
+							}
+							else if (rolename == BzRoleNames.SpecialExpert)
+							{
+								@Html.Partial("_sidebarSpecialExpert")
 							}
 							else
 							{

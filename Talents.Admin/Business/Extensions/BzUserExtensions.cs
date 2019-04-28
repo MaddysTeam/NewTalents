@@ -76,8 +76,9 @@ namespace Business.Identity
             // 获取专家身份
             var expertCount = manager.DB.ExpectDal.ConditionQueryCount(APDBDef.Expect.ExpectId == profile.UserId);
             profile.IsExpert = expertCount > 0;
-
          }
+
+         profile.IsSpecialExpert = profile.UserType == "SpecialExpert";
 
          //获取系统管理员身份
          profile.IsSystemAdmin = profile.UserId == Config.ThisApp.AppRole_Admin_Id;

@@ -1,6 +1,6 @@
 ﻿@{
-	var pageTitle = ViewBag.Title = "单位评审列表";
-	var isSchoolAdmin = Html.GetUserProfile().IsSchoolAdmin;
+	var pageTitle = ViewBag.Title = "培训处专家评审列表";
+	var isSpecialExpert = Html.GetUserProfile().IsSpecialExpert;
 }
 <div class="col-md-10 content-wrapper">
 	<div class="row">
@@ -31,8 +31,6 @@
 				<div class="widget-content">
 					<div class="row">
 
-					@if (Html.GetUserProfile().IsSystemAdmin)
-					{
 						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="col-md-6 control-label">申报单位</label>
@@ -60,7 +58,7 @@
 							<a class="btn btn-md btn-warning" href="@Url.Action("EvalSchoolMemberExport", "DeclareEvalManage")" id="btnexp">导出全部数据</a>
 							
 						</div>
-					}
+	
 					</div>
 
 					<!-- Grid -->
@@ -90,11 +88,11 @@
 </div>
 @section Scripts {
 	<script>
-		var isSchoolAdmin = '@isSchoolAdmin' == 'True' ? true : false;
+		var isSpecialExpert = '@isSpecialExpert' == 'True' ? true : false;
 		function getGlobalRequest() {
 			return {
-				companyId: isSchoolAdmin ? 0 : $('#Company').val(),
-				statusId: isSchoolAdmin ? -1 : $('#Status').val()
+				companyId: $('#Company').val(),
+				statusId: $('#Status').val()
 			};
 		}
 
@@ -110,8 +108,8 @@
 						var periodId = row.periodId;
 						var html = '<div class="btn-group btn-group-xs pull-right" data-row-id="' + row.id + '">';
 						var evalUrl = '@Url.Action("Eval", "DeclareEval")?teacherId=' + row.id + '&periodId=' + periodId + '&targetId=' + row.targetId + '&groupId=0';
-						var resultUrl = '@Url.Action("ResultView", "DeclareEval")?teacherId=' + row.id + '&periodId=' + periodId + '&targetId=' + row.targetId + '&resultId='+row.resultId;
-						if (isSchoolAdmin) {
+						var resultUrl = '@Url.Action("ResultView", "DeclareEval")?teacherId=' + row.id + '&periodId=' + periodId + '&targetId=' + row.targetId + '&resultId=' + row.resultId;
+						if (isSpecialExpert) {
 							if (row.submitStatus == '未评审') {
 								html += '<a class="btn btn-success btn-view" href="' + evalUrl + '">执行考评</a>';
 							}

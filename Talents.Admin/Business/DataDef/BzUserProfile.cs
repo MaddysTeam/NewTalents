@@ -34,6 +34,8 @@ namespace Business
 
 		public bool IsExpert { get; set; }
 
+      public bool IsSpecialExpert { get; set; } //TODO:冗余字段，作为特殊情况使用，可以被回收
+
       public bool IsSystemAdmin { get; set; }
 
       public bool IsSchoolAdmin { get; set; }

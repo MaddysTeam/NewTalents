@@ -19,8 +19,11 @@ namespace TheSite.EvalAnalysis
 
 			public override double CompanyFullScore => 20;
 
+         public override double ExpertFullScore => 70;
 
-			protected override void AnalysisResult(FormCollection fc, EvalDeclareResult result, Dictionary<string, EvalDeclareResultItem> items)
+         public override double SpecialFullScore => 10;
+
+         protected override void AnalysisResult(FormCollection fc, EvalDeclareResult result, Dictionary<string, EvalDeclareResultItem> items)
 			{
 				double score = 0, score1 = 0, score2 = 0, score3 = 0, score4 = 0, score5 = 0, score6 = 0, score7 = 0;
 

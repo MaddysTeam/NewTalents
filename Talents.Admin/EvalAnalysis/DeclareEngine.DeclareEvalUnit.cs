@@ -114,8 +114,17 @@ namespace TheSite.EvalAnalysis
                DeclareTargetPKID = param.TargetId,
                DeclareCompanyId = declareReview.CompanyId,
                DeclareSubjectPKID = declareReview.DeclareSubjectPKID,
-               FullScore = param.GroupId == 0 ? CompanyFullScore : ExpertFullScore, //TODO:param.GroupId == 0 暂表示炜校考
+               FullScore = param.GroupId == 0 ? CompanyFullScore : ExpertFullScore, //TODO:param.GroupId == 0 暂表示校考
             };
+
+            //如果事特殊专家，则fullscore 取SpecialFullScore  且 groupId设为-1
+            var accessor = db.BzUserProfileDal.PrimaryGet(param.AccesserId);
+            if (accessor.UserType == BzRoleNames.SpecialExpert)
+            {
+               result.FullScore = SpecialFullScore;
+               result.GroupId = -1;
+            }
+
             var items = new Dictionary<string, EvalDeclareResultItem>();
 
             AnalysisResult(fc, result, items);

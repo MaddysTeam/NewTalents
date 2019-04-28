@@ -8,6 +8,7 @@ namespace Business.Config
 
 		// 系统开发商 ID
 		public const long AppUser_Designer_Id = 2;
+
 		// 系统管理员 ID
 		public const long AppUser_Admin_Id = 1;
 

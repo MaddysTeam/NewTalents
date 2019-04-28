@@ -357,10 +357,109 @@ namespace TheSite.Controllers
 			});
 		}
 
-		////	GET: DeclareEval/Eval
-		////	POST: DecalreEval/Eval
 
-		[NoCache]
+      // GET: DeclareEval/EvalSpecialExpertMemberList  这里special expert 用于培训处的考核
+      // POST-Ajax: DeclareEval/EvalSpecialExpertMemberList
+
+      public ActionResult EvalSpecialExpertMemberList()
+      {
+         return View();
+      }
+
+      [HttpPost]
+      public ActionResult EvalSpecialExpertMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long companyId, long statusId)
+      {
+         ThrowNotAjax();
+
+         var query = APQuery.select(dr.TeacherId, dr.TeacherName, c.CompanyName,
+               dr.DeclareTargetPKID, dr.DeclareSubjectPKID,
+               er.ResultId.As("ResultId"), er.Score, er.FullScore, er.ResultId, er.GroupId)
+            .from(dr,
+                   er.JoinLeft(er.TeacherId == dr.TeacherId & er.Accesser==UserProfile.UserId),
+                   c.JoinInner(dr.CompanyId == c.CompanyId)
+                  )
+            .where(dr.PeriodId == Period.PeriodId
+                & dr.StatusKey == DeclareKeys.ReviewSuccess
+                & dr.DeclareTargetPKID.In(new long[] { DeclareTargetIds.GongzsZhucr, DeclareTargetIds.XuekDaitr, DeclareTargetIds.GugJiaos }))
+            .primary(dr.TeacherId)
+            .skip((current - 1) * rowCount)
+            .take(rowCount);
+
+         if(companyId>0)
+            query.where_and(dr.CompanyId == companyId);
+
+         if (statusId == 1)
+         {
+            query.where_and(er.ResultId > 0);
+         }
+         else if (statusId == 0)
+         {
+            query.where_and(er.ResultId == 0);
+         }
+
+         //过滤条件
+         //模糊搜索姓名
+
+         searchPhrase = searchPhrase.Trim();
+         if (searchPhrase != "")
+         {
+            query.where_and(dr.TeacherName.Match(searchPhrase));
+         }
+
+
+         //排序条件表达式
+
+         if (sort != null)
+         {
+            switch (sort.ID)
+            {
+               case "realName": query.order_by(sort.OrderBy(dr.TeacherName)); break;
+               case "score": query.order_by(sort.OrderBy(er.Score)); break;
+            }
+         }
+         else
+         {
+            query.order_by(er.DeclareTargetPKID.Asc).order_by_add(er.Score.Desc);
+         }
+
+         var total = db.ExecuteSizeOfSelect(query);
+
+         var result = query.query(db, r =>
+         {
+            var score = er.Score.GetValue(r);
+            var fullScore = er.FullScore.GetValue(r);
+            var status = er.ResultId.GetValue(r);
+
+            return new
+            {
+               id = dr.TeacherId.GetValue(r),
+               periodId = Period.PeriodId,
+               realName = dr.TeacherName.GetValue(r),
+               target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
+               subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(r)),
+               score = string.Format("{0} / {1}", score, fullScore),
+               submitStatus = status == 0 ? "未评审" : "已评审",
+               targetId = dr.DeclareTargetPKID.GetValue(r),
+               resultId = er.ResultId.GetValue(r, "ResultId")
+            };
+         }).ToList();
+
+
+         return Json(new
+         {
+            rows = result,
+            current,
+            rowCount,
+            total
+         });
+      }
+
+
+
+      //	GET: DeclareEval/Eval
+      //	POST: DecalreEval/Eval
+
+      [NoCache]
 		public ActionResult Eval(DeclareEvalParam param)
 		{
 			param.AccesserId = UserProfile.UserId;
@@ -418,16 +517,12 @@ namespace TheSite.Controllers
 						groupId = param.GroupId
 					});
 				}
-				else
+				else if(UserProfile.IsSpecialExpert)
 				{
-               //return RedirectToAction("SubmitResultView", new
-               //{
-               //	teacherId = param.TeacherId,
-               //	periodId = param.PeriodId,
-               //	groupId = param.GroupId
-               //});
-               return null;
+               return RedirectToAction("EvalSpecialExpertMemberList");
 				}
+
+            return null;
 
 			}
 			catch

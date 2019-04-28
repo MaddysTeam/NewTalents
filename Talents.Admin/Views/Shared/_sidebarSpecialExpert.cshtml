@@ -1,0 +1,31 @@
+﻿@{
+	var up = Html.GetUserProfile();
+	var declarePeriod = Html.GetDeclarePeriod();
+	var isInDeclare = declarePeriod != null && declarePeriod.IsInDeclarePeriod;
+}
+<!-- left sidebar -->
+<div class="col-md-2 left-sidebar">
+	<!-- main-nav -->
+	<nav class="main-nav">
+		<ul class="main-menu">
+			@*<li>
+				<a href="@Url.Action("Index", "Home")">
+					<i class="fa fa-home fa-fw"></i>
+					<span class="text">首页</span>
+				</a>
+			</li>*@
+			<li>
+				<a href="@Url.Action("EvalSpecialExpertMemberList", "DeclareEval")">
+					<i class="fa fa-gear fa-fw"></i>
+					<span class="text">申报考评</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+	<!-- /main-nav -->
+
+	<div class="sidebar-minified js-toggle-minified">
+		<i class="fa fa-angle-left"></i>
+	</div>
+</div>
+<!-- /left sidebar -->
