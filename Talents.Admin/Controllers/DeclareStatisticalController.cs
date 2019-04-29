@@ -52,7 +52,7 @@ namespace TheSite.Controllers
                  c.JoinLeft(c.CompanyId == dp.CompanyId)
                  )
          .primary(dp.UserId)
-         .where(dp.PeriodId == Period.PeriodId & df.StatusKey != string.Empty & df.StatusKey != DeclareKeys.ReviewBack);
+         .where(dp.PeriodId == Period.PeriodId & df.StatusKey != string.Empty & df.StatusKey != DeclareKeys.ReviewBack & df.StatusKey!=DeclareKeys.ReviewFailure);
          //.skip((current - 1) * rowCount)
          //.take(rowCount);
 
@@ -182,7 +182,7 @@ namespace TheSite.Controllers
 
       [HttpPost]
       public ActionResult DeclareSummaryList(long targetId, long declareCompanyId, long decalreSubjectId, long subjectId,
-         long skillId, long allowFlowToSchool, long allowFlowToDowngrade,
+         long skillId, long allowFlowToSchool, long allowFlowToDowngrade,long isMaterialBroke,long isDeclareBroke,
          int current, int rowCount, AjaxOrder sort, string searchPhrase)
       {
          // 申报汇总表了包含：学校名称、申报称号、申报学科、姓名、性别、出生年月、任教学科、联系方式（手机）、年度考核优秀（年份）、是否破格（普通申报、职称破格和材料破格）
@@ -197,7 +197,7 @@ namespace TheSite.Controllers
                c.JoinLeft(c.CompanyId == df.CompanyId)
                )
                .primary(df.DeclareReviewId)
-       .where(df.StatusKey != string.Empty & df.StatusKey != DeclareKeys.ReviewBack)
+       .where(df.StatusKey != string.Empty & df.StatusKey != DeclareKeys.ReviewBack & df.StatusKey != DeclareKeys.ReviewFailure)
        .skip((current - 1) * rowCount)
        .take(rowCount);
 
@@ -236,6 +236,16 @@ namespace TheSite.Controllers
             bool rs = allowFlowToDowngrade == 1;
             query.where_and(df.AllowFlowToDowngrade == rs);
          }
+         if (isDeclareBroke>0)
+         {
+            bool rs = isDeclareBroke == 1;
+            query.where_and(df.IsBrokenRoles == rs);
+         }
+         if (isMaterialBroke > 0)
+         {
+            bool rs = isMaterialBroke == 1;
+            query.where_and(df.TypeKey.Match("材料破格"));
+         }
 
          //过滤条件
          //模糊搜索姓名,标题
@@ -258,7 +268,7 @@ namespace TheSite.Controllers
                case "DeclareTargetName": query.order_by(sort.OrderBy(df.DeclareTargetPKID)); break;
                case "DeclareCompnay": query.order_by(sort.OrderBy(df.CompanyId)); break;
                case "Subject": query.order_by(sort.OrderBy(dp.EduSubjectPKID)); break;
-               case "IsBroke": query.order_by(sort.OrderBy(df.IsBrokenRoles)); break;
+               case "IsDeclareBroke": query.order_by(sort.OrderBy(df.IsBrokenRoles)); break;
             }
          }
 

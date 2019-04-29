@@ -136,16 +136,16 @@ namespace TheSite.EvalAnalysis
 				var scoreValue = Convert.ToDouble(score);
 				switch (choose)
 				{
-					case "A":
+					case "A1":
 						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 13.0, 15.0);
 						break;
-					case "B":
+					case "A2":
 						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 11.0, 12.9);
 						break;
-					case "C":
+					case "A3":
 						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 6.0, 10.9);
 						break;
-					case "D":
+					case "A4":
 						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 3.0, 5.9);
 						break;
 				}
@@ -428,6 +428,7 @@ namespace TheSite.EvalAnalysis
 
 			#endregion
 
+
 			#region [教育科研.项目研究]
 
 			private double Analysis_JiaoyKey_XiangmYanj(EvalDeclareResult result, Dictionary<string, EvalDeclareResultItem> items, string choose, string score)
@@ -480,6 +481,7 @@ namespace TheSite.EvalAnalysis
 			}
 
 			#endregion
+
 
 			#region [教育科研.发表论文]
 

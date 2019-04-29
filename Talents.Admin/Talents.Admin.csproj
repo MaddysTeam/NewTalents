@@ -734,6 +734,7 @@
     <Content Include="Views\DeclareEvalManage\_nav.cshtml" />
     <Content Include="Views\DeclareEvalManage\EvalExpertMemberList.cshtml" />
     <Content Include="Views\DeclareEvalManage\NotEvalExpertMemberList.cshtml" />
+    <Content Include="Views\EvalModel\Declare\_declareExpertEvalView5006.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
