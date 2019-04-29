@@ -348,6 +348,7 @@
     <Compile Include="Models\DeclareActiveDataModel.cs" />
     <Compile Include="Models\LogModels.cs" />
     <Compile Include="Models\NoticeViewModel.cs" />
+    <Compile Include="Models\DeclareEvalManageViewModels.cs" />
     <Compile Include="Models\ScoreModels.cs" />
     <Compile Include="Models\StatisticalViewModel.cs" />
     <Compile Include="Models\DeclareModel.cs" />
@@ -729,6 +730,10 @@
     <Content Include="Views\EvalSchoolMemberExport.cshtml" />
     <Content Include="Views\DeclareEval\EvalSpecialExpertMemberList.cshtml" />
     <Content Include="Views\EvalModel\Declare\_declareSpecialExpertEvalView5004.cshtml" />
+    <Content Include="Views\DeclareEvalManage\ExpertEvalOverview.cshtml" />
+    <Content Include="Views\DeclareEvalManage\_nav.cshtml" />
+    <Content Include="Views\DeclareEvalManage\EvalExpertMemberList.cshtml" />
+    <Content Include="Views\DeclareEvalManage\NotEvalExpertMemberList.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

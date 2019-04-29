@@ -79,6 +79,8 @@ namespace TheSite.Controllers
 		}
 
 
+		// GET: DeclareEval/EvalSchoolMemberExport
+
 		public ActionResult EvalSchoolMemberExport()
 		{
 			var pdfRender = new HtmlRender();
@@ -86,6 +88,225 @@ namespace TheSite.Controllers
 			byte[] pdfFile = FormatConverter.ConvertHtmlTextToPDF(htmlText);
 			string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + new Random().Next(1000, 10000);
 			return new BinaryContentResult($"{fileName}.pdf", "application/pdf", pdfFile);
+		}
+
+
+		// GET: DeclareEval/ExpertEvalOverview
+
+		public ActionResult ExpertEvalOverview()
+		{
+			var periodId = Period.PeriodId;
+			var query = APQuery.select(eg.GroupId, eg.Name,
+												egt.MemberId.Count().As("TotalCount"),
+												er.ResultId.Count().As("EvalCount"))
+								  .from(eg,
+										egt.JoinLeft(eg.GroupId == egt.GroupId),
+										er.JoinLeft(er.TeacherId == egt.MemberId & er.PeriodId == periodId)
+										)
+								  .group_by(eg.GroupId, eg.Name);
+
+			var result = query.query(db, rd =>
+			{
+				var memberCount = rd.GetInt32(rd.GetOrdinal("TotalCount"));
+				var evalMemberCount = rd.GetInt32(rd.GetOrdinal("EvalCount"));
+
+				return new ExpertEvalOverviewModels
+				{
+					PeriodId = periodId,
+					GroupId = eg.GroupId.GetValue(rd),
+					GroupName = eg.Name.GetValue(rd),
+					GroupTargetMemberCount = memberCount,
+					EvalTargetMemberCount = evalMemberCount,
+					EvalStatus = memberCount == evalMemberCount && memberCount > 0 ? EvalStatus.Success
+										: memberCount > evalMemberCount && evalMemberCount > 0 ? EvalStatus.Pending
+										: EvalStatus.NotStart
+				};
+			}).ToList();
+
+
+			return View(result);
+		}
+
+
+		// GET:  DeclareEvalManage/EvalExpertMemberList
+		// POST-Ajax: DeclareEvalManage/EvalExpertMemberList
+
+		public ActionResult EvalExpertMemberList()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public ActionResult EvalExpertMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long groupId, long companyId)
+		{
+			ThrowNotAjax();
+
+			var c = APDBDef.Company;
+			var periodId = Period.PeriodId;
+
+			var query = APQuery.select(er.TeacherId, dr.TeacherName,
+					dr.DeclareTargetPKID, dr.DeclareSubjectPKID, dr.CompanyId,eg.Name.As("GroupName"),
+					er.Score.Sum().As("EvalScore"), er.FullScore, c.CompanyName)
+				.from(er,
+						 dr.JoinInner(er.TeacherId == dr.TeacherId),
+						 c.JoinInner(dr.CompanyId == c.CompanyId),
+						 egt.JoinInner(egt.MemberId==dr.TeacherId),
+						 eg.JoinInner(eg.GroupId==egt.GroupId)
+						)
+				.where(dr.StatusKey == DeclareKeys.ReviewSuccess & er.GroupId > 0, er.PeriodId == periodId)
+				.group_by(er.TeacherId,dr.TeacherName, dr.DeclareTargetPKID, 
+				          dr.DeclareSubjectPKID, dr.CompanyId, eg.Name, er.FullScore, c.CompanyName)
+				.primary(er.ResultId)
+				.skip((current - 1) * rowCount)
+				.take(rowCount);
+
+			if (groupId > 0)
+				query.where_and(er.GroupId == groupId);
+
+			if (companyId > 0)
+				query.where_and(dr.CompanyId == companyId);
+
+			//过滤条件
+			//模糊搜索姓名
+
+			searchPhrase = searchPhrase.Trim();
+			if (searchPhrase != "")
+			{
+				query.where_and(dr.TeacherName.Match(searchPhrase));
+			}
+
+
+			//排序条件表达式
+
+			if (sort != null)
+			{
+				switch (sort.ID)
+				{
+					case "realName": query.order_by(sort.OrderBy(dr.TeacherName)); break;
+					case "score": query.order_by(sort.OrderBy(er.Score)); break;
+				}
+			}
+
+			var total = db.ExecuteSizeOfSelect(query);
+
+			var result = query.query(db, r =>
+			{
+				var score = er.Score.GetValue(r, "EvalScore");
+				var targetId = dr.DeclareTargetPKID.GetValue(r);
+				var engine = EngineManager.Engines[Period.AnalysisType].DeclareEvals;
+				var fullScore = engine[targetId].ExpertFullScore;
+
+				return new
+				{
+					id = er.TeacherId.GetValue(r),
+					realName = dr.TeacherName.GetValue(r),
+					targetId = dr.DeclareTargetPKID.GetValue(r),
+					target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
+					subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(r)),
+					company = c.CompanyName.GetValue(r),
+					score = string.Format("{0} / {1}", score, fullScore),
+					group= eg.Name.GetValue(r, "GroupName")
+				};
+			}).ToList();
+
+
+			return Json(new
+			{
+				rows = result,
+				current,
+				rowCount,
+				total
+			});
+		}
+
+
+		public ActionResult EvalExpertDetails()
+		{
+			return null;
+		}
+
+		// GET: DeclareEval/NotEvalExpertMemberList
+		// POST-Ajax: DeclareEval/NotEvalExpertMemberList
+
+		public ActionResult NotEvalExpertMemberList()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public ActionResult NotEvalExpertMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long groupId, long companyId)
+		{
+			ThrowNotAjax();
+
+			var periodId = Period.PeriodId;
+
+			var subQuery = APQuery.select(er.TeacherId).from(er).where(er.PeriodId == periodId);
+			if (groupId > 0)
+				subQuery.where_and(er.GroupId == groupId);
+
+			var query = APQuery.select(egt.MemberId, dr.TeacherName, dr.DeclareTargetPKID,
+									   dr.DeclareSubjectPKID, c.CompanyName,
+									   eg.Name.As("GroupName")
+									   )
+				.from(egt,
+						 dr.JoinInner(dr.TeacherId == egt.MemberId),
+						 c.JoinInner(dr.CompanyId==c.CompanyId),
+						 eg.JoinInner(eg.GroupId==egt.GroupId)
+						)
+				.where( dr.StatusKey == DeclareKeys.ReviewSuccess & egt.MemberId.NotIn(subQuery))
+				.primary(egt.MemberId)
+				.skip((current - 1) * rowCount)
+				.take(rowCount);
+
+			if (groupId > 0)
+				query = query.where_and(egt.GroupId==groupId);
+
+			//过滤条件
+			//模糊搜索姓名
+
+			searchPhrase = searchPhrase.Trim();
+			if (searchPhrase != "")
+			{
+				query.where_and(dr.TeacherName.Match(searchPhrase));
+			}
+
+
+			//排序条件表达式
+
+			if (sort != null)
+			{
+				switch (sort.ID)
+				{
+					case "realName": query.order_by(sort.OrderBy(dr.TeacherName)); break;
+					case "target": query.order_by(sort.OrderBy(dr.DeclareTargetPKID)); break;
+					case "subject": query.order_by(sort.OrderBy(dr.DeclareSubjectPKID)); break;
+				}
+			}
+
+			var total = db.ExecuteSizeOfSelect(query);
+
+			var result = query.query(db, rd =>
+			{
+				return new
+				{
+					id = egt.MemberId.GetValue(rd),
+					realName = dr.TeacherName.GetValue(rd),
+					target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(rd)),
+					subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(rd)),
+					targetId = dr.DeclareTargetPKID.GetValue(rd),
+					company=c.CompanyName.GetValue(rd),
+					group=eg.Name.GetValue(rd, "GroupName")
+				};
+			}).ToList();
+
+
+			return Json(new
+			{
+				rows = result,
+				current,
+				rowCount,
+				total
+			});
 		}
 
 

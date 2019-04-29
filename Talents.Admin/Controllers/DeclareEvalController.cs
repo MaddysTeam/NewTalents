@@ -113,7 +113,7 @@ namespace TheSite.Controllers
 
 			var c = APDBDef.Company;
 
-			var query = APQuery.select(er.TeacherId,er.ResultId.As("ResultId"), u.RealName,
+			var query = APQuery.select(er.TeacherId, er.ResultId.As("ResultId"), u.RealName,
 					dr.DeclareTargetPKID, dr.DeclareSubjectPKID, dr.CompanyId,
 					er.Score, er.FullScore, c.CompanyName)
 				.from(er,
@@ -162,7 +162,7 @@ namespace TheSite.Controllers
 				return new
 				{
 					id = er.TeacherId.GetValue(r),
-               resultId=er.ResultId.GetValue(r,"ResultId"),
+					resultId = er.ResultId.GetValue(r, "ResultId"),
 					realName = u.RealName.GetValue(r),
 					targetId = dr.DeclareTargetPKID.GetValue(r),
 					target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
@@ -206,7 +206,7 @@ namespace TheSite.Controllers
 						 u.JoinInner(u.UserId == egt.MemberId),
 						 dr.JoinInner(dr.TeacherId == egt.MemberId)
 						)
-				.where(egt.GroupId == groupId & dr.StatusKey != "" & dr.StatusKey != DeclareKeys.ReviewBack & egt.MemberId.NotIn(subQuery))
+				.where(egt.GroupId == groupId & dr.StatusKey == DeclareKeys.ReviewSuccess & egt.MemberId.NotIn(subQuery))
 				.primary(egt.MemberId)
 				.skip((current - 1) * rowCount)
 				.take(rowCount);
@@ -267,38 +267,38 @@ namespace TheSite.Controllers
 			return View();
 		}
 
-      [HttpPost]
-      public ActionResult EvalSchoolMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long companyId, long statusId)
-      {
-         ThrowNotAjax();
+		[HttpPost]
+		public ActionResult EvalSchoolMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long companyId, long statusId)
+		{
+			ThrowNotAjax();
 
-         var query = APQuery.select(dr.TeacherId, dr.TeacherName, c.CompanyName,
-               dr.DeclareTargetPKID, dr.DeclareSubjectPKID,
-               er.ResultId.As("ResultId"), er.Score, er.FullScore, er.ResultId, er.GroupId)
-            .from(dr,
-                   er.JoinLeft(er.TeacherId == dr.TeacherId & er.GroupId == 0),
-                   c.JoinInner(dr.CompanyId == c.CompanyId)
-                  )
-            .where(dr.PeriodId == Period.PeriodId
-                & dr.StatusKey == DeclareKeys.ReviewSuccess
-                & dr.DeclareTargetPKID.In(new long[] { DeclareTargetIds.GongzsZhucr, DeclareTargetIds.XuekDaitr, DeclareTargetIds.GugJiaos }))
-            .primary(dr.TeacherId)
-            .skip((current - 1) * rowCount)
-            .take(rowCount);
+			var query = APQuery.select(dr.TeacherId, dr.TeacherName, c.CompanyName,
+				  dr.DeclareTargetPKID, dr.DeclareSubjectPKID,
+				  er.ResultId.As("ResultId"), er.Score, er.FullScore, er.ResultId, er.GroupId)
+			   .from(dr,
+					  er.JoinLeft(er.TeacherId == dr.TeacherId & er.GroupId == 0),
+					  c.JoinInner(dr.CompanyId == c.CompanyId)
+					 )
+			   .where(dr.PeriodId == Period.PeriodId
+				   & dr.StatusKey == DeclareKeys.ReviewSuccess
+				   & dr.DeclareTargetPKID.In(new long[] { DeclareTargetIds.GongzsZhucr, DeclareTargetIds.XuekDaitr, DeclareTargetIds.GugJiaos }))
+			   .primary(dr.TeacherId)
+			   .skip((current - 1) * rowCount)
+			   .take(rowCount);
 
-         if (UserProfile.IsSchoolAdmin)
-            query.where_and(dr.CompanyId == UserProfile.CompanyId);
-         else if (UserProfile.IsSystemAdmin && companyId > 0)
-            query.where_and(dr.CompanyId == companyId);
+			if (UserProfile.IsSchoolAdmin)
+				query.where_and(dr.CompanyId == UserProfile.CompanyId);
+			else if (UserProfile.IsSystemAdmin && companyId > 0)
+				query.where_and(dr.CompanyId == companyId);
 
-         if (statusId==1)
-         {
-            query.where_and(er.ResultId>0);
-         }
-         else if(statusId==0)
-         {
-            query.where_and(er.ResultId == 0);
-         }
+			if (statusId == 1)
+			{
+				query.where_and(er.ResultId > 0);
+			}
+			else if (statusId == 0)
+			{
+				query.where_and(er.ResultId == 0);
+			}
 
 			//过滤条件
 			//模糊搜索姓名
@@ -343,7 +343,7 @@ namespace TheSite.Controllers
 					score = string.Format("{0} / {1}", score, fullScore),
 					submitStatus = status == 0 ? "未评审" : "已评审",
 					targetId = dr.DeclareTargetPKID.GetValue(r),
-               resultId=er.ResultId.GetValue(r, "ResultId")
+					resultId = er.ResultId.GetValue(r, "ResultId")
 				};
 			}).ToList();
 
@@ -358,108 +358,111 @@ namespace TheSite.Controllers
 		}
 
 
-      // GET: DeclareEval/EvalSpecialExpertMemberList  这里special expert 用于培训处的考核
-      // POST-Ajax: DeclareEval/EvalSpecialExpertMemberList
+		// GET: DeclareEval/EvalSpecialExpertMemberList  这里special expert 用于培训处的考核
+		// POST-Ajax: DeclareEval/EvalSpecialExpertMemberList
 
-      public ActionResult EvalSpecialExpertMemberList()
-      {
-         return View();
-      }
+		public ActionResult EvalSpecialExpertMemberList()
+		{
+			return View();
+		}
 
-      [HttpPost]
-      public ActionResult EvalSpecialExpertMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long companyId, long statusId)
-      {
-         ThrowNotAjax();
+		[HttpPost]
+		public ActionResult EvalSpecialExpertMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long companyId, long statusId)
+		{
+			ThrowNotAjax();
 
-         var query = APQuery.select(dr.TeacherId, dr.TeacherName, c.CompanyName,
-               dr.DeclareTargetPKID, dr.DeclareSubjectPKID,
-               er.ResultId.As("ResultId"), er.Score, er.FullScore, er.ResultId, er.GroupId)
-            .from(dr,
-                   er.JoinLeft(er.TeacherId == dr.TeacherId & er.Accesser==UserProfile.UserId),
-                   c.JoinInner(dr.CompanyId == c.CompanyId)
-                  )
-            .where(dr.PeriodId == Period.PeriodId
-                & dr.StatusKey == DeclareKeys.ReviewSuccess
-                & dr.DeclareTargetPKID.In(new long[] { DeclareTargetIds.GongzsZhucr, DeclareTargetIds.XuekDaitr, DeclareTargetIds.GugJiaos }))
-            .primary(dr.TeacherId)
-            .skip((current - 1) * rowCount)
-            .take(rowCount);
+			var query = APQuery.select(dr.TeacherId, dr.TeacherName, c.CompanyName,
+				  dr.DeclareTargetPKID, dr.DeclareSubjectPKID,
+				  er.ResultId.As("ResultId"), er.Score, er.FullScore, er.ResultId, er.GroupId)
+			   .from(dr,
+					  er.JoinLeft(er.TeacherId == dr.TeacherId & er.Accesser == UserProfile.UserId),
+					  c.JoinInner(dr.CompanyId == c.CompanyId)
+					 )
+			   .where(dr.PeriodId == Period.PeriodId
+				   & dr.StatusKey == DeclareKeys.ReviewSuccess
+				   & dr.DeclareTargetPKID.In(new long[] { DeclareTargetIds.GongzsZhucr, DeclareTargetIds.XuekDaitr, DeclareTargetIds.GugJiaos }))
+			   .primary(dr.TeacherId)
+			   .skip((current - 1) * rowCount)
+			   .take(rowCount);
 
-         if(companyId>0)
-            query.where_and(dr.CompanyId == companyId);
+			if (companyId > 0)
+				query.where_and(dr.CompanyId == companyId);
 
-         if (statusId == 1)
-         {
-            query.where_and(er.ResultId > 0);
-         }
-         else if (statusId == 0)
-         {
-            query.where_and(er.ResultId == 0);
-         }
+			if (statusId == 1)
+			{
+				query.where_and(er.ResultId > 0);
+			}
+			else if (statusId == 0)
+			{
+				query.where_and(er.ResultId == 0);
+			}
 
-         //过滤条件
-         //模糊搜索姓名
+			//过滤条件
+			//模糊搜索姓名
 
-         searchPhrase = searchPhrase.Trim();
-         if (searchPhrase != "")
-         {
-            query.where_and(dr.TeacherName.Match(searchPhrase));
-         }
-
-
-         //排序条件表达式
-
-         if (sort != null)
-         {
-            switch (sort.ID)
-            {
-               case "realName": query.order_by(sort.OrderBy(dr.TeacherName)); break;
-               case "score": query.order_by(sort.OrderBy(er.Score)); break;
-            }
-         }
-         else
-         {
-            query.order_by(er.DeclareTargetPKID.Asc).order_by_add(er.Score.Desc);
-         }
-
-         var total = db.ExecuteSizeOfSelect(query);
-
-         var result = query.query(db, r =>
-         {
-            var score = er.Score.GetValue(r);
-            var fullScore = er.FullScore.GetValue(r);
-            var status = er.ResultId.GetValue(r);
-
-            return new
-            {
-               id = dr.TeacherId.GetValue(r),
-               periodId = Period.PeriodId,
-               realName = dr.TeacherName.GetValue(r),
-               target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
-               subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(r)),
-               score = string.Format("{0} / {1}", score, fullScore),
-               submitStatus = status == 0 ? "未评审" : "已评审",
-               targetId = dr.DeclareTargetPKID.GetValue(r),
-               resultId = er.ResultId.GetValue(r, "ResultId")
-            };
-         }).ToList();
+			searchPhrase = searchPhrase.Trim();
+			if (searchPhrase != "")
+			{
+				query.where_and(dr.TeacherName.Match(searchPhrase));
+			}
 
 
-         return Json(new
-         {
-            rows = result,
-            current,
-            rowCount,
-            total
-         });
-      }
+			//排序条件表达式
+
+			if (sort != null)
+			{
+				switch (sort.ID)
+				{
+					case "realName": query.order_by(sort.OrderBy(dr.TeacherName)); break;
+					case "score": query.order_by(sort.OrderBy(er.Score)); break;
+				}
+			}
+			else
+			{
+				query.order_by(er.DeclareTargetPKID.Asc).order_by_add(er.Score.Desc);
+			}
+
+			var total = db.ExecuteSizeOfSelect(query);
+
+			var result = query.query(db, r =>
+			{
+				var score = er.Score.GetValue(r);
+				var targetId = dr.DeclareTargetPKID.GetValue(r);
+				var engine = EngineManager.Engines[Period.AnalysisType].DeclareEvals;
+				var fullScore = engine[targetId].SpecialFullScore;
+
+			 var status = er.ResultId.GetValue(r);
+
+				return new
+				{
+					id = dr.TeacherId.GetValue(r),
+					periodId = Period.PeriodId,
+					realName = dr.TeacherName.GetValue(r),
+					target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
+					subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(r)),
+					score = string.Format("{0} / {1}", score, fullScore),
+					submitStatus = status == 0 ? "未评审" : "已评审",
+					targetId = targetId,
+					resultId = er.ResultId.GetValue(r, "ResultId")
+				};
+			}).ToList();
+
+
+			return Json(new
+			{
+				rows = result,
+				current,
+				rowCount,
+				total
+			});
+		}
 
 
 
-      //	GET: DeclareEval/Eval
-      //	POST: DecalreEval/Eval
+		//	GET: DeclareEval/Eval
+		//	POST: DecalreEval/Eval
 
-      [NoCache]
+		[NoCache]
 		public ActionResult Eval(DeclareEvalParam param)
 		{
 			param.AccesserId = UserProfile.UserId;
@@ -517,12 +520,12 @@ namespace TheSite.Controllers
 						groupId = param.GroupId
 					});
 				}
-				else if(UserProfile.IsSpecialExpert)
+				else if (UserProfile.IsSpecialExpert)
 				{
-               return RedirectToAction("EvalSpecialExpertMemberList");
+					return RedirectToAction("EvalSpecialExpertMemberList");
 				}
 
-            return null;
+				return null;
 
 			}
 			catch
@@ -533,24 +536,24 @@ namespace TheSite.Controllers
 		}
 
 
-      //	POST-Ajax: DeclareEval/ResultView
+		//	POST-Ajax: DeclareEval/ResultView
 
-      //[HttpPost]
-      public ActionResult ResultView(DeclareEvalParam param)
-      {
-        // ThrowNotAjax();
+		//[HttpPost]
+		public ActionResult ResultView(DeclareEvalParam param)
+		{
+			// ThrowNotAjax();
 
-         var model = new EvalDeclareResultModel(param);
-         var engine = EngineManager.Engines[Period.AnalysisType].DeclareEvals[model.TargetId];
+			var model = new EvalDeclareResultModel(param);
+			var engine = EngineManager.Engines[Period.AnalysisType].DeclareEvals[model.TargetId];
 
-         //model.AnalysisUnit = engine;
-         model.Result = engine.GetResult(db, param);
-         model.ResultItems = engine.GetResultItem(db, param);
+			//model.AnalysisUnit = engine;
+			model.Result = engine.GetResult(db, param);
+			model.ResultItems = engine.GetResultItem(db, param);
 
-         return View(engine.ResultView, model);
-      }
+			return View(engine.ResultView, model);
+		}
 
 
-   }
+	}
 
 }
