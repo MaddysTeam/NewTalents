@@ -108,7 +108,6 @@ namespace TheSite.Models
    }
 
 
-
    public class EvalDeclareResultModel
    {
 

@@ -94,7 +94,8 @@
 				formatters: {
 					'commands': function (column, row) {
 						var periodId = row.periodId;
-						var resultUrl = '@Url.Action("ResultView", "DeclareEval")?teacherId=' + row.id + '&periodId=' + periodId + '&targetId=' + row.targetId + '&resultId=' + row.resultId;
+						var resultUrl = '@Url.Action("EvalExpertMemberDetails", "DeclareEvalManage")?teacherId=' + row.id;
+							//'?teacherId=' + row.id + '&periodId=' + periodId + '&targetId=' + row.targetId + '&resultId=' + row.resultId;
 						var html = '<div class="btn-group btn-group-xs pull-right" data-row-id="' + row.id + '">' +
 							'<a target="_blank" class="btn btn-info btn-view" href="'+resultUrl+'"><i class="fa fa-external-link"></i>专家评审详细</a>';
 						html += '</div>';

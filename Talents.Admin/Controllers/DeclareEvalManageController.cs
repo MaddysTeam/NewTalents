@@ -145,17 +145,17 @@ namespace TheSite.Controllers
 			var periodId = Period.PeriodId;
 
 			var query = APQuery.select(er.TeacherId, dr.TeacherName,
-					dr.DeclareTargetPKID, dr.DeclareSubjectPKID, dr.CompanyId,eg.Name.As("GroupName"),
-					er.Score.Sum().As("EvalScore"), er.FullScore, c.CompanyName)
+					dr.DeclareTargetPKID, dr.DeclareSubjectPKID, dr.CompanyId, eg.Name.As("GroupName"),
+					er.Score.Avg().As("EvalScore"), er.FullScore, c.CompanyName)
 				.from(er,
 						 dr.JoinInner(er.TeacherId == dr.TeacherId),
 						 c.JoinInner(dr.CompanyId == c.CompanyId),
-						 egt.JoinInner(egt.MemberId==dr.TeacherId),
-						 eg.JoinInner(eg.GroupId==egt.GroupId)
+						 egt.JoinInner(egt.MemberId == dr.TeacherId),
+						 eg.JoinInner(eg.GroupId == egt.GroupId)
 						)
 				.where(dr.StatusKey == DeclareKeys.ReviewSuccess & er.GroupId > 0, er.PeriodId == periodId)
-				.group_by(er.TeacherId,dr.TeacherName, dr.DeclareTargetPKID, 
-				          dr.DeclareSubjectPKID, dr.CompanyId, eg.Name, er.FullScore, c.CompanyName)
+				.group_by(er.TeacherId, dr.TeacherName, dr.DeclareTargetPKID,
+						  dr.DeclareSubjectPKID, dr.CompanyId, eg.Name, er.FullScore, c.CompanyName)
 				.primary(er.ResultId)
 				.skip((current - 1) * rowCount)
 				.take(rowCount);
@@ -205,7 +205,7 @@ namespace TheSite.Controllers
 					subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(r)),
 					company = c.CompanyName.GetValue(r),
 					score = string.Format("{0} / {1}", score, fullScore),
-					group= eg.Name.GetValue(r, "GroupName")
+					group = eg.Name.GetValue(r, "GroupName")
 				};
 			}).ToList();
 
@@ -219,11 +219,6 @@ namespace TheSite.Controllers
 			});
 		}
 
-
-		public ActionResult EvalExpertDetails()
-		{
-			return null;
-		}
 
 		// GET: DeclareEval/NotEvalExpertMemberList
 		// POST-Ajax: DeclareEval/NotEvalExpertMemberList
@@ -250,16 +245,16 @@ namespace TheSite.Controllers
 									   )
 				.from(egt,
 						 dr.JoinInner(dr.TeacherId == egt.MemberId),
-						 c.JoinInner(dr.CompanyId==c.CompanyId),
-						 eg.JoinInner(eg.GroupId==egt.GroupId)
+						 c.JoinInner(dr.CompanyId == c.CompanyId),
+						 eg.JoinInner(eg.GroupId == egt.GroupId)
 						)
-				.where( dr.StatusKey == DeclareKeys.ReviewSuccess & egt.MemberId.NotIn(subQuery))
+				.where(dr.StatusKey == DeclareKeys.ReviewSuccess & egt.MemberId.NotIn(subQuery))
 				.primary(egt.MemberId)
 				.skip((current - 1) * rowCount)
 				.take(rowCount);
 
 			if (groupId > 0)
-				query = query.where_and(egt.GroupId==groupId);
+				query = query.where_and(egt.GroupId == groupId);
 
 			//过滤条件
 			//模糊搜索姓名
@@ -294,8 +289,8 @@ namespace TheSite.Controllers
 					target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(rd)),
 					subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(rd)),
 					targetId = dr.DeclareTargetPKID.GetValue(rd),
-					company=c.CompanyName.GetValue(rd),
-					group=eg.Name.GetValue(rd, "GroupName")
+					company = c.CompanyName.GetValue(rd),
+					group = eg.Name.GetValue(rd, "GroupName")
 				};
 			}).ToList();
 
@@ -309,6 +304,24 @@ namespace TheSite.Controllers
 			});
 		}
 
+		
+		public ActionResult EvalExpertMemberDetails(long teacherId)
+		{
+			var result = APQuery.select(er.ResultId, er.Score,u.UserName,er.TeacherId,er.PeriodId,er.DeclareTargetPKID)
+				.from(er, u.JoinInner(er.Accesser == u.UserId))
+				.where(er.TeacherId == teacherId & er.GroupId>0)
+				.query(db, r => new EvalDeclareResult
+				{
+					ResultId=er.ResultId.GetValue(r),
+					AccesserName=u.UserName.GetValue(r),
+					Score=er.Score.GetValue(r),
+					TeacherId=er.TeacherId.GetValue(r),
+					PeriodId=er.PeriodId.GetValue(r),
+					DeclareTargetPKID=er.DeclareTargetPKID.GetValue(r)
+				}).ToList();
+
+			return View(result);
+		}
 
 		#region [ Helper ]
 

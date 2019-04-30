@@ -84,9 +84,6 @@
 						var html = '<div class="btn-group btn-group-xs pull-right" data-row-id="' + row.id + '">' +
 							'<a target="_blank" class="btn btn-warning btn-view" href="'+evalUrl+'"><i class="fa fa-external-link"></i>继续考评</a>'+
 							'<a target="_blank" class="btn btn-info btn-view" href="'+resultUrl+'"><i class="fa fa-external-link"></i>查看详细</a>';
-						@*if (row.submitStatus == '未提交') {
-							html += '<a class="btn btn-success btn-view" href="@Url.Action("Eval", "DeclareEval")?teacherId=' + row.id + '&periodId=' + @periodId + '&targetId=' + row.targetId + '&groupId=' +@groupId +'">执行考评</a>';
-						}*@
 						html += '</div>';
 						return html;
 					},

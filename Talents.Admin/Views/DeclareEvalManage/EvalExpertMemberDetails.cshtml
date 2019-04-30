@@ -1,0 +1,88 @@
+﻿@model List<EvalDeclareResult>
+@{
+	var pageTitle = ViewBag.Title = "专家评审明细";
+
+}
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action(" Index", "Home" )">首页</a></li>
+				<li class="active">@pageTitle</li>
+			</ul>
+		</div>
+	</div>
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-users"></i> @pageTitle</h2>
+			<em></em>
+		</div>
+		<div class="main-content">
+			<!-- top action buttons -->
+
+			@*@Html.Partial("_nav")*@
+
+			<!-- /top action buttons -->
+			<!-- widget -->
+			<div class="widget">
+				<div class="widget-header">
+					<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
+					<div class="btn-group widget-header-toolbar">
+						<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+						<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+					</div>
+				</div>
+				<div class="widget-content">
+
+					<!-- Grid -->
+					<div class="table-responsive">
+						<table class="table table-striped table-hover table-dark-header">
+							<thead>
+								<tr>
+									<th>评审专家</th>
+									<th>评分</th>
+									<th data-column-id="commands" data-formatter="commands" data-sortable="false" data-header-Css-Class="width180">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model)
+								{
+									<tr>
+										<td>@item.AccesserName</td>
+										<td>@item.Score</td>
+										<td><a class="details" data-result-id="@item.ResultId" data-period-id="@item.PeriodId"
+											   data-teacher-id="@item.TeacherId" data-target-id="@item.DeclareTargetPKID" href="#" >显示详细</a></td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+					<!-- end Grid-->
+
+					<div id="details">
+
+					</div>
+				</div>
+				<!-- /widget content -->
+			</div>
+			<!-- /widget -->
+		</div>
+		<!-- /main-content -->
+	</div>
+ </div>
+@section Scripts {
+	<script>
+		$('.details').on('click', function () {
+			var $this = $(this);
+			var resultId = $this.data('resultId');
+			var periodId = $this.data('periodId');
+			var targetId = $this.data('targetId');
+			var teacherId = $this.data('teacherId');
+
+			$.get('@Url.Action("ResultView", "DeclareEval")?resultId=' + resultId+'&teacherId='+teacherId+'&targetId='+targetId+'&periodId='+periodId, function (data) {
+				$('#details').html(data);
+			});
+		});
+	</script>
+}

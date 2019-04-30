@@ -503,6 +503,8 @@ namespace TheSite.Controllers
 
 			try
 			{
+				param.PeriodId = Period.PeriodId;
+
 				var resultId = engine[param.TargetId].Eval(db, param, fc);
 
 				db.Commit();
@@ -550,7 +552,7 @@ namespace TheSite.Controllers
 			model.Result = engine.GetResult(db, param);
 			model.ResultItems = engine.GetResultItem(db, param);
 
-			return View(engine.ResultView, model);
+			return PartialView(engine.ResultView, model);
 		}
 
 

@@ -1,6 +1,6 @@
 ﻿@model EvalDeclareResultModel
 @{
-	Layout = "~/Views/Shared/_preview.cshtml";
+	//Layout = "~/Views/Shared/_preview.cshtml";
 	var result = Model.Result;
 	var items = Model.ResultItems;
 
@@ -93,25 +93,25 @@
 							<td></td>
 							<td>1.开课证明（相关教育行政部门或学校盖章）；2.被指导教师写的证明</td>
 							
-							@if (gongkk.ChooseValue == "A")
+							@if (gongkk.ChooseValue == "A1")
 							{
 								<td>国家级</td>
 								<td><label>A：国家级公开课（或指导公开课）</label></td>
 								<td><span>@gongkk.ResultValue</span>分</td>
 							}
-							else if (gongkk.ChooseValue == "B")
+							else if (gongkk.ChooseValue == "A2")
 							{
 								<td>市级</td>
 								<td><label>B：市级公开课（或指导公开课）</label></td>
 								<td><span>@gongkk.ResultValue</span>分</td>
 							}
-							else if (gongkk.ChooseValue == "C")
+							else if (gongkk.ChooseValue == "A3")
 							{
 								<td>区级</td>
 								<td><label>C：区级公开课（或指导公开课）</label></td>
 								<td><span>@gongkk.ResultValue</span>分</td>
 							}
-							else if (gongkk.ChooseValue == "D")
+							else if (gongkk.ChooseValue == "A4")
 							{
 								<td>校级</td>
 								<td><label>D：校级公开课（或指导公开课）</label></td>
