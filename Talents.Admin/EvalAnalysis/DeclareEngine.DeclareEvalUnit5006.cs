@@ -19,6 +19,9 @@ namespace TheSite.EvalAnalysis
 
          public override double CompanyFullScore => 30;
 
+         public override double ExpertFullScore => 60;
+
+
          protected override void AnalysisResult(FormCollection fc, EvalDeclareResult result, Dictionary<string, EvalDeclareResultItem> items)
          {
             double score = 0, score1 = 0, score2 = 0, score3 = 0, score4 = 0;
@@ -38,13 +41,13 @@ namespace TheSite.EvalAnalysis
             score += score1 > score2 ? score1 : score2;
 
             if (fc[EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt] != null)
-               score3 = Analysis_JiaoyJiaox_ZhongxXueMingt(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt], fc[EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt_Def]);
+               score3 += Analysis_JiaoyJiaox_ZhongxXueMingt(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt], fc[EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt_Def]);
 
             if (fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw] != null)
                score3 += Analysis_JiaoyJiaox_DanrPingw(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw], fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw_Def]);
 
             if (fc[EvalDeclareRuleKeys.JiaoyGongz_Dey] != null)
-               score4 = Analysis_JiaoyJiaox_Dey(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_Dey], fc[EvalDeclareRuleKeys.JiaoyGongz_Dey_Def]);
+               score4 += Analysis_JiaoyJiaox_Dey(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_Dey], fc[EvalDeclareRuleKeys.JiaoyGongz_Dey_Def]);
 
             if (fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2] != null)
                score4 += Analysis_JiaoyJiaox_DanrPingw2(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2], fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2_Def]);
@@ -171,23 +174,30 @@ namespace TheSite.EvalAnalysis
                   result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 9.0, 9.0);
                   break;
                case "C2":
-                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 8.5, 8.5);
+                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 8.0, 8.0);
                   break;
                case "D2":
-                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 8.0, 8.0);
+                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 7.0, 7.0);
                   break;
 
                case "A3":
                   result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 9.0, 9.0);
                   break;
                case "B3":
-                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 8.5, 8.5);
-                  break;
-               case "C3":
                   result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 8.0, 8.0);
                   break;
-               case "D3":
+               case "C3":
                   result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 7.0, 7.0);
+                  break;
+               case "D3":
+                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 6.0, 6.0);
+                  break;
+
+               case "A4":
+                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 6.0, 6.0);
+                  break;
+               case "B4":
+                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 4.0, 4.0);
                   break;
 
             }
@@ -232,23 +242,30 @@ namespace TheSite.EvalAnalysis
                   result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 9.0, 9.0);
                   break;
                case "C2":
-                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 8.5, 8.5);
+                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 8.0, 8.0);
                   break;
                case "D2":
-                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 8.0, 8.0);
+                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 7.0, 7.0);
                   break;
 
                case "A3":
                   result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 9.0, 9.0);
                   break;
                case "B3":
-                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 8.5, 8.5);
-                  break;
-               case "C3":
                   result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 8.0, 8.0);
                   break;
-               case "D3":
+               case "C3":
                   result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 7.0, 7.0);
+                  break;
+               case "D3":
+                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 6.0, 6.0);
+                  break;
+
+               case "A4":
+                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 6.0, 6.0);
+                  break;
+               case "B4":
+                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 4.0, 4.0);
                   break;
 
             }
@@ -289,6 +306,9 @@ namespace TheSite.EvalAnalysis
                   result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 7.0, 7.0);
                   break;
                case "B2":
+                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 6.0, 6.0);
+                  break;
+               case "A3":
                   result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 4.0, 4.0);
                   break;
             }
@@ -325,6 +345,9 @@ namespace TheSite.EvalAnalysis
                case "A2":
                   result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 4.0, 4.0);
                   break;
+               case "A3":
+                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 3.0, 3.0);
+                  break;
             }
 
             item.ResultValue = scoreValue.ToString();
@@ -351,20 +374,14 @@ namespace TheSite.EvalAnalysis
             switch (choose)
             {
                case "A1":
-                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 7.0, 10.0);
+                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 9.0, 10.0);
                   break;
-               case "B1":
-                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 4.0, 6.9);
+               case "A2":
+                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 6.0, 8.9);
                   break;
-                  //case "A2":
-                  //	result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 5.0, 5.0);
-                  //	break;
-                  //case "B2":
-                  //	result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 4.0, 4.0);
-                  //	break;
-                  //case "C2":
-                  //	result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 4.0, 4.0);
-                  //	break;
+               case "A3":
+                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 4.0, 4.0);
+                  break;
             }
 
             item.ResultValue = scoreValue.ToString();
@@ -398,6 +415,9 @@ namespace TheSite.EvalAnalysis
                   break;
                case "A2":
                   result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 4.0, 4.0);
+                  break;
+               case "A3":
+                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 3.0, 3.0);
                   break;
             }
 
@@ -453,6 +473,13 @@ namespace TheSite.EvalAnalysis
                case "C3":
                   result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 3.0, 3.0);
                   break;
+
+               case "A4":
+                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 3.5, 3.5);
+                  break;
+               case "B4":
+                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 3.0, 3.0);
+                  break;
             }
 
             item.ResultValue = scoreValue.ToString();
@@ -492,6 +519,9 @@ namespace TheSite.EvalAnalysis
                   break;
                case "A3":
                   result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 2.0, 2.0);
+                  break;
+               case "A4":
+                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 1.0, 1.0);
                   break;
             }
 
@@ -556,25 +586,19 @@ namespace TheSite.EvalAnalysis
                   result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 10.0, 10.0);
                   break;
                case "B1":
-                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 9.0, 9.0);
+                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 8.0, 8.0);
                   break;
                case "A2":
                   result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 9.0, 9.0);
                   break;
                case "B2":
-                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 8.0, 8.0);
+                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 7.0, 7.0);
                   break;
                case "A3":
                   result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 7.0, 7.0);
                   break;
                case "B3":
-                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 6.0, 6.0);
-                  break;
-               case "A4":
                   result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 5.0, 5.0);
-                  break;
-               case "B4":
-                  result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 4.0, 4.0);
                   break;
             }
 

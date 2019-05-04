@@ -83,7 +83,8 @@ namespace TheSite.Controllers
 					 return name;
 				 }).ToArray();
 
-			var totalCount = db.ExpGroupTargetDal.ConditionQueryCount(egt.GroupId == groupId);
+         var subQuery = APQuery.select(dr.TeacherId).from(dr).where(dr.StatusKey == DeclareKeys.ReviewSuccess);
+         var totalCount = db.ExpGroupTargetDal.ConditionQueryCount(egt.GroupId == groupId & egt.MemberId.In(subQuery));
 			var evalCount = db.EvalDeclareResultDal.ConditionQueryCount(
 				 er.GroupId == groupId & er.PeriodId == periodId & er.Accesser == UserProfile.UserId);
 
@@ -201,9 +202,8 @@ namespace TheSite.Controllers
 				.from(er)
 				.where(er.Accesser == UserProfile.UserId & er.GroupId == groupId & er.PeriodId == periodId);
 
-			var query = APQuery.select(egt.MemberId, u.RealName, dr.DeclareTargetPKID, dr.DeclareSubjectPKID)
+			var query = APQuery.select(egt.MemberId, dr.TeacherName, dr.DeclareTargetPKID, dr.DeclareSubjectPKID)
 				.from(egt,
-						 u.JoinInner(u.UserId == egt.MemberId),
 						 dr.JoinInner(dr.TeacherId == egt.MemberId)
 						)
 				.where(egt.GroupId == groupId & dr.StatusKey == DeclareKeys.ReviewSuccess & egt.MemberId.NotIn(subQuery))
@@ -241,7 +241,7 @@ namespace TheSite.Controllers
 				return new
 				{
 					id = egt.MemberId.GetValue(rd),
-					realName = u.RealName.GetValue(rd),
+					realName = dr.TeacherName.GetValue(rd),
 					target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(rd)),
 					subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(rd)),
 					targetId = dr.DeclareTargetPKID.GetValue(rd),
@@ -466,8 +466,9 @@ namespace TheSite.Controllers
 		public ActionResult Eval(DeclareEvalParam param)
 		{
 			param.AccesserId = UserProfile.UserId;
+         param.PeriodId = Period.PeriodId;
 
-			var isEvalSubmit = false;
+         var isEvalSubmit = false;
 
 			var engines = EngineManager.Engines[Period.AnalysisType].DeclareEvals;
 			if (isEvalSubmit || !engines.ContainsKey(param.TargetId))
@@ -480,7 +481,7 @@ namespace TheSite.Controllers
 			var result = db.EvalDeclareResultDal.ConditionQuery(
 				er.PeriodId == param.PeriodId &
 				er.TeacherId == param.TeacherId &
-				er.Accesser == this.UserProfile.UserId, null, null, null)
+				er.Accesser == param.AccesserId, null, null, null)
 				.FirstOrDefault();
 
 			param.ResultId = result == null ? 0 : result.ResultId;
@@ -540,10 +541,9 @@ namespace TheSite.Controllers
 
 		//	POST-Ajax: DeclareEval/ResultView
 
-		//[HttpPost]
 		public ActionResult ResultView(DeclareEvalParam param)
 		{
-			// ThrowNotAjax();
+			 ThrowNotAjax();
 
 			var model = new EvalDeclareResultModel(param);
 			var engine = EngineManager.Engines[Period.AnalysisType].DeclareEvals[model.TargetId];

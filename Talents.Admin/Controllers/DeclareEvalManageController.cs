@@ -30,61 +30,33 @@ namespace TheSite.Controllers
 
 		// GET: DeclareEval/SchoolEvalExport
 
-		public ActionResult SchoolEvalExport(long? companyId)
-		{
-			APSqlSelectCommand query = APQuery.select(dr.TeacherId, dr.TeacherName, c.CompanyName,
-					dr.DeclareTargetPKID, dr.DeclareSubjectPKID,
-					er.Score, er.FullScore, er.ResultId, er.GroupId)
-				.from(dr,
-						 er.JoinLeft(er.TeacherId == dr.TeacherId & er.GroupId == 0),
-						 c.JoinInner(dr.CompanyId == c.CompanyId)
-						)
-				.where(dr.PeriodId == Period.PeriodId
-					 // & dr.CompanyId == UserProfile.CompanyId
-					 & dr.StatusKey == DeclareKeys.ReviewSuccess
-					 & dr.DeclareTargetPKID.In(new long[] { DeclareTargetIds.GongzsZhucr, DeclareTargetIds.XuekDaitr, DeclareTargetIds.GugJiaos }));
+		//public ActionResult SchoolEvalExport(long? companyId)
+		//{
+  //       var dic = GetDeclareShcolEvalResultViewModels(companyId);
 
-			if (UserProfile.IsSchoolAdmin)
-				query.where_and(dr.CompanyId == UserProfile.CompanyId);
-			else if (UserProfile.IsSystemAdmin && companyId != null && companyId > 0)
-				query.where_and(dr.CompanyId == companyId.Value);
+  //       //创建Excel文件的对象
+  //       var book = CreateBook(dic);
 
-			var dic = query.query(db, r =>
-			{
-				var resultId = er.ResultId.GetValue(r, "ResultId");
-
-				return new InsepectionDeclareSchoolEvalResult
-				{
-					Id = dr.TeacherId.GetValue(r),
-					TeacherName = dr.TeacherName.GetValue(r),
-					DeclareCompany = c.CompanyName.GetValue(r),
-					DeclareTarget = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r), "", false),
-					Score = er.Score.GetValue(r).ToString(),
-					FullScore = "100",
-					Status = resultId == 0 ? "未评审" : "已评审",
-				};
-			}).ToDictionary(x => x.Id);
-
-			//创建Excel文件的对象
-			var book = CreateBook(dic);
-
-			// 写入到客户端 
-			System.IO.MemoryStream ms = new System.IO.MemoryStream();
-			book.Write(ms);
-			ms.Seek(0, SeekOrigin.Begin);
-			DateTime dt = DateTime.Now;
-			string dateTime = dt.ToString("yyyyMMdd");
-			string fileName = $"{UserProfile.CompanyName}教师申报评审表" + dateTime + ".xls";
-			return File(ms, "application/vnd.ms-excel", fileName);
-		}
+		//	// 写入到客户端 
+		//	System.IO.MemoryStream ms = new System.IO.MemoryStream();
+		//	book.Write(ms);
+		//	ms.Seek(0, SeekOrigin.Begin);
+		//	DateTime dt = DateTime.Now;
+		//	string dateTime = dt.ToString("yyyyMMdd");
+		//	string fileName = $"{UserProfile.CompanyName}教师申报评审表" + dateTime + ".xls";
+		//	return File(ms, "application/vnd.ms-excel", fileName);
+		//}
 
 
 		// GET: DeclareEval/EvalSchoolMemberExport
 
 		public ActionResult EvalSchoolMemberExport()
 		{
-			var pdfRender = new HtmlRender();
-			var htmlText = pdfRender.RenderViewToString(this, "EvalSchoolMemberExport", null);
+         var companyId = UserProfile.CompanyId;
+         var results = GetDeclareShcolEvalResultViewModels(companyId);
+
+         var pdfRender = new HtmlRender();
+			var htmlText = pdfRender.RenderViewToString(this, "EvalSchoolMemberExport", results);
 			byte[] pdfFile = FormatConverter.ConvertHtmlTextToPDF(htmlText);
 			string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + new Random().Next(1000, 10000);
 			return new BinaryContentResult($"{fileName}.pdf", "application/pdf", pdfFile);
@@ -368,6 +340,44 @@ namespace TheSite.Controllers
 
 			return book;
 		}
+
+
+      private List<InsepctionDeclareSchoolEvalResult> GetDeclareShcolEvalResultViewModels(long? companyId)
+      {
+         APSqlSelectCommand query = APQuery.select(dr.TeacherId, dr.TeacherName, c.CompanyName,
+               dr.DeclareTargetPKID, dr.DeclareSubjectPKID,
+               er.Score, er.FullScore, er.ResultId, er.GroupId)
+            .from(dr,
+                   er.JoinLeft(er.TeacherId == dr.TeacherId & er.GroupId == 0),
+                   c.JoinInner(dr.CompanyId == c.CompanyId)
+                  )
+            .where(dr.PeriodId == Period.PeriodId
+                & dr.StatusKey == DeclareKeys.ReviewSuccess
+                & dr.DeclareTargetPKID.In(new long[] { DeclareTargetIds.GongzsZhucr, DeclareTargetIds.XuekDaitr, DeclareTargetIds.GugJiaos }));
+
+         if (UserProfile.IsSchoolAdmin)
+            query.where_and(dr.CompanyId == UserProfile.CompanyId);
+         else if (UserProfile.IsSystemAdmin && companyId != null && companyId > 0)
+            query.where_and(dr.CompanyId == companyId.Value);
+
+         var results = query.query(db, r =>
+         {
+            var resultId = er.ResultId.GetValue(r, "ResultId");
+
+            return new InsepctionDeclareSchoolEvalResult
+            {
+               Id = dr.TeacherId.GetValue(r),
+               TeacherName = dr.TeacherName.GetValue(r),
+               DeclareCompany = c.CompanyName.GetValue(r),
+               DeclareTarget = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r), "", false),
+               Score = er.Score.GetValue(r).ToString(),
+               FullScore = "100",
+               Status = resultId == 0 ? "未评审" : "已评审",
+            };
+         }).ToList();
+
+         return results;
+      }
 
 		#endregion
 	}

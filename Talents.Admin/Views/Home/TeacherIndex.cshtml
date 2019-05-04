@@ -147,42 +147,44 @@
 
 		$(function () {
 
-
-
-			$.get('@Url.Action("DeclareActiveTotal", "Home")', function (data) {
-
-				$('#declareActiveTotal').html(data);
-
-			});
-
-			$.get('@Url.Action("JoinTeam", "Home")', function (data) {
-
-				$('#joinTeam').html(data);
-
-			});
-
-			$.get('@Url.Action("LeaderTeam", "Home")', function (data) {
-
-				$('#leaderTeam').html(data);
-
-			});
-
-			$.get('@Url.Action("EvalPeriodScores", "Home")', function (data) {
-
-				$('#evalPeriodScores').html(data);
-
-			});
-
-			$.get('@Url.Action("EvalComments", "Home")', function (data) {
-
-				$('#evalComments').html(data);
-
-			});
-
 			//TODO: 是否需要判断下专家组不可能为空的逻辑
 			var isExpert = '@userIsExpert' == 'True' ? true : false;
 
-			if (isExpert) {
+			if (!isExpert) {
+
+				$.get('@Url.Action("DeclareActiveTotal", "Home")', function (data) {
+
+					$('#declareActiveTotal').html(data);
+
+				});
+
+				$.get('@Url.Action("JoinTeam", "Home")', function (data) {
+
+					$('#joinTeam').html(data);
+
+				});
+
+				$.get('@Url.Action("LeaderTeam", "Home")', function (data) {
+
+					$('#leaderTeam').html(data);
+
+				});
+
+				$.get('@Url.Action("EvalPeriodScores", "Home")', function (data) {
+
+					$('#evalPeriodScores').html(data);
+
+				});
+
+				$.get('@Url.Action("EvalComments", "Home")', function (data) {
+
+					$('#evalComments').html(data);
+
+				});
+			}
+
+
+			@*if (isExpert) {
 
 				$.get('@Url.Action("ExpGroups", "Home")', function (data, stats) {
 
@@ -207,7 +209,7 @@
 					});
 
 				});
-			}
+			}*@
 
 		});
 

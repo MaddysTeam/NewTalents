@@ -1,57 +1,74 @@
 ﻿@model EvalDeclareResultModel
-@{ 
-	Layout = "~/Views/Shared/_preview.cshtml";
+@{
+	//Layout = "~/Views/Shared/_preview.cshtml";
 	var result = Model.Result;
 	var items = Model.ResultItems;
 
 	var xiaonLvz = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.XiaonLvz);
+	var gongkk = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyJiaox_Gongkk);
+	var pingbQuj = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj);
+	var pingbQit = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt);
+	var zhongxXueMingt = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt);
+	var danrPingw = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyGongz_DanrPingw);
+	var dey = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyGongz_Dey);
+	var danrPingw2 = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2);
+	var xiangmYanj = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyKey_XiangmYanj);
+	var fabLunw = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyKey_FabLunw);
+	var peixKec = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaosPeix_PeixKec);
+	var jiangz = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaosPeix_ZhuantJiangz);
 }
 
-<!-- widget -->
-<div class="widget">
-	<div class="widget-header">
-		<h3>评审结果</h3>
-	</div>
-	<div class="widget-content">
-		<div class="tab-content no-padding">
+<div class="modal-dialog modal-lg">
 
-			<table class="table table-condensed table-striped">
-				<tr>
-					<th class="table-col-10p">教师姓名</th>
-					<td><strong class="result-score">@result.TeacherName</strong></td>
-				</tr>
-				<tr>
-					<th class="table-col-10p">得分</th>
-					<td><strong class="result-score">@result.Score</strong></td>
-				</tr>
-				<tr>
-					<th>总分</th>
-					<td>@result.FullScore</td>
-				</tr>
-				<tr>
-					<th>评分人</th>
-					<td>@result.AccesserName</td>
-				</tr>
-				<tr>
-					<th>评分时间</th>
-					<td>@result.AccessDate.ToString("yyyy-MM-dd")</td>
-				</tr>
-			</table>
+	<!-- widget -->
+	<div class="widget">
+		<div class="widget-header">
+			<h3>评审结果</h3>
+			<div class="btn-group widget-header-toolbar">
+				<a href="#" title="关闭" class="btn-borderless" data-dismiss="modal"><i class="fa fa-close"></i></a>
+			</div>
+		</div>
+		<div class="widget-content">
+			<div class="tab-content no-padding">
 
-			<table class="table table-bordered table-striped">
-				<thead>
+				<table class="table table-condensed table-striped">
 					<tr>
-						<th class="table-col-10p">一级指标</th>
-						<th class="table-col-10p">二级指标</th>
-						<th class="table-col-10p">三级指标</th>
-						<th>要求</th>
-						<th class="table-col-10p">级别要求</th>
-						<th class="table-col-10p">指标项</th>
-						<th class="table-col-10p">分值/统计标准</th>
+						<th class="table-col-10p">教师姓名</th>
+						<td><strong class="result-score">@result.TeacherName</strong></td>
 					</tr>
-				</thead>
-				<tbody>
-					<!--校内履职-->
+					<tr>
+						<th class="table-col-10p">得分</th>
+						<td><strong class="result-score">@result.Score</strong></td>
+					</tr>
+					<tr>
+						<th>总分</th>
+						<td>@result.FullScore</td>
+					</tr>
+					<tr>
+						<th>评分人</th>
+						<td>@result.AccesserName</td>
+					</tr>
+					<tr>
+						<th>评分时间</th>
+						<td>@result.AccessDate.ToString("yyyy-MM-dd")</td>
+					</tr>
+				</table>
+
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th class="table-col-10p">一级指标</th>
+							<th class="table-col-10p">二级指标</th>
+							<th class="table-col-10p">三级指标</th>
+							<th>要求</th>
+							<th class="table-col-10p">级别</th>
+							<th class="table-col-10p">指标项</th>
+							<th class="table-col-10p">得分</th>
+						</tr>
+					</thead>
+					<tbody>
+						@if (xiaonLvz.ResultValue != "")
+					{
 					<tr>
 						<td>校内履职</td>
 						<td></td>
@@ -59,21 +76,614 @@
 						<td>由所在学校就工作量、教育教学效果、主持学校学科教研组建设、参与重大项目研究进行考评</td>
 						<td></td>
 						@if (xiaonLvz.ChooseValue == "A")
-						{
+							{
 							<td><label>A：总体情况非常好</label></td>
 							<td><span>@xiaonLvz.ResultValue</span>分</td>
-						}
-						else if (xiaonLvz.ChooseValue == "B")
-						{
+							}
+							else if (xiaonLvz.ChooseValue == "B")
+							{
 							<td><label>B：履职较好</label></td>
 							<td><span>@xiaonLvz.ResultValue</span>分</td>
-						}
+							}
 					</tr>
-				
-				</tbody>
-			</table>
+					}
+						@if (gongkk.ResultValue != "")
+					{
+					<tr>
+						<td rowspan="7">教育教学</td>
+						<td>1.公开课</td>
+						<td></td>
+						<td>
+							【材料要求】教案<br />
+							【证明要求】1.开课证明（相关教育行政部门或学校盖章）；2.被指导教师写的证明
+						</td>
 
+						@if (gongkk.ChooseValue == "A1")
+							{
+							<td>国家级</td>
+							<td><label>A：国家级公开课（或指导公开课）</label></td>
+							<td><span>@gongkk.ResultValue</span>分</td>
+							}
+							else if (gongkk.ChooseValue == "A2")
+							{
+							<td>市级</td>
+							<td><label>B：市级公开课（或指导公开课）</label></td>
+							<td><span>@gongkk.ResultValue</span>分</td>
+							}
+							else if (gongkk.ChooseValue == "A3")
+							{
+							<td>区级</td>
+							<td><label>C：区级公开课（或指导公开课）</label></td>
+							<td><span>@gongkk.ResultValue</span>分</td>
+							}
+							else if (gongkk.ChooseValue == "A4")
+							{
+							<td>校级</td>
+							<td><label>D：校级公开课（或指导公开课）</label></td>
+							<td><span>@gongkk.ResultValue</span>分</td>
+							}
+					</tr>
+					}
+						@if (pingbQuj.ResultValue != "")
+					{
+					<tr>
+						<td rowspan="2">2.教育教学评比 <br /> (自动识别（1）和（2）最高分，计入)</td>
+						<td>（1）校级及以上课堂教学评比</td>
+						<td>
+							【材料要求】教案<br />
+							【证明要求】1.获奖证明（相关教育行政部门开具证书）<br />2.被指导教师写的证明
+						</td>
+
+						@if (pingbQuj.ChooseValue == "A1")
+							{
+							<td>国家级</td>
+							<td><label>A：获特等奖（或指导获奖）</label></td>
+							<td><span>@pingbQuj.ResultValue</span>分</td>
+							}
+							else if (pingbQuj.ChooseValue == "B1")
+							{
+							<td>国家级</td>
+							<td><label>B：获一、二等奖（或指导获奖）</label></td>
+							<td><span>@pingbQuj.ResultValue</span>分</td>
+							}
+							else if (pingbQuj.ChooseValue == "C1")
+							{
+							<td>国家级</td>
+							<td><label>C：其他等第奖项（或指导获奖）</label></td>
+							<td><span>@pingbQuj.ResultValue</span>分</td>
+							}
+							else if (pingbQuj.ChooseValue == "A2")
+							{
+							<td>市级</td>
+							<td><label>A：获特等奖（或指导获奖）</label></td>
+							<td><span>@pingbQuj.ResultValue</span>分</td>
+							}
+							else if (pingbQuj.ChooseValue == "B2")
+							{
+							<td>市级</td>
+							<td><label>B：获一等奖（或指导获奖）</label></td>
+							<td><span>@pingbQuj.ResultValue</span>分</td>
+							}
+							else if (pingbQuj.ChooseValue == "C2")
+							{
+							<td>市级</td>
+							<td><label>C：获二等奖（或指导获奖）</label></td>
+							<td><span>@pingbQuj.ResultValue</span>分</td>
+							}
+							else if (pingbQuj.ChooseValue == "D2")
+							{
+							<td>市级</td>
+							<td><label>D：其他等第奖项（或指导获奖）</label></td>
+							<td><span>@pingbQuj.ResultValue</span>分</td>
+							}
+							else if (pingbQuj.ChooseValue == "A3")
+							{
+							<td>区级</td>
+							<td><label>A：获特等奖（或指导获奖）</label></td>
+							<td><span>@pingbQuj.ResultValue</span>分</td>
+							}
+							else if (pingbQuj.ChooseValue == "B3")
+							{
+							<td>区级</td>
+							<td><label>B：获一等奖（或指导获奖）</label></td>
+							<td><span>@pingbQuj.ResultValue</span>分</td>
+							}
+							else if (pingbQuj.ChooseValue == "C3")
+							{
+							<td>区级</td>
+							<td><label>C：获二等奖（或指导获奖）</label></td>
+							<td><span>@pingbQuj.ResultValue</span>分</td>
+							}
+							else if (pingbQuj.ChooseValue == "D3")
+							{
+							<td>区级</td>
+							<td><label>D：其他等第奖项（或指导获奖）</label></td>
+							<td><span>@pingbQuj.ResultValue</span>分</td>
+							}
+							else if (pingbQuj.ChooseValue == "A4")
+							{
+							<td>校级</td>
+							<td><label>A：获特等奖（或指导获奖）</label></td>
+							<td><span>@pingbQuj.ResultValue</span>分</td>
+							}
+							else if (pingbQuj.ChooseValue == "B4")
+							{
+							<td>校级</td>
+							<td><label>B：其他等第奖项（或指导获奖）</label></td>
+							<td><span>@pingbQuj.ResultValue</span>分</td>
+							}
+					</tr>
+					}
+						@if (pingbQit.ResultValue != "")
+					{
+					<tr>
+						<td>（2）其他教育评比</td>
+						<td>
+							【材料要求】参评获奖材料（如科研评比中获奖的论文或课题材料等）<br />
+							【证明要求】1.获奖证明（相关教育行政部门开具证书）<br />2.被指导教师写的证明
+						</td>
+
+						@if (pingbQit.ChooseValue == "A1")
+							{
+							<td>国家级</td>
+							<td><label>A：获特等奖（或指导获奖）</label></td>
+							<td><span>@pingbQit.ResultValue</span>分</td>
+							}
+							else if (pingbQit.ChooseValue == "B1")
+							{
+							<td>国家级</td>
+							<td><label>B：获一、二等奖（或指导获奖）</label></td>
+							<td><span>@pingbQit.ResultValue</span>分</td>
+							}
+							else if (pingbQit.ChooseValue == "C1")
+							{
+							<td>国家级</td>
+							<td><label>C：其他等第奖项（或指导获奖）</label></td>
+							<td><span>@pingbQit.ResultValue</span>分</td>
+							}
+
+						@if (pingbQit.ChooseValue == "A2")
+							{
+							<td>市级</td>
+							<td><label>A：获特等奖（或指导获奖）</label></td>
+							<td><span>@pingbQit.ResultValue</span>分</td>
+							}
+							else if (pingbQit.ChooseValue == "B2")
+							{
+							<td>市级</td>
+							<td><label>B：获一等奖（或指导获奖）</label></td>
+							<td><span>@pingbQit.ResultValue</span>分</td>
+							}
+							else if (pingbQit.ChooseValue == "C2")
+							{
+							<td>市级</td>
+							<td><label>C：获二等奖（或指导获奖）</label></td>
+							<td><span>@pingbQit.ResultValue</span>分</td>
+							}
+							else if (pingbQit.ChooseValue == "D2")
+							{
+							<td>市级</td>
+							<td><label>D：其他等第奖项（或指导获奖）</label></td>
+							<td><span>@pingbQit.ResultValue</span>分</td>
+							}
+
+						@if (pingbQit.ChooseValue == "A3")
+							{
+							<td>区级</td>
+							<td><label>A：获特等奖（或指导获奖）</label></td>
+							<td><span>@pingbQit.ResultValue</span>分</td>
+							}
+							else if (pingbQit.ChooseValue == "B3")
+							{
+							<td>区级</td>
+							<td><label>B：获一等奖（或指导获奖）</label></td>
+							<td><span>@pingbQit.ResultValue</span>分</td>
+							}
+							else if (pingbQit.ChooseValue == "C3")
+							{
+							<td>区级</td>
+							<td><label>C：获二等奖（或指导获奖）</label></td>
+							<td><span>@pingbQit.ResultValue</span>分</td>
+							}
+							else if (pingbQit.ChooseValue == "D3")
+							{
+							<td>区级</td>
+							<td><label>D：其他等第奖项（或指导获奖）</label></td>
+							<td><span>@pingbQit.ResultValue</span>分</td>
+							}
+
+							else if (pingbQit.ChooseValue == "A4")
+							{
+							<td>校级</td>
+							<td><label>B：获一等奖（或指导获奖）</label></td>
+							<td><span>@pingbQit.ResultValue</span>分</td>
+							}
+							else if (pingbQit.ChooseValue == "B4")
+							{
+							<td>校级</td>
+							<td><label>B：其他等第奖项（或指导获奖）</label></td>
+							<td><span>@pingbQit.ResultValue</span>分</td>
+							}
+					</tr>
+					}
+						@if (zhongxXueMingt.ResultValue != "")
+					{
+					<tr>
+						<td rowspan="2">3 命题、评委、教研工作（一）</td>
+						<td>（1）中小学命题</td>
+						<td>
+							【材料要求】相关通知、文件<br />
+							【证明要求】相关通知、文件（相关教育行政部门或学校开具的）或工作照片
+						</td>
+
+						@if (zhongxXueMingt.ChooseValue == "A1")
+							{
+							<td>市级</td>
+							<td><label>A：中高考命题工作</label></td>
+							<td><span>@zhongxXueMingt.ResultValue</span>分</td>
+							}
+							else if (zhongxXueMingt.ChooseValue == "B1")
+							{
+							<td>市级</td>
+							<td><label>B：学业合格考、水平考命题工作</label></td>
+							<td><span>@zhongxXueMingt.ResultValue</span>分</td>
+							}
+							else if (zhongxXueMingt.ChooseValue == "C1")
+							{
+							<td>市级</td>
+							<td><label>C：学科类其他命题工作</label></td>
+							<td><span>@zhongxXueMingt.ResultValue</span>分</td>
+							}
+							else if (zhongxXueMingt.ChooseValue == "A2")
+							{
+							<td>区级</td>
+							<td><label>A：学科区统考、模拟考命题工作</label></td>
+							<td><span>@zhongxXueMingt.ResultValue</span>分</td>
+							}
+							else if (zhongxXueMingt.ChooseValue == "B2")
+							{
+							<td>区级</td>
+							<td><label>B：学科类其他命题工作</label></td>
+							<td><span>@zhongxXueMingt.ResultValue</span>分</td>
+							}
+
+							else if (zhongxXueMingt.ChooseValue == "A3")
+							{
+							<td>校级</td>
+							<td><label>A：期中考或期末考或毕业班模拟考命题</label></td>
+							<td><span>@zhongxXueMingt.ResultValue</span>分</td>
+							}
+					</tr>
+					}
+						@if (danrPingw.ResultValue != "")
+					{
+					<tr>
+						<td>（2）担任相关工作评委 </td>
+						<td>
+							【材料要求】相关通知、文件<br />
+							【证明要求】相关通知、文件（相关教育行政部门或学校开具的）或工作照片
+						</td>
+
+						@if (danrPingw.ChooseValue == "A1")
+							{
+							<td>市级</td>
+							<td><label>A：学科类教育教学竞赛或评比工作评委</label></td>
+							<td><span>@danrPingw.ResultValue</span>分</td>
+							}
+							else if (danrPingw.ChooseValue == "B1")
+							{
+							<td>市级</td>
+							<td><label>B：学科类其他竞赛或评比工作评委</label></td>
+							<td><span>@danrPingw.ResultValue</span>分</td>
+							}
+							else if (danrPingw.ChooseValue == "A2")
+							{
+							<td>区级</td>
+							<td><label>A：教育教学竞赛或评比工作评委</label></td>
+							<td><span>@danrPingw.ResultValue</span>分</td>
+							}
+							else if (danrPingw.ChooseValue == "A3")
+							{
+							<td>校级</td>
+							<td><label>A：教学比赛或科研评比等评委</label></td>
+							<td><span>@danrPingw.ResultValue</span>分</td>
+							}
+					</tr>
+					}
+
+						@if (dey.ResultValue != "")
+					{
+					<tr>
+						<td rowspan="2">3 命题、评委、教研工作（二） </td>
+						<td>（1）幼教、特教、德育的教研工作</td>
+						<td>
+							【材料要求】教研活动相关材料（如教学设计的讲稿或 PPT；教学反思等）<br />
+							【证明要求】活动证明（相关教育行政部门盖章）
+						</td>
+
+						@if (dey.ChooseValue == "A1")
+							{
+							<td>市级</td>
+							<td><label>A：教育教学备课指导、教研组建设</label></td>
+							<td><span>@dey.ResultValue</span>分</td>
+							}
+							else if (dey.ChooseValue == "A2")
+							{
+							<td>区级</td>
+							<td><label>A：教育教学备课指导、教研组建设</label></td>
+							<td><span>@dey.ResultValue</span>分</td>
+							}
+							else if (dey.ChooseValue == "A3")
+							{
+							<td>校级</td>
+							<td><label>A：教育教学备课指导、教研组建设</label></td>
+							<td><span>@dey.ResultValue</span>分</td>
+							}
+					</tr>
+					}
+						@if (danrPingw2.ResultValue != "")
+					{
+					<tr>
+						<td>（2）担任相关工作评委 </td>
+						<td>
+							【材料要求】相关通知、文件<br />
+							【证明要求】相关通知、文件或工作照片
+						</td>
+
+						@if (danrPingw2.ChooseValue == "A1")
+							{
+							<td>市级</td>
+							<td><label>A：学科类教育教学竞赛或评比工作评委</label></td>
+							<td><span>@danrPingw2.ResultValue</span>分</td>
+							}
+							else if (danrPingw2.ChooseValue == "B1")
+							{
+							<td>市级</td>
+							<td><label>B：学科类其他竞赛或评比工作评委</label></td>
+							<td><span>@danrPingw2.ResultValue</span>分</td>
+							}
+							else if (danrPingw2.ChooseValue == "A2")
+							{
+							<td>区级</td>
+							<td><label>A：教育教学竞赛或评比工作评委</label></td>
+							<td><span>@danrPingw2.ResultValue</span>分</td>
+							}
+							else if (danrPingw2.ChooseValue == "A3")
+							{
+							<td>校级</td>
+							<td><label>A：教学比赛或科研评比等评委</label></td>
+							<td><span>@danrPingw2.ResultValue</span>分</td>
+							}
+					</tr>
+					}
+
+						@if (xiangmYanj.ResultValue != "")
+					{
+					<tr>
+						<td rowspan="2">教育科研 (10分)</td>
+						<td>1.立项课题或项目研究（5分）</td>
+						<td></td>
+						<td>
+							【材料要求】按项目进行情况上传申报书或结题报告<br />
+							【证明要求】立项证明、课题结题或项目完成证明（相关教育行政部门盖章）
+						</td>
+
+						@if (xiangmYanj.ChooseValue == "A1")
+							{
+							<td>国家级</td>
+							<td><label>A：学科类课题主持人</label></td>
+							<td><span>@xiangmYanj.ResultValue</span>分</td>
+							}
+							else if (xiangmYanj.ChooseValue == "B1")
+							{
+							<td>国家级</td>
+							<td><label>B：学科类课题核心成员</label></td>
+							<td><span>@xiangmYanj.ResultValue</span>分</td>
+							}
+							else if (xiangmYanj.ChooseValue == "C1")
+							{
+							<td>国家级</td>
+							<td><label>C：学科类课题一般成员</label></td>
+							<td><span>@xiangmYanj.ResultValue</span>分</td>
+							}
+							else if (xiangmYanj.ChooseValue == "A2")
+							{
+							<td>市级</td>
+							<td><label>A：学科类课题主持人</label></td>
+							<td><span>@xiangmYanj.ResultValue</span>分</td>
+							}
+							else if (xiangmYanj.ChooseValue == "B2")
+							{
+							<td>市级</td>
+							<td><label>B：学科类课题核心成员</label></td>
+							<td><span>@xiangmYanj.ResultValue</span>分</td>
+							}
+							else if (xiangmYanj.ChooseValue == "C2")
+							{
+							<td>市级</td>
+							<td><label>C：学科类课题一般成员</label></td>
+							<td><span>@xiangmYanj.ResultValue</span>分</td>
+							}
+							else if (xiangmYanj.ChooseValue == "A3")
+							{
+							<td>区级</td>
+							<td><label>A：学科类课题主持人</label></td>
+							<td><span>@xiangmYanj.ResultValue</span>分</td>
+							}
+							else if (xiangmYanj.ChooseValue == "B3")
+							{
+							<td>区级</td>
+							<td><label>B：学科类课题核心成员</label></td>
+							<td><span>@xiangmYanj.ResultValue</span>分</td>
+							}
+							else if (xiangmYanj.ChooseValue == "C3")
+							{
+							<td>区级</td>
+							<td><label>C：学科类课题一般成员</label></td>
+							<td><span>@xiangmYanj.ResultValue</span>分</td>
+							}
+
+							else if (xiangmYanj.ChooseValue == "A4")
+							{
+							<td>校级</td>
+							<td><label>A：主持或负责学科类课题</label></td>
+							<td><span>@xiangmYanj.ResultValue</span>分</td>
+							}
+							else if (xiangmYanj.ChooseValue == "B4")
+							{
+							<td>校级</td>
+							<td><label>B：参与学科类课题研究</label></td>
+							<td><span>@xiangmYanj.ResultValue</span>分</td>
+							}
+
+					</tr>
+					}
+						@if (fabLunw.ResultValue != "")
+					{
+					<tr>
+						<td> 2.发表论文 (5分) </td>
+						<td></td>
+						<td>
+							【材料要求】论文（发表后的扫描件或照片）<br />
+							【证明要求】刊物封面、刊物目录扫描件或照片
+						</td>
+
+						@if (fabLunw.ChooseValue == "A1")
+							{
+							<td>国家级</td>
+							<td><label>A：在核心期刊上发表</label></td>
+							<td><span>@fabLunw.ResultValue</span>分</td>
+							}
+							else if (fabLunw.ChooseValue == "B1")
+							{
+							<td>国家级</td>
+							<td><label>B：在其他期刊上发表</label></td>
+							<td><span>@fabLunw.ResultValue</span>分</td>
+							}
+							else if (fabLunw.ChooseValue == "A2")
+							{
+							<td>市级</td>
+							<td><label>A：在核心期刊上发表</label></td>
+							<td><span>@fabLunw.ResultValue</span>分</td>
+							}
+							else if (fabLunw.ChooseValue == "B2")
+							{
+							<td>市级</td>
+							<td><label>B：在其他期刊上发表</label></td>
+							<td><span>@fabLunw.ResultValue</span>分</td>
+							}
+							else if (fabLunw.ChooseValue == "A3")
+							{
+							<td>区级</td>
+							<td><label>A：在《虹口教育》、《院刊》等区级期刊上发表</label></td>
+							<td><span>@fabLunw.ResultValue</span>分</td>
+							}
+							else if (fabLunw.ChooseValue == "A4")
+							{
+							<td>区级</td>
+							<td><label>A：在校级刊物上发表</label></td>
+							<td><span>@fabLunw.ResultValue</span>分</td>
+							}
+					</tr>
+					}
+
+						@if (peixKec.ResultValue != "")
+					{
+					<tr>
+						@if (jiangz.ResultValue == "")
+							{
+							<td>教师培训 (20分)</td>
+							}
+							else
+							{
+							<td rowspan="2">四、教师培训 (20分)</td>
+							}
+						<td> 1.开设教师培训课程(10分) </td>
+						<td></td>
+						<td>
+							【材料要求】课程纲要<br />
+							【证明要求】课程证明（相关教育行政部门或学校盖章）
+						</td>
+
+						@if (peixKec.ChooseValue == "A1")
+							{
+							<td>市级共享课程</td>
+							<td><label>A：开设市级共享课程</label></td>
+							<td><span>@peixKec.ResultValue</span>分</td>
+							}
+							else if (peixKec.ChooseValue == "A2")
+							{
+							<td>区级共享课程</td>
+							<td><label>A：开设区级共享课程</label></td>
+							<td><span>@peixKec.ResultValue</span>分</td>
+							}
+							else if (peixKec.ChooseValue == "A3")
+							{
+							<td>校级共享课程</td>
+							<td><label>A：开设校级共享课程</label></td>
+							<td><span>@peixKec.ResultValue</span>分</td>
+							}
+					</tr>
+					}
+						@if (jiangz.ResultValue != "")
+					{
+					<tr>
+						@if (peixKec.ResultValue == "")
+							{
+							<td>教师培训 (20分)</td>
+							}
+						<td> 2.专题讲座(10分) </td>
+						<td></td>
+						<td>
+							【材料要求】课程纲要<br />
+							【证明要求】课程证明（相关教育行政部门或学校盖章）
+						</td>
+
+						@if (jiangz.ChooseValue == "A1")
+							{
+							<td>市级及以上</td>
+							<td><label>A：学科类学术讲座</label></td>
+							<td><span>@jiangz.ResultValue</span>分</td>
+							}
+							else if (jiangz.ChooseValue == "B1")
+							{
+							<td>市级及以上</td>
+							<td><label>B：学科类专题发言</label></td>
+							<td><span>@jiangz.ResultValue</span>分</td>
+							}
+							else if (jiangz.ChooseValue == "A2")
+							{
+							<td>区级</td>
+							<td><label>A：学科类学术讲座</label></td>
+							<td><span>@jiangz.ResultValue</span>分</td>
+							}
+							else if (jiangz.ChooseValue == "B2")
+							{
+							<td>区级</td>
+							<td><label>B：学科类专题发言</label></td>
+							<td><span>@jiangz.ResultValue</span>分</td>
+							}
+							else if (jiangz.ChooseValue == "A3")
+							{
+							<td>校级</td>
+							<td><label>A：学科类学术讲座</label></td>
+							<td><span>@jiangz.ResultValue</span>分</td>
+							}
+							else if (jiangz.ChooseValue == "B3")
+							{
+							<td>校级</td>
+							<td><label>B：学科类专题发言</label></td>
+							<td><span>@jiangz.ResultValue</span>分</td>
+							}
+					</tr>
+					}
+
+					</tbody>
+				</table>
+
+			</div>
 		</div>
 	</div>
+	<!-- /widget -->
+
 </div>
-<!-- /widget -->

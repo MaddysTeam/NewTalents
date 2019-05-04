@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<InsepctionDeclareSchoolEvalResult>
+@{
 	var pageTitle = ViewBag.Title = "单位评审情况";
 }
 
@@ -93,33 +94,39 @@
 					</p>
 				</td>
 			</tr>
-			<tr style="height:35.55pt">
-				<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
-					<p style="margin:0pt; orphans:0; text-align:center;">
-						<span style="font-family:宋体; font-size:10.5pt">某某某</span>
-					</p>
-				</td>
-				<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
-					<p style="margin:0pt; orphans:0; padding-left:6pt; text-align:center; text-indent:-6pt; widows:0">
-						<span style="font-family:宋体; font-size:10.5pt">骨干教师</span>
-					</p>
-				</td>
-				<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
-					<p style="margin:0pt; orphans:0; text-align:center; widows:0">
-						<span style="font-family:宋体; font-size:10.5pt">语文</span>
-					</p>
-				</td>
-				<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
-					<p style="margin:0pt; orphans:0; text-align:center; widows:0">
-						<span style="font-family:宋体; font-size:10.5pt">30</span>
-					</p>
-				</td>
-				<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
-					<p style="margin:0pt; orphans:0; text-align:center; widows:0">
-						<span style="font-family:宋体; font-size:10.5pt">28</span>
-					</p>
-				</td>
-			</tr>
+
+			@foreach (var item in Model)
+			{
+				<tr style="height:35.55pt">
+
+					<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
+						<p style="margin:0pt; orphans:0; text-align:center;">
+							<span style="font-family:宋体; font-size:10.5pt">@item.TeacherName</span>
+						</p>
+					</td>
+					<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
+						<p style="margin:0pt; orphans:0; padding-left:6pt; text-align:center; text-indent:-6pt; widows:0">
+							<span style="font-family:宋体; font-size:10.5pt">@item.DeclareTarget</span>
+						</p>
+					</td>
+					<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
+						<p style="margin:0pt; orphans:0; text-align:center; widows:0">
+							<span style="font-family:宋体; font-size:10.5pt">&nbsp;</span>
+						</p>
+					</td>
+					<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
+						<p style="margin:0pt; orphans:0; text-align:center; widows:0">
+							<span style="font-family:宋体; font-size:10.5pt">@item.FullScore</span>
+						</p>
+					</td>
+					<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
+						<p style="margin:0pt; orphans:0; text-align:center; widows:0">
+							<span style="font-family:宋体; font-size:10.5pt">@item.Score</span>
+						</p>
+					</td>
+				</tr>
+			}
+			
 			<tr style="height:121.95pt;">
 				<td colspan="27" style="border-bottom-color:#000000; border:0px; padding-left:5.03pt; padding-right:5.03pt; vertical-align:top; width:433.95pt">
 					<p style="line-height:18pt; margin:0pt; orphans:0; widows:0">

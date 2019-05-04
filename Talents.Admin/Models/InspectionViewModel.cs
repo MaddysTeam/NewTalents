@@ -598,7 +598,7 @@ namespace TheSite.Models
 
 	}
 
-	public class InsepectionDeclareSchoolEvalResult
+	public class InsepctionDeclareSchoolEvalResult
 	{
 		public long Id { get; set; }
 

@@ -62,6 +62,14 @@
 	</div>
 	<!-- /main -->
 </div>
+@section Modals{
+	<button class="btn btn-md btn-custom-primary hidden" id="modelProxy" data-toggle="ajax-modal" data-target="#firstModal">代理</button>
+	<!-- Modal start -->
+	<div class="modal" id="firstModal" tabindex="-1" role="dialog" aria-labelledby="firstModalLabel" aria-hidden="true">
+		hello
+	</div>
+	<!-- Modal end -->
+}
 @section Scripts {
 	<script>
 
@@ -79,11 +87,11 @@
 				formatters: {
 					'commands': function (column, row) {
 						var periodId = row.periodId;
-						var evalUrl = '@Url.Action("Eval", "DeclareEval")?teacherId=' + row.id + '&periodId=' + periodId + '&targetId=' + row.targetId + '&groupId='+@groupId;
+						var evalUrl = '@Url.Action("Eval", "DeclareEval")?teacherId=' + row.id + '&periodId=' + periodId + '&targetId=' + row.targetId + '&groupId=' +@groupId +'&resultId=' + row.resultId;
 						var resultUrl = '@Url.Action("ResultView", "DeclareEval")?teacherId=' + row.id + '&periodId=' + periodId + '&targetId=' + row.targetId + '&resultId=' + row.resultId;
 						var html = '<div class="btn-group btn-group-xs pull-right" data-row-id="' + row.id + '">' +
 							'<a target="_blank" class="btn btn-warning btn-view" href="'+evalUrl+'"><i class="fa fa-external-link"></i>继续考评</a>'+
-							'<a target="_blank" class="btn btn-info btn-view" href="'+resultUrl+'"><i class="fa fa-external-link"></i>查看详细</a>';
+							'<a target="_blank" class="btn btn-info btn-details" data-url="' + resultUrl + '"><i class="fa fa-external-link"></i>查看详细</a>';
 						html += '</div>';
 						return html;
 					},
@@ -97,6 +105,14 @@
 			var grid = $('#bootgrid');
 			grid.bootgrid(getGridOptions())
 			.on('loaded.rs.jquery.bootgrid', function () {
+
+				$('.btn-details').on('click', function () {
+					var url = $(this).data('url');
+					$('#modelProxy')
+					.data('url', url)
+					.trigger('click');
+				});
+
 			});
 
 		});

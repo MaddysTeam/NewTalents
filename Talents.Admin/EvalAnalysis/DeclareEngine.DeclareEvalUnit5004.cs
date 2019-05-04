@@ -25,7 +25,7 @@ namespace TheSite.EvalAnalysis
 
          protected override void AnalysisResult(FormCollection fc, EvalDeclareResult result, Dictionary<string, EvalDeclareResultItem> items)
 			{
-				double score = 0, score1 = 0, score2 = 0, score3 = 0, score4 = 0, score5 = 0, score6 = 0, score7 = 0;
+				double score = 0, score1 = 0, score2 = 0, score3=0,score4=0 ,score5 = 0, score6 = 0, score7 = 0;
 
 				if (fc[EvalDeclareRuleKeys.XiaonLvz] != null)
 					score = Analysis_JiaoyJiaox_XiaonLvz(result, items, fc[EvalDeclareRuleKeys.XiaonLvz], fc[EvalDeclareRuleKeys.XiaonLvz_Def]);
@@ -42,18 +42,18 @@ namespace TheSite.EvalAnalysis
 				score += score1 > score2 ? score1 : score2;
 
 				if (fc[EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt] != null)
-					score3 = Analysis_JiaoyJiaox_ZhongxXueMingt(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt], fc[EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt_Def]);
+               score3 += Analysis_JiaoyJiaox_ZhongxXueMingt(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt], fc[EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt_Def]);
 
 				if (fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw] != null)
-					score3 += Analysis_JiaoyJiaox_DanrPingw(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw], fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw_Def]);
+               score3 += Analysis_JiaoyJiaox_DanrPingw(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw], fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw_Def]);
 
 				if (fc[EvalDeclareRuleKeys.JiaoyGongz_Dey] != null)
-					score4 = Analysis_JiaoyJiaox_Dey(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_Dey], fc[EvalDeclareRuleKeys.JiaoyGongz_Dey_Def]);
+               score4 += Analysis_JiaoyJiaox_Dey(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_Dey], fc[EvalDeclareRuleKeys.JiaoyGongz_Dey_Def]);
 
 				if (fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2] != null)
-					score4 += Analysis_JiaoyJiaox_DanrPingw2(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2], fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2_Def]);
+               score4 += Analysis_JiaoyJiaox_DanrPingw2(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2], fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2_Def]);
 
-				score += score3 > score4 ? score3 : score4;
+				 score += score3 > score4 ? score3 : score4;
 
 				if (fc[EvalDeclareRuleKeys.JiaoyKey_XiangmYanj] != null)
 					score += Analysis_JiaoyKey_XiangmYanj(result, items, fc[EvalDeclareRuleKeys.JiaoyKey_XiangmYanj], fc[EvalDeclareRuleKeys.JiaoyKey_XiangmYanj_Def]);
@@ -373,18 +373,9 @@ namespace TheSite.EvalAnalysis
 					case "A1":
 						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 7.0, 10.0);
 						break;
-					case "B1":
+					case "A2":
 						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 4.0, 6.9);
 						break;
-						//case "A2":
-						//	result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 5.0, 5.0);
-						//	break;
-						//case "B2":
-						//	result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 4.0, 4.0);
-						//	break;
-						//case "C2":
-						//	result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 4.0, 4.0);
-						//	break;
 				}
 
 				item.ResultValue = scoreValue.ToString();
