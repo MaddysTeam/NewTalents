@@ -7,7 +7,9 @@
 		public const string XiaonLvz = "校内履职";
 		public const string XiaonLvz_Def = "校内履职.得分";
 
-		public const string JiaoyJiaox_Gongkk = "教育教学.公开课";
+      public const string Shid = "师德";
+
+      public const string JiaoyJiaox_Gongkk = "教育教学.公开课";
 		public const string JiaoyJiaox_Gongkk_Def = "教育教学.公开课.得分";
 
 		public const string JiaoyJiaox_Pb_Quj = "教育教学.评比.区级以上";

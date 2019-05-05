@@ -22,6 +22,8 @@
 	var declare = ViewBag.Declare as DeclareReviewModel;
 	var result = ViewBag.Result as EvalDeclareResult;
 	var comment = result == null ? string.Empty : result.Comment;
+
+	var subjectIsDey = declare.Subject.IndexOf("德育,幼教,学前,特教") >= 0;
 }
 <div class="col-md-10 content-wrapper">
 	<div class="row">
@@ -314,7 +316,7 @@
 												</tr>
 
 												<!-- 教育教学-教研工作 -->
-
+												@if (!subjectIsDey) { 
 												<tr>
 													<td rowspan="10">3 命题、评委、教研工作（一） （分值： 15分）</td>
 													<td rowspan="6">（1）中小学命题 （分值： 10分）</td>
@@ -380,6 +382,8 @@
 													<td>3.0分</td>
 													<td class="flotValue" data-min="3.0" data-max="3.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw_Def"></td>
 												</tr>
+												}
+												else { 
 												<tr>
 													<td rowspan="7">3 命题、评委、教研工作（二） （分值： 15分）</td>
 													<td rowspan="3">（1）幼教、特教、德育的教研工作（分值： 10分）</td>
@@ -430,7 +434,7 @@
 													<td>3.0分</td>
 													<td class="flotValue" data-min="3.0" data-max="3.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2_Def"></td>
 												</tr>
-
+												}
 											</tbody>
 										</table>
 									</div>
@@ -650,10 +654,16 @@
 						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyJiaox_Gongkk" name="@EvalDeclareRuleKeys.JiaoyJiaox_Gongkk_Def" value="@gongkk.ResultValue" />
 						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj" name="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj_Def" value="@pingbQuj.ResultValue" />
 						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt" name="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt_Def" value="@pingbQit.ResultValue" />
+						if (!subjectIsDey)
+						{
 						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt" name="@EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt_Def" value="@zhongxXueMingt.ResultValue" />
 						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw" name="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw_Def" value="@danrPingw.ResultValue" />
+						}
+						else
+						{
 						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyGongz_Dey" name="@EvalDeclareRuleKeys.JiaoyGongz_Dey_Def" value="@dey.ResultValue" />
 						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2" name="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2_Def" value="@danrPingw2.ResultValue" />
+						}
 						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyKey_XiangmYanj" name="@EvalDeclareRuleKeys.JiaoyKey_XiangmYanj_Def" value="@xiangmYanj.ResultValue" />
 						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyKey_FabLunw" name="@EvalDeclareRuleKeys.JiaoyKey_FabLunw_Def" value="@fabLunw.ResultValue" />
 						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaosPeix_ZhuantJiangz" name="@EvalDeclareRuleKeys.JiaosPeix_ZhuantJiangz_Def" value="@jiangz.ResultValue" />

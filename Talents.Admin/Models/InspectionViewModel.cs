@@ -611,9 +611,13 @@ namespace TheSite.Models
 		[Display(Name = "得分")]
 		public string Score { get; set; }
 		[Display(Name = "满分")]
-		public string FullScore { get; set; }
+		public double FullScore { get; set; }
 		[Display(Name = "评审状态")]
 		public string Status { get; set; }
-	}
+      [Display(Name = "申报学科")]
+      public string DeclareSubject { get; set; }
+      [Display(Name = "师德")]
+      public string Shid { get; set; }
+   }
 
 }

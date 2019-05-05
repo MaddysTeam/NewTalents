@@ -30,7 +30,13 @@ namespace TheSite.EvalAnalysis
 				if (fc[EvalDeclareRuleKeys.XiaonLvz] != null)
 					score = Analysis_JiaoyJiaox_XiaonLvz(result, items, fc[EvalDeclareRuleKeys.XiaonLvz], fc[EvalDeclareRuleKeys.XiaonLvz_Def]);
 
-				if (fc[EvalDeclareRuleKeys.JiaoyJiaox_Gongkk] != null)
+            if (fc[EvalDeclareRuleKeys.Shid] != null)
+            {
+               AnalysisShid(result, items, fc[EvalDeclareRuleKeys.Shid]);
+               score = result.Score;
+            }
+
+            if (fc[EvalDeclareRuleKeys.JiaoyJiaox_Gongkk] != null)
 					score += Analysis_JiaoyJiaox_Gongkk(result, items, fc[EvalDeclareRuleKeys.JiaoyJiaox_Gongkk], fc[EvalDeclareRuleKeys.JiaoyJiaox_Gongkk_Def]);
 
 				if (fc[EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj] != null)
@@ -99,16 +105,10 @@ namespace TheSite.EvalAnalysis
 				switch (choose)
 				{
 					case "A":
-						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 13.0, 15.0);
+						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 18.0, 20.0);
 						break;
 					case "B":
-						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 11.0, 12.9);
-						break;
-					case "C":
-						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 6.0, 10.9);
-						break;
-					case "D":
-						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 3.0, 5.9);
+						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 14.0, 17.9);
 						break;
 				}
 
@@ -118,12 +118,44 @@ namespace TheSite.EvalAnalysis
 
 			}
 
-			#endregion
+         #endregion
 
 
-			#region [ 公开课 ]
+         #region [ 师德 ]
 
-			private double Analysis_JiaoyJiaox_Gongkk(EvalDeclareResult result, Dictionary<string, EvalDeclareResultItem> items, string choose, string score)
+         private void AnalysisShid(EvalDeclareResult result, Dictionary<string, EvalDeclareResultItem> items, string choose)
+         {
+            var item = new EvalDeclareResultItem
+            {
+               ChooseValue = choose,
+               EvalItemKey = EvalSchoolRuleKeys.Shid,
+            };
+            items.Add(item.EvalItemKey, item);
+
+            switch (choose)
+            {
+               case "A":
+                  result.Comment = "合格"; //TODO 不想加字段了，用comment 替代
+                  item.ResultValue = "合格";
+                  break;
+               case "B":
+                  result.Comment = "基本合格"; //TODO 不想加字段了，用comment 替代
+                  item.ResultValue = "基本合格";
+                  break;
+               case "C":
+                  result.Comment = "不合格"; //TODO 不想加字段了，用comment 替代
+                  result.Score = 0;
+                  item.ResultValue = "不合格";
+                  break;
+            }
+         }
+
+         #endregion
+
+
+         #region [ 公开课 ]
+
+         private double Analysis_JiaoyJiaox_Gongkk(EvalDeclareResult result, Dictionary<string, EvalDeclareResultItem> items, string choose, string score)
 			{
 				var item = new EvalDeclareResultItem
 				{

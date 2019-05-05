@@ -5,6 +5,7 @@
 	var items = Model.ResultItems;
 
 	var xiaonLvz = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.XiaonLvz);
+	var shid = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.Shid);
 	var gongkk = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyJiaox_Gongkk);
 	var pingbQuj = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj);
 	var pingbQit = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt);
@@ -67,7 +68,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						@if (xiaonLvz.ResultValue != "")
+					@if (xiaonLvz.ResultValue != "")
 					{
 					<tr>
 						<td>校内履职</td>
@@ -87,10 +88,30 @@
 							}
 					</tr>
 					}
-						@if (gongkk.ResultValue != "")
+						@if (shid.ResultValue != "")
+						{
+							<tr>
+								<td>师德</td>
+								<td></td>
+								<td></td>
+								<td>不合格情况时，该单位考评得分为0分</td>
+								<td></td>
+								@if (xiaonLvz.ChooseValue == "A")
+								{
+									<td><label>A：无违反师德相关规定的言行</label></td>
+									<td></td>
+								}
+								else if (xiaonLvz.ChooseValue == "B")
+								{
+									<td><label>B：有违反师德相关禁令的言行，尚未被退出梯队</label></td>
+									<td></td>
+								}
+							</tr>
+						}
+					@if (gongkk.ResultValue != "")
 					{
 					<tr>
-						<td rowspan="7">教育教学</td>
+						<td rowspan="7">教育教学(40分)</td>
 						<td>1.公开课</td>
 						<td></td>
 						<td>
@@ -462,7 +483,6 @@
 					<tr>
 						<td rowspan="2">教育科研 (10分)</td>
 						<td>1.立项课题或项目研究（5分）</td>
-						<td></td>
 						<td>
 							【材料要求】按项目进行情况上传申报书或结题报告<br />
 							【证明要求】立项证明、课题结题或项目完成证明（相关教育行政部门盖章）
@@ -542,7 +562,6 @@
 					{
 					<tr>
 						<td> 2.发表论文 (5分) </td>
-						<td></td>
 						<td>
 							【材料要求】论文（发表后的扫描件或照片）<br />
 							【证明要求】刊物封面、刊物目录扫描件或照片

@@ -23,7 +23,7 @@
 	var result = ViewBag.Result as EvalDeclareResult;
 	var comment = result == null ? string.Empty : result.Comment;
 
-	var subjectIsDey = declare.Subject.IndexOf("德育,幼教,学前,特教") >= 0;
+	var subjectIsDey = ("德育,幼教,学前,特教").IndexOf(declare.Subject) >= 0;
 }
 <div class="col-md-10 content-wrapper">
 	<div class="row">

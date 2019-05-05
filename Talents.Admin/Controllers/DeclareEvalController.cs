@@ -274,7 +274,7 @@ namespace TheSite.Controllers
 
 			var query = APQuery.select(dr.TeacherId, dr.TeacherName, c.CompanyName,
 				  dr.DeclareTargetPKID, dr.DeclareSubjectPKID,
-				  er.ResultId.As("ResultId"), er.Score, er.FullScore, er.ResultId, er.GroupId)
+				  er.ResultId.As("ResultId"), er.Score, er.FullScore, er.ResultId, er.GroupId,er.Comment)
 			   .from(dr,
 					  er.JoinLeft(er.TeacherId == dr.TeacherId & er.GroupId == 0),
 					  c.JoinInner(dr.CompanyId == c.CompanyId)
@@ -343,7 +343,8 @@ namespace TheSite.Controllers
 					score = string.Format("{0} / {1}", score, fullScore),
 					submitStatus = status == 0 ? "未评审" : "已评审",
 					targetId = dr.DeclareTargetPKID.GetValue(r),
-					resultId = er.ResultId.GetValue(r, "ResultId")
+					resultId = er.ResultId.GetValue(r, "ResultId"),
+               shid=er.Comment.GetValue(r)
 				};
 			}).ToList();
 

@@ -1295,4 +1295,11 @@ namespace TheSite.Models
    }
 
 
+   public class ExpertDeclareSchoolViewModel
+   {
+      public System.Collections.Generic.List<InsepctionDeclareSchoolEvalResult> Results { get; set; }
+      public string CompanyName { get; set; }
+   }
+
+
 }

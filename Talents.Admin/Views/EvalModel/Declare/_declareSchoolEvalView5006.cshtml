@@ -3,6 +3,7 @@
 	var pageTitle = ViewBag.Title = "申报考评";
 	var items = ViewBag.ResultItems as Dictionary<string, EvalDeclareResultItem>;
 	var XiaonLvz = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.XiaonLvz, "A");
+	var Shid = EngineManager.GetDeclareEvalChooseValue(items, EvalSchoolRuleKeys.Shid);
 	var declare = ViewBag.Declare as DeclareReviewModel;
 	var result = ViewBag.Result as EvalDeclareResult;
 }
@@ -111,6 +112,26 @@
 													</td>
 													<td>21.0分--26.9分</td>
 													<td class="flotValue" data-min="21.0" data-max="26.9" data-value="" data-hidden="@EvalDeclareRuleKeys.XiaonLvz_Def"></td>
+												</tr>
+												<!--师德-->
+												<tr>
+													<td rowspan="3">二、师德</td>
+													<td rowspan="3"></td>
+													<td rowspan="3"></td>
+													<td rowspan="3" colspan="4">不合格情况时，则该单位考评得分为0分</td>
+													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.Shid, "A", isChecked: Shid == "A") A：无违反师德相关规定的言行</label></td>
+													<td>合格</td>
+													<td></td>
+												</tr>
+												<tr>
+													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.Shid, "B", isChecked: Shid == "B") B：有违反师德相关禁令的言行，尚未被退出梯队</label></td>
+													<td>基本合格</td>
+													<td></td>
+												</tr>
+												<tr>
+													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.Shid, "C", isChecked: Shid == "C") C：有违反师德相关规定的言行，应当出梯队</label></td>
+													<td>不合格</td>
+													<td></td>
 												</tr>
 											</tbody>
 										</table>

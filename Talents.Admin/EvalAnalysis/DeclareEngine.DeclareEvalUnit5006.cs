@@ -29,6 +29,12 @@ namespace TheSite.EvalAnalysis
             if (fc[EvalDeclareRuleKeys.XiaonLvz] != null)
                score = Analysis_JiaoyJiaox_XiaonLvz(result, items, fc[EvalDeclareRuleKeys.XiaonLvz], fc[EvalDeclareRuleKeys.XiaonLvz_Def]);
 
+            if (fc[EvalDeclareRuleKeys.Shid] != null)
+            {
+               AnalysisShid(result, items, fc[EvalDeclareRuleKeys.Shid]);
+               score = result.Score;
+            }
+
             if (fc[EvalDeclareRuleKeys.JiaoyJiaox_Gongkk] != null)
                score += Analysis_JiaoyJiaox_Gongkk(result, items, fc[EvalDeclareRuleKeys.JiaoyJiaox_Gongkk], fc[EvalDeclareRuleKeys.JiaoyJiaox_Gongkk_Def]);
 
@@ -59,7 +65,6 @@ namespace TheSite.EvalAnalysis
 
             if (fc[EvalDeclareRuleKeys.JiaoyKey_FabLunw] != null)
                score += Analysis_JiaoyKey_FabLunw(result, items, fc[EvalDeclareRuleKeys.JiaoyKey_FabLunw], fc[EvalDeclareRuleKeys.JiaoyKey_FabLunw_Def]);
-
 
             if (fc[EvalDeclareRuleKeys.JiaosPeix_PeixKec] != null)
                score += Analysis_JiaosPeix_PeixKec(result, items, fc[EvalDeclareRuleKeys.JiaosPeix_PeixKec], fc[EvalDeclareRuleKeys.JiaosPeix_PeixKec_Def]);
@@ -100,6 +105,38 @@ namespace TheSite.EvalAnalysis
 				return scoreValue;
 
 			}
+
+         #endregion
+
+
+         #region [ 师德 ]
+
+         private void AnalysisShid(EvalDeclareResult result, Dictionary<string, EvalDeclareResultItem> items, string choose)
+         {
+            var item = new EvalDeclareResultItem
+            {
+               ChooseValue = choose,
+               EvalItemKey = EvalSchoolRuleKeys.Shid,
+            };
+            items.Add(item.EvalItemKey, item);
+
+            switch (choose)
+            {
+               case "A":
+                  result.Comment = "合格"; //TODO 不想加字段了，用comment 替代
+                  item.ResultValue = "合格";
+                  break;
+               case "B":
+                  result.Comment = "基本合格"; //TODO 不想加字段了，用comment 替代
+                  item.ResultValue = "基本合格";
+                  break;
+               case "C":
+                  result.Comment = "不合格"; //TODO 不想加字段了，用comment 替代
+                  result.Score = 0;
+                  item.ResultValue = "不合格";
+                  break;
+            }
+         }
 
          #endregion
 

@@ -109,6 +109,15 @@ namespace TheSite.EvalAnalysis
          return defaultValue;
       }
 
+      public static string GetDeclareEvalChooseValue(Dictionary<string, EvalDeclareResultItem> exist, string key, string defaultValue = "A")
+      {
+         if (exist == null)
+            return defaultValue;
+         if (exist.ContainsKey(key))
+            return exist[key].ChooseValue;
+         return defaultValue;
+      }
+
       public static EvalDeclareResultItem GetDeclareEvalResult(Dictionary<string, EvalDeclareResultItem> exist, string key, string defaultValue = "A")
       {
          var defaultResult = new EvalDeclareResultItem { ChooseValue = defaultValue, ResultValue = string.Empty };
