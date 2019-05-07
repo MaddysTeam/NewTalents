@@ -9,21 +9,21 @@
 	var danrPingw = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyGongz_DanrPingw, "A1");
 	var dey = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyGongz_Dey, "A1");
 	var danrPingw2 = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2, "A1");
-	var xiangmYanj= EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyKey_XiangmYanj, "A1");
+	var xiangmYanj = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyKey_XiangmYanj, "A1");
 	var fabLunw = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyKey_FabLunw, "A1");
 
-	var peixKec = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaosPeix_PeixKec,"A1");
-	var jiangz = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaosPeix_ZhuantJiangz,"A1");
+	var peixKec = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaosPeix_PeixKec, "A1");
+	var jiangz = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaosPeix_ZhuantJiangz, "A1");
 
 	var zhuanz = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.GerTes_Zhuanz, "A1");
-	var qitShenf= EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.GerTes_QitShenf, "A1");
-	var xueyChengz= EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.GerTes_XueyChengz, "A1");
+	var qitShenf = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.GerTes_QitShenf, "A1");
+	var xueyChengz = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.GerTes_XueyChengz, "A1");
 
 	var declare = ViewBag.Declare as DeclareReviewModel;
 	var result = ViewBag.Result as EvalDeclareResult;
 	var comment = result == null ? string.Empty : result.Comment;
 
-	var subjectIsDey = ("德育,幼教,学前,特教").IndexOf(declare.Subject) >= 0;
+	var subjectIsDey = "德育,幼教,学前,特教".IndexOf(declare.Subject)>= 0;
 }
 <div class="col-md-10 content-wrapper">
 	<div class="row">
@@ -74,7 +74,7 @@
 		<!-- widget -->
 						<div class="widget">
 							<div class="widget-header">
-								<h3><strong class="red">工作室主持人-申报考评指标</strong></h3>
+								<h3><strong class="red">学科带头人-申报考评指标</strong></h3>
 								<div class="btn-group widget-header-toolbar">
 									<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
 									<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
@@ -114,7 +114,7 @@
 													<th>原则要求</th>
 													<th>材料要求</th>
 													<th>证明要求</th>
-													<th >级别要求</th>
+													<th>级别要求</th>
 												</tr>
 												<tr></tr>
 											</thead>
@@ -191,13 +191,13 @@
 												<tr>
 													<td rowspan="4">市级</td>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj, "A2", isChecked: pingbQuj.ChooseValue == "A2") A：获特等奖（或指导获奖）</label></td>
-													<td>10.0分</td>
-													<td class="flotValue" data-min="10.0" data-max="10.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj_Def"></td>
+													<td>9.5分</td>
+													<td class="flotValue" data-min="9.5" data-max="9.5" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj_Def"></td>
 												</tr>
 												<tr>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj, "B2", isChecked: pingbQuj.ChooseValue == "B2") B：获一等奖（或指导获奖）</label></td>
-													<td>9.0分--9.9分</td>
-													<td class="flotValue" data-min="9.0" data-max="9.9" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj_Def"></td>
+													<td>9.0分</td>
+													<td class="flotValue" data-min="9.0" data-max="9.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj_Def"></td>
 												</tr>
 												<tr>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj, "C2", isChecked: pingbQuj.ChooseValue == "C2") C：获二等奖（或指导获奖）</label></td>
@@ -206,29 +206,29 @@
 												</tr>
 												<tr>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj, "D2", isChecked: pingbQuj.ChooseValue == "D2") D：其他等第奖项（或指导获奖）</label></td>
-													<td>8.5分</td>
-													<td class="flotValue" data-min="8.5" data-max="8.5" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj_Def"></td>
+													<td>8.0分</td>
+													<td class="flotValue" data-min="8.0" data-max="8.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj_Def"></td>
 												</tr>
 												<tr>
 													<td rowspan="4">区级</td>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj, "A3", isChecked: pingbQuj.ChooseValue == "A3") A：获特等奖（或指导获奖）</label></td>
-													<td>10.0分</td>
-													<td class="flotValue" data-min="10.0" data-max="10.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj_Def"></td>
+													<td>9.0分</td>
+													<td class="flotValue" data-min="9.0" data-max="9.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj_Def"></td>
 												</tr>
 												<tr>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj, "B3", isChecked: pingbQuj.ChooseValue == "B3") B：获一等奖（或指导获奖）</label></td>
-													<td>9.0分--9.9分</td>
-													<td class="flotValue" data-min="9.0" data-max="9.9" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj_Def"></td>
+													<td>8.5分</td>
+													<td class="flotValue" data-min="8.5" data-max="8.5" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj_Def"></td>
 												</tr>
 												<tr>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj, "C3", isChecked: pingbQuj.ChooseValue == "C3") C：获二等奖（或指导获奖）</label></td>
-													<td>8.5分</td>
-													<td class="flotValue" data-min="8.5" data-max="8.5" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj_Def"></td>
+													<td>8.0分</td>
+													<td class="flotValue" data-min="8.0" data-max="8.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj_Def"></td>
 												</tr>
 												<tr>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj, "D3", isChecked: pingbQuj.ChooseValue == "D3") D：其他等第奖项（或指导获奖）</label></td>
-													<td>8.5分</td>
-													<td class="flotValue" data-min="8.5" data-max="8.5" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj_Def"></td>
+													<td>7.0分</td>
+													<td class="flotValue" data-min="7.0" data-max="7.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj_Def"></td>
 												</tr>
 
 												<tr>
@@ -254,13 +254,13 @@
 												<tr>
 													<td rowspan="4">市级</td>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt, "A2", isChecked: pingbQit.ChooseValue == "A2") A：获特等奖（或指导获奖）</label></td>
-													<td>10.0分</td>
+													<td>9.5分</td>
 													<td class="flotValue" data-min="9.5" data-max="9.5" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt_Def"></td>
 												</tr>
 												<tr>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt, "B2", isChecked: pingbQit.ChooseValue == "B2") B：获一等奖（或指导获奖）</label></td>
-													<td>9.0分--9.9分</td>
-													<td class="flotValue" data-min="9.0" data-max="9.9" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt_Def"></td>
+													<td>9.0分</td>
+													<td class="flotValue" data-min="9.0" data-max="9.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt_Def"></td>
 												</tr>
 												<tr>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt, "C2", isChecked: pingbQit.ChooseValue == "C2") C：获二等奖（或指导获奖）</label></td>
@@ -269,126 +269,128 @@
 												</tr>
 												<tr>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt, "D2", isChecked: pingbQit.ChooseValue == "D2") D：其他等第奖项（或指导获奖）</label></td>
-													<td>8.5分</td>
-													<td class="flotValue" data-min="8.5" data-max="8.5" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt_Def"></td>
+													<td>8.0分</td>
+													<td class="flotValue" data-min="8.0" data-max="8.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt_Def"></td>
 												</tr>
 												<tr>
 													<td rowspan="4">区级</td>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt, "A3", isChecked: pingbQit.ChooseValue == "A3") A：获特等奖（或指导获奖）</label></td>
-													<td>10.0分</td>
-													<td class="flotValue" data-min="10.0" data-max="10.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt_Def"></td>
+													<td>9.0分</td>
+													<td class="flotValue" data-min="9.0" data-max="9.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt_Def"></td>
 												</tr>
 												<tr>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt, "B3", isChecked: pingbQit.ChooseValue == "B3") B：获一等奖（或指导获奖）</label></td>
-													<td>9.0分--9.9分</td>
-													<td class="flotValue" data-min="9.0" data-max="9.9" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt_Def"></td>
+													<td>8.5分</td>
+													<td class="flotValue" data-min="8.5" data-max="8.5" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt_Def"></td>
 												</tr>
 												<tr>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt, "C3", isChecked: pingbQit.ChooseValue == "C3") C：获二等奖（或指导获奖）</label></td>
-													<td>8.5分</td>
-													<td class="flotValue" data-min="8.5" data-max="8.5" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt_Def"></td>
+													<td>8.0分</td>
+													<td class="flotValue" data-min="8.0" data-max="8.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt_Def"></td>
 												</tr>
 												<tr>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt, "D3", isChecked: pingbQit.ChooseValue == "D3") D：其他等第奖项（或指导获奖）</label></td>
-													<td>8.5分</td>
-													<td class="flotValue" data-min="8.5" data-max="8.5" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt_Def"></td>
+													<td>7.0分</td>
+													<td class="flotValue" data-min="7.0" data-max="7.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt_Def"></td>
 												</tr>
 
 												<!-- 教育教学-教研工作 -->
-												@if (!subjectIsDey) { 
-												<tr>
-													<td rowspan="8">3 命题、评委、教研工作（一） （分值： 15分）</td>
-													<td rowspan="5">（1）中小学命题 （分值： 10分）</td>
-													<td rowspan="5">1.同一类中如有两项，选择级别高的评分。<br /> 2.材料或证明不符合规定下降一至二级评分。</td>
-													<td rowspan="5">相关通知、文件</td>
-													<td rowspan="5">相关通知、文件（相关教育行政部门开具的）或工作照片</td>
-													<td rowspan="3">市级</td>
-													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt, "A1", isChecked: zhongxXueMingt.ChooseValue == "A1") A：中高考命题工作 </label></td>
-													<td>10.0分</td>
-													<td class="flotValue" data-min="10.0" data-max="10.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt, "B1", isChecked: zhongxXueMingt.ChooseValue == "B1") B：学业合格考、水平考命题工 </label></td>
-													<td>8.0分</td>
-													<td class="flotValue" data-min="8.0" data-max="8.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt, "C1", isChecked: zhongxXueMingt.ChooseValue == "C1") C：学科类其他命题工作 </label></td>
-													<td>7.0分</td>
-													<td class="flotValue" data-min="7.0" data-max="7.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt_Def"></td>
-												</tr>
-												<tr>
-													<td rowspan="2">区级</td>
-													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt, "A2", isChecked: zhongxXueMingt.ChooseValue == "A2") A：学科区统考、模拟考命题工作 </label></td>
-													<td>7.0分</td>
-													<td class="flotValue" data-min="7.0" data-max="7.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt, "B2", isChecked: zhongxXueMingt.ChooseValue == "B2") B：学科类其他命题工作 </label></td>
-													<td>4.0分</td>
-													<td class="flotValue" data-min="4.0" data-max="4.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt_Def"></td>
-												</tr>
-												<tr>
-													<td rowspan="3">（2）担任相关工作评委 （分值： 5分）</td>
-													<td rowspan="3">1.同一类中如有两项，选择级别高的评分。<br /> 2.材料或证明不符合规定下降一至二级评分。</td>
-													<td rowspan="3">相关通知、文件</td>
-													<td rowspan="3">相关通知、文件（相关教育行政部门开具的）或工作照片</td>
-													<td rowspan="2">市级</td>
-													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_DanrPingw, "A1", isChecked: zhongxXueMingt.ChooseValue == "A1") A：学科类教育教学竞赛或评比工作评委</label></td>
-													<td>5.0分</td>
-													<td class="flotValue" data-min="5.0" data-max="5.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_DanrPingw, "B1", isChecked: zhongxXueMingt.ChooseValue == "B1") B：学科类其他竞赛或评比工作评委</label></td>
-													<td>4.0分</td>
-													<td class="flotValue" data-min="4.0" data-max="4.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw_Def"></td>
-												</tr>
-												<tr>
-													<td>区级</td>
-													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_DanrPingw, "A2", isChecked: zhongxXueMingt.ChooseValue == "A2") A：教育教学竞赛或评比工作评委</label></td>
-													<td>4.0分</td>
-													<td class="flotValue" data-min="4.0" data-max="4.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw_Def"></td>
-												</tr>
+												@if (!subjectIsDey)
+												{
+													<tr>
+														<td rowspan="8">3 命题、评委、教研工作（一） （分值： 15分）</td>
+														<td rowspan="5">（1）中小学命题 （分值： 10分）</td>
+														<td rowspan="5">1.同一类中如有两项，选择级别高的评分。<br /> 2.材料或证明不符合规定下降一至二级评分。</td>
+														<td rowspan="5">相关通知、文件</td>
+														<td rowspan="5">相关通知、文件（相关教育行政部门开具的）或工作照片</td>
+														<td rowspan="3">市级</td>
+														<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt, "A1", isChecked: zhongxXueMingt.ChooseValue == "A1") A：中高考命题工作 </label></td>
+														<td>10.0分</td>
+														<td class="flotValue" data-min="10.0" data-max="10.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt_Def"></td>
+													</tr>
+													<tr>
+														<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt, "B1", isChecked: zhongxXueMingt.ChooseValue == "B1") B：学业合格考、水平考命题工作 </label></td>
+														<td>8.0分</td>
+														<td class="flotValue" data-min="8.0" data-max="8.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt_Def"></td>
+													</tr>
+													<tr>
+														<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt, "C1", isChecked: zhongxXueMingt.ChooseValue == "C1") C：学科类其他命题工作 </label></td>
+														<td>7.0分</td>
+														<td class="flotValue" data-min="7.0" data-max="7.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt_Def"></td>
+													</tr>
+													<tr>
+														<td rowspan="2">区级</td>
+														<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt, "A2", isChecked: zhongxXueMingt.ChooseValue == "A2") A：学科区统考、模拟考命题工作 </label></td>
+														<td>7.0分</td>
+														<td class="flotValue" data-min="7.0" data-max="7.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt_Def"></td>
+													</tr>
+													<tr>
+														<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt, "B2", isChecked: zhongxXueMingt.ChooseValue == "B2") B：学科类其他命题工作 </label></td>
+														<td>4.0分</td>
+														<td class="flotValue" data-min="4.0" data-max="4.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt_Def"></td>
+													</tr>
+													<tr>
+														<td rowspan="3">（2）担任相关工作评委 （分值： 5分）</td>
+														<td rowspan="3">1.同一类中如有两项，选择级别高的评分。<br /> 2.材料或证明不符合规定下降一至二级评分。</td>
+														<td rowspan="3">相关通知、文件</td>
+														<td rowspan="3">相关通知、文件（相关教育行政部门开具的）或工作照片</td>
+														<td rowspan="2">市级</td>
+														<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_DanrPingw, "A1", isChecked: danrPingw.ChooseValue == "A1") A：学科类教育教学竞赛或评比工作评委</label></td>
+														<td>5.0分</td>
+														<td class="flotValue" data-min="5.0" data-max="5.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw_Def"></td>
+													</tr>
+													<tr>
+														<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_DanrPingw, "B1", isChecked: danrPingw.ChooseValue == "B1") B：学科类其他竞赛或评比工作评委</label></td>
+														<td>4.0分</td>
+														<td class="flotValue" data-min="4.0" data-max="4.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw_Def"></td>
+													</tr>
+													<tr>
+														<td>区级</td>
+														<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_DanrPingw, "A2", isChecked: danrPingw.ChooseValue == "A2") A：教育教学竞赛或评比工作评委</label></td>
+														<td>4.0分</td>
+														<td class="flotValue" data-min="4.0" data-max="4.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw_Def"></td>
+													</tr>
 												}
-												else { 
-												<tr>
-													<td rowspan="5">3 命题、评委、教研工作（二） （分值： 15分）</td>
-													<td rowspan="2">（1）幼教、特教、德育的教研工作（分值： 10分）</td>
-													<td rowspan="2">1.同一类中如有两项，选择级别高的评分。<br /> 2.材料或证明不符合规定下降一至二级评分。</td>
-													<td rowspan="2">教研活动相关材料（如教学设计的讲稿或 PPT；教学反思等）</td>
-													<td rowspan="2">活动证明（相关教育行政部门盖章）</td>
-													<td>市级</td>
-													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_Dey, "A1", isChecked: dey.ChooseValue == "A1") A：教育教学备课指导、教研组建设</label></td>
-													<td>7.0分--10.0分</td>
-													<td class="flotValue" data-min="7.0" data-max="10.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_Dey_Def"></td>
-												</tr>
-												<tr>
-													<td>区级</td>
-													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_Dey, "A2", isChecked: dey.ChooseValue == "A2") A：教育教学备课指导、教研组建设</label></td>
-													<td>4.0分--6.9分</td>
-													<td class="flotValue" data-min="5.0" data-max="6.9" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_Dey_Def"></td>
-												</tr>
-												<tr>
-													<td rowspan="3">(2)担任相关工作评委 （分值： 5分）</td>
-													<td rowspan="3">1.同一类中如有两项，选择级别高的评分。<br /> 2.材料或证明不符合规定下降一至二级评分。</td>
-													<td rowspan="3">相关通知、文件</td>
-													<td rowspan="3">相关通知、文件（相关教育行政部门开具的）或工作照</td>
-													<td rowspan="2">市级</td>
-													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2, "A1", isChecked: danrPingw2.ChooseValue == "A1") A：学科类教育教学竞赛或评比工作评委</label></td>
-													<td>5.0分</td>
-													<td class="flotValue" data-min="5.0" data-max="5.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2, "B1", isChecked: danrPingw2.ChooseValue == "B1") B：学科类其他竞赛或评比工作评委</label></td>
-													<td>4.0分--4.0分</td>
-													<td class="flotValue" data-min="4.0" data-max="4.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2_Def"></td>
-												</tr>
-												<tr>
-													<td>区级</td>
-													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2, "A2", isChecked: danrPingw2.ChooseValue == "A2") A：教育教学竞赛或评比工作评委</label></td>
-													<td>4.0分</td>
-													<td class="flotValue" data-min="4.0" data-max="4.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2_Def"></td>
-												</tr>
+												else
+												{
+													<tr>
+														<td rowspan="5">3 命题、评委、教研工作（二） （分值： 15分）</td>
+														<td rowspan="2">（1）幼教、特教、德育的教研工作（分值： 10分）</td>
+														<td rowspan="2">1.同一类中如有两项，选择级别高的评分。<br /> 2.材料或证明不符合规定下降一至二级评分。</td>
+														<td rowspan="2">教研活动相关材料（如教学设计的讲稿或 PPT；教学反思等）</td>
+														<td rowspan="2">活动证明（相关教育行政部门盖章）</td>
+														<td>市级</td>
+														<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_Dey, "A1", isChecked: dey.ChooseValue == "A1") A：教育教学备课指导、教研组建设</label></td>
+														<td>7.0分--10.0分</td>
+														<td class="flotValue" data-min="7.0" data-max="10.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_Dey_Def"></td>
+													</tr>
+													<tr>
+														<td>区级</td>
+														<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_Dey, "A2", isChecked: dey.ChooseValue == "A2") A：教育教学备课指导、教研组建设</label></td>
+														<td>4.0分--6.9分</td>
+														<td class="flotValue" data-min="5.0" data-max="6.9" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_Dey_Def"></td>
+													</tr>
+													<tr>
+														<td rowspan="3">(2)担任相关工作评委 （分值： 5分）</td>
+														<td rowspan="3">1.同一类中如有两项，选择级别高的评分。<br /> 2.材料或证明不符合规定下降一至二级评分。</td>
+														<td rowspan="3">相关通知、文件</td>
+														<td rowspan="3">相关通知、文件（相关教育行政部门开具的）或工作照</td>
+														<td rowspan="2">市级</td>
+														<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2, "A1", isChecked: danrPingw2.ChooseValue == "A1") A：学科类教育教学竞赛或评比工作评委</label></td>
+														<td>5.0分</td>
+														<td class="flotValue" data-min="5.0" data-max="5.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2_Def"></td>
+													</tr>
+													<tr>
+														<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2, "B1", isChecked: danrPingw2.ChooseValue == "B1") B：学科类其他竞赛或评比工作评委</label></td>
+														<td>4.0分</td>
+														<td class="flotValue" data-min="4.0" data-max="4.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2_Def"></td>
+													</tr>
+													<tr>
+														<td>区级</td>
+														<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2, "A2", isChecked: danrPingw2.ChooseValue == "A2") A：教育教学竞赛或评比工作评委</label></td>
+														<td>4.0分</td>
+														<td class="flotValue" data-min="4.0" data-max="4.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2_Def"></td>
+													</tr>
 												}
 											</tbody>
 										</table>
@@ -462,7 +464,7 @@
 												<tr>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyKey_XiangmYanj, "B3", isChecked: xiangmYanj.ChooseValue == "B3") B：学科类课题核心成员</label></td>
 													<td>3.5分</td>
-													<td class="flotValue" data-min="3.5" data-max="3.5"  data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyKey_XiangmYanj_Def"></td>
+													<td class="flotValue" data-min="3.5" data-max="3.5" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyKey_XiangmYanj_Def"></td>
 												</tr>
 												<tr>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyKey_XiangmYanj, "C3", isChecked: xiangmYanj.ChooseValue == "C3") C：学科类课题一般成员</label></td>
@@ -507,9 +509,7 @@
 											</thead>
 
 											<tbody>
-												<tr>
-
-												</tr>
+												<tr></tr>
 											</tbody>
 										</table>
 									</div>
@@ -584,12 +584,12 @@
 													<td rowspan="2">校级</td>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaosPeix_ZhuantJiangz, "A4", isChecked: jiangz.ChooseValue == "A4") A：学科类学术讲座</label></td>
 													<td>5.0分</td>
-													<td class="flotValue" data-min="7.0" data-max="7.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaosPeix_ZhuantJiangz_Def"></td>
+													<td class="flotValue" data-min="5.0" data-max="5.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaosPeix_ZhuantJiangz_Def"></td>
 												</tr>
 												<tr>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaosPeix_ZhuantJiangz, "B4", isChecked: jiangz.ChooseValue == "B4") B：学科类专题发言</label></td>
 													<td>4.0分</td>
-													<td class="flotValue" data-min="6.0" data-max="6.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaosPeix_ZhuantJiangz_Def"></td>
+													<td class="flotValue" data-min="4.0" data-max="4.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaosPeix_ZhuantJiangz_Def"></td>
 												</tr>
 											</tbody>
 										</table>
@@ -614,7 +614,7 @@
 													<th>原则要求</th>
 													<th>材料要求</th>
 													<th>证明要求</th>
-													<th  class="table-col-10p">级别要求</th>
+													<th class="table-col-10p">级别要求</th>
 												</tr>
 												<tr></tr>
 											</thead>
@@ -663,7 +663,7 @@
 													<td rowspan="2">2.学员成长</td>
 													<td rowspan="2"></td>
 													<td rowspan="2">1.同一类中如有两项，选择级别高的评分； <br /> 2.材料或证明不符合规定下降一至二级评分。</td>
-													<td >学员评为称号文件</td>
+													<td>学员评为称号文件</td>
 													<td>1.称号证书；<br /> 2.被指导教师写的证明。</td>
 													<td></td>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.GerTes_XueyChengz, "A1", isChecked: xueyChengz.ChooseValue == "A1") A：成为市“双名工程”、“攻关计划”名师后备人选、“种子计划”领衔人及学员</label></td>
@@ -694,13 +694,13 @@
 						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt" name="@EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt_Def" value="@pingbQit.ResultValue" />
 						if (!subjectIsDey)
 						{
-						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt" name="@EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt_Def" value="@zhongxXueMingt.ResultValue" />
-						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw" name="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw_Def" value="@danrPingw.ResultValue" />
+							<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt" name="@EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt_Def" value="@zhongxXueMingt.ResultValue" />
+							<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw" name="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw_Def" value="@danrPingw.ResultValue" />
 						}
 						else
 						{
-						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyGongz_Dey" name="@EvalDeclareRuleKeys.JiaoyGongz_Dey_Def" value="@dey.ResultValue" />
-						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2" name="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2_Def" value="@danrPingw2.ResultValue" />
+							<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyGongz_Dey" name="@EvalDeclareRuleKeys.JiaoyGongz_Dey_Def" value="@dey.ResultValue" />
+							<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2" name="@EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2_Def" value="@danrPingw2.ResultValue" />
 						}
 						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyKey_XiangmYanj" name="@EvalDeclareRuleKeys.JiaoyKey_XiangmYanj_Def" value="@xiangmYanj.ResultValue" />
 						<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.JiaoyKey_FabLunw" name="@EvalDeclareRuleKeys.JiaoyKey_FabLunw_Def" value="@fabLunw.ResultValue" />

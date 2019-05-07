@@ -8,7 +8,10 @@ else if (Html.GetUserProfile().IsSchoolAdmin)
 {
 	Html.RenderPartial("../EvalModel/Declare/_declareSchoolEvalView5005", Model);
 }
-
+else if (Html.GetUserProfile().IsSpecialExpert)
+{
+	Html.RenderPartial("../EvalModel/Declare/_declareSpecialExpertEvalView5005", Model);
+}
 
 @section Scripts{
 	@Html.Partial("../EvalUtilities/_ScoreInputJS")

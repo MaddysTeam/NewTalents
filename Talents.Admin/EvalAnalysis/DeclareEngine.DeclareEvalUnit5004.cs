@@ -19,24 +19,24 @@ namespace TheSite.EvalAnalysis
 
 			public override double CompanyFullScore => 20;
 
-         public override double ExpertFullScore => 70;
+			public override double ExpertFullScore => 70;
 
-         public override double SpecialFullScore => 10;
+			public override double SpecialFullScore => 10;
 
-         protected override void AnalysisResult(FormCollection fc, EvalDeclareResult result, Dictionary<string, EvalDeclareResultItem> items)
+			protected override void AnalysisResult(FormCollection fc, EvalDeclareResult result, Dictionary<string, EvalDeclareResultItem> items)
 			{
-				double score = 0, score1 = 0, score2 = 0, score3=0,score4=0 ,score5 = 0, score6 = 0, score7 = 0;
+				double score = 0, score1 = 0, score2 = 0, score3 = 0, score4 = 0, score5 = 0, score6 = 0, score7 = 0;
 
 				if (fc[EvalDeclareRuleKeys.XiaonLvz] != null)
 					score = Analysis_JiaoyJiaox_XiaonLvz(result, items, fc[EvalDeclareRuleKeys.XiaonLvz], fc[EvalDeclareRuleKeys.XiaonLvz_Def]);
 
-            if (fc[EvalDeclareRuleKeys.Shid] != null)
-            {
-               AnalysisShid(result, items, fc[EvalDeclareRuleKeys.Shid]);
-               score = result.Score;
-            }
+				if (fc[EvalDeclareRuleKeys.Shid] != null)
+				{
+					AnalysisShid(result, items, fc[EvalDeclareRuleKeys.Shid]);
+					score = result.Score;
+				}
 
-            if (fc[EvalDeclareRuleKeys.JiaoyJiaox_Gongkk] != null)
+				if (fc[EvalDeclareRuleKeys.JiaoyJiaox_Gongkk] != null)
 					score += Analysis_JiaoyJiaox_Gongkk(result, items, fc[EvalDeclareRuleKeys.JiaoyJiaox_Gongkk], fc[EvalDeclareRuleKeys.JiaoyJiaox_Gongkk_Def]);
 
 				if (fc[EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj] != null)
@@ -48,18 +48,18 @@ namespace TheSite.EvalAnalysis
 				score += score1 > score2 ? score1 : score2;
 
 				if (fc[EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt] != null)
-               score3 += Analysis_JiaoyJiaox_ZhongxXueMingt(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt], fc[EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt_Def]);
+					score3 += Analysis_JiaoyJiaox_ZhongxXueMingt(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt], fc[EvalDeclareRuleKeys.JiaoyGongz_ZhongxXueMingt_Def]);
 
 				if (fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw] != null)
-               score3 += Analysis_JiaoyJiaox_DanrPingw(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw], fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw_Def]);
+					score3 += Analysis_JiaoyJiaox_DanrPingw(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw], fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw_Def]);
 
 				if (fc[EvalDeclareRuleKeys.JiaoyGongz_Dey] != null)
-               score4 += Analysis_JiaoyJiaox_Dey(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_Dey], fc[EvalDeclareRuleKeys.JiaoyGongz_Dey_Def]);
+					score4 += Analysis_JiaoyJiaox_Dey(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_Dey], fc[EvalDeclareRuleKeys.JiaoyGongz_Dey_Def]);
 
 				if (fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2] != null)
-               score4 += Analysis_JiaoyJiaox_DanrPingw2(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2], fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2_Def]);
+					score4 += Analysis_JiaoyJiaox_DanrPingw2(result, items, fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2], fc[EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2_Def]);
 
-				 score += score3 > score4 ? score3 : score4;
+				score += score3 > score4 ? score3 : score4;
 
 				if (fc[EvalDeclareRuleKeys.JiaoyKey_XiangmYanj] != null)
 					score += Analysis_JiaoyKey_XiangmYanj(result, items, fc[EvalDeclareRuleKeys.JiaoyKey_XiangmYanj], fc[EvalDeclareRuleKeys.JiaoyKey_XiangmYanj_Def]);
@@ -69,7 +69,7 @@ namespace TheSite.EvalAnalysis
 
 
 				if (fc[EvalDeclareRuleKeys.JiaosPeix_PeixKec] != null)
-					score += Analysis_JiaosPeix_PeixKec(result,items,fc[EvalDeclareRuleKeys.JiaosPeix_PeixKec],fc[EvalDeclareRuleKeys.JiaosPeix_PeixKec_Def]);
+					score += Analysis_JiaosPeix_PeixKec(result, items, fc[EvalDeclareRuleKeys.JiaosPeix_PeixKec], fc[EvalDeclareRuleKeys.JiaosPeix_PeixKec_Def]);
 
 				if (fc[EvalDeclareRuleKeys.JiaosPeix_ZhuantJiangz] != null)
 					score += Analysis_JiaosPeix_ZhuantJiangz(result, items, fc[EvalDeclareRuleKeys.JiaosPeix_ZhuantJiangz], fc[EvalDeclareRuleKeys.JiaosPeix_ZhuantJiangz_Def]);
@@ -118,44 +118,44 @@ namespace TheSite.EvalAnalysis
 
 			}
 
-         #endregion
+			#endregion
 
 
-         #region [ 师德 ]
+			#region [ 师德 ]
 
-         private void AnalysisShid(EvalDeclareResult result, Dictionary<string, EvalDeclareResultItem> items, string choose)
-         {
-            var item = new EvalDeclareResultItem
-            {
-               ChooseValue = choose,
-               EvalItemKey = EvalSchoolRuleKeys.Shid,
-            };
-            items.Add(item.EvalItemKey, item);
+			private void AnalysisShid(EvalDeclareResult result, Dictionary<string, EvalDeclareResultItem> items, string choose)
+			{
+				var item = new EvalDeclareResultItem
+				{
+					ChooseValue = choose,
+					EvalItemKey = EvalSchoolRuleKeys.Shid,
+				};
+				items.Add(item.EvalItemKey, item);
 
-            switch (choose)
-            {
-               case "A":
-                  result.Comment = "合格"; //TODO 不想加字段了，用comment 替代
-                  item.ResultValue = "合格";
-                  break;
-               case "B":
-                  result.Comment = "基本合格"; //TODO 不想加字段了，用comment 替代
-                  item.ResultValue = "基本合格";
-                  break;
-               case "C":
-                  result.Comment = "不合格"; //TODO 不想加字段了，用comment 替代
-                  result.Score = 0;
-                  item.ResultValue = "不合格";
-                  break;
-            }
-         }
+				switch (choose)
+				{
+					case "A":
+						result.Comment = "合格"; //TODO 不想加字段了，用comment 替代
+						item.ResultValue = "合格";
+						break;
+					case "B":
+						result.Comment = "基本合格"; //TODO 不想加字段了，用comment 替代
+						item.ResultValue = "基本合格";
+						break;
+					case "C":
+						result.Comment = "不合格"; //TODO 不想加字段了，用comment 替代
+						result.Score = 0;
+						item.ResultValue = "不合格";
+						break;
+				}
+			}
 
-         #endregion
+			#endregion
 
 
-         #region [ 公开课 ]
+			#region [ 公开课 ]
 
-         private double Analysis_JiaoyJiaox_Gongkk(EvalDeclareResult result, Dictionary<string, EvalDeclareResultItem> items, string choose, string score)
+			private double Analysis_JiaoyJiaox_Gongkk(EvalDeclareResult result, Dictionary<string, EvalDeclareResultItem> items, string choose, string score)
 			{
 				var item = new EvalDeclareResultItem
 				{
@@ -526,7 +526,7 @@ namespace TheSite.EvalAnalysis
 						break;
 					case "B1":
 						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 4.0, 4.0);
-						break;			
+						break;
 					case "A2":
 						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 4.0, 4.0);
 						break;

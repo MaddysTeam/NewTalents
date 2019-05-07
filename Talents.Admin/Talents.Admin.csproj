@@ -738,6 +738,7 @@
     <Content Include="Views\DeclareEvalManage\EvalExpertMemberDetails.cshtml" />
     <Content Include="Views\EvalModel\Declare\_declareSpecialExpertEvalView5006.cshtml" />
     <Content Include="Views\EvalModel\Declare\_declareExpertEvalView5005.cshtml" />
+    <Content Include="Views\EvalModel\Declare\_declareSpecialExpertEvalView5005.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
