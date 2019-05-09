@@ -6,6 +6,7 @@
 
 	var xiaonLvz = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.XiaonLvz);
 	var shid = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.Shid);
+
 	var gongkk = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyJiaox_Gongkk);
 	var pingbQuj = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyJiaox_Pb_Quj);
 	var pingbQit = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaoyJiaox_Pb_Qt);
@@ -70,6 +71,26 @@
 						</tr>
 					</thead>
 					<tbody>
+						@if (shid.ResultValue != "")
+						{
+							<tr>
+								<td>师德</td>
+								<td></td>
+								<td></td>
+								<td>实行师德失范“一票否决”原则</td>
+								<td></td>
+								@if (shid.ChooseValue == "A")
+								{
+									<td><label>A：无违反师德相关规定的言行</label></td>
+									<td>合格</td>
+								}
+								else if (shid.ChooseValue == "B")
+								{
+									<td><label>B：有违反师德相关禁令的言行，尚未被退出梯队</label></td>
+									<td>不合格</td>
+								}
+							</tr>
+						}
 						@if (xiaonLvz.ResultValue != "")
 						{
 							<tr>
@@ -87,26 +108,6 @@
 								{
 									<td><label>B：履职较好</label></td>
 									<td><span>@xiaonLvz.ResultValue</span>分</td>
-								}
-							</tr>
-						}
-						@if (shid.ResultValue != "")
-						{
-							<tr>
-								<td>师德</td>
-								<td></td>
-								<td></td>
-								<td>不合格情况时，该单位考评得分为0分</td>
-								<td></td>
-								@if (xiaonLvz.ChooseValue == "A")
-								{
-									<td><label>A：无违反师德相关规定的言行</label></td>
-									<td></td>
-								}
-								else if (xiaonLvz.ChooseValue == "B")
-								{
-									<td><label>B：有违反师德相关禁令的言行，尚未被退出梯队</label></td>
-									<td></td>
 								}
 							</tr>
 						}
@@ -141,6 +142,12 @@
 									<td>校级</td>
 									<td><label>D：校级公开课（或指导公开课）</label></td>
 									<td><span>@gongkk.ResultValue</span>分</td>
+								}
+								else
+								{
+									<td></td>
+									<td><label>无</label></td>
+									<td><span>0</span>分</td>
 								}
 							</tr>
 						}
@@ -217,6 +224,12 @@
 									<td><label>D：其他等第奖项（或指导获奖）</label></td>
 									<td><span>@pingbQuj.ResultValue</span>分</td>
 								}
+								else
+								{
+									<td></td>
+									<td><label>无</label></td>
+									<td><span>0</span>分</td>
+								}
 							</tr>
 						}
 						@if (pingbQit.ResultValue != "")
@@ -268,8 +281,7 @@
 									<td><label>D：其他等第奖项（或指导获奖）</label></td>
 									<td><span>@pingbQit.ResultValue</span>分</td>
 								}
-
-								@if (pingbQit.ChooseValue == "A3")
+								else if (pingbQit.ChooseValue == "A3")
 								{
 									<td>区级</td>
 									<td><label>A：获特等奖（或指导获奖）</label></td>
@@ -293,7 +305,12 @@
 									<td><label>D：其他等第奖项（或指导获奖）</label></td>
 									<td><span>@pingbQit.ResultValue</span>分</td>
 								}
-
+								else
+								{
+									<td></td>
+									<td><label>无</label></td>
+									<td><span>0</span>分</td>
+								}
 							</tr>
 						}
 						@if (zhongxXueMingt.ResultValue != "")
@@ -333,7 +350,12 @@
 									<td><label>B：学科类其他命题工作</label></td>
 									<td><span>@zhongxXueMingt.ResultValue</span>分</td>
 								}
-
+								else
+								{
+									<td></td>
+									<td><label>无</label></td>
+									<td><span>0</span>分</td>
+								}
 							</tr>
 						}
 						@if (danrPingw.ResultValue != "")
@@ -360,6 +382,12 @@
 									<td><label>A：教育教学竞赛或评比工作评委</label></td>
 									<td><span>@danrPingw.ResultValue</span>分</td>
 								}
+								else
+								{
+									<td></td>
+									<td><label>无</label></td>
+									<td><span>0</span>分</td>
+								}
 							</tr>
 						}
 
@@ -384,6 +412,12 @@
 									<td>区级</td>
 									<td><label>A：教育教学备课指导、教研组建设</label></td>
 									<td><span>@dey.ResultValue</span>分</td>
+								}
+								else
+								{
+									<td></td>
+									<td><label>无</label></td>
+									<td><span>0</span>分</td>
 								}
 							</tr>
 						}
@@ -413,6 +447,12 @@
 									<td>区级</td>
 									<td><label>A：教育教学竞赛或评比工作评委</label></td>
 									<td><span>@danrPingw2.ResultValue</span>分</td>
+								}
+								else
+								{
+									<td></td>
+									<td><label>无</label></td>
+									<td><span>0</span>分</td>
 								}
 							</tr>
 						}
@@ -481,7 +521,12 @@
 									<td><label>C：学科类课题一般成员</label></td>
 									<td><span>@xiangmYanj.ResultValue</span>分</td>
 								}
-
+								else
+								{
+									<td></td>
+									<td><label>无</label></td>
+									<td><span>0</span>分</td>
+								}
 							</tr>
 						}
 						@if (fabLunw.ResultValue != "")
@@ -523,6 +568,12 @@
 									<td><label>A：在《虹口教育》、《院刊》等区级期刊上发表</label></td>
 									<td><span>@fabLunw.ResultValue</span>分</td>
 								}
+								else
+								{
+									<td></td>
+									<td><label>无</label></td>
+									<td><span>0</span>分</td>
+								}
 							</tr>
 						}
 
@@ -561,6 +612,12 @@
 									<td>校级共享课程</td>
 									<td><label>A：开设校级共享课程</label></td>
 									<td><span>@peixKec.ResultValue</span>分</td>
+								}
+								else
+								{
+									<td></td>
+									<td><label>无</label></td>
+									<td><span>0</span>分</td>
 								}
 							</tr>
 						}
@@ -626,6 +683,12 @@
 									<td><label>B：开设区级共享课程</label></td>
 									<td><span>@jiangz.ResultValue</span>分</td>
 								}
+								else
+								{
+									<td></td>
+									<td><label>无</label></td>
+									<td><span>0</span>分</td>
+								}
 							</tr>
 						}
 
@@ -652,6 +715,12 @@
 									<td><label>B：学科类合著</label></td>
 									<td><span>@zhuanz.ResultValue</span>分</td>
 								}
+								else
+								{
+									<td></td>
+									<td><label>无</label></td>
+									<td><span>0</span>分</td>
+								}
 							</tr>
 						}
 						@if (qitShenf.ResultValue != "")
@@ -675,6 +744,12 @@
 									<td>区级</td>
 									<td><label>B：学科专业类其他身份</label></td>
 									<td><span>@qitShenf.ResultValue</span>分</td>
+								}
+								else
+								{
+									<td></td>
+									<td><label>无</label></td>
+									<td><span>0</span>分</td>
 								}
 							</tr>
 						}
@@ -703,6 +778,13 @@
 									<td></td>
 									<td><label>B：学科专业类其他身份</label></td>
 									<td><span>@xueyChengz.ResultValue</span>分</td>
+								}
+								else
+								{
+									<td></td>
+									<td></td>
+									<td><label>无</label></td>
+									<td><span>0</span>分</td>
 								}
 							</tr>
 						}

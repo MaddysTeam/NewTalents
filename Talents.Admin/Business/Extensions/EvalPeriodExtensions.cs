@@ -86,17 +86,16 @@ namespace Business
          APDBDef.CompanyDeclareTableDef cd = APDBDef.CompanyDeclare;
          APDBDef.CompanyTableDef c = APDBDef.Company;
 
-         var model = APQuery.select(u.RealName, dr.TeacherId, dr.DeclareTargetPKID, dr.DeclareSubjectPKID, dr.TypeKey, c.CompanyName)
-            .from(u,
-                  dr.JoinInner(u.UserId == dr.TeacherId),
+         var model = APQuery.select(dr.TeacherName, dr.TeacherId, dr.DeclareTargetPKID, dr.DeclareSubjectPKID, dr.TypeKey, c.CompanyName)
+            .from(dr,
                   c.JoinLeft(c.CompanyId == dr.CompanyId))
-            .where(u.UserId == teacherId)
+            .where(dr.TeacherId == teacherId)
             .query(db, rd =>
             {
                return new DeclareReviewModel
                {
                   TeacherId = dr.TeacherId.GetValue(rd),
-                  RealName = u.RealName.GetValue(rd),
+                  RealName = dr.TeacherName.GetValue(rd),
                   CompanyName = c.CompanyName.GetValue(rd),
                   TargetId = dr.DeclareTargetPKID.GetValue(rd),
                   Target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(rd)),

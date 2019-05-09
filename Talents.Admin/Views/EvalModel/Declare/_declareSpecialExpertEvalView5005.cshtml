@@ -2,7 +2,7 @@
 @{
 	var pageTitle = ViewBag.Title = "培训处申报考评";
 	var items = ViewBag.ResultItems as Dictionary<string, EvalDeclareResultItem>;
-	var peixKec = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaosPeix_PeixKec, "A1");
+	var peixKec = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.JiaosPeix_PeixKec, "Z");
 	var declare = ViewBag.Declare as DeclareReviewModel;
 }
 <div class="col-md-10 content-wrapper">
@@ -92,14 +92,18 @@
 
 											<tbody>
 												<tr>
-													<td rowspan="3">
+													<td rowspan="4">
 														教师培训（分值：10分）
 													</td>
-													<td rowspan="3">1.开设教师培训课程（分值：10分）</td>
-													<td rowspan="3"></td>
-													<td colspan="4" rowspan="3">
-														由所在学校就工作量、教育教学效果、主持学校学科教研组建设、参与重大项目研究进行考评
+													<td rowspan="4">1.开设教师培训课程（分值：10分）</td>
+													<td rowspan="4"></td>
+													<td rowspan="4">
+														1.同一类中如有两项，选择级别高的评分<br />
+														2.材料或证明不符合规定下降一至二级评分
 													</td>
+													<td rowspan="4">课程纲要</td>
+													<td rowspan="4">课程证明（相关教育行政部门或学校盖章）</td>
+													<td rowspan="4"></td>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaosPeix_PeixKec, "A1", isChecked: peixKec.ChooseValue == "A1") A：开设市级共享课程</label></td>
 													<td>10.0分</td>
 													<td class="flotValue" data-min="10.0" data-max="10.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaosPeix_PeixKec_Def"></td>
@@ -117,6 +121,13 @@
 													</td>
 													<td>4.0分</td>
 													<td class="flotValue" data-min="4.0" data-max="4.0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaosPeix_PeixKec_Def"></td>
+												</tr>
+												<tr>
+													<td>
+														<label>@Html.RadioButton(EvalDeclareRuleKeys.JiaosPeix_PeixKec, "Z", isChecked: peixKec.ChooseValue == "Z") 无</label>
+													</td>
+													<td>0分</td>
+													<td class="flotValue" data-min="0" data-max="0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaosPeix_PeixKec_Def"></td>
 												</tr>
 											</tbody>
 										</table>

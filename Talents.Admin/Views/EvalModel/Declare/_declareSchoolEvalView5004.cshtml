@@ -95,9 +95,29 @@
 											</thead>
 
 											<tbody>
+
+												<!--师德-->
+
+												<tr>
+													<td rowspan="2">一、师德</td>
+													<td rowspan="2"></td>
+													<td rowspan="2"></td>
+													<td rowspan="2" colspan="4">实行师德失范“一票否决”原则</td>
+													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.Shid, "A", isChecked: Shid == "A") A：遵守《教师职业道德规范》，无违反中小学教师职业道德行为；</label></td>
+													<td>合格</td>
+													<td></td>
+												</tr>
+												<tr>
+													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.Shid, "B", isChecked: Shid == "B") B：师德上存有偏差，有违反师德行为；</label></td>
+													<td>不合格</td>
+													<td></td>
+												</tr>
+
+												<!--校内履职-->
+
 												<tr>
 													<td rowspan="2">
-														一、校内履职(分值：20分)
+														二、校内履职(分值：20分)
 													</td>
 													<td rowspan="2"></td>
 													<td rowspan="2"></td>
@@ -116,26 +136,6 @@
 													<td class="flotValue" data-min="14.0" data-max="17.9" data-value="" data-hidden="@EvalDeclareRuleKeys.XiaonLvz_Def"></td>
 												</tr>
 												
-												<!--师德-->
-												<tr>
-													<td rowspan="3">二、师德</td>
-													<td rowspan="3"></td>
-													<td rowspan="3"></td>
-													<td rowspan="3" colspan="4" >不合格情况时，该单位考评得分为0分</td>
-													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.Shid, "A", isChecked: Shid == "A") A：无违反师德相关规定的言行</label></td>
-													<td>合格</td>
-													<td></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.Shid, "B", isChecked: Shid == "B") B：有违反师德相关禁令的言行，尚未被退出梯队</label></td>
-													<td>基本合格</td>
-													<td></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.Shid, "C", isChecked: Shid == "C") C：有违反师德相关规定的言行，应当出梯队</label></td>
-													<td>不合格</td>
-													<td></td>
-												</tr>
 											</tbody>
 										</table>
 									</div>

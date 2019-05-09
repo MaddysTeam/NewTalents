@@ -83,8 +83,8 @@ namespace TheSite.Controllers
 					 return name;
 				 }).ToArray();
 
-         var subQuery = APQuery.select(dr.TeacherId).from(dr).where(dr.StatusKey == DeclareKeys.ReviewSuccess);
-         var totalCount = db.ExpGroupTargetDal.ConditionQueryCount(egt.GroupId == groupId & egt.MemberId.In(subQuery));
+			var subQuery = APQuery.select(dr.TeacherId).from(dr).where(dr.StatusKey == DeclareKeys.ReviewSuccess);
+			var totalCount = db.ExpGroupTargetDal.ConditionQueryCount(egt.GroupId == groupId & egt.MemberId.In(subQuery));
 			var evalCount = db.EvalDeclareResultDal.ConditionQueryCount(
 				 er.GroupId == groupId & er.PeriodId == periodId & er.Accesser == UserProfile.UserId);
 
@@ -274,7 +274,7 @@ namespace TheSite.Controllers
 
 			var query = APQuery.select(dr.TeacherId, dr.TeacherName, c.CompanyName,
 				  dr.DeclareTargetPKID, dr.DeclareSubjectPKID,
-				  er.ResultId.As("ResultId"), er.Score, er.FullScore, er.ResultId, er.GroupId,er.Comment)
+				  er.ResultId.As("ResultId"), er.Score, er.FullScore, er.ResultId, er.GroupId, er.Comment)
 			   .from(dr,
 					  er.JoinLeft(er.TeacherId == dr.TeacherId & er.GroupId == 0),
 					  c.JoinInner(dr.CompanyId == c.CompanyId)
@@ -344,7 +344,7 @@ namespace TheSite.Controllers
 					submitStatus = status == 0 ? "未评审" : "已评审",
 					targetId = dr.DeclareTargetPKID.GetValue(r),
 					resultId = er.ResultId.GetValue(r, "ResultId"),
-               shid=er.Comment.GetValue(r)
+					shid = er.Comment.GetValue(r)
 				};
 			}).ToList();
 
@@ -395,7 +395,7 @@ namespace TheSite.Controllers
 			}
 			else if (statusId == 0)
 			{
-				query.where_and(er.ResultId == 0);
+				query.where_and(er.ResultId == null);
 			}
 
 			//过滤条件
@@ -432,7 +432,7 @@ namespace TheSite.Controllers
 				var engine = EngineManager.Engines[Period.AnalysisType].DeclareEvals;
 				var fullScore = engine[targetId].SpecialFullScore;
 
-			 var status = er.ResultId.GetValue(r);
+				var status = er.ResultId.GetValue(r);
 
 				return new
 				{
@@ -467,9 +467,9 @@ namespace TheSite.Controllers
 		public ActionResult Eval(DeclareEvalParam param)
 		{
 			param.AccesserId = UserProfile.UserId;
-         param.PeriodId = Period.PeriodId;
+			param.PeriodId = Period.PeriodId;
 
-         var isEvalSubmit = false;
+			var isEvalSubmit = false;
 
 			var engines = EngineManager.Engines[Period.AnalysisType].DeclareEvals;
 			if (isEvalSubmit || !engines.ContainsKey(param.TargetId))
@@ -544,7 +544,7 @@ namespace TheSite.Controllers
 
 		public ActionResult ResultView(DeclareEvalParam param)
 		{
-			 ThrowNotAjax();
+			ThrowNotAjax();
 
 			var model = new EvalDeclareResultModel(param);
 			var engine = EngineManager.Engines[Period.AnalysisType].DeclareEvals[model.TargetId];

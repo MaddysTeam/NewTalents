@@ -55,7 +55,7 @@
 						<div class="col-sm-4">
 							<button class="btn btn-md btn-info" type="button" id="btnserach">搜索</button>
 						
-							<a class="btn btn-md btn-warning" href="@Url.Action("EvalSchoolMemberExport", "DeclareEvalManage")" id="btnexp">导出全部数据</a>
+							@*<a class="btn btn-md btn-warning" href="@Url.Action("EvalSchoolMemberExport", "DeclareEvalManage")" id="btnexp">导出全部数据</a>*@
 							
 						</div>
 	
@@ -114,7 +114,7 @@
 								html += '<a class="btn btn-success btn-view" href="' + evalUrl + '">执行考评</a>';
 							}
 							else {
-								html += '<a target="_blank" class="btn btn-warning btn-view" href="' + evalUrl + '"><i class="fa fa-external-link"></i>继续考评</a>';
+								html += '<a target="_blank" class="btn btn-warning btn-view" href="' + evalUrl + '"><i class="fa fa-external-link"></i>修改考评</a>';
 								//html += '<a target="_blank" class="btn btn-info btn-view" href="' + resultUrl + '"><i class="fa fa-eye"></i>查看详细</a>';
 							}
 						}

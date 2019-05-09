@@ -127,12 +127,8 @@ namespace TheSite.EvalAnalysis
                   item.ResultValue = "合格";
                   break;
                case "B":
-                  result.Comment = "基本合格"; //TODO 不想加字段了，用comment 替代
-                  item.ResultValue = "基本合格";
-                  break;
-               case "C":
-                  result.Comment = "不合格"; //TODO 不想加字段了，用comment 替代
                   result.Score = 0;
+                  result.Comment = "不合格"; //TODO 不想加字段了，用comment 替代
                   item.ResultValue = "不合格";
                   break;
             }
