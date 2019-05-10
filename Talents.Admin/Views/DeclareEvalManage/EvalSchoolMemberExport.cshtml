@@ -2,6 +2,7 @@
 @{
 	var pageTitle = ViewBag.Title = "单位评审情况";
 	var results = Model.Results;
+	var pageResults = new List<InsepctionDeclareSchoolEvalResult>();
 }
 
 <html>
@@ -13,74 +14,81 @@
 </head>
 <body>
 	<div>
-		<p style="margin:7.8pt 0pt 0pt; orphans:0; text-align:center; widows:0">
-			<span style="font-family:黑体; font-size:12pt; font-weight:bold">&#xa0;</span>
-		</p>
-		<p style="margin:7.8pt 0pt 0pt; orphans:0; text-align:center; widows:0">
-			<span style="font-family:黑体; font-size:18pt; font-weight:bold">虹口区教育系统</span>
-			<span style="font-family:黑体; font-size:18pt; font-weight:bold">2019—2021</span>
-			<span style="font-family:黑体; font-size:18pt; font-weight:bold">学年教师人才梯队</span>
-		</p>
-		<p style="margin:0pt; orphans:0; text-align:center; widows:0">
-			<span style="font-family:黑体; font-size:14pt">&#xa0;</span>
-		</p>
-		<p style="margin:0pt; orphans:0; text-align:center; widows:0">
-			<span style="font-family:黑体; font-size:14pt">&#xa0;</span>
-		</p>
-		<p style="margin:0pt; orphans:0; text-align:center; widows:0">
-			<span style="font-family:黑体; font-size:14pt">&#xa0;</span>
-		</p>
-		<p style="margin:0pt; orphans:0; text-align:center; widows:0">
-			<span style="font-family:黑体; font-size:14pt">&#xa0;</span>
-		</p>
-		<p style="margin:0pt; orphans:0; text-align:center; widows:0">
-			<span style="font-family:黑体; font-size:22pt; font-weight:bold">@(Model.CompanyName)学校申报评审表</span>
-		</p>
-		<p style="margin:0pt; text-align:justify">
-			<span style="font-family:宋体; font-size:12pt; font-weight:bold">&#xa0;</span>
-		</p>
 
-		<p style="margin:0pt; orphans:0; text-align:center; widows:0">
-			<span style="font-family:黑体; font-size:14pt">&#xa0;</span>
-		</p>
+		@for (int j = 0; j < Math.Ceiling((double)results.Count / 10); j++)
+		{
+			pageResults = results.Skip(j * 10).Take(10).ToList();
 
-		<table cellspacing="0" cellpadding="0" style="border-collapse:collapse; margin:auto; width:525.5pt">
-			<tr style="height:35.55pt">
-				<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
-					<p style="margin:0pt; orphans:0; text-align:center;">
-						<span style="font-family:宋体; font-size:10.5pt">教师姓名</span>
-					</p>
-				</td>
-				<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
-					<p style="margin:0pt; orphans:0; padding-left:6pt; text-align:center; text-indent:-6pt; widows:0">
-						<span style="font-family:宋体; font-size:10.5pt">申报称号</span>
-					</p>
-				</td>
-				<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
-					<p style="margin:0pt; orphans:0; text-align:center; widows:0">
-						<span style="font-family:宋体; font-size:10.5pt">申报学科</span>
-					</p>
-				</td>
-				<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
-					<p style="margin:0pt; orphans:0; text-align:center; widows:0">
-						<span style="font-family:宋体; font-size:10.5pt">师德</span>
-					</p>
-				</td>
-				<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
-					<p style="margin:0pt; orphans:0; text-align:center; widows:0">
-						<span style="font-family:宋体; font-size:10.5pt">权重参考分</span>
-					</p>
-				</td>
-				<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
-					<p style="margin:0pt; orphans:0; text-align:center; widows:0">
-						<span style="font-family:宋体; font-size:10.5pt">得分</span>
-					</p>
-				</td>
-			</tr>
+			<p style="margin:7.8pt 0pt 0pt; orphans:0; text-align:center; widows:0">
+				<span style="font-family:黑体; font-size:12pt; font-weight:bold">&#xa0;</span>
+			</p>
+			<p style="margin:7.8pt 0pt 0pt; orphans:0; text-align:center; widows:0">
+				<span style="font-family:黑体; font-size:12pt; font-weight:bold">&#xa0;</span>
+			</p>
+			<p style="margin:7.8pt 0pt 0pt; orphans:0; text-align:center; widows:0">
+				<span style="font-family:黑体; font-size:18pt; font-weight:bold">虹口区教育系统</span>
+				<span style="font-family:黑体; font-size:18pt; font-weight:bold">2019—2021</span>
+				<span style="font-family:黑体; font-size:18pt; font-weight:bold">学年教师人才梯队</span>
+			</p>
+			<p style="margin:0pt; orphans:0; text-align:center; widows:0">
+				<span style="font-family:黑体; font-size:14pt">&#xa0;</span>
+			</p>
+			<p style="margin:0pt; orphans:0; text-align:center; widows:0">
+				<span style="font-family:黑体; font-size:14pt">&#xa0;</span>
+			</p>
+			<p style="margin:0pt; orphans:0; text-align:center; widows:0">
+				<span style="font-family:黑体; font-size:14pt">&#xa0;</span>
+			</p>
+			<p style="margin:0pt; orphans:0; text-align:center; widows:0">
+				<span style="font-family:黑体; font-size:14pt">&#xa0;</span>
+			</p>
+			<p style="margin:0pt; orphans:0; text-align:center; widows:0">
+				<span style="font-family:黑体; font-size:16pt; font-weight:bold">@(Model.CompanyName)学校师德、校内履职评分汇总表</span>
+			</p>
+			<p style="margin:0pt; text-align:justify">
+				<span style="font-family:宋体; font-size:12pt; font-weight:bold">&#xa0;</span>
+			</p>
+			<p style="margin:0pt; orphans:0; text-align:center; widows:0">
+				<span style="font-family:黑体; font-size:14pt">&#xa0;</span>
+			</p>
 
-			@foreach (var item in results)
-			{
+			<table cellspacing="0" cellpadding="0" style="border-collapse:collapse; margin:auto; width:525.5pt">
 				<tr style="height:35.55pt">
+					<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
+						<p style="margin:0pt; orphans:0; text-align:center;">
+							<span style="font-family:宋体; font-size:10.5pt">教师姓名</span>
+						</p>
+					</td>
+					<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
+						<p style="margin:0pt; orphans:0; padding-left:6pt; text-align:center; text-indent:-6pt; widows:0">
+							<span style="font-family:宋体; font-size:10.5pt">申报称号</span>
+						</p>
+					</td>
+					<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
+						<p style="margin:0pt; orphans:0; text-align:center; widows:0">
+							<span style="font-family:宋体; font-size:10.5pt">申报学科</span>
+						</p>
+					</td>
+					<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
+						<p style="margin:0pt; orphans:0; text-align:center; widows:0">
+							<span style="font-family:宋体; font-size:10.5pt">师德<br />(合格、不合格)</span>
+						</p>
+					</td>
+					<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
+						<p style="margin:0pt; orphans:0; text-align:center; widows:0">
+							<span style="font-family:宋体; font-size:10.5pt">履职得分参考分</span>
+						</p>
+					</td>
+					<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
+						<p style="margin:0pt; orphans:0; text-align:center; widows:0">
+							<span style="font-family:宋体; font-size:10.5pt">得分</span>
+						</p>
+					</td>
+				</tr>
+
+				@foreach (var item in pageResults)
+				{
+					<tr style="height:35.55pt">
 
 					<td colspan="5" style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle;">
 						<p style="margin:0pt; orphans:0; text-align:center;">
@@ -113,41 +121,45 @@
 						</p>
 					</td>
 				</tr>
-			}
-			
-			<tr style="height:121.95pt;">
-				<td colspan="27" style="border-bottom-color:#000000; border:0px; padding-left:5.03pt; padding-right:5.03pt; vertical-align:top; width:433.95pt">
-					<p style="line-height:18pt; margin:0pt; orphans:0; widows:0">
-						<span style="font-family:宋体; font-size:12pt">&#xa0;</span>
-					</p>
-					<p style="line-height:18pt; margin:0pt; orphans:0; widows:0">
-						<span style="font-family:宋体; font-size:12pt">&#xa0;</span>
-					</p>
-					<p style="line-height:22pt; margin:0pt; orphans:0; widows:0">
-						<span style="font-family:宋体; font-size:12pt">&#xa0;</span>
-					</p>
-					<p style="line-height:22pt; margin:0pt; orphans:0; text-align:justify; text-indent:279.75pt; widows:0">
-						<span style="font-family:宋体; font-size:12pt">单位盖章：</span>
-					</p>
-					<p style="line-height:18pt; margin:0pt; orphans:0; widows:0">
-						<span style="font-family:宋体; font-size:12pt">&#xa0;</span>
-					</p>
-					<p style="line-height:18pt; margin:0pt; orphans:0; widows:0">
-						<span style="font-family:宋体; font-size:12pt">&#xa0;</span>
-					</p>
-					<p style="line-height:22pt; margin:0pt; orphans:0; widows:0">
-						<span style="font-family:宋体; font-size:12pt">&#xa0;</span>
-					</p>
-					<p style="line-height:22pt; margin:0pt; orphans:0; text-align:justify; text-indent:279.75pt; widows:0">
-						<span style="font-family:宋体; font-size:12pt">年&nbsp;&nbsp;</span>
-						<span style="font-family:宋体; font-size:12pt"></span>
-						<span style="font-family:宋体; font-size:12pt">月&nbsp;&nbsp;</span>
-						<span style="font-family:宋体; font-size:12pt"></span>
-						<span style="font-family:宋体; font-size:12pt">日</span>
-					</p>
-				</td>
-			</tr>
-		</table>
+				}
+
+				<tr style="height:121.95pt;">
+					<td colspan="27" style="border-bottom-color:#000000; border:0px; padding-left:5.03pt; padding-right:5.03pt; vertical-align:top; width:433.95pt">
+						<p style="line-height:18pt; margin:0pt; orphans:0; widows:0">
+							<span style="font-family:宋体; font-size:12pt">&#xa0;</span>
+						</p>
+						<p style="line-height:18pt; margin:0pt; orphans:0; widows:0">
+							<span style="font-family:宋体; font-size:12pt">&#xa0;</span>
+						</p>
+						<p style="line-height:22pt; margin:0pt; orphans:0; widows:0">
+							<span style="font-family:宋体; font-size:12pt">&#xa0;</span>
+						</p>
+						<p style="line-height:22pt; margin:0pt; orphans:0; text-align:justify; text-indent:279.75pt; widows:0">
+							<span style="font-family:宋体; font-size:12pt">单位盖章：</span>
+						</p>
+						<p style="line-height:18pt; margin:0pt; orphans:0; widows:0">
+							<span style="font-family:宋体; font-size:12pt">&#xa0;</span>
+						</p>
+						<p style="line-height:18pt; margin:0pt; orphans:0; widows:0">
+							<span style="font-family:宋体; font-size:12pt">&#xa0;</span>
+						</p>
+						<p style="line-height:22pt; margin:0pt; orphans:0; widows:0">
+							<span style="font-family:宋体; font-size:12pt">&#xa0;</span>
+						</p>
+						<p style="line-height:22pt; margin:0pt; orphans:0; text-align:justify; text-indent:279.75pt; widows:0">
+							<span style="font-family:宋体; font-size:12pt">年&nbsp;&nbsp;</span>
+							<span style="font-family:宋体; font-size:12pt"></span>
+							<span style="font-family:宋体; font-size:12pt">月&nbsp;&nbsp;</span>
+							<span style="font-family:宋体; font-size:12pt"></span>
+							<span style="font-family:宋体; font-size:12pt">日</span>
+						</p>
+					</td>
+				</tr>
+		
+			</table>
+		}
+
+
 	</div>
 </body>
 </html>

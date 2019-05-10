@@ -27,16 +27,16 @@ namespace TheSite.EvalAnalysis
 			{
 				double score = 0, score1 = 0, score2 = 0, score3 = 0, score4 = 0, score5 = 0, score6 = 0, score7 = 0;
 
+				if (fc[EvalDeclareRuleKeys.XiaonLvz] != null)
+					score = Analysis_JiaoyJiaox_XiaonLvz(result, items, fc[EvalDeclareRuleKeys.XiaonLvz], fc[EvalDeclareRuleKeys.XiaonLvz_Def]);
+
 				if (fc[EvalDeclareRuleKeys.Shid] != null)
 				{
 					AnalysisShid(result, items, fc[EvalDeclareRuleKeys.Shid]);
 					score = result.Score;
 				}
 
-				if (fc[EvalDeclareRuleKeys.XiaonLvz] != null)
-					score = Analysis_JiaoyJiaox_XiaonLvz(result, items, fc[EvalDeclareRuleKeys.XiaonLvz], fc[EvalDeclareRuleKeys.XiaonLvz_Def]);
 
-				
 				if (fc[EvalDeclareRuleKeys.JiaoyJiaox_Gongkk] != null)
 					score += Analysis_JiaoyJiaox_Gongkk(result, items, fc[EvalDeclareRuleKeys.JiaoyJiaox_Gongkk], fc[EvalDeclareRuleKeys.JiaoyJiaox_Gongkk_Def]);
 

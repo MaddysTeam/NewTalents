@@ -114,7 +114,7 @@ namespace TheSite.Controllers
 
 			var c = APDBDef.Company;
 
-			var query = APQuery.select(er.TeacherId, er.ResultId.As("ResultId"), u.RealName,
+			var query = APQuery.select(er.TeacherId, er.ResultId.As("ResultId"), dr.TeacherName,
 					dr.DeclareTargetPKID, dr.DeclareSubjectPKID, dr.CompanyId,
 					er.Score, er.FullScore, c.CompanyName)
 				.from(er,
@@ -164,7 +164,7 @@ namespace TheSite.Controllers
 				{
 					id = er.TeacherId.GetValue(r),
 					resultId = er.ResultId.GetValue(r, "ResultId"),
-					realName = u.RealName.GetValue(r),
+					realName = dr.TeacherName.GetValue(r),
 					targetId = dr.DeclareTargetPKID.GetValue(r),
 					target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
 					subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(r)),
