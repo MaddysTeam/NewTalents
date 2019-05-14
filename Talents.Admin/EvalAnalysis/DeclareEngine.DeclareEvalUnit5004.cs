@@ -424,6 +424,7 @@ namespace TheSite.EvalAnalysis
 					ChooseValue = choose,
 					EvalItemKey = EvalDeclareRuleKeys.JiaoyGongz_DanrPingw2,
 				};
+
 				items.Add(item.EvalItemKey, item);
 
 				score = string.IsNullOrEmpty(score) || string.IsNullOrWhiteSpace(score) ? string.Empty : score.Trim();

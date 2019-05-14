@@ -392,11 +392,11 @@
 												else
 												{
 													<tr>
-														<td rowspan="6">3 命题、评委、教研工作（二） （分值： 15分）</td>
-														<td rowspan="2">（1）幼教、特教、德育的教研工作（分值： 10分）</td>
-														<td rowspan="2">1.同一类中如有两项，选择级别高的评分。<br /> 2.材料或证明不符合规定下降一至二级评分。</td>
-														<td rowspan="2">教研活动相关材料（如教学设计的讲稿或 PPT；教学反思等）</td>
-														<td rowspan="2">活动证明（相关教育行政部门盖章）</td>
+														<td rowspan="7">3 命题、评委、教研工作（二） （分值： 15分）</td>
+														<td rowspan="3">（1）幼教、特教、德育的教研工作（分值： 10分）</td>
+														<td rowspan="3">1.同一类中如有两项，选择级别高的评分。<br /> 2.材料或证明不符合规定下降一至二级评分。</td>
+														<td rowspan="3">教研活动相关材料（如教学设计的讲稿或 PPT；教学反思等）</td>
+														<td rowspan="3">活动证明（相关教育行政部门盖章）</td>
 														<td>市级</td>
 														<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_Dey, "A1", isChecked: dey.ChooseValue == "A1") A：教育教学备课指导、教研组建设</label></td>
 														<td>7.0分--10.0分</td>
@@ -407,6 +407,14 @@
 														<td><label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_Dey, "A2", isChecked: dey.ChooseValue == "A2") A：教育教学备课指导、教研组建设</label></td>
 														<td>4.0分--6.9分</td>
 														<td class="flotValue" data-min="4.0" data-max="6.9" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_Dey_Def"></td>
+													</tr>
+													<tr>
+														<td></td>
+														<td>
+															<label>@Html.RadioButton(EvalDeclareRuleKeys.JiaoyGongz_Dey, "Z", isChecked: dey.ChooseValue == "Z")无</label>
+														</td>
+														<td>0 分</td>
+														<td class="flotValue" data-min="0" data-max="0" data-value="" data-hidden="@EvalDeclareRuleKeys.JiaoyGongz_Dey_Def"></td>
 													</tr>
 													<tr>
 														<td rowspan="4">(2)担任相关工作评委 （分值： 5分）</td>
