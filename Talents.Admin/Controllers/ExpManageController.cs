@@ -41,7 +41,7 @@ namespace Talents.Admin.Controllers
 							egm.JoinLeft(egm.GroupId == eg.GroupId),
 							up.JoinLeft(up.UserId == egm.ExpectID)
 				  )
-				 .where(egm.IsLeader == true | up.UserName == null)
+				 //.where(egm.IsLeader == true | up.UserName == null)
 				 .primary(eg.GroupId)
 				 .skip((current - 1) * rowCount)
 				 .take(rowCount);

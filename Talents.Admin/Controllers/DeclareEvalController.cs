@@ -297,7 +297,7 @@ namespace TheSite.Controllers
 			}
 			else if (statusId == 0)
 			{
-				query.where_and(er.ResultId == 0);
+				query.where_and(er.ResultId == null);
 			}
 
 			//过滤条件

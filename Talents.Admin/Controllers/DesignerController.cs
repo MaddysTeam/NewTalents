@@ -121,7 +121,7 @@ namespace TheSite.Controllers
 		}
 
 
-		public ActionResult InitEvalGroup()
+		public async Task<ActionResult> InitEvalGroup()
 		{
 			//主持人和带头人是199人，骨干454人
 
@@ -133,57 +133,70 @@ namespace TheSite.Controllers
 			var teachers = db.DeclareReviewDal.ConditionQuery(
 				   dr.StatusKey == DeclareKeys.ReviewSuccess
 				 & dr.DeclareTargetPKID.In(new long[] { DeclareTargetIds.GongzsZhucr, DeclareTargetIds.XuekDaitr, DeclareTargetIds.GugJiaos })
-				 & dr.PeriodId==Period.PeriodId
+				 & dr.PeriodId == Period.PeriodId
 				 , null, null, null);
 
 			var ggjs = teachers.FindAll(x => x.DeclareTargetPKID == DeclareTargetIds.GugJiaos);
 			var xldtr = teachers.FindAll(x => x.DeclareTargetPKID == DeclareTargetIds.XuekDaitr);
 			var zcr = teachers.FindAll(x => x.DeclareTargetPKID == DeclareTargetIds.GongzsZhucr);
-			var groupid = 8000;
+			BzUser account = null;
+			BzUserProfile profile = null;
+			Expect expect = null;
 
 			db.BeginTrans();
 
 			try
 			{
-				for (int i = 1; i < gugGroupCount; i++, groupid++)
+				for (int i = 1, k = 1; i < gugGroupCount; i++)
 				{
-					db.ExpGroupDal.Insert(new ExpGroup { GroupId = groupid, Name = $"申报评审骨干专家{i}组", DeclareTargetPKID = 5006, CreateDate = DateTime.Now });
+					var group = new ExpGroup { Name = $"申报评审骨干专家{i}组", DeclareTargetPKID = 5006, CreateDate = DateTime.Now };
+					db.ExpGroupDal.Insert(group);
 					var targets = ggjs.Skip(30 * (i - 1)).Take(30).ToList();
 					foreach (var item in targets)
 					{
-						db.ExpGroupTargetDal.Insert(new ExpGroupTarget { GroupId = groupid, MemberId = item.TeacherId });
+						db.ExpGroupTargetDal.Insert(new ExpGroupTarget { GroupId = group.GroupId, MemberId = item.TeacherId });
+					}
+
+					for (int j = 2; j > 0; j--, k++)
+					{
+						account = new BzUser
+						{
+							UserName = $"sbzj{k}",
+							Email = $"sbzj{k}@hktd.com",
+							Actived = true,
+						};
+						profile = new BzUserProfile
+						{
+							UserName = account.UserName,
+							UserType = ThisApp.Teacher,
+							RealName = $"申报骨干考核专家{k}",
+							Birthday = DateTime.Now
+						};
+						expect = new Expect { ExpectId = account.Id };
+
+						await _initExpertAdd(account, ThisApp.DefaultPassword, profile, expect);
+
+						db.ExpGroupMemberDal.Insert(new ExpGroupMember { ExpectID = account.Id, GroupId = group.GroupId, IsLeader = false });
 					}
 				}
 
 				db.Commit();
 			}
-			catch
+			catch (Exception e)
 			{
 				db.Rollback();
 			}
 
-			for (int i = 0; i < daitrCount; i++)
-			{
-				db.ExpGroupDal.Insert(new ExpGroup { Name = $"申报评审学科带头人专家组{i}", DeclareTargetPKID = 5006, CreateDate = DateTime.Now });
-			}
+			//for (int i = 0; i < daitrCount; i++)
+			//{
+			//	db.ExpGroupDal.Insert(new ExpGroup { Name = $"申报评审学科带头人专家组{i}", DeclareTargetPKID = 5006, CreateDate = DateTime.Now });
+			//}
 
-			for (int i = 0; i < gzszcrCount; i++)
-			{
-				db.ExpGroupDal.Insert(new ExpGroup { Name = $"申报评审工作室人专家组{i}", DeclareTargetPKID = 5006, CreateDate = DateTime.Now });
-			}
+			//for (int i = 0; i < gzszcrCount; i++)
+			//{
+			//	db.ExpGroupDal.Insert(new ExpGroup { Name = $"申报评审工作室人专家组{i}", DeclareTargetPKID = 5006, CreateDate = DateTime.Now });
+			//}
 
-			return null;
-		}
-
-
-		public ActionResult InitEvalExpert()
-		{
-			return null;
-		}
-
-
-		public ActionResult InitEvalMember()
-		{
 			return null;
 		}
 
@@ -236,6 +249,23 @@ namespace TheSite.Controllers
 			public long ScopeId { get; set; }
 		}
 
+
+		private async Task _initExpertAdd(BzUser user, string password, BzUserProfile profile, Expect expert)
+		{
+			var result = await UserManager.CreateAsync(user, password);
+
+			if (result.Succeeded)
+			{
+				profile.UserId = user.Id;
+				expert.ExpectId = user.Id;
+				db.BzUserProfileDal.Insert(profile);
+				db.ExpectDal.Insert(expert);
+			}
+			else
+			{
+				throw new Exception(result.Errors.First());
+			}
+		}
 
 		#endregion
 

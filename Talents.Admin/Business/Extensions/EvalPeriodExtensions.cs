@@ -89,7 +89,7 @@ namespace Business
          var model = APQuery.select(dr.TeacherName, dr.TeacherId, dr.DeclareTargetPKID, dr.DeclareSubjectPKID, dr.TypeKey, c.CompanyName)
             .from(dr,
                   c.JoinLeft(c.CompanyId == dr.CompanyId))
-            .where(dr.TeacherId == teacherId)
+            .where(dr.TeacherId == teacherId & dr.StatusKey==DeclareKeys.ReviewSuccess)
             .query(db, rd =>
             {
                return new DeclareReviewModel

@@ -61,7 +61,20 @@
 					}
 					else
 					{
+
 						<div class="col-sm-4">
+							<div class="form-group">
+								<label class="col-md-6 control-label">申报状态</label>
+								<div class="col-md-6">
+									@Html.DropDownList("Status", new List<SelectListItem> { new SelectListItem { Text="全部",Value="-1" },
+																											 new SelectListItem { Text = "已评审", Value = "1" } ,
+																						  new SelectListItem { Text = "未评审", Value = "0" } }, new { @class = "form-control" })
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-4">
+							<button class="btn btn-md btn-info" type="button" id="btnserach">搜索</button>
 							<a class="btn btn-md btn-warning" href="@Url.Action("EvalSchoolMemberExport", "DeclareEvalManage")" id="btnexp">导出全部数据</a>
 						</div>
 					}
@@ -107,7 +120,7 @@
 		function getGlobalRequest() {
 			return {
 				companyId: isSchoolAdmin ? 0 : $('#Company').val(),
-				statusId: isSchoolAdmin ? -1 : $('#Status').val()
+				statusId:  $('#Status').val()
 			};
 		}
 
