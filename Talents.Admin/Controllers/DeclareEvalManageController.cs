@@ -51,35 +51,38 @@ namespace TheSite.Controllers
 		public ActionResult ExpertEvalOverview()
 		{
 			var periodId = Period.PeriodId;
-			var query = APQuery.select(eg.GroupId, eg.Name,
-									   egt.MemberId.Count().As("TotalCount"),
-									   er.ResultId.Count().As("EvalCount"))
+			var query = APQuery.select(eg.GroupId, eg.Name, er.TeacherId)
 							 .from(eg,
 								 egt.JoinLeft(eg.GroupId == egt.GroupId),
-								 er.JoinLeft(er.TeacherId == egt.MemberId & er.PeriodId == periodId)
+								 er.JoinLeft(er.TeacherId == egt.MemberId & er.GroupId>0) 
 								 )
-							 .group_by(eg.GroupId, eg.Name);
+							 .group_by(eg.GroupId, eg.Name,egt.MemberId, er.TeacherId);
 
-			var result = query.query(db, rd =>
+			var grp = query.query(db, r => new
 			{
-				var memberCount = rd.GetInt32(rd.GetOrdinal("TotalCount"));
-				var evalMemberCount = rd.GetInt32(rd.GetOrdinal("EvalCount"));
+				groupId = eg.GroupId.GetValue(r),
+				groupName = eg.Name.GetValue(r),
+				teacherId = er.TeacherId.GetValue(r)
+			}).ToList();
 
+			var results = grp.GroupBy(x => new { x.groupId, x.groupName }).Select(y =>
+			{
+				var memberCount = y.Count();
+				var evalMemberCount = y.Count(z => z.teacherId > 0);
 				return new ExpertEvalOverviewModels
 				{
 					PeriodId = periodId,
-					GroupId = eg.GroupId.GetValue(rd),
-					GroupName = eg.Name.GetValue(rd),
-					GroupTargetMemberCount = memberCount,
-					EvalTargetMemberCount = evalMemberCount,
+					GroupId = y.Key.groupId,
+					GroupName = y.Key.groupName,
+					GroupTargetMemberCount = y.Count(),
+					EvalTargetMemberCount = y.Count(z => z.teacherId > 0),
 					EvalStatus = memberCount == evalMemberCount && memberCount > 0 ? EvalStatus.Success
-							   : memberCount > evalMemberCount && evalMemberCount > 0 ? EvalStatus.Pending
-							   : EvalStatus.NotStart
+								   : memberCount > evalMemberCount && evalMemberCount > 0 ? EvalStatus.Pending
+								   : EvalStatus.NotStart
 				};
 			}).ToList();
 
-
-			return View(result);
+			return View(results);
 		}
 
 
@@ -367,7 +370,7 @@ namespace TheSite.Controllers
 			}).ToList();
 
 			return results;
-			}
+		}
 
 		#endregion
 	}

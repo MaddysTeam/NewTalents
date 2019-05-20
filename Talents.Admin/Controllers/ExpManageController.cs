@@ -36,15 +36,22 @@ namespace Talents.Admin.Controllers
 		{
 			ThrowNotAjax();
 
-			var query = APQuery.select(eg.GroupId, eg.Name, eg.DeclareStagePKID, eg.DeclareSubjectPKID, eg.DeclareTargetPKID, eg.MemberCount, eg.TeacherCount, up.RealName, egm.IsLeader)
-				 .from(eg,
-							egm.JoinLeft(egm.GroupId == eg.GroupId),
-							up.JoinLeft(up.UserId == egm.ExpectID)
-				  )
-				 //.where(egm.IsLeader == true | up.UserName == null)
+			//TODO:var query = APQuery.select(eg.GroupId, eg.Name, eg.DeclareStagePKID, eg.DeclareSubjectPKID, eg.DeclareTargetPKID, eg.MemberCount, eg.TeacherCount, up.RealName, egm.IsLeader)
+			//	 .from(eg,
+			//				//egm.JoinLeft(egm.GroupId == eg.GroupId),
+			//				//up.JoinLeft(up.UserId == egm.ExpectID)
+			//	  )
+			//	 //.where(egm.IsLeader == true | up.UserName == null)
+			//	 .primary(eg.GroupId)
+			//	 .skip((current - 1) * rowCount)
+			//	 .take(rowCount);
+
+			var query = APQuery.select(eg.GroupId, eg.Name, eg.DeclareStagePKID, eg.DeclareSubjectPKID, eg.DeclareTargetPKID, eg.MemberCount, eg.TeacherCount)
+				 .from(eg)
 				 .primary(eg.GroupId)
 				 .skip((current - 1) * rowCount)
 				 .take(rowCount);
+
 
 			//过滤条件
 			//模糊搜索专家组名
@@ -102,10 +109,10 @@ namespace Talents.Admin.Controllers
 					 target = DeclareBaseHelper.DeclareTarget.GetName(eg.DeclareTargetPKID.GetValue(rd)),
 					 subject = DeclareBaseHelper.DeclareSubject.GetName(eg.DeclareSubjectPKID.GetValue(rd)),
 					 stage = DeclareBaseHelper.DeclareStage.GetName(eg.DeclareStagePKID.GetValue(rd)),
-					 leaderRealName = up.RealName.GetValue(rd),
-					 isLeader = egm.IsLeader.GetValue(rd)
+					 // leaderRealName = up.RealName.GetValue(rd),
+					 //isLeader = egm.IsLeader.GetValue(rd)
 				 };
-			 });
+			 }).ToList();
 
 			return Json(new
 			{

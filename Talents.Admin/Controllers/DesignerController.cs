@@ -1,6 +1,7 @@
 ﻿using Business;
 using Business.Config;
 using Business.Helper;
+using Symber.Web.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -121,86 +122,6 @@ namespace TheSite.Controllers
 		}
 
 
-		public async Task<ActionResult> InitEvalGroup()
-		{
-			//主持人和带头人是199人，骨干454人
-
-			int gugGroupCount = 20; // 骨干20组
-			int daitrCount = 5; //学科和带头人是10组
-			int gzszcrCount = 5; //工作室主持人5组
-
-			var dr = APDBDef.DeclareReview;
-			var teachers = db.DeclareReviewDal.ConditionQuery(
-				   dr.StatusKey == DeclareKeys.ReviewSuccess
-				 & dr.DeclareTargetPKID.In(new long[] { DeclareTargetIds.GongzsZhucr, DeclareTargetIds.XuekDaitr, DeclareTargetIds.GugJiaos })
-				 & dr.PeriodId == Period.PeriodId
-				 , null, null, null);
-
-			var ggjs = teachers.FindAll(x => x.DeclareTargetPKID == DeclareTargetIds.GugJiaos);
-			var xldtr = teachers.FindAll(x => x.DeclareTargetPKID == DeclareTargetIds.XuekDaitr);
-			var zcr = teachers.FindAll(x => x.DeclareTargetPKID == DeclareTargetIds.GongzsZhucr);
-			BzUser account = null;
-			BzUserProfile profile = null;
-			Expect expect = null;
-
-			db.BeginTrans();
-
-			try
-			{
-				for (int i = 1, k = 1; i < gugGroupCount; i++)
-				{
-					var group = new ExpGroup { Name = $"申报评审骨干专家{i}组", DeclareTargetPKID = 5006, CreateDate = DateTime.Now };
-					db.ExpGroupDal.Insert(group);
-					var targets = ggjs.Skip(30 * (i - 1)).Take(30).ToList();
-					foreach (var item in targets)
-					{
-						db.ExpGroupTargetDal.Insert(new ExpGroupTarget { GroupId = group.GroupId, MemberId = item.TeacherId });
-					}
-
-					for (int j = 2; j > 0; j--, k++)
-					{
-						account = new BzUser
-						{
-							UserName = $"sbzj{k}",
-							Email = $"sbzj{k}@hktd.com",
-							Actived = true,
-						};
-						profile = new BzUserProfile
-						{
-							UserName = account.UserName,
-							UserType = ThisApp.Teacher,
-							RealName = $"申报骨干考核专家{k}",
-							Birthday = DateTime.Now
-						};
-						expect = new Expect { ExpectId = account.Id };
-
-						await _initExpertAdd(account, ThisApp.DefaultPassword, profile, expect);
-
-						db.ExpGroupMemberDal.Insert(new ExpGroupMember { ExpectID = account.Id, GroupId = group.GroupId, IsLeader = false });
-					}
-				}
-
-				db.Commit();
-			}
-			catch (Exception e)
-			{
-				db.Rollback();
-			}
-
-			//for (int i = 0; i < daitrCount; i++)
-			//{
-			//	db.ExpGroupDal.Insert(new ExpGroup { Name = $"申报评审学科带头人专家组{i}", DeclareTargetPKID = 5006, CreateDate = DateTime.Now });
-			//}
-
-			//for (int i = 0; i < gzszcrCount; i++)
-			//{
-			//	db.ExpGroupDal.Insert(new ExpGroup { Name = $"申报评审工作室人专家组{i}", DeclareTargetPKID = 5006, CreateDate = DateTime.Now });
-			//}
-
-			return null;
-		}
-
-
 		private async Task _initRole(BzRole role)
 		{
 			await Task.Run(() =>
@@ -250,6 +171,144 @@ namespace TheSite.Controllers
 		}
 
 
+		#endregion
+
+
+		public async Task<ActionResult> InitEvalGroup()
+		{
+			//var dr = APDBDef.DeclareReview;
+			//var df = APDBDef.DeclareProfile;
+
+			//var result = APQuery.select(dr.Asterisk, df.EduStagePKID)
+			//	.from(dr, df.JoinInner(df.UserId == dr.TeacherId))
+			//	.where(
+			//	 dr.StatusKey == DeclareKeys.ReviewSuccess
+			//	 & dr.DeclareTargetPKID == df.DeclareTargetPKID
+			//	 & dr.DeclareTargetPKID.In(new long[] { DeclareTargetIds.GongzsZhucr, DeclareTargetIds.XuekDaitr, DeclareTargetIds.GugJiaos })
+			//	 & dr.PeriodId == Period.PeriodId)
+			//	.query(db, r =>
+			//	{
+			//		var review = new DeclareReview();
+			//		dr.Fullup(r, review, false);
+			//		review.StageId = df.EduStagePKID.GetValue(r);
+			//		return review;
+			//	}).ToList();
+
+
+			//db.BeginTrans();
+
+			//try
+			//{
+			//	//5005,5004
+			//	await CreateGroupAndAssign(result, new long[] { 5004, 5005 }, new long[] { 5241 }, null, new string[] { "tdps0101", "tdps0102", "tdps0103" }, new long[] { 1 });
+			//	await CreateGroupAndAssign(result, new long[] { 5004, 5005 }, new long[] { 5242 }, null, new string[] { "tdps0201", "tdps0202", "tdps0203" }, new long[] { 2 });
+			//	await CreateGroupAndAssign(result, new long[] { 5004, 5005 }, new long[] { 5243, 5307 }, null, new string[] { "tdps0301", "tdps0302", "tdps0303" }, new long[] { 3 });
+			//	await CreateGroupAndAssign(result, new long[] { 5004, 5005 }, new long[] { 5247, 5248, 5305 }, null, new string[] { "tdps0401", "tdps0402", "tdps0403" }, new long[] { 4 });
+			//	await CreateGroupAndAssign(result, new long[] { 5004, 5005 }, new long[] { 5244, 5312, 5245, 5246 }, null, new string[] { "tdps0501", "tdps0502", "tdps0503" }, new long[] { 5 });
+			//	await CreateGroupAndAssign(result, new long[] { 5004, 5005 }, new long[] { 5251, 5309, 5253, 5252 }, null, new string[] { "tdps0601", "tdps0602", "tdps0603" }, new long[] { 6 });
+			//	await CreateGroupAndAssign(result, new long[] { 5004, 5005 }, new long[] { 5254, 5256, 5255, 5306 }, null, new string[] { "tdps0701", "tdps0702", "tdps0703" }, new long[] { 7 });
+			//	await CreateGroupAndAssign(result, new long[] { 5004, 5005 }, new long[] { 5249, 5250, 5303 }, null, new string[] { "tdps0801", "tdps0802", "tdps0803" }, new long[] { 8 });
+			//	await CreateGroupAndAssign(result, new long[] { 5004, 5005 }, new long[] { 5300, 5301, 5302, 5308 }, null, new string[] { "tdps0901", "tdps0902", "tdps0903" }, new long[] { 9 });
+
+			//	////5006
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5241 }, new long[] { 1604 }, new string[] { "tdps1001", "tdps1002", "tdps1003" }, new long[] { 10 });
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5241 }, new long[] { 1603 }, new string[] { "tdps1101", "tdps1102", "tdps1103" }, new long[] { 11 });
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5241 }, new long[] { 1602 }, new string[] { "tdps1201", "tdps1202", "tdps1203" }, new long[] { 12 });
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5242 }, new long[] { 1604 }, new string[] { "tdps1301", "tdps1302", "tdps1303" }, new long[] { 13 });
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5242 }, new long[] { 1603 }, new string[] { "tdps1401", "tdps1402", "tdps1403" }, new long[] { 14 });
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5242 }, new long[] { 1602 }, new string[] { "tdps1501", "tdps1502", "tdps1503" }, new long[] { 15 });
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5243, 5307 }, new long[] { 1604 }, new string[] { "tdps1601", "tdps1602", "tdps1603" }, new long[] { 16 });
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5243, 5307 }, new long[] { 1603 }, new string[] { "tdps1701", "tdps1702", "tdps1703" }, new long[] { 17 });
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5243, 5307 }, new long[] { 1602 }, new string[] { "tdps1801", "tdps1802", "tdps1803" }, new long[] { 18 });
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5247 }, null, new string[] { "tdps1901", "tdps1902", "tdps1903" }, new long[] { 19 }); //ok
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5248 }, null, new string[] { "tdps2001", "tdps2002", "tdps2003" }, new long[] { 20 }); //ok
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5245, 5246 }, null, new string[] { "tdps2101", "tdps2102", "tdps2103" }, new long[] { 21 });//ok
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5244, 5312 }, null, new string[] { "tdps2201", "tdps2202", "tdps2203" }, new long[] { 22 });//ok
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5305, 5306, 5256 }, null, new string[] { "tdps2301", "tdps2302", "tdps2303" }, new long[] { 23 }); // ok
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5251, 5253, 5309 }, null, new string[] { "tdps2401", "tdps2402", "tdps2403" }, new long[] { 24 }); // ok
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5252 }, null, new string[] { "tdps2501", "tdps2502", "tdps2503" }, new long[] { 25 }); // ok
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5254, 5304 }, null, new string[] { "tdps2601", "tdps2602", "tdps2603" }, new long[] { 26 }); // ok
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5255 }, null, new string[] { "tdps2701", "tdps2702", "tdps2703" }, new long[] { 27 }); // ok
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5249 }, null, new string[] { "tdps2801", "tdps2802", "tdps2803" }, new long[] { 28 }); // ok
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5250, 5303 }, null, new string[] { "tdps2901", "tdps2902", "tdps2903" }, new long[] { 29 }); // ok
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5308, 5300 }, null, new string[] { "tdps3001", "tdps3002", "tdps3003" }, new long[] { 30 }); // ok
+			//	await CreateGroupAndAssign(result, new long[] { 5006 }, new long[] { 5301, 5302 }, null, new string[] { "tdps3101", "tdps3102", "tdps3103" }, new long[] { 31 }); // ok
+
+
+			//	db.Commit();
+			//}
+			//catch (Exception e)
+			//{
+			//	db.Rollback();
+			//}
+
+			return null;
+		}
+
+
+		private  async Task CreateGroupAndAssign(List<DeclareReview> targets, long[] targetIds, long[] subjectIds, long[] stageIds, string[] accessorNames, long[] groupIds)
+		{
+			var teachers = new List<DeclareReview>();
+			if (stageIds != null)
+			{
+				teachers = (from t in targets
+							where targetIds.Contains(t.DeclareTargetPKID) &&
+								  subjectIds.Contains(t.DeclareSubjectPKID) &&
+							      stageIds.Contains(t.StageId)
+							select t).ToList();
+			}
+			else
+			{
+				teachers = (from t in targets
+							where targetIds.Contains(t.DeclareTargetPKID) &&
+								  subjectIds.Contains(t.DeclareSubjectPKID)
+							//stageIds == null ? true : stageIds.Contains(t.StageId)
+							select t).ToList();
+			}
+
+			teachers=teachers.Distinct().ToList();
+
+			foreach (var gid in groupIds)
+			{
+				var groupName = gid < 10 ? $"201905020_0{gid}" : $"201905020_{gid}";
+				var group = new ExpGroup { Name = groupName,  CreateDate = DateTime.Now };
+				db.ExpGroupDal.Insert(group);
+
+				foreach (var item in teachers)
+				{
+					db.ExpGroupTargetDal.Insert(new ExpGroupTarget { GroupId = group.GroupId, MemberId = item.TeacherId });
+				}
+
+				foreach (var name in accessorNames)
+				{
+					await CreateGroupAccesser(name, "unknow@hktd.com", group.GroupId);
+				}
+			}
+
+		}
+
+		private async Task CreateGroupAccesser(string name, string email, long groupId)
+		{
+			var account = new BzUser
+			{
+				UserName = name,
+				Email = name +"@hktd.com",
+				Actived = true,
+			};
+			var profile = new BzUserProfile
+			{
+				UserName = name,
+				UserType = ThisApp.Teacher,
+				RealName = name,
+				Birthday = DateTime.Now
+			};
+			var expect = new Expect { ExpectId = account.Id };
+
+			await _initExpertAdd(account, ThisApp.DefaultPassword, profile, expect);
+
+			db.ExpGroupMemberDal.Insert(new ExpGroupMember { ExpectID = account.Id, GroupId = groupId, IsLeader = false });
+		}
+
 		private async Task _initExpertAdd(BzUser user, string password, BzUserProfile profile, Expect expert)
 		{
 			var result = await UserManager.CreateAsync(user, password);
@@ -266,8 +325,6 @@ namespace TheSite.Controllers
 				throw new Exception(result.Errors.First());
 			}
 		}
-
-		#endregion
 
 	}
 }
