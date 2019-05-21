@@ -46,6 +46,26 @@ namespace TheSite.Controllers
 		}
 
 
+		// GET: DeclareEval/EvalSchoolMemberExcelExport
+
+		public ActionResult EvalSchoolMemberExcelExport()
+		{
+			var companyId = UserProfile.CompanyId;
+			var results = GetDeclareShcolEvalResultViewModels(companyId).ToDictionary(x=>x.Id,y=>y);
+
+			var book=NPOIHelper.CreateBook(results);
+
+			// 写入到客户端 
+			System.IO.MemoryStream ms = new System.IO.MemoryStream();
+			book.Write(ms);
+			ms.Seek(0, SeekOrigin.Begin);
+			DateTime dt = DateTime.Now;
+			string dateTime = dt.ToString("yyyyMMdd");
+			string fileName = "单位评分汇总表" + dateTime + ".xls";
+			return File(ms, "application/vnd.ms-excel", fileName);
+		}
+
+
 		// GET: DeclareEval/ExpertEvalOverview
 
 		public ActionResult ExpertEvalOverview()
@@ -86,17 +106,22 @@ namespace TheSite.Controllers
 		}
 
 
+
 		// GET:  DeclareEvalManage/EvalExpertMemberList
 		// POST-Ajax: DeclareEvalManage/EvalExpertMemberList
 
 		public ActionResult EvalExpertMemberList()
 		{
+			EnsureIsMaster();
+
 			return View();
 		}
 
 		[HttpPost]
 		public ActionResult EvalExpertMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long groupId, long companyId)
 		{
+			EnsureIsMaster();
+
 			ThrowNotAjax();
 
 			var c = APDBDef.Company;
@@ -111,12 +136,9 @@ namespace TheSite.Controllers
 					  egt.JoinInner(egt.MemberId == dr.TeacherId),
 					  eg.JoinInner(eg.GroupId == egt.GroupId)
 					 )
-			   .where(dr.StatusKey == DeclareKeys.ReviewSuccess & er.GroupId > 0, er.PeriodId == periodId)
+			   .where(dr.StatusKey == DeclareKeys.ReviewSuccess & er.GroupId > 0 & er.PeriodId == periodId)
 			   .group_by(er.TeacherId, dr.TeacherName, dr.DeclareTargetPKID,
-					   dr.DeclareSubjectPKID, dr.CompanyId, eg.Name, er.FullScore, c.CompanyName)
-			   .primary(er.ResultId)
-			   .skip((current - 1) * rowCount)
-			   .take(rowCount);
+					   dr.DeclareSubjectPKID, dr.CompanyId, eg.Name, er.FullScore, c.CompanyName);
 
 			if (groupId > 0)
 				query.where_and(er.GroupId == groupId);
@@ -145,8 +167,6 @@ namespace TheSite.Controllers
 				}
 			}
 
-			var total = db.ExecuteSizeOfSelect(query);
-
 			var result = query.query(db, r =>
 			{
 				var score = er.Score.GetValue(r, "EvalScore");
@@ -167,6 +187,11 @@ namespace TheSite.Controllers
 				};
 			}).ToList();
 
+			var total = result.Count;
+			if (total > 0)
+			{
+				result = result.Skip((current - 1) * rowCount).Take(rowCount).ToList();
+			}
 
 			return Json(new
 			{
@@ -183,12 +208,16 @@ namespace TheSite.Controllers
 
 		public ActionResult NotEvalExpertMemberList()
 		{
+			EnsureIsMaster();
+
 			return View();
 		}
 
 		[HttpPost]
 		public ActionResult NotEvalExpertMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long groupId, long companyId)
 		{
+			EnsureIsMaster();
+
 			ThrowNotAjax();
 
 			var periodId = Period.PeriodId;
@@ -207,7 +236,7 @@ namespace TheSite.Controllers
 					  eg.JoinInner(eg.GroupId == egt.GroupId)
 					 )
 			   .where(dr.StatusKey == DeclareKeys.ReviewSuccess & egt.MemberId.NotIn(subQuery))
-			   .primary(egt.MemberId)
+			   .primary(dr.DeclareReviewId)
 			   .skip((current - 1) * rowCount)
 			   .take(rowCount);
 
@@ -265,6 +294,8 @@ namespace TheSite.Controllers
 
 		public ActionResult EvalExpertMemberDetails(long teacherId)
 		{
+			EnsureIsMaster();
+
 			var result = APQuery.select(er.ResultId, er.Score, u.UserName, er.TeacherId, er.PeriodId, er.DeclareTargetPKID)
 			   .from(er, u.JoinInner(er.Accesser == u.UserId))
 			   .where(er.TeacherId == teacherId & er.GroupId > 0)
@@ -280,6 +311,7 @@ namespace TheSite.Controllers
 
 			return View(result);
 		}
+
 
 		#region [ Helper ]
 
@@ -372,7 +404,14 @@ namespace TheSite.Controllers
 			return results;
 		}
 
+
+		private void EnsureIsMaster()
+		{
+			if (!UserProfile.IsSystemAdmin) throw new ApplicationException("没有权限查看");
+		}
+
 		#endregion
+
 	}
 
 }

@@ -1,5 +1,6 @@
 ﻿using Business;
 using Business.Helper;
+using Business.Utilities;
 using Dapper;
 using NPOI.HSSF.UserModel;
 using Symber.Web.Data;
@@ -357,7 +358,7 @@ namespace TheSite.Controllers
 			  }).ToDictionary(x => x.Id);
 
 			//创建Excel文件的对象
-			var book = CreateBook(dic);
+			var book = NPOIHelper.CreateBook(dic);
 
 			// 写入到客户端 
 			System.IO.MemoryStream ms = new System.IO.MemoryStream();
@@ -414,7 +415,7 @@ namespace TheSite.Controllers
 			}).ToDictionary(x => x.Id);
 
 			//创建Excel文件的对象
-			var book = CreateBook(dic);
+			var book = NPOIHelper.CreateBook(dic);
 
 			// 写入到客户端 
 			System.IO.MemoryStream ms = new System.IO.MemoryStream();
@@ -437,83 +438,9 @@ namespace TheSite.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult DecalreEvalSummaryList(int current, int rowCount, AjaxOrder sort,string searchPhrase, long targetId,long subjectId,long companyId)
+		public ActionResult DecalreEvalSummaryList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long targetId, long subjectId, long companyId)
 		{
-			var sql = @"select 
-targetId,
-subjectId,
-companyId,
-teacher,
-target,
-subject,
-company,
-avg(totalScore) totalScore,
-isnull(avg([校内履职]),0) as xnlz,
-isnull(case avg([师德]) when 0 then '不合格' when 1 then '合格' end,'未评') as shd,
-isnull(avg([教育教学.公开课]),0) as gkk,
-isnull(avg([教育教学.评比.区级以上]),0) as jxpb,
-isnull(avg([教育教学.评比.其他]),0) as qt,
-isnull(avg([教研工作.中小学命题]),0) as mt,
-isnull(avg([教研工作.担任评委]),0) as pingw,
-isnull(avg([教研工作.德育]),0) as dey,
-isnull(avg([教研工作.担任评委2]),0) as drpw2,
-isnull(avg([教育科研.立项课题或项目研究]),0) as xmyj,
-isnull(avg([教育科研.发表论文]),0) as fblw,
-isnull(avg([教师培训.培训课程]),0) as jspx,
-isnull(avg([教师培训.专题讲座]),0) as ztjz,
-isnull(avg([个人特色.专著]),0) as zz,
-isnull(avg([个人特色.其他身份]),0) as qtsf,
-isnull(avg([个人特色.学员成长]),0) as xycz
-from (
-select 
-	dr.DeclareTargetPKID as 'targetId',
-	dr.DeclareSubjectPKID as 'subjectId',
-	dr.CompanyId as 'companyId',
-	dr.TeacherName as 'teacher',
-	p1.Name as 'target',
-	p2.Name as 'subject',
-	c.CompanyName as 'company',
-	e.Score as 'totalScore',
-	i.EvalItemKey,case i.ResultValue
-		when '合格' then 1 
-		when '不合格'then 0
-		else cast(i.ResultValue as float) end score 
-from EvalDeclareResult e
-join EvalDeclareResultItem i 
-on e.ResultId=i.ResultId
-join DeclareReview dr 
-on dr.TeacherId=e.teacherId
-join PicklistItem p1 
-on p1.PicklistItemId =dr.DeclareTargetPKID
-join PicklistItem p2 
-on p2.PicklistItemId=dr.DeclareSubjectPKID
-join Company c
-on c.companyId=dr.CompanyId
-where  e.periodid=5005 
-) c
-pivot(sum(c.score) for c.EvalItemKey in (
-[校内履职],
-[师德],
-[教育教学.公开课],
-[教育教学.评比.区级以上],
-[教育教学.评比.其他],
-[教研工作.中小学命题],
-[教研工作.担任评委],
-[教研工作.德育],
-[教研工作.担任评委2],
-[教育科研.立项课题或项目研究],
-[教育科研.发表论文],
-[教师培训.专题讲座],
-[教师培训.培训课程],
-[个人特色.专著],
-[个人特色.其他身份],
-[个人特色.学员成长]
-)) AS T
-group by T.teacher,T.target,T.subject,T.company,T.targetId,T.companyId,T.subjectId
-
-						";
-
-			var results = QueryBySQL<DeclareEvalStaisticalViewModel>(sql);
+			var results = GetEvalStatisticalResults();
 
 			if (targetId > 0)
 				results = results.FindAll(x => x.targetId == targetId);
@@ -564,53 +491,109 @@ group by T.teacher,T.target,T.subject,T.company,T.targetId,T.companyId,T.subject
 			});
 		}
 
-		#region [ Helper ]
 
-		private HSSFWorkbook CreateBook<T>(Dictionary<long, T> dic) where T : class
+		// GET: DeclareStatistical/DecalreEvalSummaryList
+
+		public ActionResult ExportEvalSummary()
 		{
+			var results = GetEvalStatisticalResults().ToDictionary(x=>x.teacherId);
+
 			//创建Excel文件的对象
-			NPOI.HSSF.UserModel.HSSFWorkbook book = new NPOI.HSSF.UserModel.HSSFWorkbook();
-			//添加一个sheet
-			NPOI.SS.UserModel.ISheet sheet1 = book.CreateSheet("Sheet1");
+			var book = NPOIHelper.CreateBook(results);
 
-			#region [头部设计]
-
-			var i = 0;
-			//给sheet1添加第一行的头部标题
-			NPOI.SS.UserModel.IRow row1 = sheet1.CreateRow(0);
-			foreach (var item in typeof(T).GetProperties())
-			{
-				if (item.PropertyType == typeof(string))
-				{
-					var display = item.GetCustomAttribute<System.ComponentModel.DataAnnotations.DisplayAttribute>();
-					row1.CreateCell(i).SetCellValue(display.Name);
-					i++;
-				}
-			}
-
-			#endregion
-
-			i = 0;
-			foreach (var item in dic.Values)
-			{
-				i++;
-				NPOI.SS.UserModel.IRow rowtemp = sheet1.CreateRow(i);
-				var properties = item.GetType().GetProperties();
-				var j = 0;
-				foreach (var subItem in properties)
-				{
-					if (subItem.PropertyType == typeof(string))
-					{
-						rowtemp.CreateCell(j).SetCellValue(subItem.GetValue(item, null).ToString());
-						j++;
-					}
-				}
-			}
-
-			return book;
+			// 写入到客户端 
+			System.IO.MemoryStream ms = new System.IO.MemoryStream();
+			book.Write(ms);
+			ms.Seek(0, SeekOrigin.Begin);
+			DateTime dt = DateTime.Now;
+			string dateTime = dt.ToString("yyyyMMdd");
+			string fileName = "申报评分汇总表" + dateTime + ".xls";
+			return File(ms, "application/vnd.ms-excel", fileName);
 		}
 
-		public  List<T> QueryBySQL<T>(string sql, object paras = null)
+		#region [ Helper ]
+
+		private List<DeclareEvalStaisticalViewModel> GetEvalStatisticalResults()
+		{
+			var sql = @"select 
+						teacherId,
+						targetId,
+						subjectId,
+						companyId,
+						teacher,
+						target,
+						subject,
+						company,
+						avg(totalScore) totalScore,
+						isnull(avg([校内履职]),0) as xnlz,
+						isnull(case avg([师德]) when 0 then '不合格' when 1 then '合格' end,'未评') as shd,
+						isnull(avg([教育教学.公开课]),0) as gkk,
+						isnull(avg([教育教学.评比.区级以上]),0) as jxpb,
+						isnull(avg([教育教学.评比.其他]),0) as qt,
+						isnull(avg([教研工作.中小学命题]),0) as mt,
+						isnull(avg([教研工作.担任评委]),0) as pingw,
+						isnull(avg([教研工作.德育]),0) as dey,
+						isnull(avg([教研工作.担任评委2]),0) as drpw2,
+						isnull(avg([教育科研.立项课题或项目研究]),0) as xmyj,
+						isnull(avg([教育科研.发表论文]),0) as fblw,
+						isnull(avg([教师培训.培训课程]),0) as jspx,
+						isnull(avg([教师培训.专题讲座]),0) as ztjz,
+						isnull(avg([个人特色.专著]),0) as zz,
+						isnull(avg([个人特色.其他身份]),0) as qtsf,
+						isnull(avg([个人特色.学员成长]),0) as xycz
+						from (
+						select 
+							dr.teacherid as 'teacherId',
+							dr.DeclareTargetPKID as 'targetId',
+							dr.DeclareSubjectPKID as 'subjectId',
+							dr.CompanyId as 'companyId',
+							dr.TeacherName as 'teacher',
+							p1.Name as 'target',
+							p2.Name as 'subject',
+							c.CompanyName as 'company',
+							e.Score as 'totalScore',
+							i.EvalItemKey,case i.ResultValue
+								when '合格' then 1 
+								when '不合格'then 0
+								else cast(i.ResultValue as float) end score 
+						from EvalDeclareResult e
+						join EvalDeclareResultItem i 
+						on e.ResultId=i.ResultId
+						join DeclareReview dr 
+						on dr.TeacherId=e.teacherId
+						join PicklistItem p1 
+						on p1.PicklistItemId =dr.DeclareTargetPKID
+						join PicklistItem p2 
+						on p2.PicklistItemId=dr.DeclareSubjectPKID
+						join Company c
+						on c.companyId=dr.CompanyId
+						where  e.periodid=5005 and dr.statusKey='审核通过'
+						) c
+						pivot(sum(c.score) for c.EvalItemKey in (
+						[校内履职],
+						[师德],
+						[教育教学.公开课],
+						[教育教学.评比.区级以上],
+						[教育教学.评比.其他],
+						[教研工作.中小学命题],
+						[教研工作.担任评委],
+						[教研工作.德育],
+						[教研工作.担任评委2],
+						[教育科研.立项课题或项目研究],
+						[教育科研.发表论文],
+						[教师培训.专题讲座],
+						[教师培训.培训课程],
+						[个人特色.专著],
+						[个人特色.其他身份],
+						[个人特色.学员成长]
+						)) AS T
+						group by t.teacherId,T.teacher,T.target,T.subject,T.company,T.targetId,T.companyId,T.subjectId
+						";
+
+			return QueryBySQL<DeclareEvalStaisticalViewModel>(sql);
+		}
+
+		private List<T> QueryBySQL<T>(string sql, object paras = null)
 		{
 			if (string.IsNullOrEmpty(sql)) return null;
 

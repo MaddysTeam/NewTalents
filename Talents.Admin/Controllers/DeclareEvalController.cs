@@ -202,9 +202,10 @@ namespace TheSite.Controllers
 				.from(er)
 				.where(er.Accesser == UserProfile.UserId & er.GroupId == groupId & er.PeriodId == periodId);
 
-			var query = APQuery.select(egt.MemberId, dr.TeacherName, dr.DeclareTargetPKID, dr.DeclareSubjectPKID)
+			var query = APQuery.select(egt.MemberId, dr.TeacherName, dr.DeclareTargetPKID, dr.DeclareSubjectPKID, c.CompanyName)
 				.from(egt,
-						 dr.JoinInner(dr.TeacherId == egt.MemberId)
+						 dr.JoinInner(dr.TeacherId == egt.MemberId),
+						 c.JoinInner(c.CompanyId == dr.CompanyId)
 						)
 				.where(egt.GroupId == groupId & dr.StatusKey == DeclareKeys.ReviewSuccess & egt.MemberId.NotIn(subQuery))
 				.primary(egt.MemberId)
@@ -241,6 +242,7 @@ namespace TheSite.Controllers
 				return new
 				{
 					id = egt.MemberId.GetValue(rd),
+					company = c.CompanyName.GetValue(rd),
 					realName = dr.TeacherName.GetValue(rd),
 					target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(rd)),
 					subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(rd)),
@@ -339,6 +341,7 @@ namespace TheSite.Controllers
 					periodId = Period.PeriodId,
 					realName = dr.TeacherName.GetValue(r),
 					target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
+					company = c.CompanyName.GetValue(r),
 					subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(r)),
 					score = string.Format("{0} / {1}", score, fullScore),
 					submitStatus = status == 0 ? "未评审" : "已评审",
@@ -439,6 +442,7 @@ namespace TheSite.Controllers
 					id = dr.TeacherId.GetValue(r),
 					periodId = Period.PeriodId,
 					realName = dr.TeacherName.GetValue(r),
+					company = c.CompanyName.GetValue(r),
 					target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
 					subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(r)),
 					score = string.Format("{0} / {1}", score, fullScore),
