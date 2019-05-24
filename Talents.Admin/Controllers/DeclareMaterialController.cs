@@ -55,7 +55,7 @@ namespace TheSite.Controllers
 
 					db.Commit();
 				}
-				catch (Exception e)
+				catch
 				{
 					db.Rollback();
 

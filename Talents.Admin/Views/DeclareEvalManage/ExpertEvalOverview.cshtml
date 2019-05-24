@@ -36,14 +36,18 @@
 							</div>
 						</div>
 						<div class="widget-content">
-
-							<div class="table-responsive">
+							<div class="gallery-buttons bottom-30px">
+								<a class="btn btn-md btn-success" href="@Url.Action("EvalExpertMemberExcelExport","DeclareEvalManage",new { periodId = periodId })"><span>导出所有考评记录</span></a>
+							</div>
+								<div class="table-responsive">
 								<table id="bootgrid" class="table">
 									<thead>
 										<tr>
-											<th>专家组名称</th>
+											<th>专家组</th>
+											<th>专家</th>
 											<th>学员总数量</th>
 											<th>已评学员数量</th>
+											<th>未评学员数量</th>
 											<th>评审状态</th>
 										</tr>
 									</thead>
@@ -51,8 +55,10 @@
 									{
 										<tr>
 											<td>@item.GroupName</td>
+											<td>@item.Accessor</td>
 											<td>@item.GroupTargetMemberCount</td>
 											<td>@item.EvalTargetMemberCount</td>
+											<td>@item.NotEvalTargetMemberCount</td>
 											<td>
 												@(item.EvalStatus == EvalStatus.Success ? Html.Raw("<span class='label label-success'>已评</span>")
 												  : item.EvalStatus == EvalStatus.Pending ? Html.Raw("<span class='label label-warning'>考评中</span>")

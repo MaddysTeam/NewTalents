@@ -590,18 +590,28 @@ namespace TheSite.Controllers
 						group by t.teacherId,T.teacher,T.target,T.subject,T.company,T.targetId,T.companyId,T.subjectId
 						";
 
-			return QueryBySQL<DeclareEvalStaisticalViewModel>(sql);
+			var results= DapperHelper.QueryBySQL<DeclareEvalStaisticalViewModel>(sql);
+			foreach(var item in results)
+			{
+				var score = new double[] { item.zz, item.qtsf, item.xycz }.Max()
+					+ new double[] { item.jxpb,item.qt}.Max()
+					+ new double[] { item.gkk,item.mt,item.pingw,item.dey,item.drpw2,item.xmyj,item.fblw,item.jspx,item.ztjz,item.xnlz }.Sum();
+
+				item.totalScore = Math.Round(score,2);
+			}
+
+			return results;
 		}
 
-		private List<T> QueryBySQL<T>(string sql, object paras = null)
-		{
-			if (string.IsNullOrEmpty(sql)) return null;
+		//private List<T> QueryBySQL<T>(string sql, object paras = null)
+		//{
+		//	if (string.IsNullOrEmpty(sql)) return null;
 
-			var _conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-			var result = _conn.Query<T>(sql, paras);
+		//	var _conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+		//	var result = _conn.Query<T>(sql, paras);
 
-			return result == null ? null : result.ToList();
-		}
+		//	return result == null ? null : result.ToList();
+		//}
 
 		#endregion
 	}

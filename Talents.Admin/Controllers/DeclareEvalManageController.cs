@@ -33,7 +33,7 @@ namespace TheSite.Controllers
 		public ActionResult EvalSchoolMemberExport()
 		{
 			var companyId = UserProfile.CompanyId;
-			var results = GetDeclareShcolEvalResultViewModels(companyId);
+			var results = GetDeclareSchoolEvalResultViewModels(companyId);
 
 			var company = db.CompanyDal.PrimaryGet(UserProfile.CompanyId);
 			var viewModel = new ExpertDeclareSchoolViewModel { CompanyName = company.CompanyName, Results = results };
@@ -47,13 +47,28 @@ namespace TheSite.Controllers
 
 
 		// GET: DeclareEval/EvalSchoolMemberExcelExport
+		// GET: DeclareEval/EvllExpertMemberExcelExport
 
 		public ActionResult EvalSchoolMemberExcelExport()
 		{
 			var companyId = UserProfile.CompanyId;
-			var results = GetDeclareShcolEvalResultViewModels(companyId).ToDictionary(x=>x.Id,y=>y);
-
+			var results = GetDeclareSchoolEvalResultViewModels(companyId).ToDictionary(x=>x.Id,y=>y);
 			var book=NPOIHelper.CreateBook(results);
+
+			// 写入到客户端 
+			System.IO.MemoryStream ms = new System.IO.MemoryStream();
+			book.Write(ms);
+			ms.Seek(0, SeekOrigin.Begin);
+			DateTime dt = DateTime.Now;
+			string dateTime = dt.ToString("yyyyMMdd");
+			string fileName = "单位评分汇总表" + dateTime + ".xls";
+			return File(ms, "application/vnd.ms-excel", fileName);
+		}
+
+		public ActionResult EvalExpertMemberExcelExport()
+		{
+			var results = GetExpertEvalResults().ToDictionary(x => x.id, y => y);
+			var book = NPOIHelper.CreateBook(results);
 
 			// 写入到客户端 
 			System.IO.MemoryStream ms = new System.IO.MemoryStream();
@@ -71,21 +86,24 @@ namespace TheSite.Controllers
 		public ActionResult ExpertEvalOverview()
 		{
 			var periodId = Period.PeriodId;
-			var query = APQuery.select(eg.GroupId, eg.Name, er.TeacherId)
+			var query = APQuery.select(eg.GroupId, eg.Name, er.TeacherId, u.RealName)
 							 .from(eg,
 								 egt.JoinLeft(eg.GroupId == egt.GroupId),
-								 er.JoinLeft(er.TeacherId == egt.MemberId & er.GroupId>0) 
+								 egm.JoinLeft(eg.GroupId== egm.GroupId),
+								 er.JoinLeft(er.TeacherId == egt.MemberId & er.Accesser==egm.ExpectID & er.GroupId > 0),
+								 u.JoinLeft(egm.ExpectID == u.UserId)
 								 )
-							 .group_by(eg.GroupId, eg.Name,egt.MemberId, er.TeacherId);
+							 .group_by(eg.GroupId, eg.Name, egt.MemberId, er.TeacherId, u.RealName);
 
 			var grp = query.query(db, r => new
 			{
 				groupId = eg.GroupId.GetValue(r),
 				groupName = eg.Name.GetValue(r),
+				assessor= u.RealName.GetValue(r),
 				teacherId = er.TeacherId.GetValue(r)
 			}).ToList();
 
-			var results = grp.GroupBy(x => new { x.groupId, x.groupName }).Select(y =>
+			var results = grp.GroupBy(x => new { x.groupId, x.groupName,x.assessor }).Select(y =>
 			{
 				var memberCount = y.Count();
 				var evalMemberCount = y.Count(z => z.teacherId > 0);
@@ -94,17 +112,19 @@ namespace TheSite.Controllers
 					PeriodId = periodId,
 					GroupId = y.Key.groupId,
 					GroupName = y.Key.groupName,
+					Accessor = y.Key.assessor,
 					GroupTargetMemberCount = y.Count(),
 					EvalTargetMemberCount = y.Count(z => z.teacherId > 0),
+					NotEvalTargetMemberCount = memberCount - evalMemberCount,
 					EvalStatus = memberCount == evalMemberCount && memberCount > 0 ? EvalStatus.Success
 								   : memberCount > evalMemberCount && evalMemberCount > 0 ? EvalStatus.Pending
 								   : EvalStatus.NotStart
 				};
 			}).ToList();
 
+
 			return View(results);
 		}
-
 
 
 		// GET:  DeclareEvalManage/EvalExpertMemberList
@@ -360,7 +380,7 @@ namespace TheSite.Controllers
 		}
 
 
-		private List<InsepctionDeclareSchoolEvalResult> GetDeclareShcolEvalResultViewModels(long? companyId)
+		private List<InsepctionDeclareSchoolEvalResult> GetDeclareSchoolEvalResultViewModels(long? companyId)
 		{
 			APSqlSelectCommand query = APQuery.select(dr.TeacherId, dr.TeacherName, c.CompanyName,
 				  dr.DeclareTargetPKID, dr.DeclareSubjectPKID,
@@ -400,6 +420,99 @@ namespace TheSite.Controllers
 					Shid = er.Comment.GetValue(r)
 				};
 			}).ToList();
+
+			return results;
+		}
+
+
+		private List<DeclareExperEvalManageViewModel> GetExpertEvalResults()
+		{
+			var sql = @"select 
+						accessor,
+						id,
+						teacherId,
+						targetId,
+						subjectId,
+						companyId,
+						teacher,
+						target,
+						subject,
+						company,
+						avg(totalScore) totalScore,
+						isnull(avg([教育教学.公开课]),0) as gkk,
+						isnull(avg([教育教学.评比.区级以上]),0) as jxpb,
+						isnull(avg([教育教学.评比.其他]),0) as qt,
+						isnull(avg([教研工作.中小学命题]),0) as mt,
+						isnull(avg([教研工作.担任评委]),0) as pingw,
+						isnull(avg([教研工作.德育]),0) as dey,
+						isnull(avg([教研工作.担任评委2]),0) as drpw2,
+						isnull(avg([教育科研.立项课题或项目研究]),0) as xmyj,
+						isnull(avg([教育科研.发表论文]),0) as fblw,
+						isnull(avg([教师培训.培训课程]),0) as jspx,
+						isnull(avg([教师培训.专题讲座]),0) as ztjz,
+						isnull(avg([个人特色.专著]),0) as zz,
+						isnull(avg([个人特色.其他身份]),0) as qtsf,
+						isnull(avg([个人特色.学员成长]),0) as xycz
+						from (
+						select 
+							e.ResultId as 'id',
+							dr.teacherid as 'teacherId',
+							dr.DeclareTargetPKID as 'targetId',
+							dr.DeclareSubjectPKID as 'subjectId',
+							dr.CompanyId as 'companyId',
+							dr.TeacherName as 'teacher',
+							p1.Name as 'target',
+							p2.Name as 'subject',
+							c.CompanyName as 'company',
+							e.Score as 'totalScore',
+							i.EvalItemKey,case i.ResultValue
+								when '合格' then 1 
+								when '不合格'then 0
+								else cast(i.ResultValue as float) end score 
+							,u.username as 'accessor'	
+						from EvalDeclareResult e
+						join EvalDeclareResultItem i 
+						on e.ResultId=i.ResultId
+						join DeclareReview dr 
+						on dr.TeacherId=e.teacherId
+						join PicklistItem p1 
+						on p1.PicklistItemId =dr.DeclareTargetPKID
+						join PicklistItem p2 
+						on p2.PicklistItemId=dr.DeclareSubjectPKID
+						join Company c
+						on c.companyId=dr.CompanyId
+						join BzUserProfile u
+						on e.Accesser=u.UserId
+						where  e.periodid=5005 and dr.statusKey='审核通过' and e.GroupId>0
+						) c
+						pivot(sum(c.score) for c.EvalItemKey in (
+						[教育教学.公开课],
+						[教育教学.评比.区级以上],
+						[教育教学.评比.其他],
+						[教研工作.中小学命题],
+						[教研工作.担任评委],
+						[教研工作.德育],
+						[教研工作.担任评委2],
+						[教育科研.立项课题或项目研究],
+						[教育科研.发表论文],
+						[教师培训.专题讲座],
+						[教师培训.培训课程],
+						[个人特色.专著],
+						[个人特色.其他身份],
+						[个人特色.学员成长]
+						)) AS T
+						group by t.teacherId,T.teacher,T.target,T.subject,T.company,T.targetId,T.companyId,T.subjectId,t.accessor,t.id
+						";
+
+			var results= DapperHelper.QueryBySQL<DeclareExperEvalManageViewModel>(sql);
+			foreach(var item in results)
+			{
+				var score = new double[] { item.zz, item.qtsf, item.xycz }.Max()
+					+ new double[] { item.jxpb,item.qt}.Max()
+					+ new double[] { item.gkk,item.mt,item.pingw,item.dey,item.drpw2,item.xmyj,item.fblw,item.jspx,item.ztjz }.Sum();
+
+				item.totalScore = Math.Round(score,2);
+			}
 
 			return results;
 		}

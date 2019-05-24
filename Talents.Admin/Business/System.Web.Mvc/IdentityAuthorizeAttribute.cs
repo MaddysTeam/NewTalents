@@ -25,7 +25,7 @@
 				throw new Exception("无访问权限！");
 			}
 
-			return true;
+			//return true;
 		}
 	}
 

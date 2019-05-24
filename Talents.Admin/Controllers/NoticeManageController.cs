@@ -165,7 +165,7 @@ namespace TheSite.Controllers
 				AttachmentsExtensions.InsertAtta(db, atta);
 				db.Commit();
 			}
-			catch (Exception e)
+			catch
 			{
 				db.Rollback();
 			}

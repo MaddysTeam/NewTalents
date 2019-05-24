@@ -174,7 +174,7 @@ namespace TheSite.Controllers
 		#endregion
 
 
-		public async Task<ActionResult> InitEvalGroup()
+		public Task<ActionResult> InitEvalGroup()
 		{
 			//var dr = APDBDef.DeclareReview;
 			//var df = APDBDef.DeclareProfile;

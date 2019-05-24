@@ -21,7 +21,7 @@ namespace Business.Utilities
             application = (Microsoft.Office.Interop.Word.Application)
                 Microsoft.VisualBasic.Interaction.GetObject(null, "Word.Application");
          }
-         catch(Exception e)
+         catch
          {
             application = new Microsoft.Office.Interop.Word.Application();
          }

@@ -9,9 +9,9 @@
 		{
 			if (!filterContext.ExceptionHandled)
 			{
-				string controllerName = (string)filterContext.RouteData.Values["controller"];
-				string actionName = (string)filterContext.RouteData.Values["action"];
-				string msgTemplate = "在执行 controller[{0}] 的 action[{1}] 时产生异常";
+				//string controllerName = (string)filterContext.RouteData.Values["controller"];
+				//string actionName = (string)filterContext.RouteData.Values["action"];
+				//string msgTemplate = "在执行 controller[{0}] 的 action[{1}] 时产生异常";
 				// LogManager.GetLogger("LogExceptionAttribute").Error(string.Format(msgTemplate, controllerName, actionName), filterContext.Exception);
 			}
 

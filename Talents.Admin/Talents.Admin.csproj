@@ -249,6 +249,7 @@
     <Compile Include="Business\Extensions\TeamExtensions.cs" />
     <Compile Include="Business\Extensions\EvalPeriodExtensions.cs" />
     <Compile Include="Business\Helper\BzPermissionNames.cs" />
+    <Compile Include="Business\Helper\DapperHelper.cs" />
     <Compile Include="Business\Helper\CompanyHelper.cs" />
     <Compile Include="Business\Helper\EvalHelper.cs" />
     <Compile Include="Business\Helper\Keys\AttachmentsKeys.cs" />
