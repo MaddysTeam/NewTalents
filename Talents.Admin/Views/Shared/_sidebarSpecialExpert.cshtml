@@ -8,17 +8,16 @@
 	<!-- main-nav -->
 	<nav class="main-nav">
 		<ul class="main-menu">
-			@*<li>
-				<a href="@Url.Action("Index", "Home")">
-					<i class="fa fa-home fa-fw"></i>
-					<span class="text">首页</span>
-				</a>
-			</li>*@
 			<li>
+				<a href="@Url.Action("NotEvalSpecialExpertMemberList", "DeclareEval")">
+					<i class="fa fa-gear fa-fw"></i>
+					<span class="text">未考评列表</span>
+				</a>
 				<a href="@Url.Action("EvalSpecialExpertMemberList", "DeclareEval")">
 					<i class="fa fa-gear fa-fw"></i>
-					<span class="text">申报考评</span>
+					<span class="text">已考评列表</span>
 				</a>
+			
 			</li>
 		</ul>
 	</nav>

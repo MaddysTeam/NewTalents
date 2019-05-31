@@ -1,0 +1,91 @@
+﻿@model DeclareEvalParam
+@{
+	var pageTitle = ViewBag.Title = "教学能手-申报考评";
+	var items = ViewBag.ResultItems as Dictionary<string, EvalDeclareResultItem>;
+	//var XiaonLvz = EngineManager.GetDeclareEvalResult(items, EvalDeclareRuleKeys.XiaonLvz, "A");
+	//var Shid = EngineManager.GetDeclareEvalChooseValue(items, EvalSchoolRuleKeys.Shid);
+	var declare = ViewBag.Declare as DeclareReviewModel;
+	var result = ViewBag.Result as EvalDeclareResult;
+}
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
+				<li class="active">@pageTitle</li>
+			</ul>
+		</div>
+	</div>
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-gear"></i> @pageTitle</h2>
+			<em></em>
+		</div>
+		<div class="main-content">
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-9 alert alert-danger errorMessage"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<!-- widget -->
+					<div class="widget">
+						<div class="widget-header">
+							<h3>基本信息</h3>
+							<div class="btn-group widget-header-toolbar">
+								<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+								<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+							</div>
+						</div>
+						<div class="widget-content">
+							@Html.Partial("~/Views/EvalUtilities/_DeclareReviewInfo.cshtml", declare)
+						</div>
+					</div>
+					<!-- /widget -->
+				</div>
+				<div class="col-md-9">
+					@using (Html.BeginForm("Eval", "DeclareEval"))
+					{
+						@Html.HiddenFor(m => m.PeriodId)
+						@Html.HiddenFor(m => m.TargetId)
+						@Html.HiddenFor(m => m.TeacherId)
+						@Html.HiddenFor(m => m.AccesserId)
+
+		<!-- widget -->
+						<div class="widget">
+							<div class="widget-header">
+								<h3><strong class="red">@pageTitle</strong> 考核指标</h3>
+								<div class="btn-group widget-header-toolbar">
+									<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+									<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+								</div>
+								<div class="btn-group widget-header-toolbar pull-right">
+									<button type="submit" class="btn btn-custom-primary btn-sm btn_submit">
+										<i class="fa fa-floppy-o"></i> <span>保存</span>
+									</button>
+									@*<a href="#" class="btn btn-sm btn-info">返回</a>*@
+								</div>
+							</div>
+							<div class="widget-content">
+								<div class="tab-content no-padding">
+
+									<div class="tab-pane fade in active" id="tab1">
+										
+									</div>
+
+								</div>
+							</div>
+						</div>
+			<!-- /widget -->
+
+						@*<input type="hidden" class="hiddenValue" data-error="@EvalDeclareRuleKeys.XiaonLvz" name="@EvalDeclareRuleKeys.XiaonLvz_Def" value="@XiaonLvz.ResultValue" />*@
+					}
+
+				</div>
+			</div>
+		</div>
+		<!-- /main-content -->
+	</div>
+	<!-- /main -->
+</div>

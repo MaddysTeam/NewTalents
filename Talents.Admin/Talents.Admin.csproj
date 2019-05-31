@@ -307,6 +307,7 @@
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="EvalAnalysis\AnalysisUnits.cs" />
     <Compile Include="EvalAnalysis\DeclareEngine.DeclareEvalUnit.cs" />
+    <Compile Include="EvalAnalysis\DeclareEngine.DeclareEvalUnit5007.cs" />
     <Compile Include="EvalAnalysis\DeclareEngine.DeclareEvalUnit5006.cs" />
     <Compile Include="EvalAnalysis\DeclareEngine.DeclareEvalUnit5005.cs" />
     <Compile Include="EvalAnalysis\DeclareEngine.DeclareEvalUnit5004.cs" />
@@ -742,6 +743,8 @@
     <Content Include="Views\EvalModel\Declare\_declareExpertEvalView5005.cshtml" />
     <Content Include="Views\EvalModel\Declare\_declareSpecialExpertEvalView5005.cshtml" />
     <Content Include="Views\DeclareStatistical\DecalreEvalSummaryList.cshtml" />
+    <Content Include="Views\EvalModel\Declare\_declareSchoolEvalView5007.cshtml" />
+    <Content Include="Views\DeclareEval\NotEvalSpecialExpertMemberList.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

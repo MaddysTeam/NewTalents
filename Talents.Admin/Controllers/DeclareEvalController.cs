@@ -365,41 +365,40 @@ namespace TheSite.Controllers
 		// GET: DeclareEval/EvalSpecialExpertMemberList  这里special expert 用于培训处的考核
 		// POST-Ajax: DeclareEval/EvalSpecialExpertMemberList
 
-		public ActionResult EvalSpecialExpertMemberList()
+		public ActionResult NotEvalSpecialExpertMemberList()
 		{
 			return View();
 		}
 
 		[HttpPost]
-		public ActionResult EvalSpecialExpertMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long companyId, long statusId)
+		public ActionResult NotEvalSpecialExpertMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long companyId,long targetId,long subjectId)
 		{
 			ThrowNotAjax();
 
+			var subQuery = APQuery.select(er.TeacherId).from(er).where(er.Accesser==UserProfile.UserId & er.PeriodId==Period.PeriodId);
+
 			var query = APQuery.select(dr.TeacherId, dr.TeacherName, c.CompanyName,
-				  dr.DeclareTargetPKID, dr.DeclareSubjectPKID,
-				  er.ResultId.As("ResultId"), er.Score, er.FullScore, er.ResultId, er.GroupId)
+									   dr.DeclareTargetPKID, dr.DeclareSubjectPKID)
 			   .from(dr,
-					  er.JoinLeft(er.TeacherId == dr.TeacherId & er.Accesser == UserProfile.UserId),
 					  c.JoinInner(dr.CompanyId == c.CompanyId)
 					 )
 			   .where(dr.PeriodId == Period.PeriodId
 				   & dr.StatusKey == DeclareKeys.ReviewSuccess
-				   & dr.DeclareTargetPKID.In(new long[] { DeclareTargetIds.GongzsZhucr, DeclareTargetIds.XuekDaitr, DeclareTargetIds.GugJiaos }))
-			   .primary(dr.TeacherId)
+				   & dr.DeclareTargetPKID.In(new long[] { DeclareTargetIds.GongzsZhucr, DeclareTargetIds.XuekDaitr, DeclareTargetIds.GugJiaos })
+				   & dr.TeacherId.NotIn(subQuery)
+				   )
+			   .primary(dr.DeclareReviewId)
 			   .skip((current - 1) * rowCount)
 			   .take(rowCount);
 
 			if (companyId > 0)
 				query.where_and(dr.CompanyId == companyId);
 
-			if (statusId == 1)
-			{
-				query.where_and(er.ResultId > 0);
-			}
-			else if (statusId == 0)
-			{
-				query.where_and(er.ResultId == null);
-			}
+			if(targetId>0)
+				query.where_and(dr.DeclareTargetPKID == targetId);
+
+			if(subjectId>0)
+				query.where_and(dr.DeclareSubjectPKID == subjectId);
 
 			//过滤条件
 			//模糊搜索姓名
@@ -421,22 +420,12 @@ namespace TheSite.Controllers
 					case "score": query.order_by(sort.OrderBy(er.Score)); break;
 				}
 			}
-			else
-			{
-				query.order_by(er.DeclareTargetPKID.Asc).order_by_add(er.Score.Desc);
-			}
+
 
 			var total = db.ExecuteSizeOfSelect(query);
 
 			var result = query.query(db, r =>
 			{
-				var score = er.Score.GetValue(r);
-				var targetId = dr.DeclareTargetPKID.GetValue(r);
-				var engine = EngineManager.Engines[Period.AnalysisType].DeclareEvals;
-				var fullScore = engine[targetId].SpecialFullScore;
-
-				var status = er.ResultId.GetValue(r);
-
 				return new
 				{
 					id = dr.TeacherId.GetValue(r),
@@ -445,10 +434,8 @@ namespace TheSite.Controllers
 					company = c.CompanyName.GetValue(r),
 					target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
 					subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(r)),
-					score = string.Format("{0} / {1}", score, fullScore),
-					submitStatus = status == 0 ? "未评审" : "已评审",
-					targetId = targetId,
-					resultId = er.ResultId.GetValue(r, "ResultId")
+					submitStatus = "未评审" ,
+					targetId = dr.DeclareTargetPKID.GetValue(r),
 				};
 			}).ToList();
 
@@ -462,6 +449,96 @@ namespace TheSite.Controllers
 			});
 		}
 
+		public ActionResult EvalSpecialExpertMemberList()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public ActionResult EvalSpecialExpertMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long companyId, long targetId, long subjectId)
+		{
+			ThrowNotAjax();
+
+			var query = APQuery.select(dr.TeacherId, dr.TeacherName, c.CompanyName,
+				  dr.DeclareTargetPKID, dr.DeclareSubjectPKID,
+				  er.ResultId.As("ResultId"), er.Score, er.FullScore, er.ResultId, er.GroupId)
+			   .from(dr,
+					  er.JoinLeft(er.TeacherId == dr.TeacherId),
+					  c.JoinInner(dr.CompanyId == c.CompanyId)
+					 )
+			   .where(dr.PeriodId == Period.PeriodId
+				   & dr.StatusKey == DeclareKeys.ReviewSuccess
+				   & er.Accesser == UserProfile.UserId
+				   & dr.DeclareTargetPKID.In(new long[] { DeclareTargetIds.GongzsZhucr, DeclareTargetIds.XuekDaitr, DeclareTargetIds.GugJiaos }))
+			   .primary(dr.DeclareReviewId)
+			   .skip((current - 1) * rowCount)
+			   .take(rowCount);
+
+			if (companyId > 0)
+				query.where_and(dr.CompanyId == companyId);
+
+			if (targetId > 0)
+				query.where_and(dr.DeclareTargetPKID == targetId);
+
+			if (subjectId > 0)
+				query.where_and(dr.DeclareSubjectPKID == subjectId);
+
+
+
+			//过滤条件
+			//模糊搜索姓名
+
+			searchPhrase = searchPhrase.Trim();
+			if (searchPhrase != "")
+			{
+				query.where_and(dr.TeacherName.Match(searchPhrase));
+			}
+
+
+			//排序条件表达式
+
+			if (sort != null)
+			{
+				switch (sort.ID)
+				{
+					case "realName": query.order_by(sort.OrderBy(dr.TeacherName)); break;
+					case "score": query.order_by(sort.OrderBy(er.Score)); break;
+				}
+			}
+
+			var total = db.ExecuteSizeOfSelect(query);
+
+			var result = query.query(db, r =>
+			{
+				var score = er.Score.GetValue(r);
+				var currentTargetId = dr.DeclareTargetPKID.GetValue(r);
+				var engine = EngineManager.Engines[Period.AnalysisType].DeclareEvals;
+				var fullScore = engine[currentTargetId].SpecialFullScore;
+
+				return new
+				{
+					id = dr.TeacherId.GetValue(r),
+					periodId = Period.PeriodId,
+					realName = dr.TeacherName.GetValue(r),
+					company = c.CompanyName.GetValue(r),
+					target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
+					subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(r)),
+					score = string.Format("{0} / {1}", score, fullScore),
+					submitStatus =  "已评审",
+					targetId = currentTargetId,
+					resultId = er.ResultId.GetValue(r, "ResultId")
+				};
+			}).ToList();
+
+
+			return Json(new
+			{
+				rows = result,
+				current,
+				rowCount,
+				total
+			});
+		}
 
 
 		//	GET: DeclareEval/Eval

@@ -442,6 +442,9 @@ namespace TheSite.Controllers
 		{
 			var results = GetEvalStatisticalResults();
 
+			if (!string.IsNullOrEmpty(searchPhrase))
+				results = results.FindAll(x=>x.teacher.Contains(searchPhrase));
+
 			if (targetId > 0)
 				results = results.FindAll(x => x.targetId == targetId);
 
@@ -569,7 +572,7 @@ namespace TheSite.Controllers
 						on c.companyId=dr.CompanyId
 						where  e.periodid=5005 and dr.statusKey='审核通过'
 						) c
-						pivot(sum(c.score) for c.EvalItemKey in (
+						pivot(avg(c.score) for c.EvalItemKey in (
 						[校内履职],
 						[师德],
 						[教育教学.公开课],

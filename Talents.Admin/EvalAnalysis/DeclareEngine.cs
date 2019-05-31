@@ -9,34 +9,40 @@ using System.Web.Mvc;
 namespace TheSite.EvalAnalysis
 {
 
-   public partial class DeclareEngine : EvalAnalysisEngine
-   {
-      protected const string ViewPath = "../EvalModel/Declare";
+	public partial class DeclareEngine : EvalAnalysisEngine
+	{
+		protected const string ViewPath = "../EvalModel/Declare";
 
-      public override string AnalysisName
-         => "称号申请考核表 Ver 1.0";
-
-
-      public override string DevelopKey
-         => "Declare_Ver_1.0";
-
-      public override double FullScore
-          => 100;
+		public override string AnalysisName
+		   => "称号申请考核表 Ver 1.0";
 
 
-      public override IReadOnlyDictionary<long, DeclareEvalUnitBase> DeclareEvals
-      {
-         get
-         {
-            return new List<DeclareEvalUnitBase>
-            {
-               new DeclareEvalUnit5004 { ViewPath=ViewPath },
-               new DeclareEvalUnit5005 { ViewPath=ViewPath },
-               new DeclareEvalUnit5006 { ViewPath=ViewPath }
-            }.ToDictionary(x => x.TargetId);
-         }
-      }
+		public override string DevelopKey
+		   => "Declare_Ver_1.0";
 
-   }
+		public override double FullScore
+			=> 100;
+
+
+		public override IReadOnlyDictionary<long, DeclareEvalUnitBase> DeclareEvals
+		{
+			get
+			{
+				return new List<DeclareEvalUnitBase>
+			{
+			   new DeclareEvalUnit5004 { ViewPath=ViewPath },
+			   new DeclareEvalUnit5005 { ViewPath=ViewPath },
+			   new DeclareEvalUnit5006 { ViewPath=ViewPath },
+
+			   //TODO:add 5007 5008 in 2019/05/28
+
+			   //new DeclareEvalUnit5007 { ViewPath=ViewPath },
+			   //new DeclareEvalUnit5008 { ViewPath=ViewPath }
+
+			}.ToDictionary(x => x.TargetId);
+			}
+		}
+
+	}
 
 }

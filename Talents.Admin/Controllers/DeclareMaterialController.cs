@@ -647,8 +647,8 @@ namespace TheSite.Controllers
 		private DeclarePreviewViewModel GetPreviewViewModel(DeclarePreviewParam param)
 		{
 			var poge = ".职称破格";
-			var admin = UserProfile.IsSchoolAdmin || UserProfile.IsSystemAdmin || UserProfile.IsExpert;
-			var userid = admin ? param.TeacherId : UserProfile.UserId;
+			var isAdmin = UserProfile.IsSchoolAdmin || UserProfile.IsSystemAdmin || UserProfile.IsExpert || UserProfile.IsSpecialExpert;
+			var userid = isAdmin ? param.TeacherId : UserProfile.UserId;
 			var user = db.BzUserProfileDal.PrimaryGet(userid);
 			var model = new DeclarePreviewViewModel();
 			var profile = db.DeclareProfileDal.ConditionQuery
@@ -724,7 +724,6 @@ namespace TheSite.Controllers
 
 			return model;
 		}
-
 
 		private DeclareProfile GetProfile(long teacherId, long periodId, long targetId) =>
 			db.DeclareProfileDal.ConditionQuery
