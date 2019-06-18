@@ -562,10 +562,10 @@ namespace TheSite.EvalAnalysis
 					case "A1":
 						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 10.0, 10.0);
 						break;
-					case "A2":
+					case "B1":
 						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 7.0, 7.0);
 						break;
-					case "A3":
+					case "C1":
 						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 4.0, 4.0);
 						break;
 				}

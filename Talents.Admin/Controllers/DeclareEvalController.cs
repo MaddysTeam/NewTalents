@@ -371,11 +371,17 @@ namespace TheSite.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult NotEvalSpecialExpertMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long companyId,long targetId,long subjectId)
+		public ActionResult NotEvalSpecialExpertMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long companyId, long targetId, long subjectId)
 		{
 			ThrowNotAjax();
 
-			var subQuery = APQuery.select(er.TeacherId).from(er).where(er.Accesser==UserProfile.UserId & er.PeriodId==Period.PeriodId);
+
+			APSqlSelectCommand subQuery = null;
+
+			if (UserProfile.IsSpecialExpert)
+				subQuery = APQuery.select(er.TeacherId).from(er).where(er.Accesser == UserProfile.UserId & er.PeriodId == Period.PeriodId);
+			else if (UserProfile.IsSystemAdmin)
+				subQuery = APQuery.select(er.TeacherId).from(er).where(er.GroupId == -1 & er.PeriodId == Period.PeriodId);
 
 			var query = APQuery.select(dr.TeacherId, dr.TeacherName, c.CompanyName,
 									   dr.DeclareTargetPKID, dr.DeclareSubjectPKID)
@@ -394,10 +400,10 @@ namespace TheSite.Controllers
 			if (companyId > 0)
 				query.where_and(dr.CompanyId == companyId);
 
-			if(targetId>0)
+			if (targetId > 0)
 				query.where_and(dr.DeclareTargetPKID == targetId);
 
-			if(subjectId>0)
+			if (subjectId > 0)
 				query.where_and(dr.DeclareSubjectPKID == subjectId);
 
 			//过滤条件
@@ -434,7 +440,7 @@ namespace TheSite.Controllers
 					company = c.CompanyName.GetValue(r),
 					target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
 					subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(r)),
-					submitStatus = "未评审" ,
+					submitStatus = "未评审",
 					targetId = dr.DeclareTargetPKID.GetValue(r),
 				};
 			}).ToList();
@@ -468,11 +474,16 @@ namespace TheSite.Controllers
 					 )
 			   .where(dr.PeriodId == Period.PeriodId
 				   & dr.StatusKey == DeclareKeys.ReviewSuccess
-				   & er.Accesser == UserProfile.UserId
+				   & er.GroupId == -1
 				   & dr.DeclareTargetPKID.In(new long[] { DeclareTargetIds.GongzsZhucr, DeclareTargetIds.XuekDaitr, DeclareTargetIds.GugJiaos }))
 			   .primary(dr.DeclareReviewId)
 			   .skip((current - 1) * rowCount)
 			   .take(rowCount);
+
+			if (UserProfile.IsSpecialExpert)
+			{
+				query.where(er.Accesser == UserProfile.UserId);
+			}
 
 			if (companyId > 0)
 				query.where_and(dr.CompanyId == companyId);
@@ -524,7 +535,7 @@ namespace TheSite.Controllers
 					target = DeclareBaseHelper.DeclareTarget.GetName(dr.DeclareTargetPKID.GetValue(r)),
 					subject = DeclareBaseHelper.DeclareSubject.GetName(dr.DeclareSubjectPKID.GetValue(r)),
 					score = string.Format("{0} / {1}", score, fullScore),
-					submitStatus =  "已评审",
+					submitStatus = "已评审",
 					targetId = currentTargetId,
 					resultId = er.ResultId.GetValue(r, "ResultId")
 				};

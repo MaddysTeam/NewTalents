@@ -99,6 +99,14 @@
 	</div>
 	<!-- /main -->
 </div>
+@section Modals{
+	<button class="btn btn-md btn-custom-primary hidden" id="modelProxy" data-toggle="ajax-modal" data-target="#firstModal">代理</button>
+	<!-- Modal start -->
+	<div class="modal" id="firstModal" tabindex="-1" role="dialog" aria-labelledby="firstModalLabel" aria-hidden="true">
+		hello
+	</div>
+	<!-- Modal end -->
+}
 @section Scripts {
 	<script>
 		var isSpecialExpert = '@isSpecialExpert' == 'True' ? true : false;
@@ -134,7 +142,7 @@
 						}
 						else {
 							if (row.submitStatus == '已评审') {
-								html += '<a target="_blank" class="btn btn-info btn-view" href="' + resultUrl + '"><i class="fa fa-eye"></i>查看详细</a>';
+								html += '<a target="_blank" class="btn btn-info btn-view btn-details" data-url="' + resultUrl + '"><i class="fa fa-eye"></i>查看详细</a>';
 							}
 						}
 						html += '</div>';
@@ -150,6 +158,14 @@
 			var grid = $('#bootgrid');
 			grid.bootgrid(getGridOptions())
 			.on('loaded.rs.jquery.bootgrid', function () {
+
+				$('.btn-details').on('click', function () {
+					var url = $(this).data('url');
+					$('#modelProxy')
+					.data('url', url)
+					.trigger('click');
+				});
+
 			});
 
 			$('#btnserach').on('click', function () {
