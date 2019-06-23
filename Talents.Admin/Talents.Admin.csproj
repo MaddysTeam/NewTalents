@@ -745,6 +745,8 @@
     <Content Include="Views\DeclareStatistical\DecalreEvalSummaryList.cshtml" />
     <Content Include="Views\EvalModel\Declare\_declareSchoolEvalView5007.cshtml" />
     <Content Include="Views\DeclareEval\NotEvalSpecialExpertMemberList.cshtml" />
+    <Content Include="Views\EvalModel\Declare\DeclareEvalView5007.cshtml" />
+    <Content Include="Views\EvalModel\Declare\DeclareResultView5007.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -391,8 +391,9 @@ namespace TheSite.Controllers
 					 )
 			   .where(dr.PeriodId == Period.PeriodId
 				   & dr.StatusKey == DeclareKeys.ReviewSuccess
-				   & dr.DeclareTargetPKID.In(new long[] { DeclareTargetIds.GongzsZhucr, DeclareTargetIds.XuekDaitr, DeclareTargetIds.GugJiaos }))
-				.order_by(dr.DeclareTargetPKID.Asc)
+               & dr.DeclareTargetPKID.In(new long[] { DeclareTargetIds.JiaoxNengs, DeclareTargetIds.JiaoxXinx}))
+             //& dr.DeclareTargetPKID.In(new long[] { DeclareTargetIds.GongzsZhucr, DeclareTargetIds.XuekDaitr, DeclareTargetIds.GugJiaos })) TODO:
+            .order_by(dr.DeclareTargetPKID.Asc)
 				.order_by_add(er.Score.Desc);
 
 			if (UserProfile.IsSchoolAdmin)

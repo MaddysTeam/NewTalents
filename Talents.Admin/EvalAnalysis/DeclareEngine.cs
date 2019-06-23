@@ -33,6 +33,7 @@ namespace TheSite.EvalAnalysis
 			   new DeclareEvalUnit5004 { ViewPath=ViewPath },
 			   new DeclareEvalUnit5005 { ViewPath=ViewPath },
 			   new DeclareEvalUnit5006 { ViewPath=ViewPath },
+            new DeclareEvalUnit5007 { ViewPath=ViewPath }
 
 			   //TODO:add 5007 5008 in 2019/05/28
 
