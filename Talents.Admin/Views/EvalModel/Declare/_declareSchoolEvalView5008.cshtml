@@ -55,7 +55,7 @@
 		<!-- widget -->
 						<div class="widget">
 							<div class="widget-header">
-								<h3><strong class="red">教学能手-申报考评</strong> 考核指标</h3>
+								<h3><strong class="red">教学新秀-申报考评</strong> 考核指标</h3>
 								<div class="btn-group widget-header-toolbar">
 									<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
 									<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
@@ -64,6 +64,7 @@
 									<button type="submit" class="btn btn-custom-primary btn-sm btn_submit">
 										<i class="fa fa-floppy-o"></i> <span>保存</span>
 									</button>
+									@*<a href="#" class="btn btn-sm btn-info">返回</a>*@
 								</div>
 							</div>
 							<div class="widget-content">
@@ -117,29 +118,29 @@
 														由所在学校就工作量、教育教学效果、参与学校学科教研组建设、参与重大项目研究进行考评
 													</td>
 													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.XiaonLvz, "A", isChecked: XiaonLvz.ChooseValue == "A") A：总体情况优秀</label></td>
-													<td>60分--51.0分</td>
-													<td class="flotValue" data-min="51.0" data-max="60.0" data-value="" data-hidden="@EvalDeclareRuleKeys.XiaonLvz_Def"></td>
+													<td>60分--70分</td>
+													<td class="flotValue" data-min="60.0" data-max="70.0" data-value="" data-hidden="@EvalDeclareRuleKeys.XiaonLvz_Def"></td>
 												</tr>
 												<tr>
 													<td>
 														<label>@Html.RadioButton(EvalDeclareRuleKeys.XiaonLvz, "B", isChecked: XiaonLvz.ChooseValue == "B") B：总体情况良好</label>
 													</td>
-													<td>45分--50.9分</td>
-													<td class="flotValue" data-min="45.0" data-max="50.9" data-value="" data-hidden="@EvalDeclareRuleKeys.XiaonLvz_Def"></td>
+													<td>53分--59.9分</td>
+													<td class="flotValue" data-min="53.0" data-max="59.9" data-value="" data-hidden="@EvalDeclareRuleKeys.XiaonLvz_Def"></td>
 												</tr>
 												<tr>
 													<td>
 														<label>@Html.RadioButton(EvalDeclareRuleKeys.XiaonLvz, "C", isChecked: XiaonLvz.ChooseValue == "C") C：总体情况合格</label>
 													</td>
-													<td>36分--44.9分</td>
-													<td class="flotValue" data-min="36.0" data-max="44.9" data-value="" data-hidden="@EvalDeclareRuleKeys.XiaonLvz_Def"></td>
+													<td>42分--52.9分</td>
+													<td class="flotValue" data-min="42.0" data-max="52.9" data-value="" data-hidden="@EvalDeclareRuleKeys.XiaonLvz_Def"></td>
 												</tr>
 												<tr>
 													<td>
 														<label>@Html.RadioButton(EvalDeclareRuleKeys.XiaonLvz, "D", isChecked: XiaonLvz.ChooseValue == "D") D：总体情况不合格</label>
 													</td>
-													<td>0分--35.9分</td>
-													<td class="flotValue" data-min="0.0" data-max="35.9" data-value="" data-hidden="@EvalDeclareRuleKeys.XiaonLvz_Def"></td>
+													<td>0分--41.9分</td>
+													<td class="flotValue" data-min="0.0" data-max="41.9" data-value="" data-hidden="@EvalDeclareRuleKeys.XiaonLvz_Def"></td>
 												</tr>
 
 											</tbody>

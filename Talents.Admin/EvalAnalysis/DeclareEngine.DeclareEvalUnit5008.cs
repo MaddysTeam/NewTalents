@@ -12,14 +12,14 @@ namespace TheSite.EvalAnalysis
 	public partial class DeclareEngine
 	{
 
-		public class DeclareEvalUnit5007 : DeclareEvalUnit
+		public class DeclareEvalUnit5008 : DeclareEvalUnit
 		{
 
-			public override long TargetId => 5007;
+			public override long TargetId => 5008;
 
-			public override double FullScroe => 60;
+			public override double FullScroe => 70;
 
-			public override double CompanyFullScore => 60;
+			public override double CompanyFullScore => 70;
 
 			public override double ExpertFullScore => 0;
 
@@ -58,16 +58,16 @@ namespace TheSite.EvalAnalysis
 				switch (choose)
 				{
 					case "A":
-						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 51, 60);
+						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 60, 70);
 						break;
 					case "B":
-						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 45, 50.9);
+						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 53, 59.9);
 						break;
 					case "C":
-						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 36, 44.9);
+						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 42, 52.9);
 						break;
 					case "D":
-						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 0, 35.9);
+						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 0,41.9);
 						break;
 				}
 
