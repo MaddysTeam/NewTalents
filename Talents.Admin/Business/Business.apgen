@@ -519,7 +519,8 @@
 					<add name="ReviewerId" type="long" display="审核人" />
 					<add name="CreateDate" type="DateTime" display="创建时间"/>
 					<add name="ModifyDate" type="DateTime" display="更新时间"/>
-					
+					<!-- TODO: for temp -->
+					<add name="IsDowngrade" type="bool" display="是否降级" />
 				</columns>
 			</table>
 

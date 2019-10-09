@@ -7375,6 +7375,8 @@ namespace Business {
             
             private DateTimeAPColumnDef _modifyDate;
             
+            private BooleanAPColumnDef _isDowngrade;
+            
             public DeclareReviewTableDef(string tableName) : 
                     base(tableName) {
             }
@@ -7619,6 +7621,19 @@ namespace Business {
             }
             
             /// <summary>
+            /// IsDowngrade ColumnDef
+            /// </summary>
+            public virtual BooleanAPColumnDef IsDowngrade {
+                get {
+                    if (Object.ReferenceEquals(_isDowngrade, null)) {
+                        _isDowngrade = new BooleanAPColumnDef(this, "IsDowngrade", false);
+                        _isDowngrade.Display = "是否降级";
+                    }
+                    return _isDowngrade;
+                }
+            }
+            
+            /// <summary>
             /// Default Index
             /// </summary>
             public virtual APSqlOrderPhrase DefaultOrder {
@@ -7656,6 +7671,7 @@ namespace Business {
                 data.ReviewerId = ReviewerId.GetValue<long>(reader, throwIfValidColumnName);
                 data.CreateDate = CreateDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
                 data.ModifyDate = ModifyDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
+                data.IsDowngrade = IsDowngrade.GetValue<bool>(reader, throwIfValidColumnName);
             }
             
             /// <summary>
@@ -17729,7 +17745,7 @@ namespace Business {
                 if ((data.DeclareReviewId == 0)) {
                     data.DeclareReviewId = ((long)(GetNewId(APDBDef.DeclareReview.DeclareReviewId)));
                 }
-                var query = APQuery.insert(APDBDef.DeclareReview).values(APDBDef.DeclareReview.DeclareReviewId.SetValue(data.DeclareReviewId), APDBDef.DeclareReview.TeacherName.SetValue(data.TeacherName), APDBDef.DeclareReview.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareReview.CompanyId.SetValue(data.CompanyId), APDBDef.DeclareReview.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.DeclareReview.DeclareSubjectPKID.SetValue(data.DeclareSubjectPKID), APDBDef.DeclareReview.AllowFlowToSchool.SetValue(data.AllowFlowToSchool), APDBDef.DeclareReview.AllowFitResearcher.SetValue(data.AllowFitResearcher), APDBDef.DeclareReview.IsBrokenRoles.SetValue(data.IsBrokenRoles), APDBDef.DeclareReview.PeriodId.SetValue(data.PeriodId), APDBDef.DeclareReview.Reason.SetValue(data.Reason), APDBDef.DeclareReview.AllowFlowToDowngrade.SetValue(data.AllowFlowToDowngrade), APDBDef.DeclareReview.TypeKey.SetValue(data.TypeKey), APDBDef.DeclareReview.StatusKey.SetValue(data.StatusKey), APDBDef.DeclareReview.ReviewComment.SetValue(data.ReviewComment), APDBDef.DeclareReview.ReviewerId.SetValue(data.ReviewerId), APDBDef.DeclareReview.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareReview.ModifyDate.SetValue(data.ModifyDate));
+                var query = APQuery.insert(APDBDef.DeclareReview).values(APDBDef.DeclareReview.DeclareReviewId.SetValue(data.DeclareReviewId), APDBDef.DeclareReview.TeacherName.SetValue(data.TeacherName), APDBDef.DeclareReview.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareReview.CompanyId.SetValue(data.CompanyId), APDBDef.DeclareReview.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.DeclareReview.DeclareSubjectPKID.SetValue(data.DeclareSubjectPKID), APDBDef.DeclareReview.AllowFlowToSchool.SetValue(data.AllowFlowToSchool), APDBDef.DeclareReview.AllowFitResearcher.SetValue(data.AllowFitResearcher), APDBDef.DeclareReview.IsBrokenRoles.SetValue(data.IsBrokenRoles), APDBDef.DeclareReview.PeriodId.SetValue(data.PeriodId), APDBDef.DeclareReview.Reason.SetValue(data.Reason), APDBDef.DeclareReview.AllowFlowToDowngrade.SetValue(data.AllowFlowToDowngrade), APDBDef.DeclareReview.TypeKey.SetValue(data.TypeKey), APDBDef.DeclareReview.StatusKey.SetValue(data.StatusKey), APDBDef.DeclareReview.ReviewComment.SetValue(data.ReviewComment), APDBDef.DeclareReview.ReviewerId.SetValue(data.ReviewerId), APDBDef.DeclareReview.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareReview.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareReview.IsDowngrade.SetValue(data.IsDowngrade));
                 ExecuteNonQuery(query);
             }
             
@@ -17737,7 +17753,7 @@ namespace Business {
             /// 更新数据。
             /// </summary>
             public virtual void Update(DeclareReview data) {
-                var query = APQuery.update(APDBDef.DeclareReview).values(APDBDef.DeclareReview.TeacherName.SetValue(data.TeacherName), APDBDef.DeclareReview.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareReview.CompanyId.SetValue(data.CompanyId), APDBDef.DeclareReview.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.DeclareReview.DeclareSubjectPKID.SetValue(data.DeclareSubjectPKID), APDBDef.DeclareReview.AllowFlowToSchool.SetValue(data.AllowFlowToSchool), APDBDef.DeclareReview.AllowFitResearcher.SetValue(data.AllowFitResearcher), APDBDef.DeclareReview.IsBrokenRoles.SetValue(data.IsBrokenRoles), APDBDef.DeclareReview.PeriodId.SetValue(data.PeriodId), APDBDef.DeclareReview.Reason.SetValue(data.Reason), APDBDef.DeclareReview.AllowFlowToDowngrade.SetValue(data.AllowFlowToDowngrade), APDBDef.DeclareReview.TypeKey.SetValue(data.TypeKey), APDBDef.DeclareReview.StatusKey.SetValue(data.StatusKey), APDBDef.DeclareReview.ReviewComment.SetValue(data.ReviewComment), APDBDef.DeclareReview.ReviewerId.SetValue(data.ReviewerId), APDBDef.DeclareReview.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareReview.ModifyDate.SetValue(data.ModifyDate)).where((APDBDef.DeclareReview.DeclareReviewId == data.DeclareReviewId));
+                var query = APQuery.update(APDBDef.DeclareReview).values(APDBDef.DeclareReview.TeacherName.SetValue(data.TeacherName), APDBDef.DeclareReview.TeacherId.SetValue(data.TeacherId), APDBDef.DeclareReview.CompanyId.SetValue(data.CompanyId), APDBDef.DeclareReview.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.DeclareReview.DeclareSubjectPKID.SetValue(data.DeclareSubjectPKID), APDBDef.DeclareReview.AllowFlowToSchool.SetValue(data.AllowFlowToSchool), APDBDef.DeclareReview.AllowFitResearcher.SetValue(data.AllowFitResearcher), APDBDef.DeclareReview.IsBrokenRoles.SetValue(data.IsBrokenRoles), APDBDef.DeclareReview.PeriodId.SetValue(data.PeriodId), APDBDef.DeclareReview.Reason.SetValue(data.Reason), APDBDef.DeclareReview.AllowFlowToDowngrade.SetValue(data.AllowFlowToDowngrade), APDBDef.DeclareReview.TypeKey.SetValue(data.TypeKey), APDBDef.DeclareReview.StatusKey.SetValue(data.StatusKey), APDBDef.DeclareReview.ReviewComment.SetValue(data.ReviewComment), APDBDef.DeclareReview.ReviewerId.SetValue(data.ReviewerId), APDBDef.DeclareReview.CreateDate.SetValue(data.CreateDate), APDBDef.DeclareReview.ModifyDate.SetValue(data.ModifyDate), APDBDef.DeclareReview.IsDowngrade.SetValue(data.IsDowngrade)).where((APDBDef.DeclareReview.DeclareReviewId == data.DeclareReviewId));
                 ExecuteNonQuery(query);
             }
             
@@ -41314,6 +41330,11 @@ namespace Business {
         private System.DateTime _modifyDate;
         
         /// <summary>
+        /// IsDowngrade
+        /// </summary>
+        private bool _isDowngrade;
+        
+        /// <summary>
         /// 默认构造函数。
         /// </summary>
         public DeclareReviewBase() {
@@ -41340,7 +41361,8 @@ namespace Business {
                     string reviewComment, 
                     long reviewerId, 
                     System.DateTime createDate, 
-                    System.DateTime modifyDate) {
+                    System.DateTime modifyDate, 
+                    bool isDowngrade) {
             _declareReviewId = declareReviewId;
             _teacherName = teacherName;
             _teacherId = teacherId;
@@ -41359,6 +41381,7 @@ namespace Business {
             _reviewerId = reviewerId;
             _createDate = createDate;
             _modifyDate = modifyDate;
+            _isDowngrade = isDowngrade;
         }
         
         /// <summary>
@@ -41763,6 +41786,28 @@ namespace Business {
         }
         
         /// <summary>
+        /// IsDowngrade
+        /// </summary>
+        [Display(Name="是否降级")]
+        public virtual bool IsDowngrade {
+            get {
+                return _isDowngrade;
+            }
+            set {
+                _isDowngrade = value;
+            }
+        }
+        
+        /// <summary>
+        /// IsDowngrade APColumnDef
+        /// </summary>
+        public static BooleanAPColumnDef IsDowngradeDef {
+            get {
+                return APDBDef.DeclareReview.IsDowngrade;
+            }
+        }
+        
+        /// <summary>
         /// DeclareReviewTableDef APTableDef
         /// </summary>
         public static APDBDef.DeclareReviewTableDef TableDef {
@@ -41802,6 +41847,7 @@ namespace Business {
             ReviewerId = data.ReviewerId;
             CreateDate = data.CreateDate;
             ModifyDate = data.ModifyDate;
+            IsDowngrade = data.IsDowngrade;
         }
         
         /// <summary>
@@ -41860,6 +41906,9 @@ namespace Business {
                 return false;
             }
             if ((ModifyDate != data.ModifyDate)) {
+                return false;
+            }
+            if ((IsDowngrade != data.IsDowngrade)) {
                 return false;
             }
             return true;
@@ -41976,8 +42025,9 @@ namespace Business {
                     string reviewComment, 
                     long reviewerId, 
                     System.DateTime createDate, 
-                    System.DateTime modifyDate) : 
-                base(declareReviewId, teacherName, teacherId, companyId, declareTargetPKID, declareSubjectPKID, allowFlowToSchool, allowFitResearcher, isBrokenRoles, periodId, reason, allowFlowToDowngrade, typeKey, statusKey, reviewComment, reviewerId, createDate, modifyDate) {
+                    System.DateTime modifyDate, 
+                    bool isDowngrade) : 
+                base(declareReviewId, teacherName, teacherId, companyId, declareTargetPKID, declareSubjectPKID, allowFlowToSchool, allowFitResearcher, isBrokenRoles, periodId, reason, allowFlowToDowngrade, typeKey, statusKey, reviewComment, reviewerId, createDate, modifyDate, isDowngrade) {
         }
     }
     

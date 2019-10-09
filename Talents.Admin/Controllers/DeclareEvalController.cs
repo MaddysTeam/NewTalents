@@ -283,10 +283,11 @@ namespace TheSite.Controllers
 					 )
 			   .where(dr.PeriodId == Period.PeriodId
 				   & dr.StatusKey == DeclareKeys.ReviewSuccess
-				   & dr.DeclareTargetPKID.In(new long[] {
+				   & (dr.DeclareTargetPKID.In(new long[] {
                  // DeclareTargetIds.GongzsZhucr, DeclareTargetIds.XuekDaitr, DeclareTargetIds.GugJiaos
                  DeclareTargetIds.JiaoxNengs,DeclareTargetIds.JiaoxXinx
-               }))
+               } ) | dr.IsDowngrade == true
+				   ))
 			   .primary(dr.TeacherId)
 			   .skip((current - 1) * rowCount)
 			   .take(rowCount);

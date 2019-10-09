@@ -58,16 +58,13 @@ namespace TheSite.EvalAnalysis
 				switch (choose)
 				{
 					case "A":
-						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 51, 60);
+						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 54, 60);
 						break;
 					case "B":
-						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 45, 50.9);
+						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 45, 53.9);
 						break;
 					case "C":
 						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 36, 44.9);
-						break;
-					case "D":
-						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 0, 35.9);
 						break;
 				}
 
