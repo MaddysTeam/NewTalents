@@ -732,15 +732,23 @@ namespace TheSite.Controllers
 					var allAts = AttachmentsExtensions.GetAttachmentList(db, id.Value);
 					if (allAts.Count > 0)
 					{
-						var ats = allAts.FindAll(a => a.Type == AttachmentsKeys.ZisFaz_PeixJiangz_JiaosPeixKec);
-						var vts = allAts.FindAll(a => a.Type == AttachmentsKeys.ZisFaz_PeixJiangz_JiaosPeixKec + AttachmentsKeys.Vertify);
-						var at = AttachmentsExtensions.GetAttachment(ats);
-						var vt = AttachmentsExtensions.GetAttachment(vts);
-						model.AttachmentName = at.Name;
-						model.AttachmentUrl = at.Url;
-						model.VertificationName = vt.Name;
-						model.VertificationUrl = vt.Url;
-					}
+                  var ats1 = allAts.FindAll(a => a.Type == AttachmentsKeys.ZisFaz_KeyChengg_KetYanj + AttachmentsKeys.StartStage);
+                  var ats2 = allAts.FindAll(a => a.Type == AttachmentsKeys.ZisFaz_KeyChengg_KetYanj + AttachmentsKeys.ProcessStage);
+                  var ats3 = allAts.FindAll(a => a.Type == AttachmentsKeys.ZisFaz_KeyChengg_KetYanj + AttachmentsKeys.EndStage);
+                  var vts = allAts.FindAll(a => a.Type == AttachmentsKeys.ZisFaz_KeyChengg_KetYanj + AttachmentsKeys.Vertify);
+                  var at1 = AttachmentsExtensions.GetAttachment(ats1);
+                  var at2 = AttachmentsExtensions.GetAttachment(ats2);
+                  var at3 = AttachmentsExtensions.GetAttachment(ats3);
+                  var vt = AttachmentsExtensions.GetAttachment(vts);
+                  model.AttachmentName1 = at1.Name;
+                  model.AttachmentUrl1 = at1.Url;
+                  model.AttachmentName2 = at2.Name;
+                  model.AttachmentUrl2 = at2.Url;
+                  model.AttachmentName3 = at3.Name;
+                  model.AttachmentUrl3 = at3.Url;
+                  model.VertificationName = vt.Name;
+                  model.VertificationUrl = vt.Url;
+               }
 				}
 			}
 
@@ -754,24 +762,45 @@ namespace TheSite.Controllers
 		{
 			ThrowNotAjax();
 
-			var attachmentTypeKey = AttachmentsKeys.ZisFaz_PeixJiangz_JiaosPeixKec;
-			var vertifyTypeKey = AttachmentsKeys.ZisFaz_PeixJiangz_JiaosPeixKec + AttachmentsKeys.Vertify;
-			var atta = new AttachmentsDataModel
-			{
-				Type = attachmentTypeKey,
-				Name = model.AttachmentName,
-				Url = model.AttachmentUrl,
-				UserId = UserProfile.UserId
-			};
-			var vertAtta = new AttachmentsDataModel
-			{
-				Type = vertifyTypeKey,
-				Name = model.VertificationName,
-				Url = model.VertificationUrl,
-				UserId = UserProfile.UserId
-			};
+         string attachmentTypeKey = AttachmentsKeys.ZisFaz_PeixJiangz_JiaosPeixKec,
+         vertifyTypeKey = AttachmentsKeys.ZisFaz_PeixJiangz_JiaosPeixKec + AttachmentsKeys.Vertify,
+         typeKey1 = attachmentTypeKey + AttachmentsKeys.StartStage,
+         typeKey2 = attachmentTypeKey + AttachmentsKeys.ProcessStage,
+         typeKey3 = attachmentTypeKey + AttachmentsKeys.EndStage;
 
-			DeclareActive data = null;
+         var atta1 = new AttachmentsDataModel
+         {
+            Type = typeKey1,
+            Name = model.AttachmentName1,
+            Url = model.AttachmentUrl1,
+            UserId = UserProfile.UserId
+         };
+
+         var atta2 = new AttachmentsDataModel
+         {
+            Type = typeKey2,
+            Name = model.AttachmentName2,
+            Url = model.AttachmentUrl2,
+            UserId = UserProfile.UserId
+         };
+
+         var atta3 = new AttachmentsDataModel
+         {
+            Type = typeKey3,
+            Name = model.AttachmentName3,
+            Url = model.AttachmentUrl3,
+            UserId = UserProfile.UserId
+         };
+
+         var vertAtta = new AttachmentsDataModel
+         {
+            Type = vertifyTypeKey,
+            Name = model.VertificationName,
+            Url = model.VertificationUrl,
+            UserId = UserProfile.UserId
+         };
+
+         DeclareActive data = null;
 
 			db.BeginTrans();
 
@@ -794,8 +823,10 @@ namespace TheSite.Controllers
 					};
 
 					db.DeclareActiveDal.Insert(data);
-					atta.JoinId = data.DeclareActiveId;
-					vertAtta.JoinId = data.DeclareActiveId;
+               atta1.JoinId = data.DeclareActiveId;
+               atta2.JoinId = data.DeclareActiveId;
+               atta3.JoinId = data.DeclareActiveId;
+               vertAtta.JoinId = data.DeclareActiveId;
 				}
 				else
 				{
@@ -811,14 +842,16 @@ namespace TheSite.Controllers
 					   .where(t.DeclareActiveId == id.Value)
 					   .execute(db);
 
-					AttachmentsExtensions.DeleteAttas(db, id.Value, new string[] { attachmentTypeKey, vertifyTypeKey });
-					atta.JoinId = id.Value;
-					vertAtta.JoinId = id.Value;
+					AttachmentsExtensions.DeleteAttas(db, id.Value, new string[] { typeKey1, typeKey2, typeKey3, vertifyTypeKey });
+               atta1.JoinId = id.Value;
+               atta2.JoinId = id.Value;
+               atta3.JoinId = id.Value;
+               vertAtta.JoinId = id.Value;
 
 					data = db.DeclareActiveDal.PrimaryGet(id.Value);
 				}
 
-				AttachmentsExtensions.InsertAttas(db, new AttachmentsDataModel[] { atta, vertAtta });
+				AttachmentsExtensions.InsertAttas(db, new AttachmentsDataModel[] { atta1, atta2, atta3, vertAtta });
 
 				//TODO: AddOrDelShare(atta.JoinId, model.ContentValue, ShareKeys.ActiveShare, model.IsShare);
 

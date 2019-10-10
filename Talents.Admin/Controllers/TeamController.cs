@@ -24,7 +24,7 @@ namespace TheSite.Controllers
       static APDBDef.TeamSpecialCourseItemTableDef tsci = APDBDef.TeamSpecialCourseItem;
       static APDBDef.DeclareMaterialTableDef dm = APDBDef.DeclareMaterial;
 
-      #region [ 导师访问自己的梯队 ]
+      #region [ 领衔人访问自己的团队 ]
 
 
       // GET: Team/Master
@@ -52,7 +52,7 @@ namespace TheSite.Controllers
       #endregion
 
 
-      #region [ 学员访问自己的梯队 ]
+      #region [ 学员访问自己的团队 ]
 
 
       // GET: Team/Member
@@ -86,24 +86,29 @@ namespace TheSite.Controllers
       {
          switch (key)
          {
-            case TeamKeys.TidXinx:
-               return TidXinx(teamId, visiter);
-            case TeamKeys.DaijJih:
-               return DaijJih(teamId, visiter);
-            case TeamKeys.DaijHuod:
-               return DaijHuod(teamId, visiter);
-            case TeamKeys.DaijHuod_Edit:
-               return DaijHuod_Edit(visiter, Int64.Parse(Request["activeId"]));
-            case TeamKeys.DaijHuod_Timeline:
-               return DaijHuod_Timeline(visiter, Int64.Parse(Request["activeId"]));
-            case TeamKeys.KecShis:
-               return KecShis(teamId, visiter);
-            case TeamKeys.KecShis_Bianj:
-               return KecShis_Bianj(teamId, visiter, courseId);
-            case TeamKeys.KecShis_Anp:
-               return KecShis_Anp(courseId.Value, visiter);
-            case TeamKeys.KecShis_Chak:
-               return KecShis_Detail(courseId.Value, visiter);
+            //case TeamKeys.TidXinx:
+            //   return TidXinx(teamId, visiter);
+            //case TeamKeys.DaijJih:
+            //   return DaijJih(teamId, visiter);
+            //case TeamKeys.DaijHuod:
+            //   return DaijHuod(teamId, visiter);
+            //case TeamKeys.DaijHuod_Edit:
+            //   return DaijHuod_Edit(visiter, Int64.Parse(Request["activeId"]));
+            //case TeamKeys.DaijHuod_Timeline:
+            //   return DaijHuod_Timeline(visiter, Int64.Parse(Request["activeId"]));
+            //case TeamKeys.KecShis:
+            //   return KecShis(teamId, visiter);
+            //case TeamKeys.KecShis_Bianj:
+            //   return KecShis_Bianj(teamId, visiter, courseId);
+            //case TeamKeys.KecShis_Anp:
+            //   return KecShis_Anp(courseId.Value, visiter);
+            //case TeamKeys.KecShis_Chak:
+            //   return KecShis_Detail(courseId.Value, visiter);
+
+            case TeamKeys.TuanDXinx:
+               return TuanDXinx(teamId, visiter);
+            case TeamKeys.YanxHuod:
+               return YanxHuod(teamId,visiter);
          }
 
          return Content("该项目无效");
@@ -181,12 +186,12 @@ namespace TheSite.Controllers
       }
 
 
-      #region [ 梯队信息 ]
+      #region [ 团队信息 ]
 
 
       // GET: Team/TidXinx
 
-      public ActionResult TidXinx(long teamId, string visiter)
+      public ActionResult TuanDXinx(long teamId, string visiter)
       {
          var model = APQuery.select(d.Asterisk, u.RealName)
             .from(d, u.JoinInner(d.TeacherId == u.UserId))
@@ -206,11 +211,11 @@ namespace TheSite.Controllers
 
          if (visiter.ToLower() != "master")
          {
-            return PartialView("TidXinxView", model);
+            return PartialView("TuanDXinxView", model);
          }
          else
          {
-            return PartialView("TidXinx", model);
+            return PartialView("TuanDXinx", model);
          }
       }
 
@@ -218,94 +223,12 @@ namespace TheSite.Controllers
       #endregion
 
 
-      #region [ 带教计划 ]
+      #region [ 研修活动 ]
 
 
-      // GET: Team/DaijJih
-      //	POST-ajax: Team/DaijJih
+      // GET: Team/YanxHuod
 
-      public ActionResult DaijJih(long teamId, string visiter)
-      {
-         var list = QueryTeamContent(teamId, TeamKeys.DaijJih);
-
-         DaijJihModel model = new DaijJihModel();
-
-         list.ForEach(m =>
-         {
-            if (m.ContentKey == TeamKeys.DaijJih_Memo1)
-            {
-               model.Memo1 = m.ContentValue;
-               model.IsDeclare1 = m.IsDeclare;
-            }
-            else if (m.ContentKey == TeamKeys.DaijJih_Memo2)
-            {
-               model.Memo2 = m.ContentValue;
-               model.IsDeclare2 = m.IsDeclare;
-            }
-            else if (m.ContentKey == TeamKeys.DaijJih_Memo3)
-            {
-               model.Memo3 = m.ContentValue;
-               model.IsDeclare3 = m.IsDeclare;
-            }
-         });
-
-         ViewBag.ID = teamId;
-
-         if (visiter.ToLower() != "master")
-         {
-            return PartialView("DaijJihView", model);
-         }
-         else
-         {
-            return PartialView("DaijJih", model);
-         }
-      }
-
-      [HttpPost]
-      [ValidateInput(false)]
-      
-      public ActionResult DaijJih(DaijJihModel model)
-      {
-         ThrowNotAjax();
-
-         db.BeginTrans();
-
-         try
-         {
-            SetTeamContent(TeamKeys.DaijJih_Memo1, model.Memo1, model.IsDeclare1);
-            SetTeamContent(TeamKeys.DaijJih_Memo2, model.Memo2, model.IsDeclare2);
-            SetTeamContent(TeamKeys.DaijJih_Memo3, model.Memo3, model.IsDeclare3);
-
-            db.Commit();
-         }
-         catch (System.Exception ex)
-         {
-            db.Rollback();
-
-            return Json(new
-            {
-               result = AjaxResults.Error,
-               msg = ex.Message
-            });
-         }
-
-         return Json(new
-         {
-            result = AjaxResults.Success,
-            msg = "信息已保存！"
-         });
-      }
-
-
-      #endregion
-
-
-      #region [ 带教活动 ]
-
-
-      // GET: Team/DaijHuod
-
-      public ActionResult DaijHuod(long teamId, string visiter)
+      public ActionResult YanxHuod(long teamId, string visiter)
       {
          var memberCount = (int)APQuery.select(tm.MemberId.Count())
             .from(tm)
@@ -334,20 +257,20 @@ namespace TheSite.Controllers
 
          if (visiter.ToLower() != "master")
          {
-            return PartialView("DaijHuodView", model);
+            return PartialView("YanxHuodView", model);
          }
          else
          {
-            return PartialView("DaijHuod", model);
+            return PartialView("YanxHuod", model);
          }
       }
 
 
-      //	POST-Ajax: Team/RemoveDaijHuod
+      //	POST-Ajax: Team/RemoveYanxHuod
 
       [HttpPost]
       
-      public ActionResult RemoveDaijHuod(long id)
+      public ActionResult RemoveYanxHuod(long id)
       {
          ThrowNotAjax();
 
@@ -364,7 +287,7 @@ namespace TheSite.Controllers
             db.TeamActiveDal.PrimaryDelete(id);
             db.TeamActiveResultDal.ConditionDelete(tar.ActiveId == id);
             db.TeamActiveItemDal.ConditionDelete(tai.ActiveId == id);
-            AttachmentsExtensions.DeleteAtta(db, id, AttachmentsKeys.DaijHuod_Edit);
+            AttachmentsExtensions.DeleteAtta(db, id, AttachmentsKeys.YanXHuod_Edit);
 
             APQuery.update(d)
                .set(d.ActiveCount.SetValue(APSqlRawExpr.Expr("ActiveCount - 1")))
@@ -413,7 +336,7 @@ namespace TheSite.Controllers
          {
             db.TeamActiveResultDal.PrimaryDelete(id);
 
-            AttachmentsExtensions.DeleteAtta(db, id, AttachmentsKeys.DaijHuod_XueyChengg);
+            AttachmentsExtensions.DeleteAtta(db, id, AttachmentsKeys.YanXHuod_XueyChengg);
 
             db.Commit();
          }
@@ -434,7 +357,7 @@ namespace TheSite.Controllers
       }
 
 
-      public ActionResult DaijHuod_Edit(string visiter, long activeId)
+      public ActionResult YanxHuod_Edit(string visiter, long activeId)
       {
          var model = new TeamActiveDataModel() { TeamId = UserProfile.UserId, Date = DateTime.Today, AttachmentName = "" };
 
@@ -460,25 +383,25 @@ namespace TheSite.Controllers
                }).First();
 
             var atta = AttachmentsExtensions.GetAttachment(
-               AttachmentsExtensions.GetAttachmentList(db, activeId, AttachmentsKeys.DaijHuod_Edit));
+               AttachmentsExtensions.GetAttachmentList(db, activeId, AttachmentsKeys.YanXHuod_Edit));
             model.AttachmentName = atta.Name;
             model.AttachmentUrl = atta.Url;
          };
 
 
-         return PartialView("DaijHuod_Edit", model);
+         return PartialView("YanxHuod_Edit", model);
       }
 
       [HttpPost]
       [ValidateInput(false)]
       
-      public ActionResult DaijHuod_Edit(long? id, TeamActiveDataModel model)
+      public ActionResult YanxHuod_Edit(long? id, TeamActiveDataModel model)
       {
          ThrowNotAjax();
 
          var atta = new AttachmentsDataModel()
          {
-            Type = AttachmentsKeys.DaijHuod_Edit,
+            Type = AttachmentsKeys.YanXHuod_Edit,
             Name = model.AttachmentName,
             Url = model.AttachmentUrl,
             UserId = UserProfile.UserId
@@ -544,7 +467,7 @@ namespace TheSite.Controllers
                   model.IsDeclare
                });
 
-               AttachmentsExtensions.DeleteAtta(db, id.Value, AttachmentsKeys.DaijHuod_Edit);
+               AttachmentsExtensions.DeleteAtta(db, id.Value, AttachmentsKeys.YanXHuod_Edit);
                atta.JoinId = id.Value;
                AttachmentsExtensions.InsertAtta(db, atta);
 
@@ -582,13 +505,13 @@ namespace TheSite.Controllers
       #endregion
 
 
-      #region [ 带教活动内容 ]
+      #region [ 研修活动内容 ]
 
 
       // GET: Team/Timeline
       //	POST-Ajax: Team/RemoveDaijHuod_Item
 
-      public ActionResult DaijHuod_Timeline(string visiter, long activeId)
+      public ActionResult YanxHuod_Timeline(string visiter, long activeId)
       {
          var model = APQuery.select(u.RealName, tai.SendDate, tai.ItemContent, tai.ItemId, tai.MemberId, ta.TeamId)
             .from(tai,
@@ -612,7 +535,7 @@ namespace TheSite.Controllers
 
          ViewBag.activeId = activeId;
 
-         return PartialView("DaijHuod_Timeline", model);
+         return PartialView("YanxHuod_Timeline", model);
       }
 
       [HttpPost]
@@ -632,180 +555,6 @@ namespace TheSite.Controllers
             result = AjaxResults.Success,
             msg = "信息已删除!"
          });
-      }
-
-
-      #endregion
-
-
-      #region [ 定向性课程实施 ]
-
-
-      // GET: Team/KecShis
-
-      public ActionResult KecShis(long teamId, string visiter)
-      {
-         var t = APDBDef.TeamSpecialCourse;
-
-         var model = APQuery.select(tsc.CourseId, tsc.StartDate, tsc.EndDate, tsc.Title, tsc.IsDeclare,
-            tsci.CourseId.Count().As("ItemCount"))
-            .from(tsc, tsci.JoinLeft(tsc.CourseId == tsci.CourseId))
-            .group_by(tsc.CourseId, tsc.StartDate, tsc.EndDate, tsc.Title, tsc.IsDeclare)
-            .where(tsc.TeamId == teamId)
-            .query(db, rd =>
-            {
-               TeamSpecialCourseViewModel data = new TeamSpecialCourseViewModel();
-               t.Fullup(rd, data, false);
-               data.ItemCount = Convert.ToInt32(rd["ItemCount"]);
-
-               return data;
-            }).ToList();
-
-
-         if (visiter.ToLower() != "master")
-         {
-            return PartialView("KecShisView", model);
-         }
-         else
-         {
-            return PartialView("KecShis", model);
-         }
-      }
-
-
-      //	POST_Ajax: Team/RemoveKecShis
-
-      [HttpPost]
-      
-      public ActionResult RemoveKecShis(long id)
-      {
-         ThrowNotAjax();
-
-         var period = Period;
-
-         db.BeginTrans();
-
-         try
-         {
-            db.TeamSpecialCourseDal.PrimaryDelete(id);
-            db.TeamSpecialCourseItemDal.ConditionDelete(tsci.CourseId == id);
-            db.DeclareMaterialDal.ConditionDelete(dm.ItemId == id & dm.PeriodId == period.PeriodId);
-
-            db.Commit();
-         }
-         catch (Exception ex)
-         {
-            db.Rollback();
-
-            return Json(new
-            {
-               result = AjaxResults.Error,
-               msg = ex.Message
-            });
-         }
-
-         //记录日志
-         Log(TeamKeys.KecShis_Delete, "删除:" + id);
-
-         return Json(new
-         {
-            result = AjaxResults.Success,
-            msg = "信息已删除！"
-         });
-      }
-
-
-      //	GET: Team/KecShis_Bianj
-      //	POST-Ajax: Team/KecShis_Bianj
-
-      public ActionResult KecShis_Bianj(long teamId, string visiter, long? courseId)
-      {
-         var model = courseId == null ? new TeamSpecialCourse()
-         {
-            TeamId = teamId,
-            StartDate = DateTime.Today,
-            EndDate = DateTime.Today.AddDays(7)
-         } :
-                                        db.TeamSpecialCourseDal.PrimaryGet(courseId.Value);
-
-
-         return PartialView("kecShis_Bianj", model);
-      }
-
-      [HttpPost]
-      [ValidateInput(false)]
-      public ActionResult KecShis_Bianj(long? id, TeamSpecialCourse model)
-      {
-         ThrowNotAjax();
-
-
-         if (id == null)
-         {
-            model.Creator = UserProfile.UserId;
-            model.CreateDate = DateTime.Now;
-            db.TeamSpecialCourseDal.Insert(model);
-         }
-         else
-         {
-            model.ModifyDate = DateTime.Now;
-            model.Modifier = UserProfile.UserId;
-            db.TeamSpecialCourseDal.Update(model);
-         }
-
-         //记录日志
-         var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-         Log(TeamKeys.KecShis_Bianj, doSomthing);
-
-
-         return Json(new
-         {
-            result = AjaxResults.Success,
-            msg = "信息已保存"
-         });
-      }
-
-
-      // GET: Team/KecShis_Anp
-
-      public ActionResult KecShis_Anp(long courseId, string visiter)
-      {
-         var model = db.TeamSpecialCourseItemDal.ConditionQuery(tsci.CourseId == courseId,
-            null, null, null).ToList();
-
-
-         return PartialView("KecShis_Anp", model);
-      }
-
-
-      // POST-Ajax: Team/KecShis_Anp
-
-      [HttpPost]
-      public ActionResult RemoveKecShis_Anp(long id)
-      {
-         ThrowNotAjax();
-
-         db.TeamSpecialCourseItemDal.PrimaryDelete(id);
-
-
-         //记录日志
-         Log(TeamKeys.KecShis_Anp, "删除:" + id);
-
-
-         return Json(new
-         {
-            result = AjaxResults.Success,
-            msg = "信息已删除！"
-         });
-      }
-
-
-      //	GET:　Team/KecShis_Detail
-
-      public ActionResult KecShis_Detail(long id, string visiter)
-      {
-         var model = db.TeamSpecialCourseDal.PrimaryGet(id);
-
-         return PartialView("KecShis_Detail", model);
       }
 
 

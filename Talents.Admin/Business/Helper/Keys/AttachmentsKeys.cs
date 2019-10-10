@@ -52,9 +52,9 @@
 
 		public const string XueyChengzJihFenx = "辅导梯队.学员成长计划分析";
 
-		public const string DaijHuod_Edit = "带教活动.编辑";
-		public const string DaijHuod_XueyChengg = "带教活动.学员成果";
-		public const string DaijHuod_HuodNeir = "带教活动.活动内容";
+		public const string YanXHuod_Edit = "研修活动.编辑";
+		public const string YanXHuod_XueyChengg = "研修活动.学员成果";
+		public const string YanXHuod_HuodNeir = "研修活动.活动内容";
 
 		public const string Shenb_JiaoyHuod_FahZuoy = "教育教学.教研活动.发挥作用";
 		public const string GerTes_QitShenf = "个人特色.其他身份";

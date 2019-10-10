@@ -123,7 +123,7 @@ namespace TheSite.Controllers
 				.from(tar, 
 						u.JoinInner(tar.MemberId == u.UserId),
 						ta.JoinInner(tar.ActiveId == ta.TeamActiveId),
-						at.JoinLeft(tar.ResultId == at.JoinId & at.Type == AttachmentsKeys.DaijHuod_XueyChengg))
+						at.JoinLeft(tar.ResultId == at.JoinId & at.Type == AttachmentsKeys.YanXHuod_XueyChengg))
 				.where(tar.ActiveId == id)
 				.query(db, rd =>
 				{
@@ -142,10 +142,10 @@ namespace TheSite.Controllers
 
 
 		//	学员填写成果
-		//	GET: TeamPop/DaijHuod_XueyChengg
-		//	POST-Ajax: TeamPop/DaijHuod_XueyChengg
+		//	GET: TeamPop/YanXHuod_XueyChengg
+		//	POST-Ajax: TeamPop/YanXHuod_XueyChengg
 
-		public ActionResult DaijHuod_XueyChengg(long activeId)
+		public ActionResult YanXHuod_XueyChengg(long activeId)
 		{
 			var model = db.TeamActiveResultDal.ConditionQuery(tar.ActiveId == activeId & 
 				tar.MemberId == UserProfile.UserId, null, null, null).FirstOrDefault();
@@ -158,7 +158,7 @@ namespace TheSite.Controllers
 			else
 			{
 				var atta = AttachmentsExtensions.GetAttachment(
-					AttachmentsExtensions.GetAttachmentList(db, model.ResultId, AttachmentsKeys.DaijHuod_XueyChengg));
+					AttachmentsExtensions.GetAttachmentList(db, model.ResultId, AttachmentsKeys.YanXHuod_XueyChengg));
 
 				if (atta != null && atta.Name.Length > 0)
 				{
@@ -168,18 +168,18 @@ namespace TheSite.Controllers
 			}
 
 
-			return PartialView("DaijHuod_XueyChengg", model);
+			return PartialView("YanXHuod_XueyChengg", model);
 		}
 
 		[HttpPost]
-		public ActionResult DaijHuod_XueyChengg(long? id, TeamActiveResult model)
+		public ActionResult YanXHuod_XueyChengg(long? id, TeamActiveResult model)
 		{
 			ThrowNotAjax();
 
 
 			var atta = new AttachmentsDataModel()
 			{
-				Type = AttachmentsKeys.DaijHuod_XueyChengg,
+				Type = AttachmentsKeys.YanXHuod_XueyChengg,
 				Name = model.AttachmentName,
 				Url = model.AttachmentUrl,
 				UserId = UserProfile.UserId
@@ -215,7 +215,7 @@ namespace TheSite.Controllers
                   model.ModifyDate
 					});
 
-					AttachmentsExtensions.DeleteAtta(db, id.Value, AttachmentsKeys.DaijHuod_XueyChengg);
+					AttachmentsExtensions.DeleteAtta(db, id.Value, AttachmentsKeys.YanXHuod_XueyChengg);
 					atta.JoinId = id.Value;
 				}
 
@@ -228,7 +228,7 @@ namespace TheSite.Controllers
             if (!string.IsNullOrEmpty(atta.Name))
                doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
 
-            Log(AttachmentsKeys.DaijHuod_XueyChengg, doSomthing);
+            Log(AttachmentsKeys.YanXHuod_XueyChengg, doSomthing);
          }
 			catch
 			{
@@ -260,7 +260,7 @@ namespace TheSite.Controllers
 
 			var atta = new AttachmentsDataModel()
 			{
-				Type = AttachmentsKeys.DaijHuod_XueyChengg,
+				Type = AttachmentsKeys.YanXHuod_XueyChengg,
 				Name = model.AttachmentName,
 				Url = model.AttachmentUrl,
 				UserId = UserProfile.UserId
@@ -291,7 +291,7 @@ namespace TheSite.Controllers
             if (!string.IsNullOrEmpty(atta.Name))
                doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
 
-            Log(AttachmentsKeys.DaijHuod_XueyChengg, doSomthing);
+            Log(AttachmentsKeys.YanXHuod_XueyChengg, doSomthing);
          }
 			catch
 			{
@@ -361,7 +361,7 @@ namespace TheSite.Controllers
 
          //记录日志
          var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-         Log(AttachmentsKeys.DaijHuod_HuodNeir, doSomthing);
+         Log(AttachmentsKeys.YanXHuod_HuodNeir, doSomthing);
 
 
          return Json(new

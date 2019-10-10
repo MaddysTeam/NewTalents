@@ -100,7 +100,7 @@ namespace TheSite.Controllers
                realName = u.RealName.GetValue(r),
                title = SubString(s.Title.GetValue(r)),
                parentType = s.ParentType.GetValue(r),
-               type = AttachmentsKeys.DaijHuod_Edit//s.Type.GetValue(r),
+               type = AttachmentsKeys.YanXHuod_Edit//s.Type.GetValue(r),
             };
          }).ToList();
 

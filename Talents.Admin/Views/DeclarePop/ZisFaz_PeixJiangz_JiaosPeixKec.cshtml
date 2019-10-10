@@ -13,105 +13,157 @@
 			</div>
 		</div>
 		<div class="widget-content">
-		@using (Html.BeginForm("ZisFaz_PeixJiangz_JiaosPeixKec", "DeclarePop", Model.DeclareActiveId == 0 ? null : new { id = Model.DeclareActiveId }, FormMethod.Post, new { @class = "form-horizontal", data_after_success = "afterDialogSuccess()" }))
-		{
-			@Html.HiddenFor(m=>m.DeclareTargetId)
-			<div class="row">
-				<fieldset class="col-md-12">
-					<div class="form-group">
-						@Html.LabelFor(m => m.Date, new { @class = "control-label col-md-3" })
-						<div class="col-md-9">
-							<div class="input-group date" data-provide="datepicker" data-date-language="zh-CN" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
-								@Html.TextBoxFor(m => m.Date, "{0:yyyy-MM-dd}", new { @class = "form-control" })
-								<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+			@using (Html.BeginForm("ZisFaz_PeixJiangz_JiaosPeixKec", "DeclarePop", Model.DeclareActiveId == 0 ? null : new { id = Model.DeclareActiveId }, FormMethod.Post, new { @class = "form-horizontal", data_after_success = "afterDialogSuccess()" }))
+			{
+				@Html.HiddenFor(m => m.DeclareTargetId)
+				<div class="row">
+					<fieldset class="col-md-12">
+						<div class="form-group">
+							@Html.LabelFor(m => m.Date, new { @class = "control-label col-md-3" })
+							<div class="col-md-9">
+								<div class="input-group date" data-provide="datepicker" data-date-language="zh-CN" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
+									@Html.TextBoxFor(m => m.Date, "{0:yyyy-MM-dd}", new { @class = "form-control" })
+									<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+								</div>
+								@Html.ValidationMessageFor(m => m.Date)
 							</div>
-							@Html.ValidationMessageFor(m => m.Date)
 						</div>
-					</div>
-					<div class="form-group">
-						@Html.LabelFor(m => m.Dynamic2, new { @class = "control-label col-md-3" })
-						<div class="col-md-9">
-							@Html.DropDownListFor(m => m.Dynamic2, new SelectList(LevelNames.PeixJiangz), new { @class = "form-control" })
+						<div class="form-group">
+							@Html.LabelFor(m => m.Dynamic2, new { @class = "control-label col-md-3" })
+							<div class="col-md-9">
+								@Html.DropDownListFor(m => m.Dynamic2, new SelectList(LevelNames.PeixJiangz), new { @class = "form-control" })
+							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						@Html.LabelFor(m => m.ContentValue, new { @class = "control-label col-md-3" })
-						<div class="col-md-9">
-							@Html.TextBoxFor(m => m.ContentValue, new { @class = "form-control" })
-							@Html.ValidationMessageFor(m => m.ContentValue)
+						<div class="form-group">
+							@Html.LabelFor(m => m.ContentValue, new { @class = "control-label col-md-3" })
+							<div class="col-md-9">
+								@Html.TextBoxFor(m => m.ContentValue, new { @class = "form-control" })
+								@Html.ValidationMessageFor(m => m.ContentValue)
+							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						@Html.LabelFor(m => m.Dynamic1, new { @class = "control-label col-md-3" })
-						<div class="col-md-9">
-							@Html.TextBoxFor(m => m.Dynamic1, new { @class = "form-control" })
-							@Html.ValidationMessageFor(m => m.Dynamic1)
+						<div class="form-group">
+							@Html.LabelFor(m => m.Dynamic1, new { @class = "control-label col-md-3" })
+							<div class="col-md-9">
+								@Html.TextBoxFor(m => m.Dynamic1, new { @class = "form-control" })
+								@Html.ValidationMessageFor(m => m.Dynamic1)
+							</div>
 						</div>
-					</div>
-					@*<div class="form-group">
-						@Html.LabelFor(m => m.IsShare, new { @class = "control-label col-md-3" })
-						<div class="col-md-9">
-							@Html.CheckBoxFor(m => m.IsShare, new { @style = "width:20px; height:20px;" })
+						@*<div class="form-group">
+								@Html.LabelFor(m => m.IsShare, new { @class = "control-label col-md-3" })
+								<div class="col-md-9">
+									@Html.CheckBoxFor(m => m.IsShare, new { @style = "width:20px; height:20px;" })
+								</div>
+							</div>*@
+						<div class="form-group">
+							@Html.LabelFor(m => m.IsDeclare, new { @class = "control-label col-md-3" })
+							<div class="col-md-9">
+								@Html.CheckBoxFor(m => m.IsDeclare, new { @style = "width:20px; height:20px;" })
+							</div>
 						</div>
-					</div>*@
-					<div class="form-group">
-						@Html.LabelFor(m => m.IsDeclare, new { @class = "control-label col-md-3" })
-						<div class="col-md-9">
-							@Html.CheckBoxFor(m => m.IsDeclare, new { @style = "width:20px; height:20px;" })
-						</div>
-					</div>
-					<div class="form-group">
-						@Html.LabelFor(m => m.AttachmentName, new { @class = "control-label col-md-3" })
-						<div class="col-md-9">
-							@Html.HiddenFor(m => m.AttachmentUrl)
-							@Html.TextAreaFor(m => m.AttachmentName, 5, 5, new { @style = "visibility:hidden;position:absolute;" })
-							<div class="input-group">
-								<div id="uploadName" class="form-control oversize upload-control">
 
-									@if (Model.AttachmentName != null && Model.AttachmentName != "")
-									{
-										foreach (var item in Model.AttachmentName.Split('|'))
+						<div class="form-group">
+							@Html.LabelFor(m => m.AttachmentName1, new { @class = "control-label col-md-3" })
+							<div class="col-md-9 uploadArea" id="uploadArea1">
+								@Html.HiddenFor(m => m.AttachmentUrl1, new { @class = "AttachmentUrl" })
+								@Html.TextAreaFor(m => m.AttachmentName1, 5, 5, new { @class = "AttachmentName", @style = "visibility:hidden;position:absolute;" })
+								<div class="input-group">
+									<div class="form-control oversize upload-control uploadItem">
+
+										@if (Model.AttachmentName1 != null && Model.AttachmentName1 != "")
 										{
-											<p>
-												<label title="@item">@(item.Length > 40 ? item.Substring(0, 37) + "..." : item)</label> <button type="button" class="btn btn-danger btn-xs btn-delete" onclick="delAttachment(this)">删除</button>
-											</p>
+											foreach (var item in Model.AttachmentName1.Split('|'))
+											{
+												<p>
+													<label title="@item">@(item.Length > 40 ? item.Substring(0, 37) + "..." : item)</label> <button type="button" class="btn btn-danger btn-xs btn-delete" onclick="delAttachment(this)">删除</button>
+												</p>
+											}
 										}
-									}
+									</div>
+									<span class="input-group-btn">
+										<button class="btn btn-danger btn-mulit-upload" type="button" id="btn-start1">附件上传</button>
+									</span>
 								</div>
-								<span class="input-group-btn">
-									<button class="btn btn-danger btn-upload" type="button" id="btn-upload">附件上传</button>
-								</span>
+								<div class="red">*支持多文件上传<br />*文件类型支持文本类型，图片和压缩包，每个文件不大于20M, <br /> *单个文件上传进度为100%表示上传成功</div>
+								@Html.ValidationMessageFor(m => m.AttachmentName1)
 							</div>
-							<div class="red">*支持多文件上传<br />*文件类型支持文本类型，图片和压缩包，每个文件不大于20M, <br /> *单个文件上传进度为100%表示上传成功</div>
-							@Html.ValidationMessageFor(m => m.AttachmentName)
 						</div>
-					</div>
-					<div class="form-group">
-						@Html.LabelFor(m => m.VertificationName, new { @class = "control-label col-md-3" })
-						<div class="col-md-9">
-							@Html.HiddenFor(m => m.VertificationUrl)
-							@Html.TextBoxFor(m => m.VertificationName, new { @style = "visibility:hidden;" })
-							<div class="input-group">
-								<div id="simpleUploadName" class="form-control">
-									@Html.Label("", Model.VertificationName)
+
+						<div class="form-group">
+							@Html.LabelFor(m => m.AttachmentName2, new { @class = "control-label col-md-3" })
+							<div class="col-md-9 uploadArea" id="uploadArea2">
+								@Html.HiddenFor(m => m.AttachmentUrl2, new { @class = "AttachmentUrl" })
+								@Html.TextAreaFor(m => m.AttachmentName2, 5, 5, new { @class = "AttachmentName", @style = "visibility:hidden;position:absolute;" })
+								<div class="input-group">
+									<div class="form-control oversize upload-control uploadItem">
+										@if (Model.AttachmentName2 != null && Model.AttachmentName2 != "")
+										{
+											foreach (var item in Model.AttachmentName2.Split('|'))
+											{
+												<p>
+													<label title="@item">@(item.Length > 40 ? item.Substring(0, 37) + "..." : item)</label> <button type="button" class="btn btn-danger btn-xs btn-delete" onclick="delAttachment(this)">删除</button>
+												</p>}
+										}
+									</div>
+									<span class="input-group-btn">
+										<button class="btn btn-danger btn-mulit-upload" type="button" id="btn-start2">附件上传</button>
+									</span>
 								</div>
-								<span class="input-group-btn">
-									<button class="btn btn-danger btn-upload" type="button" id="btn-vertifyUpload">证明文件上传</button>
-								</span>
+								<div class="red">*支持多文件上传<br />*文件类型支持文本类型，图片和压缩包，每个文件不大于20M, <br /> *单个文件上传进度为100%表示上传成功</div>
+								@Html.ValidationMessageFor(m => m.AttachmentName2)
 							</div>
-							<div class="red">*证明文件类型支持文本类型，图片和压缩包，文件不大于50M</div>
-							@Html.ValidationMessageFor(m => m.VertificationName)
 						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-9 col-lg-offset-3">
-							<button type="submit" class="btn btn-primary btn-block-half"><i class="fa fa-check-circle"></i> 保存</button>
-							<button type="button" class="btn btn-default btn-block-half" data-dismiss="modal">取消</button>
+
+						<div class="form-group">
+							@Html.LabelFor(m => m.AttachmentName3, new { @class = "control-label col-md-3" })
+							<div class="col-md-9 uploadArea" id="uploadArea3">
+								@Html.HiddenFor(m => m.AttachmentUrl3, new { @class = "AttachmentUrl" })
+								@Html.TextAreaFor(m => m.AttachmentName3, 5, 5, new { @class = "AttachmentName", @style = "visibility:hidden;position:absolute;" })
+								<div class="input-group">
+									<div class="form-control oversize upload-control uploadItem">
+										@if (Model.AttachmentName3 != null && Model.AttachmentName3 != "")
+										{
+											foreach (var item in Model.AttachmentName3.Split('|'))
+											{
+												<p>
+													<label title="@item">@(item.Length > 40 ? item.Substring(0, 37) + "..." : item)</label> <button type="button" class="btn btn-danger btn-xs btn-delete" onclick="delAttachment(this)">删除</button>
+												</p>}
+										}
+									</div>
+									<span class="input-group-btn">
+										<button class="btn btn-danger btn-mulit-upload" type="button" id="btn-start3">附件上传</button>
+									</span>
+								</div>
+								<div class="red">*支持多文件上传<br />*文件类型支持文本类型，图片和压缩包，每个文件不大于20M, <br /> *单个文件上传进度为100%表示上传成功</div>
+								@Html.ValidationMessageFor(m => m.AttachmentName3)
+							</div>
 						</div>
-					</div>
-				</fieldset>
-			</div>
-		}
+
+						<div class="form-group">
+							@Html.LabelFor(m => m.VertificationName, new { @class = "control-label col-md-3" })
+							<div class="col-md-9">
+								@Html.HiddenFor(m => m.VertificationUrl)
+								@Html.TextBoxFor(m => m.VertificationName, new { @style = "visibility:hidden;" })
+								<div class="input-group">
+									<div id="simpleUploadName" class="form-control">
+										@Html.Label("", Model.VertificationName)
+									</div>
+									<span class="input-group-btn">
+										<button class="btn btn-danger btn-upload" type="button" id="btn-vertifyUpload">证明文件上传</button>
+									</span>
+								</div>
+								<div class="red">*证明文件类型支持文本类型，图片和压缩包，文件不大于50M</div>
+								@Html.ValidationMessageFor(m => m.VertificationName)
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-9 col-lg-offset-3">
+								<button type="submit" class="btn btn-primary btn-block-half"><i class="fa fa-check-circle"></i> 保存</button>
+								<button type="button" class="btn btn-default btn-block-half" data-dismiss="modal">取消</button>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+			}
 		</div>
 
 	</div>
@@ -121,14 +173,21 @@
 
 <form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden"></form>
 <form action="@Url.Action("UploadFile", "Attachment")" class="hidden" id="fm-vertifyDropzone"></form>
+<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone1 hidden"></form>
+<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone2 hidden"></form>
+<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone3 hidden"></form>
 
 <script>
 
 	$(function () {
 
 		ajaxSubmitForm($('.modal-dialog form'));
+
 		//多文件上传
-		ajaxBindFileUpload();
+		ajaxMultipleFileUpload($('.dropzone1'), $('#btn-start1'), $('#uploadArea1'));
+		ajaxMultipleFileUpload($('.dropzone2'), $('#btn-start2'), $('#uploadArea2'));
+		ajaxMultipleFileUpload($('.dropzone3'), $('#btn-start3'), $('#uploadArea3'));
+
 		//单文件上传
 		ajaxSimpleFileUpload('fm-vertifyDropzone', 'btn-vertifyUpload', function (file, data) {
 			$('#VertificationUrl').val(data.url);
@@ -137,7 +196,7 @@
 		}, function (file, message) {
 			popupMessage({ result: 'error', msg: message });
 		});
-		
+
 	})
 
 	function afterDialogSuccess() {

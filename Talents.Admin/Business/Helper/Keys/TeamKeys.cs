@@ -25,6 +25,10 @@
 		public const string KecShis_Chak = "定向性课程实施.查看";
       public const string KecShis_Delete = "定向性课程实施.删除";
 
+      public const string TuanDXinx = "团队信息";
+      public const string YanxHuod = "研修活动";
+      public const string ChengYJiBXinx="成员基本信息";
+
    }
 
 }

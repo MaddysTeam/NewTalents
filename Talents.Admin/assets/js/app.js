@@ -434,11 +434,15 @@ function ajaxMultipleFileUpload($dropZone,$button,$uploadArea) {
 
 //	删除附件
 
-function delAttachment(e) {
-	var current = $('.btn-delete').index(e);
+function delAttachment(e, $uploadArea) {
+	var $attachmentName = $uploadArea.find('.AttachmentName');
+	var $attachmentUrl = $uploadArea.find('.AttachmentUrl');
+	var $uploadNames = $uploadArea.find('.uploadItem');
+	var $progress = $uploadArea.find('.progress');
 
-	var name = $('#AttachmentName').val();
-	var url = $('#AttachmentUrl').val();
+	var current = $('.btn-delete').index(e);
+	var name = $attachmentName.val();
+	var url = $attachmentUrlf.val();
 
 	var nameArray = name.split('|');
 	var tempName = '';
@@ -459,10 +463,10 @@ function delAttachment(e) {
 	tempName = tempName.length > 0 ? tempName.substring(0, tempName.lastIndexOf('|')) : tempName;
 	tempUrl = tempUrl.length > 0 ? tempUrl.substring(0, tempUrl.lastIndexOf('|')) : tempUrl;
 
-	$('#AttachmentName').val(tempName);
-	$('#AttachmentUrl').val(tempUrl);
-	$('#uploadName p:eq(' + current + ')').remove();
-	$(".progress").remove();
+	$attachmentName.val(tempName);
+	$attachmentUrl.val(tempUrl);
+	$uploadNames.find('p:eq(' + current + ')').remove();
+	$progress.remove();
 }
 
 function insureSummernot(selector) {

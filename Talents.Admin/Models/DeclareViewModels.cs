@@ -401,7 +401,28 @@ namespace TheSite.Models
 		[Display(Name = "级别")]
 		public string Dynamic2 { get; set; }
 
-	}
+
+      [Display(Name = "附件")]
+      public string AttachmentUrl1 { get; set; }
+
+      [Display(Name = "附件")]
+      public string AttachmentUrl2 { get; set; }
+
+      [Display(Name = "附件")]
+      public string AttachmentUrl3 { get; set; }
+
+      [Required]
+      [Display(Name = "课程纲要")]
+      public string AttachmentName1 { get; set; }
+
+      [Required]
+      [Display(Name = "中期实行")]
+      public string AttachmentName2 { get; set; }
+
+      [Required]
+      [Display(Name = "后期反馈")]
+      public string AttachmentName3 { get; set; }
+   }
 
 
 	public class ZisFaz_PeixJiangz_ZhuantJiangzModel : DeclareActiveModel
