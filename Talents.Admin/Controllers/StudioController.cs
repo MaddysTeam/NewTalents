@@ -28,7 +28,7 @@ namespace TheSite.Controllers
             ViewBag.CanEdit = current.BeginDate <= TodayEnd(DateTime.Now) && current.EndDate >= TodayStart(DateTime.Now);
          }
 
-         return View(model);
+         return PartialView(model);
 		}
 
 		[HttpPost]
@@ -61,12 +61,19 @@ namespace TheSite.Controllers
             model.PeriodId
 			});
 
-
-			return Json(new
+			if (Request.IsAjaxRequest())
 			{
-				result = AjaxResults.Success,
-				msg = "个人简档已保存！"
-			});
+
+				return Json(new
+				{
+					result = AjaxResults.Success,
+					msg = "个人简档已保存！"
+				});
+			}
+			else
+			{
+				return View();
+			}
 		}
 
 

@@ -73,16 +73,16 @@
 						</div>
 					</div>
 					<div class="form-group">
-						@Html.LabelFor(m => m.AttachmentName, new { @class = "control-label col-md-3" })
-						<div class="col-md-9">
-							@Html.HiddenFor(m => m.AttachmentUrl)
-							@Html.TextAreaFor(m => m.AttachmentName, 5, 5, new { @style = "visibility:hidden;position:absolute;" })
+						@Html.LabelFor(m => m.AttachmentName1, new { @class = "control-label col-md-3" })
+						<div class="col-md-9 uploadArea" id="uploadArea1">
+							@Html.HiddenFor(m => m.AttachmentUrl1, new { @class= "AttachmentUrl" })
+							@Html.TextAreaFor(m => m.AttachmentName1, 5, 5, new { @class = "AttachmentName", @style = "visibility:hidden;position:absolute;" })
 							<div class="input-group">
-								<div id="uploadName" class="form-control oversize upload-control">
+								<div class="form-control oversize upload-control uploadItem">
 
-									@if (Model.AttachmentName != null && Model.AttachmentName != "")
+									@if (Model.AttachmentName1 != null && Model.AttachmentName1 != "")
 									{
-										foreach (var item in Model.AttachmentName.Split('|'))
+										foreach (var item in Model.AttachmentName1.Split('|'))
 										{
 											<p>
 												<label title="@item">@(item.Length > 40 ? item.Substring(0, 37) + "..." : item)</label> <button type="button" class="btn btn-danger btn-xs btn-delete" onclick="delAttachment(this)">删除</button>
@@ -91,13 +91,64 @@
 									}
 								</div>
 								<span class="input-group-btn">
-									<button class="btn btn-danger btn-upload" type="button" id="btn-upload">附件上传</button>
+									<button class="btn btn-danger btn-mulit-upload" type="button" id="btn-start1" >附件上传</button>
 								</span>
 							</div>
 							<div class="red">*支持多文件上传<br />*文件类型支持文本类型，图片和压缩包，每个文件不大于20M, <br /> *单个文件上传进度为100%表示上传成功</div>
-							@Html.ValidationMessageFor(m => m.AttachmentName)
+							@Html.ValidationMessageFor(m => m.AttachmentName1)
 						</div>
 					</div>
+					
+					<div class="form-group">
+						@Html.LabelFor(m => m.AttachmentName2, new { @class = "control-label col-md-3" })
+						<div class="col-md-9 uploadArea" id="uploadArea2">
+							@Html.HiddenFor(m => m.AttachmentUrl2, new { @class = "AttachmentUrl" })
+							@Html.TextAreaFor(m => m.AttachmentName2, 5, 5, new { @class = "AttachmentName", @style = "visibility:hidden;position:absolute;" })
+							<div class="input-group">
+								<div class="form-control oversize upload-control uploadItem">
+									@if (Model.AttachmentName2 != null && Model.AttachmentName2 != "")
+									{
+										foreach (var item in Model.AttachmentName2.Split('|'))
+										{
+											<p>
+												<label title="@item">@(item.Length > 40 ? item.Substring(0, 37) + "..." : item)</label> <button type="button" class="btn btn-danger btn-xs btn-delete" onclick="delAttachment(this)">删除</button>
+											</p>}
+									}
+								</div>
+								<span class="input-group-btn">
+									<button class="btn btn-danger btn-mulit-upload" type="button" id="btn-start2">附件上传</button>
+								</span>
+							</div>
+							<div class="red">*支持多文件上传<br />*文件类型支持文本类型，图片和压缩包，每个文件不大于20M, <br /> *单个文件上传进度为100%表示上传成功</div>
+							@Html.ValidationMessageFor(m => m.AttachmentName2)
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(m => m.AttachmentName3, new { @class = "control-label col-md-3" })
+						<div class="col-md-9 uploadArea" id="uploadArea3">
+							@Html.HiddenFor(m => m.AttachmentUrl3, new { @class = "AttachmentUrl" })
+							@Html.TextAreaFor(m => m.AttachmentName3, 5, 5, new { @class = "AttachmentName", @style = "visibility:hidden;position:absolute;" })
+							<div class="input-group">
+								<div class="form-control oversize upload-control uploadItem">
+									@if (Model.AttachmentName3 != null && Model.AttachmentName3 != "")
+									{
+										foreach (var item in Model.AttachmentName3.Split('|'))
+										{
+											<p>
+												<label title="@item">@(item.Length > 40 ? item.Substring(0, 37) + "..." : item)</label> <button type="button" class="btn btn-danger btn-xs btn-delete" onclick="delAttachment(this)">删除</button>
+											</p>}
+									}
+								</div>
+								<span class="input-group-btn">
+									<button class="btn btn-danger btn-mulit-upload" type="button" id="btn-start3">附件上传</button>
+								</span>
+							</div>
+							<div class="red">*支持多文件上传<br />*文件类型支持文本类型，图片和压缩包，每个文件不大于20M, <br /> *单个文件上传进度为100%表示上传成功</div>
+							@Html.ValidationMessageFor(m => m.AttachmentName3)
+						</div>
+					</div>
+
 					<div class="form-group">
 						@Html.LabelFor(m => m.VertificationName, new { @class = "control-label col-md-3" })
 						<div class="col-md-9">
@@ -130,6 +181,10 @@
 
 </div>
 
+<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone1 hidden"></form>
+<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone2 hidden"></form>
+<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone3 hidden"></form>
+
 <form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden"></form>
 <form action="@Url.Action("UploadFile", "Attachment")" class="hidden" id="fm-vertifyDropzone"></form>
 
@@ -138,8 +193,11 @@
 	$(function () {
 
 		ajaxSubmitForm($('.modal-dialog form'));
-		//多文件上传
-		ajaxBindFileUpload();
+		
+		ajaxMultipleFileUpload($('.dropzone1'), $('#btn-start1'), $('#uploadArea1'));
+		ajaxMultipleFileUpload($('.dropzone2'), $('#btn-start2'), $('#uploadArea2'));
+		ajaxMultipleFileUpload($('.dropzone3'), $('#btn-start3'), $('#uploadArea3'));
+
 		//单文件上传
 		ajaxSimpleFileUpload('fm-vertifyDropzone', 'btn-vertifyUpload', function (file, data) {
 			$('#VertificationUrl').val(data.url);

@@ -366,6 +366,72 @@ function ajaxSimpleFileUpload(dropzoneId, btnUploadId, whenSuccess, whenError) {
 	});
 }
 
+function ajaxMultipleFileUpload($dropZone,$button,$uploadArea) {
+	var clock;
+	var $progress = $uploadArea.find('.progress');
+	var $progressBar = $uploadArea.find('.progress-bar');
+	var $AttachmentName = $uploadArea.find('.AttachmentName');
+	var $AttachmentUrl = $uploadArea.find('.AttachmentUrl');
+	var $uploadNames = $uploadArea.find('.uploadItem');
+
+	Dropzone.autoDiscover = false;
+	$dropZone.dropzone({
+		addedContainer: '#flyArea',
+		dictResponseError: '上传出错',
+		dictFileTooBig: '上传文件大小({{filesize}}MiB) 最大文件大小 ({{maxFilesize}}MiB)',
+		maxFilesize: 200,
+		parallelUploads: 1,
+		uploadMultiple: false,
+		init: function () {
+			this.on("processing", function (i) {
+				clearInterval(clock);
+				var i = 0;
+				$progress.remove();
+				$uploadArea.append(function () {
+					return '<div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"><span class="sr-only"></span></div></div>';
+				})
+				clock = setInterval(function () {
+					$progress.show();
+					if (i <= 99) {
+						$progressBar.css('width', parseInt(++i) + "%").text(i + '%');
+					}
+				}, 500)
+			})
+			this.on("totaluploadprogress", function (file, progress, bytesSent) {
+
+			})
+			this.on('success', function (file, data) {
+				clearInterval(clock);
+				if (data.result == 'error') {
+					popupMessage({ result: 'error', msg: data.msg });
+					$progress.remove();
+					return;
+				}
+				$progressBar.css('width', '100%').text('100%');
+
+				var url = $AttachmentUrl.val();
+				url = url.length > 0 ? url + "|" : url;
+				var name = $AttachmentName.val();
+				name = name.length > 0 ? name + "|" : name;
+				$AttachmentUrl.val(url + data.url);
+				$AttachmentName.val(name + data.filename);
+				var showName = data.filename.length > 40 ? data.filename.substring(0, 37) + "..." : data.filename;
+				$uploadNames.append('<p><label title="' + data.filename + '">' + showName + '</label> <button type="button" class="btn btn-danger btn-xs btn-delete" onclick="delAttachment(this)">删除</button></p>');
+			});
+			this.on('error', function (file, message) {
+				popupMessage({ result: 'error', msg: message });
+			});
+		}
+	});
+
+	// proxy click event to dropzone.
+	$button.on('click', function () {
+		$dropZone.trigger('click');
+		$progress.hide();
+		$progressBar.attr('style', 'width:0%');
+	});
+}
+
 //	删除附件
 
 function delAttachment(e) {

@@ -5,6 +5,7 @@
 	{
 
 		public const string ZisFaz = "自身发展";
+		public const string ZisFaz_GerXinx = "自身发展.个人信息";
 		public const string ZisFaz_GerChengj = "自身发展.个人成就";
 		public const string ZisFaz_GerJianl = "自身发展.个人简历";
 		public const string ZisFaz_GerChengj_Memo1 = "自身发展.个人成就.研究成果";

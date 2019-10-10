@@ -55,6 +55,8 @@ namespace Business
 
 		public static void InsertAtta(APDBDef db, AttachmentsDataModel model)
 		{
+			if (null == model || string.IsNullOrEmpty(model.Name)) return;
+
 			var nameArray = model.Name.Split('|');
 			var urlArray = model.Url.Split('|');
 

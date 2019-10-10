@@ -1,27 +1,27 @@
 ﻿@model BzUserProfile
 @{
-	var pageTitle = ViewBag.Title = "个人简档";
+	var pageTitle = ViewBag.Title = "个人信息";
 
 	var period = ViewBag.CurrentPeriod as ProfileModifyPeriod;
 	var canEdit = period==null || ViewBag.CanEdit != null && (bool)ViewBag.CanEdit;
 }
 
-<div class="col-md-10 content-wrapper">
-	<div class="row">
+<div>
+	@*<div class="row">
 		<div class="col-lg-4 ">
 			<ul class="breadcrumb">
 				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
 				<li class="active">@pageTitle</li>
 			</ul>
 		</div>
-	</div>
+	</div>*@
 
 	<!-- main -->
 	<div class="content">
-		<div class="main-header">
+		@*<div class="main-header">
 			<h2><i class="fa fa-users"></i> @pageTitle</h2>
 			<em>编辑个人简档</em>
-		</div>
+		</div>*@
 
 		<div class="main-content">
 
@@ -30,13 +30,11 @@
 				<div class="widget-header">
 					<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
 					<div class="btn-group widget-header-toolbar">
-						<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
-						<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
 					</div>
 				</div>
 				<div class="widget-content">
 
-					<div class="alert alert-danger alert-dismissable">
+					@*<div class="alert alert-danger alert-dismissable">
 						<a href="" class="close">×</a>
 						<strong> <i class="fa fa-warning"></i> 重要提示</strong>
 						<br />
@@ -45,7 +43,7 @@
 						<a href="@Url.Content("~/Attachments/temp/2016-2018年度虹教系统教师专业人才梯队各层级工作任务.doc")">2016-2018年度虹教系统教师专业人才梯队各层级工作任务</a>
 						<br />
 						<a href="@Url.Content("~/Attachments/temp/虹教系统教师专业人才梯队相关问题问答（一）.doc")">虹教系统教师专业人才梯队相关问题问答（一）</a>
-					</div>
+					</div>*@
 
 					@if (period != null)
 					{
@@ -254,7 +252,7 @@
 		</div>
 		<!-- /main -->
 	</div>
-	@section Scripts {
+
 		<script>
 			$(function () {
 
@@ -265,7 +263,7 @@
 					var $this = $(this);
 					var result = showDropErrorIfNotSeclectd($this.val() == 0, $this, $this.data('valRequired'))
 					if (!result) return false;
-				})
+				});
 
 				$('.btn-save').on('click', function () {
 					var res = false;
@@ -302,5 +300,8 @@
 					return true;
 				}
 			}
+
+
+			
 		</script>
-	}
+	
