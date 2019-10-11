@@ -29,7 +29,7 @@ namespace Business
 						RealName = u.RealName.GetValue(rd),
 						CompanyName = u.CompanyName.GetValue(rd),
 						Target = DeclareBaseHelper.DeclareTarget.GetName(d.DeclareTargetPKID.GetValue(rd)),
-						Subject = DeclareBaseHelper.DeclareSubject.GetName(d.DeclareSubjectPKID.GetValue(rd)),
+						//Subject = DeclareBaseHelper.DeclareSubject.GetName(d.DeclareSubjectPKID.GetValue(rd)),
 						Stage = DeclareBaseHelper.DeclareStage.GetName(d.DeclareStagePKID.GetValue(rd)),
 						ContentValue = tm.ContentValue.GetValue(rd),
 					};

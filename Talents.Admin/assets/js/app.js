@@ -93,114 +93,114 @@ var gridOptions = {
 
 $(function () {
 
-// district code
-$('.dc-ajax').select2({
-	ajax: {
-		url: '/DistrictCode/Filter',
-		dataType: 'json',
-		type: 'post',
-		delay: 250,
-		data: function (params) {
-			return {
-				match: params.term, // search term
-				page: params.page
-			};
+	// district code
+	$('.dc-ajax').select2({
+		ajax: {
+			url: '/DistrictCode/Filter',
+			dataType: 'json',
+			type: 'post',
+			delay: 250,
+			data: function (params) {
+				return {
+					match: params.term, // search term
+					page: params.page
+				};
+			},
+			processResults: function (data, params) {
+				params.page = params.page || 1;
+				return {
+					results: data.items,
+					pagination: {
+						more: (params.page * 30) < data.total
+					}
+				};
+			},
+			cache: false
 		},
-		processResults: function (data, params) {
-			params.page = params.page || 1;
-			return {
-				results: data.items,
-				pagination: {
-					more: (params.page * 30) < data.total
-				}
-			};
+		escapeMarkup: function (markup) { return markup; },
+		minimumInputLength: 2,
+		templateResult: function (repo) {
+			if (repo.loading) return repo.text;
+			return "<adiv class='clearfix'>" + repo.name + "<span class='pull-right'>" + repo.id + "</span></div>";
 		},
-		cache: false
-	},
-	escapeMarkup: function (markup) { return markup; },
-	minimumInputLength: 2,
-	templateResult: function (repo) {
-		if (repo.loading) return repo.text;
-		return "<adiv class='clearfix'>" + repo.name + "<span class='pull-right'>" + repo.id + "</span></div>";
-	},
-	templateSelection: function (repo) {
-		return repo.name || repo.text;
-	},
-	inputTooShort: function (args) {
-		var remainingChars = args.minimum - args.input.length;
-
-		var message = 'Please ' + remainingChars + ' or more characters';
-
-		return message;
-	},
-
-})
-
-// student code
-$('.std-ajax').select2({
-	ajax: {
-		url: '/StudentChoose/Filter',
-		dataType: 'json',
-		type: 'post',
-		delay: 250,
-		data: function (params) {
-			var ret = {
-				match: params.term, // search term
-				page: params.page
-			};
-			if (getStdAjaxExt) { ret = getStdAjaxExt(ret); }
-			return ret;
+		templateSelection: function (repo) {
+			return repo.name || repo.text;
 		},
-		processResults: function (data, params) {
-			params.page = params.page || 1;
-			return {
-				results: data.items,
-				pagination: {
-					more: (params.page * 30) < data.total
-				}
-			};
+		inputTooShort: function (args) {
+			var remainingChars = args.minimum - args.input.length;
+
+			var message = 'Please ' + remainingChars + ' or more characters';
+
+			return message;
 		},
-		cache: false
-	},
-	escapeMarkup: function (markup) { return markup; },
-	minimumInputLength: 1,
-	templateResult: function (repo) {
-		if (repo.loading) return repo.text;
-		return "<adiv class='clearfix'>" + repo.name + "<span class='pull-right'>" + repo.roll + "</span></div>";
-	},
-	templateSelection: function (repo) {
-		return repo.name || repo.text;
-	},
-	inputTooShort: function (args) {
-		var remainingChars = args.minimum - args.input.length;
 
-		var message = 'Please ' + remainingChars + ' or more characters';
+	})
 
-		return message;
-	},
+	// student code
+	$('.std-ajax').select2({
+		ajax: {
+			url: '/StudentChoose/Filter',
+			dataType: 'json',
+			type: 'post',
+			delay: 250,
+			data: function (params) {
+				var ret = {
+					match: params.term, // search term
+					page: params.page
+				};
+				if (getStdAjaxExt) { ret = getStdAjaxExt(ret); }
+				return ret;
+			},
+			processResults: function (data, params) {
+				params.page = params.page || 1;
+				return {
+					results: data.items,
+					pagination: {
+						more: (params.page * 30) < data.total
+					}
+				};
+			},
+			cache: false
+		},
+		escapeMarkup: function (markup) { return markup; },
+		minimumInputLength: 1,
+		templateResult: function (repo) {
+			if (repo.loading) return repo.text;
+			return "<adiv class='clearfix'>" + repo.name + "<span class='pull-right'>" + repo.roll + "</span></div>";
+		},
+		templateSelection: function (repo) {
+			return repo.name || repo.text;
+		},
+		inputTooShort: function (args) {
+			var remainingChars = args.minimum - args.input.length;
 
-})
+			var message = 'Please ' + remainingChars + ' or more characters';
 
-})
+			return message;
+		},
+
+	})
+
+});
 
 $(function () {
 
 	// ajax modal
 	$(document).on('click.bs.modal.data-api', '[data-toggle="ajax-modal"]', function (event) {
 		var $this = $(this),
-			 url = $this.data('url'),
-			 $target = $($this.data('target'));
+			url = $this.data('url'),
+			$target = $($this.data('target'));
 
 		$.get(url, function (response) {
 			// ajax get form content
 			$target
 				.html(response)
-				.modal({ backdrop: 'static', keyboard: false , show: true});
-				//.find('.form-control').first().focus();
+				.modal({ backdrop: 'static', keyboard: false, show: true });
+			//.find('.form-control').first().focus();
 		});
 	})
 
-})
+});
 
 $(function () {
 
@@ -219,7 +219,7 @@ $(function () {
 		$(window).trigger("resize")
 	})
 
-})
+});
 
 function ajaxSubmitForm(selector) {
 	$.validator.unobtrusive.parse(selector);
@@ -352,10 +352,12 @@ function ajaxSimpleFileUpload(dropzoneId, btnUploadId, whenSuccess, whenError) {
 				}
 				$(".progress-bar").css('width', '100%').text('100%');
 
-				whenSuccess & whenSuccess(file,data);
+				if(whenSuccess)
+					whenSuccess(file,data);
 			});
 			this.on('error', function (file, message) {
-				whenError & whenError(file,message);
+				if (whenError)
+				 whenError(file,message);
 			});
 		}
 	});
@@ -434,6 +436,37 @@ function ajaxMultipleFileUpload($dropZone,$button,$uploadArea) {
 
 //	删除附件
 
+function delAttachment(e) {
+	var current = $('.btn-delete').index(e);
+
+	var name = $('#AttachmentName').val();
+	var url = $('#AttachmentUrl').val();
+
+	var nameArray = name.split('|');
+	var tempName = '';
+	$.each(nameArray, function (index, item) {
+		if (current != index) {
+			tempName += item + '|';
+		}
+	})
+
+	var urlArray = url.split('|');
+	var tempUrl = '';
+	$.each(urlArray, function (index, item) {
+		if (current != index) {
+			tempUrl += item + '|';
+		}
+	})
+
+	tempName = tempName.length > 0 ? tempName.substring(0, tempName.lastIndexOf('|')) : tempName;
+	tempUrl = tempUrl.length > 0 ? tempUrl.substring(0, tempUrl.lastIndexOf('|')) : tempUrl;
+
+	$('#AttachmentName').val(tempName);
+	$('#AttachmentUrl').val(tempUrl);
+	$('#uploadName p:eq(' + current + ')').remove();
+	$(".progress").remove();
+}
+
 function delAttachment(e, $uploadArea) {
 	var $attachmentName = $uploadArea.find('.AttachmentName');
 	var $attachmentUrl = $uploadArea.find('.AttachmentUrl');
@@ -442,7 +475,7 @@ function delAttachment(e, $uploadArea) {
 
 	var current = $('.btn-delete').index(e);
 	var name = $attachmentName.val();
-	var url = $attachmentUrlf.val();
+	var url = $attachmentUrl.val();
 
 	var nameArray = name.split('|');
 	var tempName = '';

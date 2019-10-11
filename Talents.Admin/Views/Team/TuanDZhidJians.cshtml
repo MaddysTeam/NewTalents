@@ -1,0 +1,96 @@
+﻿@model ZhidJiansViewModel
+@{
+	var pageTitle = ViewBag.Title = TeamKeys.TuanDZhidJians;
+}
+
+<div class="widget">
+	<div class="widget-header">
+		<h3><i class="fa fa-paperclip"></i>@pageTitle</h3>
+		<div class="btn-group widget-header-toolbar">
+			<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+			<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+		</div>
+	</div>
+	<div class="widget-content">
+
+		@using (Html.BeginForm("TuanDZhidJians", "Team", FormMethod.Post, new { @class = "form-horizontal", data_after_success = "afterDialogSuccess()" }))
+		{
+			<div class="row">
+				<div class="red">&nbsp;&nbsp;&nbsp;*文件类型支持文本类型，图片和压缩包，文件不大于50M</div>
+				<fieldset class="col-md-12">
+
+						<div class="form-group">
+							@Html.LabelFor(m => m.AttachmentName1, new { @class = "control-label col-md-12" })
+							<div class="col-md-9">
+								@Html.HiddenFor(m => m.AttachmentUrl1)
+								@Html.TextBoxFor(m => m.AttachmentName1, new { @style = "visibility:hidden;" })
+								<div class="input-group">
+									<div id="simpleUploadName1" class="form-control">
+										@Html.Label("", Model.AttachmentName1)
+									</div>
+									<span class="input-group-btn">
+										<button class="btn btn-danger btn-upload" type="button" id="btn-upload1">文件上传</button>
+									</span>
+								</div>
+								@Html.ValidationMessageFor(m => m.AttachmentName1)
+							</div>
+						</div>
+
+						<div class="form-group">
+							@Html.LabelFor(m => m.AttachmentName2, new { @class = "control-label col-md-12" })
+							<div class="col-md-9">
+								@Html.HiddenFor(m => m.AttachmentUrl2)
+								@Html.TextBoxFor(m => m.AttachmentName2, new { @style = "visibility:hidden;" })
+								<div class="input-group">
+									<div id="simpleUploadName2" class="form-control">
+										@Html.Label("", Model.AttachmentName2)
+									</div>
+									<span class="input-group-btn">
+										<button class="btn btn-danger btn-upload" type="button" id="btn-upload2">文件上传</button>
+									</span>
+								</div>
+								
+								@Html.ValidationMessageFor(m => m.AttachmentName2)
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-sm-9 col-lg-offset-3">
+								<button type="submit" class="btn btn-primary btn-block-half"><i class="fa fa-check-circle"></i> 保存</button>
+							</div>
+						</div>
+
+				</fieldset>
+			</div>
+		}
+
+	</div>
+</div>
+
+<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="dropzone1"></form>
+<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="dropzone2"></form>
+
+<script>
+	$(function () {
+
+		ajaxSimpleFileUpload('dropzone1', 'btn-upload1', function (file, data) {
+			$('#AttachmentUrl1').val(data.url);
+			$('#AttachmentName1').val(data.filename);
+			$('#simpleUploadName1').html(data.filename);
+		},
+		 function (file, message) {
+		 	popupMessage({ result: 'error', msg: message });
+		 });
+
+		ajaxSimpleFileUpload('dropzone2', 'btn-upload2', function (file, data) {
+			$('#AttachmentUrl2').val(data.url);
+			$('#AttachmentName2').val(data.filename);
+			$('#simpleUploadName2').html(data.filename);
+		},
+		 function (file, message) {
+		 	popupMessage({ result: 'error', msg: message });
+		 });
+
+		ajaxSubmitForm($('form'));
+	});
+</script>

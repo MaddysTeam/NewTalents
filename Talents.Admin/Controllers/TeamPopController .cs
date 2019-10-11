@@ -18,11 +18,11 @@ namespace TheSite.Controllers
 		static APDBDef.TeamActiveTableDef ta = APDBDef.TeamActive;
 		static APDBDef.TeamContentTableDef tc = APDBDef.TeamContent;
 		static APDBDef.AttachmentsTableDef at = APDBDef.Attachments;
-      private static APDBDef.DeclareMaterialTableDef dm = APDBDef.DeclareMaterial;
+		private static APDBDef.DeclareMaterialTableDef dm = APDBDef.DeclareMaterial;
 
-      #region [ 学员的成长方向 ]
+		#region [ 学员的成长方向 ]
 
-      public ActionResult DaijHuod_Advice(long MemberId)
+		public ActionResult DaijHuod_Advice(long MemberId)
 		{
 			var model = new TeamMemberDataModel()
 			{
@@ -77,17 +77,17 @@ namespace TheSite.Controllers
 				{
 					AttachmentsExtensions.InsertAtta(db, atta);
 				}
-				
+
 				db.Commit();
 
 
-            //记录日志
-            var doSomthing = "修改";
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
+				//记录日志
+				var doSomthing = "修改";
+				if (!string.IsNullOrEmpty(atta.Name))
+					doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
 
-            Log(AttachmentsKeys.XueyChengzJihFenx, doSomthing);
-         }
+				Log(AttachmentsKeys.XueyChengzJihFenx, doSomthing);
+			}
 			catch (Exception ex)
 			{
 				db.Rollback();
@@ -118,9 +118,9 @@ namespace TheSite.Controllers
 
 		public ActionResult MemberResult(long id)
 		{
-			var model = APQuery.select(tar.ResultId, tar.MemberId, tar.ActiveResult, u.RealName, ta.TeamId, 
+			var model = APQuery.select(tar.ResultId, tar.MemberId, tar.ActiveResult, u.RealName, ta.TeamId,
 												at.AttachmentName, at.AttachmentUrl)
-				.from(tar, 
+				.from(tar,
 						u.JoinInner(tar.MemberId == u.UserId),
 						ta.JoinInner(tar.ActiveId == ta.TeamActiveId),
 						at.JoinLeft(tar.ResultId == at.JoinId & at.Type == AttachmentsKeys.YanXHuod_XueyChengg))
@@ -136,7 +136,7 @@ namespace TheSite.Controllers
 					return data;
 				}).ToList();
 
-			
+
 			return PartialView(model);
 		}
 
@@ -147,7 +147,7 @@ namespace TheSite.Controllers
 
 		public ActionResult YanXHuod_XueyChengg(long activeId)
 		{
-			var model = db.TeamActiveResultDal.ConditionQuery(tar.ActiveId == activeId & 
+			var model = db.TeamActiveResultDal.ConditionQuery(tar.ActiveId == activeId &
 				tar.MemberId == UserProfile.UserId, null, null, null).FirstOrDefault();
 
 
@@ -196,23 +196,23 @@ namespace TheSite.Controllers
 						ActiveResult = model.ActiveResult,
 						MemberId = UserProfile.UserId,
 						ActiveId = model.ActiveId,
-                  CreateDate=DateTime.Now,
-                  Creator= UserProfile.UserId
-               };
+						CreateDate = DateTime.Now,
+						Creator = UserProfile.UserId
+					};
 
 					db.TeamActiveResultDal.Insert(data);
 					atta.JoinId = data.ResultId;
 				}
 				else
 				{
-               model.Modifier = UserProfile.UserId;
-               model.ModifyDate = DateTime.Now;
+					model.Modifier = UserProfile.UserId;
+					model.ModifyDate = DateTime.Now;
 
 					db.TeamActiveResultDal.UpdatePartial(id.Value, new
 					{
 						model.ActiveResult,
-                  model.Modifier,
-                  model.ModifyDate
+						model.Modifier,
+						model.ModifyDate
 					});
 
 					AttachmentsExtensions.DeleteAtta(db, id.Value, AttachmentsKeys.YanXHuod_XueyChengg);
@@ -223,13 +223,13 @@ namespace TheSite.Controllers
 				db.Commit();
 
 
-            //记录日志
-            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
+				//记录日志
+				var doSomthing = id == null ? "新增:" + id : "修改:" + id;
+				if (!string.IsNullOrEmpty(atta.Name))
+					doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
 
-            Log(AttachmentsKeys.YanXHuod_XueyChengg, doSomthing);
-         }
+				Log(AttachmentsKeys.YanXHuod_XueyChengg, doSomthing);
+			}
 			catch
 			{
 				db.Rollback();
@@ -276,9 +276,9 @@ namespace TheSite.Controllers
 					ActiveResult = model.ActiveResult,
 					MemberId = UserProfile.UserId,
 					ActiveId = model.ActiveId,
-               CreateDate=DateTime.Now,
-               Creator= UserProfile.UserId
-            };
+					CreateDate = DateTime.Now,
+					Creator = UserProfile.UserId
+				};
 
 				db.TeamActiveResultDal.Insert(data);
 				atta.JoinId = data.ResultId;
@@ -286,18 +286,18 @@ namespace TheSite.Controllers
 
 				db.Commit();
 
-            //记录日志
-            var doSomthing = "新增";
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
+				//记录日志
+				var doSomthing = "新增";
+				if (!string.IsNullOrEmpty(atta.Name))
+					doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
 
-            Log(AttachmentsKeys.YanXHuod_XueyChengg, doSomthing);
-         }
+				Log(AttachmentsKeys.YanXHuod_XueyChengg, doSomthing);
+			}
 			catch
 			{
 				db.Rollback();
 			}
-			
+
 
 
 			return Json(new
@@ -359,12 +359,12 @@ namespace TheSite.Controllers
 			}
 
 
-         //记录日志
-         var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-         Log(AttachmentsKeys.YanXHuod_HuodNeir, doSomthing);
+			//记录日志
+			var doSomthing = id == null ? "新增:" + id : "修改:" + id;
+			Log(AttachmentsKeys.YanXHuod_HuodNeir, doSomthing);
 
 
-         return Json(new
+			return Json(new
 			{
 				result = AjaxResults.Success,
 				msg = "信息已保存！"
@@ -440,12 +440,12 @@ namespace TheSite.Controllers
 			}
 
 
-         //记录日志
-         var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-         Log("定向性课程实施.带教安排", doSomthing);
+			//记录日志
+			var doSomthing = id == null ? "新增:" + id : "修改:" + id;
+			Log("定向性课程实施.带教安排", doSomthing);
 
 
-         return Json(new
+			return Json(new
 			{
 				result = AjaxResults.Success,
 				msg = "信息已保存！"
@@ -465,13 +465,13 @@ namespace TheSite.Controllers
 			var model = db.TeamContentDal.ConditionQuery(
 				tc.TeamId == UserProfile.UserId & tc.ContentKey == TeamKeys.DaijJih_Memo1,
 				null, null, null).FirstOrDefault();
-			 
+
 			return PartialView("Memo1", model);
 		}
 
 		[HttpPost]
-      
-      public ActionResult Memo1(long? id, TeamContent model)
+
+		public ActionResult Memo1(long? id, TeamContent model)
 		{
 			ThrowNotAjax();
 
@@ -488,25 +488,25 @@ namespace TheSite.Controllers
 			{
 				model.Modifier = UserProfile.UserId;
 				model.ModifyDate = DateTime.Now;
-            model.ContentKey = TeamKeys.DaijJih_Memo1;
+				model.ContentKey = TeamKeys.DaijJih_Memo1;
 
-            db.TeamContentDal.UpdatePartial(id.Value, new
+				db.TeamContentDal.UpdatePartial(id.Value, new
 				{
 					model.ContentValue,
 					model.Modifier,
 					model.ModifyDate,
-               model.IsDeclare
+					model.IsDeclare
 				});
-         }
+			}
 
-         DeclareMaterialHelper.AddDeclareMaterial(model, Period,db);
+			DeclareMaterialHelper.AddDeclareMaterial(model, Period, db);
 
-         //记录日志
-         var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-         Log("培养目标", doSomthing);
+			//记录日志
+			var doSomthing = id == null ? "新增:" + id : "修改:" + id;
+			Log("培养目标", doSomthing);
 
 
-         return Json(new
+			return Json(new
 			{
 				result = AjaxResults.Success,
 				msg = "信息已保存!"
@@ -536,20 +536,20 @@ namespace TheSite.Controllers
 					AttachmentsExtensions.GetAttachmentList(db, UserProfile.UserId, AttachmentsKeys.DaijJih_Memo2));
 				model.AttachmentName = atta.Name;
 				model.AttachmentUrl = atta.Url;
-            model.IsDeclare = data.IsDeclare;
+				model.IsDeclare = data.IsDeclare;
 			}
-		
+
 			return PartialView("Memo2", model);
 		}
 
 		[HttpPost]
 		[ValidateInput(false)]
-      
-      public ActionResult Memo2(long? id, TeamJutJihModel model)
+
+		public ActionResult Memo2(long? id, TeamJutJihModel model)
 		{
 			ThrowNotAjax();
 
-         var atta = new AttachmentsDataModel()
+			var atta = new AttachmentsDataModel()
 			{
 				Type = AttachmentsKeys.DaijJih_Memo2,
 				Name = model.AttachmentName,
@@ -559,24 +559,23 @@ namespace TheSite.Controllers
 			};
 
 
-         TeamContent data = null;
+			TeamContent data = null;
 
-         db.BeginTrans();
+			db.BeginTrans();
 
 			try
 			{
-
 				if (id == null)
 				{
-				   data = new TeamContent()
+					data = new TeamContent()
 					{
 						ContentKey = TeamKeys.DaijJih_Memo2,
 						ContentValue = model.ContentValue,
 						TeamId = UserProfile.UserId,
 						CreateDate = DateTime.Now,
 						Creator = UserProfile.UserId,
-                  IsDeclare = model.IsDeclare
-            };
+						IsDeclare = model.IsDeclare
+					};
 
 					db.TeamContentDal.Insert(data);
 				}
@@ -587,29 +586,29 @@ namespace TheSite.Controllers
 						ContentValue = model.ContentValue,
 						Modifier = UserProfile.UserId,
 						ModifyDate = DateTime.Now,
-                  IsDeclare=model.IsDeclare
-               });
+						IsDeclare = model.IsDeclare
+					});
 
-               data = db.TeamContentDal.PrimaryGet(id.Value);
+					data = db.TeamContentDal.PrimaryGet(id.Value);
 
-               AttachmentsExtensions.DeleteAtta(db, UserProfile.UserId, AttachmentsKeys.DaijJih_Memo2);
+					AttachmentsExtensions.DeleteAtta(db, UserProfile.UserId, AttachmentsKeys.DaijJih_Memo2);
 				}
 
 				AttachmentsExtensions.InsertAtta(db, atta);
 
-            data.IsDeclare = model.IsDeclare;
-            DeclareMaterialHelper.AddDeclareMaterial(data, Period, db);
+				data.IsDeclare = model.IsDeclare;
+				DeclareMaterialHelper.AddDeclareMaterial(data, Period, db);
 
-            db.Commit();
+				db.Commit();
 
 
-            //记录日志
-            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
+				//记录日志
+				var doSomthing = id == null ? "新增:" + id : "修改:" + id;
+				if (!string.IsNullOrEmpty(atta.Name))
+					doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
 
-            Log(AttachmentsKeys.DaijJih_Memo2, doSomthing);
-         }
+				Log(AttachmentsKeys.DaijJih_Memo2, doSomthing);
+			}
 			catch (Exception ex)
 			{
 				db.Rollback();
@@ -652,19 +651,19 @@ namespace TheSite.Controllers
 					AttachmentsExtensions.GetAttachmentList(db, UserProfile.UserId, AttachmentsKeys.DaijJih_Memo3));
 				model.AttachmentName = atta.Name;
 				model.AttachmentUrl = atta.Url;
-            model.IsDeclare = data.IsDeclare;
+				model.IsDeclare = data.IsDeclare;
 			}
 
 			return PartialView("Memo3", model);
 		}
 
 		[HttpPost]
-      
-      public ActionResult Memo3(long? id, TeamDaijXiaojModel model)
+
+		public ActionResult Memo3(long? id, TeamDaijXiaojModel model)
 		{
 			ThrowNotAjax();
 
-         var atta = new AttachmentsDataModel()
+			var atta = new AttachmentsDataModel()
 			{
 				Type = AttachmentsKeys.DaijJih_Memo3,
 				Name = model.AttachmentName,
@@ -673,23 +672,23 @@ namespace TheSite.Controllers
 				JoinId = UserProfile.UserId
 			};
 
-         TeamContent data = null;
+			TeamContent data = null;
 
-         db.BeginTrans();
+			db.BeginTrans();
 
 			try
 			{
 
 				if (id == null)
 				{
-				   data = new TeamContent()
+					data = new TeamContent()
 					{
 						ContentKey = TeamKeys.DaijJih_Memo3,
 						ContentValue = model.ContentValue,
 						TeamId = UserProfile.UserId,
 						Creator = UserProfile.UserId,
 						CreateDate = DateTime.Now,
-                  IsDeclare=model.IsDeclare
+						IsDeclare = model.IsDeclare
 					};
 
 					db.TeamContentDal.Insert(data);
@@ -701,30 +700,30 @@ namespace TheSite.Controllers
 						ContentValue = model.ContentValue,
 						ModifyDate = DateTime.Now,
 						Modifier = UserProfile.UserId,
-                  IsDeclare = model.IsDeclare
-               });
+						IsDeclare = model.IsDeclare
+					});
 
 					AttachmentsExtensions.DeleteAtta(db, UserProfile.UserId, AttachmentsKeys.DaijJih_Memo3);
 
-               data = db.TeamContentDal.PrimaryGet(id.Value);
+					data = db.TeamContentDal.PrimaryGet(id.Value);
 
-            }
+				}
 
 				AttachmentsExtensions.InsertAtta(db, atta);
 
-            data.IsDeclare = model.IsDeclare;
-            DeclareMaterialHelper.AddDeclareMaterial(data, Period,db);
+				data.IsDeclare = model.IsDeclare;
+				DeclareMaterialHelper.AddDeclareMaterial(data, Period, db);
 
-            db.Commit();
+				db.Commit();
 
 
-            //记录日志
-            var doSomthing = id == null ? "新增:" + id : "修改:" + id;
-            if (!string.IsNullOrEmpty(atta.Name))
-               doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
+				//记录日志
+				var doSomthing = id == null ? "新增:" + id : "修改:" + id;
+				if (!string.IsNullOrEmpty(atta.Name))
+					doSomthing += string.Format(" 并且上传了附件:{0}", atta.Name);
 
-            Log(AttachmentsKeys.DaijJih_Memo3, doSomthing);
-         }
+				Log(AttachmentsKeys.DaijJih_Memo3, doSomthing);
+			}
 			catch (Exception ex)
 			{
 				db.Rollback();
@@ -745,26 +744,26 @@ namespace TheSite.Controllers
 		}
 
 
-      #endregion
+		#endregion
 
 
-      #region [Helper]
-  
-
-      private void Log(string where, string doSomthing)
-      {
-         LogFactory.Create().Log(new LogModel
-         {
-            UserID = UserProfile.UserId,
-            OperationDate = DateTime.Now,
-            Where = where,
-            DoSomthing = doSomthing
-         });
-      }
+		#region [Helper]
 
 
-      #endregion
+		private void Log(string where, string doSomthing)
+		{
+			LogFactory.Create().Log(new LogModel
+			{
+				UserID = UserProfile.UserId,
+				OperationDate = DateTime.Now,
+				Where = where,
+				DoSomthing = doSomthing
+			});
+		}
 
-   }
+
+		#endregion
+
+	}
 
 }

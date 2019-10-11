@@ -732,10 +732,10 @@ namespace TheSite.Controllers
 					var allAts = AttachmentsExtensions.GetAttachmentList(db, id.Value);
 					if (allAts.Count > 0)
 					{
-                  var ats1 = allAts.FindAll(a => a.Type == AttachmentsKeys.ZisFaz_KeyChengg_KetYanj + AttachmentsKeys.StartStage);
-                  var ats2 = allAts.FindAll(a => a.Type == AttachmentsKeys.ZisFaz_KeyChengg_KetYanj + AttachmentsKeys.ProcessStage);
-                  var ats3 = allAts.FindAll(a => a.Type == AttachmentsKeys.ZisFaz_KeyChengg_KetYanj + AttachmentsKeys.EndStage);
-                  var vts = allAts.FindAll(a => a.Type == AttachmentsKeys.ZisFaz_KeyChengg_KetYanj + AttachmentsKeys.Vertify);
+                  var ats1 = allAts.FindAll(a => a.Type == AttachmentsKeys.ZisFaz_PeixJiangz_JiaosPeixKec + AttachmentsKeys.StartStage);
+                  var ats2 = allAts.FindAll(a => a.Type == AttachmentsKeys.ZisFaz_PeixJiangz_JiaosPeixKec + AttachmentsKeys.ProcessStage);
+                  var ats3 = allAts.FindAll(a => a.Type == AttachmentsKeys.ZisFaz_PeixJiangz_JiaosPeixKec + AttachmentsKeys.EndStage);
+                  var vts = allAts.FindAll(a => a.Type == AttachmentsKeys.ZisFaz_PeixJiangz_JiaosPeixKec + AttachmentsKeys.Vertify);
                   var at1 = AttachmentsExtensions.GetAttachment(ats1);
                   var at2 = AttachmentsExtensions.GetAttachment(ats2);
                   var at3 = AttachmentsExtensions.GetAttachment(ats3);

@@ -380,22 +380,22 @@ namespace TheSite.Controllers
          #region [ 自身发展 ]
 
 
-         list.Add(new json_treenode { id = DeclareKeys.ZisFaz, text = "自身发展", type = json_treenode_types.database, children = new List<json_treenode>() });
+         //list.Add(new json_treenode { id = DeclareKeys.ZisFaz, text = "自身发展", type = json_treenode_types.database, children = new List<json_treenode>() });
 
-         var zisFaz = list.Find(m => m.id == DeclareKeys.ZisFaz);
+         //var zisFaz = list.Find(m => m.id == DeclareKeys.ZisFaz);
 
-         if (zisFaz != null)
-         {
-            zisFaz.children.Add(new json_treenode() { id = DeclareKeys.ZisFaz_GerXinx, text = "个人信息", type = json_treenode_types.content });
+         //if (zisFaz != null)
+         //{
+           list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_GerXinx, text = "个人信息", type = json_treenode_types.content });
             //zisFaz.children.Add(new json_treenode() { id = DeclareKeys.ZisFaz_GerJianl, text = "个人简历", type = json_treenode_types.content });
 
             //if (targetId != DeclareTargetIds.GaodLisz && targetId != DeclareTargetIds.JidZhucr)
             //{
             //zisFaz.children.Add(new json_treenode() { id = DeclareKeys.ZisFaz_GerSWOT, text = "个人SWOT分析", type = json_treenode_types.content });
-            zisFaz.children.Add(new json_treenode() { id = DeclareKeys.ZisFaz_ZiwFazJih, text = "自我发展计划", type = json_treenode_types.content });
+           list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_ZiwFazJih, text = "自我发展计划", type = json_treenode_types.content });
             // }
 
-            zisFaz.children.Add(new json_treenode()
+           list.Add(new json_treenode()
             {
                id = DeclareKeys.ZisFaz_JiaoxHuod,
                text = "课堂教学",
@@ -407,7 +407,7 @@ namespace TheSite.Controllers
 				 // new json_treenode() { id = DeclareKeys.ZisFaz_JiaoxHuod_JiaoxPingb, text = "参加教育教学评比", type = json_treenode_types.active }
 			   }
             });
-            zisFaz.children.Add(new json_treenode()
+           list.Add(new json_treenode()
             {
                id = DeclareKeys.ZisFaz_KeyChengg,
                text = "教育科研",
@@ -419,11 +419,11 @@ namespace TheSite.Controllers
 				 // new json_treenode() { id = DeclareKeys.ZisFaz_KeyChengg_LunzQingk, text="论著情况", type = json_treenode_types.active }
 			   }
             });
-            zisFaz.children.Add(new json_treenode() { id = DeclareKeys.ZisFaz_PeixJiangz_JiaosPeixKec, text = "课程开发", type = json_treenode_types.active });
-            zisFaz.children.Add(new json_treenode() { id = DeclareKeys.ZisFaz_PeixJiangz_ZhuantJiangz, text = "专题讲座", type = json_treenode_types.active });
-            zisFaz.children.Add(new json_treenode() { id = DeclareKeys.ZisFaz_XuesHuod, text = "带教教师", type = json_treenode_types.active });
-            zisFaz.children.Add(new json_treenode() { id = DeclareKeys.ZisFaz_ShiqjHuod, text = "市、区重大活动", type = json_treenode_types.active });
-            zisFaz.children.Add(new json_treenode() { id = DeclareKeys.ZisFaz_ZiwYanx, text = "自我研修", type = json_treenode_types.active });
+           list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_PeixJiangz_JiaosPeixKec, text = "课程开发", type = json_treenode_types.active });
+           list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_PeixJiangz_ZhuantJiangz, text = "专题讲座", type = json_treenode_types.active });
+           list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_XuesHuod, text = "带教教师", type = json_treenode_types.active });
+           list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_ShiqjHuod, text = "市、区重大活动", type = json_treenode_types.active });
+           list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_ZiwYanx, text = "自我研修", type = json_treenode_types.active });
 
             //zisFaz.children.Add(new json_treenode()
             //{
@@ -438,12 +438,12 @@ namespace TheSite.Controllers
             //});
             //if (DeclareTargetIds.AllowKecShis(targetId))
             //{
-            //var ZisFaz_PeixJiangz = zisFaz.children.Find(m => m.id == DeclareKeys.ZisFaz_PeixJiangz);
+            //var ZisFaz_PeixJiangz =list.Find(m => m.id == DeclareKeys.ZisFaz_PeixJiangz);
             //ZisFaz_PeixJiangz.children.Add(new json_treenode() { id = DeclareKeys.ZisFaz_PeixJiangz_DingxxKec, text = "开设定向性课程", type = json_treenode_types.active });
             //}
             //if (DeclareTargetIds.AllowKecZiy(targetId))
             //{
-            //ZisFaz_PeixJiangz = zisFaz.children.Find(m => m.id == DeclareKeys.ZisFaz_PeixJiangz);
+            //ZisFaz_PeixJiangz =list.Find(m => m.id == DeclareKeys.ZisFaz_PeixJiangz);
             //ZisFaz_PeixJiangz.children.Add(new json_treenode() { id = DeclareKeys.ZisFaz_PeixJiangz_KecZiyKaif, text = "课程资源开发", type = json_treenode_types.active });
             // }
             //if (DeclareTargetIds.AllowXuesHuod(targetId))
@@ -466,7 +466,7 @@ namespace TheSite.Controllers
             //}
 
 
-         }
+        // }
 
 
          #endregion
@@ -486,7 +486,7 @@ namespace TheSite.Controllers
          //{
          //	if (targetId != DeclareTargetIds.GongzsZhucr)
          //	{
-         zisFaz.children.Add(new json_treenode() { id = DeclareKeys.ZhidJians_YingxlDeGongz, text = "亮点特色", type = json_treenode_types.active });
+        list.Add(new json_treenode() { id = DeclareKeys.ZhidJians_YingxlDeGongz, text = "亮点特色", type = json_treenode_types.active });
          //	}
 
          //	ZhidJians.children.Add(new json_treenode() { id = DeclareKeys.ZhidJians_TesHuodKaiz, text = "特色活动开展", type = json_treenode_types.active });
@@ -591,16 +591,16 @@ namespace TheSite.Controllers
          #region [ 年底总结 ]
 
 
-         list.Add(new json_treenode { id = DeclareKeys.NiandZongj, text = "年底总结", type = json_treenode_types.database, children = new List<json_treenode>() });
+         //list.Add(new json_treenode { id = DeclareKeys.NiandZongj, text = "年底总结", type = json_treenode_types.database, children = new List<json_treenode>() });
 
-         var NiandZongj = list.Find(m => m.id == DeclareKeys.NiandZongj);
+         //var NiandZongj = list.Find(m => m.id == DeclareKeys.NiandZongj);
 
-         if (NiandZongj != null)
-         {
-            NiandZongj.children.Add(new json_treenode() { id = DeclareKeys.NiandZongj_Diyn, text = "第一年", type = json_treenode_types.content });
-            NiandZongj.children.Add(new json_treenode() { id = DeclareKeys.NiandZongj_Dien, text = "第二年", type = json_treenode_types.content });
-            NiandZongj.children.Add(new json_treenode() { id = DeclareKeys.NiandZongj_Disn, text = "第三年", type = json_treenode_types.content });
-         }
+         //if (NiandZongj != null)
+         //{
+         //   NiandZongj.children.Add(new json_treenode() { id = DeclareKeys.NiandZongj_Diyn, text = "第一年", type = json_treenode_types.content });
+         //   NiandZongj.children.Add(new json_treenode() { id = DeclareKeys.NiandZongj_Dien, text = "第二年", type = json_treenode_types.content });
+         //   NiandZongj.children.Add(new json_treenode() { id = DeclareKeys.NiandZongj_Disn, text = "第三年", type = json_treenode_types.content });
+         //}
 
 
          #endregion
@@ -676,7 +676,9 @@ namespace TheSite.Controllers
          if (DeclareTargetIds.HasTeam(targetId))
          {
             list.Add(new json_treenode { id = TeamKeys.TuanDXinx, text = "团队信息", type = json_treenode_types.content });
-            list.Add(new json_treenode { id = TeamKeys.YanxHuod, text = "研修活动", type = json_treenode_types.active });
+			list.Add(new json_treenode { id = TeamKeys.TuanDZhidJians, text = "团队制度建设和规划", type = json_treenode_types.content });
+			list.Add(new json_treenode { id = TeamKeys.TuanDXiangm, text = "团队项目", type = json_treenode_types.content });
+			list.Add(new json_treenode { id = TeamKeys.YanxHuod, text = "团队研修活动", type = json_treenode_types.active });
          }
 
 

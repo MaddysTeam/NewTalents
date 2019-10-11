@@ -85,6 +85,8 @@ namespace Business {
         
         private static TeamContentTableDef _teamContent;
         
+        private static TeamProjectTableDef _teamProject;
+        
         private static TeamActiveTableDef _teamActive;
         
         private static TeamActiveResultTableDef _teamActiveResult;
@@ -194,6 +196,8 @@ namespace Business {
         private APDalDef.TeamMemberDal _teamMemberDal;
         
         private APDalDef.TeamContentDal _teamContentDal;
+        
+        private APDalDef.TeamProjectDal _teamProjectDal;
         
         private APDalDef.TeamActiveDal _teamActiveDal;
         
@@ -618,6 +622,18 @@ namespace Business {
                     _teamContent = new TeamContentTableDef("TeamContent");
                 }
                 return _teamContent;
+            }
+        }
+        
+        /// <summary>
+        /// 梯队-项目 TableDef
+        /// </summary>
+        public static TeamProjectTableDef TeamProject {
+            get {
+                if ((_teamProject == null)) {
+                    _teamProject = new TeamProjectTableDef("TeamProject");
+                }
+                return _teamProject;
             }
         }
         
@@ -1270,6 +1286,18 @@ namespace Business {
         }
         
         /// <summary>
+        /// 梯队-项目 Dal
+        /// </summary>
+        public virtual APDalDef.TeamProjectDal TeamProjectDal {
+            get {
+                if ((_teamProjectDal == null)) {
+                    _teamProjectDal = new APDalDef.TeamProjectDal(this);
+                }
+                return _teamProjectDal;
+            }
+        }
+        
+        /// <summary>
         /// 梯队-活动 Dal
         /// </summary>
         public virtual APDalDef.TeamActiveDal TeamActiveDal {
@@ -1591,6 +1619,7 @@ namespace Business {
                 db.EvalDeclareResultItemDal.InitData(db);
                 db.TeamMemberDal.InitData(db);
                 db.TeamContentDal.InitData(db);
+                db.TeamProjectDal.InitData(db);
                 db.TeamActiveDal.InitData(db);
                 db.TeamActiveResultDal.InitData(db);
                 db.TeamActiveItemDal.InitData(db);
@@ -9595,6 +9624,266 @@ namespace Business {
             /// </summary>
             public virtual List<TeamContent> TolerantMapList(IDataReader reader) {
                 List<TeamContent> list = new List<TeamContent>();
+                try {
+                    for (; reader.Read(); ) {
+                        list.Add(TolerantMap(reader));
+                    }
+                }
+                finally {
+                    reader.Close();
+                }
+                return list;
+            }
+        }
+        
+        [Serializable()]
+        public partial class TeamProjectTableDef : APTableDef {
+            
+            private Int64APColumnDef _teamPojectId;
+            
+            private Int64APColumnDef _teamId;
+            
+            private Int64APColumnDef _teacherId;
+            
+            private StringAPColumnDef _contentKey;
+            
+            private StringAPColumnDef _declareUser;
+            
+            private StringAPColumnDef _declareCompany;
+            
+            private DateTimeAPColumnDef _fillDate;
+            
+            private DateTimeAPColumnDef _createDate;
+            
+            private Int64APColumnDef _creator;
+            
+            private DateTimeAPColumnDef _modifyDate;
+            
+            private Int64APColumnDef _modifier;
+            
+            public TeamProjectTableDef(string tableName) : 
+                    base(tableName) {
+            }
+            
+            protected TeamProjectTableDef(string tableName, string alias) : 
+                    base(tableName, alias) {
+            }
+            
+            /// <summary>
+            /// TeamPojectId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef TeamPojectId {
+                get {
+                    if (Object.ReferenceEquals(_teamPojectId, null)) {
+                        _teamPojectId = new Int64APColumnDef(this, "TeamPojectId", false);
+                        _teamPojectId.Display = "项目ID";
+                    }
+                    return _teamPojectId;
+                }
+            }
+            
+            /// <summary>
+            /// TeamId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef TeamId {
+                get {
+                    if (Object.ReferenceEquals(_teamId, null)) {
+                        _teamId = new Int64APColumnDef(this, "TeamId", false);
+                        _teamId.Display = "梯队ID";
+                    }
+                    return _teamId;
+                }
+            }
+            
+            /// <summary>
+            /// TeacherId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef TeacherId {
+                get {
+                    if (Object.ReferenceEquals(_teacherId, null)) {
+                        _teacherId = new Int64APColumnDef(this, "TeacherId", false);
+                        _teacherId.Display = "上传老师ID";
+                    }
+                    return _teacherId;
+                }
+            }
+            
+            /// <summary>
+            /// ContentKey ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef ContentKey {
+                get {
+                    if (Object.ReferenceEquals(_contentKey, null)) {
+                        _contentKey = new StringAPColumnDef(this, "ContentKey", false, 200);
+                        _contentKey.Display = "内容类别";
+                    }
+                    return _contentKey;
+                }
+            }
+            
+            /// <summary>
+            /// DeclareUser ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef DeclareUser {
+                get {
+                    if (Object.ReferenceEquals(_declareUser, null)) {
+                        _declareUser = new StringAPColumnDef(this, "DeclareUser", false, 200);
+                        _declareUser.Display = "申报人";
+                    }
+                    return _declareUser;
+                }
+            }
+            
+            /// <summary>
+            /// DeclareCompany ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef DeclareCompany {
+                get {
+                    if (Object.ReferenceEquals(_declareCompany, null)) {
+                        _declareCompany = new StringAPColumnDef(this, "DeclareCompany", false, 100);
+                        _declareCompany.Display = "申报人所在单位";
+                    }
+                    return _declareCompany;
+                }
+            }
+            
+            /// <summary>
+            /// FillDate ColumnDef
+            /// </summary>
+            public virtual DateTimeAPColumnDef FillDate {
+                get {
+                    if (Object.ReferenceEquals(_fillDate, null)) {
+                        _fillDate = new DateTimeAPColumnDef(this, "FillDate", false);
+                        _fillDate.Display = "填报时间";
+                    }
+                    return _fillDate;
+                }
+            }
+            
+            /// <summary>
+            /// CreateDate ColumnDef
+            /// </summary>
+            public virtual DateTimeAPColumnDef CreateDate {
+                get {
+                    if (Object.ReferenceEquals(_createDate, null)) {
+                        _createDate = new DateTimeAPColumnDef(this, "CreateDate", false);
+                        _createDate.Display = "创建时间";
+                    }
+                    return _createDate;
+                }
+            }
+            
+            /// <summary>
+            /// Creator ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef Creator {
+                get {
+                    if (Object.ReferenceEquals(_creator, null)) {
+                        _creator = new Int64APColumnDef(this, "Creator", false);
+                        _creator.Display = "创建人";
+                    }
+                    return _creator;
+                }
+            }
+            
+            /// <summary>
+            /// ModifyDate ColumnDef
+            /// </summary>
+            public virtual DateTimeAPColumnDef ModifyDate {
+                get {
+                    if (Object.ReferenceEquals(_modifyDate, null)) {
+                        _modifyDate = new DateTimeAPColumnDef(this, "ModifyDate", true);
+                        _modifyDate.Display = "修改时间";
+                    }
+                    return _modifyDate;
+                }
+            }
+            
+            /// <summary>
+            /// Modifier ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef Modifier {
+                get {
+                    if (Object.ReferenceEquals(_modifier, null)) {
+                        _modifier = new Int64APColumnDef(this, "Modifier", false);
+                        _modifier.Display = "修改人";
+                    }
+                    return _modifier;
+                }
+            }
+            
+            /// <summary>
+            /// Default Index
+            /// </summary>
+            public virtual APSqlOrderPhrase DefaultOrder {
+                get {
+                    return null;
+                }
+            }
+            
+            /// <summary>
+            /// Create a alias table
+            /// </summary>
+            public virtual TeamProjectTableDef As(string name) {
+                return new TeamProjectTableDef("TeamProject", name);
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual void Fullup(IDataReader reader, TeamProject data, bool throwIfValidColumnName) {
+                data.TeamPojectId = TeamPojectId.GetValue<long>(reader, throwIfValidColumnName);
+                data.TeamId = TeamId.GetValue<long>(reader, throwIfValidColumnName);
+                data.TeacherId = TeacherId.GetValue<long>(reader, throwIfValidColumnName);
+                data.ContentKey = ContentKey.GetValue<string>(reader, throwIfValidColumnName);
+                data.DeclareUser = DeclareUser.GetValue<string>(reader, throwIfValidColumnName);
+                data.DeclareCompany = DeclareCompany.GetValue<string>(reader, throwIfValidColumnName);
+                data.FillDate = FillDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
+                data.CreateDate = CreateDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
+                data.Creator = Creator.GetValue<long>(reader, throwIfValidColumnName);
+                data.ModifyDate = ModifyDate.GetValue<System.Nullable<System.DateTime>>(reader, throwIfValidColumnName);
+                data.Modifier = Modifier.GetValue<long>(reader, throwIfValidColumnName);
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual TeamProject Map(IDataReader reader) {
+                TeamProject data = new TeamProject();
+                Fullup(reader, data, true);
+                return data;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual TeamProject TolerantMap(IDataReader reader) {
+                TeamProject data = new TeamProject();
+                Fullup(reader, data, false);
+                return data;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual List<TeamProject> MapList(IDataReader reader) {
+                List<TeamProject> list = new List<TeamProject>();
+                try {
+                    for (; reader.Read(); ) {
+                        list.Add(Map(reader));
+                    }
+                }
+                finally {
+                    reader.Close();
+                }
+                return list;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual List<TeamProject> TolerantMapList(IDataReader reader) {
+                List<TeamProject> list = new List<TeamProject>();
                 try {
                     for (; reader.Read(); ) {
                         list.Add(TolerantMap(reader));
@@ -18812,6 +19101,142 @@ namespace Business {
         }
         
         /// <summary>
+        /// 梯队-项目 DalBase
+        /// </summary>
+        public partial class TeamProjectDalBase : APDal {
+            
+            public TeamProjectDalBase() {
+            }
+            
+            public TeamProjectDalBase(APDatabase db) : 
+                    base(db) {
+            }
+            
+            /// <summary>
+            /// 添加数据。
+            /// </summary>
+            public virtual void Insert(TeamProject data) {
+                if ((data.TeamPojectId == 0)) {
+                    data.TeamPojectId = ((long)(GetNewId(APDBDef.TeamProject.TeamPojectId)));
+                }
+                var query = APQuery.insert(APDBDef.TeamProject).values(APDBDef.TeamProject.TeamPojectId.SetValue(data.TeamPojectId), APDBDef.TeamProject.TeamId.SetValue(data.TeamId), APDBDef.TeamProject.TeacherId.SetValue(data.TeacherId), APDBDef.TeamProject.ContentKey.SetValue(data.ContentKey), APDBDef.TeamProject.DeclareUser.SetValue(data.DeclareUser), APDBDef.TeamProject.DeclareCompany.SetValue(data.DeclareCompany), APDBDef.TeamProject.FillDate.SetValue(data.FillDate), APDBDef.TeamProject.CreateDate.SetValue(data.CreateDate), APDBDef.TeamProject.Creator.SetValue(data.Creator), APDBDef.TeamProject.ModifyDate.SetValue(data.ModifyDate), APDBDef.TeamProject.Modifier.SetValue(data.Modifier));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public virtual void Update(TeamProject data) {
+                var query = APQuery.update(APDBDef.TeamProject).values(APDBDef.TeamProject.TeamId.SetValue(data.TeamId), APDBDef.TeamProject.TeacherId.SetValue(data.TeacherId), APDBDef.TeamProject.ContentKey.SetValue(data.ContentKey), APDBDef.TeamProject.DeclareUser.SetValue(data.DeclareUser), APDBDef.TeamProject.DeclareCompany.SetValue(data.DeclareCompany), APDBDef.TeamProject.FillDate.SetValue(data.FillDate), APDBDef.TeamProject.CreateDate.SetValue(data.CreateDate), APDBDef.TeamProject.Creator.SetValue(data.Creator), APDBDef.TeamProject.ModifyDate.SetValue(data.ModifyDate), APDBDef.TeamProject.Modifier.SetValue(data.Modifier)).where((APDBDef.TeamProject.TeamPojectId == data.TeamPojectId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public virtual void UpdatePartial(long teamPojectId, Object metadata) {
+                var query = APQuery.update(APDBDef.TeamProject).values(APSqlSetPhraseSelector.Select(APDBDef.TeamProject, metadata)).where((APDBDef.TeamProject.TeamPojectId == teamPojectId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 删除数据。
+            /// </summary>
+            public virtual void PrimaryDelete(long teamPojectId) {
+                var query = APQuery.delete(APDBDef.TeamProject).where((APDBDef.TeamProject.TeamPojectId == teamPojectId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 条件删除数据。
+            /// </summary>
+            public virtual void ConditionDelete(APSqlWherePhrase condition) {
+                var query = APQuery.delete(APDBDef.TeamProject).where(condition);
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 根据条件查询数量。
+            /// </summary>
+            public virtual int ConditionQueryCount(APSqlWherePhrase condition) {
+                var query = APQuery.select(APDBDef.TeamProject.Asterisk.Count()).from(APDBDef.TeamProject).where(condition);
+                return ExecuteCount(query);
+            }
+            
+            /// <summary>
+            /// 根据主键获取数据。
+            /// </summary>
+            public virtual TeamProject PrimaryGet(long teamPojectId) {
+                var query = APQuery.select(APDBDef.TeamProject.Asterisk).from(APDBDef.TeamProject).where((APDBDef.TeamProject.TeamPojectId == teamPojectId));
+                IDataReader reader = ExecuteReader(query);
+                try {
+                    if (reader.Read()) {
+                        return APDBDef.TeamProject.Map(reader);
+                    }
+                    return null;
+                }
+                finally {
+                    reader.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public virtual List<TeamProject> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+                var query = APQuery.select(APDBDef.TeamProject.Asterisk).from(APDBDef.TeamProject);
+                if ((condition != null)) {
+                    query.where(condition);
+                }
+                if ((orderBy != null)) {
+                    query.order_by(orderBy);
+                }
+                if ((take != null)) {
+                    query.take(take);
+                }
+                if ((skip != null)) {
+                    query.skip(skip);
+                }
+                query.primary(APDBDef.TeamProject.TeamPojectId);
+                IDataReader reader = ExecuteReader(query);
+                return APDBDef.TeamProject.MapList(reader);
+            }
+            
+            /// <summary>
+            /// 获得表的初始化数据。
+            /// </summary>
+            public virtual List<TeamProject> GetInitData() {
+                return new List<TeamProject>();
+            }
+            
+            /// <summary>
+            /// 初始化数据。
+            /// </summary>
+            public virtual void InitData(APDBDef db) {
+                List<TeamProject> list = GetInitData();
+                for (int i = 0; (i < list.Count); i = (i + 1)) {
+                    TeamProject data = list[i];
+                    if ((PrimaryGet(data.TeamPojectId) == null)) {
+                        Insert(data);
+                    }
+                }
+            }
+        }
+        
+        /// <summary>
+        /// 梯队-项目 Dal
+        /// </summary>
+        public partial class TeamProjectDal : TeamProjectDalBase {
+            
+            public TeamProjectDal() {
+            }
+            
+            public TeamProjectDal(APDatabase db) : 
+                    base(db) {
+            }
+        }
+        
+        /// <summary>
         /// 梯队-活动 DalBase
         /// </summary>
         public partial class TeamActiveDalBase : APDal {
@@ -26553,6 +26978,155 @@ namespace Business {
         /// 梯队-内容 Dal
         /// </summary>
         public partial class TeamContentBpl : TeamContentBplBase {
+        }
+        
+        /// <summary>
+        /// 梯队-项目 BplBase
+        /// </summary>
+        public partial class TeamProjectBplBase {
+            
+            /// <summary>
+            /// 添加数据。
+            /// </summary>
+            public static void Insert(TeamProject data) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.TeamProjectDal.Insert(data);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public static void Update(TeamProject data) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.TeamProjectDal.Update(data);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public static void UpdatePartial(long teamPojectId, Object metadata) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.TeamProjectDal.UpdatePartial(teamPojectId, metadata);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 删除数据。
+            /// </summary>
+            public static void PrimaryDelete(long teamPojectId) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.TeamProjectDal.PrimaryDelete(teamPojectId);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 条件删除数据。
+            /// </summary>
+            public static void ConditionDelete(APSqlWherePhrase condition) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.TeamProjectDal.ConditionDelete(condition);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据条件查询数量。
+            /// </summary>
+            public static int ConditionQueryCount(APSqlWherePhrase condition) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.TeamProjectDal.ConditionQueryCount(condition);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据主键获取数据。
+            /// </summary>
+            public static TeamProject PrimaryGet(long teamPojectId) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.TeamProjectDal.PrimaryGet(teamPojectId);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<TeamProject> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.TeamProjectDal.ConditionQuery(condition, orderBy, take, skip);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<TeamProject> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.TeamProjectDal.ConditionQuery(condition, orderBy, take, null);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<TeamProject> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.TeamProjectDal.ConditionQuery(condition, orderBy, null, null);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 获取所有数据。
+            /// </summary>
+            public static List<TeamProject> GetAll() {
+                return ConditionQuery(null, null);
+            }
+        }
+        
+        /// <summary>
+        /// 梯队-项目 Dal
+        /// </summary>
+        public partial class TeamProjectBpl : TeamProjectBplBase {
         }
         
         /// <summary>
@@ -45709,6 +46283,508 @@ namespace Business {
         /// </summary>
         public TeamContent(long teamContentId, long teamId, string contentKey, string contentValue, string contentDataType, bool isDeclare, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) : 
                 base(teamContentId, teamId, contentKey, contentValue, contentDataType, isDeclare, createDate, creator, modifyDate, modifier) {
+        }
+    }
+    
+    /// <summary>
+    /// 梯队-项目 Base
+    /// </summary>
+    [Serializable()]
+    public abstract partial class TeamProjectBase {
+        
+        /// <summary>
+        /// TeamPojectId
+        /// </summary>
+        private long _teamPojectId;
+        
+        /// <summary>
+        /// TeamId
+        /// </summary>
+        private long _teamId;
+        
+        /// <summary>
+        /// TeacherId
+        /// </summary>
+        private long _teacherId;
+        
+        /// <summary>
+        /// 用点分符做完字符串分割
+        /// </summary>
+        private string _contentKey = string.Empty;
+        
+        /// <summary>
+        /// DeclareUser
+        /// </summary>
+        private string _declareUser = string.Empty;
+        
+        /// <summary>
+        /// DeclareCompany
+        /// </summary>
+        private string _declareCompany = string.Empty;
+        
+        /// <summary>
+        /// FillDate
+        /// </summary>
+        private System.DateTime _fillDate;
+        
+        /// <summary>
+        /// CreateDate
+        /// </summary>
+        private System.DateTime _createDate;
+        
+        /// <summary>
+        /// Creator
+        /// </summary>
+        private long _creator;
+        
+        /// <summary>
+        /// ModifyDate
+        /// </summary>
+        private System.Nullable<System.DateTime> _modifyDate;
+        
+        /// <summary>
+        /// Modifier
+        /// </summary>
+        private long _modifier;
+        
+        /// <summary>
+        /// 默认构造函数。
+        /// </summary>
+        public TeamProjectBase() {
+        }
+        
+        /// <summary>
+        /// 初始化所有字段的构造函数。
+        /// </summary>
+        public TeamProjectBase(long teamPojectId, long teamId, long teacherId, string contentKey, string declareUser, string declareCompany, System.DateTime fillDate, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) {
+            _teamPojectId = teamPojectId;
+            _teamId = teamId;
+            _teacherId = teacherId;
+            _contentKey = contentKey;
+            _declareUser = declareUser;
+            _declareCompany = declareCompany;
+            _fillDate = fillDate;
+            _createDate = createDate;
+            _creator = creator;
+            _modifyDate = modifyDate;
+            _modifier = modifier;
+        }
+        
+        /// <summary>
+        /// TeamPojectId
+        /// </summary>
+        [Display(Name="项目ID")]
+        public virtual long TeamPojectId {
+            get {
+                return _teamPojectId;
+            }
+            set {
+                _teamPojectId = value;
+            }
+        }
+        
+        /// <summary>
+        /// TeamPojectId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef TeamPojectIdDef {
+            get {
+                return APDBDef.TeamProject.TeamPojectId;
+            }
+        }
+        
+        /// <summary>
+        /// TeamId
+        /// </summary>
+        [Display(Name="梯队ID")]
+        public virtual long TeamId {
+            get {
+                return _teamId;
+            }
+            set {
+                _teamId = value;
+            }
+        }
+        
+        /// <summary>
+        /// TeamId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef TeamIdDef {
+            get {
+                return APDBDef.TeamProject.TeamId;
+            }
+        }
+        
+        /// <summary>
+        /// TeacherId
+        /// </summary>
+        [Display(Name="上传老师ID")]
+        public virtual long TeacherId {
+            get {
+                return _teacherId;
+            }
+            set {
+                _teacherId = value;
+            }
+        }
+        
+        /// <summary>
+        /// TeacherId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef TeacherIdDef {
+            get {
+                return APDBDef.TeamProject.TeacherId;
+            }
+        }
+        
+        /// <summary>
+        /// 用点分符做完字符串分割
+        /// </summary>
+        [Display(Name="内容类别")]
+        [StringLength(200)]
+        public virtual string ContentKey {
+            get {
+                return _contentKey;
+            }
+            set {
+                _contentKey = value;
+            }
+        }
+        
+        /// <summary>
+        /// 用点分符做完字符串分割 APColumnDef
+        /// </summary>
+        public static StringAPColumnDef ContentKeyDef {
+            get {
+                return APDBDef.TeamProject.ContentKey;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareUser
+        /// </summary>
+        [Display(Name="申报人")]
+        [StringLength(200)]
+        public virtual string DeclareUser {
+            get {
+                return _declareUser;
+            }
+            set {
+                _declareUser = value;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareUser APColumnDef
+        /// </summary>
+        public static StringAPColumnDef DeclareUserDef {
+            get {
+                return APDBDef.TeamProject.DeclareUser;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareCompany
+        /// </summary>
+        [Display(Name="申报人所在单位")]
+        [StringLength(100)]
+        public virtual string DeclareCompany {
+            get {
+                return _declareCompany;
+            }
+            set {
+                _declareCompany = value;
+            }
+        }
+        
+        /// <summary>
+        /// DeclareCompany APColumnDef
+        /// </summary>
+        public static StringAPColumnDef DeclareCompanyDef {
+            get {
+                return APDBDef.TeamProject.DeclareCompany;
+            }
+        }
+        
+        /// <summary>
+        /// FillDate
+        /// </summary>
+        [Display(Name="填报时间")]
+        public virtual System.DateTime FillDate {
+            get {
+                return _fillDate;
+            }
+            set {
+                _fillDate = value;
+            }
+        }
+        
+        /// <summary>
+        /// FillDate APColumnDef
+        /// </summary>
+        public static DateTimeAPColumnDef FillDateDef {
+            get {
+                return APDBDef.TeamProject.FillDate;
+            }
+        }
+        
+        /// <summary>
+        /// CreateDate
+        /// </summary>
+        [Display(Name="创建时间")]
+        public virtual System.DateTime CreateDate {
+            get {
+                return _createDate;
+            }
+            set {
+                _createDate = value;
+            }
+        }
+        
+        /// <summary>
+        /// CreateDate APColumnDef
+        /// </summary>
+        public static DateTimeAPColumnDef CreateDateDef {
+            get {
+                return APDBDef.TeamProject.CreateDate;
+            }
+        }
+        
+        /// <summary>
+        /// Creator
+        /// </summary>
+        [Display(Name="创建人")]
+        public virtual long Creator {
+            get {
+                return _creator;
+            }
+            set {
+                _creator = value;
+            }
+        }
+        
+        /// <summary>
+        /// Creator APColumnDef
+        /// </summary>
+        public static Int64APColumnDef CreatorDef {
+            get {
+                return APDBDef.TeamProject.Creator;
+            }
+        }
+        
+        /// <summary>
+        /// ModifyDate
+        /// </summary>
+        [Display(Name="修改时间")]
+        public virtual System.Nullable<System.DateTime> ModifyDate {
+            get {
+                return _modifyDate;
+            }
+            set {
+                _modifyDate = value;
+            }
+        }
+        
+        /// <summary>
+        /// ModifyDate APColumnDef
+        /// </summary>
+        public static DateTimeAPColumnDef ModifyDateDef {
+            get {
+                return APDBDef.TeamProject.ModifyDate;
+            }
+        }
+        
+        /// <summary>
+        /// Modifier
+        /// </summary>
+        [Display(Name="修改人")]
+        public virtual long Modifier {
+            get {
+                return _modifier;
+            }
+            set {
+                _modifier = value;
+            }
+        }
+        
+        /// <summary>
+        /// Modifier APColumnDef
+        /// </summary>
+        public static Int64APColumnDef ModifierDef {
+            get {
+                return APDBDef.TeamProject.Modifier;
+            }
+        }
+        
+        /// <summary>
+        /// TeamProjectTableDef APTableDef
+        /// </summary>
+        public static APDBDef.TeamProjectTableDef TableDef {
+            get {
+                return APDBDef.TeamProject;
+            }
+        }
+        
+        /// <summary>
+        /// TeamProjectTableDef APSqlAsteriskExpr
+        /// </summary>
+        public static APSqlAsteriskExpr Asterisk {
+            get {
+                return APDBDef.TeamProject.Asterisk;
+            }
+        }
+        
+        /// <summary>
+        /// 赋值。
+        /// </summary>
+        public virtual void Assignment(TeamProject data) {
+            TeamPojectId = data.TeamPojectId;
+            TeamId = data.TeamId;
+            TeacherId = data.TeacherId;
+            ContentKey = data.ContentKey;
+            DeclareUser = data.DeclareUser;
+            DeclareCompany = data.DeclareCompany;
+            FillDate = data.FillDate;
+            CreateDate = data.CreateDate;
+            Creator = data.Creator;
+            ModifyDate = data.ModifyDate;
+            Modifier = data.Modifier;
+        }
+        
+        /// <summary>
+        /// 比较。
+        /// </summary>
+        public virtual bool CompareEquals(TeamProject data) {
+            if ((TeamPojectId != data.TeamPojectId)) {
+                return false;
+            }
+            if ((TeamId != data.TeamId)) {
+                return false;
+            }
+            if ((TeacherId != data.TeacherId)) {
+                return false;
+            }
+            if ((ContentKey != data.ContentKey)) {
+                return false;
+            }
+            if ((DeclareUser != data.DeclareUser)) {
+                return false;
+            }
+            if ((DeclareCompany != data.DeclareCompany)) {
+                return false;
+            }
+            if ((FillDate != data.FillDate)) {
+                return false;
+            }
+            if ((CreateDate != data.CreateDate)) {
+                return false;
+            }
+            if ((Creator != data.Creator)) {
+                return false;
+            }
+            if ((ModifyDate != data.ModifyDate)) {
+                return false;
+            }
+            if ((Modifier != data.Modifier)) {
+                return false;
+            }
+            return true;
+        }
+        
+        /// <summary>
+        /// 添加数据。
+        /// </summary>
+        public virtual void Insert() {
+            APBplDef.TeamProjectBpl.Insert(((TeamProject)(this)));
+        }
+        
+        /// <summary>
+        /// 更新数据。
+        /// </summary>
+        public virtual void Update() {
+            APBplDef.TeamProjectBpl.Update(((TeamProject)(this)));
+        }
+        
+        /// <summary>
+        /// 更新数据。
+        /// </summary>
+        public static void UpdatePartial(long teamPojectId, Object metadata) {
+            APBplDef.TeamProjectBpl.UpdatePartial(teamPojectId, metadata);
+        }
+        
+        /// <summary>
+        /// 删除数据。
+        /// </summary>
+        public static void PrimaryDelete(long teamPojectId) {
+            APBplDef.TeamProjectBpl.PrimaryDelete(teamPojectId);
+        }
+        
+        /// <summary>
+        /// 条件删除数据。
+        /// </summary>
+        public static void ConditionDelete(APSqlWherePhrase condition) {
+            APBplDef.TeamProjectBpl.ConditionDelete(condition);
+        }
+        
+        /// <summary>
+        /// 根据条件查询数量。
+        /// </summary>
+        public static int ConditionQueryCount(APSqlWherePhrase condition) {
+            return APBplDef.TeamProjectBpl.ConditionQueryCount(condition);
+        }
+        
+        /// <summary>
+        /// 根据主键获取数据。
+        /// </summary>
+        public static TeamProject PrimaryGet(long teamPojectId) {
+            return APBplDef.TeamProjectBpl.PrimaryGet(teamPojectId);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<TeamProject> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take, int skip) {
+            return APBplDef.TeamProjectBpl.ConditionQuery(condition, orderBy, take, skip);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<TeamProject> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take) {
+            return APBplDef.TeamProjectBpl.ConditionQuery(condition, orderBy, take);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<TeamProject> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+            return APBplDef.TeamProjectBpl.ConditionQuery(condition, orderBy);
+        }
+        
+        /// <summary>
+        /// 获取所有数据。
+        /// </summary>
+        public static List<TeamProject> GetAll() {
+            return APBplDef.TeamProjectBpl.GetAll();
+        }
+    }
+    
+    /// <summary>
+    /// 梯队-项目
+    /// </summary>
+    [Serializable()]
+    public partial class TeamProject : TeamProjectBase {
+        
+        /// <summary>
+        /// 默认构造函数。
+        /// </summary>
+        public TeamProject() {
+        }
+        
+        /// <summary>
+        /// 初始化所有字段的构造函数。
+        /// </summary>
+        public TeamProject(long teamPojectId, long teamId, long teacherId, string contentKey, string declareUser, string declareCompany, System.DateTime fillDate, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) : 
+                base(teamPojectId, teamId, teacherId, contentKey, declareUser, declareCompany, fillDate, createDate, creator, modifyDate, modifier) {
         }
     }
     

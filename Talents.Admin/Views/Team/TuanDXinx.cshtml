@@ -1,5 +1,5 @@
 ﻿@model DeclareBase
-@{ 
+@{
 	var pageTitle = ViewBag.Title = TeamKeys.TuanDXinx;
 }
 <!-- WIDGET TABBED CONTENT -->
@@ -69,25 +69,25 @@
 									<th>学科</th>
 									<th>学段</th>
 									<th>单位</th>
-									<th class="width180">操作</th>
+									@*<th class="width180">操作</th>*@
 								</tr>
 							</thead>
 							<tbody>
 								@foreach (var item in ViewBag.MemberList as List<TeamMemberModel>)
 								{
-									<tr>
-										<td><a href="@Url.Action("Overview", "Declare", new { id = item.TeacherId})" target="_blank" title="查看材料填写">@item.RealName</a></td>
-										<td>@item.Target</td>
-										<td>@item.Subject</td>
-										<td>@item.Stage</td>
-										<td>@item.CompanyName</td>
-										<td>
+								<tr>
+									<td><a href="@Url.Action("Overview", "Declare", new { id = item.TeacherId})" target="_blank" title="查看材料填写">@item.RealName</a></td>
+									<td>@item.Target</td>
+									<td>@item.Subject</td>
+									<td>@item.Stage</td>
+									<td>@item.CompanyName</td>
+									@*<td>
 											<div class="btn-group btn-group-xs">
 												<button class="btn btn-danger btn-view form-padding btn-xs" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.TeacherId, type = AttachmentsKeys.XueyChengzJihFenx })" data-target="#firstModal" title="查看附件">查看附件</button>
 												<button class="btn btn-success btn-edit form-padding btn-xs" data-toggle="ajax-modal" data-url="@Url.Action("DaijHuod_Advice", "TeamPop", new { memberId = item.TeacherId })" data-target="#firstModal" title="填写建议">填写建议</button>
 											</div>
-										</td>
-									</tr>
+										</td>*@
+								</tr>
 								}
 							</tbody>
 						</table>
@@ -99,3 +99,4 @@
 	</div>
 </div>
 <!-- END WIDGET TABBED CONTENT -->
+

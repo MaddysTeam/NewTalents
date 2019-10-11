@@ -77,6 +77,13 @@
 		public const string ZipSuffix = ".zip,.rar";
 		public static string NeedConvertExt = ".xlsx,.xls,.ppt,.pptx,.doc,.docx,.csv";
 
+
+		public const string Tuand_ZhidJians = "团队.制度建设";
+		public const string Tuand_SannGuih = "团队.三年规划";
+
+		public const string Tuand_Xiangm_Kait = "团队.项目.开题";
+		public const string Tuand_Xiangm_zhongq = "团队.项目.中期";
+		public const string Tuand_Xiangm_jiet = "团队.项目.结题";
 	}
 
 }

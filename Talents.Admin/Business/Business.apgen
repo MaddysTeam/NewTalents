@@ -669,6 +669,30 @@
 					<add name="Creator" type="long" display="创建人"/>
 					<add name="ModifyDate" type="DateTime?" isNullable="true" display="修改时间"/>
 					<add name="Modifier" type="long" display="修改人"/>
+					
+					
+				</columns>
+			</table>
+
+			<table name="TeamProject" comment="梯队-项目">
+				<columns>
+
+					<add name="TeamPojectId" type="long" primaryKey="true" identityType="Provider" display="项目ID"/>
+					<add name="TeamId" type="long" display="梯队ID"/>
+					<add name="TeacherId" type="long" display="上传老师ID"/>
+					
+					<!-- General Information -->
+					<add name="ContentKey" type="string" dataLength="200" display="内容类别" comment="用点分符做完字符串分割"/>
+					<add name="DeclareUser" type="string" dataLength="200" display="申报人" />
+					<add name="DeclareCompany" type="string" dataLength="100" display="申报人所在单位" />
+					<add name="FillDate" type="DateTime" dataLength="100" display="填报时间" />
+					<!-- Record Information -->
+					<add name="CreateDate" type="DateTime" display="创建时间"/>
+					<add name="Creator" type="long" display="创建人"/>
+					<add name="ModifyDate" type="DateTime?" isNullable="true" display="修改时间"/>
+					<add name="Modifier" type="long" display="修改人"/>
+
+
 				</columns>
 			</table>
 
