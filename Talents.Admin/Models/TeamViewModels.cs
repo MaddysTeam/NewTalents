@@ -213,13 +213,52 @@ namespace TheSite.Models
 	{
 		[Display(Name ="团队制度")]
 		public string AttachmentName1 { get; set; }
+
 		[Display(Name = "附件路径")]
 		public string AttachmentUrl1 { get; set; }
 
 		[Display(Name = "三年规划")]
 		public string AttachmentName2 { get; set; }
+
 		[Display(Name = "附件路径")]
 		public string AttachmentUrl2 { get; set; }
+
+		[Display(Name = "第一学期计划")]
+		public string SemesterAttachmentName1 { get; set; }
+
+		[Display(Name = "附件路径")]
+		public string SemesterAttachmentUrl1 { get; set; }
+
+		[Display(Name = "第二学期计划")]
+		public string SemesterAttachmentName2 { get; set; }
+
+		[Display(Name = "附件路径")]
+		public string SemesterAttachmentUrl2 { get; set; }
+
+		[Display(Name = "第三学期计划")]
+		public string SemesterAttachmentName3 { get; set; }
+
+		[Display(Name = "附件路径")]
+		public string SemesterAttachmentUrl3 { get; set; }
+
+		[Display(Name = "第四学期计划")]
+		public string SemesterAttachmentName4 { get; set; }
+
+		[Display(Name = "附件路径")]
+		public string SemesterAttachmentUrl4 { get; set; }
+
+		[Display(Name = "第五学期计划")]
+		public string SemesterAttachmentName5 { get; set; }
+
+		[Display(Name = "附件路径")]
+		public string SemesterAttachmentUrl5 { get; set; }
+
+		[Display(Name = "第六学期计划")]
+		public string SemesterAttachmentName6 { get; set; }
+
+		[Display(Name = "附件路径")]
+		public string SemesterAttachmentUrl6 { get; set; }
+
 	}
 
 	#endregion
@@ -229,18 +268,22 @@ namespace TheSite.Models
 	public class TuandXiangmViewModel
 	{
 
+      public long TeamId { get; set; }
 		public string Name { get; set; }
 		public string UserName { get; set; }
 		public string Company { get; set; }
 		public DateTime Date { get; set; }
 
+      [Display(Name="项目开题")]
 		public string AttachmentName1 { get; set; }
 		public string AttachmentUrl1 { get; set; }
 
-		public string AttachmentName2 { get; set; }
+      [Display(Name = "项目中期")]
+      public string AttachmentName2 { get; set; }
 		public string AttachmentUrl2 { get; set; }
 
-		public string AttachmentName3 { get; set; }
+      [Display(Name = "项目结题")]
+      public string AttachmentName3 { get; set; }
 		public string AttachmentUrl3 { get; set; }
 	}
 

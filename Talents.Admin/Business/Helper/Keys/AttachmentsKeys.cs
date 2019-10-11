@@ -77,13 +77,19 @@
 		public const string ZipSuffix = ".zip,.rar";
 		public static string NeedConvertExt = ".xlsx,.xls,.ppt,.pptx,.doc,.docx,.csv";
 
-
 		public const string Tuand_ZhidJians = "团队.制度建设";
 		public const string Tuand_SannGuih = "团队.三年规划";
+		public const string Tuand_XueqJih = "团队.第一学期";
+		public const string Tuand_XueqJih2 = "团队.第二学期";
+		public const string Tuand_XueqJih3 = "团队.第三学期";
+		public const string Tuand_XueqJih4 = "团队.第四学期";
+		public const string Tuand_XueqJih5 = "团队.第五学期";
+		public const string Tuand_XueqJih6 = "团队.第六学期";
 
 		public const string Tuand_Xiangm_Kait = "团队.项目.开题";
 		public const string Tuand_Xiangm_zhongq = "团队.项目.中期";
 		public const string Tuand_Xiangm_jiet = "团队.项目.结题";
+
 	}
 
 }

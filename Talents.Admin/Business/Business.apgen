@@ -682,6 +682,7 @@
 					<add name="TeacherId" type="long" display="上传老师ID"/>
 					
 					<!-- General Information -->
+					<add name="ProjectName" type="string" dataLength="300" display="项目名称" />
 					<add name="ContentKey" type="string" dataLength="200" display="内容类别" comment="用点分符做完字符串分割"/>
 					<add name="DeclareUser" type="string" dataLength="200" display="申报人" />
 					<add name="DeclareCompany" type="string" dataLength="100" display="申报人所在单位" />

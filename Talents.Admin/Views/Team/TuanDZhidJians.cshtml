@@ -17,7 +17,7 @@
 		{
 			<div class="row">
 				<div class="red">&nbsp;&nbsp;&nbsp;*文件类型支持文本类型，图片和压缩包，文件不大于50M</div>
-				<fieldset class="col-md-12">
+				<fieldset class="col-md-6">
 
 						<div class="form-group">
 							@Html.LabelFor(m => m.AttachmentName1, new { @class = "control-label col-md-12" })
@@ -61,6 +61,27 @@
 						</div>
 
 				</fieldset>
+				<fieldset  class="col-md-6">
+
+					<div class="form-group">
+						@Html.LabelFor(m => m.SemesterAttachmentName1, new { @class = "control-label col-md-12" })
+						<div class="col-md-9">
+							@Html.HiddenFor(m => m.SemesterAttachmentUrl1)
+							@Html.TextBoxFor(m => m.SemesterAttachmentName1, new { @style = "visibility:hidden;" })
+							<div class="input-group">
+								<div id="simpleUploadName2" class="form-control">
+									@Html.Label("", Model.SemesterAttachmentName1)
+								</div>
+								<span class="input-group-btn">
+									<button class="btn btn-danger btn-upload" type="button" id="btn-upload3">文件上传</button>
+								</span>
+							</div>
+
+							@Html.ValidationMessageFor(m => m.SemesterAttachmentName1)
+						</div>
+					</div>
+
+				</fieldset>
 			</div>
 		}
 
@@ -69,6 +90,7 @@
 
 <form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="dropzone1"></form>
 <form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="dropzone2"></form>
+<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="dropzone3"></form>
 
 <script>
 	$(function () {

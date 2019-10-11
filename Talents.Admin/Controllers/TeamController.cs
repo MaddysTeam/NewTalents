@@ -607,6 +607,8 @@ namespace TheSite.Controllers
 				JoinId = UserProfile.UserId,
 			};
 
+
+
 			db.BeginTrans();
 
 			try
@@ -642,21 +644,9 @@ namespace TheSite.Controllers
 
 		#region [ 团队项目 ]
 
-		public ActionResult TuanDXinagm(long id, string visiter)
+		public ActionResult TuanDXinagm(long id)
 		{
-			var allAts = AttachmentsExtensions.GetAttachmentList(db, id);
-			var ats1 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_ZhidJians);
-			var ats2 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_SannGuih);
-			var at1 = AttachmentsExtensions.GetAttachment(ats1);
-			var at2 = AttachmentsExtensions.GetAttachment(ats2);
 
-			//return PartialView("TuanDZhidJians", new ZhidJiansViewModel()
-			//{
-			//	AttachmentName1 = at1.Name,
-			//	AttachmentName2 = at2.Name,
-			//	AttachmentUrl1 = at1.Url,
-			//	AttachmentUrl2 = at2.Url
-			//});
 			var model = new TuandXiangmViewModel();
 
 			var data = db.TeamProjectDal.ConditionQuery(
@@ -665,18 +655,27 @@ namespace TheSite.Controllers
 
 			if (data != null)
 			{
-				model.Name = data.DeclareUser;
+				var allAts = AttachmentsExtensions.GetAttachmentList(db, id);
+				var ats1 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_Xiangm_Kait);
+				var ats2 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_Xiangm_zhongq);
+				var ats3 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_Xiangm_jiet);
+				var at1 = AttachmentsExtensions.GetAttachment(ats1);
+				var at2 = AttachmentsExtensions.GetAttachment(ats2);
+				var at3 = AttachmentsExtensions.GetAttachment(ats2);
+
+            model.Name = data.ProjectName;
+            model.UserName = data.DeclareUser;
 				model.Company = data.DeclareCompany;
 				model.Date = data.FillDate;
-
-				//var atta = AttachmentsExtensions.GetAttachment(
-				//	AttachmentsExtensions.GetAttachmentList(db, UserProfile.UserId, AttachmentsKeys.DaijJih_Memo2));
-				//model.AttachmentName = atta.Name;
-				//model.AttachmentUrl = atta.Url;
-				//model.IsDeclare = data.IsDeclare;
+				model.AttachmentName1 = at1.Name;
+				model.AttachmentUrl1 = at1.Url;
+				model.AttachmentName2 = at2.Name;
+				model.AttachmentUrl2 = at2.Url;
+				model.AttachmentName3 = at3.Name;
+				model.AttachmentUrl3 = at3.Url;
 			}
 
-			return View(data);
+			return View(model);
 		}
 
 		[HttpPost]

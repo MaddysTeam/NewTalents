@@ -1455,6 +1455,7 @@
     <Content Include="Views\Shared\_preview.cshtml" />
     <Content Include="Views\Shared\_sidebarSpecialExpert.cshtml" />
     <Content Include="Views\Team\TuanDZhidJians.cshtml" />
+    <Content Include="Views\Team\TuanDXiangm.cshtml" />
     <None Include="xml.schema.definition\apgen.xsd">
       <SubType>Designer</SubType>
     </None>
