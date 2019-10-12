@@ -211,7 +211,7 @@ namespace TheSite.Models
 
 	public class ZhidJiansViewModel
 	{
-		[Display(Name ="团队制度")]
+		[Display(Name = "团队制度")]
 		public string AttachmentName1 { get; set; }
 
 		[Display(Name = "附件路径")]
@@ -268,22 +268,30 @@ namespace TheSite.Models
 	public class TuandXiangmViewModel
 	{
 
-      public long TeamId { get; set; }
+		public long TeamId { get; set; }
+
+		[Display(Name = "项目名称")]
 		public string Name { get; set; }
+
+		[Display(Name = "申报人")]
 		public string UserName { get; set; }
+
+		[Display(Name = "申报人单位")]
 		public string Company { get; set; }
+
+		[Display(Name = "填表日期")]
 		public DateTime Date { get; set; }
 
-      [Display(Name="项目开题")]
+		[Display(Name = "项目开题")]
 		public string AttachmentName1 { get; set; }
 		public string AttachmentUrl1 { get; set; }
 
-      [Display(Name = "项目中期")]
-      public string AttachmentName2 { get; set; }
+		[Display(Name = "项目中期")]
+		public string AttachmentName2 { get; set; }
 		public string AttachmentUrl2 { get; set; }
 
-      [Display(Name = "项目结题")]
-      public string AttachmentName3 { get; set; }
+		[Display(Name = "项目结题")]
+		public string AttachmentName3 { get; set; }
 		public string AttachmentUrl3 { get; set; }
 	}
 

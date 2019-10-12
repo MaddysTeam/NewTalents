@@ -113,6 +113,8 @@ namespace TheSite.Controllers
 					return YanxHuod_Edit(visiter, Int64.Parse(Request["activeId"]));
 				case TeamKeys.TuanDZhidJians:
 					return TuanDZhidJians(teamId, visiter);
+				case TeamKeys.TuanDXiangm:
+					return TuanDXinagm(teamId);
 			}
 
 			return Content("该项目无效");
@@ -646,11 +648,11 @@ namespace TheSite.Controllers
 
 		public ActionResult TuanDXinagm(long id)
 		{
-
+			var tp = APDBDef.TeamProject;
 			var model = new TuandXiangmViewModel();
 
 			var data = db.TeamProjectDal.ConditionQuery(
-				tc.TeamId == id & tc.ContentKey == TeamKeys.TuanDXiangm,
+				tp.TeamId == id & tp.ContentKey == TeamKeys.TuanDXiangm,
 				null, null, null).FirstOrDefault();
 
 			if (data != null)
@@ -663,8 +665,8 @@ namespace TheSite.Controllers
 				var at2 = AttachmentsExtensions.GetAttachment(ats2);
 				var at3 = AttachmentsExtensions.GetAttachment(ats2);
 
-            model.Name = data.ProjectName;
-            model.UserName = data.DeclareUser;
+				model.Name = data.ProjectName;
+				model.UserName = data.DeclareUser;
 				model.Company = data.DeclareCompany;
 				model.Date = data.FillDate;
 				model.AttachmentName1 = at1.Name;
@@ -675,7 +677,7 @@ namespace TheSite.Controllers
 				model.AttachmentUrl3 = at3.Url;
 			}
 
-			return View(model);
+			return PartialView("TuanDXiangm", model);
 		}
 
 		[HttpPost]
@@ -688,8 +690,7 @@ namespace TheSite.Controllers
 				Type = AttachmentsKeys.Tuand_Xiangm_Kait,
 				Name = model.AttachmentName1,
 				Url = model.AttachmentUrl1,
-				UserId = UserProfile.UserId,
-				JoinId = id.Value
+				UserId = UserProfile.UserId
 			};
 
 			var atta2 = new AttachmentsDataModel()
@@ -698,7 +699,6 @@ namespace TheSite.Controllers
 				Name = model.AttachmentName2,
 				Url = model.AttachmentUrl2,
 				UserId = UserProfile.UserId,
-				JoinId = id.Value
 			};
 
 			var atta3 = new AttachmentsDataModel()
@@ -707,7 +707,6 @@ namespace TheSite.Controllers
 				Name = model.AttachmentName3,
 				Url = model.AttachmentUrl3,
 				UserId = UserProfile.UserId,
-				JoinId = id.Value
 			};
 
 			TeamProject data = null;
@@ -721,6 +720,7 @@ namespace TheSite.Controllers
 					data = new TeamProject()
 					{
 						ContentKey = TeamKeys.TuanDXiangm,
+						ProjectName = model.Name,
 						DeclareUser = model.UserName,
 						DeclareCompany = model.Company,
 						FillDate = model.Date,
@@ -742,12 +742,12 @@ namespace TheSite.Controllers
 						Modifier = UserProfile.UserId,
 						ModifyDate = DateTime.Now,
 					});
-				}
 
-				AttachmentsExtensions.DeleteAttas(db, id.Value, new string[] {
+					AttachmentsExtensions.DeleteAttas(db, id.Value, new string[] {
 					AttachmentsKeys.Tuand_Xiangm_Kait,
 					AttachmentsKeys.Tuand_Xiangm_zhongq,
 					AttachmentsKeys.Tuand_Xiangm_jiet });
+				}
 
 				AttachmentsExtensions.InsertAttas(db, new AttachmentsDataModel[] { atta1, atta2, atta3 });
 

@@ -418,7 +418,8 @@ function ajaxMultipleFileUpload($dropZone,$button,$uploadArea) {
 				$AttachmentUrl.val(url + data.url);
 				$AttachmentName.val(name + data.filename);
 				var showName = data.filename.length > 40 ? data.filename.substring(0, 37) + "..." : data.filename;
-				$uploadNames.append('<p><label title="' + data.filename + '">' + showName + '</label> <button type="button" class="btn btn-danger btn-xs btn-delete" onclick="delAttachment(this)">删除</button></p>');
+				$uploadNames.append('<p><label title="' + data.filename + '">' + showName + '</label> <button type="button" class="btn btn-danger btn-xs btn-delete">删除</button></p>');
+				$uploadNames.find('.btn-delete').off('click').on('click', function () { delAttachment(this, $uploadArea) });
 			});
 			this.on('error', function (file, message) {
 				popupMessage({ result: 'error', msg: message });

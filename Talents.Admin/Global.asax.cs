@@ -19,7 +19,7 @@ namespace TheSite.Mvc
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             BundleTable.EnableOptimizations = false;
-
+				
             ModelBinders.Binders.DefaultBinder = new EmptyStringModelBinder();
             ModelBinders.Binders.Add(typeof(AjaxOrder), new AjaxOrderModelBinder());
 

@@ -74,7 +74,7 @@
 											foreach (var item in Model.AttachmentName1.Split('|'))
 											{
 												<p>
-													<label title="@item">@(item.Length > 40 ? item.Substring(0, 37) + "..." : item)</label> <button type="button" class="btn btn-danger btn-xs btn-delete" onclick="delAttachment(this)">删除</button>
+													<label title="@item">@(item.Length > 40 ? item.Substring(0, 37) + "..." : item)</label> <button type="button" class="btn btn-danger btn-xs btn-delete" onclick="delAttachment(this, $('#uploadArea1'))">删除</button>
 												</p>
 											}
 										}
@@ -100,7 +100,7 @@
 											foreach (var item in Model.AttachmentName2.Split('|'))
 											{
 												<p>
-													<label title="@item">@(item.Length > 40 ? item.Substring(0, 37) + "..." : item)</label> <button type="button" class="btn btn-danger btn-xs btn-delete" onclick="delAttachment(this)">删除</button>
+													<label title="@item">@(item.Length > 40 ? item.Substring(0, 37) + "..." : item)</label> <button type="button" class="btn btn-danger btn-xs btn-delete" onclick="delAttachment(this, $('#uploadArea2'))">删除</button>
 												</p>}
 										}
 									</div>
@@ -125,7 +125,7 @@
 											foreach (var item in Model.AttachmentName3.Split('|'))
 											{
 												<p>
-													<label title="@item">@(item.Length > 40 ? item.Substring(0, 37) + "..." : item)</label> <button type="button" class="btn btn-danger btn-xs btn-delete" onclick="delAttachment(this)">删除</button>
+													<label title="@item">@(item.Length > 40 ? item.Substring(0, 37) + "..." : item)</label> <button type="button" class="btn btn-danger btn-xs btn-delete" onclick="delAttachment(this, $('#uploadArea3'))">删除</button>
 												</p>}
 										}
 									</div>

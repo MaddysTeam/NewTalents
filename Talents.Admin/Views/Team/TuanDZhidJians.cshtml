@@ -17,10 +17,10 @@
 		{
 			<div class="row">
 				<div class="red">&nbsp;&nbsp;&nbsp;*文件类型支持文本类型，图片和压缩包，文件不大于50M</div>
-				<fieldset class="col-md-6">
+				<fieldset class="col-md-9">
 
 						<div class="form-group">
-							@Html.LabelFor(m => m.AttachmentName1, new { @class = "control-label col-md-12" })
+							@Html.LabelFor(m => m.AttachmentName1, new { @class = "control-label col-md-2" })
 							<div class="col-md-9">
 								@Html.HiddenFor(m => m.AttachmentUrl1)
 								@Html.TextBoxFor(m => m.AttachmentName1, new { @style = "visibility:hidden;" })
@@ -37,7 +37,7 @@
 						</div>
 
 						<div class="form-group">
-							@Html.LabelFor(m => m.AttachmentName2, new { @class = "control-label col-md-12" })
+							@Html.LabelFor(m => m.AttachmentName2, new { @class = "control-label col-md-2" })
 							<div class="col-md-9">
 								@Html.HiddenFor(m => m.AttachmentUrl2)
 								@Html.TextBoxFor(m => m.AttachmentName2, new { @style = "visibility:hidden;" })
@@ -54,12 +54,6 @@
 							</div>
 						</div>
 
-						<div class="form-group">
-							<div class="col-sm-9 col-lg-offset-3">
-								<button type="submit" class="btn btn-primary btn-block-half"><i class="fa fa-check-circle"></i> 保存</button>
-							</div>
-						</div>
-
 				</fieldset>
 				<fieldset  class="col-md-6">
 
@@ -69,7 +63,7 @@
 							@Html.HiddenFor(m => m.SemesterAttachmentUrl1)
 							@Html.TextBoxFor(m => m.SemesterAttachmentName1, new { @style = "visibility:hidden;" })
 							<div class="input-group">
-								<div id="simpleUploadName2" class="form-control">
+								<div id="simpleUploadName3" class="form-control">
 									@Html.Label("", Model.SemesterAttachmentName1)
 								</div>
 								<span class="input-group-btn">
@@ -81,7 +75,107 @@
 						</div>
 					</div>
 
+					<div class="form-group">
+						@Html.LabelFor(m => m.SemesterAttachmentName3, new { @class = "control-label col-md-12" })
+						<div class="col-md-9">
+							@Html.HiddenFor(m => m.SemesterAttachmentUrl3)
+							@Html.TextBoxFor(m => m.SemesterAttachmentName3, new { @style = "visibility:hidden;" })
+							<div class="input-group">
+								<div id="simpleUploadName5" class="form-control">
+									@Html.Label("", Model.SemesterAttachmentName3)
+								</div>
+								<span class="input-group-btn">
+									<button class="btn btn-danger btn-upload" type="button" id="btn-upload5">文件上传</button>
+								</span>
+							</div>
+
+							@Html.ValidationMessageFor(m => m.SemesterAttachmentName3)
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(m => m.SemesterAttachmentName5, new { @class = "control-label col-md-12" })
+						<div class="col-md-9">
+							@Html.HiddenFor(m => m.SemesterAttachmentUrl5)
+							@Html.TextBoxFor(m => m.SemesterAttachmentName5, new { @style = "visibility:hidden;" })
+							<div class="input-group">
+								<div id="simpleUploadName7" class="form-control">
+									@Html.Label("", Model.SemesterAttachmentName5)
+								</div>
+								<span class="input-group-btn">
+									<button class="btn btn-danger btn-upload" type="button" id="btn-upload7">文件上传</button>
+								</span>
+							</div>
+
+							@Html.ValidationMessageFor(m => m.SemesterAttachmentName5)
+						</div>
+					</div>
+
 				</fieldset>
+
+				<fieldset class="col-md-6">
+
+					<div class="form-group">
+						@Html.LabelFor(m => m.SemesterAttachmentName2, new { @class = "control-label col-md-12" })
+						<div class="col-md-9">
+							@Html.HiddenFor(m => m.SemesterAttachmentUrl2)
+							@Html.TextBoxFor(m => m.SemesterAttachmentName2, new { @style = "visibility:hidden;" })
+							<div class="input-group">
+								<div id="simpleUploadName4" class="form-control">
+									@Html.Label("", Model.SemesterAttachmentName2)
+								</div>
+								<span class="input-group-btn">
+									<button class="btn btn-danger btn-upload" type="button" id="btn-upload4">文件上传</button>
+								</span>
+							</div>
+
+							@Html.ValidationMessageFor(m => m.SemesterAttachmentName2)
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(m => m.SemesterAttachmentName4, new { @class = "control-label col-md-12" })
+						<div class="col-md-9">
+							@Html.HiddenFor(m => m.SemesterAttachmentUrl4)
+							@Html.TextBoxFor(m => m.SemesterAttachmentName4, new { @style = "visibility:hidden;" })
+							<div class="input-group">
+								<div id="simpleUploadName6" class="form-control">
+									@Html.Label("", Model.SemesterAttachmentName4)
+								</div>
+								<span class="input-group-btn">
+									<button class="btn btn-danger btn-upload" type="button" id="btn-upload6">文件上传</button>
+								</span>
+							</div>
+
+							@Html.ValidationMessageFor(m => m.SemesterAttachmentName4)
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(m => m.SemesterAttachmentName6, new { @class = "control-label col-md-12" })
+						<div class="col-md-9">
+							@Html.HiddenFor(m => m.SemesterAttachmentUrl6)
+							@Html.TextBoxFor(m => m.SemesterAttachmentName6, new { @style = "visibility:hidden;" })
+							<div class="input-group">
+								<div id="simpleUploadName8" class="form-control">
+									@Html.Label("", Model.SemesterAttachmentName6)
+								</div>
+								<span class="input-group-btn">
+									<button class="btn btn-danger btn-upload" type="button" id="btn-upload8">文件上传</button>
+								</span>
+							</div>
+
+							@Html.ValidationMessageFor(m => m.SemesterAttachmentName6)
+						</div>
+					</div>
+
+				</fieldset>
+
+				<div class="form-group">
+					<div class="col-sm-9 col-lg-offset-3">
+						<button type="submit" class="btn btn-primary btn-block-half"><i class="fa fa-check-circle"></i> 保存</button>
+					</div>
+				</div>
 			</div>
 		}
 
