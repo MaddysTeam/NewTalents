@@ -1,6 +1,6 @@
 ﻿@model List<ZisFaz_XuesHuodModel>
 @{
-	var pageTitle = ViewBag.Title = DeclareTargetIds.AllowXuesHuod(Html.GetUserProfile().TargetId) ? DeclareKeys.ZisFaz_XuesHuod_Tes : DeclareKeys.ZisFaz_XuesHuod;
+	var pageTitle = ViewBag.Title = DeclareKeys.ZisFaz_XuesHuod; //TODO: 暂时保留 DeclareTargetIds.AllowXuesHuod(Html.GetUserProfile().TargetId) ? DeclareKeys.ZisFaz_XuesHuod_Tes : DeclareKeys.ZisFaz_XuesHuod;
 }
 <!-- WIDGET TABBED CONTENT -->
 <div class="widget">
@@ -34,14 +34,14 @@
 							<td>@item.Dynamic2</td>
 							<td>
 								<div class="btn-group btn-group-xs pull-right">
-									@if (item.IsDeclare)
+									@*@if (item.IsDeclare)
 									{
 										<button class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareActive", "DeclareMaterial", new { id = item.DeclareActiveId, isDeclare = false })">取消申报</button>
 									}
 									else
 									{
 										<button class="btn btn-warning btn-declare" data-url="@Url.Action("DeclareActive", "DeclareMaterial", new { id = item.DeclareActiveId, isDeclare = true })">申报</button>
-									}
+									}*@
 									@*@if (item.IsShare)
 									{
 										<button class="btn btn-custom-secondary btn-share" data-url="@Url.Action("ShareActive", "Declare", new { id = item.DeclareActiveId, isShare = false })">取消共享</button>

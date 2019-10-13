@@ -19,43 +19,43 @@
 				<div class="red">&nbsp;&nbsp;&nbsp;*文件类型支持文本类型，图片和压缩包，文件不大于50M</div>
 				<fieldset class="col-md-9">
 
-						<div class="form-group">
-							@Html.LabelFor(m => m.AttachmentName1, new { @class = "control-label col-md-2" })
-							<div class="col-md-9">
-								@Html.HiddenFor(m => m.AttachmentUrl1)
-								@Html.TextBoxFor(m => m.AttachmentName1, new { @style = "visibility:hidden;" })
-								<div class="input-group">
-									<div id="simpleUploadName1" class="form-control">
-										@Html.Label("", Model.AttachmentName1)
-									</div>
-									<span class="input-group-btn">
-										<button class="btn btn-danger btn-upload" type="button" id="btn-upload1">文件上传</button>
-									</span>
+					<div class="form-group">
+						@Html.LabelFor(m => m.AttachmentName1, new { @class = "control-label col-md-12" })
+						<div class="col-md-9">
+							@Html.HiddenFor(m => m.AttachmentUrl1)
+							@Html.TextBoxFor(m => m.AttachmentName1, new { @style = "visibility:hidden;" })
+							<div class="input-group">
+								<div id="simpleUploadName1" class="form-control">
+									@Html.Label("", Model.AttachmentName1)
 								</div>
-								@Html.ValidationMessageFor(m => m.AttachmentName1)
+								<span class="input-group-btn">
+									<button class="btn btn-danger btn-upload" type="button" id="btn-upload1">文件上传</button>
+								</span>
 							</div>
+							@Html.ValidationMessageFor(m => m.AttachmentName1)
 						</div>
+					</div>
 
-						<div class="form-group">
-							@Html.LabelFor(m => m.AttachmentName2, new { @class = "control-label col-md-2" })
-							<div class="col-md-9">
-								@Html.HiddenFor(m => m.AttachmentUrl2)
-								@Html.TextBoxFor(m => m.AttachmentName2, new { @style = "visibility:hidden;" })
-								<div class="input-group">
-									<div id="simpleUploadName2" class="form-control">
-										@Html.Label("", Model.AttachmentName2)
-									</div>
-									<span class="input-group-btn">
-										<button class="btn btn-danger btn-upload" type="button" id="btn-upload2">文件上传</button>
-									</span>
+					<div class="form-group">
+						@Html.LabelFor(m => m.AttachmentName2, new { @class = "control-label col-md-12" })
+						<div class="col-md-9">
+							@Html.HiddenFor(m => m.AttachmentUrl2)
+							@Html.TextBoxFor(m => m.AttachmentName2, new { @style = "visibility:hidden;" })
+							<div class="input-group">
+								<div id="simpleUploadName2" class="form-control">
+									@Html.Label("", Model.AttachmentName2)
 								</div>
-								
-								@Html.ValidationMessageFor(m => m.AttachmentName2)
+								<span class="input-group-btn">
+									<button class="btn btn-danger btn-upload" type="button" id="btn-upload2">文件上传</button>
+								</span>
 							</div>
+
+							@Html.ValidationMessageFor(m => m.AttachmentName2)
 						</div>
+					</div>
 
 				</fieldset>
-				<fieldset  class="col-md-6">
+				<fieldset class="col-md-6">
 
 					<div class="form-group">
 						@Html.LabelFor(m => m.SemesterAttachmentName1, new { @class = "control-label col-md-12" })
@@ -185,27 +185,29 @@
 <form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="dropzone1"></form>
 <form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="dropzone2"></form>
 <form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="dropzone3"></form>
-
+<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="dropzone4"></form>
+<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="dropzone5"></form>
+<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="dropzone6"></form>
+<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="dropzone7"></form>
+<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="dropzone8"></form>
 <script>
 	$(function () {
 
-		ajaxSimpleFileUpload('dropzone1', 'btn-upload1', function (file, data) {
-			$('#AttachmentUrl1').val(data.url);
-			$('#AttachmentName1').val(data.filename);
-			$('#simpleUploadName1').html(data.filename);
-		},
-		 function (file, message) {
-		 	popupMessage({ result: 'error', msg: message });
-		 });
-
-		ajaxSimpleFileUpload('dropzone2', 'btn-upload2', function (file, data) {
-			$('#AttachmentUrl2').val(data.url);
-			$('#AttachmentName2').val(data.filename);
-			$('#simpleUploadName2').html(data.filename);
-		},
-		 function (file, message) {
-		 	popupMessage({ result: 'error', msg: message });
-		 });
+		for (var i = 1; i < 9; i++) {
+			(function (j) {
+				var attachmentUrl = j > 2 ? 'SemesterAttachmentUrl' + (j - 2) : 'AttachmentUrl' + j;
+				var attachmentName = j > 2 ? 'SemesterAttachmentName' + (j - 2) : 'AttachmentName' + j;
+				var sigleUploadName = 'simpleUploadName' + j;
+				ajaxSimpleFileUpload('dropzone' + j, 'btn-upload' + j, function (file, data) {
+					$('#' + attachmentUrl).val(data.url);
+					$('#' + attachmentName).val(data.filename);
+					$('#' + sigleUploadName).html(data.filename);
+				},
+				 function (file, message) {
+				 	popupMessage({ result: 'error', msg: message });
+				 });
+			})(i);
+		}
 
 		ajaxSubmitForm($('form'));
 	});

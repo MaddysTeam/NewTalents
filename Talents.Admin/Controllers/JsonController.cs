@@ -403,7 +403,7 @@ namespace TheSite.Controllers
                children = new List<json_treenode>()
             {
               new json_treenode() { id = DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk, text = "公开课", type = json_treenode_types.active },
-              new json_treenode() { id = DeclareKeys.ZisFaz_JiaoxHuod_Yantk, text = "研讨课", type = json_treenode_types.active },
+              new json_treenode() { id = DeclareKeys.ZisFaz_JiaoxHuod_Yantk, text = "指导课", type = json_treenode_types.active },
 				 // new json_treenode() { id = DeclareKeys.ZisFaz_JiaoxHuod_JiaoxPingb, text = "参加教育教学评比", type = json_treenode_types.active }
 			   }
             });
@@ -704,7 +704,9 @@ namespace TheSite.Controllers
 
          if (targetId > 0)
          {
-            list.Add(new json_treenode { id = TeamKeys.ChengYJiBXinx, text = "成员基本信息", type = json_treenode_types.content });
+            list.Add(new json_treenode { id = TeamKeys.TuanDGerXinx, text = "成员基本信息", type = json_treenode_types.content });
+            list.Add(new json_treenode { id = TeamKeys.TuanDGerJh, text = "成员个人计划", type = json_treenode_types.content });
+            list.Add(new json_treenode { id = TeamKeys.TuanDZiXiangm, text = "团队子项目", type = json_treenode_types.content });
             list.Add(new json_treenode { id = TeamKeys.YanxHuod, text = "研修活动", type = json_treenode_types.active });
          }
 

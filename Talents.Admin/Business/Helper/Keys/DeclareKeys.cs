@@ -45,30 +45,30 @@
 		public const string ZisFaz_ZiwYanx = "自身发展.自我研修";
 
 		public const string ZisFaz_JiaoxHuod = "自身发展.教学活动";
-		public const string ZisFaz_JiaoxHuod_JiaoxGongkk = "自身发展.教学活动.开设教学公开课";
-		public const string ZisFaz_JiaoxHuod_Yantk = "自身发展.教学活动.开设研讨课";
+		public const string ZisFaz_JiaoxHuod_JiaoxGongkk = "自身发展.课堂教学.公开课";
+		public const string ZisFaz_JiaoxHuod_Yantk = "自身发展.课堂教学.指导课";
 		public const string ZisFaz_JiaoxHuod_JiaoyJiaoxPingb = "自身发展.教学活动.参加教育教学评比"; // 显示名称
 		public const string ZisFaz_JiaoxHuod_JiaoxPingb = "自身发展.教学活动.参加教学评比";	// 数据库名称
 
 		public const string ZisFaz_PeixJiangz = "自身发展.培训与讲座";
-		public const string ZisFaz_PeixJiangz_JiaosPeixKec = "自身发展.培训与讲座.开设教师培训课程";
-		public const string ZisFaz_PeixJiangz_ZhuantJiangz = "自身发展.培训与讲座.开设学科类专题讲座";
-		public const string ZisFaz_PeixJiangz_DingxxKec = "自身发展.培训与讲座.开设定向性课程";
+		public const string ZisFaz_PeixJiangz_JiaosPeixKec = "自身发展.课程开发"; //TODO: 改名 原名为：自身发展.培训与讲座.开设教师培训课程
+      public const string ZisFaz_PeixJiangz_ZhuantJiangz = "自身发展.专题讲座"; //TODO:2019.10.13 改名  原名称为：自身发展.培训与讲座.开设学科类专题讲座
+      public const string ZisFaz_PeixJiangz_DingxxKec = "自身发展.培训与讲座.开设定向性课程";
 		public const string ZisFaz_PeixJiangz_KecZiyKaif = "自身发展.培训与讲座.课程资源开发";
 
-		public const string ZisFaz_XuesHuod = "自身发展.学术活动";
-		public const string ZisFaz_XuesHuod_Tes = "自身发展.学术活动、特色";
+		public const string ZisFaz_XuesHuod = "自身发展.带教教师"; //TODO:2019.10.13 改名  原名称为：学术活动
+      public const string ZisFaz_XuesHuod_Tes = "自身发展.学术活动、特色";
 
-		public const string ZisFaz_KeyChengg = "自身发展.教育教学科研成果";
-		public const string ZisFaz_KeyChengg_KetYanj = "自身发展.教育教学科研成果.开展课题(项目)研究工作";
-		public const string ZisFaz_KeyChengg_FabLunw = "自身发展.教育教学科研成果.论文发表";
-		public const string ZisFaz_KeyChengg_LunzQingk = "自身发展.教育教学科研成果.论著情况";
+      public const string ZisFaz_KeyChengg = "教育科研";//TODO:2019.10.13 改名  原名称为 "自身发展.教育教学科研成果";
+      public const string ZisFaz_KeyChengg_KetYanj = "自身发展.教育科研.项目研究"; //TODO:2019.10.13 改名  原名称为：开展课题(项目)研究工作
+      public const string ZisFaz_KeyChengg_FabLunw = "自身发展.教育科研.论文发表";  //TODO:2019.10.13 改名 
+      public const string ZisFaz_KeyChengg_LunzQingk = "自身发展.教育科研.论著情况";  //TODO:2019.10.13 改名 
 
-		public const string ZisFaz_ShiqjHuod = "自身发展.市、区级大活动";
+      public const string ZisFaz_ShiqjHuod = "自身发展.市、区级大活动";
 
 		public const string ZhidJians = "制度建设";
-		public const string ZhidJians_YingxlDeGongz = "制度建设.有影响力的工作";
-		public const string ZhidJians_TesHuodKaiz = "制度建设.特色活动开展";
+		public const string ZhidJians_YingxlDeGongz = "亮点特色";//TODO:2019.10.13 改名  原名称为 "制度建设.有影响力的工作";
+      public const string ZhidJians_TesHuodKaiz = "制度建设.特色活动开展";
 		public const string ZhidJians_DangaJians = "制度建设.档案建设";
 
 		public const string QunLiud = "区内流动";

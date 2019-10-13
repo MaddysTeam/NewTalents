@@ -1,6 +1,6 @@
 ﻿@model ZisFaz_XuesHuodModel
 @{
-	var pageTitle = ViewBag.Title = DeclareTargetIds.AllowXuesHuod(Html.GetUserProfile().TargetId) ? DeclareKeys.ZisFaz_XuesHuod_Tes : DeclareKeys.ZisFaz_XuesHuod;
+	var pageTitle = DeclareKeys.ZisFaz_XuesHuod; //TODO:暂时保留 ViewBag.Title = DeclareTargetIds.AllowXuesHuod(Html.GetUserProfile().TargetId) ? DeclareKeys.ZisFaz_XuesHuod_Tes : DeclareKeys.ZisFaz_XuesHuod;
 }
 <div class="modal-dialog modal-lg">
 
@@ -76,12 +76,12 @@
 							@Html.CheckBoxFor(m => m.IsShare, new { @style = "width:20px; height:20px;" })
 						</div>
 					</div>*@
-					<div class="form-group">
+					@*<div class="form-group">
 						@Html.LabelFor(m => m.IsDeclare, new { @class = "control-label col-md-3" })
 						<div class="col-md-9">
 							@Html.CheckBoxFor(m => m.IsDeclare, new { @style = "width:20px; height:20px;" })
 						</div>
-					</div>
+					</div>*@
 					<div class="form-group">
 						@Html.LabelFor(m => m.AttachmentName, new { @class = "control-label col-md-3" })
 						<div class="col-md-9">

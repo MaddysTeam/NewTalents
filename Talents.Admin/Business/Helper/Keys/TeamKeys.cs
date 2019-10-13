@@ -31,8 +31,10 @@
 		public const string YanxHuod = "研修活动";
 		public const string YanxHuod_Edit = "研修活动.编辑";
 		public const string YanxHuod_Delete = "研修活动.删除";
-		public const string ChengYJiBXinx = "成员基本信息";
+		public const string TuanDGerXinx = "团队个人信息";
+      public const string TuanDGerJh = "团队个人计划";
+      public const string TuanDZiXiangm = "团队子项目";
 
-	}
+   }
 
 }

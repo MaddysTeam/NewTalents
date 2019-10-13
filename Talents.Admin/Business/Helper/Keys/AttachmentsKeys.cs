@@ -90,6 +90,10 @@
 		public const string Tuand_Xiangm_zhongq = "团队.项目.中期";
 		public const string Tuand_Xiangm_jiet = "团队.项目.结题";
 
-	}
+      public const string Tuand_GrXinx = "团队.个人信息";
+      public const string Tuand_GrJih1 = "团队.个人计划.第一年";
+      public const string Tuand_GrJih2 = "团队.个人计划.第二年";
+      public const string Tuand_GrJih3 = "团队.个人计划.第三年";
+   }
 
 }

@@ -13,8 +13,9 @@
 	</div>
 	<div class="widget-content">
 
-		@using (Html.BeginForm("TuanDXinagm", "Team", Model.TeamId == 0 ? null : new { id = Model.TeamId }, FormMethod.Post, new { @class = "form-horizontal", data_after_success = "afterDialogSuccess()" }))
+		@using (Html.BeginForm("TuanDXinagm", "Team", Model.Id == 0 ? null : new { id = Model.Id }, FormMethod.Post, new { @class = "form-horizontal", data_after_success = "afterDialogSuccess()" }))
 		{
+			@Html.HiddenFor(m=>m.TeamId)
 			<div class="form-horizontal form-group-sm">
 				<div class="row">
 
@@ -33,9 +34,6 @@
 								@Html.ValidationMessageFor(m => m.UserName)
 							</div>
 						</div>
-
-
-
 					</fieldset>
 
 					<fieldset class="col-md-6">
@@ -162,7 +160,7 @@
 
 	$(function () {
 
-		ajaxSubmitForm($('form'));
+		ajaxSubmitForm($('.widget-content form'));
 
 		//多文件上传
 		ajaxMultipleFileUpload($('.dropzone1'), $('#btn-start1'), $('#uploadArea1'));

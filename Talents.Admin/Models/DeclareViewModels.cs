@@ -550,7 +550,6 @@ namespace TheSite.Models
 		[Display(Name = "开题附件")]
 		public string AttachmentUrl1 { get; set; }
 
-		[Required]
 		[Display(Name = "开题附件名称")]
 		public string AttachmentName1 { get; set; }
 
@@ -558,7 +557,6 @@ namespace TheSite.Models
 		[Display(Name = "中期附件")]
 		public string AttachmentUrl2 { get; set; }
 
-		[Required]
 		[Display(Name = "中期附件名称")]
 		public string AttachmentName2 { get; set; }
 
@@ -566,7 +564,6 @@ namespace TheSite.Models
 		[Display(Name = "结题附件")]
 		public string AttachmentUrl3 { get; set; }
 
-		[Required]
 		[Display(Name = "结题附件名称")]
 		public string AttachmentName3 { get; set; }
 

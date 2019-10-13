@@ -391,7 +391,9 @@ function ajaxMultipleFileUpload($dropZone,$button,$uploadArea) {
 				$progress.remove();
 				$uploadArea.append(function () {
 					return '<div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"><span class="sr-only"></span></div></div>';
-				})
+				});
+				$progress = $uploadArea.find('.progress');
+				$progressBar = $uploadArea.find('.progress-bar');
 				clock = setInterval(function () {
 					$progress.show();
 					if (i <= 99) {
@@ -419,7 +421,7 @@ function ajaxMultipleFileUpload($dropZone,$button,$uploadArea) {
 				$AttachmentName.val(name + data.filename);
 				var showName = data.filename.length > 40 ? data.filename.substring(0, 37) + "..." : data.filename;
 				$uploadNames.append('<p><label title="' + data.filename + '">' + showName + '</label> <button type="button" class="btn btn-danger btn-xs btn-delete">删除</button></p>');
-				$uploadNames.find('.btn-delete').off('click').on('click', function () { delAttachment(this, $uploadArea) });
+				$uploadNames.find('.btn-delete').off('click').on('click', function () {delAttachment(this, $uploadArea) });
 			});
 			this.on('error', function (file, message) {
 				popupMessage({ result: 'error', msg: message });
