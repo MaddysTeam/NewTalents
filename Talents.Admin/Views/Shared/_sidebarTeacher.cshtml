@@ -41,13 +41,13 @@
 						<div id="treeview-declare"></div>
 					</div>
 				</div>
-		if (up.IsMaster && !isInDeclare)
+		if (up.IsMaster)
 			{
 	<!-- END WIDGET ACTIVITY FEED -->
 				<li>
 					<a href="@Url.Action("Master", "Team")">
 						<i class="fa fa-book fa-fw"></i>
-						<span class="text">团队建设(领衔人)</span>
+						<span class="text">团队建设(主持人)</span>
 					</a>
 				</li>
 	<!-- WIDGET ACTIVITY FEED -->
@@ -58,7 +58,7 @@
 				</div>
 	<!-- END WIDGET ACTIVITY FEED -->
 			}
-			if (up.IsMember && !isInDeclare)
+			if (up.IsMember)
 			{
 				<li>
 					<a href="@Url.Action("Member", "Team")">

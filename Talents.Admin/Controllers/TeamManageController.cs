@@ -41,10 +41,10 @@ namespace TheSite.Controllers
 			var query = APQuery.select(up.UserId, up.RealName, up.IDCard, c.CompanyName,
 					  d.DeclareTargetPKID, d.DeclareSubjectPKID, d.DeclareStagePKID, d.HasTeam, d.TeamName)
 				 .from(up,
-             d.JoinLeft(up.UserId == d.TeacherId),
-             cd.JoinLeft(cd.TeacherId==up.UserId),
-             c.JoinLeft(c.CompanyId==cd.CompanyId)
-             )
+			 d.JoinLeft(up.UserId == d.TeacherId),
+			 cd.JoinLeft(cd.TeacherId == up.UserId),
+			 c.JoinLeft(c.CompanyId == cd.CompanyId)
+			 )
 				 .where(up.UserType == BzRoleNames.Teacher)
 				 .primary(up.UserId)
 				 .skip((current - 1) * rowCount)
@@ -157,7 +157,7 @@ namespace TheSite.Controllers
 				 .executeScale(db) > 0;
 
 			var Team = db.TeamMemberDal.ConditionQuery(tm.MemberId == model.TeacherId, null, null, null).FirstOrDefault();
-         var isTeamMaster = db.TeamMemberDal.ConditionQueryCount(tm.TeamId == model.TeacherId) > 0;
+			var isTeamMaster = db.TeamMemberDal.ConditionQueryCount(tm.TeamId == model.TeacherId) > 0;
 
 			if (model.DeclareTargetPKID == 0)
 			{
@@ -171,7 +171,8 @@ namespace TheSite.Controllers
 						db.TeamMemberDal.ConditionDelete(tm.TeamId == model.TeacherId);
 
 						//	如果是其他工作室学员需要给declarebase中的学员数量-1
-						if (Team != null) {
+						if (Team != null)
+						{
 							RemoveFromTeam(model.TeacherId, Team.TeamId);
 						}
 
@@ -247,7 +248,7 @@ namespace TheSite.Controllers
 		#endregion
 
 
-		#region [ 梯队管理 ]
+		#region [ 团队管理 ]
 
 
 		// GET: TeamManage/TeamList
@@ -263,9 +264,14 @@ namespace TheSite.Controllers
 		{
 			ThrowNotAjax();
 
+			var t = APDBDef.TeamMember;
+
 			var query = APQuery.select(up.UserId, up.RealName,
 					  d.DeclareTargetPKID, d.DeclareSubjectPKID, d.DeclareStagePKID, d.TeamName, d.MemberCount)
-				 .from(up, d.JoinInner(up.UserId == d.TeacherId))
+				 .from(up,
+						d.JoinInner(up.UserId == d.TeacherId),
+						t.JoinInner(t.TeamId == d.TeacherId) 
+				 )
 				 .where(d.HasTeam == true)
 				 .primary(up.UserId)
 				 .skip((current - 1) * rowCount)
@@ -626,7 +632,7 @@ namespace TheSite.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult CompanyList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long target, long subject, long stage,long companyId)
+		public JsonResult CompanyList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long target, long subject, long stage, long companyId)
 		{
 			ThrowNotAjax();
 
@@ -668,10 +674,10 @@ namespace TheSite.Controllers
 			{
 				query.where_and(d.DeclareStagePKID == stage);
 			}
-         if(companyId>0)
-         {
-            query.where_and(cd.CompanyId == companyId);
-         }
+			if (companyId > 0)
+			{
+				query.where_and(cd.CompanyId == companyId);
+			}
 
 			//排序条件表达式
 

@@ -1368,7 +1368,7 @@
     <Content Include="Views\Team\DaijJihView.cshtml" />
     <Content Include="Views\Team\YanxHuod.cshtml" />
     <Content Include="Views\Team\YanxHuodView.cshtml" />
-    <Content Include="Views\TeamPop\DaijHuod_XueyChengg.cshtml" />
+    <Content Include="Views\TeamPop\YanXHuod_XueyChengg.cshtml" />
     <Content Include="Views\TeamPop\MemberResult.cshtml" />
     <Content Include="Views\Team\KecShis.cshtml" />
     <Content Include="Views\Team\KecShis_Bianj.cshtml" />

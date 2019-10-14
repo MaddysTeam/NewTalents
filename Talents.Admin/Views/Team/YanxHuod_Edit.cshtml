@@ -17,7 +17,7 @@
 		</div>
 	</div>
 	<div class="widget-content">
-		@using (Html.BeginForm("DaijHuod_Edit", "Team", Model.TeamActiveId == 0 ? null : new { id = Model.TeamActiveId }, FormMethod.Post, new { @class = "form-horizontal", data_after_success = "afterDialogSuccess()" }))
+		@using (Html.BeginForm("YanxHuod_Edit", "Team", Model.TeamActiveId == 0 ? null : new { id = Model.TeamActiveId }, FormMethod.Post, new { @class = "form-horizontal", data_after_success = "afterDialogSuccess()" }))
 		{
 			<div class="row">
 				<fieldset class="col-md-6">
@@ -68,11 +68,11 @@
 									@Html.CheckBoxFor(m => m.IsShare) 是否共享
 								</div>
 							</div>*@
-							<div class="form-group">
+							@*<div class="form-group">
 								<div class="col-md-9 col-md-offset-3">
 									@Html.CheckBoxFor(m => m.IsDeclare) 是否申报
 								</div>
-							</div>
+							</div>*@
 
 							<div class="form-group">
 								@Html.LabelFor(m => m.AttachmentName, new { @class = "control-label col-md-3" })

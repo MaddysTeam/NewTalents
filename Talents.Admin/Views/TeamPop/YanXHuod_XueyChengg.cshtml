@@ -1,6 +1,6 @@
 ﻿@model TeamActiveResult
 @{
-	var pageTitle = ViewBag.Title = TeamKeys.DaijHuod_XueyChengg;
+	var pageTitle = ViewBag.Title = TeamKeys.YanxHuod_XueyChengg;
 }
 <div class="modal-dialog modal-lg">
 
@@ -13,7 +13,7 @@
 			</div>
 		</div>
 		<div class="widget-content">
-		@using (Html.BeginForm("DaijHuod_XueyChengg", "TeamPop", Model.ResultId == 0 ? null : new { id = Model.ResultId }, FormMethod.Post, new { @class = "form-horizontal", data_after_success = "afterDialogSuccess()" }))
+		@using (Html.BeginForm("YanXHuod_XueyChengg", "TeamPop", Model.ResultId == 0 ? null : new { id = Model.ResultId }, FormMethod.Post, new { @class = "form-horizontal", data_after_success = "afterDialogSuccess()" }))
 		{
 			<div class="row">
 				<fieldset class="col-md-12">

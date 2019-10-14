@@ -86,14 +86,6 @@ namespace TheSite.Controllers
       {
          switch (key)
          {
-            //case TeamKeys.TidXinx:
-            //   return TidXinx(teamId, visiter);
-            //case TeamKeys.DaijJih:
-            //   return DaijJih(teamId, visiter);
-            //case TeamKeys.DaijHuod:
-            //   return DaijHuod(teamId, visiter);
-            //case TeamKeys.DaijHuod_Edit:
-            //   return DaijHuod_Edit(visiter, Int64.Parse(Request["activeId"]));
             //case TeamKeys.DaijHuod_Timeline:
             //   return DaijHuod_Timeline(visiter, Int64.Parse(Request["activeId"]));
             //case TeamKeys.KecShis:
