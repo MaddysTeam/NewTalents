@@ -264,16 +264,15 @@ namespace TheSite.Controllers
 		{
 			ThrowNotAjax();
 
-			var t = APDBDef.TeamMember;
+			var subQuery = APQuery.select(tm.TeamId).from(tm).group_by(tm.TeamId);
 
 			var query = APQuery.select(up.UserId, up.RealName,
 					  d.DeclareTargetPKID, d.DeclareSubjectPKID, d.DeclareStagePKID, d.TeamName, d.MemberCount)
-				 .from(up,
-						d.JoinInner(up.UserId == d.TeacherId),
-						t.JoinInner(t.TeamId == d.TeacherId) 
+				 .from(d,
+						up.JoinInner(up.UserId == d.TeacherId)
 				 )
-				 .where(d.HasTeam == true)
-				 .primary(up.UserId)
+				 .where(d.TeacherId.In(subQuery))
+				 .primary(d.TeacherId)
 				 .skip((current - 1) * rowCount)
 				 .take(rowCount);
 
@@ -330,14 +329,17 @@ namespace TheSite.Controllers
 
 			var result = query.query(db, rd =>
 			{
+				var stageName = DeclareBaseHelper.DeclareStage.GetName(d.DeclareStagePKID.GetValue(rd));
+				var subjectName = DeclareBaseHelper.DeclareSubject.GetName(d.DeclareSubjectPKID.GetValue(rd));
+				var realName = up.RealName.GetValue(rd);
 				return new
 				{
 					id = up.UserId.GetValue(rd),
-					realName = up.RealName.GetValue(rd),
+					realName = realName,
 					target = DeclareBaseHelper.DeclareTarget.GetName(d.DeclareTargetPKID.GetValue(rd)),
-					subject = DeclareBaseHelper.DeclareSubject.GetName(d.DeclareSubjectPKID.GetValue(rd)),
-					stage = DeclareBaseHelper.DeclareStage.GetName(d.DeclareStagePKID.GetValue(rd)),
-					teamName = d.TeamName.GetValue(rd),
+					subject = stageName,
+					stage = stageName,
+					teamName = $"{stageName}{subjectName}{realName}",
 					memberCount = d.MemberCount.GetValue(rd)
 				};
 			});

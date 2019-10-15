@@ -346,7 +346,7 @@ namespace TheSite.Models
 		public string Dynamic1 { get; set; }
 
 		[Required]
-		[Display(Name = "组织部门、负责人")]
+		[Display(Name = "被指导教师")]
 		public string Dynamic2 { get; set; }
 
 	}
