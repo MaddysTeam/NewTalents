@@ -29,7 +29,7 @@
 		public const string ZisFaz_GerSWOT_Challenge3 = "自身发展.个人SWOT分析.威胁.政策制度";
 		public const string ZisFaz_GerSWOT_GaijCuos = "自身发展.个人SWOT分析.改进措施";
 
-		public const string ZisFaz_ZiwFazJih = "自身发展.自我发展计划";
+		public const string ZisFaz_ZiwFazJih = "自身发展.自我发展规划";
 		public const string ZisFaz_ZiwFazJih_ZhuanyeFazMub_Memo1 = "自身发展.自我发展计划.专业发展目标.总体目标";
 		public const string ZisFaz_ZiwFazJih_JiedMub_Memo1 = "自身发展.自我发展计划.阶段目标.第一年目标";
 		public const string ZisFaz_ZiwFazJih_JiedMub_Memo2 = "自身发展.自我发展计划.阶段目标.第二年目标";

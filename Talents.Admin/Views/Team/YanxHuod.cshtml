@@ -59,7 +59,7 @@
 									}*@
 									<button class="btn btn-info btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.TeamActiveId, type = AttachmentsKeys.YanXHuod_Edit })" data-target="#firstModal" title="查看附件">查看附件</button>
 									<a class="btn btn-success btn-edit" href="javascript:loadFrag({key: '@TeamKeys.YanxHuod_Edit', activeId:@item.TeamActiveId})" title="编辑">编辑</a>									
-									<button class="btn btn-danger btn-remove" data-url="@Url.Action("RemoveDaijHuod", "Team", new { id = item.TeamActiveId })" title="删除">删除</button>
+									<button class="btn btn-danger btn-remove" data-url="@Url.Action("RemoveYanxHuod", "Team", new { id = item.TeamActiveId })" title="删除">删除</button>
 									@*<a class="btn btn-info" href="javascript:loadFrag({key: '@TeamKeys.DaijHuod_Timeline', activeId:@item.TeamActiveId})" title="开展活动">活动</a>*@ 
 								</div>
 							</td>

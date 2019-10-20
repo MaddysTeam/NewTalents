@@ -33,7 +33,7 @@
 		public const string YanxHuod_Delete = "研修活动.删除";
 		public const string YanxHuod_XueyChengg = "研修活动.学员成果";
 		public const string TuanDGerXinx = "团队个人信息";
-      public const string TuanDGerJh = "团队个人计划";
+      public const string TuanDGerJh = "个人三年计划"; //TODO will change later
       public const string TuanDZiXiangm = "团队子项目";
 
    }

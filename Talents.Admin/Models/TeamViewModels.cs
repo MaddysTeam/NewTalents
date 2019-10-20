@@ -211,7 +211,7 @@ namespace TheSite.Models
 
 	public class ZhidJiansViewModel
 	{
-		[Display(Name = "团队制度")]
+		[Display(Name = "三年规划")]
 		public string AttachmentName1 { get; set; }
 
 		[Display(Name = "附件路径")]
@@ -259,7 +259,44 @@ namespace TheSite.Models
 		[Display(Name = "附件路径")]
 		public string SemesterAttachmentUrl6 { get; set; }
 
-	}
+
+      [Display(Name = "第一学期活动安排")]
+      public string SemesterActiveAttachmentName1 { get; set; }
+
+      [Display(Name = "附件路径")]
+      public string SemesterActiveAttachmentUrl1 { get; set; }
+
+      [Display(Name = "第二学期活动安排")]
+      public string SemesterActiveAttachmentName2 { get; set; }
+
+      [Display(Name = "附件路径")]
+      public string SemesterActiveAttachmentUrl2 { get; set; }
+
+      [Display(Name = "第三学期活动安排")]
+      public string SemesterActiveAttachmentName3 { get; set; }
+
+      [Display(Name = "附件路径")]
+      public string SemesterActiveAttachmentUrl3 { get; set; }
+
+      [Display(Name = "第四学期活动安排")]
+      public string SemesterActiveAttachmentName4 { get; set; }
+
+      [Display(Name = "附件路径")]
+      public string SemesterActiveAttachmentUrl4 { get; set; }
+
+      [Display(Name = "第五学期活动安排")]
+      public string SemesterActiveAttachmentName5 { get; set; }
+
+      [Display(Name = "附件路径")]
+      public string SemesterActiveAttachmentUrl5 { get; set; }
+
+      [Display(Name = "第六学期活动安排")]
+      public string SemesterActiveAttachmentName6 { get; set; }
+
+      [Display(Name = "附件路径")]
+      public string SemesterActiveAttachmentUrl6 { get; set; }
+
+   }
 
 	#endregion
 
@@ -298,7 +335,14 @@ namespace TheSite.Models
 		[Display(Name = "项目结题")]
       public string AttachmentName3 { get; set; }
 		public string AttachmentUrl3 { get; set; }
-	}
+
+      [Display(Name = "证明文件路径")]
+      public string VertificationUrl { get; set; }
+
+      [Required]
+      [Display(Name = "证明文件名称")]
+      public string VertificationName { get; set; }
+   }
 
    #endregion
 

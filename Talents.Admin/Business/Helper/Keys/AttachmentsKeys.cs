@@ -86,7 +86,15 @@
 		public const string Tuand_XueqJih5 = "团队.第五学期";
 		public const string Tuand_XueqJih6 = "团队.第六学期";
 
-		public const string Tuand_Xiangm_Kait = "团队.项目.开题";
+      public const string Tuand_XueqHuodAnp = "团队.第一学期活动安排";
+      public const string Tuand_XueqHuodAnp2 = "团队.第二学期活动安排";
+      public const string Tuand_XueqHuodAnp3 = "团队.第三学期活动安排";
+      public const string Tuand_XueqHuodAnp4 = "团队.第四学期活动安排";
+      public const string Tuand_XueqHuodAnp5 = "团队.第五学期活动安排";
+      public const string Tuand_XueqHuodAnp6 = "团队.第六学期活动安排";
+
+      public const string Tuand_Xiangm = "团队.项目";
+      public const string Tuand_Xiangm_Kait = "团队.项目.开题";
 		public const string Tuand_Xiangm_zhongq = "团队.项目.中期";
 		public const string Tuand_Xiangm_jiet = "团队.项目.结题";
 

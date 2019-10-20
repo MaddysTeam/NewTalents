@@ -112,7 +112,7 @@
 							</div>
 						</div>
 
-						<div class="form-group">
+						<div class="form-group hidden">
 							@Html.LabelFor(m => m.AttachmentName3, new { @class = "control-label col-md-2" })
 							<div class="col-md-9 uploadArea" id="uploadArea3">
 								@Html.HiddenFor(m => m.AttachmentUrl3, new { @class = "AttachmentUrl" })
@@ -138,13 +138,33 @@
 								@Html.ValidationMessageFor(m => m.AttachmentName3)
 							</div>
 						</div>
-					</fieldset>
+
+
+						<div class="form-group">
+							@Html.LabelFor(m => m.VertificationName, new { @class = "control-label col-md-2" })
+							<div class="col-md-9">
+								@Html.HiddenFor(m => m.VertificationUrl)
+								@Html.TextBoxFor(m => m.VertificationName, new { @style = "visibility:hidden;" })
+								<div class="input-group">
+									<div id="simpleUploadName" class="form-control">
+										@Html.Label("", Model.VertificationName)
+									</div>
+									<span class="input-group-btn">
+										<button class="btn btn-danger btn-upload" type="button" id="btn-vertifyUpload">证明文件上传</button>
+									</span>
+								</div>
+								<div class="red">*证明文件类型支持文本类型，图片和压缩包，文件不大于50M</div>
+								@Html.ValidationMessageFor(m => m.VertificationName)
+							</div>
+						</div>
 
 					<div class="form-group">
 						<div class="col-sm-9 col-lg-offset-2">
 							<button type="submit" class="btn btn-primary btn-block-half"><i class="fa fa-check-circle"></i> 保存</button>
 						</div>
 					</div>
+					</fieldset>
+
 				</div>
 			</div>
 		}
@@ -155,8 +175,10 @@
 <form action="@Url.Action("UploadFile", "Attachment")" class="dropzone1 hidden"></form>
 <form action="@Url.Action("UploadFile", "Attachment")" class="dropzone2 hidden"></form>
 <form action="@Url.Action("UploadFile", "Attachment")" class="dropzone3 hidden"></form>
-
+<form action="@Url.Action("UploadFile", "Attachment")" id="fm-vertifyDropzone" class="hidden"></form>
 <script>
+
+	function afterDialogSuccess(){}
 
 	$(function () {
 
@@ -166,6 +188,15 @@
 		ajaxMultipleFileUpload($('.dropzone1'), $('#btn-start1'), $('#uploadArea1'));
 		ajaxMultipleFileUpload($('.dropzone2'), $('#btn-start2'), $('#uploadArea2'));
 		ajaxMultipleFileUpload($('.dropzone3'), $('#btn-start3'), $('#uploadArea3'));
+
+		//单文件上传
+		ajaxSimpleFileUpload('fm-vertifyDropzone', 'btn-vertifyUpload', function (file, data) {
+			$('#VertificationUrl').val(data.url);
+			$('#VertificationName').val(data.filename);
+			$('#simpleUploadName').html(data.filename);
+		}, function (file, message) {
+			popupMessage({ result: 'error', msg: message });
+		});
 
 	});
 

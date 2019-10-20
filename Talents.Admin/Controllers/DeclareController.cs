@@ -56,8 +56,8 @@ namespace TheSite.Controllers
 					return ZisFaz_ZiwFazJih();
 				case DeclareKeys.ZisFaz_ShiqjHuod:
 					return ZisFaz_ShiqjHuod();
-				case DeclareKeys.ZisFaz_JiaoxHuod:
-					return ZisFaz_JiaoxHuod();
+				//case DeclareKeys.ZisFaz_JiaoxHuod:
+				//	return ZisFaz_JiaoxHuod();
 				case DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk:
 					return ZisFaz_JiaoxHuod_JiaoxGongkk();
 				case DeclareKeys.ZisFaz_JiaoxHuod_Yantk:
@@ -147,6 +147,8 @@ namespace TheSite.Controllers
 					return View();
 				case DeclareKeys.JiaoxXinx:
 					return View();
+            case TeamKeys.TuanDGerJh:
+               return RedirectToAction("TuanDGerJih", "Team");
 			}
 
 			return PartialView("PromptInfo");

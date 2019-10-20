@@ -3,6 +3,7 @@
 	var pageTitle = ViewBag.Title = TeamKeys.TuanDZhidJians;
 }
 
+<!-- widget -->
 <div class="widget">
 	<div class="widget-header">
 		<h3><i class="fa fa-paperclip"></i>@pageTitle</h3>
@@ -36,7 +37,7 @@
 						</div>
 					</div>
 
-					<div class="form-group">
+					<div class="form-group hidden">
 						@Html.LabelFor(m => m.AttachmentName2, new { @class = "control-label col-md-12" })
 						<div class="col-md-9">
 							@Html.HiddenFor(m => m.AttachmentUrl2)
@@ -55,8 +56,12 @@
 					</div>
 
 				</fieldset>
-				<fieldset class="col-md-6">
 
+				<fieldset class="col-md-12"><p><hr /></p></fieldset>
+
+				<fieldset class="col-md-12"><p><h4><strong>学期计划</strong></h4></p></fieldset>
+
+				<fieldset class="col-md-6">
 					<div class="form-group">
 						@Html.LabelFor(m => m.SemesterAttachmentName1, new { @class = "control-label col-md-12" })
 						<div class="col-md-9">
@@ -114,7 +119,6 @@
 				</fieldset>
 
 				<fieldset class="col-md-6">
-
 					<div class="form-group">
 						@Html.LabelFor(m => m.SemesterAttachmentName2, new { @class = "control-label col-md-12" })
 						<div class="col-md-9">
@@ -171,6 +175,124 @@
 
 				</fieldset>
 
+				<fieldset class="col-md-12"><p><hr /></p></fieldset>
+
+				<fieldset class="col-md-12"><p><h4><strong>学期安排表</strong></h4></p></fieldset>
+
+				<fieldset class="col-md-6">
+					<div class="form-group">
+						@Html.LabelFor(m => m.SemesterActiveAttachmentName1, new { @class = "control-label col-md-12" })
+						<div class="col-md-9">
+							@Html.HiddenFor(m => m.SemesterActiveAttachmentUrl1)
+							@Html.TextBoxFor(m => m.SemesterActiveAttachmentName1, new { @style = "visibility:hidden;" })
+							<div class="input-group">
+								<div id="simpleUploadName9" class="form-control">
+									@Html.Label("", Model.SemesterActiveAttachmentName1)
+								</div>
+								<span class="input-group-btn">
+									<button class="btn btn-danger btn-upload" type="button" id="btn-upload9">文件上传</button>
+								</span>
+							</div>
+
+							@Html.ValidationMessageFor(m => m.SemesterActiveAttachmentName1)
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(m => m.SemesterActiveAttachmentName3, new { @class = "control-label col-md-12" })
+						<div class="col-md-9">
+							@Html.HiddenFor(m => m.SemesterActiveAttachmentUrl3)
+							@Html.TextBoxFor(m => m.SemesterActiveAttachmentName3, new { @style = "visibility:hidden;" })
+							<div class="input-group">
+								<div id="simpleUploadName11" class="form-control">
+									@Html.Label("", Model.SemesterActiveAttachmentName3)
+								</div>
+								<span class="input-group-btn">
+									<button class="btn btn-danger btn-upload" type="button" id="btn-upload11">文件上传</button>
+								</span>
+							</div>
+
+							@Html.ValidationMessageFor(m => m.SemesterActiveAttachmentName3)
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(m => m.SemesterActiveAttachmentName5, new { @class = "control-label col-md-12" })
+						<div class="col-md-9">
+							@Html.HiddenFor(m => m.SemesterActiveAttachmentUrl5)
+							@Html.TextBoxFor(m => m.SemesterActiveAttachmentName5, new { @style = "visibility:hidden;" })
+							<div class="input-group">
+								<div id="simpleUploadName13" class="form-control">
+									@Html.Label("", Model.SemesterActiveAttachmentName5)
+								</div>
+								<span class="input-group-btn">
+									<button class="btn btn-danger btn-upload" type="button" id="btn-upload13">文件上传</button>
+								</span>
+							</div>
+
+							@Html.ValidationMessageFor(m => m.SemesterActiveAttachmentName5)
+						</div>
+					</div>
+
+				</fieldset>
+
+				<fieldset class="col-md-6">
+					<div class="form-group">
+						@Html.LabelFor(m => m.SemesterActiveAttachmentName2, new { @class = "control-label col-md-12" })
+						<div class="col-md-9">
+							@Html.HiddenFor(m => m.SemesterActiveAttachmentUrl2)
+							@Html.TextBoxFor(m => m.SemesterActiveAttachmentName2, new { @style = "visibility:hidden;" })
+							<div class="input-group">
+								<div id="simpleUploadName10" class="form-control">
+									@Html.Label("", Model.SemesterActiveAttachmentName2)
+								</div>
+								<span class="input-group-btn">
+									<button class="btn btn-danger btn-upload" type="button" id="btn-upload10">文件上传</button>
+								</span>
+							</div>
+
+							@Html.ValidationMessageFor(m => m.SemesterActiveAttachmentName2)
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(m => m.SemesterActiveAttachmentName4, new { @class = "control-label col-md-12" })
+						<div class="col-md-9">
+							@Html.HiddenFor(m => m.SemesterActiveAttachmentUrl4)
+							@Html.TextBoxFor(m => m.SemesterActiveAttachmentName4, new { @style = "visibility:hidden;" })
+							<div class="input-group">
+								<div id="simpleUploadName12" class="form-control">
+									@Html.Label("", Model.SemesterActiveAttachmentName4)
+								</div>
+								<span class="input-group-btn">
+									<button class="btn btn-danger btn-upload" type="button" id="btn-upload12">文件上传</button>
+								</span>
+							</div>
+
+							@Html.ValidationMessageFor(m => m.SemesterActiveAttachmentName4)
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(m => m.SemesterActiveAttachmentName6, new { @class = "control-label col-md-12" })
+						<div class="col-md-9">
+							@Html.HiddenFor(m => m.SemesterActiveAttachmentUrl6)
+							@Html.TextBoxFor(m => m.SemesterActiveAttachmentName6, new { @style = "visibility:hidden;" })
+							<div class="input-group">
+								<div id="simpleUploadName14" class="form-control">
+									@Html.Label("", Model.SemesterActiveAttachmentName6)
+								</div>
+								<span class="input-group-btn">
+									<button class="btn btn-danger btn-upload" type="button" id="btn-upload14">文件上传</button>
+								</span>
+							</div>
+
+							@Html.ValidationMessageFor(m => m.SemesterActiveAttachmentName6)
+						</div>
+					</div>
+
+				</fieldset>
+
 				<div class="form-group">
 					<div class="col-sm-9 col-lg-offset-3">
 						<button type="submit" class="btn btn-primary btn-block-half"><i class="fa fa-check-circle"></i> 保存</button>
@@ -181,22 +303,22 @@
 
 	</div>
 </div>
+<!-- end widget -->
 
-<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="dropzone1"></form>
-<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="dropzone2"></form>
-<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="dropzone3"></form>
-<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="dropzone4"></form>
-<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="dropzone5"></form>
-<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="dropzone6"></form>
-<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="dropzone7"></form>
-<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="dropzone8"></form>
+@for (int i = 1; i < 15; i++)
+{
+	<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="@("dropzone"+i)"></form>
+}
+
 <script>
 	$(function () {
 
-		for (var i = 1; i < 9; i++) {
+		for (var i = 1; i < 15; i++) {
 			(function (j) {
-				var attachmentUrl = j > 2 ? 'SemesterAttachmentUrl' + (j - 2) : 'AttachmentUrl' + j;
-				var attachmentName = j > 2 ? 'SemesterAttachmentName' + (j - 2) : 'AttachmentName' + j;
+				var attachmentUrl = j > 8 ? 'SemesterActiveAttachmentUrl' + (j - 8) : j > 2 && j < 9 ? 'SemesterAttachmentUrl' + (j - 2) : 'AttachmentUrl' + j;
+				var attachmentName = j > 8 ? 'SemesterActiveAttachmentName' + (j - 8) : j > 2 && j < 9 ? 'SemesterAttachmentName' + (j - 2) : 'AttachmentName' + j;
+
+				console.log(attachmentName);
 				var sigleUploadName = 'simpleUploadName' + j;
 				ajaxSimpleFileUpload('dropzone' + j, 'btn-upload' + j, function (file, data) {
 					$('#' + attachmentUrl).val(data.url);
