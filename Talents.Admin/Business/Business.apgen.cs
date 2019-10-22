@@ -97,6 +97,10 @@ namespace Business {
         
         private static TeamSpecialCourseItemTableDef _teamSpecialCourseItem;
         
+        private static TeamEvalResultTableDef _teamEvalResult;
+        
+        private static TeamEvalResultItemTableDef _teamEvalResultItem;
+        
         private static ExpGroupTableDef _expGroup;
         
         private static ExpGroupMemberTableDef _expGroupMember;
@@ -208,6 +212,10 @@ namespace Business {
         private APDalDef.TeamSpecialCourseDal _teamSpecialCourseDal;
         
         private APDalDef.TeamSpecialCourseItemDal _teamSpecialCourseItemDal;
+        
+        private APDalDef.TeamEvalResultDal _teamEvalResultDal;
+        
+        private APDalDef.TeamEvalResultItemDal _teamEvalResultItemDal;
         
         private APDalDef.ExpGroupDal _expGroupDal;
         
@@ -694,6 +702,30 @@ namespace Business {
                     _teamSpecialCourseItem = new TeamSpecialCourseItemTableDef("TeamSpecialCourseItem");
                 }
                 return _teamSpecialCourseItem;
+            }
+        }
+        
+        /// <summary>
+        /// 团队-考核-结果 TableDef
+        /// </summary>
+        public static TeamEvalResultTableDef TeamEvalResult {
+            get {
+                if ((_teamEvalResult == null)) {
+                    _teamEvalResult = new TeamEvalResultTableDef("TeamEvalResult");
+                }
+                return _teamEvalResult;
+            }
+        }
+        
+        /// <summary>
+        /// 团队-考核-结果项 TableDef
+        /// </summary>
+        public static TeamEvalResultItemTableDef TeamEvalResultItem {
+            get {
+                if ((_teamEvalResultItem == null)) {
+                    _teamEvalResultItem = new TeamEvalResultItemTableDef("TeamEvalResultItem");
+                }
+                return _teamEvalResultItem;
             }
         }
         
@@ -1358,6 +1390,30 @@ namespace Business {
         }
         
         /// <summary>
+        /// 团队-考核-结果 Dal
+        /// </summary>
+        public virtual APDalDef.TeamEvalResultDal TeamEvalResultDal {
+            get {
+                if ((_teamEvalResultDal == null)) {
+                    _teamEvalResultDal = new APDalDef.TeamEvalResultDal(this);
+                }
+                return _teamEvalResultDal;
+            }
+        }
+        
+        /// <summary>
+        /// 团队-考核-结果项 Dal
+        /// </summary>
+        public virtual APDalDef.TeamEvalResultItemDal TeamEvalResultItemDal {
+            get {
+                if ((_teamEvalResultItemDal == null)) {
+                    _teamEvalResultItemDal = new APDalDef.TeamEvalResultItemDal(this);
+                }
+                return _teamEvalResultItemDal;
+            }
+        }
+        
+        /// <summary>
         /// 专家组 Dal
         /// </summary>
         public virtual APDalDef.ExpGroupDal ExpGroupDal {
@@ -1625,6 +1681,8 @@ namespace Business {
                 db.TeamActiveItemDal.InitData(db);
                 db.TeamSpecialCourseDal.InitData(db);
                 db.TeamSpecialCourseItemDal.InitData(db);
+                db.TeamEvalResultDal.InitData(db);
+                db.TeamEvalResultItemDal.InitData(db);
                 db.ExpGroupDal.InitData(db);
                 db.ExpGroupMemberDal.InitData(db);
                 db.ExpectDal.InitData(db);
@@ -11363,6 +11421,382 @@ namespace Business {
         }
         
         [Serializable()]
+        public partial class TeamEvalResultTableDef : APTableDef {
+            
+            private Int64APColumnDef _resultId;
+            
+            private Int64APColumnDef _periodId;
+            
+            private Int64APColumnDef _teamId;
+            
+            private Int64APColumnDef _memberId;
+            
+            private DoubleAPColumnDef _fullScore;
+            
+            private DoubleAPColumnDef _score;
+            
+            private Int64APColumnDef _accesser;
+            
+            private DateTimeAPColumnDef _accessDate;
+            
+            public TeamEvalResultTableDef(string tableName) : 
+                    base(tableName) {
+            }
+            
+            protected TeamEvalResultTableDef(string tableName, string alias) : 
+                    base(tableName, alias) {
+            }
+            
+            /// <summary>
+            /// ResultId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef ResultId {
+                get {
+                    if (Object.ReferenceEquals(_resultId, null)) {
+                        _resultId = new Int64APColumnDef(this, "ResultId", false);
+                        _resultId.Display = "评价结果ID";
+                    }
+                    return _resultId;
+                }
+            }
+            
+            /// <summary>
+            /// PeriodId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef PeriodId {
+                get {
+                    if (Object.ReferenceEquals(_periodId, null)) {
+                        _periodId = new Int64APColumnDef(this, "PeriodId", false);
+                        _periodId.Display = "周期ID";
+                    }
+                    return _periodId;
+                }
+            }
+            
+            /// <summary>
+            /// TeamId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef TeamId {
+                get {
+                    if (Object.ReferenceEquals(_teamId, null)) {
+                        _teamId = new Int64APColumnDef(this, "TeamId", false);
+                        _teamId.Display = "团队ID";
+                    }
+                    return _teamId;
+                }
+            }
+            
+            /// <summary>
+            /// MemberId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef MemberId {
+                get {
+                    if (Object.ReferenceEquals(_memberId, null)) {
+                        _memberId = new Int64APColumnDef(this, "MemberId", false);
+                        _memberId.Display = "团队成员ID";
+                    }
+                    return _memberId;
+                }
+            }
+            
+            /// <summary>
+            /// FullScore ColumnDef
+            /// </summary>
+            public virtual DoubleAPColumnDef FullScore {
+                get {
+                    if (Object.ReferenceEquals(_fullScore, null)) {
+                        _fullScore = new DoubleAPColumnDef(this, "FullScore", false);
+                        _fullScore.Display = "总分";
+                    }
+                    return _fullScore;
+                }
+            }
+            
+            /// <summary>
+            /// Score ColumnDef
+            /// </summary>
+            public virtual DoubleAPColumnDef Score {
+                get {
+                    if (Object.ReferenceEquals(_score, null)) {
+                        _score = new DoubleAPColumnDef(this, "Score", false);
+                        _score.Display = "得分";
+                    }
+                    return _score;
+                }
+            }
+            
+            /// <summary>
+            /// Accesser ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef Accesser {
+                get {
+                    if (Object.ReferenceEquals(_accesser, null)) {
+                        _accesser = new Int64APColumnDef(this, "Accesser", false);
+                        _accesser.Display = "考评人";
+                    }
+                    return _accesser;
+                }
+            }
+            
+            /// <summary>
+            /// AccessDate ColumnDef
+            /// </summary>
+            public virtual DateTimeAPColumnDef AccessDate {
+                get {
+                    if (Object.ReferenceEquals(_accessDate, null)) {
+                        _accessDate = new DateTimeAPColumnDef(this, "AccessDate", false);
+                        _accessDate.Display = "考评时间";
+                    }
+                    return _accessDate;
+                }
+            }
+            
+            /// <summary>
+            /// Default Index
+            /// </summary>
+            public virtual APSqlOrderPhrase DefaultOrder {
+                get {
+                    return null;
+                }
+            }
+            
+            /// <summary>
+            /// Create a alias table
+            /// </summary>
+            public virtual TeamEvalResultTableDef As(string name) {
+                return new TeamEvalResultTableDef("TeamEvalResult", name);
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual void Fullup(IDataReader reader, TeamEvalResult data, bool throwIfValidColumnName) {
+                data.ResultId = ResultId.GetValue<long>(reader, throwIfValidColumnName);
+                data.PeriodId = PeriodId.GetValue<long>(reader, throwIfValidColumnName);
+                data.TeamId = TeamId.GetValue<long>(reader, throwIfValidColumnName);
+                data.MemberId = MemberId.GetValue<long>(reader, throwIfValidColumnName);
+                data.FullScore = FullScore.GetValue<double>(reader, throwIfValidColumnName);
+                data.Score = Score.GetValue<double>(reader, throwIfValidColumnName);
+                data.Accesser = Accesser.GetValue<long>(reader, throwIfValidColumnName);
+                data.AccessDate = AccessDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual TeamEvalResult Map(IDataReader reader) {
+                TeamEvalResult data = new TeamEvalResult();
+                Fullup(reader, data, true);
+                return data;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual TeamEvalResult TolerantMap(IDataReader reader) {
+                TeamEvalResult data = new TeamEvalResult();
+                Fullup(reader, data, false);
+                return data;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual List<TeamEvalResult> MapList(IDataReader reader) {
+                List<TeamEvalResult> list = new List<TeamEvalResult>();
+                try {
+                    for (; reader.Read(); ) {
+                        list.Add(Map(reader));
+                    }
+                }
+                finally {
+                    reader.Close();
+                }
+                return list;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual List<TeamEvalResult> TolerantMapList(IDataReader reader) {
+                List<TeamEvalResult> list = new List<TeamEvalResult>();
+                try {
+                    for (; reader.Read(); ) {
+                        list.Add(TolerantMap(reader));
+                    }
+                }
+                finally {
+                    reader.Close();
+                }
+                return list;
+            }
+        }
+        
+        [Serializable()]
+        public partial class TeamEvalResultItemTableDef : APTableDef {
+            
+            private Int64APColumnDef _resultItemId;
+            
+            private Int64APColumnDef _resultId;
+            
+            private StringAPColumnDef _evalItemKey;
+            
+            private StringAPColumnDef _chooseValue;
+            
+            private StringAPColumnDef _resultValue;
+            
+            public TeamEvalResultItemTableDef(string tableName) : 
+                    base(tableName) {
+            }
+            
+            protected TeamEvalResultItemTableDef(string tableName, string alias) : 
+                    base(tableName, alias) {
+            }
+            
+            /// <summary>
+            /// ResultItemId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef ResultItemId {
+                get {
+                    if (Object.ReferenceEquals(_resultItemId, null)) {
+                        _resultItemId = new Int64APColumnDef(this, "ResultItemId", false);
+                        _resultItemId.Display = "结果项ID";
+                    }
+                    return _resultItemId;
+                }
+            }
+            
+            /// <summary>
+            /// ResultId ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef ResultId {
+                get {
+                    if (Object.ReferenceEquals(_resultId, null)) {
+                        _resultId = new Int64APColumnDef(this, "ResultId", false);
+                        _resultId.Display = "评价结果ID";
+                    }
+                    return _resultId;
+                }
+            }
+            
+            /// <summary>
+            /// EvalItemKey ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef EvalItemKey {
+                get {
+                    if (Object.ReferenceEquals(_evalItemKey, null)) {
+                        _evalItemKey = new StringAPColumnDef(this, "EvalItemKey", false, 200);
+                        _evalItemKey.Display = "指标项";
+                    }
+                    return _evalItemKey;
+                }
+            }
+            
+            /// <summary>
+            /// ChooseValue ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef ChooseValue {
+                get {
+                    if (Object.ReferenceEquals(_chooseValue, null)) {
+                        _chooseValue = new StringAPColumnDef(this, "ChooseValue", false, 20);
+                        _chooseValue.Display = "选择值";
+                    }
+                    return _chooseValue;
+                }
+            }
+            
+            /// <summary>
+            /// ResultValue ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef ResultValue {
+                get {
+                    if (Object.ReferenceEquals(_resultValue, null)) {
+                        _resultValue = new StringAPColumnDef(this, "ResultValue", false, 100);
+                        _resultValue.Display = "输入值";
+                    }
+                    return _resultValue;
+                }
+            }
+            
+            /// <summary>
+            /// Default Index
+            /// </summary>
+            public virtual APSqlOrderPhrase DefaultOrder {
+                get {
+                    return null;
+                }
+            }
+            
+            /// <summary>
+            /// Create a alias table
+            /// </summary>
+            public virtual TeamEvalResultItemTableDef As(string name) {
+                return new TeamEvalResultItemTableDef("TeamEvalResultItem", name);
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual void Fullup(IDataReader reader, TeamEvalResultItem data, bool throwIfValidColumnName) {
+                data.ResultItemId = ResultItemId.GetValue<long>(reader, throwIfValidColumnName);
+                data.ResultId = ResultId.GetValue<long>(reader, throwIfValidColumnName);
+                data.EvalItemKey = EvalItemKey.GetValue<string>(reader, throwIfValidColumnName);
+                data.ChooseValue = ChooseValue.GetValue<string>(reader, throwIfValidColumnName);
+                data.ResultValue = ResultValue.GetValue<string>(reader, throwIfValidColumnName);
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual TeamEvalResultItem Map(IDataReader reader) {
+                TeamEvalResultItem data = new TeamEvalResultItem();
+                Fullup(reader, data, true);
+                return data;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual TeamEvalResultItem TolerantMap(IDataReader reader) {
+                TeamEvalResultItem data = new TeamEvalResultItem();
+                Fullup(reader, data, false);
+                return data;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual List<TeamEvalResultItem> MapList(IDataReader reader) {
+                List<TeamEvalResultItem> list = new List<TeamEvalResultItem>();
+                try {
+                    for (; reader.Read(); ) {
+                        list.Add(Map(reader));
+                    }
+                }
+                finally {
+                    reader.Close();
+                }
+                return list;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual List<TeamEvalResultItem> TolerantMapList(IDataReader reader) {
+                List<TeamEvalResultItem> list = new List<TeamEvalResultItem>();
+                try {
+                    for (; reader.Read(); ) {
+                        list.Add(TolerantMap(reader));
+                    }
+                }
+                finally {
+                    reader.Close();
+                }
+                return list;
+            }
+        }
+        
+        [Serializable()]
         public partial class ExpGroupTableDef : APTableDef {
             
             private Int64APColumnDef _groupId;
@@ -19933,6 +20367,278 @@ namespace Business {
         }
         
         /// <summary>
+        /// 团队-考核-结果 DalBase
+        /// </summary>
+        public partial class TeamEvalResultDalBase : APDal {
+            
+            public TeamEvalResultDalBase() {
+            }
+            
+            public TeamEvalResultDalBase(APDatabase db) : 
+                    base(db) {
+            }
+            
+            /// <summary>
+            /// 添加数据。
+            /// </summary>
+            public virtual void Insert(TeamEvalResult data) {
+                if ((data.ResultId == 0)) {
+                    data.ResultId = ((long)(GetNewId(APDBDef.TeamEvalResult.ResultId)));
+                }
+                var query = APQuery.insert(APDBDef.TeamEvalResult).values(APDBDef.TeamEvalResult.ResultId.SetValue(data.ResultId), APDBDef.TeamEvalResult.PeriodId.SetValue(data.PeriodId), APDBDef.TeamEvalResult.TeamId.SetValue(data.TeamId), APDBDef.TeamEvalResult.MemberId.SetValue(data.MemberId), APDBDef.TeamEvalResult.FullScore.SetValue(data.FullScore), APDBDef.TeamEvalResult.Score.SetValue(data.Score), APDBDef.TeamEvalResult.Accesser.SetValue(data.Accesser), APDBDef.TeamEvalResult.AccessDate.SetValue(data.AccessDate));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public virtual void Update(TeamEvalResult data) {
+                var query = APQuery.update(APDBDef.TeamEvalResult).values(APDBDef.TeamEvalResult.PeriodId.SetValue(data.PeriodId), APDBDef.TeamEvalResult.TeamId.SetValue(data.TeamId), APDBDef.TeamEvalResult.MemberId.SetValue(data.MemberId), APDBDef.TeamEvalResult.FullScore.SetValue(data.FullScore), APDBDef.TeamEvalResult.Score.SetValue(data.Score), APDBDef.TeamEvalResult.Accesser.SetValue(data.Accesser), APDBDef.TeamEvalResult.AccessDate.SetValue(data.AccessDate)).where((APDBDef.TeamEvalResult.ResultId == data.ResultId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public virtual void UpdatePartial(long resultId, Object metadata) {
+                var query = APQuery.update(APDBDef.TeamEvalResult).values(APSqlSetPhraseSelector.Select(APDBDef.TeamEvalResult, metadata)).where((APDBDef.TeamEvalResult.ResultId == resultId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 删除数据。
+            /// </summary>
+            public virtual void PrimaryDelete(long resultId) {
+                var query = APQuery.delete(APDBDef.TeamEvalResult).where((APDBDef.TeamEvalResult.ResultId == resultId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 条件删除数据。
+            /// </summary>
+            public virtual void ConditionDelete(APSqlWherePhrase condition) {
+                var query = APQuery.delete(APDBDef.TeamEvalResult).where(condition);
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 根据条件查询数量。
+            /// </summary>
+            public virtual int ConditionQueryCount(APSqlWherePhrase condition) {
+                var query = APQuery.select(APDBDef.TeamEvalResult.Asterisk.Count()).from(APDBDef.TeamEvalResult).where(condition);
+                return ExecuteCount(query);
+            }
+            
+            /// <summary>
+            /// 根据主键获取数据。
+            /// </summary>
+            public virtual TeamEvalResult PrimaryGet(long resultId) {
+                var query = APQuery.select(APDBDef.TeamEvalResult.Asterisk).from(APDBDef.TeamEvalResult).where((APDBDef.TeamEvalResult.ResultId == resultId));
+                IDataReader reader = ExecuteReader(query);
+                try {
+                    if (reader.Read()) {
+                        return APDBDef.TeamEvalResult.Map(reader);
+                    }
+                    return null;
+                }
+                finally {
+                    reader.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public virtual List<TeamEvalResult> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+                var query = APQuery.select(APDBDef.TeamEvalResult.Asterisk).from(APDBDef.TeamEvalResult);
+                if ((condition != null)) {
+                    query.where(condition);
+                }
+                if ((orderBy != null)) {
+                    query.order_by(orderBy);
+                }
+                if ((take != null)) {
+                    query.take(take);
+                }
+                if ((skip != null)) {
+                    query.skip(skip);
+                }
+                query.primary(APDBDef.TeamEvalResult.ResultId);
+                IDataReader reader = ExecuteReader(query);
+                return APDBDef.TeamEvalResult.MapList(reader);
+            }
+            
+            /// <summary>
+            /// 获得表的初始化数据。
+            /// </summary>
+            public virtual List<TeamEvalResult> GetInitData() {
+                return new List<TeamEvalResult>();
+            }
+            
+            /// <summary>
+            /// 初始化数据。
+            /// </summary>
+            public virtual void InitData(APDBDef db) {
+                List<TeamEvalResult> list = GetInitData();
+                for (int i = 0; (i < list.Count); i = (i + 1)) {
+                    TeamEvalResult data = list[i];
+                    if ((PrimaryGet(data.ResultId) == null)) {
+                        Insert(data);
+                    }
+                }
+            }
+        }
+        
+        /// <summary>
+        /// 团队-考核-结果 Dal
+        /// </summary>
+        public partial class TeamEvalResultDal : TeamEvalResultDalBase {
+            
+            public TeamEvalResultDal() {
+            }
+            
+            public TeamEvalResultDal(APDatabase db) : 
+                    base(db) {
+            }
+        }
+        
+        /// <summary>
+        /// 团队-考核-结果项 DalBase
+        /// </summary>
+        public partial class TeamEvalResultItemDalBase : APDal {
+            
+            public TeamEvalResultItemDalBase() {
+            }
+            
+            public TeamEvalResultItemDalBase(APDatabase db) : 
+                    base(db) {
+            }
+            
+            /// <summary>
+            /// 添加数据。
+            /// </summary>
+            public virtual void Insert(TeamEvalResultItem data) {
+                if ((data.ResultItemId == 0)) {
+                    data.ResultItemId = ((long)(GetNewId(APDBDef.TeamEvalResultItem.ResultItemId)));
+                }
+                var query = APQuery.insert(APDBDef.TeamEvalResultItem).values(APDBDef.TeamEvalResultItem.ResultItemId.SetValue(data.ResultItemId), APDBDef.TeamEvalResultItem.ResultId.SetValue(data.ResultId), APDBDef.TeamEvalResultItem.EvalItemKey.SetValue(data.EvalItemKey), APDBDef.TeamEvalResultItem.ChooseValue.SetValue(data.ChooseValue), APDBDef.TeamEvalResultItem.ResultValue.SetValue(data.ResultValue));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public virtual void Update(TeamEvalResultItem data) {
+                var query = APQuery.update(APDBDef.TeamEvalResultItem).values(APDBDef.TeamEvalResultItem.ResultId.SetValue(data.ResultId), APDBDef.TeamEvalResultItem.EvalItemKey.SetValue(data.EvalItemKey), APDBDef.TeamEvalResultItem.ChooseValue.SetValue(data.ChooseValue), APDBDef.TeamEvalResultItem.ResultValue.SetValue(data.ResultValue)).where((APDBDef.TeamEvalResultItem.ResultItemId == data.ResultItemId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public virtual void UpdatePartial(long resultItemId, Object metadata) {
+                var query = APQuery.update(APDBDef.TeamEvalResultItem).values(APSqlSetPhraseSelector.Select(APDBDef.TeamEvalResultItem, metadata)).where((APDBDef.TeamEvalResultItem.ResultItemId == resultItemId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 删除数据。
+            /// </summary>
+            public virtual void PrimaryDelete(long resultItemId) {
+                var query = APQuery.delete(APDBDef.TeamEvalResultItem).where((APDBDef.TeamEvalResultItem.ResultItemId == resultItemId));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 条件删除数据。
+            /// </summary>
+            public virtual void ConditionDelete(APSqlWherePhrase condition) {
+                var query = APQuery.delete(APDBDef.TeamEvalResultItem).where(condition);
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 根据条件查询数量。
+            /// </summary>
+            public virtual int ConditionQueryCount(APSqlWherePhrase condition) {
+                var query = APQuery.select(APDBDef.TeamEvalResultItem.Asterisk.Count()).from(APDBDef.TeamEvalResultItem).where(condition);
+                return ExecuteCount(query);
+            }
+            
+            /// <summary>
+            /// 根据主键获取数据。
+            /// </summary>
+            public virtual TeamEvalResultItem PrimaryGet(long resultItemId) {
+                var query = APQuery.select(APDBDef.TeamEvalResultItem.Asterisk).from(APDBDef.TeamEvalResultItem).where((APDBDef.TeamEvalResultItem.ResultItemId == resultItemId));
+                IDataReader reader = ExecuteReader(query);
+                try {
+                    if (reader.Read()) {
+                        return APDBDef.TeamEvalResultItem.Map(reader);
+                    }
+                    return null;
+                }
+                finally {
+                    reader.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public virtual List<TeamEvalResultItem> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+                var query = APQuery.select(APDBDef.TeamEvalResultItem.Asterisk).from(APDBDef.TeamEvalResultItem);
+                if ((condition != null)) {
+                    query.where(condition);
+                }
+                if ((orderBy != null)) {
+                    query.order_by(orderBy);
+                }
+                if ((take != null)) {
+                    query.take(take);
+                }
+                if ((skip != null)) {
+                    query.skip(skip);
+                }
+                query.primary(APDBDef.TeamEvalResultItem.ResultItemId);
+                IDataReader reader = ExecuteReader(query);
+                return APDBDef.TeamEvalResultItem.MapList(reader);
+            }
+            
+            /// <summary>
+            /// 获得表的初始化数据。
+            /// </summary>
+            public virtual List<TeamEvalResultItem> GetInitData() {
+                return new List<TeamEvalResultItem>();
+            }
+            
+            /// <summary>
+            /// 初始化数据。
+            /// </summary>
+            public virtual void InitData(APDBDef db) {
+                List<TeamEvalResultItem> list = GetInitData();
+                for (int i = 0; (i < list.Count); i = (i + 1)) {
+                    TeamEvalResultItem data = list[i];
+                    if ((PrimaryGet(data.ResultItemId) == null)) {
+                        Insert(data);
+                    }
+                }
+            }
+        }
+        
+        /// <summary>
+        /// 团队-考核-结果项 Dal
+        /// </summary>
+        public partial class TeamEvalResultItemDal : TeamEvalResultItemDalBase {
+            
+            public TeamEvalResultItemDal() {
+            }
+            
+            public TeamEvalResultItemDal(APDatabase db) : 
+                    base(db) {
+            }
+        }
+        
+        /// <summary>
         /// 专家组 DalBase
         /// </summary>
         public partial class ExpGroupDalBase : APDal {
@@ -27888,6 +28594,304 @@ namespace Business {
         /// 梯队-定向性课程实施安排表 Dal
         /// </summary>
         public partial class TeamSpecialCourseItemBpl : TeamSpecialCourseItemBplBase {
+        }
+        
+        /// <summary>
+        /// 团队-考核-结果 BplBase
+        /// </summary>
+        public partial class TeamEvalResultBplBase {
+            
+            /// <summary>
+            /// 添加数据。
+            /// </summary>
+            public static void Insert(TeamEvalResult data) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.TeamEvalResultDal.Insert(data);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public static void Update(TeamEvalResult data) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.TeamEvalResultDal.Update(data);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public static void UpdatePartial(long resultId, Object metadata) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.TeamEvalResultDal.UpdatePartial(resultId, metadata);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 删除数据。
+            /// </summary>
+            public static void PrimaryDelete(long resultId) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.TeamEvalResultDal.PrimaryDelete(resultId);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 条件删除数据。
+            /// </summary>
+            public static void ConditionDelete(APSqlWherePhrase condition) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.TeamEvalResultDal.ConditionDelete(condition);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据条件查询数量。
+            /// </summary>
+            public static int ConditionQueryCount(APSqlWherePhrase condition) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.TeamEvalResultDal.ConditionQueryCount(condition);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据主键获取数据。
+            /// </summary>
+            public static TeamEvalResult PrimaryGet(long resultId) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.TeamEvalResultDal.PrimaryGet(resultId);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<TeamEvalResult> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.TeamEvalResultDal.ConditionQuery(condition, orderBy, take, skip);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<TeamEvalResult> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.TeamEvalResultDal.ConditionQuery(condition, orderBy, take, null);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<TeamEvalResult> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.TeamEvalResultDal.ConditionQuery(condition, orderBy, null, null);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 获取所有数据。
+            /// </summary>
+            public static List<TeamEvalResult> GetAll() {
+                return ConditionQuery(null, null);
+            }
+        }
+        
+        /// <summary>
+        /// 团队-考核-结果 Dal
+        /// </summary>
+        public partial class TeamEvalResultBpl : TeamEvalResultBplBase {
+        }
+        
+        /// <summary>
+        /// 团队-考核-结果项 BplBase
+        /// </summary>
+        public partial class TeamEvalResultItemBplBase {
+            
+            /// <summary>
+            /// 添加数据。
+            /// </summary>
+            public static void Insert(TeamEvalResultItem data) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.TeamEvalResultItemDal.Insert(data);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public static void Update(TeamEvalResultItem data) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.TeamEvalResultItemDal.Update(data);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public static void UpdatePartial(long resultItemId, Object metadata) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.TeamEvalResultItemDal.UpdatePartial(resultItemId, metadata);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 删除数据。
+            /// </summary>
+            public static void PrimaryDelete(long resultItemId) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.TeamEvalResultItemDal.PrimaryDelete(resultItemId);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 条件删除数据。
+            /// </summary>
+            public static void ConditionDelete(APSqlWherePhrase condition) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.TeamEvalResultItemDal.ConditionDelete(condition);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据条件查询数量。
+            /// </summary>
+            public static int ConditionQueryCount(APSqlWherePhrase condition) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.TeamEvalResultItemDal.ConditionQueryCount(condition);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据主键获取数据。
+            /// </summary>
+            public static TeamEvalResultItem PrimaryGet(long resultItemId) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.TeamEvalResultItemDal.PrimaryGet(resultItemId);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<TeamEvalResultItem> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.TeamEvalResultItemDal.ConditionQuery(condition, orderBy, take, skip);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<TeamEvalResultItem> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.TeamEvalResultItemDal.ConditionQuery(condition, orderBy, take, null);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<TeamEvalResultItem> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.TeamEvalResultItemDal.ConditionQuery(condition, orderBy, null, null);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 获取所有数据。
+            /// </summary>
+            public static List<TeamEvalResultItem> GetAll() {
+                return ConditionQuery(null, null);
+            }
+        }
+        
+        /// <summary>
+        /// 团队-考核-结果项 Dal
+        /// </summary>
+        public partial class TeamEvalResultItemBpl : TeamEvalResultItemBplBase {
         }
         
         /// <summary>
@@ -49680,6 +50684,719 @@ namespace Business {
         /// </summary>
         public TeamSpecialCourseItem(long itemId, long courseId, long teamId, System.DateTime itemDate, string location, string title, string content, string activityType, string speaker, string remark, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) : 
                 base(itemId, courseId, teamId, itemDate, location, title, content, activityType, speaker, remark, createDate, creator, modifyDate, modifier) {
+        }
+    }
+    
+    /// <summary>
+    /// 团队-考核-结果 Base
+    /// </summary>
+    [Serializable()]
+    public abstract partial class TeamEvalResultBase {
+        
+        /// <summary>
+        /// ResultId
+        /// </summary>
+        private long _resultId;
+        
+        /// <summary>
+        /// PeriodId
+        /// </summary>
+        private long _periodId;
+        
+        /// <summary>
+        /// TeamId
+        /// </summary>
+        private long _teamId;
+        
+        /// <summary>
+        /// MemberId
+        /// </summary>
+        private long _memberId;
+        
+        /// <summary>
+        /// FullScore
+        /// </summary>
+        private double _fullScore;
+        
+        /// <summary>
+        /// Score
+        /// </summary>
+        private double _score;
+        
+        /// <summary>
+        /// 关联考评人
+        /// </summary>
+        private long _accesser;
+        
+        /// <summary>
+        /// AccessDate
+        /// </summary>
+        private System.DateTime _accessDate;
+        
+        /// <summary>
+        /// 默认构造函数。
+        /// </summary>
+        public TeamEvalResultBase() {
+        }
+        
+        /// <summary>
+        /// 初始化所有字段的构造函数。
+        /// </summary>
+        public TeamEvalResultBase(long resultId, long periodId, long teamId, long memberId, double fullScore, double score, long accesser, System.DateTime accessDate) {
+            _resultId = resultId;
+            _periodId = periodId;
+            _teamId = teamId;
+            _memberId = memberId;
+            _fullScore = fullScore;
+            _score = score;
+            _accesser = accesser;
+            _accessDate = accessDate;
+        }
+        
+        /// <summary>
+        /// ResultId
+        /// </summary>
+        [Display(Name="评价结果ID")]
+        public virtual long ResultId {
+            get {
+                return _resultId;
+            }
+            set {
+                _resultId = value;
+            }
+        }
+        
+        /// <summary>
+        /// ResultId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef ResultIdDef {
+            get {
+                return APDBDef.TeamEvalResult.ResultId;
+            }
+        }
+        
+        /// <summary>
+        /// PeriodId
+        /// </summary>
+        [Display(Name="周期ID")]
+        public virtual long PeriodId {
+            get {
+                return _periodId;
+            }
+            set {
+                _periodId = value;
+            }
+        }
+        
+        /// <summary>
+        /// PeriodId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef PeriodIdDef {
+            get {
+                return APDBDef.TeamEvalResult.PeriodId;
+            }
+        }
+        
+        /// <summary>
+        /// TeamId
+        /// </summary>
+        [Display(Name="团队ID")]
+        public virtual long TeamId {
+            get {
+                return _teamId;
+            }
+            set {
+                _teamId = value;
+            }
+        }
+        
+        /// <summary>
+        /// TeamId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef TeamIdDef {
+            get {
+                return APDBDef.TeamEvalResult.TeamId;
+            }
+        }
+        
+        /// <summary>
+        /// MemberId
+        /// </summary>
+        [Display(Name="团队成员ID")]
+        public virtual long MemberId {
+            get {
+                return _memberId;
+            }
+            set {
+                _memberId = value;
+            }
+        }
+        
+        /// <summary>
+        /// MemberId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef MemberIdDef {
+            get {
+                return APDBDef.TeamEvalResult.MemberId;
+            }
+        }
+        
+        /// <summary>
+        /// FullScore
+        /// </summary>
+        [Display(Name="总分")]
+        public virtual double FullScore {
+            get {
+                return _fullScore;
+            }
+            set {
+                _fullScore = value;
+            }
+        }
+        
+        /// <summary>
+        /// FullScore APColumnDef
+        /// </summary>
+        public static DoubleAPColumnDef FullScoreDef {
+            get {
+                return APDBDef.TeamEvalResult.FullScore;
+            }
+        }
+        
+        /// <summary>
+        /// Score
+        /// </summary>
+        [Display(Name="得分")]
+        public virtual double Score {
+            get {
+                return _score;
+            }
+            set {
+                _score = value;
+            }
+        }
+        
+        /// <summary>
+        /// Score APColumnDef
+        /// </summary>
+        public static DoubleAPColumnDef ScoreDef {
+            get {
+                return APDBDef.TeamEvalResult.Score;
+            }
+        }
+        
+        /// <summary>
+        /// 关联考评人
+        /// </summary>
+        [Display(Name="考评人")]
+        public virtual long Accesser {
+            get {
+                return _accesser;
+            }
+            set {
+                _accesser = value;
+            }
+        }
+        
+        /// <summary>
+        /// 关联考评人 APColumnDef
+        /// </summary>
+        public static Int64APColumnDef AccesserDef {
+            get {
+                return APDBDef.TeamEvalResult.Accesser;
+            }
+        }
+        
+        /// <summary>
+        /// AccessDate
+        /// </summary>
+        [Display(Name="考评时间")]
+        public virtual System.DateTime AccessDate {
+            get {
+                return _accessDate;
+            }
+            set {
+                _accessDate = value;
+            }
+        }
+        
+        /// <summary>
+        /// AccessDate APColumnDef
+        /// </summary>
+        public static DateTimeAPColumnDef AccessDateDef {
+            get {
+                return APDBDef.TeamEvalResult.AccessDate;
+            }
+        }
+        
+        /// <summary>
+        /// TeamEvalResultTableDef APTableDef
+        /// </summary>
+        public static APDBDef.TeamEvalResultTableDef TableDef {
+            get {
+                return APDBDef.TeamEvalResult;
+            }
+        }
+        
+        /// <summary>
+        /// TeamEvalResultTableDef APSqlAsteriskExpr
+        /// </summary>
+        public static APSqlAsteriskExpr Asterisk {
+            get {
+                return APDBDef.TeamEvalResult.Asterisk;
+            }
+        }
+        
+        /// <summary>
+        /// 赋值。
+        /// </summary>
+        public virtual void Assignment(TeamEvalResult data) {
+            ResultId = data.ResultId;
+            PeriodId = data.PeriodId;
+            TeamId = data.TeamId;
+            MemberId = data.MemberId;
+            FullScore = data.FullScore;
+            Score = data.Score;
+            Accesser = data.Accesser;
+            AccessDate = data.AccessDate;
+        }
+        
+        /// <summary>
+        /// 比较。
+        /// </summary>
+        public virtual bool CompareEquals(TeamEvalResult data) {
+            if ((ResultId != data.ResultId)) {
+                return false;
+            }
+            if ((PeriodId != data.PeriodId)) {
+                return false;
+            }
+            if ((TeamId != data.TeamId)) {
+                return false;
+            }
+            if ((MemberId != data.MemberId)) {
+                return false;
+            }
+            if ((FullScore != data.FullScore)) {
+                return false;
+            }
+            if ((Score != data.Score)) {
+                return false;
+            }
+            if ((Accesser != data.Accesser)) {
+                return false;
+            }
+            if ((AccessDate != data.AccessDate)) {
+                return false;
+            }
+            return true;
+        }
+        
+        /// <summary>
+        /// 添加数据。
+        /// </summary>
+        public virtual void Insert() {
+            APBplDef.TeamEvalResultBpl.Insert(((TeamEvalResult)(this)));
+        }
+        
+        /// <summary>
+        /// 更新数据。
+        /// </summary>
+        public virtual void Update() {
+            APBplDef.TeamEvalResultBpl.Update(((TeamEvalResult)(this)));
+        }
+        
+        /// <summary>
+        /// 更新数据。
+        /// </summary>
+        public static void UpdatePartial(long resultId, Object metadata) {
+            APBplDef.TeamEvalResultBpl.UpdatePartial(resultId, metadata);
+        }
+        
+        /// <summary>
+        /// 删除数据。
+        /// </summary>
+        public static void PrimaryDelete(long resultId) {
+            APBplDef.TeamEvalResultBpl.PrimaryDelete(resultId);
+        }
+        
+        /// <summary>
+        /// 条件删除数据。
+        /// </summary>
+        public static void ConditionDelete(APSqlWherePhrase condition) {
+            APBplDef.TeamEvalResultBpl.ConditionDelete(condition);
+        }
+        
+        /// <summary>
+        /// 根据条件查询数量。
+        /// </summary>
+        public static int ConditionQueryCount(APSqlWherePhrase condition) {
+            return APBplDef.TeamEvalResultBpl.ConditionQueryCount(condition);
+        }
+        
+        /// <summary>
+        /// 根据主键获取数据。
+        /// </summary>
+        public static TeamEvalResult PrimaryGet(long resultId) {
+            return APBplDef.TeamEvalResultBpl.PrimaryGet(resultId);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<TeamEvalResult> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take, int skip) {
+            return APBplDef.TeamEvalResultBpl.ConditionQuery(condition, orderBy, take, skip);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<TeamEvalResult> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take) {
+            return APBplDef.TeamEvalResultBpl.ConditionQuery(condition, orderBy, take);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<TeamEvalResult> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+            return APBplDef.TeamEvalResultBpl.ConditionQuery(condition, orderBy);
+        }
+        
+        /// <summary>
+        /// 获取所有数据。
+        /// </summary>
+        public static List<TeamEvalResult> GetAll() {
+            return APBplDef.TeamEvalResultBpl.GetAll();
+        }
+    }
+    
+    /// <summary>
+    /// 团队-考核-结果
+    /// </summary>
+    [Serializable()]
+    public partial class TeamEvalResult : TeamEvalResultBase {
+        
+        /// <summary>
+        /// 默认构造函数。
+        /// </summary>
+        public TeamEvalResult() {
+        }
+        
+        /// <summary>
+        /// 初始化所有字段的构造函数。
+        /// </summary>
+        public TeamEvalResult(long resultId, long periodId, long teamId, long memberId, double fullScore, double score, long accesser, System.DateTime accessDate) : 
+                base(resultId, periodId, teamId, memberId, fullScore, score, accesser, accessDate) {
+        }
+    }
+    
+    /// <summary>
+    /// 团队-考核-结果项 Base
+    /// </summary>
+    [Serializable()]
+    public abstract partial class TeamEvalResultItemBase {
+        
+        /// <summary>
+        /// ResultItemId
+        /// </summary>
+        private long _resultItemId;
+        
+        /// <summary>
+        /// ResultId
+        /// </summary>
+        private long _resultId;
+        
+        /// <summary>
+        /// 用点分符做完字符串分割
+        /// </summary>
+        private string _evalItemKey = string.Empty;
+        
+        /// <summary>
+        /// ChooseValue
+        /// </summary>
+        private string _chooseValue = string.Empty;
+        
+        /// <summary>
+        /// ResultValue
+        /// </summary>
+        private string _resultValue = string.Empty;
+        
+        /// <summary>
+        /// 默认构造函数。
+        /// </summary>
+        public TeamEvalResultItemBase() {
+        }
+        
+        /// <summary>
+        /// 初始化所有字段的构造函数。
+        /// </summary>
+        public TeamEvalResultItemBase(long resultItemId, long resultId, string evalItemKey, string chooseValue, string resultValue) {
+            _resultItemId = resultItemId;
+            _resultId = resultId;
+            _evalItemKey = evalItemKey;
+            _chooseValue = chooseValue;
+            _resultValue = resultValue;
+        }
+        
+        /// <summary>
+        /// ResultItemId
+        /// </summary>
+        [Display(Name="结果项ID")]
+        public virtual long ResultItemId {
+            get {
+                return _resultItemId;
+            }
+            set {
+                _resultItemId = value;
+            }
+        }
+        
+        /// <summary>
+        /// ResultItemId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef ResultItemIdDef {
+            get {
+                return APDBDef.TeamEvalResultItem.ResultItemId;
+            }
+        }
+        
+        /// <summary>
+        /// ResultId
+        /// </summary>
+        [Display(Name="评价结果ID")]
+        public virtual long ResultId {
+            get {
+                return _resultId;
+            }
+            set {
+                _resultId = value;
+            }
+        }
+        
+        /// <summary>
+        /// ResultId APColumnDef
+        /// </summary>
+        public static Int64APColumnDef ResultIdDef {
+            get {
+                return APDBDef.TeamEvalResultItem.ResultId;
+            }
+        }
+        
+        /// <summary>
+        /// 用点分符做完字符串分割
+        /// </summary>
+        [Display(Name="指标项")]
+        [StringLength(200)]
+        public virtual string EvalItemKey {
+            get {
+                return _evalItemKey;
+            }
+            set {
+                _evalItemKey = value;
+            }
+        }
+        
+        /// <summary>
+        /// 用点分符做完字符串分割 APColumnDef
+        /// </summary>
+        public static StringAPColumnDef EvalItemKeyDef {
+            get {
+                return APDBDef.TeamEvalResultItem.EvalItemKey;
+            }
+        }
+        
+        /// <summary>
+        /// ChooseValue
+        /// </summary>
+        [Display(Name="选择值")]
+        [StringLength(20)]
+        public virtual string ChooseValue {
+            get {
+                return _chooseValue;
+            }
+            set {
+                _chooseValue = value;
+            }
+        }
+        
+        /// <summary>
+        /// ChooseValue APColumnDef
+        /// </summary>
+        public static StringAPColumnDef ChooseValueDef {
+            get {
+                return APDBDef.TeamEvalResultItem.ChooseValue;
+            }
+        }
+        
+        /// <summary>
+        /// ResultValue
+        /// </summary>
+        [Display(Name="输入值")]
+        [StringLength(100)]
+        public virtual string ResultValue {
+            get {
+                return _resultValue;
+            }
+            set {
+                _resultValue = value;
+            }
+        }
+        
+        /// <summary>
+        /// ResultValue APColumnDef
+        /// </summary>
+        public static StringAPColumnDef ResultValueDef {
+            get {
+                return APDBDef.TeamEvalResultItem.ResultValue;
+            }
+        }
+        
+        /// <summary>
+        /// TeamEvalResultItemTableDef APTableDef
+        /// </summary>
+        public static APDBDef.TeamEvalResultItemTableDef TableDef {
+            get {
+                return APDBDef.TeamEvalResultItem;
+            }
+        }
+        
+        /// <summary>
+        /// TeamEvalResultItemTableDef APSqlAsteriskExpr
+        /// </summary>
+        public static APSqlAsteriskExpr Asterisk {
+            get {
+                return APDBDef.TeamEvalResultItem.Asterisk;
+            }
+        }
+        
+        /// <summary>
+        /// 赋值。
+        /// </summary>
+        public virtual void Assignment(TeamEvalResultItem data) {
+            ResultItemId = data.ResultItemId;
+            ResultId = data.ResultId;
+            EvalItemKey = data.EvalItemKey;
+            ChooseValue = data.ChooseValue;
+            ResultValue = data.ResultValue;
+        }
+        
+        /// <summary>
+        /// 比较。
+        /// </summary>
+        public virtual bool CompareEquals(TeamEvalResultItem data) {
+            if ((ResultItemId != data.ResultItemId)) {
+                return false;
+            }
+            if ((ResultId != data.ResultId)) {
+                return false;
+            }
+            if ((EvalItemKey != data.EvalItemKey)) {
+                return false;
+            }
+            if ((ChooseValue != data.ChooseValue)) {
+                return false;
+            }
+            if ((ResultValue != data.ResultValue)) {
+                return false;
+            }
+            return true;
+        }
+        
+        /// <summary>
+        /// 添加数据。
+        /// </summary>
+        public virtual void Insert() {
+            APBplDef.TeamEvalResultItemBpl.Insert(((TeamEvalResultItem)(this)));
+        }
+        
+        /// <summary>
+        /// 更新数据。
+        /// </summary>
+        public virtual void Update() {
+            APBplDef.TeamEvalResultItemBpl.Update(((TeamEvalResultItem)(this)));
+        }
+        
+        /// <summary>
+        /// 更新数据。
+        /// </summary>
+        public static void UpdatePartial(long resultItemId, Object metadata) {
+            APBplDef.TeamEvalResultItemBpl.UpdatePartial(resultItemId, metadata);
+        }
+        
+        /// <summary>
+        /// 删除数据。
+        /// </summary>
+        public static void PrimaryDelete(long resultItemId) {
+            APBplDef.TeamEvalResultItemBpl.PrimaryDelete(resultItemId);
+        }
+        
+        /// <summary>
+        /// 条件删除数据。
+        /// </summary>
+        public static void ConditionDelete(APSqlWherePhrase condition) {
+            APBplDef.TeamEvalResultItemBpl.ConditionDelete(condition);
+        }
+        
+        /// <summary>
+        /// 根据条件查询数量。
+        /// </summary>
+        public static int ConditionQueryCount(APSqlWherePhrase condition) {
+            return APBplDef.TeamEvalResultItemBpl.ConditionQueryCount(condition);
+        }
+        
+        /// <summary>
+        /// 根据主键获取数据。
+        /// </summary>
+        public static TeamEvalResultItem PrimaryGet(long resultItemId) {
+            return APBplDef.TeamEvalResultItemBpl.PrimaryGet(resultItemId);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<TeamEvalResultItem> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take, int skip) {
+            return APBplDef.TeamEvalResultItemBpl.ConditionQuery(condition, orderBy, take, skip);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<TeamEvalResultItem> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take) {
+            return APBplDef.TeamEvalResultItemBpl.ConditionQuery(condition, orderBy, take);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<TeamEvalResultItem> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+            return APBplDef.TeamEvalResultItemBpl.ConditionQuery(condition, orderBy);
+        }
+        
+        /// <summary>
+        /// 获取所有数据。
+        /// </summary>
+        public static List<TeamEvalResultItem> GetAll() {
+            return APBplDef.TeamEvalResultItemBpl.GetAll();
+        }
+    }
+    
+    /// <summary>
+    /// 团队-考核-结果项
+    /// </summary>
+    [Serializable()]
+    public partial class TeamEvalResultItem : TeamEvalResultItemBase {
+        
+        /// <summary>
+        /// 默认构造函数。
+        /// </summary>
+        public TeamEvalResultItem() {
+        }
+        
+        /// <summary>
+        /// 初始化所有字段的构造函数。
+        /// </summary>
+        public TeamEvalResultItem(long resultItemId, long resultId, string evalItemKey, string chooseValue, string resultValue) : 
+                base(resultItemId, resultId, evalItemKey, chooseValue, resultValue) {
         }
     }
     

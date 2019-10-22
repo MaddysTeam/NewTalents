@@ -412,7 +412,7 @@ namespace TheSite.Models
       public string AttachmentUrl3 { get; set; }
 
       [Required]
-      [Display(Name = "课程纲要")]
+      [Display(Name = "附件上传")]
       public string AttachmentName1 { get; set; }
 
       [Required]
@@ -547,10 +547,10 @@ namespace TheSite.Models
 		public long Dynamic6 { get; set; }
 
 
-		[Display(Name = "开题附件")]
+		[Display(Name = "附件上传")]
 		public string AttachmentUrl1 { get; set; }
 
-		[Display(Name = "开题附件名称")]
+		[Display(Name = "附件名称")]
 		public string AttachmentName1 { get; set; }
 
 

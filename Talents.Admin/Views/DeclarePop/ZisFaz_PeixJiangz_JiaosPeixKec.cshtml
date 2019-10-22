@@ -88,7 +88,7 @@
 							</div>
 						</div>
 
-						<div class="form-group">
+						<div class="form-group hidden">
 							@Html.LabelFor(m => m.AttachmentName2, new { @class = "control-label col-md-3" })
 							<div class="col-md-9 uploadArea" id="uploadArea2">
 								@Html.HiddenFor(m => m.AttachmentUrl2, new { @class = "AttachmentUrl" })
@@ -185,8 +185,8 @@
 
 		//多文件上传
 		ajaxMultipleFileUpload($('.dropzone1'), $('#btn-start1'), $('#uploadArea1'));
-		ajaxMultipleFileUpload($('.dropzone2'), $('#btn-start2'), $('#uploadArea2'));
-		ajaxMultipleFileUpload($('.dropzone3'), $('#btn-start3'), $('#uploadArea3'));
+		//ajaxMultipleFileUpload($('.dropzone2'), $('#btn-start2'), $('#uploadArea2'));
+		//ajaxMultipleFileUpload($('.dropzone3'), $('#btn-start3'), $('#uploadArea3'));
 
 		//单文件上传
 		ajaxSimpleFileUpload('fm-vertifyDropzone', 'btn-vertifyUpload', function (file, data) {

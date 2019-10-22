@@ -324,7 +324,7 @@ namespace TheSite.Models
       [Required()]
       public DateTime Date { get; set; }
 
-		[Display(Name = "项目开题")]
+		[Display(Name = "附件上传")]
       public string AttachmentName1 { get; set; }
 		public string AttachmentUrl1 { get; set; }
 

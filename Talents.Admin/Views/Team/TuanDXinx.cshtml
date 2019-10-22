@@ -46,7 +46,7 @@
 							<span class="form-control details-text">@Model.DeclareStage</span>
 						</div>
 					</div>
-					<div class="form-group">
+					@*<div class="form-group">
 						@Html.LabelFor(m => m.MemberCount, new { @class = "col-md-3 control-label" })
 						<div class="col-md-9">
 							<span class="form-control details-text">@Model.MemberCount</span>
@@ -57,7 +57,7 @@
 						<div class="col-md-9">
 							<span class="form-control details-text">@Model.ActiveCount</span>
 						</div>
-					</div>
+					</div>*@
 				</fieldset>
 				<fieldset class="col-md-6">
 					<div class="table-responsive">
@@ -76,7 +76,8 @@
 								@foreach (var item in ViewBag.MemberList as List<TeamMemberModel>)
 								{
 								<tr>
-									<td><a href="@Url.Action("Overview", "Declare", new { id = item.TeacherId})" target="_blank" title="查看材料填写">@item.RealName</a></td>
+									@*<td><a href="@Url.Action("Overview", "Declare", new { id = item.TeacherId})" target="_blank" title="查看材料填写">@item.RealName</a></td>*@
+									<td>@item.RealName</td>
 									<td>@item.Target</td>
 									<td>@item.Subject</td>
 									<td>@item.Stage</td>

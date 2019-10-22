@@ -6,7 +6,6 @@
 		public long PeriodId { get; set; }
 		public long TeacherId { get; set; }
 		public long AccesserId { get; set; }
-
 	}
 
 
@@ -31,11 +30,18 @@
 
 	}
 
-   public class DeclareEvalParam: EvalParam
-   {
-      public long GroupId { get; set; }
-      public long TargetId { get; set; }
-      public long ResultId { get; set; }
-   }
+
+	public class DeclareEvalParam : EvalParam
+	{
+		public long GroupId { get; set; }
+		public long TargetId { get; set; }
+		public long ResultId { get; set; }
+	}
+
+
+	public class TeamEvalParam : EvalParam
+	{
+		public long TeamId { get; set; }
+	}
 
 }

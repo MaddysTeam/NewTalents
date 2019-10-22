@@ -307,6 +307,7 @@
     <Compile Include="Controllers\SchoolEvalController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="EvalAnalysis\AnalysisUnits.cs" />
+    <Compile Include="EvalAnalysis\AnnualEngine.TeamEvalUnit.cs" />
     <Compile Include="EvalAnalysis\DeclareEngine.DeclareEvalUnit.cs" />
     <Compile Include="EvalAnalysis\DeclareEngine.DeclareEvalUnit5008.cs" />
     <Compile Include="EvalAnalysis\DeclareEngine.DeclareEvalUnit5007.cs" />

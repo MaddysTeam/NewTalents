@@ -318,6 +318,10 @@ function ajaxBindFileUpload() {
 
 function ajaxSimpleFileUpload(dropzoneId, btnUploadId, whenSuccess, whenError) {
 	var clock;
+	var $uploadArea = $('#' + btnUploadId).parent().parent().parent(); 
+	var $progress = $uploadArea.find('.progress');
+	var $progressBar = $uploadArea.find('.progress-bar');
+
 	// dropzone
 	Dropzone.autoDiscover = false;
     dropzoneId = '#' + dropzoneId;
@@ -332,14 +336,16 @@ function ajaxSimpleFileUpload(dropzoneId, btnUploadId, whenSuccess, whenError) {
 			this.on("processing", function (i) {
 				clearInterval(clock);
 				var i = 0;
-				$('.progress').remove();
-				$('#simpleUploadName').parent().parent().append(function () {
+				$progress.remove();
+				$uploadArea.append(function () {
 					return '<div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"><span class="sr-only"></span></div></div>';
-				})
+				});
+				$progress = $uploadArea.find('.progress');
+				$progressBar = $uploadArea.find('.progress-bar');
 				clock = setInterval(function () {
-					$('.progress').show();
+					$progress.show();
 					if (i <= 99) {
-						$(".progress-bar").css('width', parseInt(++i) + "%").text(i + '%');
+						$progressBar.css('width', parseInt(++i) + "%").text(i + '%');
 					}
 				}, 500)
 			});
@@ -347,10 +353,10 @@ function ajaxSimpleFileUpload(dropzoneId, btnUploadId, whenSuccess, whenError) {
 				clearInterval(clock);
 				if (data.result == 'error') {
 					popupMessage({ result: 'error', msg: data.msg });
-					$('.progress').remove();
+					$progress.remove();
 					return;
 				}
-				$(".progress-bar").css('width', '100%').text('100%');
+				$progressBar.css('width', '100%').text('100%');
 
 				if(whenSuccess)
 					whenSuccess(file,data);
@@ -548,7 +554,6 @@ function insureSummernot(selector) {
 }
 
 // summer-edit upload file
-
 function summernoteSendFile(file, node) {
 	data = new FormData();
 	data.append("file", file);
