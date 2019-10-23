@@ -687,6 +687,8 @@
 					<add name="DeclareUser" type="string" dataLength="200" display="申报人" />
 					<add name="DeclareCompany" type="string" dataLength="200" display="申报人所在单位" />
 					<add name="FillDate" type="DateTime" dataLength="100" display="填报时间" />
+					<add name="Dynamic1" type="string" dataLength="2000" display="动态内容1"/>
+					
 					<!-- Record Information -->
 					<add name="CreateDate" type="DateTime" display="创建时间"/>
 					<add name="Creator" type="long" display="创建人"/>

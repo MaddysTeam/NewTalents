@@ -17,18 +17,18 @@ namespace TheSite.Controllers
 		{
 			var model = db.BzUserProfileDal.PrimaryGet(UserProfile.UserId);
 
-         var current= db
-            .ProfileModifyPeriodDal
-            .ConditionQuery(null, null, null, null).FindLast(pmp=>pmp.IsCurrent);
+			var current = db
+			   .ProfileModifyPeriodDal
+			   .ConditionQuery(null, null, null, null).FindLast(pmp => pmp.IsCurrent);
 
-         if (current != null)
-         {
-            ViewBag.CurrentPeriod = current;
+			if (current != null)
+			{
+				ViewBag.CurrentPeriod = current;
 
-            ViewBag.CanEdit = current.BeginDate <= TodayEnd(DateTime.Now) && current.EndDate >= TodayStart(DateTime.Now);
-         }
+				ViewBag.CanEdit = current.BeginDate <= TodayEnd(DateTime.Now) && current.EndDate >= TodayStart(DateTime.Now);
+			}
 
-         return PartialView(model);
+			return PartialView(model);
 		}
 
 		[HttpPost]
@@ -41,7 +41,7 @@ namespace TheSite.Controllers
 				model.TrainNo,
 				model.PoliticalStatusPKID,
 				model.NationalityPKID,
-            model.GenderPKID,
+				model.GenderPKID,
 
 				model.EduSubjectPKID,
 				model.EduStagePKID,
@@ -58,7 +58,8 @@ namespace TheSite.Controllers
 
 				model.Email,
 				model.Phonemobile,
-            model.PeriodId
+				model.PeriodId,
+				model.Birthday,
 			});
 
 			if (Request.IsAjaxRequest())
@@ -77,22 +78,22 @@ namespace TheSite.Controllers
 		}
 
 
-      #region [ Helper ]
+		#region [ Helper ]
 
 
-      private DateTime TodayStart( DateTime date)
-      {
-         return DateTime.Parse(date.ToString("yyyy-MM-dd") + "  00:00:00");
-      }
+		private DateTime TodayStart(DateTime date)
+		{
+			return DateTime.Parse(date.ToString("yyyy-MM-dd") + "  00:00:00");
+		}
 
-      private  DateTime TodayEnd( DateTime date)
-      {
-         return DateTime.Parse(date.AddDays(1).ToString("yyyy-MM-dd") + "  00:00:00");
-      }
+		private DateTime TodayEnd(DateTime date)
+		{
+			return DateTime.Parse(date.AddDays(1).ToString("yyyy-MM-dd") + "  00:00:00");
+		}
 
 
-      #endregion
+		#endregion
 
-   }
+	}
 
 }

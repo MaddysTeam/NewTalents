@@ -301,6 +301,7 @@
     <Compile Include="Controllers\StatisticalManageController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Controllers\TeacherManageController.cs" />
+    <Compile Include="Controllers\TeamEvalController.cs" />
     <Compile Include="Controllers\UserEvalController.cs" />
     <Compile Include="Controllers\VolumnEvalManageController.cs" />
     <Compile Include="Controllers\SchoolEvalManageController.cs" />
@@ -753,6 +754,8 @@
     <Content Include="Views\EvalModel\Declare\_declareSchoolEvalView5008.cshtml" />
     <Content Include="Views\EvalModel\Declare\DeclareResultView5008.cshtml" />
     <Content Include="Views\EvalModel\Declare\DeclareEvalView5008.cshtml" />
+    <Content Include="Views\TeamEval\EvalList.cshtml" />
+    <Content Include="Views\TeamEval\NotEvalList.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

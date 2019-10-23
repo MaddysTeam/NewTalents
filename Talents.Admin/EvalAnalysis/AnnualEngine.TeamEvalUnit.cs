@@ -31,84 +31,78 @@ namespace TheSite.EvalAnalysis
 
 			public override TeamEvalResult GetResult(APDBDef db, TeamEvalParam param)
 			{
-				//return APQuery.select(er.Asterisk, u.RealName)
-				//	 .from(er, u.JoinInner(er.Accesser == u.UserId))
-				//	 .where(er.PeriodId == param.PeriodId & er.TeacherId == param.TeacherId)
-				//	 .query(db, r =>
-				//	 {
-				//		 EvalSchoolResult data = new EvalSchoolResult();
-				//		 er.Fullup(r, data, false);
-				//		 data.AccesserName = u.RealName.GetValue(r);
-				//		 return data;
-				//	 }).FirstOrDefault();
-				return null;
+				return APQuery.select(er.Asterisk, u.RealName)
+					 .from(er, u.JoinInner(er.Accesser == u.UserId))
+					 .where(er.PeriodId == param.PeriodId & er.MemberId == param.TeacherId)
+					 .query(db, r =>
+					 {
+						 TeamEvalResult data = new TeamEvalResult();
+						 er.Fullup(r, data, false);
+						 // data.AccesserName = u.RealName.GetValue(r);
+						 return data;
+					 }).FirstOrDefault();
 			}
 
 
 			public override Dictionary<string, TeamEvalResultItem> GetResultItem(APDBDef db, TeamEvalParam param)
-				 => null;
-				//APQuery.select(eri.EvalItemKey, eri.ChooseValue, eri.ResultValue)
-				//	  .from(er, eri.JoinInner(er.ResultId == eri.ResultId))
-				//	  .where(er.PeriodId == param.PeriodId & er.TeacherId == param.TeacherId)
-				//	  .query(db, r =>
-				//	  {
-				//		  return new EvalSchoolResultItem
-				//		  {
-				//			  EvalItemKey = eri.EvalItemKey.GetValue(r),
-				//			  ChooseValue = eri.ChooseValue.GetValue(r),
-				//			  ResultValue = eri.ResultValue.GetValue(r)
-				//		  };
-				//	  }).ToDictionary(m => m.EvalItemKey);
+				 =>
+				APQuery.select(eri.EvalItemKey, eri.ChooseValue, eri.ResultValue)
+					  .from(er, eri.JoinInner(er.ResultId == eri.ResultId))
+					  .where(er.PeriodId == param.PeriodId & er.MemberId == param.TeacherId)
+					  .query(db, r =>
+					  {
+						  return new TeamEvalResultItem
+						  {
+							  EvalItemKey = eri.EvalItemKey.GetValue(r),
+							  ChooseValue = eri.ChooseValue.GetValue(r),
+							  ResultValue = eri.ResultValue.GetValue(r)
+						  };
+					  }).ToDictionary(m => m.EvalItemKey);
 
 
 			public override long Eval(APDBDef db, TeamEvalParam param, FormCollection fc)
 			{
-				//var eval = db.EvalSchoolResultDal.ConditionQuery(er.PeriodId == param.PeriodId & er.TeacherId == param.TeacherId
-				//		  & er.CompanyId == param.SchoolId, null, null, null).FirstOrDefault();
+				var eval = db.TeamEvalResultDal.ConditionQuery(er.PeriodId == param.PeriodId & er.MemberId == param.TeacherId
+						  & er.TeamId == param.TeamId, null, null, null).FirstOrDefault();
 
-				//var result = new EvalSchoolResult()
-				//{
-				//	PeriodId = param.PeriodId,
-				//	TeacherId = param.TeacherId,
-				//	Accesser = param.AccesserId,
-				//	AccessDate = DateTime.Now,
-				//	CompanyId = param.SchoolId,
-				//	FullScore = FullScroe
-				//};
-				//var items = new Dictionary<string, EvalSchoolResultItem>();
+				var result = new TeamEvalResult()
+				{
+					PeriodId = param.PeriodId,
+					MemberId = param.TeacherId,
+					Accesser = param.AccesserId,
+					AccessDate = DateTime.Now,
+					TeamId = param.TeamId,
+					FullScore = FullScroe
+				};
+				var items = new Dictionary<string, TeamEvalResultItem>();
 
-				//AnalysisResult(fc, result, items);
+				AnalysisResult(fc, result, items);
 
+				if (eval != null)
+				{
+					db.TeamEvalResultDal.PrimaryDelete(eval.ResultId);
+					db.TeamEvalResultItemDal.ConditionDelete(eri.ResultId == eval.ResultId);
+				}
 
-				//if (eval != null)
-				//{
-				//	db.EvalSchoolResultDal.PrimaryDelete(eval.ResultId);
-				//	db.EvalSchoolResultItemDal.ConditionDelete(eri.ResultId == eval.ResultId);
-				//}
+				db.TeamEvalResultDal.Insert(result);
 
-				//db.EvalSchoolResultDal.Insert(result);
+				foreach (var item in items.Values)
+				{
+					item.ResultId = result.ResultId;
+					db.TeamEvalResultItemDal.Insert(item);
+				}
 
-				//foreach (var item in items.Values)
-				//{
-				//	item.ResultId = result.ResultId;
-				//	db.EvalSchoolResultItemDal.Insert(item);
-				//}
-
-
-				//return result.ResultId;
-				return Int32.MaxValue;
+				return result.ResultId;
 			}
 
 
 			#region [ 分析 ]
 
 
-			//private void AnalysisResult(FormCollection fc, EvalSchoolResult result, Dictionary<string, EvalSchoolResultItem> items)
-			//{
-			//	AnalysisGongzl(result, items, fc[EvalSchoolRuleKeys.XiaonLvz_Gongzl]);
-			//	AnalysisGongzZhil(result, items, fc[EvalSchoolRuleKeys.XiaonLvz_GongzZhil], fc[EvalSchoolRuleKeys.XiaonLvz_GongzZhil_Jeig]);
-			//	AnalysisShid(result, items, fc[EvalSchoolRuleKeys.Shid]);
-			//}
+			private void AnalysisResult(FormCollection fc, TeamEvalResult result, Dictionary<string, TeamEvalResultItem> items)
+			{
+				//AnalysisGongzl(result, items, fc[EvalSchoolRuleKeys.XiaonLvz_Gongzl]);
+			}
 
 
 			//private void AnalysisGongzl(EvalSchoolResult result, Dictionary<string, EvalSchoolResultItem> items, string choose)
@@ -142,67 +136,7 @@ namespace TheSite.EvalAnalysis
 			//}
 
 
-			//private void AnalysisGongzZhil(EvalSchoolResult result, Dictionary<string, EvalSchoolResultItem> items, string choose, string score)
-			//{
-			//	var item = new EvalSchoolResultItem
-			//	{
-			//		ChooseValue = choose,
-			//		EvalItemKey = EvalSchoolRuleKeys.XiaonLvz_GongzZhil,
-			//	};
-			//	items.Add(item.EvalItemKey, item);
 
-
-			//	// 客户端数据不可相信，还得验证
-
-			//	score = string.IsNullOrEmpty(score) || string.IsNullOrWhiteSpace(score) ? string.Empty : score.Trim();
-			//	var scoreValue = Convert.ToDouble(score);
-			//	switch (choose)
-			//	{
-			//		case "A":
-			//			result.Score += scoreValue.EnsureInRange(47, 50);
-			//			break;
-			//		case "B":
-			//			result.Score += scoreValue.EnsureInRange(32, 42);
-			//			break;
-			//		case "C":
-			//			result.Score += scoreValue.EnsureInRange(27, 30);
-			//			break;
-			//		case "D":
-			//			result.Score += scoreValue.EnsureInRange(15, 25);
-			//			break;
-			//	}
-
-			//	item.ResultValue = scoreValue.ToString();
-
-			//}
-
-
-			//private void AnalysisShid(EvalSchoolResult result, Dictionary<string, EvalSchoolResultItem> items, string choose)
-			//{
-			//	var item = new EvalSchoolResultItem
-			//	{
-			//		ChooseValue = choose,
-			//		EvalItemKey = EvalSchoolRuleKeys.Shid,
-			//	};
-			//	items.Add(item.EvalItemKey, item);
-
-			//	switch (choose)
-			//	{
-			//		case "A":
-			//			result.Morality = "合格";
-			//			item.ResultValue = "合格";
-			//			break;
-			//		case "B":
-			//			result.Morality = "基本合格";
-			//			item.ResultValue = "基本合格";
-			//			break;
-			//		case "C":
-			//			result.Score = 0;
-			//			result.Morality = "不合格";
-			//			item.ResultValue = "不合格";
-			//			break;
-			//	}
-			//}
 
 
 			#endregion

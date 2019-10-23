@@ -9713,6 +9713,8 @@ namespace Business {
             
             private DateTimeAPColumnDef _fillDate;
             
+            private StringAPColumnDef _dynamic1;
+            
             private DateTimeAPColumnDef _createDate;
             
             private Int64APColumnDef _creator;
@@ -9834,6 +9836,19 @@ namespace Business {
             }
             
             /// <summary>
+            /// Dynamic1 ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef Dynamic1 {
+                get {
+                    if (Object.ReferenceEquals(_dynamic1, null)) {
+                        _dynamic1 = new StringAPColumnDef(this, "Dynamic1", false, 2000);
+                        _dynamic1.Display = "动态内容1";
+                    }
+                    return _dynamic1;
+                }
+            }
+            
+            /// <summary>
             /// CreateDate ColumnDef
             /// </summary>
             public virtual DateTimeAPColumnDef CreateDate {
@@ -9913,6 +9928,7 @@ namespace Business {
                 data.DeclareUser = DeclareUser.GetValue<string>(reader, throwIfValidColumnName);
                 data.DeclareCompany = DeclareCompany.GetValue<string>(reader, throwIfValidColumnName);
                 data.FillDate = FillDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
+                data.Dynamic1 = Dynamic1.GetValue<string>(reader, throwIfValidColumnName);
                 data.CreateDate = CreateDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
                 data.Creator = Creator.GetValue<long>(reader, throwIfValidColumnName);
                 data.ModifyDate = ModifyDate.GetValue<System.Nullable<System.DateTime>>(reader, throwIfValidColumnName);
@@ -19569,7 +19585,7 @@ namespace Business {
                 if ((data.TeamPojectId == 0)) {
                     data.TeamPojectId = ((long)(GetNewId(APDBDef.TeamProject.TeamPojectId)));
                 }
-                var query = APQuery.insert(APDBDef.TeamProject).values(APDBDef.TeamProject.TeamPojectId.SetValue(data.TeamPojectId), APDBDef.TeamProject.TeamId.SetValue(data.TeamId), APDBDef.TeamProject.TeacherId.SetValue(data.TeacherId), APDBDef.TeamProject.ProjectName.SetValue(data.ProjectName), APDBDef.TeamProject.ContentKey.SetValue(data.ContentKey), APDBDef.TeamProject.DeclareUser.SetValue(data.DeclareUser), APDBDef.TeamProject.DeclareCompany.SetValue(data.DeclareCompany), APDBDef.TeamProject.FillDate.SetValue(data.FillDate), APDBDef.TeamProject.CreateDate.SetValue(data.CreateDate), APDBDef.TeamProject.Creator.SetValue(data.Creator), APDBDef.TeamProject.ModifyDate.SetValue(data.ModifyDate), APDBDef.TeamProject.Modifier.SetValue(data.Modifier));
+                var query = APQuery.insert(APDBDef.TeamProject).values(APDBDef.TeamProject.TeamPojectId.SetValue(data.TeamPojectId), APDBDef.TeamProject.TeamId.SetValue(data.TeamId), APDBDef.TeamProject.TeacherId.SetValue(data.TeacherId), APDBDef.TeamProject.ProjectName.SetValue(data.ProjectName), APDBDef.TeamProject.ContentKey.SetValue(data.ContentKey), APDBDef.TeamProject.DeclareUser.SetValue(data.DeclareUser), APDBDef.TeamProject.DeclareCompany.SetValue(data.DeclareCompany), APDBDef.TeamProject.FillDate.SetValue(data.FillDate), APDBDef.TeamProject.Dynamic1.SetValue(data.Dynamic1), APDBDef.TeamProject.CreateDate.SetValue(data.CreateDate), APDBDef.TeamProject.Creator.SetValue(data.Creator), APDBDef.TeamProject.ModifyDate.SetValue(data.ModifyDate), APDBDef.TeamProject.Modifier.SetValue(data.Modifier));
                 ExecuteNonQuery(query);
             }
             
@@ -19577,7 +19593,7 @@ namespace Business {
             /// 更新数据。
             /// </summary>
             public virtual void Update(TeamProject data) {
-                var query = APQuery.update(APDBDef.TeamProject).values(APDBDef.TeamProject.TeamId.SetValue(data.TeamId), APDBDef.TeamProject.TeacherId.SetValue(data.TeacherId), APDBDef.TeamProject.ProjectName.SetValue(data.ProjectName), APDBDef.TeamProject.ContentKey.SetValue(data.ContentKey), APDBDef.TeamProject.DeclareUser.SetValue(data.DeclareUser), APDBDef.TeamProject.DeclareCompany.SetValue(data.DeclareCompany), APDBDef.TeamProject.FillDate.SetValue(data.FillDate), APDBDef.TeamProject.CreateDate.SetValue(data.CreateDate), APDBDef.TeamProject.Creator.SetValue(data.Creator), APDBDef.TeamProject.ModifyDate.SetValue(data.ModifyDate), APDBDef.TeamProject.Modifier.SetValue(data.Modifier)).where((APDBDef.TeamProject.TeamPojectId == data.TeamPojectId));
+                var query = APQuery.update(APDBDef.TeamProject).values(APDBDef.TeamProject.TeamId.SetValue(data.TeamId), APDBDef.TeamProject.TeacherId.SetValue(data.TeacherId), APDBDef.TeamProject.ProjectName.SetValue(data.ProjectName), APDBDef.TeamProject.ContentKey.SetValue(data.ContentKey), APDBDef.TeamProject.DeclareUser.SetValue(data.DeclareUser), APDBDef.TeamProject.DeclareCompany.SetValue(data.DeclareCompany), APDBDef.TeamProject.FillDate.SetValue(data.FillDate), APDBDef.TeamProject.Dynamic1.SetValue(data.Dynamic1), APDBDef.TeamProject.CreateDate.SetValue(data.CreateDate), APDBDef.TeamProject.Creator.SetValue(data.Creator), APDBDef.TeamProject.ModifyDate.SetValue(data.ModifyDate), APDBDef.TeamProject.Modifier.SetValue(data.Modifier)).where((APDBDef.TeamProject.TeamPojectId == data.TeamPojectId));
                 ExecuteNonQuery(query);
             }
             
@@ -47353,6 +47369,11 @@ namespace Business {
         private System.DateTime _fillDate;
         
         /// <summary>
+        /// Dynamic1
+        /// </summary>
+        private string _dynamic1 = string.Empty;
+        
+        /// <summary>
         /// CreateDate
         /// </summary>
         private System.DateTime _createDate;
@@ -47381,7 +47402,7 @@ namespace Business {
         /// <summary>
         /// 初始化所有字段的构造函数。
         /// </summary>
-        public TeamProjectBase(long teamPojectId, long teamId, long teacherId, string projectName, string contentKey, string declareUser, string declareCompany, System.DateTime fillDate, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) {
+        public TeamProjectBase(long teamPojectId, long teamId, long teacherId, string projectName, string contentKey, string declareUser, string declareCompany, System.DateTime fillDate, string dynamic1, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) {
             _teamPojectId = teamPojectId;
             _teamId = teamId;
             _teacherId = teacherId;
@@ -47390,6 +47411,7 @@ namespace Business {
             _declareUser = declareUser;
             _declareCompany = declareCompany;
             _fillDate = fillDate;
+            _dynamic1 = dynamic1;
             _createDate = createDate;
             _creator = creator;
             _modifyDate = modifyDate;
@@ -47577,6 +47599,29 @@ namespace Business {
         }
         
         /// <summary>
+        /// Dynamic1
+        /// </summary>
+        [Display(Name="动态内容1")]
+        [StringLength(2000)]
+        public virtual string Dynamic1 {
+            get {
+                return _dynamic1;
+            }
+            set {
+                _dynamic1 = value;
+            }
+        }
+        
+        /// <summary>
+        /// Dynamic1 APColumnDef
+        /// </summary>
+        public static StringAPColumnDef Dynamic1Def {
+            get {
+                return APDBDef.TeamProject.Dynamic1;
+            }
+        }
+        
+        /// <summary>
         /// CreateDate
         /// </summary>
         [Display(Name="创建时间")]
@@ -47694,6 +47739,7 @@ namespace Business {
             DeclareUser = data.DeclareUser;
             DeclareCompany = data.DeclareCompany;
             FillDate = data.FillDate;
+            Dynamic1 = data.Dynamic1;
             CreateDate = data.CreateDate;
             Creator = data.Creator;
             ModifyDate = data.ModifyDate;
@@ -47726,6 +47772,9 @@ namespace Business {
                 return false;
             }
             if ((FillDate != data.FillDate)) {
+                return false;
+            }
+            if ((Dynamic1 != data.Dynamic1)) {
                 return false;
             }
             if ((CreateDate != data.CreateDate)) {
@@ -47836,8 +47885,8 @@ namespace Business {
         /// <summary>
         /// 初始化所有字段的构造函数。
         /// </summary>
-        public TeamProject(long teamPojectId, long teamId, long teacherId, string projectName, string contentKey, string declareUser, string declareCompany, System.DateTime fillDate, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) : 
-                base(teamPojectId, teamId, teacherId, projectName, contentKey, declareUser, declareCompany, fillDate, createDate, creator, modifyDate, modifier) {
+        public TeamProject(long teamPojectId, long teamId, long teacherId, string projectName, string contentKey, string declareUser, string declareCompany, System.DateTime fillDate, string dynamic1, System.DateTime createDate, long creator, System.Nullable<System.DateTime> modifyDate, long modifier) : 
+                base(teamPojectId, teamId, teacherId, projectName, contentKey, declareUser, declareCompany, fillDate, dynamic1, createDate, creator, modifyDate, modifier) {
         }
     }
     

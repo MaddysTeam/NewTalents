@@ -859,7 +859,7 @@ namespace TheSite.Controllers
 				model.AttachmentUrl3 = at3.Url;
 				model.VertificationName = vt.Name;
 				model.VertificationUrl = vt.Url;
-
+				model.Dynamic1 = data.Dynamic1;
 			}
 
 			return PartialView("TuanDXiangm", model);
@@ -926,6 +926,7 @@ namespace TheSite.Controllers
 						TeamId = model.TeamId,
 						CreateDate = DateTime.Now,
 						Creator = UserProfile.UserId,
+						Dynamic1=model.Dynamic1
 					};
 
 					db.TeamProjectDal.Insert(data);
@@ -939,6 +940,7 @@ namespace TheSite.Controllers
 						FillDate = model.Date,
 						Modifier = UserProfile.UserId,
 						ModifyDate = DateTime.Now,
+						Dynamic1 = model.Dynamic1
 					});
 
 					AttachmentsExtensions.DeleteAttas(db, id.Value, new string[] {

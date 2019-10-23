@@ -21,6 +21,7 @@ namespace TheSite.Models
 
 	public class SchoolEvalPeriodModel : PeriodModel
 	{
+
 		public SchoolEvalPeriodModel(SchoolEvalParam param)
 		{
 			TeacherId = param.TeacherId;
@@ -30,7 +31,6 @@ namespace TheSite.Models
 
 		public EvalSchoolResult Result { get; set; }
 		public Dictionary<string, EvalSchoolResultItem> ResultItems { get; set; }
-
 
 	}
 
@@ -85,6 +85,20 @@ namespace TheSite.Models
 		public Dictionary<string, EvalQualityResultItem> ResultItems { get; set; }
 		public Dictionary<string, string> ChooseItems { get; set; }
 
+	}
+
+
+	public class TeamEvalPeiodModel :PeriodModel
+	{
+		public TeamEvalPeiodModel(TeamEvalParam param)
+		{
+			TeacherId = param.TeacherId;
+			PeriodId = param.PeriodId;
+		}
+
+
+		public TeamEvalResult Result { get; set; }
+		public Dictionary<string, TeamEvalResultItem> ResultItems { get; set; }
 	}
 
 }

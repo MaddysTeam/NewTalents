@@ -155,6 +155,7 @@ namespace TheSite.EvalAnalysis
 		public abstract Dictionary<string, TeamEvalResultItem> GetResultItem(APDBDef db, TeamEvalParam param);
 
 		public abstract long Eval(APDBDef db, TeamEvalParam param, System.Web.Mvc.FormCollection fc);
+
 	}
 
 }

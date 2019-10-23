@@ -34,17 +34,6 @@
 				</div>
 				<div class="widget-content">
 
-					@*<div class="alert alert-danger alert-dismissable">
-						<a href="" class="close">×</a>
-						<strong> <i class="fa fa-warning"></i> 重要提示</strong>
-						<br />
-						<a href="@Url.Content("~/Attachments/temp/关于开展虹教系统教师专业人才梯队2016年度考核的预通知-1.doc")">关于开展虹教系统教师专业人才梯队2016年度考核的预通知（一）</a>
-						<br />
-						<a href="@Url.Content("~/Attachments/temp/2016-2018年度虹教系统教师专业人才梯队各层级工作任务.doc")">2016-2018年度虹教系统教师专业人才梯队各层级工作任务</a>
-						<br />
-						<a href="@Url.Content("~/Attachments/temp/虹教系统教师专业人才梯队相关问题问答（一）.doc")">虹教系统教师专业人才梯队相关问题问答（一）</a>
-					</div>*@
-
 					@if (period != null)
 					{
 					<div class="alert alert-info">
@@ -90,7 +79,11 @@
 										<div class="form-group">
 											@Html.LabelFor(m => m.Birthday, new { @class = "col-md-3 control-label" })
 											<div class="col-md-9">
-												<span class="form-control details-text">@Model.Birthday.ToString("yyyy-MM-dd")</span>
+												<div class="input-group date" data-provide="datepicker" data-date-language="zh-CN" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
+													@Html.TextBoxFor(m => m.Birthday, "{0:yyyy-MM-dd}", new { @class = "form-control" })
+													<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+												</div>
+												@*<span class="form-control details-text">@Model.Birthday.ToString("yyyy-MM-dd")</span>*@
 												@Html.ValidationMessageFor(m => m.Birthday)
 											</div>
 										</div>

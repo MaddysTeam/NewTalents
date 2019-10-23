@@ -68,36 +68,8 @@
 		</div>
 		<!-- main-content -->
 		<div class="main-content declare-overview">
-
-			<!-- 个人成就 -->
-			<a id="@DeclareKeys.ZisFaz_GerChengj@proxy"></a>
-			<a id="@DeclareKeys.ZisFaz@proxy"></a>
-			<h3>个人成就</h3>
-			<table class="table table-bordered no-margin table-condensed table-borderbold">
-				<tbody>
-					<tr>
-						<td class="height-100">
-							<strong>研究成果</strong>
-							<p class="text-p-2">@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.ZisFaz_GerChengj_Memo1)</p>
-						</td>
-					</tr>
-					<tr>
-						<td class="height-100">
-							<strong>曾经获得荣誉奖项</strong>
-							<p class="text-p-2">@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.ZisFaz_GerChengj_Memo2)</p>
-						</td>
-					</tr>
-					<tr>
-						<td class="height-100">
-							<strong>之后获得研究成果</strong>
-							<p class="text-p-2">@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.ZisFaz_GerChengj_Memo3)</p>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		
 			
-				<!-- 个人简历  -->
+			<!-- 个人简历  -->
 			<a id="@DeclareKeys.ZisFaz_GerJianl@proxy"></a>
 			<h3>个人简历</h3>
 			<table class="table table-bordered no-margin table-condensed table-borderbold">
@@ -121,133 +93,10 @@
 			</table>
 	
 
-			@if (targetId != DeclareTargetIds.GaodLisz && targetId != DeclareTargetIds.JidZhucr)
-			{
-				<!-- 个人SWOT分析 -->
-				<a id="@DeclareKeys.ZisFaz_GerSWOT@proxy"></a>
-				<h3>个人SWOT分析</h3>
-				<table class="table table-bordered no-margin table-condensed table-borderbold">
-					<tbody>
-						<tr>
-							<td rowspan="4" class="width-p-10"><strong>自身特长、优势</strong></td>
-							<td class="height-100 width-p-40">
-								<strong>课堂教学类</strong>
-								<p class="text-p-2">
-									@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.ZisFaz_GerSWOT_Goodness1)
-								</p>
-
-							</td>
-							<td rowspan="4" class="width-p-10"><strong>自身不足、劣势</strong></td>
-							<td class="height-100 width-p-40">
-								<strong>课堂教学类</strong>
-								<p class="text-p-2">
-									@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.ZisFaz_GerSWOT_Weakness1)
-								</p>
-							</td>
-						</tr>
-						<tr>
-							<td class="height-100">
-								<strong>科研类</strong>
-								<p class="text-p-2">
-									@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.ZisFaz_GerSWOT_Goodness2)
-								</p>
-							</td>
-							<td class="height-100">
-								<strong>科研类</strong>
-								<p class="text-p-2">
-									@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.ZisFaz_GerSWOT_Weakness2)
-								</p>
-							</td>
-						</tr>
-						<tr>
-							<td class="height-100">
-								<strong>技能类</strong>
-								<p class="text-p-2">
-									@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.ZisFaz_GerSWOT_Goodness3)
-								</p>
-
-							</td>
-							<td class="height-100">
-								<strong>技能类</strong>
-								<p class="text-p-2">
-									@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.ZisFaz_GerSWOT_Weakness3)
-								</p>
-							</td>
-						</tr>
-						<tr>
-							<td class="height-100">
-								<strong>个性及其他</strong>
-								<p class="text-p-2">
-									@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.ZisFaz_GerSWOT_Goodness4)
-								</p>
-							</td>
-							<td class="height-100">
-								<strong>个性及其他</strong>
-								<p class="text-p-2">
-									@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.ZisFaz_GerSWOT_Weakness4)
-								</p>
-							</td>
-						</tr>
-						<tr>
-							<td rowspan="3" class="width-p-10"><strong>外部环境提供的机遇</strong></td>
-							<td class="height-100">
-								<strong>教研组</strong>
-								<p class="text-p-2">
-									@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.ZisFaz_GerSWOT_Opportunity1)
-								</p>
-							</td>
-							<td rowspan="3" class="width-p-10"><strong>外部环境带来的威胁</strong></td>
-							<td class="height-100">
-								<strong>教研组</strong>
-								<p class="text-p-2">
-									@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.ZisFaz_GerSWOT_Challenge1)
-								</p>
-							</td>
-						</tr>
-						<tr>
-							<td class="height-100">
-								<strong>学校内部环境</strong>
-								<p class="text-p-2">
-									@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.ZisFaz_GerSWOT_Opportunity2)
-								</p>
-							</td>
-							<td class="height-100">
-								<strong>学校内部环境</strong>
-								<p class="text-p-2">
-									@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.ZisFaz_GerSWOT_Challenge2)
-								</p>
-							</td>
-						</tr>
-						<tr>
-							<td class="height-100">
-								<strong>政策制度</strong>
-								<p class="text-p-2">
-									@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.ZisFaz_GerSWOT_Opportunity3)
-								</p>
-							</td>
-							<td class="height-100">
-								<strong>政策制度</strong>
-								<p class="text-p-2">
-									@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.ZisFaz_GerSWOT_Challenge3)
-								</p>
-							</td>
-						</tr>
-						<tr>
-							<td class="height-100" colspan="4">
-								<strong>改进措施:</strong>
-								<p class="text-p-2">
-									@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.ZisFaz_GerSWOT_GaijCuos)
-								</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-
-
-				<!-- 自我发展计划 -->
-				<a id="@DeclareKeys.ZisFaz_ZiwFazJih@proxy"></a>
-				<h3>自我发展计划</h3>
-				<table class="table table-bordered no-margin table-condensed table-borderbold">
+			<!-- 自我发展计划 -->	
+			<a id="@DeclareKeys.ZisFaz_ZiwFazJih@proxy"></a>
+			<h3>自我发展计划</h3>
+			<table class="table table-bordered no-margin table-condensed table-borderbold">
 					<tbody>
 						<tr>
 							<td rowspan="4" class="width-p-10"><strong>专业发展目标</strong></td>
@@ -344,7 +193,6 @@
 						</tr>
 					</tbody>
 				</table>
-			}
 
 
 			<!-- 自我研修 -->
@@ -829,16 +677,13 @@
 			</table>
 
 
-			@if (targetId == DeclareTargetIds.GaodLisz || targetId == DeclareTargetIds.JidZhucr || targetId == DeclareTargetIds.GongzsZhucr)
-			{
 				<a id="@DeclareKeys.ZhidJians@proxy"></a>
 
-				if (targetId != DeclareTargetIds.GongzsZhucr)
-				{
-					<!-- 有影响力的工作 -->
-					<a id="@DeclareKeys.ZhidJians_YingxlDeGongz@proxy"></a>
-					<h3>有影响力的工作</h3>
-					<table class="table table-bordered no-margin table-condensed table-borderbold">
+
+				<!-- 有影响力的工作 -->
+				<a id="@DeclareKeys.ZhidJians_YingxlDeGongz@proxy"></a>
+				<h3>有影响力的工作</h3>
+				<table class="table table-bordered no-margin table-condensed table-borderbold">
 						<thead>
 							<tr>
 								<th class="width-p-10">时间</th>
@@ -865,7 +710,7 @@
 							}
 						</tbody>
 					</table>
-				}
+				
 
 
 				<!-- 特色活动开展 -->
@@ -936,652 +781,11 @@
 						}
 					</tbody>
 				</table>
-			}
+			
 			
 
-			@if (DeclareBase.AllowFlowToSchool)
-			{
-
-				<a id="@DeclareKeys.QunLiud@proxy"></a>
-
-				if (targetId == DeclareTargetIds.XuekDaitr)
-				{
-					<!-- 学科带头人.流入学校 -->
-					<a id="@DeclareKeys.QunLiud_XuekDaitr@proxy"></a>
-					<a id="@DeclareKeys.QunLiud_XuekDaitr_LiurXuex@proxy"></a>
-					<h3>流入学校</h3>
-					<table class="table table-bordered no-margin table-condensed table-borderbold">
-						<tbody>
-							<tr>
-								<td>
-									<strong>学校名称</strong>
-									<p class="text-p-2">@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.QunLiud_XuekDaitr_LiurXuex_XuexMingc)</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<strong>教研组长</strong>
-									<p class="text-p-2">
-										@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.QunLiud_XuekDaitr_LiurXuex_JiaoyZuc)
-									</p>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-
-
-					<!-- 学科带头人.上公开课 -->
-					<a id="@DeclareKeys.QunLiud_XuekDaitr_KetJiaox@proxy"></a>
-					<a id="@DeclareKeys.QunLiud_XuekDaitr_KetJiaox_Gongkk@proxy"></a>
-					<h3>上公开课</h3>
-					<table class="table table-bordered no-margin table-condensed table-borderbold">
-						<thead>
-							<tr>
-								<th class="width-p-10">时间</th>
-								<th class="width-p-10">年级班级</th>
-								<th>课题/内容</th>
-								<th class="width120">操作</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.QunLiud_XuekDaitr_KetJiaox_Gongkk))
-							{
-								<tr>
-									<td>@item.Date.ToString("yyyy-MM-dd")</td>
-									<td>@item.Dynamic1</td>
-									<td><p class="text-p-2">@item.ContentValue</p></td>
-									<td> 
-										<div class="btn-group btn-group-xs">
-											<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.QunLiud_XuekDaitr_KetJiaox_Gongkk })" data-target="#firstModal" title="查看附件">查看附件</button>
-										</div>
-									</td>
-								</tr>
-							}
-						</tbody>
-					</table>
-
-					<!-- 学科带头人.公开汇报课 -->
-					<a id="@DeclareKeys.QunLiud_XuekDaitr_KetJiaox_GongkHuibk@proxy"></a>
-					<h3>公开汇报课</h3>
-					<table class="table table-bordered no-margin table-condensed table-borderbold">
-						<thead>
-							<tr>
-								<th class="width-p-10">时间</th>
-								<th class="width-p-10">年级班级</th>
-								<th class="width-p-10">上课地点</th>
-								<th>课题/内容</th>
-								<th class="width120">操作</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.QunLiud_XuekDaitr_KetJiaox_GongkHuibk))
-							{
-								<tr>
-									<td>@item.Date.ToString("yyyy-MM-dd")</td>
-									<td>@item.Dynamic1</td>
-									<td>@item.Location</td>
-									<td><p class="text-p-2">@item.ContentValue</p></td>
-									<td>
-										<div class="btn-group btn-group-xs">
-											<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.QunLiud_XuekDaitr_KetJiaox_GongkHuibk })" data-target="#firstModal" title="查看附件">查看附件</button>
-										</div>
-									</td>
-								</tr>
-							}
-						</tbody>
-					</table>
-
-
-					<!-- 学科带头人.接受教师听随堂课 -->
-					<a id="@DeclareKeys.QunLiud_XuekDaitr_KetJiaox_Suitk@proxy"></a>
-					<h3>接受教师听随堂课</h3>
-					<table class="table table-bordered no-margin table-condensed table-borderbold">
-						<thead>
-							<tr>
-								<th class="width-p-10">时间</th>
-								<th class="width-p-10">年级班级</th>
-								<th class="width-p-10">地点</th>
-								<th>课题/内容</th>
-								<th class="width120">操作</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.QunLiud_XuekDaitr_KetJiaox_Suitk))
-							{
-								<tr>
-									<td>@item.Date.ToString("yyyy-MM-dd")</td>
-									<td>@item.Dynamic1</td>
-									<td>@item.Location</td>
-									<td><p class="text-p-2">@item.ContentValue</p></td>
-									<td>
-										<div class="btn-group btn-group-xs">
-											<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.QunLiud_XuekDaitr_KetJiaox_Suitk })" data-target="#firstModal" title="查看附件">查看附件</button>
-										</div>
-									</td>
-								</tr>
-							}
-						</tbody>
-					</table>
-
-
-					<!-- 学科带头人.开展听课指导 -->
-					<a id="@DeclareKeys.QunLiud_XuekDaitr_KetJiaox_TingKZhid@proxy"></a>
-					<h3>开展听课指导</h3>
-					<table class="table table-bordered no-margin table-condensed table-borderbold">
-						<thead>
-							<tr>
-								<th class="width-p-10">时间</th>
-								<th class="width-p-10">年级班级</th>
-								<th class="width-p-10">上课教师</th>
-								<th>课题/内容</th>
-								<th class="width120">操作</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.QunLiud_XuekDaitr_KetJiaox_TingKZhid))
-							{
-								<tr>
-									<td>@item.Date.ToString("yyyy-MM-dd")</td>
-									<td>@item.Dynamic1</td>
-									<td>@item.Dynamic2</td>
-									<td><p class="text-p-2">@item.ContentValue</p></td>
-									<td>
-										<div class="btn-group btn-group-xs">
-											<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.QunLiud_XuekDaitr_KetJiaox_TingKZhid })" data-target="#firstModal" title="查看附件">查看附件</button>
-										</div>
-									</td>
-								</tr>
-							}
-						</tbody>
-					</table>
-
-
-					<!-- 学科带头人.开设专题讲座 -->
-					<a id="@DeclareKeys.QunLiud_XuekDaitr_JiaoyKey@proxy"></a>
-					<a id="@DeclareKeys.QunLiud_XuekDaitr_JiaoyKey_ZhuantJiangz@proxy"></a>
-					<h3>开设专题讲座</h3>
-					<table class="table table-bordered no-margin table-condensed table-borderbold">
-						<thead>
-							<tr>
-								<th class="width-p-10">时间</th>
-								<th class="width-p-10">参加对象</th>
-								<th class="width-p-10">地点</th>
-								<th>主题/内容</th>
-								<th class="width120">操作</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.QunLiud_XuekDaitr_JiaoyKey_ZhuantJiangz))
-							{
-								<tr>
-									<td>@item.Date.ToString("yyyy-MM-dd")</td>
-									<td>@item.Dynamic1</td>
-									<td>@item.Location</td>
-									<td><p class="text-p-2">@item.ContentValue</p></td>
-									<td>
-										<div class="btn-group btn-group-xs">
-											<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.QunLiud_XuekDaitr_JiaoyKey_ZhuantJiangz })" data-target="#firstModal" title="查看附件">查看附件</button>
-										</div>
-									</td>
-								</tr>
-							}
-						</tbody>
-					</table>
-
-
-					<!-- 学科带头人.主持教研活动 -->
-					<a id="@DeclareKeys.QunLiud_XuekDaitr_JiaoyKey_JiaoyHuod@proxy"></a>
-					<h3>主持教研活动</h3>
-					<table class="table table-bordered no-margin table-condensed table-borderbold">
-						<thead>
-							<tr>
-								<th class="width-p-10">时间</th>
-								<th class="width-p-10">地点、参加对象</th>
-								<th class="width-p-10">参讲教师</th>
-								<th>主题</th>
-								<th class="width-p-10">活动形式</th>
-								<th class="width120">操作</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.QunLiud_XuekDaitr_JiaoyKey_JiaoyHuod))
-							{
-								<tr>
-									<td>@item.Date.ToString("yyyy-MM-dd")</td>
-									<td>@item.Location</td>
-									<td>@item.Dynamic1</td>
-									<td><p class="text-p-2">@item.ContentValue</p></td>
-									<td>@item.Dynamic2</td>
-									<td>
-										<div class="btn-group btn-group-xs">
-											<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.QunLiud_XuekDaitr_JiaoyKey_JiaoyHuod })" data-target="#firstModal" title="查看附件">查看附件</button>
-										</div>
-									</td>
-								</tr>
-							}
-						</tbody>
-					</table>
-
-
-					<!-- 学科带头人.参与教研组、备课组活动 -->
-					<a id="@DeclareKeys.QunLiud_XuekDaitr_JiaoyKey_CanyHuod@proxy"></a>
-					<h3>参与教研组、备课组活动</h3>
-					<table class="table table-bordered no-margin table-condensed table-borderbold">
-						<thead>
-							<tr>
-								<th class="width-p-10">时间</th>
-								<th class="width-p-10">地点、参加对象</th>
-								<th>主讲</th>
-								<th class="width-p-30">指导性意见、建议</th>
-								<th class="width120">操作</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.QunLiud_XuekDaitr_JiaoyKey_CanyHuod))
-							{
-								<tr>
-									<td>@item.Date.ToString("yyyy-MM-dd")</td>
-									<td>@item.Location</td>
-									<td><p class="text-p-2">@item.ContentValue</p></td>
-									<td><p class="text-p-2">@item.Dynamic1</p></td>
-									<td>
-										<div class="btn-group btn-group-xs">
-											<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.QunLiud_XuekDaitr_JiaoyKey_CanyHuod })" data-target="#firstModal" title="查看附件">查看附件</button>
-										</div>
-									</td>
-								</tr>
-							}
-						</tbody>
-					</table>
-
-
-					<!-- 学科带头人.阶段性总结 -->
-					<a id="@DeclareKeys.QunLiud_XuekDaitr_JiaoyKey_JiedxZongj@proxy"></a>
-					<h3>阶段性总结</h3>
-					<table class="table table-bordered no-margin table-condensed table-borderbold">
-						<tbody>
-							<tr>
-								<td class="height-500">
-									<p class="text-p-2">@DeclareExtensions.GetDeclareContent(DeclareContent, @DeclareKeys.QunLiud_XuekDaitr_JiaoyKey_JiedxZongj)</p>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-
-
-					<!-- 学科带头人.带教对象 -->
-					<a id="@DeclareKeys.QunLiud_XuekDaitr_DaijPeix@proxy"></a>
-					<a id="@DeclareKeys.QunLiud_XuekDaitr_DaijPeix_DaijDuix@proxy"></a>
-					<h3>带教对象</h3>
-					<table class="table table-bordered no-margin table-condensed table-borderbold">
-						<tbody>
-							<tr>
-								<td>
-									<strong>名称</strong>
-									<p class="text-p-2">@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.QunLiud_XuekDaitr_DaijPeix_DaijDuix)</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<strong>学科</strong>
-									<p class="text-p-2">
-										@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.QunLiud_XuekDaitr_DaijPeix_DaijXuek)
-									</p>
-								</td>
-							</tr>
-							<tr>
-								<td class="height-100">
-									<strong>发展分析</strong>
-									<p class="text-p-2">
-										@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.QunLiud_XuekDaitr_DaijPeix_DaijDuixFazFenx)
-									</p>
-								</td>
-							</tr>
-							<tr>
-								<td class="height-100">
-									<strong>方案概要</strong>
-									<p class="text-p-2">
-										@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.QunLiud_XuekDaitr_DaijPeix_DaijFangaGaiy)
-									</p>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-
-
-					<!-- 学科带头人.带教指导记录 -->
-					<a id="@DeclareKeys.QunLiud_XuekDaitr_DaijPeix_DaijZhidJil@proxy"></a>
-					<h3>带教指导记录</h3>
-					<table class="table table-bordered no-margin table-condensed table-borderbold">
-						<thead>
-							<tr>
-								<th class="width-p-10">时间</th>
-								<th class="width-p-10">地点</th>
-								<th>指导内容</th>
-								<th class="width120">操作</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.QunLiud_XuekDaitr_DaijPeix_DaijZhidJil))
-							{
-								<tr>
-									<td>@item.Date.ToString("yyyy-MM-dd")</td>
-									<td>@item.Location</td>
-									<td><p class="text-p-2">@item.ContentValue</p></td>
-									<td>
-										<div class="btn-group btn-group-xs">
-											<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.QunLiud_XuekDaitr_DaijPeix_DaijZhidJil })" data-target="#firstModal" title="查看附件">查看附件</button>
-										</div>
-									</td>
-								</tr>
-							}
-						</tbody>
-					</table>
-
-
-				}
-
-
-				if (targetId == DeclareTargetIds.GugJiaos)
-				{
-					<!-- 骨干教师.流入学校 -->
-					<a id="@DeclareKeys.QunLiud_GugJiaos@proxy"></a>
-					<a id="@DeclareKeys.QunLiud_GugJiaos_LiurXuex@proxy"></a>
-					<h3>流入学校</h3>
-					<table class="table table-bordered no-margin table-condensed table-borderbold">
-						<tbody>
-							<tr>
-								<td>
-									<strong>学校名称</strong>
-									<p class="text-p-2">@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.QunLiud_GugJiaos_LiurXuex_XuexMingc)</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<strong>教研组长</strong>
-									<p class="text-p-2">
-										@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.QunLiud_GugJiaos_LiurXuex_JiaoyZuc)
-									</p>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-
-
-					<!-- 骨干教师.任教年级班级 -->
-					<a id="@DeclareKeys.QunLiud_GugJiaos_RenjNianjBanj@proxy"></a>
-					<h3>任教年级班级</h3>
-					<table class="table table-bordered no-margin table-condensed table-borderbold">
-						<tbody>
-							<tr>
-								<td>
-									<strong>班级</strong>
-									<p class="text-p-2">@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.QunLiud_GugJiaos_RenjNianjBanj_Memo1)</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<strong>时间段</strong>
-									<p class="text-p-2">
-										@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.QunLiud_GugJiaos_RenjNianjBanj_Memo2)
-									</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<strong>班主任</strong>
-									<p class="text-p-2">
-										@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.QunLiud_GugJiaos_RenjNianjBanj_Memo3)
-									</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<strong>学科</strong>
-									<p class="text-p-2">
-										@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.QunLiud_GugJiaos_RenjNianjBanj_Memo4)
-									</p>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-
-
-					<!-- 骨干教师.上公开课 -->
-					<a id="@DeclareKeys.QunLiud_GugJiaos_Gongkk@proxy"></a>
-					<h3>上公开课</h3>
-					<table class="table table-bordered no-margin table-condensed table-borderbold">
-						<thead>
-							<tr>
-								<th class="width-p-10">时间</th>
-								<th class="width-p-10">年级班级</th>
-								<th>课题/内容</th>
-								<th class="width120">操作</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.QunLiud_GugJiaos_Gongkk))
-							{
-								<tr>
-									<td>@item.Date.ToString("yyyy-MM-dd")</td>
-									<td>@item.Dynamic1</td>
-									<td><p class="text-p-2">@item.ContentValue</p></td>
-									<td>
-										<div class="btn-group btn-group-xs">
-											<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.QunLiud_GugJiaos_Gongkk })" data-target="#firstModal" title="查看附件">查看附件</button>
-										</div>
-									</td>
-								</tr>
-							}
-						</tbody>
-					</table>
-
-
-					<!-- 骨干教师.开展听课指导 -->
-					<a id="@DeclareKeys.QunLiud_GugJiaos_TingkZhid@proxy"></a>
-					<h3>开展听课指导</h3>
-					<table class="table table-bordered no-margin table-condensed table-borderbold">
-						<thead>
-							<tr>
-								<th class="width-p-10">时间</th>
-								<th class="width-p-10">年级班级</th>
-								<th class="width-p-10">上课教师</th>
-								<th>课题/内容</th>
-								<th class="width120">操作</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.QunLiud_GugJiaos_TingkZhid))
-							{
-								<tr>
-									<td>@item.Date.ToString("yyyy-MM-dd")</td>
-									<td>@item.Dynamic1</td>
-									<td>@item.Dynamic2</td>
-									<td><p class="text-p-2">@item.ContentValue</p></td>
-									<td>
-										<div class="btn-group btn-group-xs">
-											<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.QunLiud_GugJiaos_TingkZhid })" data-target="#firstModal" title="查看附件">查看附件</button>
-										</div>
-									</td>
-								</tr>
-							}
-						</tbody>
-					</table>
-
-
-					<!-- 骨干教师.主持备课组活动 -->
-					<a id="@DeclareKeys.QunLiud_GugJiaos_BeikzHuod@proxy"></a>
-					<h3>主持备课组活动</h3>
-					<table class="table table-bordered no-margin table-condensed table-borderbold">
-						<thead>
-							<tr>
-								<th class="width-p-10">时间</th>
-								<th class="width-p-10">地点、参加对象</th>
-								<th class="width-p-10">参讲教师</th>
-								<th>主题</th>
-								<td class="width-p-10">活动形式</td>
-								<th class="width120">操作</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.QunLiud_GugJiaos_BeikzHuod))
-							{
-								<tr>
-									<td>@item.Date.ToString("yyyy-MM-dd")</td>
-									<td>@item.Location</td>
-									<td>@item.Dynamic1</td>
-									<td><p class="text-p-2">@item.ContentValue</p></td>
-									<td>@item.Dynamic2</td>
-									<td>
-										<div class="btn-group btn-group-xs">
-											<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.QunLiud_GugJiaos_BeikzHuod })" data-target="#firstModal" title="查看附件">查看附件</button>
-										</div>
-									</td>
-								</tr>
-							}
-						</tbody>
-					</table>
-
-
-				}
-			}
-
-
-			@if (DeclareBase.AllowFitResearcher)
-			{
-				<!-- 配合教研员工作.教研信息 -->
-				<a id="@DeclareKeys.PeihJiaoyyGongz@proxy"></a>
-				<a id="@DeclareKeys.PeihJiaoyyGongz_JiaoyXinx@proxy"></a>
-				<h3>教研信息</h3>
-				<table class="table table-bordered no-margin table-condensed table-borderbold">
-					<tbody>
-						<tr>
-							<td>
-								<strong>开始参与教研工作时间</strong>
-								<p class="text-p-2">@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.PeihJiaoyyGongz_JiaoyXinx_Memo3)</p>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<strong>教研员姓名</strong>
-								<p class="text-p-2">
-									@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.PeihJiaoyyGongz_JiaoyXinx_Memo2)
-								</p>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<strong>教研学科</strong>
-								<p class="text-p-2">
-									@DeclareExtensions.GetDeclareContent(DeclareContent, DeclareKeys.PeihJiaoyyGongz_JiaoyXinx_Memo1)
-								</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-
-
-				<!-- 配合教研员工作.学科教研 -->
-				<a id="@DeclareKeys.PeihJiaoyyGongz_XuekJiaoy@proxy"></a>
-				<h3>学科教研</h3>
-				<table class="table table-bordered no-margin table-condensed table-borderbold">
-					<thead>
-						<tr>
-							<th class="width-p-10">时间</th>
-							<th class="width-p-10">地点</th>
-							<th>主题</th>
-							<th class="width-p-10">参加对象</th>
-							<th class="width120">操作</th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.PeihJiaoyyGongz_XuekJiaoy))
-						{
-							<tr>
-								<td>@item.Date.ToString("yyyy-MM-dd")</td>
-								<td>@item.Location</td>
-								<td><p class="text-p-2">@item.ContentValue</p></td>
-								<td>@item.Dynamic1</td>
-								<td>
-									<div class="btn-group btn-group-xs">
-										<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.PeihJiaoyyGongz_XuekJiaoy })" data-target="#firstModal" title="查看附件">查看附件</button>
-									</div>
-								</td>
-							</tr>
-						}
-					</tbody>
-				</table>
-
-
-				<!-- 配合教研员工作.学科命题 -->
-				<a id="@DeclareKeys.PeihJiaoyyGongz_XuekMingt@proxy"></a>
-				<h3>学科命题</h3>
-				<table class="table table-bordered no-margin table-condensed table-borderbold">
-					<thead>
-						<tr>
-							<th class="width-p-10">时间</th>
-							<th class="width-p-10">期中/期末</th>
-							<th class="width-p-10">年级</th>
-							<th>工作成果(试卷名称)</th>
-							<th class="width-p-10">参加对象、人数</th>
-							<th class="width120">操作</th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.PeihJiaoyyGongz_XuekMingt))
-						{
-							<tr>
-								<td>@item.Date.ToString("yyyy-MM-dd")</td>
-								<td>@item.Dynamic1</td>
-								<td>@item.Dynamic2</td>
-								<td><p class="text-p-2">@item.ContentValue</p></td>
-								<td>@item.Dynamic3</td>
-								<td>
-									<div class="btn-group btn-group-xs">
-										<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.PeihJiaoyyGongz_XuekMingt })" data-target="#firstModal" title="查看附件">查看附件</button>
-									</div>
-								</td>
-							</tr>
-						}
-					</tbody>
-				</table>
-
-
-				<!-- 配合教研员工作.基层学校调研 -->
-				<a id="@DeclareKeys.PeihJiaoyyGongz_JicXuexTiaoy@proxy"></a>
-				<h3>基层学校调研</h3>
-				<table class="table table-bordered no-margin table-condensed table-borderbold">
-					<thead>
-						<tr>
-							<th class="width-p-10">时间</th>
-							<th class="width-p-10">调研学校</th>
-							<th>调研内容</th>
-							<th class="width-p-30">调研情况总结</th>
-							<th class="width120">操作</th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.PeihJiaoyyGongz_JicXuexTiaoy))
-						{
-							<tr>
-								<td>@item.Date.ToString("yyyy-MM-dd")</td>
-								<td>@item.Location</td>
-								<td><p class="text-p-2">@item.ContentValue</p></td>
-								<td><p class="text-p-2">@item.Dynamic1</p></td>
-								<td>
-									<div class="btn-group btn-group-xs">
-										<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.PeihJiaoyyGongz_JicXuexTiaoy })" data-target="#firstModal" title="查看附件">查看附件</button>
-									</div>
-								</td>
-							</tr>
-						}
-					</tbody>
-				</table>
-			}
-
-
 			<!-- 年底总结.第一年 -->
-			<a id="@DeclareKeys.NiandZongj@proxy"></a>
+			@*<a id="@DeclareKeys.NiandZongj@proxy"></a>
 			<a id="@DeclareKeys.NiandZongj_Diyn@proxy"></a>
 			<h3>第一年</h3>
 			<table class="table table-bordered no-margin table-condensed table-borderbold">
@@ -1620,21 +824,21 @@
 						</td>
 					</tr>
 				</tbody>
-			</table>
+			</table>*@
 
 
-			<!-- 辅导的梯队.梯队信息 -->
+			<!-- 主持的团队.团队信息 -->
 			@if (DeclareTargetIds.HasTeam(targetId))
 			{
 
 				<a id="@TeamKeys.FuddTid@proxy"></a>
 				<a id="@TeamKeys.TidXinx@proxy"></a>
-				<h3>梯队信息</h3>
+				<h3>团队信息</h3>
 				<table class="table table-bordered no-margin table-condensed table-borderbold">
 					<tbody>
 						<tr>
 							<td>
-								<strong>梯队名称</strong>
+								<strong>团队名称</strong>
 								<p class="text-p-2">@DeclareBase.TeamName</p>
 							</td>
 						</tr>
@@ -1683,7 +887,7 @@
 
 
 				<!-- 辅导的梯队.带教计划 -->
-				<a id="@TeamKeys.DaijJih@proxy"></a>
+				@*<a id="@TeamKeys.DaijJih@proxy"></a>
 				<h3>带教计划</h3>
 				<table class="table table-bordered no-margin table-condensed table-borderbold">
 					<tbody>
@@ -1714,12 +918,12 @@
 							</td>
 						</tr>
 					</tbody>
-				</table>
+				</table>*@
 
 
 				<!-- 辅导的梯队.梯队成员 -->
 				<a id="@TeamKeys.TidChengy@proxy"></a>
-				<h3>梯队成员</h3>
+				<h3>团队成员</h3>
 				<table class="table table-bordered no-margin table-condensed table-borderbold">
 					<thead>
 						<tr>
@@ -1755,7 +959,7 @@
 
 				<!-- 辅导的梯队.带教活动 -->
 				<a id="@TeamKeys.DaijHuod@proxy"></a>
-				<h3>带教活动</h3>
+				<h3>团队活动</h3>
 				<table class="table table-bordered no-margin table-condensed table-borderbold">
 					<tbody>
 						@foreach (var item in TeamActive.Values)
@@ -1814,144 +1018,8 @@
 				</table>
 
 
-				if (DeclareTargetIds.AllowKecShis(targetId))
-				{
-					<!-- 辅导的梯队.定向性课程实施 -->
-					<a id="@TeamKeys.KecShis@proxy"></a>
-					<h3>定向性课程实施</h3>
-					<table class="table table-bordered no-margin table-condensed table-borderbold">
-						<tbody>
-							@foreach (var item in TeamSpecialCourse.Values)
-							{
-								<tr>
-									<td>
-										<div class="widget-content">
-											<ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-												<li class="active"><a href="#@item.CourseId@Info" role="tab" data-toggle="tab" aria-expanded="true">基本信息</a></li>
-												<li class=""><a href="#@item.CourseId@Item" role="tab" data-toggle="tab" aria-expanded="false">安排</a></li>
-											</ul>
-											<div class="tab-content">
-												<div class="tab-pane fade active in" id="@item.CourseId@Info">
-													<table class="table table-bordered table-condensed">
-														<tbody>
-															<tr>
-																<td class="width-p-40">
-																	<strong>课程开设开始时段:</strong>
-																	<p>@item.StartDate.ToString("yyyy-MM-dd")</p>
-																</td>
-																<td rowspan="2">
-																	<strong>
-																		活动方案
-																	</strong>
-																	<p class="text-p-2">
-																		@item.CoursePlan
-																	</p>
-																</td>
-															</tr>
-															<tr>
-																<td class="width-p-40">
-																	<strong>课程开设结束时段:</strong>
-																	<p>@item.EndDate.ToString("yyyy-MM-dd")</p>
-																</td>
-															</tr>
-															<tr>
-																<td class="width-p-40">
-																	<strong>课程主题:</strong>
-																	<p class="text-p-2">@item.Title</p>
-																</td>
-																<td rowspan="2">
-																	<strong>
-																		过程记录
-																	</strong>
-																	<p class="text-p-2">
-																		@item.CourseRecords
-																	</p>
-																</td>
-															</tr>
-															<tr>
-																<td class="width-p-40">
-																	<strong>参加总人数:</strong>
-																	<p>@item.TotalCount</p>
-																</td>
-															</tr>
-															<tr>
-																<td class="width-p-40 height-100">
-																	<strong>课程目标:</strong>
-																	<p class="text-p-2">@item.CourseTarget</p>
-																</td>
-																<td>
-																	<strong>
-																		活动总结
-																	</strong>
-																	<p class="text-p-2">
-																		@item.CourseSummary
-																	</p>
-																</td>
-															</tr>
-															<tr>
-																<td class="width-p-40">
-																	<strong>团队学员数:</strong>
-																	<p>@item.MemberCount</p>
-																</td>
-																<td rowspan="2">
-																	<strong>
-																		备注
-																	</strong>
-																	<p class="text-p-2">
-																		@item.Remark
-																	</p>
-																</td>
-															</tr>
-															<tr>
-																<td class="width-p-40">
-																	<strong>非团队成员参加对象（若有至少需写出1—5人姓名/单位）:</strong>
-																	<p class="text-p-2">@item.MemberRecord</p>
-																</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-												<div class="tab-pane fade" id="@item.CourseId@Item">
-													<table class="table table-bordered table-condensed">
-														<thead>
-															<tr>
-																<th class="width-p-20">标题</th>
-																<th class="width-p-10">具体时间</th>
-																<th class="width-p-10">地点</th>
-																<th class="width-p-10">活动形式</th>
-																<th class="width-p-10">主讲人</th>
-																<th class="width-p-10">备注</th>
-																<th>内容</th>
-															</tr>
-														</thead>
-														<tbody>
-															@foreach (var it in item.Item)
-															{
-																<tr>
-																	<td>@it.Title</td>
-																	<td>@it.ItemDate.ToString("yyyy-MM-dd")</td>
-																	<td>@it.Location</td>
-																	<td>@it.ActivityType</td>
-																	<td>@it.Speaker</td>
-																	<td>@it.Remark</td>
-																	<td>@Html.Raw(it.Content)</td>
-																</tr>
-															}
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-									</td>
-
-								</tr>
-							}
-						</tbody>
-					</table>
-				}
-
 				<a id="@TeamKeys.DaijChengg@proxy"></a>
-				<h3>带教成果</h3>
+				<h3>活动成果</h3>
 				<table class="table table-bordered no-margin table-condensed table-borderbold">
 					<tbody>
 						<tr>
