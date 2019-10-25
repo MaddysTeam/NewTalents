@@ -21,7 +21,7 @@ namespace TheSite.Controllers
 		static APDBDef.EvalPeriodTableDef ep = APDBDef.EvalPeriod;
 
 
-		public ActionResult CurrentList(long periodId=0)
+		public ActionResult CurrentList(long periodId = 0)
 		{
 			if (periodId == 0)
 			{
@@ -34,7 +34,7 @@ namespace TheSite.Controllers
 				}
 				else
 				{
-					return RedirectToAction("CurrentList", period.PeriodId);
+					return RedirectToAction("EvalList", new { periodId = period.PeriodId });
 				}
 			}
 
@@ -45,13 +45,13 @@ namespace TheSite.Controllers
 		// GET: TeamEval/EvalList
 		// POST-Ajax: TeamEval/EvalList
 
-		public ActionResult EvalList()
+		public ActionResult EvalList(long periodId)
 		{
 			return View();
 		}
 
 		[HttpPost]
-		public ActionResult EvalList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long teamId, long periodId)
+		public ActionResult EvalList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long periodId)
 		{
 			ThrowNotAjax();
 
@@ -64,7 +64,7 @@ namespace TheSite.Controllers
 						 u.JoinInner(er.MemberId == u.UserId),
 						 t.JoinInner(t.TeamId == er.TeamId)
 						)
-				.where(er.TeamId == teamId, er.PeriodId == periodId & er.Accesser == UserProfile.UserId)
+				.where(er.TeamId == UserProfile.UserId, er.PeriodId == periodId & er.Accesser == UserProfile.UserId)
 				.primary(er.ResultId)
 				.skip((current - 1) * rowCount)
 				.take(rowCount);

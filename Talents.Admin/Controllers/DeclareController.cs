@@ -27,6 +27,7 @@ namespace TheSite.Controllers
 		private static APDBDef.TeamSpecialCourseTableDef tsc = APDBDef.TeamSpecialCourse;
 		private static APDBDef.TeamMemberTableDef tm = APDBDef.TeamMember;
 		private static APDBDef.DeclareMaterialTableDef dm = APDBDef.DeclareMaterial;
+		private static APDBDef.TeamProjectTableDef tp = APDBDef.TeamProject;
 
 		// GET: Declare/Index
 
@@ -2198,9 +2199,13 @@ namespace TheSite.Controllers
 
 		public ActionResult Overview(long id)
 		{
+			var user=db.BzUserProfileDal.PrimaryGet(id);
 			var ep = APDBDef.EvalPeriod;
 			var currentPeriod = db.EvalPeriodDal.ConditionQuery(ep.IsCurrent == true, null, null, null).FirstOrDefault();
 			if (currentPeriod == null) throw new ApplicationException("当前不再任何考核期！");
+
+
+			ViewBag.User = user;
 
 			ViewBag.DeclareContent = QueryDeclareContent(id, currentPeriod);
 
@@ -2218,12 +2223,14 @@ namespace TheSite.Controllers
 			ViewBag.DeclareBase = GetDeclareBase(id);
 
 			var tc = APDBDef.TeamContent;
+
+			ViewBag.HasTeam = db.HasTeam(id);
+
 			ViewBag.TeamContent = db.TeamContentDal.ConditionQuery(tc.TeamId == id, null, null, null);
 
 			ViewBag.TeamMember = db.GetMemberListById(id);
 
-
-			ViewBag.TeamSpecialCourse = GetTeamSpecialCourseList(id);
+			ViewBag.TeamProject = GetTeamProject(id, user.UserId);
 
 			ViewBag.TeamActive = GetTeamActiveList(id, currentPeriod);
 
@@ -2327,9 +2334,9 @@ namespace TheSite.Controllers
 
 		private List<DeclareActive> QueryDeclareActiveList(long teacherId, EvalPeriod period)
 		   => db.DeclareActiveDal.ConditionQuery(
-			  da.TeacherId == teacherId,
-			  //& da.CreateDate >= period.BeginDate
-			  //& da.CreateDate <= period.EndDate
+			  da.TeacherId == teacherId
+			  & da.CreateDate >= period.BeginDate
+			  & da.CreateDate <= period.EndDate,
 			  //& da.Date >= period.BeginDate
 			  //& da.Date <= period.EndDate,
 			  null, null, null);
@@ -2349,8 +2356,8 @@ namespace TheSite.Controllers
 
 		private List<DeclareAchievement> QueryDeclareAchievementList(long teacherId, EvalPeriod period)
 		   => db.DeclareAchievementDal.ConditionQuery(
-			  tat.TeacherId == teacherId,
-			  //& tat.CreateDate >= period.BeginDate & tat.CreateDate <= period.EndDate,
+			  tat.TeacherId == teacherId
+			  & tat.CreateDate >= period.BeginDate & tat.CreateDate <= period.EndDate,
 			  null, null, null);
 
 
@@ -2377,8 +2384,8 @@ namespace TheSite.Controllers
 			list = APQuery.select(t.Asterisk, p.Name)
 			   .from(t, p.JoinInner(t.ActiveType == p.PicklistItemId))
 			   .where(t.TeamId == teamId
-			   //& t.CreateDate >= current.BeginDate & t.CreateDate <= current.EndDate
-			   //& t.Date >= current.BeginDate & t.Date <= current.EndDate
+			   & t.CreateDate >= current.BeginDate & t.CreateDate <= current.EndDate
+			   & t.Date >= current.BeginDate & t.Date <= current.EndDate
 			   )
 			   .query(db, r =>
 			   {
@@ -2556,6 +2563,13 @@ namespace TheSite.Controllers
 
 			return declare;
 		}
+
+
+		private TeamProject GetTeamProject(long teamId,long userId)
+		 => db.TeamProjectDal.ConditionQuery(
+			 tp.TeamId==teamId | tp.Creator== userId,
+			  null, null, null).FirstOrDefault();
+
 
 
 		private string SubString(string str, int length)

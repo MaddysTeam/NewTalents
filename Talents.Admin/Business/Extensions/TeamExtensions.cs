@@ -38,5 +38,13 @@ namespace Business
 		public static string GetTeamContent(List<TeamContent> list, string key)
 			=> list.Find(m => m.ContentKey == key) == null ? "" : list.Find(m => m.ContentKey == key).ContentValue;
 
+		public static bool HasTeam(this APDBDef db,long teamId)
+		{
+			var tm = APDBDef.TeamMember;
+
+			return db.TeamMemberDal.ConditionQueryCount(tm.TeamId == teamId) > 0;
+		}
+
+
 	}
 }

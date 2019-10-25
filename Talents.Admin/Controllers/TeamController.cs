@@ -780,21 +780,21 @@ namespace TheSite.Controllers
 			try
 			{
 				AttachmentsExtensions.DeleteAttas(db, UserProfile.UserId, new string[] {
-			AttachmentsKeys.Tuand_ZhidJians,
-			AttachmentsKeys.Tuand_SannGuih,
-			AttachmentsKeys.Tuand_XueqJih,
-			AttachmentsKeys.Tuand_XueqJih2,
-			AttachmentsKeys.Tuand_XueqJih3,
-			AttachmentsKeys.Tuand_XueqJih4,
-			AttachmentsKeys.Tuand_XueqJih5,
-			AttachmentsKeys.Tuand_XueqJih6,
+					AttachmentsKeys.Tuand_ZhidJians,
+					AttachmentsKeys.Tuand_SannGuih,
+					AttachmentsKeys.Tuand_XueqJih,
+					AttachmentsKeys.Tuand_XueqJih2,
+					AttachmentsKeys.Tuand_XueqJih3,
+					AttachmentsKeys.Tuand_XueqJih4,
+					AttachmentsKeys.Tuand_XueqJih5,
+					AttachmentsKeys.Tuand_XueqJih6,
 
-			AttachmentsKeys.Tuand_XueqHuodAnp,
-			AttachmentsKeys.Tuand_XueqHuodAnp2,
-			AttachmentsKeys.Tuand_XueqHuodAnp3,
-			AttachmentsKeys.Tuand_XueqHuodAnp4,
-			AttachmentsKeys.Tuand_XueqHuodAnp5,
-			AttachmentsKeys.Tuand_XueqHuodAnp6,
+					AttachmentsKeys.Tuand_XueqHuodAnp,
+					AttachmentsKeys.Tuand_XueqHuodAnp2,
+					AttachmentsKeys.Tuand_XueqHuodAnp3,
+					AttachmentsKeys.Tuand_XueqHuodAnp4,
+					AttachmentsKeys.Tuand_XueqHuodAnp5,
+					AttachmentsKeys.Tuand_XueqHuodAnp6,
 		 });
 
 				AttachmentsExtensions.InsertAttas(db, new AttachmentsDataModel[] { atta1, atta2, atta3, atta4, atta5, atta6, atta7, atta8, atta9, atta10, atta11, atta12, atta13, atta14 });
@@ -926,7 +926,7 @@ namespace TheSite.Controllers
 						TeamId = model.TeamId,
 						CreateDate = DateTime.Now,
 						Creator = UserProfile.UserId,
-						Dynamic1=model.Dynamic1
+						Dynamic1 = model.Dynamic1
 					};
 
 					db.TeamProjectDal.Insert(data);
@@ -943,7 +943,7 @@ namespace TheSite.Controllers
 						Dynamic1 = model.Dynamic1
 					});
 
-					AttachmentsExtensions.DeleteAttas(db, id.Value, new string[] {
+					AttachmentsExtensions.DeleteAttas(db, UserProfile.UserId, new string[] {
 				  AttachmentsKeys.Tuand_Xiangm_Kait,
 				  AttachmentsKeys.Tuand_Xiangm_zhongq,
 				  AttachmentsKeys.Tuand_Xiangm_jiet,

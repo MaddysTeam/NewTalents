@@ -25,7 +25,10 @@
 		public const string KecShis_Chak = "定向性课程实施.查看";
 		public const string KecShis_Delete = "定向性课程实施.删除";
 
+		public const string ZhucDTuand = "主持的团队";
+		public const string CanyDTuand = "参与的团队";
 		public const string TuanDXinx = "团队信息";
+		public const string TuanDChengy = "团队成员";
 		public const string TuanDZhidJians = "制度建设和规划";
 		public const string TuanDXiangm = "团队项目";
 		public const string YanxHuod = "研修活动";
@@ -33,9 +36,9 @@
 		public const string YanxHuod_Delete = "研修活动.删除";
 		public const string YanxHuod_XueyChengg = "研修活动.学员成果";
 		public const string TuanDGerXinx = "团队个人信息";
-      public const string TuanDGerJh = "个人三年计划"; //TODO will change later
-      public const string TuanDZiXiangm = "团队子项目";
+		public const string TuanDGerJh = "个人三年计划"; //TODO will change later
+		public const string TuanDZiXiangm = "团队子项目";
 
-   }
+	}
 
 }

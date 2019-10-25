@@ -79,29 +79,31 @@
 
 		public const string Tuand_ZhidJians = "团队.制度建设";
 		public const string Tuand_SannGuih = "团队.三年规划";
-		public const string Tuand_XueqJih = "团队.第一学期";
-		public const string Tuand_XueqJih2 = "团队.第二学期";
-		public const string Tuand_XueqJih3 = "团队.第三学期";
-		public const string Tuand_XueqJih4 = "团队.第四学期";
-		public const string Tuand_XueqJih5 = "团队.第五学期";
-		public const string Tuand_XueqJih6 = "团队.第六学期";
+		public const string XueqJih = "学期计划";
+		public const string Tuand_XueqJih = " 团队.学期计划.第一学期";
+		public const string Tuand_XueqJih2 = "团队.学期计划.第二学期";
+		public const string Tuand_XueqJih3 = "团队.学期计划.第三学期";
+		public const string Tuand_XueqJih4 = "团队.学期计划.第四学期";
+		public const string Tuand_XueqJih5 = "团队.学期计划.第五学期";
+		public const string Tuand_XueqJih6 = "团队.学期计划.第六学期";
 
-      public const string Tuand_XueqHuodAnp = "团队.第一学期活动安排";
-      public const string Tuand_XueqHuodAnp2 = "团队.第二学期活动安排";
-      public const string Tuand_XueqHuodAnp3 = "团队.第三学期活动安排";
-      public const string Tuand_XueqHuodAnp4 = "团队.第四学期活动安排";
-      public const string Tuand_XueqHuodAnp5 = "团队.第五学期活动安排";
-      public const string Tuand_XueqHuodAnp6 = "团队.第六学期活动安排";
+		public const string XueqHuodAnp= "学期活动安排";
+		public const string Tuand_XueqHuodAnp  = "团队.学期活动安排.第一学期";
+		public const string Tuand_XueqHuodAnp2 = "团队.学期活动安排.第二学期";
+		public const string Tuand_XueqHuodAnp3 = "团队.学期活动安排.第三学期";
+		public const string Tuand_XueqHuodAnp4 = "团队.学期活动安排.第四学期";
+		public const string Tuand_XueqHuodAnp5 = "团队.学期活动安排.第五学期";
+		public const string Tuand_XueqHuodAnp6 = "团队.学期活动安排.第六学期";
 
-      public const string Tuand_Xiangm = "团队.项目";
-      public const string Tuand_Xiangm_Kait = "团队.项目.开题";
+		public const string Tuand_Xiangm = "团队.项目";
+		public const string Tuand_Xiangm_Kait = "团队.项目.开题";
 		public const string Tuand_Xiangm_zhongq = "团队.项目.中期";
 		public const string Tuand_Xiangm_jiet = "团队.项目.结题";
 
-      public const string Tuand_GrXinx = "团队.个人信息";
-      public const string Tuand_GrJih1 = "团队.个人计划.第一年";
-      public const string Tuand_GrJih2 = "团队.个人计划.第二年";
-      public const string Tuand_GrJih3 = "团队.个人计划.第三年";
-   }
+		public const string Tuand_GrXinx = "团队.个人信息";
+		public const string Tuand_GrJih1 = "团队.个人计划.第一年";
+		public const string Tuand_GrJih2 = "团队.个人计划.第二年";
+		public const string Tuand_GrJih3 = "团队.个人计划.第三年";
+	}
 
 }
