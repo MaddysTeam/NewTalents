@@ -691,6 +691,16 @@ namespace TheSite.Controllers
 		}
 
 
+		// GET:		StatisticalManage/FillInRecords
+
+		public ActionResult FillInRecord()
+		{
+			
+			return View();
+		}
+
+
+
 		#region [ Helper ]
 
 

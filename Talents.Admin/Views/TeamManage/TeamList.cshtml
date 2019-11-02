@@ -72,7 +72,7 @@
 									<th data-column-id="subject">学科</th>
 									<th data-column-id="stage">学段</th>
 									@*<th data-column-id="memberCount">学员数量</th>*@
-									<th data-column-id="commands" data-formatter="commands" data-sortable="false" data-header-Css-Class="width120">操作</th>
+									<th data-column-id="commands" data-formatter="commands" data-sortable="false" data-header-Css-Class="width180">操作</th>
 								</tr>
 							</thead>
 						</table>
@@ -118,6 +118,7 @@
 					'commands': function (column, row) {
 						var id = row.id;
 						return '<div class="btn-group btn-group-xs pull-right" data-row-id="' + row.id + '">' +
+								 '<a class="btn btn-info" href="@Url.Action("Overview", "Declare")?id='+id+'" target="_blank">查看材料</a>' +
 								 '<button class="btn btn-success btn-edit">调整学员</button>' +
 								 '</div>';
 					},

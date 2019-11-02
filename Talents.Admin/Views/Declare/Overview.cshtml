@@ -56,9 +56,7 @@
 <div class="col-md-10 content-wrapper">
 	<div class="row">
 		<div class="col-lg-4 ">
-			<ul class="breadcrumb">
-				
-			</ul>
+			<ul class="breadcrumb"></ul>
 		</div>
 	</div>
 
@@ -70,7 +68,7 @@
 		</div>
 		<!-- main-content -->
 		<div class="main-content declare-overview">
-			
+
 			<!-- 个人简历  -->
 			<a id="@DeclareKeys.ZisFaz_GerXinx@proxy"></a>
 			<h3>个人信息</h3>
@@ -110,9 +108,9 @@
 					</tr>
 				</tbody>
 			</table>
-	
 
-			<!-- 自我发展计划 -->	
+
+			<!-- 自我发展计划 -->
 			<a id="@TeamKeys.TuanDGerJh@proxy"></a>
 			<h3>自我发展计划</h3>
 			<table class="table table-bordered no-margin table-condensed table-borderbold">
@@ -164,19 +162,19 @@
 				<tbody>
 					@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk))
 					{
-						<tr>
-							<td>@item.Date.ToString("yyyy-MM-dd")</td>
-							<td>@item.Location</td>
-							<td>@item.Dynamic1</td>
-							<td><p class="text-p-2">@item.ContentValue</p></td>
-							<td>@item.Level</td>
-							<td>@item.Dynamic2</td>
-							<td>
-								<div class="btn-group btn-group-xs">							
-									<button class="btn btn-danger btn-view " data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_JiaoxHuod_JiaoxGongkk })" data-target="#firstModal" title="查看附件">查看附件</button>
-								</div>
-							</td>
-						</tr>
+					<tr>
+						<td>@item.Date.ToString("yyyy-MM-dd")</td>
+						<td>@item.Location</td>
+						<td>@item.Dynamic1</td>
+						<td><p class="text-p-2">@item.ContentValue</p></td>
+						<td>@item.Level</td>
+						<td>@item.Dynamic2</td>
+						<td>
+							<div class="btn-group btn-group-xs">
+								<button class="btn btn-danger btn-view " data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_JiaoxHuod_JiaoxGongkk })" data-target="#firstModal" title="查看附件">查看附件</button>
+							</div>
+						</td>
+					</tr>
 					}
 				</tbody>
 			</table>
@@ -200,19 +198,19 @@
 				<tbody>
 					@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.ZisFaz_JiaoxHuod_Yantk))
 					{
-						<tr>
-							<td>@item.Date.ToString("yyyy-MM-dd")</td>
-							<td>@item.Location</td>
-							<td>@item.Dynamic1</td>
-							<td><p class="text-p-2">@item.ContentValue</p></td>
-							<td>@item.Level</td>
-							<td>@item.Dynamic2</td>
-							<td>
-								<div class="btn-group btn-group-xs">
-									<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_JiaoxHuod_Yantk })" data-target="#firstModal" title="查看附件">查看附件</button>
-								</div>
-							</td>
-						</tr>
+					<tr>
+						<td>@item.Date.ToString("yyyy-MM-dd")</td>
+						<td>@item.Location</td>
+						<td>@item.Dynamic1</td>
+						<td><p class="text-p-2">@item.ContentValue</p></td>
+						<td>@item.Level</td>
+						<td>@item.Dynamic2</td>
+						<td>
+							<div class="btn-group btn-group-xs">
+								<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_JiaoxHuod_Yantk })" data-target="#firstModal" title="查看附件">查看附件</button>
+							</div>
+						</td>
+					</tr>
 					}
 				</tbody>
 			</table>
@@ -236,28 +234,28 @@
 				<tbody>
 					@foreach (var item in DeclareAchievement.FindAll(m => m.AchievementKey == DeclareKeys.ZisFaz_KeyChengg_KetYanj))
 					{
-						<tr>
-							<td>@item.Level</td>
-							<td>@PicklistHelper.Dynamic6.GetName(item.Dynamic6)</td>
-							<td>
-								@if (item.Dynamic1.ToUpper() == "TRUE")
+					<tr>
+						<td>@item.Level</td>
+						<td>@PicklistHelper.Dynamic6.GetName(item.Dynamic6)</td>
+						<td>
+							@if (item.Dynamic1.ToUpper() == "TRUE")
 								{
-									<span>主持</span>
+								<span>主持</span>
 								}
 								else
 								{
-									<span>参与</span>
+								<span>参与</span>
 								}
-							</td>
-							<td>@item.NameOrTitle</td>
-							<td>@item.Dynamic2</td>
-							<td>@item.DateRegion</td>
-							<td>
-								<div class="btn-group btn-group-xs">
-									<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareAchievementId, type = AttachmentsKeys.ZisFaz_KeyChengg_KetYanj })" data-target="#firstModal" title="查看附件">查看附件</button>
-								</div>
-							</td>
-						</tr>
+						</td>
+						<td>@item.NameOrTitle</td>
+						<td>@item.Dynamic2</td>
+						<td>@item.DateRegion</td>
+						<td>
+							<div class="btn-group btn-group-xs">
+								<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareAchievementId, type = AttachmentsKeys.ZisFaz_KeyChengg_KetYanj })" data-target="#firstModal" title="查看附件">查看附件</button>
+							</div>
+						</td>
+					</tr>
 					}
 				</tbody>
 			</table>
@@ -280,28 +278,28 @@
 				<tbody>
 					@foreach (var item in DeclareAchievement.FindAll(m => m.AchievementKey == DeclareKeys.ZisFaz_KeyChengg_FabLunw))
 					{
-						<tr>
-							<td>@item.Level</td>
-							<td>
-								@item.Date
-								@*@if (item.Dynamic1.ToUpper() == "TRUE")
-							{
-								<span>主持</span>
-							}
-							else
-							{
-								<span>参与</span>
-							}*@
-							</td>
-							<td>@item.NameOrTitle</td>
-							<td>@item.Dynamic2</td>
-							<td>@item.Dynamic1</td>
-							<td>
-								<div class="btn-group btn-group-xs">
-									<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareAchievementId, type = AttachmentsKeys.ZisFaz_KeyChengg_FabLunw })" data-target="#firstModal" title="查看附件">查看附件</button>
-								</div>
-							</td>
-						</tr>
+					<tr>
+						<td>@item.Level</td>
+						<td>
+							@item.Date
+							@*@if (item.Dynamic1.ToUpper() == "TRUE")
+								{
+									<span>主持</span>
+								}
+								else
+								{
+									<span>参与</span>
+								}*@
+						</td>
+						<td>@item.NameOrTitle</td>
+						<td>@item.Dynamic2</td>
+						<td>@item.Dynamic1</td>
+						<td>
+							<div class="btn-group btn-group-xs">
+								<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareAchievementId, type = AttachmentsKeys.ZisFaz_KeyChengg_FabLunw })" data-target="#firstModal" title="查看附件">查看附件</button>
+							</div>
+						</td>
+					</tr>
 					}
 				</tbody>
 			</table>
@@ -324,17 +322,17 @@
 				<tbody>
 					@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.ZisFaz_PeixJiangz_JiaosPeixKec))
 					{
-						<tr>
-							<td>@item.Dynamic2</td>
-							<td>@item.Date.ToString("yyyy-MM-dd")</td>
-							<td>@item.ContentValue</td>
-							<td>@item.Dynamic1</td>
-							<td>
-								<div class="btn-group btn-group-xs">
-									<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_PeixJiangz_JiaosPeixKec })" data-target="#firstModal" title="查看附件">查看附件</button>
-								</div>
-							</td>
-						</tr>
+					<tr>
+						<td>@item.Dynamic2</td>
+						<td>@item.Date.ToString("yyyy-MM-dd")</td>
+						<td>@item.ContentValue</td>
+						<td>@item.Dynamic1</td>
+						<td>
+							<div class="btn-group btn-group-xs">
+								<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_PeixJiangz_JiaosPeixKec })" data-target="#firstModal" title="查看附件">查看附件</button>
+							</div>
+						</td>
+					</tr>
 					}
 				</tbody>
 			</table>
@@ -357,18 +355,18 @@
 				<tbody>
 					@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.ZisFaz_PeixJiangz_ZhuantJiangz))
 					{
-						<tr>
-							<td>@item.Date.ToString("yyyy-MM-dd")</td>
-							<td>@item.Location</td>
-							<td><p class="text-p-2">@item.ContentValue</p></td>
-							<td>@item.Level</td>
-							<td>@item.Dynamic1</td>
-							<td>
-								<div class="btn-group btn-group-xs">
-									<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_PeixJiangz_ZhuantJiangz })" data-target="#firstModal" title="查看附件">查看附件</button>
-								</div>
-							</td>
-						</tr>
+					<tr>
+						<td>@item.Date.ToString("yyyy-MM-dd")</td>
+						<td>@item.Location</td>
+						<td><p class="text-p-2">@item.ContentValue</p></td>
+						<td>@item.Level</td>
+						<td>@item.Dynamic1</td>
+						<td>
+							<div class="btn-group btn-group-xs">
+								<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_PeixJiangz_ZhuantJiangz })" data-target="#firstModal" title="查看附件">查看附件</button>
+							</div>
+						</td>
+					</tr>
 					}
 				</tbody>
 			</table>
@@ -393,20 +391,20 @@
 				<tbody>
 					@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.ZisFaz_XuesHuod))
 					{
-						<tr>
-							<td>@item.Date.ToString("yyyy-MM-dd")</td>
-							<td>@item.Location</td>
-							<td>@PicklistHelper.XuesHuodType.GetName(item.Dynamic9)</td>
-							<td>@item.Level</td>
-							<td><p class="text-p-2">@item.ContentValue</p></td>
-							<td>@item.Dynamic1</td>
-							<td>@item.Dynamic2</td>
-							<td>
-								<div class="btn-group btn-group-xs">
-									<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_XuesHuod })" data-target="#firstModal" title="查看附件">查看附件</button>
-								</div>
-							</td>
-						</tr>
+					<tr>
+						<td>@item.Date.ToString("yyyy-MM-dd")</td>
+						<td>@item.Location</td>
+						<td>@PicklistHelper.XuesHuodType.GetName(item.Dynamic9)</td>
+						<td>@item.Level</td>
+						<td><p class="text-p-2">@item.ContentValue</p></td>
+						<td>@item.Dynamic1</td>
+						<td>@item.Dynamic2</td>
+						<td>
+							<div class="btn-group btn-group-xs">
+								<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_XuesHuod })" data-target="#firstModal" title="查看附件">查看附件</button>
+							</div>
+						</td>
+					</tr>
 					}
 				</tbody>
 			</table>
@@ -429,18 +427,18 @@
 				<tbody>
 					@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.ZisFaz_ShiqjHuod))
 					{
-						<tr>
-							<td>@item.Date.ToString("yyyy-MM-dd")</td>
-							<td>@item.Location</td>
-							<td><p class="text-p-2">@item.ContentValue</p></td>
-							<td>@item.Dynamic1</td>
-							<td>@item.Dynamic2</td>
-							<td>
-								<div class="btn-group btn-group-xs">
-									<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_ShiqjHuod })" data-target="#firstModal" title="查看附件">查看附件</button>
-								</div>
-							</td>
-						</tr>
+					<tr>
+						<td>@item.Date.ToString("yyyy-MM-dd")</td>
+						<td>@item.Location</td>
+						<td><p class="text-p-2">@item.ContentValue</p></td>
+						<td>@item.Dynamic1</td>
+						<td>@item.Dynamic2</td>
+						<td>
+							<div class="btn-group btn-group-xs">
+								<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_ShiqjHuod })" data-target="#firstModal" title="查看附件">查看附件</button>
+							</div>
+						</td>
+					</tr>
 					}
 				</tbody>
 			</table>
@@ -461,16 +459,16 @@
 				<tbody>
 					@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.ZisFaz_ZiwYanx))
 					{
-						<tr>
-							<td>@item.Date.ToString("yyyy-MM-dd")</td>
-							<td>@item.Location</td>
-							<td><p class="text-p-2">@item.ContentValue</p></td>
-							<td>
-								<div class="btn-group btn-group-xs">
-									<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_ZiwYanx })" data-target="#firstModal" title="查看附件">查看附件</button>
-								</div>
-							</td>
-						</tr>
+					<tr>
+						<td>@item.Date.ToString("yyyy-MM-dd")</td>
+						<td>@item.Location</td>
+						<td><p class="text-p-2">@item.ContentValue</p></td>
+						<td>
+							<div class="btn-group btn-group-xs">
+								<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZisFaz_ZiwYanx })" data-target="#firstModal" title="查看附件">查看附件</button>
+							</div>
+						</td>
+					</tr>
 					}
 				</tbody>
 			</table>
@@ -480,33 +478,33 @@
 			<a id="@DeclareKeys.ZhidJians_YingxlDeGongz@proxy"></a>
 			<h3>亮点特色</h3>
 			<table class="table table-bordered no-margin table-condensed table-borderbold">
-						<thead>
-							<tr>
-								<th class="width-p-10">时间</th>
-								<th class="width-p-10">地点</th>
-								<th>主题/内容</th>
-								<th class="width-p-10">组织单位/负责人</th>
-								<th class="width120">操作</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.ZhidJians_YingxlDeGongz))
+				<thead>
+					<tr>
+						<th class="width-p-10">时间</th>
+						<th class="width-p-10">地点</th>
+						<th>主题/内容</th>
+						<th class="width-p-10">组织单位/负责人</th>
+						<th class="width120">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in DeclareActive.FindAll(m => m.ActiveKey == DeclareKeys.ZhidJians_YingxlDeGongz))
 							{
-								<tr>
-									<td>@item.Date.ToString("yyyy-MM-dd")</td>
-									<td>@item.Location</td>
-									<td><p class="text-p-2">@item.ContentValue</p></td>
-									<td>@item.Dynamic1</td>
-									<td>
-										<div class="btn-group btn-group-xs">
-											<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZhidJians_YingxlDeGongz })" data-target="#firstModal" title="查看附件">查看附件</button>
-										</div>
-									</td>
-								</tr>
+							<tr>
+								<td>@item.Date.ToString("yyyy-MM-dd")</td>
+								<td>@item.Location</td>
+								<td><p class="text-p-2">@item.ContentValue</p></td>
+								<td>@item.Dynamic1</td>
+								<td>
+									<div class="btn-group btn-group-xs">
+										<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.DeclareActiveId, type = AttachmentsKeys.ZhidJians_YingxlDeGongz })" data-target="#firstModal" title="查看附件">查看附件</button>
+									</div>
+								</td>
+							</tr>
 							}
-						</tbody>
-					</table>
-				
+				</tbody>
+			</table>
+
 
 			<a id="@TeamKeys.TuanDXinx@proxy"></a>
 			<h3>团队信息</h3>
@@ -543,21 +541,21 @@
 						</td>
 					</tr>
 					@*<tr>
-						<td>
-							<strong>学员数量</strong>
-							<p class="text-p-2">
-								<a href="#@TeamKeys.TidChengy@proxy">@DeclareBase.MemberCount</a>
-							</p>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<strong>活动数量</strong>
-							<p class="text-p-2">
-								<a href="#@TeamKeys.DaijHuod@proxy">@DeclareBase.ActiveCount</a>
-							</p>
-						</td>
-					</tr>*@
+							<td>
+								<strong>学员数量</strong>
+								<p class="text-p-2">
+									<a href="#@TeamKeys.TidChengy@proxy">@DeclareBase.MemberCount</a>
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>活动数量</strong>
+								<p class="text-p-2">
+									<a href="#@TeamKeys.DaijHuod@proxy">@DeclareBase.ActiveCount</a>
+								</p>
+							</td>
+						</tr>*@
 				</tbody>
 			</table>
 
@@ -579,13 +577,13 @@
 					<tbody>
 						@foreach (var item in TeamMember)
 						{
-							<tr>
-								<td><a href="@Url.Action("Overview", "Declare", new { id = item.TeacherId })" target="_blank">@item.RealName</a></td>
-								<td>@item.Target</td>
-								<td>@item.Subject</td>
-								<td>@item.Stage</td>
-								<td>@item.CompanyName</td>
-							</tr>
+						<tr>
+							<td><a href="@Url.Action("Overview", "Declare", new { id = item.TeacherId })" target="_blank">@item.RealName</a></td>
+							<td>@item.Target</td>
+							<td>@item.Subject</td>
+							<td>@item.Stage</td>
+							<td>@item.CompanyName</td>
+						</tr>
 						}
 					</tbody>
 				</table>
@@ -637,96 +635,99 @@
 							<th class="width-p-10">主持或参与</th>
 							<th class="width120">操作</th>
 						</tr>
-						<tr>
-							<td>
-								@TeamProject.ProjectName
-							</td>
-							<td>
-								@TeamProject.DeclareCompany
-							</td>
-							<td>
-								@TeamProject.DeclareUser
-							</td>
-							<td>
-								@TeamProject.FillDate
-							</td>
-							<td>
-								@TeamProject.Dynamic1
-							</td>
-							<td>
-								<div class="btn-group btn-group-xs">
-									<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = userId, type = AttachmentsKeys.Tuand_Xiangm_Kait })" data-target="#firstModal" title="查看附件">查看附件</button>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-
-				<!-- 团队.团队活动 -->
-				<a id="@TeamKeys.YanxHuod@proxy"></a>
-				<h3>团队活动</h3>
-				<table class="table table-bordered no-margin table-condensed table-borderbold">
-					<tbody>
-						@foreach (var item in TeamActive.Values)
+						@if (null != TeamProject)
 						{
 							<tr>
 								<td>
-									<div class="widget-content">
-										<h4><strong>@item.Title</strong></h4>
-										<ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-											<li class="active"><a href="#@item.TeamActiveId@Info" role="tab" data-toggle="tab" aria-expanded="true">活动信息</a></li>
-											<li class=""><a href="#@item.TeamActiveId@Result" role="tab" data-toggle="tab" aria-expanded="false">学员成果</a></li>
-										</ul>
-										<div class="tab-content">
-											<div class="tab-pane fade active in" id="@item.TeamActiveId@Info">
-												<h5><strong>【@item.TypeName】</strong> @item.Date.ToString("yyyy-MM-dd")</h5> 
-												<div>
-													@Html.Raw(item.ContentValue)
-												</div>
-												<div style="margin-top: 20px;">
-													<button class="btn form-padding btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.TeamActiveId, type = AttachmentsKeys.YanXHuod_Edit })" data-target="#firstModal" title="查看附件">查看附件</button>
-												</div>
-											</div>
-											<div class="tab-pane fade" id="@item.TeamActiveId@Result">
-												<table class="table table-bordered table-condensed">
-													<thead>
-														<tr>
-															<th class="width-p-10">姓名</th>
-															<th>学员成果</th>
-															<th class="width120">操作</th>
-														</tr>
-													</thead>
-													<tbody>
-														@foreach (var it in item.Result)
-														{
-															<tr>
-																<td>@it.MemberName</td>
-																<td>
-																	<p class="text-p-2">@it.ActiveResult</p>
-																</td>
-																<td>
-																	<div class="btn-group btn-group-xs">
-																		<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = it.ResultId, type = AttachmentsKeys.YanXHuod_XueyChengg })" data-target="#firstModal" title="查看附件">查看附件</button>
-																	</div>
-																</td>
-															</tr>
-}
-													</tbody>
-												</table>
-											</div>
-										</div>
+									@TeamProject.ProjectName
+								</td>
+								<td>
+									@TeamProject.DeclareCompany
+								</td>
+								<td>
+									@TeamProject.DeclareUser
+								</td>
+								<td>
+									@TeamProject.FillDate
+								</td>
+								<td>
+									@TeamProject.Dynamic1
+								</td>
+								<td>
+									<div class="btn-group btn-group-xs">
+										<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = userId, type = AttachmentsKeys.Tuand_Xiangm_Kait })" data-target="#firstModal" title="查看附件">查看附件</button>
 									</div>
 								</td>
 							</tr>
 						}
-					</tbody>
-				</table>
+						</tbody>
+					</table>
+
+				<!-- 团队.团队活动 -->
+					<a id="@TeamKeys.YanxHuod@proxy"></a>
+					<h3>团队活动</h3>
+					<table class="table table-bordered no-margin table-condensed table-borderbold">
+						<tbody>
+							@foreach (var item in TeamActive.Values)
+						{
+						<tr>
+							<td>
+								<div class="widget-content">
+									<h4><strong>@item.Title</strong></h4>
+									<ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+										<li class="active"><a href="#@item.TeamActiveId@Info" role="tab" data-toggle="tab" aria-expanded="true">活动信息</a></li>
+										<li class=""><a href="#@item.TeamActiveId@Result" role="tab" data-toggle="tab" aria-expanded="false">学员成果</a></li>
+									</ul>
+									<div class="tab-content">
+										<div class="tab-pane fade active in" id="@item.TeamActiveId@Info">
+											<h5><strong>【@item.TypeName】</strong> @item.Date.ToString("yyyy-MM-dd")</h5>
+											<div>
+												@Html.Raw(item.ContentValue)
+											</div>
+											<div style="margin-top: 20px;">
+												<button class="btn form-padding btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = item.TeamActiveId, type = AttachmentsKeys.YanXHuod_Edit })" data-target="#firstModal" title="查看附件">查看附件</button>
+											</div>
+										</div>
+										<div class="tab-pane fade" id="@item.TeamActiveId@Result">
+											<table class="table table-bordered table-condensed">
+												<thead>
+													<tr>
+														<th class="width-p-10">姓名</th>
+														<th>学员成果</th>
+														<th class="width120">操作</th>
+													</tr>
+												</thead>
+												<tbody>
+													@foreach (var it in item.Result)
+														{
+														<tr>
+															<td>@it.MemberName</td>
+															<td>
+																<p class="text-p-2">@it.ActiveResult</p>
+															</td>
+															<td>
+																<div class="btn-group btn-group-xs">
+																	<button class="btn btn-danger btn-view" data-toggle="ajax-modal" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = it.ResultId, type = AttachmentsKeys.YanXHuod_XueyChengg })" data-target="#firstModal" title="查看附件">查看附件</button>
+																</div>
+															</td>
+														</tr>
+}
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+						}
+						</tbody>
+					</table>
 
 			}
 			else
 			{
 				<a id="@TeamKeys.TuanDZiXiangm@proxy"></a>
-					<h3>团队子项目</h3>
+				<h3>团队子项目</h3>
 					<table class="table table-bordered no-margin table-condensed table-borderbold">
 						<tbody>
 							<tr>
@@ -764,7 +765,7 @@
 							}
 						</tbody>
 					</table>
-				
+
 			}
 		</div>
 
@@ -844,7 +845,7 @@
 			});
 
 		});
-	</script>	
+	</script>
 
 }
 

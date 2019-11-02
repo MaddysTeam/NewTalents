@@ -3,28 +3,27 @@
 	var pageTitle = ViewBag.Title = "个人信息";
 
 	var period = ViewBag.CurrentPeriod as ProfileModifyPeriod;
-	var canEdit = period==null || ViewBag.CanEdit != null && (bool)ViewBag.CanEdit;
-}
+	var canEdit = period == null || ViewBag.CanEdit != null && (bool)ViewBag.CanEdit;
+	var companys = ViewBag.Companys as List<Company>;
+	companys.Insert(0,new Company { CompanyName = "-- 未选 --", CompanyId = 0 });
 
+}
 <div>
 	@*<div class="row">
-		<div class="col-lg-4 ">
-			<ul class="breadcrumb">
-				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
-				<li class="active">@pageTitle</li>
-			</ul>
-		</div>
-	</div>*@
-
+			<div class="col-lg-4 ">
+				<ul class="breadcrumb">
+					<li class="active"><i class="fa fa-home"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
+					<li class="active">@pageTitle</li>
+				</ul>
+			</div>
+		</div>*@
 	<!-- main -->
 	<div class="content">
 		@*<div class="main-header">
-			<h2><i class="fa fa-users"></i> @pageTitle</h2>
-			<em>编辑个人简档</em>
-		</div>*@
-
+				<h2><i class="fa fa-users"></i> @pageTitle</h2>
+				<em>编辑个人简档</em>
+			</div>*@
 		<div class="main-content">
-
 			<!-- WIDGET TABBED CONTENT -->
 			<div class="widget">
 				<div class="widget-header">
@@ -33,15 +32,13 @@
 					</div>
 				</div>
 				<div class="widget-content">
-
 					@if (period != null)
 					{
-					<div class="alert alert-info">
-						<strong> <i class="fa fa-warning"></i> 修改周期提示</strong>
-						<div>当前修改周期为： @period.BeginDate.ToString("yyyy-MM-dd") 至 @period.EndDate.ToString("yyyy-MM-dd")</div>
-					</div>
+						<div class="alert alert-info">
+							<strong> <i class="fa fa-warning"></i> 修改周期提示</strong>
+							<div>当前修改周期为： @period.BeginDate.ToString("yyyy-MM-dd") 至 @period.EndDate.ToString("yyyy-MM-dd")</div>
+						</div>
 					}
-
 					<form action="@Url.Action()" method="post" class="form-horizontal form-group-sm" role="form">
 						@Html.HiddenFor(m => m.PeriodId)
 						<div class="row">
@@ -140,161 +137,125 @@
 									<div class="col-md-offset-2">
 										@if (canEdit)
 										{
-											<button type="submit" class="btn btn-custom-primary btn-save"><i class="fa fa-save"></i> 保存</button>
-										}
+											<button type="submit" class="btn btn-custom-primary btn-save"><i class="fa fa-save"></i> 保存</button>			}
 										else
 										{
-											<button type="submit" class="btn btn-custom-primary btn-save" disabled><i class="fa fa-save"></i> 保存</button>
-										}
-										</div>
+											<button type="submit" class="btn btn-custom-primary btn-save" disabled><i class="fa fa-save"></i> 保存</button>			}
 									</div>
-								</fieldset>
-								<fieldset class="col-md-6">
-									<div class="panel panel-default">
-										<div class="panel-heading">
-											<h4 class="panel-title">工作经历</h4>
-										</div>
-										<div class="panel-body">
-											<div class="form-group">
-												@Html.LabelFor(m => m.EduSubjectPKID, new { @class = "col-md-3 control-label" })
-												<div class="col-md-9">
-													@Html.DropDownListFor(m => m.EduSubjectPKID, BzUserProfileHelper.EduSubject.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
-												</div>
-											</div>
-											<div class="form-group">
-												@Html.LabelFor(m => m.EduStagePKID, new { @class = "col-md-3 control-label" })
-												<div class="col-md-9">
-													@Html.DropDownListFor(m => m.EduStagePKID, BzUserProfileHelper.EduStage.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
-												</div>
-											</div>
-											<div class="form-group">
-												@Html.LabelFor(m => m.JobDate, new { @class = "col-md-3 control-label" })
-												<div class="col-md-9">
-													<div class="input-group date" data-provide="datepicker" data-date-language="zh-CN" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
-														@Html.TextBoxFor(m => m.JobDate, "{0:yyyy-MM-dd}", new { @class = "form-control" })
-														<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-													</div>
-												</div>
-											</div>
-											<div class="form-group">
-												@Html.LabelFor(m => m.SkillTitlePKID, new { @class = "col-md-3 control-label" })
-												<div class="col-md-9">
-													@Html.DropDownListFor(m => m.SkillTitlePKID, BzUserProfileHelper.SkillTitle.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
-												</div>
-											</div>
-											<div class="form-group">
-												@Html.LabelFor(m => m.SkillDate, new { @class = "col-md-3 control-label" })
-												<div class="col-md-9">
-													<div class="input-group date" data-provide="datepicker" data-date-language="zh-CN" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
-														@Html.TextBoxFor(m => m.SkillDate, "{0:yyyy-MM-dd}", new { @class = "form-control" })
-														<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-													</div>
-												</div>
-												</div>
-											<div class="form-group">
-												@Html.LabelFor(m => m.CompanyName, new { @class = "col-md-3 control-label" })
-												<div class="col-md-9">
-													<span class="form-control details-text">@Model.CompanyName</span>
-												</div>
-											</div>
-											<div class="form-group">
-												@Html.LabelFor(m => m.Companyaddress, new { @class = "col-md-3 control-label" })
-												<div class="col-md-9">
-													@Html.TextBoxFor(m => m.Companyaddress, new { @class = "form-control" })
-													@Html.ValidationMessageFor(m => m.Companyaddress)
-												</div>
-											</div>
-											<div class="form-group">
-												@Html.LabelFor(m => m.RankTitlePKID, new { @class = "col-md-3 control-label" })
-												<div class="col-md-9">
-													@Html.DropDownListFor(m => m.RankTitlePKID, BzUserProfileHelper.RankTitle.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
-												</div>
-											</div>
-										</div>
+								</div>
+							</fieldset>
+							<fieldset class="col-md-6">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">工作经历</h4>
 									</div>
-									<div class="panel panel-default">
-										<div class="panel-heading">
-											<h4 class="panel-title">联系方式</h4>
+									<div class="panel-body">
+										<div class="form-group">
+											@Html.LabelFor(m => m.EduSubjectPKID, new { @class = "col-md-3 control-label" })
+											<div class="col-md-9">
+												@Html.DropDownListFor(m => m.EduSubjectPKID, BzUserProfileHelper.EduSubject.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
+											</div>
 										</div>
-										<div class="panel-body">
-											<div class="form-group">
-												@Html.LabelFor(m => m.Email, new { @class = "col-md-3 control-label" })
-												<div class="col-md-9">
-													@Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-													@Html.ValidationMessageFor(m => m.Email)
+										<div class="form-group">
+											@Html.LabelFor(m => m.EduStagePKID, new { @class = "col-md-3 control-label" })
+											<div class="col-md-9">
+												@Html.DropDownListFor(m => m.EduStagePKID, BzUserProfileHelper.EduStage.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
+											</div>
+										</div>
+										<div class="form-group">
+											@Html.LabelFor(m => m.JobDate, new { @class = "col-md-3 control-label" })
+											<div class="col-md-9">
+												<div class="input-group date" data-provide="datepicker" data-date-language="zh-CN" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
+													@Html.TextBoxFor(m => m.JobDate, "{0:yyyy-MM-dd}", new { @class = "form-control" })
+													<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
 												</div>
 											</div>
-											<div class="form-group">
-												@Html.LabelFor(m => m.Phonemobile, new { @class = "col-md-3 control-label" })
-												<div class="col-md-9">
-													@Html.TextBoxFor(m => m.Phonemobile, new { @class = "form-control" })
-													@Html.ValidationMessageFor(m => m.Phonemobile)
+										</div>
+										<div class="form-group">
+											@Html.LabelFor(m => m.SkillTitlePKID, new { @class = "col-md-3 control-label" })
+											<div class="col-md-9">
+												@Html.DropDownListFor(m => m.SkillTitlePKID, BzUserProfileHelper.SkillTitle.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
+											</div>
+										</div>
+										<div class="form-group">
+											@Html.LabelFor(m => m.SkillDate, new { @class = "col-md-3 control-label" })
+											<div class="col-md-9">
+												<div class="input-group date" data-provide="datepicker" data-date-language="zh-CN" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
+													@Html.TextBoxFor(m => m.SkillDate, "{0:yyyy-MM-dd}", new { @class = "form-control" })
+													<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
 												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											@Html.LabelFor(m => m.CompanyName, new { @class = "col-md-3 control-label" })
+											<div class="col-md-9">
+												@Html.DropDownListFor(m => m.CompanyId, companys.Select(x => new SelectListItem { Text = x.CompanyName, Value = x.CompanyId.ToString() }), new { @class = "form-control" })
+												@*@Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
+													@Html.ValidationMessageFor(m => m.CompanyName)*@
+											</div>
+										</div>
+										<div class="form-group">
+											@Html.LabelFor(m => m.Companyaddress, new { @class = "col-md-3 control-label" })
+											<div class="col-md-9">
+												@Html.TextBoxFor(m => m.Companyaddress, new { @class = "form-control" })
+												@Html.ValidationMessageFor(m => m.Companyaddress)
+											</div>
+										</div>
+										<div class="form-group">
+											@Html.LabelFor(m => m.RankTitlePKID, new { @class = "col-md-3 control-label" })
+											<div class="col-md-9">
+												@Html.DropDownListFor(m => m.RankTitlePKID, BzUserProfileHelper.RankTitle.GetSelectList(noneLabel: "-- 未选 --"), new { @class = "form-control" })
 											</div>
 										</div>
 									</div>
-								</fieldset>
-							</div>
-						</form>
-					</div>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">联系方式</h4>
+									</div>
+									<div class="panel-body">
+										<div class="form-group">
+											@Html.LabelFor(m => m.Email, new { @class = "col-md-3 control-label" })
+											<div class="col-md-9">
+												@Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+												@Html.ValidationMessageFor(m => m.Email)
+											</div>
+										</div>
+										<div class="form-group">
+											@Html.LabelFor(m => m.Phonemobile, new { @class = "col-md-3 control-label" })
+											<div class="col-md-9">
+												@Html.TextBoxFor(m => m.Phonemobile, new { @class = "form-control" })
+												@Html.ValidationMessageFor(m => m.Phonemobile)
+											</div>
+										</div>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</form>
 				</div>
-				<!-- END WIDGET TABBED CONTENT -->
-
 			</div>
-			<!-- /main-content -->
+			<!-- END WIDGET TABBED CONTENT -->
 		</div>
-		<!-- /main -->
+		<!-- /main-content -->
 	</div>
+	<!-- /main -->
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+<script>
+	$(function () {
 
-		<script>
-			$(function () {
+		ajaxSubmitForm($('.widget-content form'));
 
-				ajaxSubmitForm($('.widget-content form'));
-
-				
-				$('select').on('change', function () {
-					var $this = $(this);
-					var result = showDropErrorIfNotSeclectd($this.val() == 0, $this, $this.data('valRequired'))
-					if (!result) return false;
-				});
-
-				$('.btn-save').on('click', function () {
-					var res = false;
-					$('select').each(function () {
-						var $this = $(this);
-						res = showDropErrorIfNotSeclectd($this.val() == 0, $this, $this.data('valRequired'));
-						if (!res) return res;
-					});
-
-
-					if (res){
-						$('input').each(function () {
-							$(this).parent().parent().removeClass("has-error");
-						});
-					}
-
-					return res;
-				});
-
-			})
-
-			function showDropErrorIfNotSeclectd(error, ele, msg) {
-				var dropError = '<span class="field-validation-error"></span>';
-				ele.next().html('');
-				if (error)
-				{
-					ele.addClass('input-validation-error');
-					ele.after($(dropError).html(msg));
-					return false;
-				}
-				else {
-					ele.removeClass('input-validation-error');
-					ele.parent().parent().removeClass('has-error');
-					return true;
+		$('#CompanyId').select2({
+			language: {
+				noResults: function (param) {
+					return "暂无数据";
 				}
 			}
+		});
+
+	})
 
 
-			
-		</script>
-	
+</script>

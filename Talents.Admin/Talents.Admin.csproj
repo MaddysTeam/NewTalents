@@ -756,6 +756,7 @@
     <Content Include="Views\EvalModel\Declare\DeclareEvalView5008.cshtml" />
     <Content Include="Views\TeamEval\EvalList.cshtml" />
     <Content Include="Views\TeamEval\NotEvalList.cshtml" />
+    <Content Include="Views\EvalModel\Annual\TeamEvalView.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

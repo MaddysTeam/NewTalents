@@ -25,11 +25,13 @@
 							@Html.HiddenFor(m => m.AttachmentUrl1)
 							@Html.TextBoxFor(m => m.AttachmentName1, new { @style = "visibility:hidden;" })
 							<div class="input-group">
-								<div id="simpleUploadName1" class="form-control">
+								<div id="simpleUploadName1" class="form-control simpleUploadName">
 									@Html.Label("", Model.AttachmentName1)
 								</div>
 								<span class="input-group-btn">
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload1">文件上传</button>
+									@*<button class="btn btn-info btn-preview"  type="button" id="btn-upload1" data-toggle="ajax-model" data-url="@Url.Action("AttachmentsView", "DeclarePop", new { id = Model., type = AttachmentsKeys.QunLiud_GugJiaos_Gongkk })" data-target="#firstModal">预览</button>*@
+									<button class="btn btn-warning btn-delete" type="button">删除</button>
 								</span>
 							</div>
 							@Html.ValidationMessageFor(m => m.AttachmentName1)
@@ -42,11 +44,12 @@
 							@Html.HiddenFor(m => m.AttachmentUrl2)
 							@Html.TextBoxFor(m => m.AttachmentName2, new { @style = "visibility:hidden;" })
 							<div class="input-group">
-								<div id="simpleUploadName2" class="form-control">
+								<div id="simpleUploadName2" class="form-control simpleUploadName">
 									@Html.Label("", Model.AttachmentName2)
 								</div>
 								<span class="input-group-btn">
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload2">文件上传</button>
+									<button class="btn btn-warning btn-delete" type="button" >删除</button>
 								</span>
 							</div>
 
@@ -60,11 +63,12 @@
 							@Html.HiddenFor(m => m.AttachmentUrl3)
 							@Html.TextBoxFor(m => m.AttachmentName3, new { @style = "visibility:hidden;" })
 							<div class="input-group">
-								<div id="simpleUploadName3" class="form-control">
+								<div id="simpleUploadName3" class="form-control simpleUploadName">
 									@Html.Label("", Model.AttachmentName3)
 								</div>
 								<span class="input-group-btn">
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload3">文件上传</button>
+									<button class="btn btn-warning btn-delete" type="button" >删除</button>
 								</span>
 							</div>
 
@@ -76,7 +80,7 @@
 
 				<div class="form-group">
 					<div class="col-sm-9 col-lg-offset-1">
-						<button type="submit" class="btn btn-primary btn-block-half"><i class="fa fa-check-circle"></i> 保存</button>
+						<button type="submit" class="btn btn-primary btn-block-half btn-submit"><i class="fa fa-check-circle"></i> 保存</button>
 					</div>
 				</div>
 			</div>
@@ -108,9 +112,20 @@
 			})(i);
 		}
 
+		//TODO: for temp
+		$('.btn-delete').on('click', function () {
+			var $uploadContainer = $(this).parent().parent().parent();
+			$uploadContainer.find('input[type="hidden"]').val('');
+			$uploadContainer.find('input[type="text"]').val('');
+			$uploadContainer.find('.simpleUploadName').html('');
+			$('.btn-submit').click();
+		});
+
 		ajaxSubmitForm($('form'));
 	});
 
+
+	
 	function afterDialogSuccess() { }
 
 </script>

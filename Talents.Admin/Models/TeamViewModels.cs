@@ -371,6 +371,12 @@ namespace TheSite.Models
 
 		[Display(Name = "附件路径")]
 		public string AttachmentUrl3 { get; set; }
+
+		public long AttachmentId1 { get; set; }
+
+		public long AttachmentId2 { get; set; }
+
+		public long AttachmentId3 { get; set; }
 	}
 
 	#endregion

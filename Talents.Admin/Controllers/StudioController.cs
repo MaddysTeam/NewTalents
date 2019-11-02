@@ -1,6 +1,7 @@
 ﻿using Business;
 using System;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace TheSite.Controllers
 {
@@ -27,6 +28,8 @@ namespace TheSite.Controllers
 
 				ViewBag.CanEdit = current.BeginDate <= TodayEnd(DateTime.Now) && current.EndDate >= TodayStart(DateTime.Now);
 			}
+
+			ViewBag.Companys = Company.GetAll();// companys.Count>0 ? companys.Select(x=>new SelectListItem { Text= x.CompanyName, Value=x.CompanyId.ToString() })
 
 			return PartialView(model);
 		}
@@ -60,6 +63,7 @@ namespace TheSite.Controllers
 				model.Phonemobile,
 				model.PeriodId,
 				model.Birthday,
+				model.CompanyId
 			});
 
 			if (Request.IsAjaxRequest())

@@ -144,9 +144,9 @@ namespace TheSite.EvalAnalysis
 	public abstract class TeamEvalUnitBase : AnalysisUnit
 	{
 
-		public override string EvalView => "/TeamEvalView";
+		public override string EvalView => ViewPath + "/TeamEvalView";
 
-		public override string ResultView => "/TeamResultView";
+		public override string ResultView => ViewPath + "/TeamResultView";
 
 		public override string RuleView => string.Empty;
 

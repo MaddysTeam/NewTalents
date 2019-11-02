@@ -31,6 +31,7 @@
 								</div>
 								<span class="input-group-btn">
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload1">文件上传</button>
+									<button class="btn btn-warning btn-delete" type="button">删除</button>
 								</span>
 							</div>
 							@Html.ValidationMessageFor(m => m.AttachmentName1)
@@ -48,6 +49,7 @@
 								</div>
 								<span class="input-group-btn">
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload2">文件上传</button>
+									<button class="btn btn-warning btn-delete" type="button">删除</button>
 								</span>
 							</div>
 
@@ -68,11 +70,12 @@
 							@Html.HiddenFor(m => m.SemesterAttachmentUrl1)
 							@Html.TextBoxFor(m => m.SemesterAttachmentName1, new { @style = "visibility:hidden;" })
 							<div class="input-group">
-								<div id="simpleUploadName3" class="form-control">
+								<div id="simpleUploadName3" class="form-control simpleUploadName">
 									@Html.Label("", Model.SemesterAttachmentName1)
 								</div>
 								<span class="input-group-btn">
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload3">文件上传</button>
+									<button class="btn btn-warning btn-delete" type="button">删除</button>
 								</span>
 							</div>
 
@@ -86,11 +89,12 @@
 							@Html.HiddenFor(m => m.SemesterAttachmentUrl3)
 							@Html.TextBoxFor(m => m.SemesterAttachmentName3, new { @style = "visibility:hidden;" })
 							<div class="input-group">
-								<div id="simpleUploadName5" class="form-control">
+								<div id="simpleUploadName5" class="form-control simpleUploadName">
 									@Html.Label("", Model.SemesterAttachmentName3)
 								</div>
 								<span class="input-group-btn">
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload5">文件上传</button>
+									<button class="btn btn-warning btn-delete" type="button">删除</button>
 								</span>
 							</div>
 
@@ -104,11 +108,12 @@
 							@Html.HiddenFor(m => m.SemesterAttachmentUrl5)
 							@Html.TextBoxFor(m => m.SemesterAttachmentName5, new { @style = "visibility:hidden;" })
 							<div class="input-group">
-								<div id="simpleUploadName7" class="form-control">
+								<div id="simpleUploadName7" class="form-control simpleUploadName">
 									@Html.Label("", Model.SemesterAttachmentName5)
 								</div>
 								<span class="input-group-btn">
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload7">文件上传</button>
+									<button class="btn btn-warning btn-delete" type="button">删除</button>
 								</span>
 							</div>
 
@@ -125,11 +130,12 @@
 							@Html.HiddenFor(m => m.SemesterAttachmentUrl2)
 							@Html.TextBoxFor(m => m.SemesterAttachmentName2, new { @style = "visibility:hidden;" })
 							<div class="input-group">
-								<div id="simpleUploadName4" class="form-control">
+								<div id="simpleUploadName4" class="form-control simpleUploadName">
 									@Html.Label("", Model.SemesterAttachmentName2)
 								</div>
 								<span class="input-group-btn">
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload4">文件上传</button>
+									<button class="btn btn-warning btn-delete" type="button">删除</button>
 								</span>
 							</div>
 
@@ -143,11 +149,12 @@
 							@Html.HiddenFor(m => m.SemesterAttachmentUrl4)
 							@Html.TextBoxFor(m => m.SemesterAttachmentName4, new { @style = "visibility:hidden;" })
 							<div class="input-group">
-								<div id="simpleUploadName6" class="form-control">
+								<div id="simpleUploadName6" class="form-control simpleUploadName">
 									@Html.Label("", Model.SemesterAttachmentName4)
 								</div>
 								<span class="input-group-btn">
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload6">文件上传</button>
+									<button class="btn btn-warning btn-delete" type="button">删除</button>
 								</span>
 							</div>
 
@@ -161,11 +168,12 @@
 							@Html.HiddenFor(m => m.SemesterAttachmentUrl6)
 							@Html.TextBoxFor(m => m.SemesterAttachmentName6, new { @style = "visibility:hidden;" })
 							<div class="input-group">
-								<div id="simpleUploadName8" class="form-control">
+								<div id="simpleUploadName8" class="form-control simpleUploadName">
 									@Html.Label("", Model.SemesterAttachmentName6)
 								</div>
 								<span class="input-group-btn">
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload8">文件上传</button>
+									<button class="btn btn-warning btn-delete" type="button">删除</button>
 								</span>
 							</div>
 
@@ -186,11 +194,12 @@
 							@Html.HiddenFor(m => m.SemesterActiveAttachmentUrl1)
 							@Html.TextBoxFor(m => m.SemesterActiveAttachmentName1, new { @style = "visibility:hidden;" })
 							<div class="input-group">
-								<div id="simpleUploadName9" class="form-control">
+								<div id="simpleUploadName9" class="form-control simpleUploadName">
 									@Html.Label("", Model.SemesterActiveAttachmentName1)
 								</div>
 								<span class="input-group-btn">
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload9">文件上传</button>
+									<button class="btn btn-warning btn-delete" type="button">删除</button>
 								</span>
 							</div>
 
@@ -204,11 +213,12 @@
 							@Html.HiddenFor(m => m.SemesterActiveAttachmentUrl3)
 							@Html.TextBoxFor(m => m.SemesterActiveAttachmentName3, new { @style = "visibility:hidden;" })
 							<div class="input-group">
-								<div id="simpleUploadName11" class="form-control">
+								<div id="simpleUploadName11" class="form-control simpleUploadName">
 									@Html.Label("", Model.SemesterActiveAttachmentName3)
 								</div>
 								<span class="input-group-btn">
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload11">文件上传</button>
+									<button class="btn btn-warning btn-delete" type="button">删除</button>
 								</span>
 							</div>
 
@@ -222,11 +232,12 @@
 							@Html.HiddenFor(m => m.SemesterActiveAttachmentUrl5)
 							@Html.TextBoxFor(m => m.SemesterActiveAttachmentName5, new { @style = "visibility:hidden;" })
 							<div class="input-group">
-								<div id="simpleUploadName13" class="form-control">
+								<div id="simpleUploadName13" class="form-control simpleUploadName">
 									@Html.Label("", Model.SemesterActiveAttachmentName5)
 								</div>
 								<span class="input-group-btn">
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload13">文件上传</button>
+									<button class="btn btn-warning btn-delete" type="button">删除</button>
 								</span>
 							</div>
 
@@ -243,11 +254,12 @@
 							@Html.HiddenFor(m => m.SemesterActiveAttachmentUrl2)
 							@Html.TextBoxFor(m => m.SemesterActiveAttachmentName2, new { @style = "visibility:hidden;" })
 							<div class="input-group">
-								<div id="simpleUploadName10" class="form-control">
+								<div id="simpleUploadName10" class="form-control simpleUploadName">
 									@Html.Label("", Model.SemesterActiveAttachmentName2)
 								</div>
 								<span class="input-group-btn">
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload10">文件上传</button>
+									<button class="btn btn-warning btn-delete" type="button">删除</button>
 								</span>
 							</div>
 
@@ -261,11 +273,12 @@
 							@Html.HiddenFor(m => m.SemesterActiveAttachmentUrl4)
 							@Html.TextBoxFor(m => m.SemesterActiveAttachmentName4, new { @style = "visibility:hidden;" })
 							<div class="input-group">
-								<div id="simpleUploadName12" class="form-control">
+								<div id="simpleUploadName12" class="form-control simpleUploadName">
 									@Html.Label("", Model.SemesterActiveAttachmentName4)
 								</div>
 								<span class="input-group-btn">
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload12">文件上传</button>
+									<button class="btn btn-warning btn-delete" type="button">删除</button>
 								</span>
 							</div>
 
@@ -279,11 +292,12 @@
 							@Html.HiddenFor(m => m.SemesterActiveAttachmentUrl6)
 							@Html.TextBoxFor(m => m.SemesterActiveAttachmentName6, new { @style = "visibility:hidden;" })
 							<div class="input-group">
-								<div id="simpleUploadName14" class="form-control">
+								<div id="simpleUploadName14" class="form-control simpleUploadName">
 									@Html.Label("", Model.SemesterActiveAttachmentName6)
 								</div>
 								<span class="input-group-btn">
 									<button class="btn btn-danger btn-upload" type="button" id="btn-upload14">文件上传</button>
+									<button class="btn btn-warning btn-delete" type="button">删除</button>
 								</span>
 							</div>
 
@@ -295,7 +309,7 @@
 
 				<div class="form-group">
 					<div class="col-sm-9 col-lg-offset-3">
-						<button type="submit" class="btn btn-primary btn-block-half"><i class="fa fa-check-circle"></i> 保存</button>
+						<button type="submit" class="btn btn-primary btn-block-half btn-submit"><i class="fa fa-check-circle"></i> 保存</button>
 					</div>
 				</div>
 			</div>
@@ -330,6 +344,16 @@
 				 });
 			})(i);
 		}
+
+
+		//TODO: for temp
+		$('.btn-delete').on('click', function () {
+			var $uploadContainer = $(this).parent().parent().parent();
+			$uploadContainer.find('input[type="hidden"]').val('');
+			$uploadContainer.find('input[type="text"]').val('');
+			$uploadContainer.find('.simpleUploadName').html('');
+			$('.btn-submit').click();
+		});
 
 		ajaxSubmitForm($('form'));
 	});
