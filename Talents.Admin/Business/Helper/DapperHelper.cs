@@ -10,7 +10,7 @@ namespace Business.Helper
 
 	public static class DapperHelper
 	{
-		public static  List<T> QueryBySQL<T>(string sql, object paras = null)
+		public static List<T> QueryBySQL<T>(string sql, object paras = null)
 		{
 			if (string.IsNullOrEmpty(sql)) return null;
 

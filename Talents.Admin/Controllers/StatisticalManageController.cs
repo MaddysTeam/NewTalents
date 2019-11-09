@@ -691,14 +691,14 @@ namespace TheSite.Controllers
 		}
 
 
-		// GET:		StatisticalManage/FillInRecords
+		// GET:		StatisticalManage/FillInRecord
 
 		public ActionResult FillInRecord()
 		{
-			
-			return View();
-		}
+			var result = db.FillInRecordViewDal.ConditionQuery(null, null, null, null);
 
+			return View(result);
+		}
 
 
 		#region [ Helper ]

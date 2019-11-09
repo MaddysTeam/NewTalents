@@ -1148,6 +1148,23 @@
 
 				</columns>
 			</table>
+			
+			<!-- 填报统计复杂视图 2019-11-9 -->
+			<table name="FillInRecordView" comment="填报统计视图">
+				<columns>
+					
+					<add name="TypeKey" type="string" dataLength="200" />
+					<add name="Data1" type="long" />
+					<add name="Data2" type="long" />
+					<add name="Data3" type="long" />
+					<add name="Data4" type="long" />
+					<add name="Data5" type="long" />
+					<add name="Data6" type="long" />
+					<add name="Data7" type="long" />
+					<add name="Data8" type="long" />
+			
+				</columns>
+			</table>
 		
 		</tables>
 

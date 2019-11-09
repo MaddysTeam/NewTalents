@@ -137,6 +137,8 @@ namespace Business {
         
         private static ShareTableDef _share;
         
+        private static FillInRecordViewTableDef _fillInRecordView;
+        
         private static APDalProvider staticProvider = Provider;
         
         private APDalDef.PicklistDal _picklistDal;
@@ -252,6 +254,8 @@ namespace Business {
         private APDalDef.ReadNoticeDal _readNoticeDal;
         
         private APDalDef.ShareDal _shareDal;
+        
+        private APDalDef.FillInRecordViewDal _fillInRecordViewDal;
         
         public APDBDef() : 
                 base(staticProvider) {
@@ -946,6 +950,18 @@ namespace Business {
         }
         
         /// <summary>
+        /// 填报统计视图 TableDef
+        /// </summary>
+        public static FillInRecordViewTableDef FillInRecordView {
+            get {
+                if ((_fillInRecordView == null)) {
+                    _fillInRecordView = new FillInRecordViewTableDef("FillInRecordView");
+                }
+                return _fillInRecordView;
+            }
+        }
+        
+        /// <summary>
         /// 选项列表 Dal
         /// </summary>
         public virtual APDalDef.PicklistDal PicklistDal {
@@ -1629,6 +1645,18 @@ namespace Business {
             }
         }
         
+        /// <summary>
+        /// 填报统计视图 Dal
+        /// </summary>
+        public virtual APDalDef.FillInRecordViewDal FillInRecordViewDal {
+            get {
+                if ((_fillInRecordViewDal == null)) {
+                    _fillInRecordViewDal = new APDalDef.FillInRecordViewDal(this);
+                }
+                return _fillInRecordViewDal;
+            }
+        }
+        
         public override void Rollback() {
             base.Rollback();
         }
@@ -1701,6 +1729,7 @@ namespace Business {
                 db.NoticeDal.InitData(db);
                 db.ReadNoticeDal.InitData(db);
                 db.ShareDal.InitData(db);
+                db.FillInRecordViewDal.InitData(db);
                 db.Commit();
             }
             catch (System.Exception ) {
@@ -15376,6 +15405,234 @@ namespace Business {
                 return list;
             }
         }
+        
+        [Serializable()]
+        public partial class FillInRecordViewTableDef : APTableDef {
+            
+            private StringAPColumnDef _typeKey;
+            
+            private Int64APColumnDef _data1;
+            
+            private Int64APColumnDef _data2;
+            
+            private Int64APColumnDef _data3;
+            
+            private Int64APColumnDef _data4;
+            
+            private Int64APColumnDef _data5;
+            
+            private Int64APColumnDef _data6;
+            
+            private Int64APColumnDef _data7;
+            
+            private Int64APColumnDef _data8;
+            
+            public FillInRecordViewTableDef(string tableName) : 
+                    base(tableName) {
+            }
+            
+            protected FillInRecordViewTableDef(string tableName, string alias) : 
+                    base(tableName, alias) {
+            }
+            
+            /// <summary>
+            /// TypeKey ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef TypeKey {
+                get {
+                    if (Object.ReferenceEquals(_typeKey, null)) {
+                        _typeKey = new StringAPColumnDef(this, "TypeKey", false, 200);
+                        _typeKey.Display = "TypeKey";
+                    }
+                    return _typeKey;
+                }
+            }
+            
+            /// <summary>
+            /// Data1 ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef Data1 {
+                get {
+                    if (Object.ReferenceEquals(_data1, null)) {
+                        _data1 = new Int64APColumnDef(this, "Data1", false);
+                        _data1.Display = "Data1";
+                    }
+                    return _data1;
+                }
+            }
+            
+            /// <summary>
+            /// Data2 ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef Data2 {
+                get {
+                    if (Object.ReferenceEquals(_data2, null)) {
+                        _data2 = new Int64APColumnDef(this, "Data2", false);
+                        _data2.Display = "Data2";
+                    }
+                    return _data2;
+                }
+            }
+            
+            /// <summary>
+            /// Data3 ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef Data3 {
+                get {
+                    if (Object.ReferenceEquals(_data3, null)) {
+                        _data3 = new Int64APColumnDef(this, "Data3", false);
+                        _data3.Display = "Data3";
+                    }
+                    return _data3;
+                }
+            }
+            
+            /// <summary>
+            /// Data4 ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef Data4 {
+                get {
+                    if (Object.ReferenceEquals(_data4, null)) {
+                        _data4 = new Int64APColumnDef(this, "Data4", false);
+                        _data4.Display = "Data4";
+                    }
+                    return _data4;
+                }
+            }
+            
+            /// <summary>
+            /// Data5 ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef Data5 {
+                get {
+                    if (Object.ReferenceEquals(_data5, null)) {
+                        _data5 = new Int64APColumnDef(this, "Data5", false);
+                        _data5.Display = "Data5";
+                    }
+                    return _data5;
+                }
+            }
+            
+            /// <summary>
+            /// Data6 ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef Data6 {
+                get {
+                    if (Object.ReferenceEquals(_data6, null)) {
+                        _data6 = new Int64APColumnDef(this, "Data6", false);
+                        _data6.Display = "Data6";
+                    }
+                    return _data6;
+                }
+            }
+            
+            /// <summary>
+            /// Data7 ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef Data7 {
+                get {
+                    if (Object.ReferenceEquals(_data7, null)) {
+                        _data7 = new Int64APColumnDef(this, "Data7", false);
+                        _data7.Display = "Data7";
+                    }
+                    return _data7;
+                }
+            }
+            
+            /// <summary>
+            /// Data8 ColumnDef
+            /// </summary>
+            public virtual Int64APColumnDef Data8 {
+                get {
+                    if (Object.ReferenceEquals(_data8, null)) {
+                        _data8 = new Int64APColumnDef(this, "Data8", false);
+                        _data8.Display = "Data8";
+                    }
+                    return _data8;
+                }
+            }
+            
+            /// <summary>
+            /// Default Index
+            /// </summary>
+            public virtual APSqlOrderPhrase DefaultOrder {
+                get {
+                    return null;
+                }
+            }
+            
+            /// <summary>
+            /// Create a alias table
+            /// </summary>
+            public virtual FillInRecordViewTableDef As(string name) {
+                return new FillInRecordViewTableDef("FillInRecordView", name);
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual void Fullup(IDataReader reader, FillInRecordView data, bool throwIfValidColumnName) {
+                data.TypeKey = TypeKey.GetValue<string>(reader, throwIfValidColumnName);
+                data.Data1 = Data1.GetValue<long>(reader, throwIfValidColumnName);
+                data.Data2 = Data2.GetValue<long>(reader, throwIfValidColumnName);
+                data.Data3 = Data3.GetValue<long>(reader, throwIfValidColumnName);
+                data.Data4 = Data4.GetValue<long>(reader, throwIfValidColumnName);
+                data.Data5 = Data5.GetValue<long>(reader, throwIfValidColumnName);
+                data.Data6 = Data6.GetValue<long>(reader, throwIfValidColumnName);
+                data.Data7 = Data7.GetValue<long>(reader, throwIfValidColumnName);
+                data.Data8 = Data8.GetValue<long>(reader, throwIfValidColumnName);
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual FillInRecordView Map(IDataReader reader) {
+                FillInRecordView data = new FillInRecordView();
+                Fullup(reader, data, true);
+                return data;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual FillInRecordView TolerantMap(IDataReader reader) {
+                FillInRecordView data = new FillInRecordView();
+                Fullup(reader, data, false);
+                return data;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual List<FillInRecordView> MapList(IDataReader reader) {
+                List<FillInRecordView> list = new List<FillInRecordView>();
+                try {
+                    for (; reader.Read(); ) {
+                        list.Add(Map(reader));
+                    }
+                }
+                finally {
+                    reader.Close();
+                }
+                return list;
+            }
+            
+            /// <summary>
+            /// 填充数据。
+            /// </summary>
+            public virtual List<FillInRecordView> TolerantMapList(IDataReader reader) {
+                List<FillInRecordView> list = new List<FillInRecordView>();
+                try {
+                    for (; reader.Read(); ) {
+                        list.Add(TolerantMap(reader));
+                    }
+                }
+                finally {
+                    reader.Close();
+                }
+                return list;
+            }
+        }
     }
     
     /// <summary>
@@ -23089,6 +23346,139 @@ namespace Business {
             }
             
             public ShareDal(APDatabase db) : 
+                    base(db) {
+            }
+        }
+        
+        /// <summary>
+        /// 填报统计视图 DalBase
+        /// </summary>
+        public partial class FillInRecordViewDalBase : APDal {
+            
+            public FillInRecordViewDalBase() {
+            }
+            
+            public FillInRecordViewDalBase(APDatabase db) : 
+                    base(db) {
+            }
+            
+            /// <summary>
+            /// 添加数据。
+            /// </summary>
+            public virtual void Insert(FillInRecordView data) {
+                var query = APQuery.insert(APDBDef.FillInRecordView).values(APDBDef.FillInRecordView.TypeKey.SetValue(data.TypeKey), APDBDef.FillInRecordView.Data1.SetValue(data.Data1), APDBDef.FillInRecordView.Data2.SetValue(data.Data2), APDBDef.FillInRecordView.Data3.SetValue(data.Data3), APDBDef.FillInRecordView.Data4.SetValue(data.Data4), APDBDef.FillInRecordView.Data5.SetValue(data.Data5), APDBDef.FillInRecordView.Data6.SetValue(data.Data6), APDBDef.FillInRecordView.Data7.SetValue(data.Data7), APDBDef.FillInRecordView.Data8.SetValue(data.Data8));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public virtual void Update(FillInRecordView data) {
+                var query = APQuery.update(APDBDef.FillInRecordView).values(APDBDef.FillInRecordView.Data1.SetValue(data.Data1), APDBDef.FillInRecordView.Data2.SetValue(data.Data2), APDBDef.FillInRecordView.Data3.SetValue(data.Data3), APDBDef.FillInRecordView.Data4.SetValue(data.Data4), APDBDef.FillInRecordView.Data5.SetValue(data.Data5), APDBDef.FillInRecordView.Data6.SetValue(data.Data6), APDBDef.FillInRecordView.Data7.SetValue(data.Data7), APDBDef.FillInRecordView.Data8.SetValue(data.Data8)).where((APDBDef.FillInRecordView.TypeKey == data.TypeKey));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public virtual void UpdatePartial(string typeKey, Object metadata) {
+                var query = APQuery.update(APDBDef.FillInRecordView).values(APSqlSetPhraseSelector.Select(APDBDef.FillInRecordView, metadata)).where((APDBDef.FillInRecordView.TypeKey == typeKey));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 删除数据。
+            /// </summary>
+            public virtual void PrimaryDelete(string typeKey) {
+                var query = APQuery.delete(APDBDef.FillInRecordView).where((APDBDef.FillInRecordView.TypeKey == typeKey));
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 条件删除数据。
+            /// </summary>
+            public virtual void ConditionDelete(APSqlWherePhrase condition) {
+                var query = APQuery.delete(APDBDef.FillInRecordView).where(condition);
+                ExecuteNonQuery(query);
+            }
+            
+            /// <summary>
+            /// 根据条件查询数量。
+            /// </summary>
+            public virtual int ConditionQueryCount(APSqlWherePhrase condition) {
+                var query = APQuery.select(APDBDef.FillInRecordView.Asterisk.Count()).from(APDBDef.FillInRecordView).where(condition);
+                return ExecuteCount(query);
+            }
+            
+            /// <summary>
+            /// 根据主键获取数据。
+            /// </summary>
+            public virtual FillInRecordView PrimaryGet(string typeKey) {
+                var query = APQuery.select(APDBDef.FillInRecordView.Asterisk).from(APDBDef.FillInRecordView).where((APDBDef.FillInRecordView.TypeKey == typeKey));
+                IDataReader reader = ExecuteReader(query);
+                try {
+                    if (reader.Read()) {
+                        return APDBDef.FillInRecordView.Map(reader);
+                    }
+                    return null;
+                }
+                finally {
+                    reader.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public virtual List<FillInRecordView> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+                var query = APQuery.select(APDBDef.FillInRecordView.Asterisk).from(APDBDef.FillInRecordView);
+                if ((condition != null)) {
+                    query.where(condition);
+                }
+                if ((orderBy != null)) {
+                    query.order_by(orderBy);
+                }
+                if ((take != null)) {
+                    query.take(take);
+                }
+                if ((skip != null)) {
+                    query.skip(skip);
+                }
+                query.primary(APDBDef.FillInRecordView.TypeKey);
+                IDataReader reader = ExecuteReader(query);
+                return APDBDef.FillInRecordView.MapList(reader);
+            }
+            
+            /// <summary>
+            /// 获得表的初始化数据。
+            /// </summary>
+            public virtual List<FillInRecordView> GetInitData() {
+                return new List<FillInRecordView>();
+            }
+            
+            /// <summary>
+            /// 初始化数据。
+            /// </summary>
+            public virtual void InitData(APDBDef db) {
+                List<FillInRecordView> list = GetInitData();
+                for (int i = 0; (i < list.Count); i = (i + 1)) {
+                    FillInRecordView data = list[i];
+                    if ((PrimaryGet(data.TypeKey) == null)) {
+                        Insert(data);
+                    }
+                }
+            }
+        }
+        
+        /// <summary>
+        /// 填报统计视图 Dal
+        /// </summary>
+        public partial class FillInRecordViewDal : FillInRecordViewDalBase {
+            
+            public FillInRecordViewDal() {
+            }
+            
+            public FillInRecordViewDal(APDatabase db) : 
                     base(db) {
             }
         }
@@ -31590,6 +31980,155 @@ namespace Business {
         /// 共享 Dal
         /// </summary>
         public partial class ShareBpl : ShareBplBase {
+        }
+        
+        /// <summary>
+        /// 填报统计视图 BplBase
+        /// </summary>
+        public partial class FillInRecordViewBplBase {
+            
+            /// <summary>
+            /// 添加数据。
+            /// </summary>
+            public static void Insert(FillInRecordView data) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.FillInRecordViewDal.Insert(data);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public static void Update(FillInRecordView data) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.FillInRecordViewDal.Update(data);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 更新数据。
+            /// </summary>
+            public static void UpdatePartial(string typeKey, Object metadata) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.FillInRecordViewDal.UpdatePartial(typeKey, metadata);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 删除数据。
+            /// </summary>
+            public static void PrimaryDelete(string typeKey) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.FillInRecordViewDal.PrimaryDelete(typeKey);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 条件删除数据。
+            /// </summary>
+            public static void ConditionDelete(APSqlWherePhrase condition) {
+                APDBDef db = new APDBDef();
+                try {
+                    db.FillInRecordViewDal.ConditionDelete(condition);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据条件查询数量。
+            /// </summary>
+            public static int ConditionQueryCount(APSqlWherePhrase condition) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.FillInRecordViewDal.ConditionQueryCount(condition);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据主键获取数据。
+            /// </summary>
+            public static FillInRecordView PrimaryGet(string typeKey) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.FillInRecordViewDal.PrimaryGet(typeKey);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<FillInRecordView> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take, System.Nullable<int> skip) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.FillInRecordViewDal.ConditionQuery(condition, orderBy, take, skip);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<FillInRecordView> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, System.Nullable<int> take) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.FillInRecordViewDal.ConditionQuery(condition, orderBy, take, null);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 根据指定条件查询数据。
+            /// </summary>
+            public static List<FillInRecordView> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+                APDBDef db = new APDBDef();
+                try {
+                    return db.FillInRecordViewDal.ConditionQuery(condition, orderBy, null, null);
+                }
+                finally {
+                    db.Close();
+                }
+            }
+            
+            /// <summary>
+            /// 获取所有数据。
+            /// </summary>
+            public static List<FillInRecordView> GetAll() {
+                return ConditionQuery(null, null);
+            }
+        }
+        
+        /// <summary>
+        /// 填报统计视图 Dal
+        /// </summary>
+        public partial class FillInRecordViewBpl : FillInRecordViewBplBase {
         }
     }
     
@@ -58223,6 +58762,433 @@ namespace Business {
         /// </summary>
         public Share(long shareId, long userId, long itemId, string title, string parentType, string type, System.DateTime createDate, System.DateTime pubishDate) : 
                 base(shareId, userId, itemId, title, parentType, type, createDate, pubishDate) {
+        }
+    }
+    
+    /// <summary>
+    /// 填报统计视图 Base
+    /// </summary>
+    [Serializable()]
+    public abstract partial class FillInRecordViewBase {
+        
+        /// <summary>
+        /// TypeKey
+        /// </summary>
+        private string _typeKey = string.Empty;
+        
+        /// <summary>
+        /// Data1
+        /// </summary>
+        private long _data1;
+        
+        /// <summary>
+        /// Data2
+        /// </summary>
+        private long _data2;
+        
+        /// <summary>
+        /// Data3
+        /// </summary>
+        private long _data3;
+        
+        /// <summary>
+        /// Data4
+        /// </summary>
+        private long _data4;
+        
+        /// <summary>
+        /// Data5
+        /// </summary>
+        private long _data5;
+        
+        /// <summary>
+        /// Data6
+        /// </summary>
+        private long _data6;
+        
+        /// <summary>
+        /// Data7
+        /// </summary>
+        private long _data7;
+        
+        /// <summary>
+        /// Data8
+        /// </summary>
+        private long _data8;
+        
+        /// <summary>
+        /// 默认构造函数。
+        /// </summary>
+        public FillInRecordViewBase() {
+        }
+        
+        /// <summary>
+        /// 初始化所有字段的构造函数。
+        /// </summary>
+        public FillInRecordViewBase(string typeKey, long data1, long data2, long data3, long data4, long data5, long data6, long data7, long data8) {
+            _typeKey = typeKey;
+            _data1 = data1;
+            _data2 = data2;
+            _data3 = data3;
+            _data4 = data4;
+            _data5 = data5;
+            _data6 = data6;
+            _data7 = data7;
+            _data8 = data8;
+        }
+        
+        /// <summary>
+        /// TypeKey
+        /// </summary>
+        [StringLength(200)]
+        public virtual string TypeKey {
+            get {
+                return _typeKey;
+            }
+            set {
+                _typeKey = value;
+            }
+        }
+        
+        /// <summary>
+        /// TypeKey APColumnDef
+        /// </summary>
+        public static StringAPColumnDef TypeKeyDef {
+            get {
+                return APDBDef.FillInRecordView.TypeKey;
+            }
+        }
+        
+        /// <summary>
+        /// Data1
+        /// </summary>
+        public virtual long Data1 {
+            get {
+                return _data1;
+            }
+            set {
+                _data1 = value;
+            }
+        }
+        
+        /// <summary>
+        /// Data1 APColumnDef
+        /// </summary>
+        public static Int64APColumnDef Data1Def {
+            get {
+                return APDBDef.FillInRecordView.Data1;
+            }
+        }
+        
+        /// <summary>
+        /// Data2
+        /// </summary>
+        public virtual long Data2 {
+            get {
+                return _data2;
+            }
+            set {
+                _data2 = value;
+            }
+        }
+        
+        /// <summary>
+        /// Data2 APColumnDef
+        /// </summary>
+        public static Int64APColumnDef Data2Def {
+            get {
+                return APDBDef.FillInRecordView.Data2;
+            }
+        }
+        
+        /// <summary>
+        /// Data3
+        /// </summary>
+        public virtual long Data3 {
+            get {
+                return _data3;
+            }
+            set {
+                _data3 = value;
+            }
+        }
+        
+        /// <summary>
+        /// Data3 APColumnDef
+        /// </summary>
+        public static Int64APColumnDef Data3Def {
+            get {
+                return APDBDef.FillInRecordView.Data3;
+            }
+        }
+        
+        /// <summary>
+        /// Data4
+        /// </summary>
+        public virtual long Data4 {
+            get {
+                return _data4;
+            }
+            set {
+                _data4 = value;
+            }
+        }
+        
+        /// <summary>
+        /// Data4 APColumnDef
+        /// </summary>
+        public static Int64APColumnDef Data4Def {
+            get {
+                return APDBDef.FillInRecordView.Data4;
+            }
+        }
+        
+        /// <summary>
+        /// Data5
+        /// </summary>
+        public virtual long Data5 {
+            get {
+                return _data5;
+            }
+            set {
+                _data5 = value;
+            }
+        }
+        
+        /// <summary>
+        /// Data5 APColumnDef
+        /// </summary>
+        public static Int64APColumnDef Data5Def {
+            get {
+                return APDBDef.FillInRecordView.Data5;
+            }
+        }
+        
+        /// <summary>
+        /// Data6
+        /// </summary>
+        public virtual long Data6 {
+            get {
+                return _data6;
+            }
+            set {
+                _data6 = value;
+            }
+        }
+        
+        /// <summary>
+        /// Data6 APColumnDef
+        /// </summary>
+        public static Int64APColumnDef Data6Def {
+            get {
+                return APDBDef.FillInRecordView.Data6;
+            }
+        }
+        
+        /// <summary>
+        /// Data7
+        /// </summary>
+        public virtual long Data7 {
+            get {
+                return _data7;
+            }
+            set {
+                _data7 = value;
+            }
+        }
+        
+        /// <summary>
+        /// Data7 APColumnDef
+        /// </summary>
+        public static Int64APColumnDef Data7Def {
+            get {
+                return APDBDef.FillInRecordView.Data7;
+            }
+        }
+        
+        /// <summary>
+        /// Data8
+        /// </summary>
+        public virtual long Data8 {
+            get {
+                return _data8;
+            }
+            set {
+                _data8 = value;
+            }
+        }
+        
+        /// <summary>
+        /// Data8 APColumnDef
+        /// </summary>
+        public static Int64APColumnDef Data8Def {
+            get {
+                return APDBDef.FillInRecordView.Data8;
+            }
+        }
+        
+        /// <summary>
+        /// FillInRecordViewTableDef APTableDef
+        /// </summary>
+        public static APDBDef.FillInRecordViewTableDef TableDef {
+            get {
+                return APDBDef.FillInRecordView;
+            }
+        }
+        
+        /// <summary>
+        /// FillInRecordViewTableDef APSqlAsteriskExpr
+        /// </summary>
+        public static APSqlAsteriskExpr Asterisk {
+            get {
+                return APDBDef.FillInRecordView.Asterisk;
+            }
+        }
+        
+        /// <summary>
+        /// 赋值。
+        /// </summary>
+        public virtual void Assignment(FillInRecordView data) {
+            TypeKey = data.TypeKey;
+            Data1 = data.Data1;
+            Data2 = data.Data2;
+            Data3 = data.Data3;
+            Data4 = data.Data4;
+            Data5 = data.Data5;
+            Data6 = data.Data6;
+            Data7 = data.Data7;
+            Data8 = data.Data8;
+        }
+        
+        /// <summary>
+        /// 比较。
+        /// </summary>
+        public virtual bool CompareEquals(FillInRecordView data) {
+            if ((TypeKey != data.TypeKey)) {
+                return false;
+            }
+            if ((Data1 != data.Data1)) {
+                return false;
+            }
+            if ((Data2 != data.Data2)) {
+                return false;
+            }
+            if ((Data3 != data.Data3)) {
+                return false;
+            }
+            if ((Data4 != data.Data4)) {
+                return false;
+            }
+            if ((Data5 != data.Data5)) {
+                return false;
+            }
+            if ((Data6 != data.Data6)) {
+                return false;
+            }
+            if ((Data7 != data.Data7)) {
+                return false;
+            }
+            if ((Data8 != data.Data8)) {
+                return false;
+            }
+            return true;
+        }
+        
+        /// <summary>
+        /// 添加数据。
+        /// </summary>
+        public virtual void Insert() {
+            APBplDef.FillInRecordViewBpl.Insert(((FillInRecordView)(this)));
+        }
+        
+        /// <summary>
+        /// 更新数据。
+        /// </summary>
+        public virtual void Update() {
+            APBplDef.FillInRecordViewBpl.Update(((FillInRecordView)(this)));
+        }
+        
+        /// <summary>
+        /// 更新数据。
+        /// </summary>
+        public static void UpdatePartial(string typeKey, Object metadata) {
+            APBplDef.FillInRecordViewBpl.UpdatePartial(typeKey, metadata);
+        }
+        
+        /// <summary>
+        /// 删除数据。
+        /// </summary>
+        public static void PrimaryDelete(string typeKey) {
+            APBplDef.FillInRecordViewBpl.PrimaryDelete(typeKey);
+        }
+        
+        /// <summary>
+        /// 条件删除数据。
+        /// </summary>
+        public static void ConditionDelete(APSqlWherePhrase condition) {
+            APBplDef.FillInRecordViewBpl.ConditionDelete(condition);
+        }
+        
+        /// <summary>
+        /// 根据条件查询数量。
+        /// </summary>
+        public static int ConditionQueryCount(APSqlWherePhrase condition) {
+            return APBplDef.FillInRecordViewBpl.ConditionQueryCount(condition);
+        }
+        
+        /// <summary>
+        /// 根据主键获取数据。
+        /// </summary>
+        public static FillInRecordView PrimaryGet(string typeKey) {
+            return APBplDef.FillInRecordViewBpl.PrimaryGet(typeKey);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<FillInRecordView> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take, int skip) {
+            return APBplDef.FillInRecordViewBpl.ConditionQuery(condition, orderBy, take, skip);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<FillInRecordView> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy, int take) {
+            return APBplDef.FillInRecordViewBpl.ConditionQuery(condition, orderBy, take);
+        }
+        
+        /// <summary>
+        /// 根据指定条件查询数据。
+        /// </summary>
+        public static List<FillInRecordView> ConditionQuery(APSqlWherePhrase condition, APSqlOrderPhrase orderBy) {
+            return APBplDef.FillInRecordViewBpl.ConditionQuery(condition, orderBy);
+        }
+        
+        /// <summary>
+        /// 获取所有数据。
+        /// </summary>
+        public static List<FillInRecordView> GetAll() {
+            return APBplDef.FillInRecordViewBpl.GetAll();
+        }
+    }
+    
+    /// <summary>
+    /// 填报统计视图
+    /// </summary>
+    [Serializable()]
+    public partial class FillInRecordView : FillInRecordViewBase {
+        
+        /// <summary>
+        /// 默认构造函数。
+        /// </summary>
+        public FillInRecordView() {
+        }
+        
+        /// <summary>
+        /// 初始化所有字段的构造函数。
+        /// </summary>
+        public FillInRecordView(string typeKey, long data1, long data2, long data3, long data4, long data5, long data6, long data7, long data8) : 
+                base(typeKey, data1, data2, data3, data4, data5, data6, data7, data8) {
         }
     }
 }

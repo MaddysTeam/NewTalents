@@ -80,7 +80,7 @@
 				</div>
 	<!-- END WIDGET ACTIVITY FEED -->
 			}
-			if (up.UserId == 11579)
+			if (up.UserId == 11579) //TODO: temp for sepical teacher 
 			{
 				<li>
 					<a href="@Url.Action("TeamList", "TeamManage")">
@@ -90,7 +90,7 @@
 				</li>
 
 				<li>
-					<a href="javascript:alert('统计正在开发中');">
+					<a href="@Url.Action("FillInRecord", "StatisticalManage")">
 						<i class="fa fa-gear fa-fw"></i>
 						<span class="text">填报统计</span>
 					</a>

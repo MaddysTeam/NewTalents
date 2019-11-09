@@ -1,0 +1,50 @@
+﻿@model List<FillInRecordView>
+<div>
+
+	<!-- widget -->
+	<div class="widget">
+		<div class="widget-header">
+			<h3><i class="fa fa-edit"></i> 填报统计</h3>
+			<div class="btn-group widget-header-toolbar">
+				<a href="#" title="关闭" class="btn-borderless" data-dismiss="modal"><i class="fa fa-close"></i></a>
+			</div>
+		</div>
+		<div class="widget-content">
+
+			<div class="table-responsive">
+				<table class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>统计项目</th>
+							<th>高地理事长</th>
+							<th>基地主持人</th>
+							<th>工作室主持人</th>
+							<th>学科带头人</th>
+							<th>骨干教师</th>
+							<th>教学能手</th>
+							<th>教学新秀</th>
+							<th>特招学员</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model)
+						{
+							<tr>
+								<td>@item.TypeKey</td>
+								<td>@item.Data1</td>
+								<td>@item.Data2</td>
+								<td>@item.Data3</td>
+								<td>@item.Data4</td>
+								<td>@item.Data5</td>
+								<td>@item.Data6</td>
+								<td>@item.Data7</td>
+								<td>@item.Data8</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- end widget -->
+</div>
