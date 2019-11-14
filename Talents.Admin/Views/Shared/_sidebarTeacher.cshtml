@@ -41,7 +41,7 @@
 						<div id="treeview-declare"></div>
 					</div>
 				</div>
-		if (up.IsMaster)
+		if (up.IsMaster & !isInDeclare)
 			{
 	<!-- END WIDGET ACTIVITY FEED -->
 				<li>
@@ -80,7 +80,7 @@
 				</div>
 	<!-- END WIDGET ACTIVITY FEED -->
 			}
-			if (up.UserId == 11579) //TODO: temp for sepical teacher 
+			if (up.UserId == 11579 && !isInDeclare) //TODO: temp for sepical teacher 
 			{
 				<li>
 					<a href="@Url.Action("TeamList", "TeamManage")">
