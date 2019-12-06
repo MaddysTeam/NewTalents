@@ -13859,6 +13859,12 @@ namespace Business {
             
             private StringAPColumnDef _comment;
             
+            private StringAPColumnDef _dynamicComment1;
+            
+            private StringAPColumnDef _dynamicComment2;
+            
+            private StringAPColumnDef _dynamicComment3;
+            
             private Int64APColumnDef _groupId;
             
             private Int64APColumnDef _accesser;
@@ -14017,6 +14023,45 @@ namespace Business {
             }
             
             /// <summary>
+            /// DynamicComment1 ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef DynamicComment1 {
+                get {
+                    if (Object.ReferenceEquals(_dynamicComment1, null)) {
+                        _dynamicComment1 = new StringAPColumnDef(this, "DynamicComment1", false, 10000);
+                        _dynamicComment1.Display = "总评";
+                    }
+                    return _dynamicComment1;
+                }
+            }
+            
+            /// <summary>
+            /// DynamicComment2 ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef DynamicComment2 {
+                get {
+                    if (Object.ReferenceEquals(_dynamicComment2, null)) {
+                        _dynamicComment2 = new StringAPColumnDef(this, "DynamicComment2", false, 10000);
+                        _dynamicComment2.Display = "总评";
+                    }
+                    return _dynamicComment2;
+                }
+            }
+            
+            /// <summary>
+            /// DynamicComment3 ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef DynamicComment3 {
+                get {
+                    if (Object.ReferenceEquals(_dynamicComment3, null)) {
+                        _dynamicComment3 = new StringAPColumnDef(this, "DynamicComment3", false, 10000);
+                        _dynamicComment3.Display = "总评";
+                    }
+                    return _dynamicComment3;
+                }
+            }
+            
+            /// <summary>
             /// GroupId ColumnDef
             /// </summary>
             public virtual Int64APColumnDef GroupId {
@@ -14086,6 +14131,9 @@ namespace Business {
                 data.DynamicScore2 = DynamicScore2.GetValue<double>(reader, throwIfValidColumnName);
                 data.DynamicScore3 = DynamicScore3.GetValue<double>(reader, throwIfValidColumnName);
                 data.Comment = Comment.GetValue<string>(reader, throwIfValidColumnName);
+                data.DynamicComment1 = DynamicComment1.GetValue<string>(reader, throwIfValidColumnName);
+                data.DynamicComment2 = DynamicComment2.GetValue<string>(reader, throwIfValidColumnName);
+                data.DynamicComment3 = DynamicComment3.GetValue<string>(reader, throwIfValidColumnName);
                 data.GroupId = GroupId.GetValue<long>(reader, throwIfValidColumnName);
                 data.Accesser = Accesser.GetValue<long>(reader, throwIfValidColumnName);
                 data.AccessDate = AccessDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
@@ -22284,7 +22332,7 @@ namespace Business {
                 if ((data.ResultId == 0)) {
                     data.ResultId = ((long)(GetNewId(APDBDef.EvalQualityResult.ResultId)));
                 }
-                var query = APQuery.insert(APDBDef.EvalQualityResult).values(APDBDef.EvalQualityResult.ResultId.SetValue(data.ResultId), APDBDef.EvalQualityResult.PeriodId.SetValue(data.PeriodId), APDBDef.EvalQualityResult.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.EvalQualityResult.TeacherId.SetValue(data.TeacherId), APDBDef.EvalQualityResult.FullScore.SetValue(data.FullScore), APDBDef.EvalQualityResult.Score.SetValue(data.Score), APDBDef.EvalQualityResult.Characteristic.SetValue(data.Characteristic), APDBDef.EvalQualityResult.DynamicScore1.SetValue(data.DynamicScore1), APDBDef.EvalQualityResult.DynamicScore2.SetValue(data.DynamicScore2), APDBDef.EvalQualityResult.DynamicScore3.SetValue(data.DynamicScore3), APDBDef.EvalQualityResult.Comment.SetValue(data.Comment), APDBDef.EvalQualityResult.GroupId.SetValue(data.GroupId), APDBDef.EvalQualityResult.Accesser.SetValue(data.Accesser), APDBDef.EvalQualityResult.AccessDate.SetValue(data.AccessDate));
+                var query = APQuery.insert(APDBDef.EvalQualityResult).values(APDBDef.EvalQualityResult.ResultId.SetValue(data.ResultId), APDBDef.EvalQualityResult.PeriodId.SetValue(data.PeriodId), APDBDef.EvalQualityResult.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.EvalQualityResult.TeacherId.SetValue(data.TeacherId), APDBDef.EvalQualityResult.FullScore.SetValue(data.FullScore), APDBDef.EvalQualityResult.Score.SetValue(data.Score), APDBDef.EvalQualityResult.Characteristic.SetValue(data.Characteristic), APDBDef.EvalQualityResult.DynamicScore1.SetValue(data.DynamicScore1), APDBDef.EvalQualityResult.DynamicScore2.SetValue(data.DynamicScore2), APDBDef.EvalQualityResult.DynamicScore3.SetValue(data.DynamicScore3), APDBDef.EvalQualityResult.Comment.SetValue(data.Comment), APDBDef.EvalQualityResult.DynamicComment1.SetValue(data.DynamicComment1), APDBDef.EvalQualityResult.DynamicComment2.SetValue(data.DynamicComment2), APDBDef.EvalQualityResult.DynamicComment3.SetValue(data.DynamicComment3), APDBDef.EvalQualityResult.GroupId.SetValue(data.GroupId), APDBDef.EvalQualityResult.Accesser.SetValue(data.Accesser), APDBDef.EvalQualityResult.AccessDate.SetValue(data.AccessDate));
                 ExecuteNonQuery(query);
             }
             
@@ -22292,7 +22340,7 @@ namespace Business {
             /// 更新数据。
             /// </summary>
             public virtual void Update(EvalQualityResult data) {
-                var query = APQuery.update(APDBDef.EvalQualityResult).values(APDBDef.EvalQualityResult.PeriodId.SetValue(data.PeriodId), APDBDef.EvalQualityResult.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.EvalQualityResult.TeacherId.SetValue(data.TeacherId), APDBDef.EvalQualityResult.FullScore.SetValue(data.FullScore), APDBDef.EvalQualityResult.Score.SetValue(data.Score), APDBDef.EvalQualityResult.Characteristic.SetValue(data.Characteristic), APDBDef.EvalQualityResult.DynamicScore1.SetValue(data.DynamicScore1), APDBDef.EvalQualityResult.DynamicScore2.SetValue(data.DynamicScore2), APDBDef.EvalQualityResult.DynamicScore3.SetValue(data.DynamicScore3), APDBDef.EvalQualityResult.Comment.SetValue(data.Comment), APDBDef.EvalQualityResult.GroupId.SetValue(data.GroupId), APDBDef.EvalQualityResult.Accesser.SetValue(data.Accesser), APDBDef.EvalQualityResult.AccessDate.SetValue(data.AccessDate)).where((APDBDef.EvalQualityResult.ResultId == data.ResultId));
+                var query = APQuery.update(APDBDef.EvalQualityResult).values(APDBDef.EvalQualityResult.PeriodId.SetValue(data.PeriodId), APDBDef.EvalQualityResult.DeclareTargetPKID.SetValue(data.DeclareTargetPKID), APDBDef.EvalQualityResult.TeacherId.SetValue(data.TeacherId), APDBDef.EvalQualityResult.FullScore.SetValue(data.FullScore), APDBDef.EvalQualityResult.Score.SetValue(data.Score), APDBDef.EvalQualityResult.Characteristic.SetValue(data.Characteristic), APDBDef.EvalQualityResult.DynamicScore1.SetValue(data.DynamicScore1), APDBDef.EvalQualityResult.DynamicScore2.SetValue(data.DynamicScore2), APDBDef.EvalQualityResult.DynamicScore3.SetValue(data.DynamicScore3), APDBDef.EvalQualityResult.Comment.SetValue(data.Comment), APDBDef.EvalQualityResult.DynamicComment1.SetValue(data.DynamicComment1), APDBDef.EvalQualityResult.DynamicComment2.SetValue(data.DynamicComment2), APDBDef.EvalQualityResult.DynamicComment3.SetValue(data.DynamicComment3), APDBDef.EvalQualityResult.GroupId.SetValue(data.GroupId), APDBDef.EvalQualityResult.Accesser.SetValue(data.Accesser), APDBDef.EvalQualityResult.AccessDate.SetValue(data.AccessDate)).where((APDBDef.EvalQualityResult.ResultId == data.ResultId));
                 ExecuteNonQuery(query);
             }
             
@@ -55837,6 +55885,21 @@ namespace Business {
         private string _comment = string.Empty;
         
         /// <summary>
+        /// 备用评语1
+        /// </summary>
+        private string _dynamicComment1 = string.Empty;
+        
+        /// <summary>
+        /// 备用评语2
+        /// </summary>
+        private string _dynamicComment2 = string.Empty;
+        
+        /// <summary>
+        /// 备用评语3
+        /// </summary>
+        private string _dynamicComment3 = string.Empty;
+        
+        /// <summary>
         /// 关联专家组
         /// </summary>
         private long _groupId;
@@ -55860,7 +55923,24 @@ namespace Business {
         /// <summary>
         /// 初始化所有字段的构造函数。
         /// </summary>
-        public EvalQualityResultBase(long resultId, long periodId, long declareTargetPKID, long teacherId, double fullScore, double score, double characteristic, double dynamicScore1, double dynamicScore2, double dynamicScore3, string comment, long groupId, long accesser, System.DateTime accessDate) {
+        public EvalQualityResultBase(
+                    long resultId, 
+                    long periodId, 
+                    long declareTargetPKID, 
+                    long teacherId, 
+                    double fullScore, 
+                    double score, 
+                    double characteristic, 
+                    double dynamicScore1, 
+                    double dynamicScore2, 
+                    double dynamicScore3, 
+                    string comment, 
+                    string dynamicComment1, 
+                    string dynamicComment2, 
+                    string dynamicComment3, 
+                    long groupId, 
+                    long accesser, 
+                    System.DateTime accessDate) {
             _resultId = resultId;
             _periodId = periodId;
             _declareTargetPKID = declareTargetPKID;
@@ -55872,6 +55952,9 @@ namespace Business {
             _dynamicScore2 = dynamicScore2;
             _dynamicScore3 = dynamicScore3;
             _comment = comment;
+            _dynamicComment1 = dynamicComment1;
+            _dynamicComment2 = dynamicComment2;
+            _dynamicComment3 = dynamicComment3;
             _groupId = groupId;
             _accesser = accesser;
             _accessDate = accessDate;
@@ -56121,6 +56204,75 @@ namespace Business {
         }
         
         /// <summary>
+        /// 备用评语1
+        /// </summary>
+        [Display(Name="总评")]
+        [StringLength(10000)]
+        public virtual string DynamicComment1 {
+            get {
+                return _dynamicComment1;
+            }
+            set {
+                _dynamicComment1 = value;
+            }
+        }
+        
+        /// <summary>
+        /// 备用评语1 APColumnDef
+        /// </summary>
+        public static StringAPColumnDef DynamicComment1Def {
+            get {
+                return APDBDef.EvalQualityResult.DynamicComment1;
+            }
+        }
+        
+        /// <summary>
+        /// 备用评语2
+        /// </summary>
+        [Display(Name="总评")]
+        [StringLength(10000)]
+        public virtual string DynamicComment2 {
+            get {
+                return _dynamicComment2;
+            }
+            set {
+                _dynamicComment2 = value;
+            }
+        }
+        
+        /// <summary>
+        /// 备用评语2 APColumnDef
+        /// </summary>
+        public static StringAPColumnDef DynamicComment2Def {
+            get {
+                return APDBDef.EvalQualityResult.DynamicComment2;
+            }
+        }
+        
+        /// <summary>
+        /// 备用评语3
+        /// </summary>
+        [Display(Name="总评")]
+        [StringLength(10000)]
+        public virtual string DynamicComment3 {
+            get {
+                return _dynamicComment3;
+            }
+            set {
+                _dynamicComment3 = value;
+            }
+        }
+        
+        /// <summary>
+        /// 备用评语3 APColumnDef
+        /// </summary>
+        public static StringAPColumnDef DynamicComment3Def {
+            get {
+                return APDBDef.EvalQualityResult.DynamicComment3;
+            }
+        }
+        
+        /// <summary>
         /// 关联专家组
         /// </summary>
         [Display(Name="专家组")]
@@ -56219,6 +56371,9 @@ namespace Business {
             DynamicScore2 = data.DynamicScore2;
             DynamicScore3 = data.DynamicScore3;
             Comment = data.Comment;
+            DynamicComment1 = data.DynamicComment1;
+            DynamicComment2 = data.DynamicComment2;
+            DynamicComment3 = data.DynamicComment3;
             GroupId = data.GroupId;
             Accesser = data.Accesser;
             AccessDate = data.AccessDate;
@@ -56259,6 +56414,15 @@ namespace Business {
                 return false;
             }
             if ((Comment != data.Comment)) {
+                return false;
+            }
+            if ((DynamicComment1 != data.DynamicComment1)) {
+                return false;
+            }
+            if ((DynamicComment2 != data.DynamicComment2)) {
+                return false;
+            }
+            if ((DynamicComment3 != data.DynamicComment3)) {
                 return false;
             }
             if ((GroupId != data.GroupId)) {
@@ -56366,8 +56530,25 @@ namespace Business {
         /// <summary>
         /// 初始化所有字段的构造函数。
         /// </summary>
-        public EvalQualityResult(long resultId, long periodId, long declareTargetPKID, long teacherId, double fullScore, double score, double characteristic, double dynamicScore1, double dynamicScore2, double dynamicScore3, string comment, long groupId, long accesser, System.DateTime accessDate) : 
-                base(resultId, periodId, declareTargetPKID, teacherId, fullScore, score, characteristic, dynamicScore1, dynamicScore2, dynamicScore3, comment, groupId, accesser, accessDate) {
+        public EvalQualityResult(
+                    long resultId, 
+                    long periodId, 
+                    long declareTargetPKID, 
+                    long teacherId, 
+                    double fullScore, 
+                    double score, 
+                    double characteristic, 
+                    double dynamicScore1, 
+                    double dynamicScore2, 
+                    double dynamicScore3, 
+                    string comment, 
+                    string dynamicComment1, 
+                    string dynamicComment2, 
+                    string dynamicComment3, 
+                    long groupId, 
+                    long accesser, 
+                    System.DateTime accessDate) : 
+                base(resultId, periodId, declareTargetPKID, teacherId, fullScore, score, characteristic, dynamicScore1, dynamicScore2, dynamicScore3, comment, dynamicComment1, dynamicComment2, dynamicComment3, groupId, accesser, accessDate) {
         }
     }
     

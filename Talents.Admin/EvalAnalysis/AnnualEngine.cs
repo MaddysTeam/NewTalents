@@ -20,8 +20,9 @@ namespace TheSite.EvalAnalysis
 		public override string DevelopKey
 		   => "Annual_Ver_1.0";
 
-		public override double FullScore
-			=> 105;
+		// between 2016 and 2018
+		//public override double FullScore
+		//	=> 105;
 
 
 		public override SchoolEvalUnitBase SchoolEval { get; }
@@ -45,11 +46,15 @@ namespace TheSite.EvalAnalysis
 		public override IReadOnlyDictionary<long, QualityEvalUnitBase> QualityEvals { get; }
 		= new List<QualityEvalUnitBase>
 		{
+			// between 2016 and 2018
 			new QualityEvalUnit5002 { ViewPath = ViewPath },
 			new QualityEvalUnit5003 { ViewPath = ViewPath },
 			new QualityEvalUnit5004 { ViewPath = ViewPath },
 			new QualityEvalUnit5005 { ViewPath = ViewPath },
 			new QualityEvalUnit5006 { ViewPath = ViewPath },
+
+			// for 2019 eval only 
+			new QualityEvalUnit2019 {ViewPath = ViewPath }
 		}.ToDictionary(m => m.TargetId);
 
 		public override TeamEvalUnitBase TeamEvals { get; }

@@ -176,7 +176,7 @@
 					<add name="Phonemobile" type="string" dataLength="20" isNullable="true"   display="手机号码"/>
 					<add name="Email" type="string" dataLength="255" isNullable="true"   display="电子邮箱" comment="用于联系的电子邮箱"/>
 					<add name="Phone" type="string" dataLength="20" isNullable="true"   display="办公室电话"/>
-					
+
 					<!-- Dynamic Information 备用字段 -->
 					<add name="Dynamic1" type="string" dataLength="255" isNullable="true"   display="2016学年" comment="2016学年考核情况"/>
 					<add name="Dynamic2" type="string" dataLength="255" isNullable="true"   display="2017学年" comment="2017学年考核情况"/>
@@ -186,7 +186,7 @@
 					<!--<add name="Dynamic6" type="string" dataLength="2000" isNullable="true"   comment="目前在区级及以上专业委员会任职情况"/>-->
 					<!--Modify Period-->
 					<add name="PeriodId" type="long" isNullable="true"  display="修改周期ID"/>
-				
+
 				</columns>
 			</table>
 
@@ -215,7 +215,7 @@
 
 
 			<!-- 用户基本信息修改.周期-->
-			
+
 			<table name="ProfileModifyPeriod" comment="用户信息修改周期表">
 				<columns>
 
@@ -224,13 +224,13 @@
 					<add name="BeginDate" type="DateTime" display="开始时间（修改区间）"/>
 					<add name="EndDate" type="DateTime" display="结束时间（修改区间）"/>
 					<add name="IsCurrent" type="bool" display="是否当前修改期"/>
-				
+
 				</columns>
 			</table>
 
 			<table name="BzUserProfileHistory" comment="用户简档历史表">
 				<columns>
-					
+
 					<add name="Id" type="long" primaryKey="true"  identityType="Database" display="ID" />
 					<add name="UserId" type="long" display="用户ID" />
 					<add name="CompanyId" type="long" display="单位ID" />
@@ -299,7 +299,7 @@
 
 
 			<!-- 单位体系 -->
-			
+
 			<table name="Company" comment="单位">
 				<columns>
 
@@ -329,29 +329,29 @@
 
 
 			<!-- 权限体系 -->
-			
+
 			<table name="BzPermission" comment="权限">
-			  <columns>
-          
-				 <add name="PermissionId" type="long" propertyName="Id" identityType="Provider" primaryKey="true" display="权限ID" />
-				 <add name="Name" type="string" dataLength="255" required="true" display="权限名称" />
-				 <add name="Status" type="int" defaultValue="0" display="权限状态"/>
-        
-			  </columns>
+				<columns>
+
+					<add name="PermissionId" type="long" propertyName="Id" identityType="Provider" primaryKey="true" display="权限ID" />
+					<add name="Name" type="string" dataLength="255" required="true" display="权限名称" />
+					<add name="Status" type="int" defaultValue="0" display="权限状态"/>
+
+				</columns>
 			</table>
 
 			<table name="BzRolePermission" comment="角色权限">
-			  <columns>
+				<columns>
 
-				 <add name="RolePermissionId" type="long" identityType="Provider" primaryKey="true" display="ID" />
-				 <add name="RoleId" type="long" display="角色ID"/>
-				 <add name="PermissionId" type="long" display="权限ID"/>
-				 <add name="IsGrant" type="bool" defaultValue="true" display="是否授权"/>
-          
-			  </columns>
+					<add name="RolePermissionId" type="long" identityType="Provider" primaryKey="true" display="ID" />
+					<add name="RoleId" type="long" display="角色ID"/>
+					<add name="PermissionId" type="long" display="权限ID"/>
+					<add name="IsGrant" type="bool" defaultValue="true" display="是否授权"/>
+
+				</columns>
 			</table>
 
-			
+
 			<!-- 申报.基本情况 -->
 
 			<table name="DeclareBase" comment="申报">
@@ -371,10 +371,10 @@
 					<add name="TeamName" type="string" dataLength="100" display="梯队名称" comment="工作室之类的名称"/>
 					<add name="MemberCount" type="int" display="学员数量" comment="冗余字段"/>
 					<add name="ActiveCount" type="int" display="活动数量" comment="冗余字段"/>
-					
+
 					<!--Modify Period-->
 					<add name="PeriodId" type="long" isNullable="true"  display="修改周期ID"/>
-					
+
 				</columns>
 			</table>
 
@@ -408,7 +408,7 @@
 					<add name="ContentValue" type="string" dataLength="30000" display="内容" />
 					<add name="ContentDataType" type="string" dataLength="100" display="内容数据类型" comment="内容的数据类型，String，DateTime等"/>
 					<add name="IsDeclare" type="bool" display="是否申报"/>
-					
+
 					<!-- Record Information -->
 					<add name="CreateDate" type="DateTime" display="创建时间"/>
 					<add name="Creator" type="long" display="创建人"/>
@@ -474,7 +474,7 @@
 					<add name="Creator" type="long" display="创建人"/>
 					<add name="ModifyDate" type="DateTime?" isNullable="true" display="修改时间"/>
 					<add name="Modifier" type="long"  display="修改人"/>
-					
+
 				</columns>
 			</table>
 
@@ -543,7 +543,7 @@
 
 			<table name="DeclareProfile" comment="申报材料，基本信息">
 				<columns>
-					
+
 					<add name="DeclareProfileId" type="long" primaryKey="true" identityType="Provider" />
 					<add name="UserId" type="long" display="用户ID" primaryKey="true" />
 					<add name="PeriodId" type="long" display="申报周期ID"/>
@@ -606,7 +606,7 @@
 
 			<table name="EvalDeclareResult" comment="申报-考核-结果">
 				<columns>
-					
+
 					<add name="ResultId" type="long" primaryKey="true" identityType="Provider" display="评价结果ID"/>
 					<add name="PeriodId" type="long" display="申报周期ID"/>
 					<add name="DeclareCompanyId" type="long" display="申报单位" />
@@ -624,7 +624,7 @@
 
 				</columns>
 			</table>
-				
+
 			<table name="EvalDeclareResultItem" comment="申报-考核-结果项">
 				<columns>
 
@@ -637,10 +637,10 @@
 					<add name="ResultValue" type="string" dataLength="100" display="输入值"/>
 
 				</columns>
-			</table>	
+			</table>
 
 			<!-- 团队.基本情况 -->
-			
+
 			<table name="TeamMember" comment="梯队-学员">
 				<columns>
 
@@ -669,8 +669,8 @@
 					<add name="Creator" type="long" display="创建人"/>
 					<add name="ModifyDate" type="DateTime?" isNullable="true" display="修改时间"/>
 					<add name="Modifier" type="long" display="修改人"/>
-					
-					
+
+
 				</columns>
 			</table>
 
@@ -680,7 +680,7 @@
 					<add name="TeamPojectId" type="long" primaryKey="true" identityType="Provider" display="项目ID"/>
 					<add name="TeamId" type="long" display="梯队ID"/>
 					<add name="TeacherId" type="long" display="上传老师ID"/>
-					
+
 					<!-- General Information -->
 					<add name="ProjectName" type="string" dataLength="300" display="项目名称" />
 					<add name="ContentKey" type="string" dataLength="200" display="内容类别" comment="用点分符做完字符串分割"/>
@@ -688,7 +688,7 @@
 					<add name="DeclareCompany" type="string" dataLength="200" display="申报人所在单位" />
 					<add name="FillDate" type="DateTime" dataLength="100" display="填报时间" />
 					<add name="Dynamic1" type="string" dataLength="2000" display="动态内容1"/>
-					
+
 					<!-- Record Information -->
 					<add name="CreateDate" type="DateTime" display="创建时间"/>
 					<add name="Creator" type="long" display="创建人"/>
@@ -714,7 +714,7 @@
 					<add name="IsShow" type="bool" display="是否显示"/>
 					<add name="IsShare" type="bool" display="是否共享"/>
 					<add name="IsDeclare" type="bool" display="是否申报"/>
-					
+
 					<!-- Record Information -->
 					<add name="CreateDate" type="DateTime" display="创建时间"/>
 					<add name="Creator" type="long" display="创建人"/>
@@ -725,7 +725,7 @@
 
 			<table name="TeamActiveResult" comment="梯队-活动成果">
 				<columns>
-					
+
 					<add name="ResultId" type="long" identityType="Provider" primaryKey="true" display="成果ID" />
 					<add name="ActiveId" type="long" display="活动ID" />
 					<add name="MemberId" type="long" display="学员ID" />
@@ -777,7 +777,7 @@
 					<add name="MemberCount" type="int" display="团队学员数"/>
 					<add name="MemberRecord" type="string" dataLength="100" display="非团队成员参加对象（若有至少需写出1—5人姓名/单位）"/>
 					<add name="IsDeclare" type="bool" display="是否申报"/>
-					
+
 					<!-- Record Information -->
 					<add name="CreateDate" type="DateTime" display="创建时间"/>
 					<add name="Creator" type="long" display="创建人"/>
@@ -820,10 +820,10 @@
 					<!-- General Information -->
 					<add name="FullScore" type="double" display="总分"/>
 					<add name="Score" type="double" display="得分"/>
-					
+
 					<add name="Accesser" type="long" display="考评人" comment="关联考评人"/>
 					<add name="AccessDate" type="DateTime" display="考评时间"/>
-					
+
 				</columns>
 			</table>
 
@@ -899,7 +899,7 @@
 				<columns>
 
 					<add name="PeriodId" type="long" primaryKey="true" identityType="Provider" display="周期ID"/>
-				
+
 					<!-- General Information -->
 					<add name="Name" type="string" dataLength="100" display="周期名称"/>
 					<add name="BeginDate" type="DateTime" display="开始时间（考核区间）"/>
@@ -917,7 +917,7 @@
 				</columns>
 			</table>
 
-			
+
 			<!-- 评价.校评 -->
 
 			<table name="EvalSchoolResult" comment="评价-校评-结果">
@@ -988,8 +988,8 @@
 
 				</columns>
 			</table>
-			
-		
+
+
 			<!-- 评价.质评 -->
 
 			<table name="EvalQualitySubmitResult" comment="评价-质评-提交结果">
@@ -1025,15 +1025,18 @@
 					<!-- General Information -->
 					<add name="FullScore" type="double" display="总分"/>
 					<add name="Score" type="double" display="得分"/>
-				   <add name="Characteristic" type="double" display="特色分"/>
-				   <add name="DynamicScore1" type="double" display="备用分1"/>
-				   <add name="DynamicScore2" type="double" display="备用分2"/>
-				   <add name="DynamicScore3" type="double" display="备用分3"/>
+					<add name="Characteristic" type="double" display="特色分"/>
+					<add name="DynamicScore1" type="double" display="备用分1"/>
+					<add name="DynamicScore2" type="double" display="备用分2"/>
+					<add name="DynamicScore3" type="double" display="备用分3"/>
 					<add name="Comment" type="string" dataLength="10000" display="总评" comment="每位专家的评语"/>
+					<add name="DynamicComment1" type="string" dataLength="10000" display="总评" comment="备用评语1"/>
+					<add name="DynamicComment2" type="string" dataLength="10000" display="总评" comment="备用评语2"/>
+					<add name="DynamicComment3" type="string" dataLength="10000" display="总评" comment="备用评语3"/>
 					<add name="GroupId" type="long" display="专家组" comment="关联专家组"/>
 					<add name="Accesser" type="long" display="考评人" comment="关联考评人"/>
 					<add name="AccessDate" type="DateTime" display="考评时间"/>
-         
+
 				</columns>
 			</table>
 
@@ -1049,11 +1052,11 @@
 					<add name="ResultValue" type="string" dataLength="100" display="输入值"/>
 
 				</columns>
-			</table>		
+			</table>
 
 
 			<!-- 新闻 -->
-			
+
 			<table name="News" comment="新闻">
 				<columns>
 
@@ -1099,7 +1102,7 @@
 					<add name="AttachmentName" type="string" dataLength="100" display="附件名称"/>
 					<add name="UploadDate" type="DateTime" display="上传时间"/>
 					<add name="PreviewUrl" type="string" dataLength="255" display="附件预览路径" isNullable="true"/>
-					
+
 				</columns>
 			</table>
 
@@ -1112,7 +1115,7 @@
 					<add name="Title" type="string" dataLength="100" required="true" display="通知标题"/>
 					<add name="Content" type="string" dataLength="20000" required="true" display="通知内容"/>
 					<add name="IsSend" type="bool" display="是否推送"/>
-					
+
 					<!-- Ink -->
 					<add name="Creator" type="long" display="创建者ID" comment="创建人" />
 					<add name="CreatedTime" type="DateTime" display="创建时间"/>
@@ -1122,16 +1125,16 @@
 
 			<table name="ReadNotice" comment="阅读通知">
 				<columns>
-					
+
 					<add name="NoticeId" type="long" primaryKey="true" display="通知ID" />
 					<add name="UserId" type="long" primaryKey="true" display="用户ID"/>
-					
+
 					<!-- Ink -->
 					<add name="ReadTime" type="DateTime" display="阅读时间"/>
 
 				</columns>
 			</table>
-			
+
 			<!-- 共享 -->
 
 			<table name="Share" comment="共享">
@@ -1148,11 +1151,11 @@
 
 				</columns>
 			</table>
-			
+
 			<!-- 填报统计复杂视图 2019-11-9 -->
 			<table name="FillInRecordView" comment="填报统计视图">
 				<columns>
-					
+
 					<add name="TypeKey" type="string" dataLength="200" />
 					<add name="Data1" type="long" />
 					<add name="Data2" type="long" />
@@ -1162,10 +1165,10 @@
 					<add name="Data6" type="long" />
 					<add name="Data7" type="long" />
 					<add name="Data8" type="long" />
-			
+
 				</columns>
 			</table>
-		
+
 		</tables>
 
 	</businessModel>

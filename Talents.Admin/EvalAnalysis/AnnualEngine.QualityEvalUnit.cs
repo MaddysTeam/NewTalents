@@ -19,13 +19,21 @@ namespace TheSite.EvalAnalysis
 			static APDBDef.EvalQualityResultItemTableDef eri = APDBDef.EvalQualityResultItem;
 			static APDBDef.ExpGroupTableDef g = APDBDef.ExpGroup;
 
+			// for 2016
+			//public override double FullScroe
+			//	=> 100;
 
+
+			//public override double Proportion
+			// => 0.5;
+
+			// for 2019  由于时间关系，2019年有三张考核表，但从逻辑上还是认为一张表，总分300分，然后通过逻辑拆分
 			public override double FullScroe
-				=> 100;
+				=> 300;
 
 
 			public override double Proportion
-			 => 0.5;
+			 => 1;
 
 			public static double ProportionValue => 0.5;
 
@@ -121,16 +129,19 @@ namespace TheSite.EvalAnalysis
 				var eval = db.EvalQualityResultDal.ConditionQuery(er.PeriodId == param.PeriodId & er.TeacherId == param.TeacherId
 				& er.Accesser == param.AccesserId, null, null, null).FirstOrDefault();
 
-            var result = new EvalQualityResult()
-            {
-               PeriodId = param.PeriodId,
-               TeacherId = param.TeacherId,
-               GroupId = param.GroupId,
-               Accesser = param.AccesserId,
-               AccessDate = DateTime.Now,
-               DeclareTargetPKID = param.TargetId,
-               FullScore = FullScroe,
-               Comment = fc["Comment"]
+				var result = new EvalQualityResult()
+				{
+					PeriodId = param.PeriodId,
+					TeacherId = param.TeacherId,
+					GroupId = param.GroupId,
+					Accesser = param.AccesserId,
+					AccessDate = DateTime.Now,
+					DeclareTargetPKID = param.TargetId,
+					FullScore = FullScroe,
+					DynamicComment1 = fc["DynamicComment1"],
+					DynamicComment2 = fc["DynamicComment2"],
+					DynamicComment3 = fc["DynamicComment3"],
+					Comment = fc["Comment"]
 				};
 				var items = new Dictionary<string, EvalQualityResultItem>();
 
@@ -200,7 +211,7 @@ namespace TheSite.EvalAnalysis
 
 
 			protected virtual IEnumerable<EvalQualityResultItem> Choose(int takeCount, params EvalQualityResultItem[] items)
-			  => items.OrderByDescending(item => Convert.ToDouble(item.ResultValue.Replace("分",string.Empty))).Take(takeCount);
+			  => items.OrderByDescending(item => Convert.ToDouble(item.ResultValue.Replace("分", string.Empty))).Take(takeCount);
 
 
 			protected abstract void AnalysisResult(FormCollection fc, EvalQualityResult result, Dictionary<string, EvalQualityResultItem> items);

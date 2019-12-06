@@ -1,0 +1,138 @@
+﻿@{
+	var pageTitle = ViewBag.Title = "教师填报统计";
+}
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
+				<li class="active">@pageTitle</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-newspaper-o fa-fw"></i> @pageTitle</h2>
+			<em></em>
+		</div>
+
+		<div class="main-content">
+
+			<!-- widget -->
+			<div class="widget">
+				<div class="widget-header">
+					<h3><i class="fa fa-paperclip"></i> @pageTitle (点击列名可排序)</h3>
+					<div class="btn-group widget-header-toolbar">
+						<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+						<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+					</div>
+				</div>
+				<div class="widget-content">
+
+					<div class="row">
+
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label class="col-md-3 control-label">申报称号</label>
+								<div class="col-md-4">
+									@Html.DropDownList("Target", DeclareBaseHelper.DeclareTarget.GetSelectList(noneLabel: SelectNames.All), new { @class = "multiselect form-control" })
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label class="col-md-3 control-label">申报单位</label>
+								<div class="col-md-4">
+									@Html.DropDownList("Company", CompanyHelper.GetCompanySelectList(), new { @class = "multiselect form-control" })
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<!-- Grid -->
+					<div class="table-responsive">
+						<table id="bootgrid" class="table table-striped table-hover table-dark-header">
+							<thead>
+								<tr>
+									<th data-column-id="Name">教师</th>
+									<th data-column-id="Declare">称号</th>
+									<th data-column-id="Tes">亮点特色</th>
+									<th data-column-id="DaijJiaos">自身发展.带教教师</th>
+									<th data-column-id="KecKaif">自身发展.课程开发</th>
+									<th data-column-id="Gongkke">自身发展.课堂教学.公开课</th>
+									<th data-column-id="ZhidKe">自身发展.课堂教学.指导课</th>
+									<th data-column-id="DahDong">自身发展.市、区级大活动</th>
+									<th data-column-id="Jiangz">自身发展.专题讲座</th>
+									<th data-column-id="Yanx">自身发展.自我研修</th>
+									<th data-column-id="Lunw">自身发展.论文发表</th>
+									<th data-column-id="XiangmYanj">自身发展.项目研究</th>
+									<th data-column-id="TuandGerJihDiyNian">个人计划.第一年</th>
+									<th data-column-id="TuandGerJihDierNian">个人计划.第二年</th>
+									<th data-column-id="TuandGerJihDisNian">个人计划.第三年</th>
+									<th data-column-id="TuandXueqJihDiyXueq">团队学期计划.第一学期</th>
+									<th data-column-id="TuandXueqJihDierXueq">团队学期计划.第二学期</th>
+									<th data-column-id="TuandXueqJihDisXueq">团队学期计划.第三学期</th>
+									<th data-column-id="TuandXueqHuodJihDiyXueq">学期活动计划.第一学期</th>
+									<th data-column-id="TuandXueqHuodJihDierXueq">学期活动计划.第二学期</th>
+									<th data-column-id="TuandXueqHuodJihDisXueq">学期活动计划.第三学期</th>
+									<th data-column-id="TuandXiangm">团队项目</th>
+									<th data-column-id="TuandHuod">团队活动</th>
+									<th data-column-id="TuandZhidJians">团队制度建设（三年规划）</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					<!-- end Grid-->
+
+				</div>
+				<!-- /widget content -->
+			</div>
+			<!-- /widget -->
+
+		</div>
+		<!-- /main-content -->
+	</div>
+	<!-- /main -->
+</div>
+
+
+@section Scripts {
+	<script>
+
+		function getGlobalRequest() {
+			return {
+				declareTargetId: $('#Target').val(),
+				companyId: $('#Company').val()
+			}
+		}
+
+		function getGridOptions() {
+			return $.extend(true, {}, gridOptions, {
+
+				url: window.location.href,
+
+				requestHandler: function (request) { return $.extend(true, request, getGlobalRequest()); },
+
+				@*formatters: {
+					'link': function (column, row) {
+						return '<a  href="' + '@Url.Action("Details", "Notice")' + '/' + row['id'] + '" target="_blank">' + row['title'] + '</a>';
+					}
+				},*@
+
+			});
+		}
+
+		$(function () {
+
+			var grid = $('#bootgrid');
+			grid.bootgrid(getGridOptions());
+
+			$('.search-field').attr('placeholder','搜索姓名')
+		})
+
+	</script>
+}

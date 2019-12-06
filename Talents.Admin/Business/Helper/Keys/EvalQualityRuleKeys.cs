@@ -55,5 +55,38 @@
 		public const string DaijJiaos_JiaoyJiaoxPingb_Def = "带教教师.教育教学评比.得分";
 
 		public const string Tes_Def = "特色.得分";
+
+		// for 2019 special，
+
+		public const string SannGuih_ZhidSix = "三年计划.指导思想";
+		public const string SannGuih_XianzFenx = "三年计划.现状分析";
+		public const string SanGuih_FazMub = "三年计划.发展目标";
+		public const string SanGuih_JutShisCuos = "三年发展.具体实施";
+		public const string SanGuih_GuanlBaoz = "三年发展.管理保障";
+
+		public const string TuandJih_ZhidSix = "团队计划.指导思想";
+		public const string TuandJih_XueqMub = "团队计划.学期目标";
+		public const string TuandJih_JutAnp = "团队计划.具体安排";
+
+		public const string GerJiH_ZiwFengx = "个人计划.指导思想";
+		public const string GerJiH_FazMub = "个人计划.学期目标";
+		public const string GerJiH_JutShis = "个人计划s.具体实施";
+
+
+		public const string SannGuih_ZhidSix_Def = "三年计划.指导思想.得分";
+		public const string SannGuih_XianzFenx_Def = "三年计划.现状分析.得分";
+		public const string SanGuih_FazMub_Def = "三年计划.发展目标.得分";
+		public const string SanGuih_JutShisCuo_Def  = "三年发展.具体实施.得分";
+		public const string SanGuih_GuanlBaoz_Def = "三年发展.管理保障.得分";
+
+		public const string TuandJih_ZhidSix_Def = "团队计划.指导思想.得分";
+		public const string TuandJih_XueqMub_Def = "团队计划.学期目标.得分";
+		public const string TuandJih_JutAnp_Def = "团队计划.具体安排.得分";
+
+		public const string GerJiH_ZiwFengx_Def = "个人计划.指导思想.得分";
+		public const string GerJiH_FazMub_Def = "个人计划.学期目标.得分";
+		public const string GerJiH_JutShis_Def = "个人计划s.具体实施.得分";
+
+
 	}
 }

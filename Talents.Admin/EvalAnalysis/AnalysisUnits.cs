@@ -99,7 +99,7 @@ namespace TheSite.EvalAnalysis
 	public abstract class QualityEvalUnitBase : AnalysisUnit
 	{
 
-		public abstract long TargetId { get; }
+		public virtual long TargetId { get; }
 
 		public abstract string SubmitResultView { get; }
 
