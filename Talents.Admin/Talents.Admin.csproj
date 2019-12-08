@@ -759,6 +759,7 @@
     <Content Include="Views\TeamEval\NotEvalList.cshtml" />
     <Content Include="Views\EvalModel\Annual\TeamEvalView.cshtml" />
     <Content Include="Views\EvalModel\Annual\QualityEvalView2019.cshtml" />
+    <Content Include="Views\EvalModel\Annual\QualityResultView2019.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

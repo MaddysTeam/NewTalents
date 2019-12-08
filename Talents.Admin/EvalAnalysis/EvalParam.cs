@@ -1,4 +1,6 @@
-﻿namespace TheSite.EvalAnalysis
+﻿using System;
+
+namespace TheSite.EvalAnalysis
 {
 
 	public abstract class EvalParam
@@ -25,6 +27,7 @@
 	public class QualityEvalParam : EvalParam
 	{
 		public long GroupId { get; set; }
+		[Obsolete("this property will be discard in 2019")]
 		public long TargetId { get; set; }
 		public long ResultId { get; set; }
 

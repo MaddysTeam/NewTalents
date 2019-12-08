@@ -1,4 +1,5 @@
 ﻿using Business;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -10,6 +11,7 @@ namespace TheSite.Models
 
 		public long TeacherId { get; set; }
 		public string RealName { get; set; }
+		[Obsolete("this property will be discard in 2019")]
 		public long TargetId { get; set; }
 		public string Target { get; set; }
 		public string Subject { get; set; }

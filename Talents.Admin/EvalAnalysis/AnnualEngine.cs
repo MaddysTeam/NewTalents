@@ -14,16 +14,16 @@ namespace TheSite.EvalAnalysis
 
 
 		public override string AnalysisName
-		   => "年度评价量表 Ver 1.0";
+		   => "年度评价量表 Ver 2.0";
 
 
 		public override string DevelopKey
-		   => "Annual_Ver_1.0";
+		   => "Annual_Ver_2.0";
 
-		// between 2016 and 2018
-		//public override double FullScore
-		//	=> 105;
 
+		// only for 2019
+		public override double FullScore
+			=> 100;
 
 		public override SchoolEvalUnitBase SchoolEval { get; }
 		 = new SchoolEvalUnit
@@ -32,27 +32,9 @@ namespace TheSite.EvalAnalysis
 		 };
 
 
-		public override IReadOnlyDictionary<long, VolumnEvalUnitBase> VolumnEvals { get; }
-		   = new List<VolumnEvalUnitBase>
-		   {
-			new VolumnEvalUnit5002 { ViewPath = ViewPath },
-			new VolumnEvalUnit5003 { ViewPath = ViewPath },
-			new VolumnEvalUnit5004 { ViewPath = ViewPath },
-			new VolumnEvalUnit5005 { ViewPath = ViewPath },
-			new VolumnEvalUnit5006 { ViewPath = ViewPath }
-		   }.ToDictionary(m => m.TargetId);
-
-
 		public override IReadOnlyDictionary<long, QualityEvalUnitBase> QualityEvals { get; }
 		= new List<QualityEvalUnitBase>
 		{
-			// between 2016 and 2018
-			new QualityEvalUnit5002 { ViewPath = ViewPath },
-			new QualityEvalUnit5003 { ViewPath = ViewPath },
-			new QualityEvalUnit5004 { ViewPath = ViewPath },
-			new QualityEvalUnit5005 { ViewPath = ViewPath },
-			new QualityEvalUnit5006 { ViewPath = ViewPath },
-
 			// for 2019 eval only 
 			new QualityEvalUnit2019 {ViewPath = ViewPath }
 		}.ToDictionary(m => m.TargetId);

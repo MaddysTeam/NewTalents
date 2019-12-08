@@ -39,13 +39,8 @@ namespace TheSite.EvalAnalysis
 
 				score = string.IsNullOrEmpty(score) || string.IsNullOrWhiteSpace(score) ? string.Empty : score.Trim();
 				var scoreValue = Convert.ToDouble(score);
-				switch (choose)
-				{
-					case "1A":
-						result.Score += scoreValue.EnsureInRange(0, 10);
-						result.DynamicScore1 += scoreValue.EnsureInRange(0, 10);
-						break;
-				}
+				result.Score += scoreValue.EnsureInRange(0, 10);
+				result.DynamicScore1 += scoreValue.EnsureInRange(0, 10);
 
 				item.ResultValue = scoreValue.ToString();
 			}

@@ -48,11 +48,9 @@
                                     <th data-column-id="target">层级</th>
 									<th data-column-id="realName">姓名</th>
                                     <th data-column-id="score">总得分</th>
-                                    <th data-column-id="dynamicScore1">自身发展</th>
-                                    <th data-column-id="dynamicScore2">培训课程</th>
-                                    <th data-column-id="dynamicScore3">带教教师</th>
-                                    <th data-column-id="characteristic">特色</th>
-									<th data-column-id="submitStatus">状态</th>
+									<th data-column-id="dynamicScore1">三年规划</th>
+									<th data-column-id="dynamicScore2">团队计划</th>
+									<th data-column-id="dynamicScore3">主持人个人计划</th>
 									<th data-column-id="commands" data-formatter="commands" data-sortable="false" data-header-Css-Class="width180">操作</th>
 								</tr>
 							</thead>
@@ -87,11 +85,9 @@
 
 				formatters: {
 					'commands': function (column, row) {
-						var html = '<div class="btn-group btn-group-xs pull-right" data-row-id="' + row.id + '">' +
-							'<a target="_blank" class="btn btn-warning btn-view" href="@Url.Action("SubmitResultView", "QualityEval")?teacherId=' + row.id + '&periodId=' +@periodId +'&groupId='+@groupId+'"><i class="fa fa-external-link"></i>查看</a>';
-						if (row.submitStatus == '未提交') {
-							html += '<a class="btn btn-success btn-view" href="@Url.Action("Eval", "QualityEval")?teacherId=' + row.id + '&periodId=' + @periodId + '&targetId=' + row.targetId + '&groupId=' +@groupId +'">执行考评</a>';
-						}
+						var html = '<div class="btn-group btn-group-xs pull-right" data-row-id="' + row.id + '">';
+						html +=	'<a target="_blank" class="btn btn-warning btn-view" href="@Url.Action("ResultView", "QualityEval")?resultId='+row.resultId+'&teacherId=' + row.id + '&periodId=' +@periodId +'&groupId='+@groupId+'"><i class="fa fa-external-link"></i>查看</a>';
+						html += '<a class="btn btn-success btn-view" href="@Url.Action("Eval", "QualityEval")?teacherId=' + row.id + '&periodId=' + @periodId + '&targetId=' + row.targetId + '&groupId=' +@groupId +'">执行考评</a>';
 						html += '</div>';
 						return html;
 					},

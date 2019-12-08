@@ -1,4 +1,5 @@
 ﻿using Business;
+using System;
 using System.Collections.Generic;
 
 namespace TheSite.EvalAnalysis
@@ -16,7 +17,7 @@ namespace TheSite.EvalAnalysis
 		/// <summary>
 		/// 量表视图名称
 		/// </summary>
-		public abstract string RuleView { get; }
+		public virtual string RuleView { get; }
 
 
 		/// <summary>
@@ -99,9 +100,10 @@ namespace TheSite.EvalAnalysis
 	public abstract class QualityEvalUnitBase : AnalysisUnit
 	{
 
+		[Obsolete("This property will delete after 2019")]
 		public virtual long TargetId { get; }
 
-		public abstract string SubmitResultView { get; }
+		public virtual string SubmitResultView { get; }
 
 		public abstract EvalQualitySubmitResult GetSubmitResult(APDBDef db, QualityEvalParam param);
 		public abstract List<EvalQualityResult> GetResults(APDBDef db, QualityEvalParam param);
