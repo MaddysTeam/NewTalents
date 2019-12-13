@@ -19,9 +19,9 @@ namespace TheSite.EvalAnalysis
 			static APDBDef.EvalQualityResultItemTableDef eri = APDBDef.EvalQualityResultItem;
 			static APDBDef.ExpGroupTableDef g = APDBDef.ExpGroup;
 
-			// for 2019  由于时间紧迫，2019年有三张考核表，但从逻辑上还是认为一张表，总分300分，然后通过逻辑拆分
+			// for 2019  由于时间紧迫，2019年有三张考核表，每张表总分100分
 			public override double FullScroe
-				=> 300;
+				=> 100;
 
 
 			public override double Proportion
@@ -35,7 +35,7 @@ namespace TheSite.EvalAnalysis
 
 
 			public override string ResultView
-				=> ViewPath + "/QualityEvalView2019";
+				=> ViewPath + "/QualityResultView2019";
 
 
 			public override EvalQualitySubmitResult GetSubmitResult(APDBDef db, QualityEvalParam param)

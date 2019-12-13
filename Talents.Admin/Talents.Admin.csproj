@@ -294,6 +294,7 @@
     <Compile Include="Controllers\NoticeController.cs" />
     <Compile Include="Controllers\NoticeManageController.cs" />
     <Compile Include="Controllers\QualityEvalController.cs" />
+    <Compile Include="Controllers\TeamEvalManageController.cs" />
     <Compile Include="Controllers\QualityEvalManageController.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
     <Compile Include="Controllers\ShareManageController.cs" />
@@ -357,6 +358,7 @@
     <Compile Include="Models\LogModels.cs" />
     <Compile Include="Models\NoticeViewModel.cs" />
     <Compile Include="Models\DeclareEvalManageViewModels.cs" />
+    <Compile Include="Models\TeamEvalManageViewModels.cs" />
     <Compile Include="Models\ScoreModels.cs" />
     <Compile Include="Models\StatisticalViewModel.cs" />
     <Compile Include="Models\DeclareModel.cs" />
@@ -657,7 +659,7 @@
     <Content Include="Views\DeclarePop\ZisFaz_PeixJiangz_KecZiyKaif.cshtml" />
     <Content Include="Views\Home\Report.cshtml" />
     <Content Include="Views\Company\Edit.cshtml" />
-    <Content Include="Views\Home\EvalComments.cshtml" />
+    <Content Include="Views\Home\EvalResult.cshtml" />
     <Content Include="Views\Attachment\Preview.cshtml" />
     <Content Include="Views\DeclareMaterial\_declare_achievement_list.cshtml" />
     <Content Include="Views\DeclareMaterial\MaterialPreview5005.cshtml" />
@@ -760,6 +762,12 @@
     <Content Include="Views\EvalModel\Annual\TeamEvalView.cshtml" />
     <Content Include="Views\EvalModel\Annual\QualityEvalView2019.cshtml" />
     <Content Include="Views\EvalModel\Annual\QualityResultView2019.cshtml" />
+    <Content Include="Views\TeamEvalManage\_nav.cshtml" />
+    <Content Include="Views\TeamEvalManage\EvalMemberList.cshtml" />
+    <Content Include="Views\TeamEvalManage\List.cshtml" />
+    <Content Include="Views\TeamEvalManage\NotEvalMemberList.cshtml" />
+    <Content Include="Views\TeamEvalManage\Overview.cshtml" />
+    <Content Include="Views\EvalModel\Annual\TeamResultView.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

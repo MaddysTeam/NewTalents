@@ -89,6 +89,9 @@ namespace Business.Identity
 			profile.IsSchoolAdmin = manager.DB.CompanyAccesserDal.PrimaryGet(profile.CompanyId, profile.UserId) != null;
 
 
+			profile.IsTeamLeader = manager.DB.HasTeam(profile.UserId);
+
+
 			foreach (var prop in profile.GetType().GetProperties())
 			{
 				if (prop.CanWrite)

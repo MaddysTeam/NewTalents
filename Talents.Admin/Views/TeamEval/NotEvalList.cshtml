@@ -1,5 +1,5 @@
 ﻿@{
-	var pageTitle = ViewBag.Title = "当前校评管理";
+	var pageTitle = ViewBag.Title = "团队考评";
 	var periodId = Request["periodId"];
 }
 <div class="col-md-10 content-wrapper">
@@ -23,8 +23,8 @@
 
 			<!-- top action buttons -->
 			<div class="gallery-buttons bottom-30px">
-				<a class="btn btn-md btn-info" href="@Url.Action("CurrentList", "SchoolEval", new { periodId = periodId })"><span>已评学员</span></a>
-				<a class="btn btn-md btn-info" href="@Url.Action("NotEvalList", "SchoolEval", new { periodId = periodId })"><span>未评学员</span></a>
+				<a class="btn btn-md btn-info" href="@Url.Action("EvalList", "TeamEval", new { periodId = periodId })"><span>已评学员</span></a>
+				<a class="btn btn-md btn-info" href="@Url.Action("NotEvalList", "TeamEval", new { periodId = periodId })"><span>未评学员</span></a>
 			</div>
 			<!-- /top action buttons -->
 
@@ -48,7 +48,6 @@
 									<th data-column-id="target" data-order="desc">称号</th>
 									<th data-column-id="subject">学科</th>
 									<th data-column-id="stage">学段</th>
-									<th data-column-id="vscore" data-formatter="double">量考得分/分值</th>
 									<th data-column-id="commands" data-formatter="commands" data-sortable="false" data-header-Css-Class="width180">操作</th>
 								</tr>
 							</thead>
@@ -84,7 +83,7 @@
 				formatters: {
 					'commands': function (column, row) {
 						return '<div class="btn-group btn-group-xs pull-right" data-row-id="' + row.id + '">' +
-								 '<a class="btn btn-success btn-edit" href="@Url.Action("Eval")?periodId=' + @periodId + '&schoolId=' + row.companyId + '&teacherId=' + row.teacherId + '">执行考评</a>' +
+								 '<a class="btn btn-success btn-edit" href="@Url.Action("Eval")?periodId=' + @periodId + '&TeamId=' + row.teamId + '&schoolId=' + row.companyId + '&teacherId=' + row.teacherId + '">执行考评</a>' +
 								 '<a target="_blank" class="btn btn-info" href="@Url.Action("Overview","Declare")?id=' + row.teacherId + '">查看材料</a>' +
 								 '</div>';
 					},

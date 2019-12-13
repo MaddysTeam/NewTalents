@@ -820,7 +820,7 @@
 					<!-- General Information -->
 					<add name="FullScore" type="double" display="总分"/>
 					<add name="Score" type="double" display="得分"/>
-
+					<add name="Comment" type="string" dataLength="10000" display="总评" comment="每位团队主持人评语"/>
 					<add name="Accesser" type="long" display="考评人" comment="关联考评人"/>
 					<add name="AccessDate" type="DateTime" display="考评时间"/>
 

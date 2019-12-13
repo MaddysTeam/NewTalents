@@ -58,19 +58,22 @@
 
 		// for 2019 special，
 
+		public const string SannGuih = "三年规划";
 		public const string SannGuih_ZhidSix = "三年计划.指导思想";
 		public const string SannGuih_XianzFenx = "三年计划.现状分析";
 		public const string SanGuih_FazMub = "三年计划.发展目标";
 		public const string SanGuih_JutShisCuos = "三年发展.具体实施";
 		public const string SanGuih_GuanlBaoz = "三年发展.管理保障";
 
+		public const string TuandJih = "学期计划";
 		public const string TuandJih_ZhidSix = "团队计划.指导思想";
 		public const string TuandJih_XueqMub = "团队计划.学期目标";
 		public const string TuandJih_JutAnp = "团队计划.具体安排";
 
+		public const string GerJiHx = "个人计划";
 		public const string GerJiH_ZiwFengx = "个人计划.指导思想";
 		public const string GerJiH_FazMub = "个人计划.学期目标";
-		public const string GerJiH_JutShis = "个人计划s.具体实施";
+		public const string GerJiH_JutShis = "个人计划.具体实施";
 
 
 		public const string SannGuih_ZhidSix_Def = "三年计划.指导思想.得分";
@@ -85,7 +88,7 @@
 
 		public const string GerJiH_ZiwFengx_Def = "个人计划.指导思想.得分";
 		public const string GerJiH_FazMub_Def = "个人计划.学期目标.得分";
-		public const string GerJiH_JutShis_Def = "个人计划s.具体实施.得分";
+		public const string GerJiH_JutShis_Def = "个人计划.具体实施.得分";
 
 
 	}

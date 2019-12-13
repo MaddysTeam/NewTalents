@@ -1,0 +1,80 @@
+﻿@model List<TeamEvalOverviewModels>
+@{
+	var pageTitle = ViewBag.Title = "当期团队评审总览";
+	var periodId = Request["periodId"];
+}
+
+<div class="col-md-10 content-wrapper">
+	<div class="row">
+		<div class="col-lg-4 ">
+			<ul class="breadcrumb">
+				<li class="active"><i class="fa fa-home"></i><a href="@Url.Action("Index", "Home")">首页</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- main -->
+	<div class="content">
+		<div class="main-header">
+			<h2><i class="fa fa-home"></i> @pageTitle</h2>
+			<em></em>
+		</div>
+
+		<div class="main-content">
+
+			@Html.Partial("_nav")
+
+			<div class="row">
+				<div class="col-md-6">
+					<!-- widget -->
+					<div class="widget widget-scrolling">
+						<div class="widget-header">
+							<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
+							<div class="btn-group widget-header-toolbar">
+								<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+								<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+							</div>
+						</div>
+						<div class="widget-content">
+
+							<div class="table-responsive">
+								<table id="bootgrid" class="table">
+									<thead>
+										<tr>
+											<th>团队名称</th>
+											<th>成员总数量</th>
+											<th>已评成员数量</th>
+											<th>评审状态</th>
+										</tr>
+									</thead>
+									@foreach (var item in Model)
+									{
+										<tr>
+											<td>@item.TeamName</td>
+											<td>@item.TeamMemberCount</td>
+											<td>@item.TeamEvalTargetMemberCount</td>
+											<td>
+												@(item.EvalStatus == EvalStatus.Success ? Html.Raw("<span class='label label-success'>已评</span>")
+												  : item.EvalStatus == EvalStatus.Pending ? Html.Raw("<span class='label label-warning'>考评中</span>")
+												  : Html.Raw("<span class='label label-danger'>未评</span>")
+											)
+										</td>
+									</tr>
+									}
+								</table>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+				<!-- /widget content -->
+			</div>
+			<!-- /widget -->
+
+		</div>
+
+		<!-- /main-content -->
+	</div>
+	<!-- /main -->
+</div>

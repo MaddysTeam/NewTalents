@@ -7,22 +7,33 @@ using TheSite.Models;
 
 namespace Business
 {
-   public static class DeclareExtensions
-   {
+	public static class DeclareExtensions
+	{
 
-      public static string GetDeclareContent(List<DeclareContent> list, string key)
-         => list == null ? "" : list.Find(m => m.ContentKey == key) == null ? "" : list.Find(m => m.ContentKey == key).ContentValue;
+		public static string GetDeclareContent(List<DeclareContent> list, string key)
+		   => list == null ? "" : list.Find(m => m.ContentKey == key) == null ? "" : list.Find(m => m.ContentKey == key).ContentValue;
 
-      public static DeclarePeriod GetCurrentDeclarePeriod(this APDBDef db)
-      {
-         var dp = APDBDef.DeclarePeriod;
+		public static DeclarePeriod GetCurrentDeclarePeriod(this APDBDef db)
+		{
+			var dp = APDBDef.DeclarePeriod;
 
-         var period = db.DeclarePeriodDal.ConditionQuery(dp.IsCurrent == true, null, null, null)
-            .FirstOrDefault();
+			var period = db.DeclarePeriodDal.ConditionQuery(dp.IsCurrent == true, null, null, null)
+			   .FirstOrDefault();
 
 
-         return period;
-      }
+			return period;
+		}
 
-   }
+		public static EvalPeriod GetCurrentPeriod(this APDBDef db)
+		{
+			var dp = APDBDef.EvalPeriod;
+
+			var period = db.EvalPeriodDal.ConditionQuery(dp.IsCurrent == true, null, null, null)
+			   .FirstOrDefault();
+
+
+			return period;
+		}
+
+	}
 }

@@ -1,0 +1,10 @@
+﻿@{
+	var periodId = Request["periodId"];
+}
+<!-- top action buttons -->
+<div class="gallery-buttons bottom-30px">
+	@*<a class="btn btn-md btn-info" href="@Url.Action("Overview","QualityEvalManage",new { periodId = periodId })"><span>总览</span></a>*@
+	<a class="btn btn-md btn-info" href="@Url.Action("EvalMemberList","TeamEvalManage",new { periodId = periodId })"><span>已评成员</span></a>
+	<a class="btn btn-md btn-info" href="@Url.Action("NotEvalMemberList","TeamEvalManage",new { periodId = periodId })"><span>未评成员</span></a>
+</div>
+<!-- /top action buttons -->

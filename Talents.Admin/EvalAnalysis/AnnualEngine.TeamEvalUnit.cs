@@ -24,7 +24,7 @@ namespace TheSite.EvalAnalysis
 			=> 100;
 
 			public override double Proportion
-			=> 0.3;
+			=> 1;
 
 			public static double ProportionValue => 0.3;
 
@@ -72,7 +72,8 @@ namespace TheSite.EvalAnalysis
 					Accesser = param.AccesserId,
 					AccessDate = DateTime.Now,
 					TeamId = param.TeamId,
-					FullScore = FullScroe
+					FullScore = FullScroe,
+					Comment = fc["Comment"]
 				};
 				var items = new Dictionary<string, TeamEvalResultItem>();
 
@@ -98,46 +99,66 @@ namespace TheSite.EvalAnalysis
 
 			#region [ 分析 ]
 
+			private string _zeroScore = "0";
 
 			private void AnalysisResult(FormCollection fc, TeamEvalResult result, Dictionary<string, TeamEvalResultItem> items)
 			{
-				//AnalysisGongzl(result, items, fc[EvalSchoolRuleKeys.XiaonLvz_Gongzl]);
+				Analysis_GerJiH_ZiwFengx(result, items, fc[EvalQualityRuleKeys.GerJiH_ZiwFengx], fc[EvalQualityRuleKeys.GerJiH_ZiwFengx_Def]);
+				Analysis_GerJiH_FazMub(result, items, fc[EvalQualityRuleKeys.GerJiH_FazMub], fc[EvalQualityRuleKeys.GerJiH_FazMub_Def]);
+				Analysis_GerJiH_JutShis(result, items, fc[EvalQualityRuleKeys.GerJiH_JutShis], fc[EvalQualityRuleKeys.GerJiH_JutShis_Def]);
 			}
 
 
-			//private void AnalysisGongzl(EvalSchoolResult result, Dictionary<string, EvalSchoolResultItem> items, string choose)
-			//{
-			//	var item = new EvalSchoolResultItem
-			//	{
-			//		ChooseValue = choose,
-			//		EvalItemKey = EvalSchoolRuleKeys.XiaonLvz_Gongzl,
-			//	};
-			//	items.Add(item.EvalItemKey, item);
-
-			//	switch (choose)
-			//	{
-			//		case "A":
-			//			result.Score += 50;
-			//			item.ResultValue = "50分";
-			//			break;
-			//		case "B":
-			//			result.Score += 40;
-			//			item.ResultValue = "40分";
-			//			break;
-			//		case "C":
-			//			result.Score += 25;
-			//			item.ResultValue = "25分";
-			//			break;
-			//		case "D":
-			//			result.Score += 15;
-			//			item.ResultValue = "15分";
-			//			break;
-			//	}
-			//}
+			private void Analysis_GerJiH_ZiwFengx(TeamEvalResult result, Dictionary<string, TeamEvalResultItem> items, string choose, string score)
+			{
+				var item = new TeamEvalResultItem
+				{
+					ChooseValue = choose,
+					EvalItemKey = EvalQualityRuleKeys.GerJiH_ZiwFengx,
+				};
+				items.Add(item.EvalItemKey, item);
 
 
+				score = string.IsNullOrEmpty(score) || string.IsNullOrWhiteSpace(score) ? _zeroScore : score.Trim();
+				var scoreValue = Convert.ToDouble(score);
+				result.Score += scoreValue.EnsureInRange(0, 20);
+
+				item.ResultValue = scoreValue.ToString();
+			}
+
+			private void Analysis_GerJiH_FazMub(TeamEvalResult result, Dictionary<string, TeamEvalResultItem> items, string choose, string score)
+			{
+				var item = new TeamEvalResultItem
+				{
+					ChooseValue = choose,
+					EvalItemKey = EvalQualityRuleKeys.GerJiH_FazMub,
+				};
+				items.Add(item.EvalItemKey, item);
 
 
+				score = string.IsNullOrEmpty(score) || string.IsNullOrWhiteSpace(score) ? _zeroScore : score.Trim();
+				var scoreValue = Convert.ToDouble(score);
+				result.Score += scoreValue.EnsureInRange(0, 30);
+
+				item.ResultValue = scoreValue.ToString();
+			}
+
+			private void Analysis_GerJiH_JutShis(TeamEvalResult result, Dictionary<string, TeamEvalResultItem> items, string choose, string score)
+			{
+				var item = new TeamEvalResultItem
+				{
+					ChooseValue = choose,
+					EvalItemKey = EvalQualityRuleKeys.GerJiH_JutShis,
+				};
+				items.Add(item.EvalItemKey, item);
+
+
+				score = string.IsNullOrEmpty(score) || string.IsNullOrWhiteSpace(score) ? _zeroScore : score.Trim();
+				var scoreValue = Convert.ToDouble(score);
+				result.Score += scoreValue.EnsureInRange(0, 50);
+
+				item.ResultValue = scoreValue.ToString();
+			}
 
 			#endregion
 

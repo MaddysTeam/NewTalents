@@ -34,17 +34,19 @@ namespace Business
 
 		public bool IsExpert { get; set; }
 
-      public bool IsSpecialExpert { get; set; } //TODO:冗余字段，作为特殊情况使用，可以被回收
+		public bool IsSpecialExpert { get; set; } //TODO:冗余字段，作为特殊情况使用，可以被回收
 
-      public bool IsSystemAdmin { get; set; }
+		public bool IsSystemAdmin { get; set; }
 
-      public bool IsSchoolAdmin { get; set; }
+		public bool IsSchoolAdmin { get; set; }
 
-      public long TargetId { get; set; }
+		public long TargetId { get; set; }
 
-      //TODO: 高地理事长和基地支持人的自荐表特殊处理 ,暂存申报提交状态供自荐表使用
-      public string StatusKey { get; set; }
+		public bool IsTeamLeader { get; set; }
 
-    }
+		//TODO: 高地理事长和基地支持人的自荐表特殊处理 ,暂存申报提交状态供自荐表使用
+		public string StatusKey { get; set; }
+
+	}
 
 }

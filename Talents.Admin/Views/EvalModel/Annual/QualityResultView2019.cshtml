@@ -4,13 +4,22 @@
 	var items = Model.ResultItems;
 	var ChoseItems = Model.ChooseItems;
 
-	var SannGuih_ZhidSix = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.SannGuih_ZhidSix);
-	//var ZisFaz_KaizShik = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ZisFaz_KaizShik);
+	var SannGuih_ZhidSix = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.SannGuih_ZhidSix, "1A");
+	var SannGuih_XianzFenx = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.SannGuih_XianzFenx, "1A");
+	var SanGuih_FazMub = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.SanGuih_FazMub, "1A");
+	var SanGuih_JutShisCuos = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.SanGuih_JutShisCuos, "1A");
+	var SanGuih_GuanlBaoz = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.SanGuih_GuanlBaoz, "1A");
 
+	var TuandJih_ZhidSix = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.TuandJih_ZhidSix, "1A");
+	var TuandJih_XueqMub = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.TuandJih_XueqMub, "1A");
+	var TuandJih_JutAnp = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.TuandJih_JutAnp, "1A");
 
+	var GerJiH_ZiwFengx = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.GerJiH_ZiwFengx, "1A");
+	var GerJiH_FazMub = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.GerJiH_FazMub, "1A");
+	var GerJiH_JutShis = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.GerJiH_JutShis, "1A");
 }
 <!-- widget -->
-<div class="widget">
+<div class="widget col-md-10">
 	<div class="widget-header">
 		<h3>考评结果</h3>
 		<div class="btn-group widget-header-toolbar">
@@ -20,102 +29,175 @@
 	</div>
 	<div class="widget-content">
 		<div class="tab-content no-padding">
-
-			<table class="table table-condensed table-striped">
-				<tr>
-					<th class="table-col-10p">得分</th>
-					<td><strong class="result-score">@result.Score</strong></td>
-				</tr>
-				<tr>
-					<th>总分</th>
-					<td>@result.FullScore</td>
-				</tr>
-				<tr>
-					<th>评分人</th>
-					<td>@result.AccesserName</td>
-				</tr>
-				<tr>
-					<th>评分时间</th>
-					<td>@result.AccessDate.ToString("yyyy-MM-dd")</td>
-				</tr>
-			</table>
-
+			<p>
+				<h3>
+					评分人: @result.AccesserName
+				</h3>
+			</p>
+			<p>
+				<h3>
+					评分时间: @result.AccessDate.ToString("yyyy-MM-dd")
+				</h3>
+			</p>
+			<hr />
+			<h4>
+				团队三年规划得分：<strong class="red">@(result?.DynamicScore1)/@(result.FullScore)</strong>
+			</h4>
 			<table class="table table-bordered table-striped">
 				<thead>
 					<tr>
-						<th class="table-col-20p">评价指标</th>
-						<th class="table-col-20p" colspan="2">评价指标</th>
+						<th class="table-col-10p">评价指标</th>
+						<th class="table-col-20p">指标说明</th>
 						<th class="table-col-10p">分值/统计标准</th>
+						<th class="table-col-10p">得分</th>
 					</tr>
 				</thead>
-				<tbody>
-					<!--读书活动-->
-					<tr>
-						<td rowspan="4">三年计划</td>
-						<td colspan="2">读书活动</td>
-
-						<td><span>@SannGuih_ZhidSix.ResultValue</span>分</td>
-					
-					</tr>
-					@*<!--开展示课-->
-					<tr>
-						<td rowspan="3"></td>
-						<td>开展示课</td>
-						@if (ZisFaz_KaizShik.ChooseValue == "1A")
-						{
-							<td>达量质考</td>
-							<td><label> A：高质量、高水准、具有示范性的展示课</label></td>
-							<td><span>@ZisFaz_KaizShik.ResultValue</span>分</td>
-
-						}
-						
-					</tr>
-					<!--担任评委工作-->
-					<tr>
-						<td>担任评委工作</td>
-						@if (ZisFaz_DanrPingwGongz.ChooseValue == "1A")
-						{
-							<td>达量质考</td>
-							<td><label> A：专业水平要求很高的市级及以上教育教学评比活动</label></td>
-							<td><span>@ZisFaz_DanrPingwGongz.ResultValue</span>分</td>
-						}
-						
-					</tr>
-					<!--评比获奖-->
-					<tr>
-						<td>评比获奖</td>
-						@if (ZisFaz_PingbHuoj.ChooseValue == "1A")
-						{
-							<td>达量质考</td>
-							<td><label> A：负责的重大课题或项目获奖；或其他高水准的大奖</label></td>
-							<td><span>@ZisFaz_PingbHuoj.ResultValue</span>分</td>
-						}
-						
-					</tr>*@
-					
-				</tbody>
-			</table>
-
-			<table class="table table-bordered table-striped">
-				<thead>
-					<tr>
-						<th class="table-col-20p" colspan="2">专家评价</th>
-					</tr>
-				</thead>
+				<!-- 指导思想 -->
 				<tbody>
 					<tr>
+						<td>指导思想</td>
 						<td>
-							@Html.TextArea("Comment", result.Comment, new { @readonly = "readonly", @style = " margin:0; padding:0;width:100%; height:100%;" })
+							符合《虹口区教育系统教师专业人才梯队建设实施意见（试行）》相关精神<br />
+						</td>
+						<td>0分--10.0分</td>
+						<td><strong class="blue">@SannGuih_ZhidSix.ResultValue 分</strong></td>
+					</tr>
+					<!-- 现状分析 -->
+					<tr>
+						<td>现状分析</td>
+						<td>现状分析的内容立足课堂教学研究和教师培训；优势和面临的问题与不足分析透彻</td>
+						<td>0分--20.0分</td>
+						<td><strong>@SannGuih_XianzFenx.ResultValue 分</strong></td>
+					</tr>
+					<!-- 发展目标 -->
+					<tr>
+						<td>发展目标</td>
+						<td>目标指向项目引领、研修一体、分层分类培养，能有效促进团队建设和教师发展。总目标方向明确、重点突出；三年具体目标任务明确、操作性强</td>
+						<td>0分--25.0分</td>
+						<td><strong>@SanGuih_FazMub.ResultValue 分</strong></td>
+					</tr>
+
+					<!-- 具体实施措施 -->
+					<tr>
+						<td>具体实施措施</td>
+						<td>措施具体可行，与发展目标契合，内容丰富，形式多样。</td>
+						<td>0分--30.0分</td>
+						<td><strong>@SanGuih_JutShisCuos.ResultValue 分</strong></td>
+					</tr>
+
+					<!-- 管理保障 -->
+					<tr>
+						<td>管理保障</td>
+						<td>制度保障到位，日常管理条例清晰明确，利于实施管理。</td>
+						<td>0分--15.0分</td>
+						<td><strong>@SanGuih_GuanlBaoz.ResultValue 分</strong></td>
+					</tr>
+
+					<tr>
+						<td>评审意见</td>
+						<td colspan="3">
+							@(result?.DynamicComment1)
 						</td>
 					</tr>
 				</tbody>
 			</table>
+
+
+			<h4>
+				学期计划得分：<strong class="red">@(result?.DynamicScore2)/@(result.FullScore)</strong>
+			</h4>
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th class="table-col-10p">评价指标</th>
+						<th class="table-col-20p">指标说明</th>
+						<th class="table-col-10p">分值/统计标准</th>
+						<th class="table-col-10p">得分</th>
+					</tr>
+				</thead>
+				<!-- 指导思想 -->
+				<tbody>
+					<!-- 指导思想 -->
+					<tr>
+						<td>指导思想</td>
+						<td>
+							符合《虹口区教育系统教师专业人才梯队建设实施意见（试行）》相关精神<br />
+						</td>
+						<td>0分--20.0分</td>
+						<td><strong>@TuandJih_ZhidSix.ResultValue 分</strong></td>
+					</tr>
+					<!-- 学期目标 -->
+					<tr>
+						<td>学期目标</td>
+						<td>目标指向项目引领、研修一体、分层分类培养；学期分目标任务明确、操作性强</td>
+						<td>0分--30.0分</td>
+						<td><strong>@TuandJih_XueqMub.ResultValue 分</strong></td>
+					</tr>
+					<!-- 具体安排 -->
+					<tr>
+						<td>学期活动安排</td>
+						<td>（见团队规划中学期活动安排）本学期活动至少6次，时间地点信息具体；活动开展围绕项目研究，内容丰富、形式多样。</td>
+						<td>0分--50.0分</td>
+						<td><strong>@TuandJih_JutAnp.ResultValue 分</strong></td>
+					</tr>
+					<tr>
+						<td>评审意见</td>
+						<td colspan="3">
+						@(result?.DynamicComment2)
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+
+			<h4>
+				主持人个人计划得分：<strong class="red">@(result?.DynamicScore3)/@(result?.FullScore)</strong>
+			</h4>
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th class="table-col-10p">评价指标</th>
+						<th class="table-col-20p">指标说明</th>
+						<th class="table-col-10p">分值/统计标准</th>
+						<th class="table-col-10p">得分</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- 指导思想 -->
+					<tr>
+						<td>自我分析</td>
+						<td>
+							聚焦教育、教学、科研方面，从优势、劣势、机会、威胁等方面分析透彻<br />
+						</td>
+						<td>0分--20.0分</td>
+						<td><strong>@GerJiH_ZiwFengx.ResultValue 分</strong></td>
+					</tr>
+					<!-- 学期目标 -->
+					<tr>
+						<td>发展目标</td>
+						<td>基于自我分析，在教育、教学、科研、培训、职称、学历等方面的专业发展目标明确、重点突出</td>
+						<td>0分--30.0分</td>
+						<td><strong>@GerJiH_FazMub.ResultValue 分</strong></td>
+					</tr>
+					<!-- 具体安排 -->
+					<tr>
+						<td>具体实施</td>
+						<td>围绕相应的考核任务撰写，实施的内容和方式具体可行，与发展目标契合，能体现辐射引领</td>
+						<td>0分--50.0分</td>
+						<td><strong>@GerJiH_JutShis.ResultValue 分</strong></td>
+					</tr>
+					<tr>
+						<td>评审意见</td>
+						<td colspan="3">
+							@(result?.DynamicComment3)
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+
+			
 		</div>
 	</div>
 </div>
 <!-- /widget -->
-
-
-
-				
-

@@ -3,11 +3,12 @@
 	var pageTitle = ViewBag.Title = "团队考评";
 	var items = ViewBag.ResultItems as Dictionary<string, TeamEvalResultItem>;
 
-	//var XiaonLvz_Gongzl = EngineManager.GetTeamEvalChooseValue(items, EvalSchoolRuleKeys.XiaonLvz_Gongzl);
-	//var XiaonLvz_GongzZhil = EngineManager.GetTeamEvalResult(items, EvalSchoolRuleKeys.XiaonLvz_GongzZhil);
-	//var Shid = EngineManager.GetTeamEvalChooseValue(items, EvalSchoolRuleKeys.Shid);
+	var GerJiH_JutShis = EngineManager.GetTeamEvalResult(items, EvalQualityRuleKeys.GerJiH_JutShis, "1A");
+	var GerJiH_FazMub = EngineManager.GetTeamEvalResult(items, EvalQualityRuleKeys.GerJiH_FazMub, "1A");
+	var GerJiH_ZiwFengx = EngineManager.GetTeamEvalResult(items, EvalQualityRuleKeys.GerJiH_ZiwFengx, "1A");
 
 	var declare = ViewBag.Declare as DeclareModel;
+	var result = ViewBag.Result as TeamEvalResult;
 }
 <div class="col-md-10 content-wrapper">
 	<div class="row">
@@ -62,130 +63,82 @@
 			<!-- widget -->
 						<div class="widget">
 							<div class="widget-header">
-								<h3>虹口区教育系统教师专业人才梯队团队考核指标</h3>
+								<h3>考核指标</h3>
 								<div class="btn-group widget-header-toolbar">
 									<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
 									<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
 								</div>
 								<div class="btn-group widget-header-toolbar pull-right">
-									<button type="l" class="btn btn-custom-primary btn-sm btn_submit">
+									<button type="submit" class="btn btn-custom-primary btn-sm btn_submit">
 										<i class="fa fa-floppy-o"></i> <span>保存</span>
 									</button>
-									<a href="@Url.Action("EvalList", "TeamEval")" class="btn btn-sm btn-info">返回</a>
+									@*<a href="#" class="btn btn-sm btn-info">返回</a>*@
 								</div>
 								<ul class="nav nav-tabs pull-right">
-									<li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-tag"></i> 校内履职</a></li>
-									<li><a href="#tab2" data-toggle="tab"><i class="fa fa-tag"></i> 师德</a></li>
+									@*<li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-tag"></i> 三年规划</a></li>
+									<li><a href="#tab2" data-toggle="tab"><i class="fa fa-tag"></i> 团队计划</a></li>*@
+									@*<li><a href="#tab1" data-toggle="tab"><i class="fa fa-tag"></i> 主持人个人计划</a></li>*@
 								</ul>
 							</div>
 							<div class="widget-content">
-								<div class="tab-content no-padding">
+								<div class="no-padding">
 
-									<!--校内履职-->
-									<div class="tab-pane fade in active" id="tab1">
-
+									<!-- 个人计划 -->
+									<div class="tab-pane" id="tab1">
+										<h3>
+											当前得分：<strong class="red">@(result?.Score)</strong>
+										</h3>
 										<table class="table table-bordered table-striped">
 											<thead>
 												<tr>
 													<th class="table-col-10p">评价指标</th>
-													<th class="table-col-10p">指标说明</th>
-													<th class="table-col-30p">指标项</th>
-													<th class="table-col-20p">分值/统计标准</th>
-													<th class="table-col-20p">输入分值</th>
+													<th class="table-col-20p">指标说明</th>
+													<th class="table-col-10p">分值/统计标准</th>
+													<th class="table-col-10p">输入分值</th>
 												</tr>
 											</thead>
 											<tbody>
-												<!--工作量-->
-												@*<tr>
-														<td rowspan="4">工作量</td>
-														<td rowspan="4">含任教课时量</td>
-														<td><label>@Html.RadioButton(EvalSchoolRuleKeys.XiaonLvz_Gongzl, "A", isChecked: XiaonLvz_Gongzl == "A") A：满工作量</label></td>
-														<td>50分</td>
-														<td></td>
-													</tr>
-													<tr>
-														<td><label>@Html.RadioButton(EvalSchoolRuleKeys.XiaonLvz_Gongzl, "B", isChecked: XiaonLvz_Gongzl == "B") B：工作量过半未满</label></td>
-														<td>40分</td>
-														<td></td>
-													</tr>
-													<tr>
-														<td><label>@Html.RadioButton(EvalSchoolRuleKeys.XiaonLvz_Gongzl, "C", isChecked: XiaonLvz_Gongzl == "C") C：仅达一半工作量</label></td>
-														<td>25分</td>
-														<td></td>
-													</tr>
-													<tr>
-														<td><label>@Html.RadioButton(EvalSchoolRuleKeys.XiaonLvz_Gongzl, "D", isChecked: XiaonLvz_Gongzl == "D") D：不足一半工作量</label></td>
-														<td>15分</td>
-														<td></td>
-													</tr>
-													工作质量
-													<tr>
-														<td rowspan="4">工作质量</td>
-														<td rowspan="4"></td>
-														<td><label>@Html.RadioButton(EvalSchoolRuleKeys.XiaonLvz_GongzZhil, "A", isChecked: XiaonLvz_GongzZhil.ChooseValue == "A") A：自己足额完成工作任务、达到工作要求，并获得所在单位认可。（须满工作量）</label></td>
-														<td>47分 - 50分</td>
-														<td class="flotValue" data-min="47" data-max="50" data-value="" data-hidden="@EvalSchoolRuleKeys.XiaonLvz_GongzZhil_Jeig"></td>
-													</tr>
-													<tr>
-														<td><label>@Html.RadioButton(EvalSchoolRuleKeys.XiaonLvz_GongzZhil, "B", isChecked: XiaonLvz_GongzZhil.ChooseValue == "B") B：自己完成承担的工作任务、基本达到工作要求，所在单位教职工对其工作基本认可。（工作量须达一半以上）</label></td>
-														<td>32分 - 42分</td>
-														<td class="flotValue" data-min="32" data-max="42" data-value="" data-hidden="@EvalSchoolRuleKeys.XiaonLvz_GongzZhil_Jeig"></td>
-													</tr>
-													<tr>
-														<td><label>@Html.RadioButton(EvalSchoolRuleKeys.XiaonLvz_GongzZhil, "C", isChecked: XiaonLvz_GongzZhil.ChooseValue == "C") C：工作量部分任务长期由他人分担，基本达到工作要求；或工作量仅一半，基本达到工作要求。</label></td>
-														<td>27分 - 30分</td>
-														<td class="flotValue" data-min="27" data-max="30" data-value="" data-hidden="@EvalSchoolRuleKeys.XiaonLvz_GongzZhil_Jeig"></td>
-													</tr>
-													<tr>
-														<td><label>@Html.RadioButton(EvalSchoolRuleKeys.XiaonLvz_GongzZhil, "D", isChecked: XiaonLvz_GongzZhil.ChooseValue == "D") D：承担的工作量不足一半；或未能完成工作量任务；或较多工作未能达到工作要求；或工作量近一半任务由他人承担。</label></td>
-														<td>15分 -25分</td>
-														<td class="flotValue" data-min="15" data-max="25" data-value="" data-hidden="@EvalSchoolRuleKeys.XiaonLvz_GongzZhil_Jeig"></td>
-													</tr>*@
-											</tbody>
-										</table>
-
-									</div>
-
-									<!--师德-->
-									<div class="tab-pane fade" id="tab2">
-
-										<table class="table table-bordered table-striped">
-											<thead>
+												<!-- 指导思想 -->
 												<tr>
-													<th>评价指标</th>
-													<th>指标说明</th>
-													<th>指标项</th>
-													<th>分值/统计标准</th>
+													<td>自我分析</td>
+													<td>
+														聚焦教育、教学、科研方面，从优势、劣势、机会、威胁等方面分析透彻<br />
+													</td>
+													<td>0分--20.0分</td>
+													<td class="flotValue" data-min="0" data-max="20.0" data-value="" data-hidden="@EvalQualityRuleKeys.GerJiH_ZiwFengx_Def"></td>
 												</tr>
-											</thead>
-											<tbody>
-												<!--师德-->
-												@*<tr>
-														<td rowspan="3">师德</td>
-														<td rowspan="3">不合格情况时，则总得分为0分</td>
-														<td><label>@Html.RadioButton(EvalSchoolRuleKeys.Shid, "A", isChecked: Shid == "A") A：无违反师德相关规定的言行</label></td>
-														<td>合格</td>
-													</tr>
-													<tr>
-														<td><label>@Html.RadioButton(EvalSchoolRuleKeys.Shid, "B", isChecked: Shid == "B") B：有违反师德相关禁令的言行，尚未被退出梯队</label></td>
-														<td>基本合格</td>
-													</tr>
-													<tr>
-														<td><label>@Html.RadioButton(EvalSchoolRuleKeys.Shid, "C", isChecked: Shid == "C") C：有违反师德相关规定的言行，应当出梯队</label></td>
-														<td>不合格</td>
-													</tr>*@
+												<!-- 学期目标 -->
+												<tr>
+													<td>发展目标</td>
+													<td>基于自我分析，在教育、教学、科研、培训、职称、学历等方面的专业发展目标明确、重点突出</td>
+													<td>0分--30.0分</td>
+													<td class="flotValue" data-min="0" data-max="30.0" data-value="" data-hidden="@EvalQualityRuleKeys.GerJiH_FazMub_Def"></td>
+												</tr>
+												<!-- 具体安排 -->
+												<tr>
+													<td>具体实施</td>
+													<td>围绕相应的考核任务撰写，实施的内容和方式具体可行，与发展目标契合，能体现辐射引领</td>
+													<td>0分--50.0分</td>
+													<td class="flotValue" data-min="0" data-max="50.0" data-value="" data-hidden="@EvalQualityRuleKeys.GerJiH_JutShis_Def"></td>
+												</tr>
+												<tr>
+													<td>评审意见</td>
+													<td colspan="3">
+														@Html.TextArea("Comment", result?.Comment, new { @class = "commentValue", @style = " margin:0; padding:0;width:100%; height:160px;" })
+													</td>
+												</tr>
 											</tbody>
 										</table>
-
 									</div>
-
 
 								</div>
 							</div>
 						</div>
 			<!-- /widget -->
 
-						@*<input type="hidden" class="hiddenValue" data-error="@EvalSchoolRuleKeys.XiaonLvz_GongzZhil_Jeig" name="@EvalSchoolRuleKeys.XiaonLvz_GongzZhil_Jeig" value="@XiaonLvz_GongzZhil.ResultValue" />*@
+						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.GerJiH_ZiwFengx" name="@EvalQualityRuleKeys.GerJiH_ZiwFengx_Def" value="@GerJiH_ZiwFengx.ResultValue" />
+						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.GerJiH_FazMub" name="@EvalQualityRuleKeys.GerJiH_FazMub_Def" value="@GerJiH_FazMub.ResultValue" />
+						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.GerJiH_JutShis" name="@EvalQualityRuleKeys.GerJiH_JutShis_Def" value="@GerJiH_JutShis.ResultValue" />
 					}
 
 

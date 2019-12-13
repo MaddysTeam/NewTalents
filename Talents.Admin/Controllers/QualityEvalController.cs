@@ -115,9 +115,10 @@ namespace TheSite.Controllers
 			ThrowNotAjax();
 
 
-			var query = APQuery.select(er.ResultId,er.TeacherId, u.RealName,
-					d.DeclareTargetPKID, d.DeclareSubjectPKID, d.DeclareStagePKID,
-					er.FullScore, er.DynamicScore1, er.DynamicScore2, er.DynamicScore3
+			var query = APQuery.select(er.ResultId, er.TeacherId,
+									   er.GroupId, er.FullScore, er.DynamicScore1, 
+									   er.DynamicScore2, er.DynamicScore3,u.RealName,
+									   d.DeclareTargetPKID, d.DeclareSubjectPKID, d.DeclareStagePKID
 					)
 				.from(er,
 						 d.JoinInner(er.TeacherId == d.TeacherId),
@@ -168,8 +169,9 @@ namespace TheSite.Controllers
 				return new
 				{
 					id = er.TeacherId.GetValue(r),
-					resultId=er.ResultId.GetValue(r),
+					resultId = er.ResultId.GetValue(r),
 					realName = u.RealName.GetValue(r),
+					groupId = er.GroupId.GetValue(r),
 					target = DeclareBaseHelper.DeclareTarget.GetName(d.DeclareTargetPKID.GetValue(r)),
 					subject = DeclareBaseHelper.DeclareSubject.GetName(d.DeclareSubjectPKID.GetValue(r)),
 					stage = DeclareBaseHelper.DeclareStage.GetName(d.DeclareStagePKID.GetValue(r)),
@@ -435,13 +437,12 @@ namespace TheSite.Controllers
 
 		//	POST-Ajax: QualityEval/ResultView
 
-		[HttpPost]
+		//[HttpPost]
 		public ActionResult ResultView(QualityEvalParam param)
 		{
-			ThrowNotAjax();
+			//ThrowNotAjax();
 
 			QualityEvalPeriodModel model = new QualityEvalPeriodModel(param);
-
 
 			model.Period = db.EvalPeriodDal.PrimaryGet(model.PeriodId);
 			model.Declare = model.GetDeclareInfo(db);
@@ -452,8 +453,7 @@ namespace TheSite.Controllers
 			model.Result = engine.GetResult(db, param);
 			model.ResultItems = engine.GetResultItem(db, param);
 
-
-			return PartialView(engine.ResultView, model);
+			return View(engine.ResultView, model);
 		}
 
 	}

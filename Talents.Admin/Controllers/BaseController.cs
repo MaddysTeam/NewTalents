@@ -51,15 +51,30 @@ namespace TheSite.Controllers
          }
       }
 
+		public static EvalPeriod _evalPeriod;
+
+		public EvalPeriod EvalPeriod
+		{
+			get
+			{
+				if (_period == null)
+					_evalPeriod = db.GetCurrentPeriod();
+				return _evalPeriod;
+			}
+			private set
+			{
+				_evalPeriod = value;
+			}
+		}
 
 
-      #endregion
+		#endregion
 
 
-      #region [ UserManager ]
+		#region [ UserManager ]
 
 
-      private ApplicationSignInManager _signInManager;
+		private ApplicationSignInManager _signInManager;
 		private ApplicationUserManager _userManager;
 
 

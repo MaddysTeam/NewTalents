@@ -181,7 +181,7 @@
 							<span class="text">考评周期管理</span>
 						</a>
 					</li>
-					<li>
+					@*<li>
 						<a href="@Url.Action("SchoolRule", "EvalManage")">
 							<i class="fa fa-gear fa-fw"></i>
 							<span class="text">校评指标管理</span>
@@ -204,7 +204,7 @@
 							<i class="fa fa-gear fa-fw"></i>
 							<span class="text">总评指标管理</span>
 						</a>
-					</li>
+					</li>*@
 				</ul>
 			</li>
 			<li>
@@ -234,7 +234,7 @@
 					</li>
 				</ul>
 			</li>
-			<li>
+			@*<li>
 				<a href="#" class="js-sub-menu-toggle">
 					<i class="fa fa-gears"></i>
 					<span class="text">校评管理</span>
@@ -275,24 +275,33 @@
 						</a>
 					</li>
 				</ul>
+			</li>*@
+			<li>
+				<a href="#" class="js-sub-menu-toggle">
+					<i class="fa fa-gears"></i>
+					<span class="text">团队评审管理</span>
+					<i class="toggle-icon fa fa-angle-left"></i>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="@Url.Action("Overview", "TeamEvalManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">总览</span>
+						</a>
+					</li>
+				</ul>
 			</li>
 			<li>
 				<a href="#" class="js-sub-menu-toggle">
 					<i class="fa fa-gears"></i>
-					<span class="text">质评管理</span>
+					<span class="text">专家考评管理</span>
 					<i class="toggle-icon fa fa-angle-left"></i>
 				</a>
 				<ul class="sub-menu">
 					<li>
 						<a href="@Url.Action("Overview", "QualityEvalManage")">
 							<i class="fa fa-gear fa-fw"></i>
-							<span class="text">当期质评总览</span>
-						</a>
-					</li>
-					<li>
-						<a href="@Url.Action("List", "QualityEvalManage")">
-							<i class="fa fa-gear fa-fw"></i>
-							<span class="text">往期质评</span>
+							<span class="text">总览</span>
 						</a>
 					</li>
 				</ul>
@@ -352,7 +361,7 @@
 							<span class="text">学员统计</span>
 						</a>
 					</li>
-					<li>
+					@*<li>
 						<a href="@Url.Action("SchoolEval", "StatisticalManage")">
 							<i class="fa fa-gear fa-fw"></i>
 							<span class="text">校评统计</span>
@@ -381,7 +390,7 @@
 							<i class="fa fa-gear fa-fw"></i>
 							<span class="text">2019最新填报统计</span>
 						</a>
-					</li>
+					</li>*@
 				</ul>
 			</li>
 			<li>

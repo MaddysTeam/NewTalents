@@ -255,7 +255,7 @@ namespace TheSite.Controllers
 						QualityScore = ev.Score.GetValue(r, "qualityScore") * EvalAnalysis.AnnualEngine.QualityEvalUnit.ProportionValue,
 						QualityFullScore = ev.Score.GetValue(r, "qualityFullScore") * EvalAnalysis.AnnualEngine.QualityEvalUnit.ProportionValue,
 						CharacteristicScore = ev.Score.GetValue(r, "characteristicScore"), // 特色分
-					 FullScore = EngineManager.Engines[currentPeriod.AnalysisType].FullScore
+						FullScore = EngineManager.Engines[currentPeriod.AnalysisType].FullScore
 					};
 				}).ToList();
 
@@ -272,7 +272,7 @@ namespace TheSite.Controllers
 			var period = db.EvalPeriodDal.ConditionQuery(ep.IsCurrent == true, null, null, null)
 			   .FirstOrDefault();
 
-			var ls = new List<EvalCommentViewModel>();
+			var ls = new List<EvalCommentAndScoreViewModel>();
 			if (period != null)
 			{
 				var results = APQuery.select(eqr.Comment, u.UserName, eqr.ResultId)
@@ -286,7 +286,7 @@ namespace TheSite.Controllers
 				   });
 				foreach (var item in results)
 				{
-					ls.Add(new EvalCommentViewModel
+					ls.Add(new EvalCommentAndScoreViewModel
 					{
 						EvalResultId = item.resultId,
 						EvalComment = item.comment,
@@ -295,6 +295,55 @@ namespace TheSite.Controllers
 				}
 			}
 			return PartialView(ls);
+		}
+
+
+		// GET:	
+
+		public ActionResult TeamEvalResult()
+		{
+			ThrowNotAjax();
+
+			var ter = APDBDef.TeamEvalResult;
+
+			var result = db.TeamEvalResultDal.ConditionQuery(ter.MemberId == UserProfile.UserId & ter.PeriodId == EvalPeriod.PeriodId, null, null, null)?.FirstOrDefault();
+
+			var list = new List<EvalCommentAndScoreViewModel>();
+			list.Add(new EvalCommentAndScoreViewModel
+			{
+				EvalResultId = result.ResultId,
+				EvalComment = result.Comment,
+				EvalTitle = EvalQualityRuleKeys.GerJiHx,
+				Score = result.Score
+			});
+
+			return PartialView("EvalResult", list);
+		}
+
+		public ActionResult QualityEvalResult()
+		{
+
+			ThrowNotAjax();
+
+			var er = APDBDef.EvalQualityResult;
+
+			var result = db.EvalQualityResultDal.ConditionQuery(er.TeacherId == UserProfile.UserId & er.PeriodId == EvalPeriod.PeriodId, null, null, null).FirstOrDefault();
+
+			var list = new List<EvalCommentAndScoreViewModel>();
+
+			for (int i = 0; i < 3 & result != null; i++)
+			{
+				list.Add(new EvalCommentAndScoreViewModel
+				{
+					EvalResultId = result.ResultId,
+					Score = i == 0 ? result.DynamicScore1 : i == 1 ? result.DynamicScore2 : result.DynamicScore3,
+					EvalTitle = i == 0 ? EvalQualityRuleKeys.SannGuih : i == 1 ? EvalQualityRuleKeys.TuandJih : EvalQualityRuleKeys.GerJiHx,
+					EvalComment = i == 0 ? result.DynamicComment1 : i == 1 ? result.DynamicComment2 : result.DynamicComment3,
+					FullScore=result.FullScore
+				});
+			}
+
+			return PartialView("EvalResult", list);
 		}
 
 

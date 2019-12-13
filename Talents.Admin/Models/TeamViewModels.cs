@@ -110,7 +110,6 @@ namespace TheSite.Models
 
 		public int Count { get; set; }
 		public int MemberCount { get; set; }
-
 	}
 
 

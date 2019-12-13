@@ -11480,6 +11480,8 @@ namespace Business {
             
             private DoubleAPColumnDef _score;
             
+            private StringAPColumnDef _comment;
+            
             private Int64APColumnDef _accesser;
             
             private DateTimeAPColumnDef _accessDate;
@@ -11571,6 +11573,19 @@ namespace Business {
             }
             
             /// <summary>
+            /// Comment ColumnDef
+            /// </summary>
+            public virtual StringAPColumnDef Comment {
+                get {
+                    if (Object.ReferenceEquals(_comment, null)) {
+                        _comment = new StringAPColumnDef(this, "Comment", false, 10000);
+                        _comment.Display = "总评";
+                    }
+                    return _comment;
+                }
+            }
+            
+            /// <summary>
             /// Accesser ColumnDef
             /// </summary>
             public virtual Int64APColumnDef Accesser {
@@ -11622,6 +11637,7 @@ namespace Business {
                 data.MemberId = MemberId.GetValue<long>(reader, throwIfValidColumnName);
                 data.FullScore = FullScore.GetValue<double>(reader, throwIfValidColumnName);
                 data.Score = Score.GetValue<double>(reader, throwIfValidColumnName);
+                data.Comment = Comment.GetValue<string>(reader, throwIfValidColumnName);
                 data.Accesser = Accesser.GetValue<long>(reader, throwIfValidColumnName);
                 data.AccessDate = AccessDate.GetValue<System.DateTime>(reader, throwIfValidColumnName);
             }
@@ -20706,7 +20722,7 @@ namespace Business {
                 if ((data.ResultId == 0)) {
                     data.ResultId = ((long)(GetNewId(APDBDef.TeamEvalResult.ResultId)));
                 }
-                var query = APQuery.insert(APDBDef.TeamEvalResult).values(APDBDef.TeamEvalResult.ResultId.SetValue(data.ResultId), APDBDef.TeamEvalResult.PeriodId.SetValue(data.PeriodId), APDBDef.TeamEvalResult.TeamId.SetValue(data.TeamId), APDBDef.TeamEvalResult.MemberId.SetValue(data.MemberId), APDBDef.TeamEvalResult.FullScore.SetValue(data.FullScore), APDBDef.TeamEvalResult.Score.SetValue(data.Score), APDBDef.TeamEvalResult.Accesser.SetValue(data.Accesser), APDBDef.TeamEvalResult.AccessDate.SetValue(data.AccessDate));
+                var query = APQuery.insert(APDBDef.TeamEvalResult).values(APDBDef.TeamEvalResult.ResultId.SetValue(data.ResultId), APDBDef.TeamEvalResult.PeriodId.SetValue(data.PeriodId), APDBDef.TeamEvalResult.TeamId.SetValue(data.TeamId), APDBDef.TeamEvalResult.MemberId.SetValue(data.MemberId), APDBDef.TeamEvalResult.FullScore.SetValue(data.FullScore), APDBDef.TeamEvalResult.Score.SetValue(data.Score), APDBDef.TeamEvalResult.Comment.SetValue(data.Comment), APDBDef.TeamEvalResult.Accesser.SetValue(data.Accesser), APDBDef.TeamEvalResult.AccessDate.SetValue(data.AccessDate));
                 ExecuteNonQuery(query);
             }
             
@@ -20714,7 +20730,7 @@ namespace Business {
             /// 更新数据。
             /// </summary>
             public virtual void Update(TeamEvalResult data) {
-                var query = APQuery.update(APDBDef.TeamEvalResult).values(APDBDef.TeamEvalResult.PeriodId.SetValue(data.PeriodId), APDBDef.TeamEvalResult.TeamId.SetValue(data.TeamId), APDBDef.TeamEvalResult.MemberId.SetValue(data.MemberId), APDBDef.TeamEvalResult.FullScore.SetValue(data.FullScore), APDBDef.TeamEvalResult.Score.SetValue(data.Score), APDBDef.TeamEvalResult.Accesser.SetValue(data.Accesser), APDBDef.TeamEvalResult.AccessDate.SetValue(data.AccessDate)).where((APDBDef.TeamEvalResult.ResultId == data.ResultId));
+                var query = APQuery.update(APDBDef.TeamEvalResult).values(APDBDef.TeamEvalResult.PeriodId.SetValue(data.PeriodId), APDBDef.TeamEvalResult.TeamId.SetValue(data.TeamId), APDBDef.TeamEvalResult.MemberId.SetValue(data.MemberId), APDBDef.TeamEvalResult.FullScore.SetValue(data.FullScore), APDBDef.TeamEvalResult.Score.SetValue(data.Score), APDBDef.TeamEvalResult.Comment.SetValue(data.Comment), APDBDef.TeamEvalResult.Accesser.SetValue(data.Accesser), APDBDef.TeamEvalResult.AccessDate.SetValue(data.AccessDate)).where((APDBDef.TeamEvalResult.ResultId == data.ResultId));
                 ExecuteNonQuery(query);
             }
             
@@ -51360,6 +51376,11 @@ namespace Business {
         private double _score;
         
         /// <summary>
+        /// 每位团队主持人评语
+        /// </summary>
+        private string _comment = string.Empty;
+        
+        /// <summary>
         /// 关联考评人
         /// </summary>
         private long _accesser;
@@ -51378,13 +51399,14 @@ namespace Business {
         /// <summary>
         /// 初始化所有字段的构造函数。
         /// </summary>
-        public TeamEvalResultBase(long resultId, long periodId, long teamId, long memberId, double fullScore, double score, long accesser, System.DateTime accessDate) {
+        public TeamEvalResultBase(long resultId, long periodId, long teamId, long memberId, double fullScore, double score, string comment, long accesser, System.DateTime accessDate) {
             _resultId = resultId;
             _periodId = periodId;
             _teamId = teamId;
             _memberId = memberId;
             _fullScore = fullScore;
             _score = score;
+            _comment = comment;
             _accesser = accesser;
             _accessDate = accessDate;
         }
@@ -51522,6 +51544,29 @@ namespace Business {
         }
         
         /// <summary>
+        /// 每位团队主持人评语
+        /// </summary>
+        [Display(Name="总评")]
+        [StringLength(10000)]
+        public virtual string Comment {
+            get {
+                return _comment;
+            }
+            set {
+                _comment = value;
+            }
+        }
+        
+        /// <summary>
+        /// 每位团队主持人评语 APColumnDef
+        /// </summary>
+        public static StringAPColumnDef CommentDef {
+            get {
+                return APDBDef.TeamEvalResult.Comment;
+            }
+        }
+        
+        /// <summary>
         /// 关联考评人
         /// </summary>
         [Display(Name="考评人")]
@@ -51593,6 +51638,7 @@ namespace Business {
             MemberId = data.MemberId;
             FullScore = data.FullScore;
             Score = data.Score;
+            Comment = data.Comment;
             Accesser = data.Accesser;
             AccessDate = data.AccessDate;
         }
@@ -51617,6 +51663,9 @@ namespace Business {
                 return false;
             }
             if ((Score != data.Score)) {
+                return false;
+            }
+            if ((Comment != data.Comment)) {
                 return false;
             }
             if ((Accesser != data.Accesser)) {
@@ -51721,8 +51770,8 @@ namespace Business {
         /// <summary>
         /// 初始化所有字段的构造函数。
         /// </summary>
-        public TeamEvalResult(long resultId, long periodId, long teamId, long memberId, double fullScore, double score, long accesser, System.DateTime accessDate) : 
-                base(resultId, periodId, teamId, memberId, fullScore, score, accesser, accessDate) {
+        public TeamEvalResult(long resultId, long periodId, long teamId, long memberId, double fullScore, double score, string comment, long accesser, System.DateTime accessDate) : 
+                base(resultId, periodId, teamId, memberId, fullScore, score, comment, accesser, accessDate) {
         }
     }
     

@@ -1,0 +1,48 @@
+﻿@model List<EvalCommentAndScoreViewModel>
+<div class="row">
+	<div class="col-md-12">
+
+		<div class="widget">
+			<div class="widget-header">
+				<h3><i class="fa fa-tasks"></i> 考核得分</h3>
+			</div>
+			<div class="widget-content">
+
+				<table class="table table-condensed table-hover">
+					<thead>
+					</thead>
+					<tbody>
+						@{int index = 1;
+							foreach (var item in Model)
+							{
+								<tr>
+									<td><strong> 考核指标： @item.EvalTitle</strong></td>
+								</tr>
+								<tr>
+									<td><strong> 考核总分： @item.FullScore</strong></td>
+								</tr>
+								<tr>
+									<td><strong> 考核得分： @item.Score</strong></td>
+								</tr>
+								<tr>
+									<td><strong> 评审意见： @item.EvalComment </strong></td>
+								</tr>
+
+								index++;
+
+								<tr>
+								 <td><p>&nbsp;</p></td>
+								</tr>
+							}
+						}
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+

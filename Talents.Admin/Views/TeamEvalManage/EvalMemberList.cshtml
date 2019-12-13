@@ -1,5 +1,5 @@
 ﻿@{
-	var pageTitle = ViewBag.Title = "已评学员列表";
+	var pageTitle = ViewBag.Title = "已评成员列表";
 	var periodId = Html.ViewContext.HttpContext.Request["periodId"];
 }
 <div class="col-md-10 content-wrapper">
@@ -18,8 +18,10 @@
 			<em></em>
 		</div>
 		<div class="main-content">
+
 			@Html.Partial("_nav")
-			<a class="btn btn-md btn-warning pull-right" href="@Url.Action("Export","QualityEvalManage",new { periodId=periodId})"><span>导出数据</span></a>
+			<a class="btn btn-md btn-warning pull-right" href="@Url.Action("Export", "TeamEvalManage", new { periodId = periodId })"><span>导出数据</span></a>
+
 			<!-- widget -->
 			<div class="widget">
 				<div class="widget-header">
@@ -37,11 +39,9 @@
 								<tr>
 									<th data-column-id="targetName">称号</th>
 									<th data-column-id="realName">姓名</th>
-									<th data-column-id="TeamName">团队</th>
+									<th data-column-id="teamName">所属团队</th>
 									<th data-column-id="accessDate" data-formatter="DateOnly">评审日期</th>
-									<th data-column-id="dynamicScore1">三年规划</th>
-									<th data-column-id="dynamicScore2">团队计划</th>
-									<th data-column-id="dynamicScore3">主持人个人计划</th>
+									<th data-column-id="score">个人计划得分</th>
 									<th data-column-id="commands" data-formatter="commands" data-sortable="false" data-header-Css-Class="width120">操作</th>
 								</tr>
 							</thead>
@@ -74,7 +74,7 @@
 				formatters: {
 					'commands': function (column, row) {
 						return '<div class="btn-group btn-group-xs pull-right" data-row-id="' + row.id + '">' +
-								 '<a target="_blank" class="btn btn-warning btn-view" href="@Url.Action("ResultView", "QualityEval")?resultId=' + row.resultId + '&groupId=' + row.groupId + '&TargetId=' + row.teacherId + '&periodId=' +@periodId +'"><i class="fa fa-external-link"></i>查看</a>'
+								 '<a target="_blank" class="btn btn-warning btn-view" href="@Url.Action("ResultView", "TeamEval")?teamId=' + row.teamId + '&teacherId=' + row.teacherId + '&periodId=' +@periodId +'"><i class="fa fa-external-link"></i>查看</a>'
 						'</div>';
 					},
 				},

@@ -47,7 +47,7 @@ namespace TheSite.Controllers
 
 		public ActionResult EvalList(long periodId)
 		{
-				return View();
+			return View();
 		}
 
 		[HttpPost]
@@ -57,12 +57,11 @@ namespace TheSite.Controllers
 
 
 			var query = APQuery.select(er.MemberId, er.TeamId, er.ResultId.As("ResultId"),
-					d.DeclareTargetPKID, d.DeclareSubjectPKID,
+					d.DeclareStagePKID, d.DeclareTargetPKID, d.DeclareSubjectPKID, u.RealName,
 					er.Score, er.FullScore)
 				.from(er,
 						 d.JoinInner(er.MemberId == d.TeacherId),
-						 u.JoinInner(er.MemberId == u.UserId),
-						 t.JoinInner(t.TeamId == er.TeamId)
+						 u.JoinInner(er.MemberId == u.UserId)
 						)
 				.where(er.TeamId == UserProfile.UserId, er.PeriodId == periodId & er.Accesser == UserProfile.UserId)
 				.primary(er.ResultId)
@@ -105,9 +104,12 @@ namespace TheSite.Controllers
 				return new
 				{
 					id = er.MemberId.GetValue(r),
+					teamId = UserProfile.UserId,
+					periodId = periodId,
 					resultId = er.ResultId.GetValue(r, "ResultId"),
 					realName = u.RealName.GetValue(r),
 					targetId = d.DeclareTargetPKID.GetValue(r),
+					stage = DeclareBaseHelper.DeclareStage.GetName(d.DeclareStagePKID.GetValue(r)),
 					target = DeclareBaseHelper.DeclareTarget.GetName(d.DeclareTargetPKID.GetValue(r)),
 					subject = DeclareBaseHelper.DeclareSubject.GetName(d.DeclareSubjectPKID.GetValue(r)),
 					score = string.Format("{0} / {1}", score, fullScore),
@@ -209,6 +211,7 @@ namespace TheSite.Controllers
 
 			param.AccesserId = UserProfile.UserId;
 			var engine = EngineManager.Engines[period.AnalysisType].TeamEvals;
+			ViewBag.Result = engine.GetResult(db, param);
 			ViewBag.ResultItems = engine.GetResultItem(db, param);
 			ViewBag.Declare = param.GetDeclareInfo(db);
 
@@ -237,7 +240,7 @@ namespace TheSite.Controllers
 			}
 
 
-			return RedirectToAction("ResultView", new { param.TeacherId, param.PeriodId });
+			return RedirectToAction("NotEvalList", new { param.TeacherId, param.PeriodId });
 		}
 
 
@@ -265,7 +268,7 @@ namespace TheSite.Controllers
 			}
 
 
-			return View("../EvalUtilities/ResultView", model);
+			return View(engine.ResultView, model);
 		}
 
 	}

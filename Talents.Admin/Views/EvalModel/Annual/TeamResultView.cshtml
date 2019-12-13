@@ -1,0 +1,83 @@
+﻿@model TeamEvalPeiodModel
+@{
+	var result = Model.Result;
+	var items = Model.ResultItems.Select(x=>x.Value).ToList();
+
+	var GerJiH_ZiwFengx = EngineManager.GetTeamEvalResultValue(items, EvalQualityRuleKeys.GerJiH_ZiwFengx, "1A");
+	var GerJiH_FazMub = EngineManager.GetTeamEvalResultValue(items, EvalQualityRuleKeys.GerJiH_FazMub, "1A");
+	var GerJiH_JutShis = EngineManager.GetTeamEvalResultValue(items, EvalQualityRuleKeys.GerJiH_JutShis, "1A");
+}
+<!-- widget -->
+<div class="widget col-md-10">
+	<div class="widget-header">
+		<h3>考评结果</h3>
+		<div class="btn-group widget-header-toolbar">
+			<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+			<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+		</div>
+	</div>
+	<div class="widget-content">
+		<div class="tab-content no-padding">
+			@*<p>
+				<h3>
+					评分人: @result.AccesserName
+				</h3>
+			</p>
+			<p>
+				<h3>
+					评分时间: @result.AccessDate.ToString("yyyy-MM-dd")
+				</h3>
+			</p>*@
+			<hr />
+				
+			<h4>
+				个人计划得分：<strong class="red">@(result?.Score)/@(result?.FullScore)</strong>
+			</h4>
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th class="table-col-10p">评价指标</th>
+						<th class="table-col-20p">指标说明</th>
+						<th class="table-col-10p">分值/统计标准</th>
+						<th class="table-col-10p">输入分值</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- 指导思想 -->
+					<tr>
+						<td>自我分析</td>
+						<td>
+							聚焦教育、教学、科研方面，从优势、劣势、机会、威胁等方面分析透彻<br />
+						</td>
+						<td>0分--20.0分</td>
+						<td><strong>@GerJiH_ZiwFengx 分</strong></td>
+					</tr>
+					<!-- 学期目标 -->
+					<tr>
+						<td>发展目标</td>
+						<td>基于自我分析，在教育、教学、科研、培训、职称、学历等方面的专业发展目标明确、重点突出</td>
+						<td>0分--30.0分</td>
+						<td><strong>@GerJiH_FazMub 分</strong></td>
+					</tr>
+					<!-- 具体安排 -->
+					<tr>
+						<td>具体实施</td>
+						<td>围绕相应的考核任务撰写，实施的内容和方式具体可行，与发展目标契合，能体现辐射引领</td>
+						<td>0分--50.0分</td>
+						<td><strong>@GerJiH_JutShis 分</strong></td>
+					</tr>
+					<tr>
+						<td>评审意见</td>
+						<td colspan="3">
+							@(result?.Comment)
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+
+			
+		</div>
+	</div>
+</div>
+<!-- /widget -->
