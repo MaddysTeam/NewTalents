@@ -194,8 +194,8 @@ namespace TheSite.EvalAnalysis
 
 				score = string.IsNullOrEmpty(score) || string.IsNullOrWhiteSpace(score) ? _zeroScore : score.Trim();
 				var scoreValue = Convert.ToDouble(score);
-				result.Score += scoreValue.EnsureInRange(0, 20);
-				result.DynamicScore2 += scoreValue.EnsureInRange(0, 20);
+				result.Score += scoreValue.EnsureInRange(0, 50);
+				result.DynamicScore2 += scoreValue.EnsureInRange(0, 50);
 
 				item.ResultValue = scoreValue.ToString();
 			}

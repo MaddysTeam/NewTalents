@@ -254,8 +254,7 @@ namespace TheSite.Controllers
 						er.JoinInner(er.TeacherId == egt.MemberId),
 						u.JoinInner(egt.MemberId == u.UserId),
 						d.JoinInner(d.TeacherId == u.UserId),
-						t.JoinInner(t.MemberId==u.UserId),
-						a.JoinInner(a.UserId==er.Accesser)
+						a.JoinLeft(a.UserId==er.Accesser)
 					  )
 				.where(er.PeriodId == periodId)
 				.primary(egt.MemberId);

@@ -309,13 +309,17 @@ namespace TheSite.Controllers
 			var result = db.TeamEvalResultDal.ConditionQuery(ter.MemberId == UserProfile.UserId & ter.PeriodId == EvalPeriod.PeriodId, null, null, null)?.FirstOrDefault();
 
 			var list = new List<EvalCommentAndScoreViewModel>();
-			list.Add(new EvalCommentAndScoreViewModel
+			if (null != result)
 			{
-				EvalResultId = result.ResultId,
-				EvalComment = result.Comment,
-				EvalTitle = EvalQualityRuleKeys.GerJiHx,
-				Score = result.Score
-			});
+				list.Add(new EvalCommentAndScoreViewModel
+				{
+					EvalResultId = result.ResultId,
+					EvalComment = result.Comment,
+					EvalTitle = EvalQualityRuleKeys.GerJiHx,
+					Score = result.Score,
+					FullScore = result.FullScore
+				});
+			}
 
 			return PartialView("EvalResult", list);
 		}
@@ -339,7 +343,7 @@ namespace TheSite.Controllers
 					Score = i == 0 ? result.DynamicScore1 : i == 1 ? result.DynamicScore2 : result.DynamicScore3,
 					EvalTitle = i == 0 ? EvalQualityRuleKeys.SannGuih : i == 1 ? EvalQualityRuleKeys.TuandJih : EvalQualityRuleKeys.GerJiHx,
 					EvalComment = i == 0 ? result.DynamicComment1 : i == 1 ? result.DynamicComment2 : result.DynamicComment3,
-					FullScore=result.FullScore
+					FullScore = result.FullScore
 				});
 			}
 
