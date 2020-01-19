@@ -146,7 +146,7 @@ namespace TheSite.Models
 
 		[Display(Name = "附件名称")]
 		[Required()]
-		[StringLength(40)]
+		[StringLength(500)]
 		public string AttachmentName { get; set; }
 
 		[Display(Name = "附件路径")]

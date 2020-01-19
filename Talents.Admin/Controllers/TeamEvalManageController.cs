@@ -182,7 +182,7 @@ namespace TheSite.Controllers
 						u.JoinInner(u.UserId == t.MemberId),
 						l.JoinInner(l.UserId == t.TeamId)
 						)
-				.where(d.TeacherId.NotIn(subquery))
+				.where(t.MemberId.NotIn(subquery))
 					.primary(u.UserId);
 
 
