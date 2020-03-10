@@ -13,7 +13,10 @@ namespace Business.Config
 		public const long AppUser_Admin_Id = 1;
 
 		// 管理员角色 ID
-		public const long AppRole_Admin_Id = 1;
+		public const long AppRole_Admin_Id = 2;
+
+		// 当前学期 ID
+		public const string Current_Semester_name = "第二学期";
 
 		//	教师类型
 		public const string Teacher = "Teacher";

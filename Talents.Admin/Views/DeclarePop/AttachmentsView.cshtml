@@ -24,20 +24,27 @@
 								@foreach (var item in Model)
 								{
 									var isMine = item.UserId == Html.GetUserProfile().UserId;
+									var isAdmin = Html.GetUserProfile().IsSystemAdmin;
 									var extName = Path.GetExtension(item.AttachmentName).ToLower();
 									var isVertify = item.Type.IndexOf(AttachmentsKeys.Vertify) > 0;
 									<tr>
 										<td>	
 											@if (allType.IndexOf(extName) >= 0)
 											{
-												if(isMine || AttachmentsKeys.NeedConvertPDFSuffix.IndexOf(extName)<0)
+												if (item.Type.IndexOf("活动安排") >= 0  || item.Type.IndexOf("学期计划") >= 0)
+												{
+													item.AttachmentName = item.Type.Substring(item.Type.Length-4) + ":   " + item.AttachmentName;
+												}
+
+												if (isAdmin || isMine || AttachmentsKeys.NeedConvertPDFSuffix.IndexOf(extName)<0)
 												{
 												<a href="@Url.Content(item.AttachmentUrl)" target="_blank" title="@item.AttachmentName">@(isVertify?"【证明文件】":"")@(item.AttachmentName.Length > 40 ? item.AttachmentName.Substring(0, 37) + "..." : item.AttachmentName)</a>
 												}
 												else
 												{
-														<a href="@Url.Action("Preview", "Attachment", new {id=item.ID})" target="_blank" title="@item.AttachmentName">@(isVertify ? "【证明文件】" : "")@(item.AttachmentName.Length > 40 ? item.AttachmentName.Substring(0, 37) + "..." : item.AttachmentName)</a>
+												<a href="@Url.Action("Preview", "Attachment", new {id=item.ID})" target="_blank" title="@item.AttachmentName">@(isVertify ? "【证明文件】" : "")@(item.AttachmentName.Length > 40 ? item.AttachmentName.Substring(0, 37) + "..." : item.AttachmentName)</a>
 												}
+												
 											}
 										</td>
 									</tr>
