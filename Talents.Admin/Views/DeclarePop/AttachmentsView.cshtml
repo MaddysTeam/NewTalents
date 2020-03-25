@@ -24,7 +24,8 @@
 								@foreach (var item in Model)
 								{
 									var isMine = item.UserId == Html.GetUserProfile().UserId;
-									var isAdmin = Html.GetUserProfile().IsSystemAdmin;
+									var isAdmin = Html.GetUserProfile().IsSystemAdmin || Html.GetUserProfile().UserId== ThisApp.AdminId;
+									var isExpert = Html.GetUserProfile().IsExpert;
 									var extName = Path.GetExtension(item.AttachmentName).ToLower();
 									var isVertify = item.Type.IndexOf(AttachmentsKeys.Vertify) > 0;
 									<tr>
@@ -35,7 +36,10 @@
 												{
 													item.AttachmentName = item.Type.Substring(item.Type.Length-4) + ":   " + item.AttachmentName;
 												}
-
+												if (isExpert)
+												{
+												  //TODO
+												}
 												if (isAdmin || isMine || AttachmentsKeys.NeedConvertPDFSuffix.IndexOf(extName)<0)
 												{
 												<a href="@Url.Content(item.AttachmentUrl)" target="_blank" title="@item.AttachmentName">@(isVertify?"【证明文件】":"")@(item.AttachmentName.Length > 40 ? item.AttachmentName.Substring(0, 37) + "..." : item.AttachmentName)</a>
@@ -44,7 +48,7 @@
 												{
 												<a href="@Url.Action("Preview", "Attachment", new {id=item.ID})" target="_blank" title="@item.AttachmentName">@(isVertify ? "【证明文件】" : "")@(item.AttachmentName.Length > 40 ? item.AttachmentName.Substring(0, 37) + "..." : item.AttachmentName)</a>
 												}
-												
+
 											}
 										</td>
 									</tr>

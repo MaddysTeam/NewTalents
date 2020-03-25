@@ -31,6 +31,7 @@ namespace TheSite.EvalAnalysis
 				Analysis_TuandJih_ZhidSix(result, items, fc[EvalQualityRuleKeys.TuandJih_ZhidSix], fc[EvalQualityRuleKeys.TuandJih_ZhidSix_Def]);
 				Analysis_TuandJih_XueqMub(result, items, fc[EvalQualityRuleKeys.TuandJih_XueqMub], fc[EvalQualityRuleKeys.TuandJih_XueqMub_Def]);
 				Analysis_TuandJih_JutAnp(result, items, fc[EvalQualityRuleKeys.TuandJih_JutAnp], fc[EvalQualityRuleKeys.TuandJih_JutAnp_Def]);
+				Analysis_TuandJih_KaohPingj(result, items, fc[EvalQualityRuleKeys.TuandJih_KaohPingj], fc[EvalQualityRuleKeys.TuandJih_KaohPingj_Def]);
 
 				//个人分析部分
 
@@ -175,8 +176,8 @@ namespace TheSite.EvalAnalysis
 
 				score = string.IsNullOrEmpty(score) || string.IsNullOrWhiteSpace(score) ? _zeroScore : score.Trim();
 				var scoreValue = Convert.ToDouble(score);
-				result.Score += scoreValue.EnsureInRange(0, 30);
-				result.DynamicScore2 += scoreValue.EnsureInRange(0, 30);
+				result.Score += scoreValue.EnsureInRange(0, 20);
+				result.DynamicScore2 += scoreValue.EnsureInRange(0, 20);
 
 				item.ResultValue = scoreValue.ToString();
 			}
@@ -194,8 +195,27 @@ namespace TheSite.EvalAnalysis
 
 				score = string.IsNullOrEmpty(score) || string.IsNullOrWhiteSpace(score) ? _zeroScore : score.Trim();
 				var scoreValue = Convert.ToDouble(score);
-				result.Score += scoreValue.EnsureInRange(0, 50);
-				result.DynamicScore2 += scoreValue.EnsureInRange(0, 50);
+				result.Score += scoreValue.EnsureInRange(0, 40);
+				result.DynamicScore2 += scoreValue.EnsureInRange(0, 40);
+
+				item.ResultValue = scoreValue.ToString();
+			}
+
+
+			private void Analysis_TuandJih_KaohPingj(EvalQualityResult result, Dictionary<string, EvalQualityResultItem> items, string choose, string score)
+			{
+				var item = new EvalQualityResultItem
+				{
+					ChooseValue = choose,
+					EvalItemKey = EvalQualityRuleKeys.TuandJih_KaohPingj,
+				};
+				items.Add(item.EvalItemKey, item);
+
+
+				score = string.IsNullOrEmpty(score) || string.IsNullOrWhiteSpace(score) ? _zeroScore : score.Trim();
+				var scoreValue = Convert.ToDouble(score);
+				result.Score += scoreValue.EnsureInRange(0, 20);
+				result.DynamicScore2 += scoreValue.EnsureInRange(0, 20);
 
 				item.ResultValue = scoreValue.ToString();
 			}

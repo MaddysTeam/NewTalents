@@ -1,6 +1,6 @@
 ﻿@model QualityEvalParam
 @{
-	var pageTitle = ViewBag.Title = "《2019学年第一学期学科研修团队》评审评分表";
+	var pageTitle = ViewBag.Title = "《2019学年第二学期学科研修团队》评审评分表";
 	var items = ViewBag.ResultItems as Dictionary<string, EvalQualityResultItem>;
 
 	var SannGuih_ZhidSix = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.SannGuih_ZhidSix, "1A");
@@ -12,6 +12,7 @@
 	var TuandJih_ZhidSix = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.TuandJih_ZhidSix, "1A");
 	var TuandJih_XueqMub = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.TuandJih_XueqMub, "1A");
 	var TuandJih_JutAnp = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.TuandJih_JutAnp, "1A");
+	var TuandJih_KaohPingj = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.TuandJih_KaohPingj, "1A");
 
 	var GerJiH_JutShis = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.GerJiH_JutShis, "1A");
 	var GerJiH_FazMub = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.GerJiH_FazMub, "1A");
@@ -84,15 +85,15 @@
 									@*<a href="#" class="btn btn-sm btn-info">返回</a>*@
 								</div>
 								<ul class="nav nav-tabs pull-right">
-									<li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-tag"></i> 三年规划</a></li>
-									<li><a href="#tab2" data-toggle="tab"><i class="fa fa-tag"></i> 学期计划</a></li>
-									<li><a href="#tab3" data-toggle="tab"><i class="fa fa-tag"></i> 主持人个人计划</a></li>
+									<li class="hide"><a href="#tab1" data-toggle="tab"><i class="fa fa-tag"></i> 三年规划</a></li>
+									<li class="active"><a href="#tab2" data-toggle="tab"><i class="fa fa-tag"></i> 第二学期学科研修团队学期计划</a></li>
+									<li class="hide"><a href="#tab3" data-toggle="tab"><i class="fa fa-tag"></i> 主持人个人计划</a></li>
 								</ul>
 							</div>
 							<div class="widget-content">
 								<div class="tab-content no-padding">
 									<!-- 三年规划 -->
-									<div class="tab-pane fade in active" id="tab1">
+									<div class="tab-pane fade in" id="tab1">
 										<h3>
 											当前得分：<strong class="red">@(result?.DynamicScore1)</strong>
 										</h3>
@@ -149,7 +150,7 @@
 												<tr>
 													<td>评审意见</td>
 													<td colspan="3">
-														@Html.TextArea("DynamicComment1", result?.DynamicComment1, new { @class = "commentValue", @style = " margin:0; padding:0;width:100%; height:160px;" });
+														@Html.TextArea("DynamicComment1", result?.DynamicComment1, new { @class = "commentValue", @style = " margin:0; padding:0;width:100%; height:160px;" })
 													</td>
 												</tr>
 											</tbody>
@@ -157,7 +158,7 @@
 									</div>
 
 									<!-- 团队计划 -->
-									<div class="tab-pane fade" id="tab2">
+									<div class="tab-pane active" id="tab2">
 										<h3>
 											当前得分：<strong class="red">@(result?.DynamicScore2)</strong>
 										</h3>
@@ -175,7 +176,7 @@
 												<tr>
 													<td>指导思想</td>
 													<td>
-														符合《虹口区教育系统教师专业人才梯队建设实施意见（试行）》相关精神<br />
+														符合《虹口区教育系统教师专业人才梯队建设实施意见（试行）》相关精神。<br />
 													</td>
 													<td>0分--20.0分</td>
 													<td class="flotValue" data-min="0" data-max="20.0" data-value="" data-hidden="@EvalQualityRuleKeys.TuandJih_ZhidSix_Def"></td>
@@ -183,21 +184,28 @@
 												<!-- 学期目标 -->
 												<tr>
 													<td>学期目标</td>
-													<td>目标指向项目引领、研修一体、分层分类培养；学期分目标任务明确、操作性强</td>
-													<td>0分--30.0分</td>
-													<td class="flotValue" data-min="0" data-max="30.0" data-value="" data-hidden="@EvalQualityRuleKeys.TuandJih_XueqMub_Def"></td>
+													<td>学期目标从项目研究、课程开发、课堂教学、教师带教等方面制定；总目标方向明确、重点突出；学期分目标任务明确、操作性强。</td>
+													<td>0分--20.0分</td>
+													<td class="flotValue" data-min="0" data-max="20.0" data-value="" data-hidden="@EvalQualityRuleKeys.TuandJih_XueqMub_Def"></td>
 												</tr>
 												<!-- 具体安排 -->
 												<tr>
 													<td>具体安排</td>
-													<td>（见团队规划中学期活动安排）本学期活动至少6次，时间地点信息具体；活动开展围绕项目研究，内容丰富、形式多样。</td>
-													<td>0分--50.0分</td>
-													<td class="flotValue" data-min="0" data-max="50.0" data-value="" data-hidden="@EvalQualityRuleKeys.TuandJih_JutAnp_Def"></td>
+													<td>（见学科研修团队活动安排表）本学期活动至少7次，时间地点信息具体；活动开展围绕学期目标，内容丰富、形式多样。 </td>
+													<td>0分--40.0分</td>
+													<td class="flotValue" data-min="0" data-max="40.0" data-value="" data-hidden="@EvalQualityRuleKeys.TuandJih_JutAnp_Def"></td>
+												</tr>
+												<!-- 具体安排 -->
+												<tr>
+													<td>考核评价</td>
+													<td>考核全面、客观、公正，能有效促进团队建设和教师发展。</td>
+													<td>0分--20.0分</td>
+													<td class="flotValue" data-min="0" data-max="20.0" data-value="" data-hidden="@EvalQualityRuleKeys.TuandJih_KaohPingj_Def"></td>
 												</tr>
 												<tr>
 													<td>评审意见</td>
 													<td colspan="3">
-														@Html.TextArea("DynamicComment2", result?.DynamicComment2, new { @class = "commentValue", @style = " margin:0; padding:0;width:100%; height:160px;" });
+														@Html.TextArea("DynamicComment2", result?.DynamicComment2, new { @class = "commentValue", @style = " margin:0; padding:0;width:100%; height:160px;" })
 													</td>
 												</tr>
 
@@ -208,7 +216,7 @@
 									<!-- 主持人个人计划 -->
 									<div class="tab-pane fade" id="tab3">
 										<h3>
-										当前得分：<strong class="red">@(result?.DynamicScore3)</strong>
+											当前得分：<strong class="red">@(result?.DynamicScore3)</strong>
 										</h3>
 										<table class="table table-bordered table-striped">
 											<thead>
@@ -246,13 +254,13 @@
 												<tr>
 													<td>评审意见</td>
 													<td colspan="3">
-														@Html.TextArea("DynamicComment3", result?.DynamicComment3, new { @class = "commentValue", @style = " margin:0; padding:0;width:100%; height:160px;" });
+														@Html.TextArea("DynamicComment3", result?.DynamicComment3, new { @class = "commentValue", @style = " margin:0; padding:0;width:100%; height:160px;" })
 													</td>
 												</tr>
 
 												@*<tr>
-													<td colspan="4">得分: <h4><strong class="red">@(result?.DynamicScore3)</strong></h4></td>
-												</tr>*@
+										<td colspan="4">得分: <h4><strong class="red">@(result?.DynamicScore3)</strong></h4></td>
+									</tr>*@
 
 											</tbody>
 										</table>
@@ -276,6 +284,7 @@
 						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.TuandJih_ZhidSix" name="@EvalQualityRuleKeys.TuandJih_ZhidSix_Def" value="@TuandJih_ZhidSix.ResultValue" />
 						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.TuandJih_XueqMub" name="@EvalQualityRuleKeys.TuandJih_XueqMub_Def" value="@TuandJih_XueqMub.ResultValue" />
 						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.TuandJih_JutAnp" name="@EvalQualityRuleKeys.TuandJih_JutAnp_Def" value="@TuandJih_JutAnp.ResultValue" />
+						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.TuandJih_KaohPingj" name="@EvalQualityRuleKeys.TuandJih_KaohPingj_Def" value="@TuandJih_KaohPingj.ResultValue" />
 
 						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.GerJiH_ZiwFengx" name="@EvalQualityRuleKeys.GerJiH_ZiwFengx_Def" value="@GerJiH_ZiwFengx.ResultValue" />
 						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.GerJiH_FazMub" name="@EvalQualityRuleKeys.GerJiH_FazMub_Def" value="@GerJiH_FazMub.ResultValue" />

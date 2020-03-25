@@ -21,7 +21,7 @@ namespace TheSite.Controllers
 		// GET: User/Search
 		// POST-Ajax: User/Search
 
-        [Permisson(Admin.UserVisit)]
+        //[Permisson(Admin.UserVisit)]
 		public ActionResult Search()
 		{
 			return View();

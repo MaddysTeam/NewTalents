@@ -13,6 +13,7 @@
 	var TuandJih_ZhidSix = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.TuandJih_ZhidSix, "1A");
 	var TuandJih_XueqMub = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.TuandJih_XueqMub, "1A");
 	var TuandJih_JutAnp = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.TuandJih_JutAnp, "1A");
+	var TuandJih_KaosPingj = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.TuandJih_KaohPingj, "1A");
 
 	var GerJiH_ZiwFengx = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.GerJiH_ZiwFengx, "1A");
 	var GerJiH_FazMub = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.GerJiH_FazMub, "1A");
@@ -40,10 +41,10 @@
 				</h3>
 			</p>
 			<hr />
-			<h4>
+			<h4 class="hide">
 				团队三年规划得分：<strong class="red">@(result?.DynamicScore1)/@(result.FullScore)</strong>
 			</h4>
-			<table class="table table-bordered table-striped">
+			<table class="table table-bordered table-striped hide">
 				<thead>
 					<tr>
 						<th class="table-col-10p">评价指标</th>
@@ -121,7 +122,7 @@
 					<tr>
 						<td>指导思想</td>
 						<td>
-							符合《虹口区教育系统教师专业人才梯队建设实施意见（试行）》相关精神<br />
+							符合《虹口区教育系统教师专业人才梯队建设实施意见（试行）》相关精神。<br />
 						</td>
 						<td>0分--20.0分</td>
 						<td><strong>@TuandJih_ZhidSix.ResultValue 分</strong></td>
@@ -129,31 +130,38 @@
 					<!-- 学期目标 -->
 					<tr>
 						<td>学期目标</td>
-						<td>目标指向项目引领、研修一体、分层分类培养；学期分目标任务明确、操作性强</td>
-						<td>0分--30.0分</td>
+						<td>学期目标从项目研究、课程开发、课堂教学、教师带教等方面制定；总目标方向明确、重点突出；学期分目标任务明确、操作性强。</td>
+						<td>0分--20.0分</td>
 						<td><strong>@TuandJih_XueqMub.ResultValue 分</strong></td>
 					</tr>
 					<!-- 具体安排 -->
 					<tr>
 						<td>学期活动安排</td>
-						<td>（见团队规划中学期活动安排）本学期活动至少6次，时间地点信息具体；活动开展围绕项目研究，内容丰富、形式多样。</td>
-						<td>0分--50.0分</td>
+						<td>（见学科研修团队活动安排表）本学期活动至少7次，时间地点信息具体；活动开展围绕学期目标，内容丰富、形式多样。</td>
+						<td>0分--40.0分</td>
 						<td><strong>@TuandJih_JutAnp.ResultValue 分</strong></td>
+					</tr>
+					<!-- 考核评价 -->
+					<tr>
+						<td>考核评价</td>
+						<td>考核全面、客观、公正，能有效促进团队建设和教师发展。</td>
+						<td>0分--20.0分</td>
+						<td><strong>@TuandJih_KaosPingj.ResultValue 分</strong></td>
 					</tr>
 					<tr>
 						<td>评审意见</td>
 						<td colspan="3">
-						@(result?.DynamicComment2)
+							@(result?.DynamicComment2)
 						</td>
 					</tr>
 				</tbody>
 			</table>
 
 
-			<h4>
+			<h4 class="hide">
 				主持人个人计划得分：<strong class="red">@(result?.DynamicScore3)/@(result?.FullScore)</strong>
 			</h4>
-			<table class="table table-bordered table-striped">
+			<table class="table table-bordered table-striped hide">
 				<thead>
 					<tr>
 						<th class="table-col-10p">评价指标</th>

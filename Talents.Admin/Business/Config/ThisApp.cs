@@ -51,16 +51,19 @@ namespace Business.Config
 		//	权限session
 		public const string Approve = "SignApprove";
 
-      // 日志数据库连接字符串
-      public static string LogDBConnctString => ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;// "Data Source=10.1.1.8;Initial Catalog=NewTalents;User ID=sa;Password=Kd2017.com;";
+		// 日志数据库连接字符串
+		public static string LogDBConnctString => ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;// "Data Source=10.1.1.8;Initial Catalog=NewTalents;User ID=sa;Password=Kd2017.com;";
 
-      // 日志文件地址
-      public const string LogFilePath = "";
+		// 日志文件地址
+		public const string LogFilePath = "";
 
-      //当前数据库名称
-      public const string DBName = "NewTalents";
+		//当前数据库名称
+		public const string DBName = "NewTalents";
 
-      //当前站点域名和端口
-      public const string SiteDomainAndPort = "http://rctd.hkedu.sh.cn:8000/";
-   }
+		//当前站点域名和端口
+		public const string SiteDomainAndPort = "http://rctd.hkedu.sh.cn:8000/";
+
+		// 管理员id
+		public const int AdminId = 1;
+	}
 }

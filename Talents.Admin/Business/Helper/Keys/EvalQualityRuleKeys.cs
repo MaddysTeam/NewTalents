@@ -69,12 +69,12 @@
 		public const string TuandJih_ZhidSix = "团队计划.指导思想";
 		public const string TuandJih_XueqMub = "团队计划.学期目标";
 		public const string TuandJih_JutAnp = "团队计划.具体安排";
+		public const string TuandJih_KaohPingj = "团队计划.考核评价";// add date 2020-03
 
 		public const string GerJiHx = "个人计划";
 		public const string GerJiH_ZiwFengx = "个人计划.指导思想";
 		public const string GerJiH_FazMub = "个人计划.学期目标";
 		public const string GerJiH_JutShis = "个人计划.具体实施";
-
 
 		public const string SannGuih_ZhidSix_Def = "三年计划.指导思想.得分";
 		public const string SannGuih_XianzFenx_Def = "三年计划.现状分析.得分";
@@ -85,10 +85,14 @@
 		public const string TuandJih_ZhidSix_Def = "团队计划.指导思想.得分";
 		public const string TuandJih_XueqMub_Def = "团队计划.学期目标.得分";
 		public const string TuandJih_JutAnp_Def = "团队计划.具体安排.得分";
+		public const string TuandJih_KaohPingj_Def = "团队计划.考核评价.得分";
 
 		public const string GerJiH_ZiwFengx_Def = "个人计划.指导思想.得分";
 		public const string GerJiH_FazMub_Def = "个人计划.学期目标.得分";
 		public const string GerJiH_JutShis_Def = "个人计划.具体实施.得分";
+
+
+
 
 
 	}
