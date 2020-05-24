@@ -25,8 +25,10 @@ namespace TheSite.EvalAnalysis
 
 			public override double Proportion
 			 => 0.3;
-
+        
 			public static double ProportionValue => 0.3;
+
+       //  public static Dictionary<string, double> PropertionValues => new Dictionary<string, double> { { "d",2} };
 
 
 			public override EvalSchoolResult GetResult(APDBDef db, SchoolEvalParam param)
