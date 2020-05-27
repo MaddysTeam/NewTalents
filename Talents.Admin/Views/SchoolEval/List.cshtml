@@ -1,6 +1,7 @@
 ﻿@{
 	var pageTitle = ViewBag.Title = "当前校评管理";
 	var periodId = Request["periodId"];
+	var isLowDeclareLevel = bool.Parse(Request["isLowDeclareLevel"]);
 }
 <div class="col-md-10 content-wrapper">
 	<div class="row">
@@ -16,22 +17,22 @@
 	<div class="content">
 		<div class="main-header">
 			<h2><i class="fa fa-users"></i> @pageTitle</h2>
-			<em>已评学员</em>
+			<em>@(isLowDeclareLevel? "骨干以下":"骨干及以上")</em>
 		</div>
 
 		<div class="main-content">
 
 			<!-- top action buttons -->
 			<div class="gallery-buttons bottom-30px">
-				<a class="btn btn-md btn-info" href="@Url.Action("CurrentList", "SchoolEval", new { periodId = periodId })"><span>已评学员</span></a>
-				<a class="btn btn-md btn-info" href="@Url.Action("NotEvalList", "SchoolEval", new { periodId = periodId })"><span>未评学员</span></a>
+				<a class="btn btn-md btn-warning" href="@Url.Action("EvalSchoolMemberExport", "SchoolEvalManage",new { periodId = periodId, isLowDeclareLevel=isLowDeclareLevel })" id="btnexp">导出数据</a>
 			</div>
+
 			<!-- /top action buttons -->
 
 			<!-- widget -->
 			<div class="widget">
 				<div class="widget-header">
-					<h3><i class="fa fa-paperclip"></i> 已评学员列表</h3>
+					<h3><i class="fa fa-paperclip"></i> 学员列表</h3>
 					<div class="btn-group widget-header-toolbar">
 						<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
 						<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
@@ -71,7 +72,8 @@
 	<script>
 
 		function getGlobalRequest() {
-			return {};
+			return {
+			};
 		}
 
 		function getGridOptions() {

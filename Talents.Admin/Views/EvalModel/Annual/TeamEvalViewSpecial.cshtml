@@ -3,6 +3,8 @@
 	var pageTitle = ViewBag.Title = "团队考评";
 	var items = ViewBag.ResultItems as Dictionary<string, TeamEvalResultItem>;
 
+	//var GerJiH_JutShis = EngineManager.GetTeamEvalResult(items, EvalQualityRuleKeys.GerJiH_JutShis, "1A");
+	//var GerJiH_FazMub = EngineManager.GetTeamEvalResult(items, EvalQualityRuleKeys.GerJiH_FazMub, "1A");
 	var TuandKaoh = EngineManager.GetTeamEvalResult(items, EvalQualityRuleKeys.TuandKaoh, "1A");
 
 	var declare = ViewBag.Declare as DeclareModel;
@@ -74,7 +76,7 @@
 								</div>
 								<ul class="nav nav-tabs pull-right">
 									@*<li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-tag"></i> 三年规划</a></li>
-									<li><a href="#tab2" data-toggle="tab"><i class="fa fa-tag"></i> 团队计划</a></li>*@
+										<li><a href="#tab2" data-toggle="tab"><i class="fa fa-tag"></i> 团队计划</a></li>*@
 									@*<li><a href="#tab1" data-toggle="tab"><i class="fa fa-tag"></i> 主持人个人计划</a></li>*@
 								</ul>
 							</div>
@@ -99,12 +101,12 @@
 												<tr>
 													<td>团队考核</td>
 													<td>
-														学员出勤率、对团队贡献度<br />
+														过程性材料完成情况、团队项目<br />
 													</td>
 													<td>0分--100.0分</td>
 													<td class="flotValue" data-min="0" data-max="100.0" data-value="" data-hidden="@EvalQualityRuleKeys.TuandKaoh"></td>
 												</tr>
-												
+
 											</tbody>
 										</table>
 									</div>
@@ -114,7 +116,7 @@
 						</div>
 			<!-- /widget -->
 
-						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.TuandKaoh" name="@EvalQualityRuleKeys.TuandKaoh" value="@TuandKaoh.ResultValue" />
+						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.TuandKaoh" name="@EvalQualityRuleKeys.TuandKaoh_Def" value="@TuandKaoh.ResultValue" />
 					}
 
 

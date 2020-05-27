@@ -20,15 +20,23 @@ namespace TheSite.EvalAnalysis
 			static APDBDef.EvalSchoolResultItemTableDef eri = APDBDef.EvalSchoolResultItem;
 
 
-			public override double FullScroe
-				 => 100;
+			public override double FullScroe => 100;
 
-			public override double Proportion
-			 => 0.3;
-        
+			public override double Proportion => 0.3;
+
 			public static double ProportionValue => 0.3;
 
-       //  public static Dictionary<string, double> PropertionValues => new Dictionary<string, double> { { "d",2} };
+			//TODO: for eval 2020
+			public static Dictionary<long, double> PropertionValues => new Dictionary<long, double> {
+				{ Business.Helper.DeclareTargetIds.TezXuey, 0.8 },
+				{ Business.Helper.DeclareTargetIds.JiaoxXinx, 0.8 },
+				{ Business.Helper.DeclareTargetIds.JiaoxNengs, 0.8 },
+				{ Business.Helper.DeclareTargetIds.GugJiaos, 0.3 },
+				{ Business.Helper.DeclareTargetIds.XuekDaitr, 0.3 },
+				{ Business.Helper.DeclareTargetIds.GongzsZhucr, 0.8 },
+				{ Business.Helper.DeclareTargetIds.JidZhucr, 0.8 },
+				{ Business.Helper.DeclareTargetIds.GaodLisz, 0.8 },
+			};
 
 
 			public override EvalSchoolResult GetResult(APDBDef db, SchoolEvalParam param)
@@ -110,42 +118,10 @@ namespace TheSite.EvalAnalysis
 
 			private void AnalysisResult(FormCollection fc, EvalSchoolResult result, Dictionary<string, EvalSchoolResultItem> items)
 			{
-				AnalysisGongzl(result, items, fc[EvalSchoolRuleKeys.XiaonLvz_Gongzl]);
+				//AnalysisGongzl(result, items, fc[EvalSchoolRuleKeys.XiaonLvz_Gongzl]);
 				AnalysisGongzZhil(result, items, fc[EvalSchoolRuleKeys.XiaonLvz_GongzZhil], fc[EvalSchoolRuleKeys.XiaonLvz_GongzZhil_Jeig]);
 				AnalysisShid(result, items, fc[EvalSchoolRuleKeys.Shid]);
 			}
-
-
-			private void AnalysisGongzl(EvalSchoolResult result, Dictionary<string, EvalSchoolResultItem> items, string choose)
-			{
-				var item = new EvalSchoolResultItem
-				{
-					ChooseValue = choose,
-					EvalItemKey = EvalSchoolRuleKeys.XiaonLvz_Gongzl,
-				};
-				items.Add(item.EvalItemKey, item);
-
-				switch (choose)
-				{
-					case "A":
-						result.Score += 50;
-						item.ResultValue = "50分";
-						break;
-					case "B":
-						result.Score += 40;
-						item.ResultValue = "40分";
-						break;
-					case "C":
-						result.Score += 25;
-						item.ResultValue = "25分";
-						break;
-					case "D":
-						result.Score += 15;
-						item.ResultValue = "15分";
-						break;
-				}
-			}
-
 
 			private void AnalysisGongzZhil(EvalSchoolResult result, Dictionary<string, EvalSchoolResultItem> items, string choose, string score)
 			{
@@ -161,24 +137,8 @@ namespace TheSite.EvalAnalysis
 
 				score = string.IsNullOrEmpty(score) || string.IsNullOrWhiteSpace(score) ? string.Empty : score.Trim();
 				var scoreValue = Convert.ToDouble(score);
-				switch (choose)
-				{
-					case "A":
-						result.Score += scoreValue.EnsureInRange(47, 50);
-						break;
-					case "B":
-						result.Score += scoreValue.EnsureInRange(32, 42);
-						break;
-					case "C":
-						result.Score += scoreValue.EnsureInRange(27, 30);
-						break;
-					case "D":
-						result.Score += scoreValue.EnsureInRange(15, 25);
-						break;
-				}
-
-				item.ResultValue = scoreValue.ToString();
-
+				result.Score += scoreValue.EnsureInRange(0, 100);
+				item.ResultValue = result.Score.ToString();
 			}
 
 

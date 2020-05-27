@@ -41,16 +41,22 @@
 			}
 			else
 			{
-				<li>
+				@*<li>
 					<a href="@Url.Action("SchoolRule", "EvalManage")">
 						<i class="fa fa-gear fa-fw"></i>
 						<span class="text">校评指标</span>
 					</a>
-				</li>
+				</li>*@
 				<li>
 					<a href="@Url.Action("CurrentList", "SchoolEval")">
 						<i class="fa fa-gear fa-fw"></i>
-						<span class="text">当期校评</span>
+						<span class="text">当期校评(骨干及以上)</span>
+					</a>
+				</li>
+				<li>
+					<a href="@Url.Action("CurrentList", "SchoolEval",new { isLowDeclareLevel = true })">
+						<i class="fa fa-gear fa-fw"></i>
+						<span class="text">当期校评(骨干以下)</span>
 					</a>
 				</li>
 			}

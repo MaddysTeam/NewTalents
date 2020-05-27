@@ -39,11 +39,14 @@ namespace TheSite.EvalAnalysis
 			new QualityEvalUnit2019 {ViewPath = ViewPath }
 		}.ToDictionary(m => m.TargetId);
 
-		public override TeamEvalUnitBase TeamEvals { get; }
-		= new TeamEvalUnit
+
+
+		public override IReadOnlyDictionary<long, TeamEvalUnitBase> TeamEvals { get; }
+		= new List<TeamEvalUnitBase>
 		{
-			ViewPath = ViewPath
-		};
+			new TeamEvalUnit { ViewPath=ViewPath },
+			new TeamEvalUnitSpecial { ViewPath=ViewPath }
+		}.ToDictionary(m => m.TargetId);
 
 	}
 

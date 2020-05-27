@@ -298,7 +298,7 @@ namespace TheSite.Controllers
 		}
 
 
-		// GET:	
+		// TODO: for eval 2019
 
 		public ActionResult TeamEvalResult()
 		{
@@ -324,16 +324,24 @@ namespace TheSite.Controllers
 			return PartialView("EvalResult", list);
 		}
 
+
+		// TODO: for eval 2019
+
 		public ActionResult QualityEvalResult()
 		{
 
 			ThrowNotAjax();
 
+			var list = new List<EvalCommentAndScoreViewModel>();
+
 			var er = APDBDef.EvalQualityResult;
 
-			var result = db.EvalQualityResultDal.ConditionQuery(er.TeacherId == UserProfile.UserId & er.PeriodId == EvalPeriod.PeriodId, null, null, null).FirstOrDefault();
+			if(null == EvalPeriod)
+				return PartialView("EvalResult", list);
 
-			var list = new List<EvalCommentAndScoreViewModel>();
+			var result =  db.EvalQualityResultDal.ConditionQuery(er.TeacherId == UserProfile.UserId & er.PeriodId == EvalPeriod.PeriodId, null, null, null).FirstOrDefault();
+
+			list = new List<EvalCommentAndScoreViewModel>();
 
 			for (int i = 0; i < 3 & result != null; i++)
 			{
@@ -349,6 +357,7 @@ namespace TheSite.Controllers
 
 			return PartialView("EvalResult", list);
 		}
+
 
 
 		//	GET:	 Home/EvalPeriodScores

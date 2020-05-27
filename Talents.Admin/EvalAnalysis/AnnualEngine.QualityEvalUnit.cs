@@ -19,7 +19,7 @@ namespace TheSite.EvalAnalysis
 			static APDBDef.EvalQualityResultItemTableDef eri = APDBDef.EvalQualityResultItem;
 			static APDBDef.ExpGroupTableDef g = APDBDef.ExpGroup;
 
-			// for 2019  由于时间紧迫，2019年有三张考核表，每张表总分100分
+			//TODO: for 2019  由于时间紧迫，2019年有三张考核表，每张表总分100分
 			public override double FullScroe
 				=> 100;
 

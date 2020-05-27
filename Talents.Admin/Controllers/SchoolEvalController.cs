@@ -20,15 +20,14 @@ namespace TheSite.Controllers
 		static APDBDef.CompanyDeclareTableDef cd = APDBDef.CompanyDeclare;
 		static APDBDef.DeclareBaseTableDef d = APDBDef.DeclareBase;
 		static APDBDef.BzUserProfileTableDef u = APDBDef.BzUserProfile;
-		static APDBDef.EvalSchoolResultTableDef er = APDBDef.EvalSchoolResult; 
+		static APDBDef.EvalSchoolResultTableDef er = APDBDef.EvalSchoolResult;
 		static APDBDef.EvalSchoolResultItemTableDef eri = APDBDef.EvalSchoolResultItem;
-     
 
+		// GET: SchoolEval/CurrentList
+		// POST-Ajax: SchoolEval/CurrentList
+		// TODO: variable isLowDeclareLevel only for eval 2020   
 
-      // GET: SchoolEval/CurrentList
-      //	POST-Ajax: SchoolEval/CurrentList
-
-      public ActionResult CurrentList(long periodId = 0)
+		public ActionResult CurrentList(long periodId = 0, bool isLowDeclareLevel = false)
 		{
 			if (periodId == 0)
 			{
@@ -41,7 +40,7 @@ namespace TheSite.Controllers
 				}
 				else
 				{
-					return RedirectToAction("CurrentList", "SchoolEval", new { periodId = period.PeriodId });
+					return RedirectToAction("CurrentList", "SchoolEval", new { periodId = period.PeriodId, isLowDeclareLevel });
 				}
 			}
 
@@ -49,19 +48,24 @@ namespace TheSite.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult CurrentList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long periodId)
+		public JsonResult CurrentList(int current, int rowCount, AjaxOrder sort, string searchPhrase, long periodId, bool isLowDeclareLevel)
 		{
 			ThrowNotAjax();
 
 
-         var query = APQuery.select(u.RealName, d.DeclareTargetPKID, d.DeclareSubjectPKID, d.DeclareStagePKID,
-												cd.CompanyId, u.UserId, er.Score, er.FullScore, er.ResultId)
-				.from(ca,
-						cd.JoinLeft(ca.CompanyId == cd.CompanyId),
-						d.JoinInner(cd.TeacherId == d.TeacherId),
-						u.JoinInner(cd.TeacherId == u.UserId),
-						er.JoinInner(cd.TeacherId == er.TeacherId & er.PeriodId == periodId))
-				.where(ca.UserId == UserProfile.UserId)
+			var query = APQuery.select(u.RealName, d.DeclareTargetPKID, d.DeclareSubjectPKID, d.DeclareStagePKID,
+												   cd.CompanyId, u.UserId, er.Score, er.FullScore, er.ResultId)
+				   .from(ca,
+						   cd.JoinLeft(ca.CompanyId == cd.CompanyId),
+						   d.JoinLeft(cd.TeacherId == d.TeacherId),
+						   u.JoinLeft(cd.TeacherId == u.UserId),
+						   er.JoinLeft(cd.TeacherId == er.TeacherId & er.PeriodId == periodId));
+
+			query = isLowDeclareLevel ?
+					query.where(d.DeclareTargetPKID > DeclareTargetIds.GugJiaos) :
+					query.where(d.DeclareTargetPKID <= DeclareTargetIds.GugJiaos);
+
+			query = query.where_and(ca.UserId == UserProfile.UserId)
 				.primary(cd.TeacherId)
 				.skip((current - 1) * rowCount)
 				.take(rowCount);
@@ -97,7 +101,7 @@ namespace TheSite.Controllers
 			{
 				var score = er.Score.GetValue(rd);
 				var fullScore = er.FullScore.GetValue(rd);
-				return new 
+				return new
 				{
 					id = er.ResultId.GetValue(rd),
 					teacherId = u.UserId.GetValue(rd),
@@ -107,7 +111,7 @@ namespace TheSite.Controllers
 					subject = DeclareBaseHelper.DeclareSubject.GetName(d.DeclareSubjectPKID.GetValue(rd)),
 					stage = DeclareBaseHelper.DeclareStage.GetName(d.DeclareStagePKID.GetValue(rd)),
 					score = fullScore > 0 ? string.Format("{0} / {1}", score, fullScore) : "",
-            };
+				};
 			}).ToList();
 
 
@@ -134,21 +138,21 @@ namespace TheSite.Controllers
 		{
 			ThrowNotAjax();
 
-         var v = APDBDef.EvalVolumnResult;
+			var v = APDBDef.EvalVolumnResult;
 
-         var subquery = APQuery.select(er.TeacherId)
-				.from(er)
-				.where(er.PeriodId == periodId & er.Accesser == UserProfile.UserId);
+			var subquery = APQuery.select(er.TeacherId)
+				   .from(er)
+				   .where(er.PeriodId == periodId & er.Accesser == UserProfile.UserId);
 
 
-			var query = APQuery.select(u.RealName, d.DeclareTargetPKID, d.DeclareSubjectPKID, d.DeclareStagePKID,v.Score,
+			var query = APQuery.select(u.RealName, d.DeclareTargetPKID, d.DeclareSubjectPKID, d.DeclareStagePKID, v.Score,
 												cd.CompanyId, u.UserId)
-				.from(ca,	
+				.from(ca,
 						cd.JoinLeft(ca.CompanyId == cd.CompanyId),
 						d.JoinInner(cd.TeacherId == d.TeacherId),
 						u.JoinInner(cd.TeacherId == u.UserId),
-                  v.JoinLeft(u.UserId == v.TeacherId & v.PeriodId == periodId))
-            .where(ca.UserId == UserProfile.UserId & d.TeacherId.NotIn(subquery))
+				  v.JoinLeft(u.UserId == v.TeacherId & v.PeriodId == periodId))
+			.where(ca.UserId == UserProfile.UserId & d.TeacherId.NotIn(subquery))
 				.primary(u.UserId)
 				.skip((current - 1) * rowCount)
 				.take(rowCount);
@@ -171,10 +175,10 @@ namespace TheSite.Controllers
 				switch (sort.ID)
 				{
 					case "realName": query.order_by(sort.OrderBy(u.RealName)); break;
-					//case "target": query.order_by(sort.OrderBy(d.DeclareTargetPKID)); break;
-					//case "subject": query.order_by(sort.OrderBy(d.DeclareSubjectPKID)); break;
-					//case "stage": query.order_by(sort.OrderBy(d.DeclareStagePKID)); break;
-					//case "score": query.order_by(sort.OrderBy(er.Score)); break;
+						//case "target": query.order_by(sort.OrderBy(d.DeclareTargetPKID)); break;
+						//case "subject": query.order_by(sort.OrderBy(d.DeclareSubjectPKID)); break;
+						//case "stage": query.order_by(sort.OrderBy(d.DeclareStagePKID)); break;
+						//case "score": query.order_by(sort.OrderBy(er.Score)); break;
 				}
 			}
 
@@ -182,15 +186,15 @@ namespace TheSite.Controllers
 
 			var result = query.query(db, rd =>
 			{
-            return new
-            {
-               teacherId = u.UserId.GetValue(rd),
-               companyId = cd.CompanyId.GetValue(rd),
-               realName = u.RealName.GetValue(rd),
-               target = DeclareBaseHelper.DeclareTarget.GetName(d.DeclareTargetPKID.GetValue(rd)),
-               subject = DeclareBaseHelper.DeclareSubject.GetName(d.DeclareSubjectPKID.GetValue(rd)),
-               stage = DeclareBaseHelper.DeclareStage.GetName(d.DeclareStagePKID.GetValue(rd)),
-               vscore = string.Format("{0}/{1}", v.Score.GetValue(rd),100)
+				return new
+				{
+					teacherId = u.UserId.GetValue(rd),
+					companyId = cd.CompanyId.GetValue(rd),
+					realName = u.RealName.GetValue(rd),
+					target = DeclareBaseHelper.DeclareTarget.GetName(d.DeclareTargetPKID.GetValue(rd)),
+					subject = DeclareBaseHelper.DeclareSubject.GetName(d.DeclareSubjectPKID.GetValue(rd)),
+					stage = DeclareBaseHelper.DeclareStage.GetName(d.DeclareStagePKID.GetValue(rd)),
+					vscore = string.Format("{0}/{1}", v.Score.GetValue(rd), 100)
 				};
 			}).ToList();
 
@@ -243,7 +247,7 @@ namespace TheSite.Controllers
 				db.Rollback();
 				throw ex;
 			}
-			
+
 
 
 			return RedirectToAction("ResultView", new { param.TeacherId, param.PeriodId });
@@ -276,6 +280,8 @@ namespace TheSite.Controllers
 
 			return View("../EvalUtilities/ResultView", model);
 		}
+
+
 
 	}
 

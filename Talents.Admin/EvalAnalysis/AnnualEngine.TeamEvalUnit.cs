@@ -26,7 +26,10 @@ namespace TheSite.EvalAnalysis
 			public override double Proportion
 			=> 1;
 
-			public static double ProportionValue => 0.3;
+			// this field for eval 2020 only to distinguish which target id is special , then speical eval target is team leader and eval by specal expert account
+			public override long TargetId => 0;
+
+			public static double ProportionValue => 0.2;
 
 
 			public override TeamEvalResult GetResult(APDBDef db, TeamEvalParam param)
@@ -99,63 +102,24 @@ namespace TheSite.EvalAnalysis
 
 			#region [ 分析 ]
 
-			private string _zeroScore = "0";
+			string _zeroScore = "0";
 
-			private void AnalysisResult(FormCollection fc, TeamEvalResult result, Dictionary<string, TeamEvalResultItem> items)
+			protected virtual void AnalysisResult(FormCollection fc, TeamEvalResult result, Dictionary<string, TeamEvalResultItem> items)
 			{
-				Analysis_GerJiH_ZiwFengx(result, items, fc[EvalQualityRuleKeys.GerJiH_ZiwFengx], fc[EvalQualityRuleKeys.GerJiH_ZiwFengx_Def]);
-				Analysis_GerJiH_FazMub(result, items, fc[EvalQualityRuleKeys.GerJiH_FazMub], fc[EvalQualityRuleKeys.GerJiH_FazMub_Def]);
-				Analysis_GerJiH_JutShis(result, items, fc[EvalQualityRuleKeys.GerJiH_JutShis], fc[EvalQualityRuleKeys.GerJiH_JutShis_Def]);
+				AnalysisResult(result, items, null, fc[EvalQualityRuleKeys.TuandKaoh]);
 			}
 
-
-			private void Analysis_GerJiH_ZiwFengx(TeamEvalResult result, Dictionary<string, TeamEvalResultItem> items, string choose, string score)
+			private void AnalysisResult(TeamEvalResult result, Dictionary<string, TeamEvalResultItem> items, string choose, string score)
 			{
 				var item = new TeamEvalResultItem
 				{
-					ChooseValue = choose,
-					EvalItemKey = EvalQualityRuleKeys.GerJiH_ZiwFengx,
+					EvalItemKey = EvalQualityRuleKeys.TuandKaoh,
 				};
 				items.Add(item.EvalItemKey, item);
 
-
 				score = string.IsNullOrEmpty(score) || string.IsNullOrWhiteSpace(score) ? _zeroScore : score.Trim();
 				var scoreValue = Convert.ToDouble(score);
-				result.Score += scoreValue.EnsureInRange(0, 20);
-
-				item.ResultValue = scoreValue.ToString();
-			}
-
-			private void Analysis_GerJiH_FazMub(TeamEvalResult result, Dictionary<string, TeamEvalResultItem> items, string choose, string score)
-			{
-				var item = new TeamEvalResultItem
-				{
-					ChooseValue = choose,
-					EvalItemKey = EvalQualityRuleKeys.GerJiH_FazMub,
-				};
-				items.Add(item.EvalItemKey, item);
-
-
-				score = string.IsNullOrEmpty(score) || string.IsNullOrWhiteSpace(score) ? _zeroScore : score.Trim();
-				var scoreValue = Convert.ToDouble(score);
-				result.Score += scoreValue.EnsureInRange(0, 30);
-
-				item.ResultValue = scoreValue.ToString();
-			}
-
-			private void Analysis_GerJiH_JutShis(TeamEvalResult result, Dictionary<string, TeamEvalResultItem> items, string choose, string score)
-			{
-				var item = new TeamEvalResultItem
-				{
-					ChooseValue = choose,
-					EvalItemKey = EvalQualityRuleKeys.GerJiH_JutShis,
-				};
-				items.Add(item.EvalItemKey, item);
-
-
-				score = string.IsNullOrEmpty(score) || string.IsNullOrWhiteSpace(score) ? _zeroScore : score.Trim();
-				var scoreValue = Convert.ToDouble(score);
-				result.Score += scoreValue.EnsureInRange(0, 50);
+				result.Score += scoreValue.EnsureInRange(0, 100);
 
 				item.ResultValue = scoreValue.ToString();
 			}

@@ -55,7 +55,7 @@ namespace TheSite.EvalAnalysis
 		/// <summary>
 		/// 团队考核算法模块
 		/// </summary>
-		public virtual TeamEvalUnitBase TeamEvals { get; }
+		public virtual IReadOnlyDictionary<long,TeamEvalUnitBase> TeamEvals { get; }
 
 	}
 

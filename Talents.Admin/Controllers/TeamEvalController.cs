@@ -210,7 +210,7 @@ namespace TheSite.Controllers
 			var period = db.EvalPeriodDal.PrimaryGet(param.PeriodId);
 
 			param.AccesserId = UserProfile.UserId;
-			var engine = EngineManager.Engines[period.AnalysisType].TeamEvals;
+			var engine = EngineManager.Engines[period.AnalysisType].TeamEvals[param.TargetId];
 			ViewBag.Result = engine.GetResult(db, param);
 			ViewBag.ResultItems = engine.GetResultItem(db, param);
 			ViewBag.Declare = param.GetDeclareInfo(db);
@@ -223,7 +223,7 @@ namespace TheSite.Controllers
 		{
 			var period = db.EvalPeriodDal.PrimaryGet(param.PeriodId);
 
-			var engine = EngineManager.Engines[period.AnalysisType].TeamEvals;
+			var engine = EngineManager.Engines[period.AnalysisType].TeamEvals[param.TargetId];
 
 			db.BeginTrans();
 
@@ -249,11 +249,10 @@ namespace TheSite.Controllers
 		public ActionResult ResultView(TeamEvalParam param)
 		{
 			TeamEvalPeiodModel model = new TeamEvalPeiodModel(param);
-
 			model.Period = db.EvalPeriodDal.PrimaryGet(model.PeriodId);
 			model.Declare = model.GetDeclareInfo(db);
 
-			var engine = EngineManager.Engines[model.Period.AnalysisType].TeamEvals;
+			var engine = EngineManager.Engines[model.Period.AnalysisType].TeamEvals[param.TargetId];
 
 			model.AnalysisUnit = engine;
 			model.Result = engine.GetResult(db, param);

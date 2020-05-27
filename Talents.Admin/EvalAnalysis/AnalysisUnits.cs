@@ -145,6 +145,7 @@ namespace TheSite.EvalAnalysis
 
 	public abstract class TeamEvalUnitBase : AnalysisUnit
 	{
+		public abstract long TargetId { get; }
 
 		public override string EvalView => ViewPath + "/TeamEvalView";
 

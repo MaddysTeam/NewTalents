@@ -91,6 +91,9 @@
 		public const string GerJiH_FazMub_Def = "个人计划.学期目标.得分";
 		public const string GerJiH_JutShis_Def = "个人计划.具体实施.得分";
 
+		// for 2020 special 
+		public const string TuandKaoh = "团队考核";
+		public const string TuandKaoh_Def = "团队考核.得分";
 
 
 

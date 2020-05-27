@@ -310,6 +310,7 @@
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="EvalAnalysis\AnalysisUnits.cs" />
     <Compile Include="EvalAnalysis\AnnualEngine.QualityEvalUnit2019.cs" />
+    <Compile Include="EvalAnalysis\AnnualEngine.TeamEvalUnitSpecial.cs" />
     <Compile Include="EvalAnalysis\AnnualEngine.TeamEvalUnit.cs" />
     <Compile Include="EvalAnalysis\DeclareEngine.DeclareEvalUnit.cs" />
     <Compile Include="EvalAnalysis\DeclareEngine.DeclareEvalUnit5008.cs" />
@@ -768,6 +769,8 @@
     <Content Include="Views\TeamEvalManage\NotEvalMemberList.cshtml" />
     <Content Include="Views\TeamEvalManage\Overview.cshtml" />
     <Content Include="Views\EvalModel\Annual\TeamResultView.cshtml" />
+    <Content Include="Views\SchoolEvalManage\EvalSchoolMemberExport.cshtml" />
+    <Content Include="Views\EvalModel\Annual\TeamEvalViewSpecial.cshtml" />
     <None Include="Views\SchoolEvalManage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
