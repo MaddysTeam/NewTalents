@@ -83,7 +83,7 @@ namespace Business.Identity
 			profile.IsSpecialExpert = profile.UserType == "SpecialExpert";
 
 			//获取系统管理员身份
-			profile.IsSystemAdmin = profile.UserId == Config.ThisApp.AppRole_Admin_Id;
+			profile.IsSystemAdmin = profile.UserId == Config.ThisApp.AppUser_Admin_Id;
 
 			//获取学校管理员身份
 			profile.IsSchoolAdmin = manager.DB.CompanyAccesserDal.PrimaryGet(profile.CompanyId, profile.UserId) != null;

@@ -27,9 +27,11 @@ namespace TheSite.EvalAnalysis
 			=> 1;
 
 			// this field for eval 2020 only to distinguish which target id is special , then speical eval target is team leader and eval by specal expert account
-			public override long TargetId => 0;
+			public override long TargetId => 1;
 
 			public static double ProportionValue => 0.2;
+
+			public override string EvalView => ViewPath + "/TeamEvalView";
 
 
 			public override TeamEvalResult GetResult(APDBDef db, TeamEvalParam param)

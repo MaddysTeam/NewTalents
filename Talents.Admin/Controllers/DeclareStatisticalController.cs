@@ -38,9 +38,9 @@ namespace TheSite.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult DeclareProfileList(long companyId, long eduBgId, long degreeId,
+		public ActionResult DeclareProfileList( long eduBgId, long degreeId,
 		   long skillId, long politicalId, long nationId, long subjectId, long stageId, long rankId, long allowFlowToSchool, long allowFlowToDowngrade,
-		   int current, int rowCount, AjaxOrder sort, string searchPhrase)
+		   int current, int rowCount, AjaxOrder sort, string searchPhrase, long companyId = 0)
 		{
 			var query = APQuery
 					.select(dp.Asterisk, c.CompanyName.As("Company"), pi.Name.As("targetName"), df.AllowFlowToDowngrade, df.AllowFlowToSchool)

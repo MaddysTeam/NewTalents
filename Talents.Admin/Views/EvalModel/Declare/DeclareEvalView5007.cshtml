@@ -2,15 +2,15 @@
 
 @if (Html.GetUserProfile().IsExpert)
 {
-	Html.RenderPartial("../EvalModel/Declare/_declareExpertEvalView5007", Model);
+	Html.RenderPartial("../EvalModel/Declare/_declareExpertEvalView5006", Model);
 }
 else if (Html.GetUserProfile().IsSchoolAdmin)
 {
-	Html.RenderPartial("../EvalModel/Declare/_declareSchoolEvalView5007", Model);
+	Html.RenderPartial("../EvalModel/Declare/_declareSchoolEvalView5006", Model);
 }
 else if (Html.GetUserProfile().IsSpecialExpert)
 {
-	Html.RenderPartial("../EvalModel/Declare/_declareSpecialExpertEvalView5007", Model);
+	Html.RenderPartial("../EvalModel/Declare/_declareSpecialExpertEvalView5006", Model);
 }
 
 @section Scripts{

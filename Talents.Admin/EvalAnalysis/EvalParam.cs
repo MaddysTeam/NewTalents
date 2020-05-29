@@ -45,9 +45,6 @@ namespace TheSite.EvalAnalysis
 	public class TeamEvalParam : EvalParam
 	{
 		public long TeamId { get; set; }
-
-		//TODO: eval for 2020
-		public long TargetId { get; set; } = 0;
 	}
 
 }

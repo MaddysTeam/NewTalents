@@ -207,10 +207,13 @@ namespace TheSite.Controllers
 		[NoCache]
 		public ActionResult Eval(TeamEvalParam param)
 		{
+			//TODO: 为特别专家制定 2 代表特殊专家（主持人） 1 表示普通主持人 
+			var targetId = UserProfile.UserId == 12011 ? 2 : 1;
+
 			var period = db.EvalPeriodDal.PrimaryGet(param.PeriodId);
 
 			param.AccesserId = UserProfile.UserId;
-			var engine = EngineManager.Engines[period.AnalysisType].TeamEvals[param.TargetId];
+			var engine = EngineManager.Engines[period.AnalysisType].TeamEvals[targetId];
 			ViewBag.Result = engine.GetResult(db, param);
 			ViewBag.ResultItems = engine.GetResultItem(db, param);
 			ViewBag.Declare = param.GetDeclareInfo(db);
@@ -221,9 +224,13 @@ namespace TheSite.Controllers
 		[HttpPost]
 		public ActionResult Eval(TeamEvalParam param, FormCollection fc)
 		{
+
+			//TODO: 为特别专家制定 2 代表特殊专家（主持人） 1 表示普通主持人 
+			var targetId = UserProfile.UserId == 12011 ? 2 : 1;
+
 			var period = db.EvalPeriodDal.PrimaryGet(param.PeriodId);
 
-			var engine = EngineManager.Engines[period.AnalysisType].TeamEvals[param.TargetId];
+			var engine = EngineManager.Engines[period.AnalysisType].TeamEvals[targetId];
 
 			db.BeginTrans();
 
@@ -248,11 +255,14 @@ namespace TheSite.Controllers
 
 		public ActionResult ResultView(TeamEvalParam param)
 		{
+			//TODO: 为特别专家制定 2 代表特殊专家（主持人） 1 表示普通主持人 
+			var targetId = UserProfile.UserId == 12011 ? 2 : 1;
+
 			TeamEvalPeiodModel model = new TeamEvalPeiodModel(param);
 			model.Period = db.EvalPeriodDal.PrimaryGet(model.PeriodId);
 			model.Declare = model.GetDeclareInfo(db);
 
-			var engine = EngineManager.Engines[model.Period.AnalysisType].TeamEvals[param.TargetId];
+			var engine = EngineManager.Engines[model.Period.AnalysisType].TeamEvals[targetId];
 
 			model.AnalysisUnit = engine;
 			model.Result = engine.GetResult(db, param);

@@ -97,7 +97,7 @@
 											<tbody>
 												<!--工作质量-->
 												<tr>
-													<td>校内履职(分值：100)</td>
+													<td>@(declare.TargetId > 5006 ? "校内履职(分值：100)" : "校内履职(分值：100)")</td>
 													<td>@(declare.TargetId > 5006 ? "根据区考核内容，由学校制定考核方案进行学校考核评分" : "建议就工作量、教育教学效果、主持学校学科教研组建设、参与重大项目研究等方面进行校内履职评分")</td>
 													@*<td><label>@Html.RadioButton(EvalSchoolRuleKeys.XiaonLvz_GongzZhil, "A", isChecked: XiaonLvz_GongzZhil.ChooseValue == "A") A：自己足额完成工作任务、达到工作要求，并获得所在单位认可。（须满工作量）</label></td>*@
 													<td>0分 - 100分</td>
@@ -106,7 +106,7 @@
 
 												<tr>
 													<td rowspan="2">师德</td>
-													<td rowspan="3">坚持师德为先，实行师德失范“一票否决”原则</td>
+													<td rowspan="2">坚持师德为先，实行师德失范“一票否决”原则</td>
 													<td>合格</td>
 													<td><label>@Html.RadioButton(EvalSchoolRuleKeys.Shid, "A", isChecked: Shid == "A") A：无违反师德相关规定的言行</label></td>
 													@*<td>合格</td>*@
@@ -125,7 +125,7 @@
 						</div>
 			<!-- /widget -->
 
-						<input type="hidden" class="hiddenValue" data-error="@EvalSchoolRuleKeys.XiaonLvz_GongzZhil_Jeig" name="@EvalSchoolRuleKeys.XiaonLvz_GongzZhil_Jeig" value="@XiaonLvz_GongzZhil.ResultValue" />
+						<input type="hidden" class="hiddenValue" data-error="@EvalSchoolRuleKeys.XiaonLvz" name="@EvalSchoolRuleKeys.XiaonLvz_GongzZhil_Jeig" value="@XiaonLvz_GongzZhil.ResultValue" />
 					}
 
 

@@ -19,7 +19,9 @@ namespace TheSite.EvalAnalysis
 		public class TeamEvalUnitSpecial : TeamEvalUnit
 		{
 
-			public override long TargetId => 1;
+			public override long TargetId => 2;
+
+			public override string EvalView => ViewPath + "/TeamEvalViewSpecial";
 
 		}
 

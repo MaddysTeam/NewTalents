@@ -647,7 +647,7 @@ namespace TheSite.Controllers
 		private DeclarePreviewViewModel GetPreviewViewModel(DeclarePreviewParam param)
 		{
 			var poge = ".职称破格";
-			var isAdmin = UserProfile.IsSchoolAdmin || UserProfile.IsSystemAdmin || UserProfile.IsExpert || UserProfile.IsSpecialExpert;
+			var isAdmin = UserProfile.IsSchoolAdmin || UserProfile.IsSystemAdmin || UserProfile.IsExpert || UserProfile.IsSpecialExpert || UserProfile.UserType.ToLower()=="admin";
 			var userid = isAdmin ? param.TeacherId : UserProfile.UserId;
 			var user = db.BzUserProfileDal.PrimaryGet(userid);
 			var model = new DeclarePreviewViewModel();
