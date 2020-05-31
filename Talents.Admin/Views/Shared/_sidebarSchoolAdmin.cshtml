@@ -1,6 +1,9 @@
 ﻿<!-- left sidebar -->
 @{ 
-	var period = Html.GetDeclarePeriod();
+	var declarePeriod = Html.GetDeclarePeriod();
+	var evalPeriod = Html.GetEvalPeriod();
+	var isInDeclare = declarePeriod != null && declarePeriod.IsInDeclarePeriod;
+	var isInEval = evalPeriod != null && evalPeriod.IsInEvalPeriod;
 }
 <div class="col-md-2 left-sidebar">
 	<!-- main-nav -->
@@ -12,7 +15,7 @@
 					<span class="text">首页</span>
 				</a>
 			</li>		
-			@if (period != null && period.IsInReviewPeriod)
+			@if (isInDeclare)
 			{
 			<li>
 				<a href="@Url.Action("List", "DeclareReview", new { companyId = Html.GetUserProfile().CompanyId })">
@@ -39,7 +42,7 @@
 				</a>
 			</li>
 			}
-			else
+			@if(isInEval)
 			{
 				@*<li>
 					<a href="@Url.Action("SchoolRule", "EvalManage")">

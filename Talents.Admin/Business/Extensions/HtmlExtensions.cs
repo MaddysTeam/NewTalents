@@ -19,6 +19,8 @@ namespace System.Web.Mvc
 		public static BzUserProfile GetUserProfile(this HtmlHelper helper)
 			=> helper.ViewContext.HttpContext.GetUserProfile();
 
+      public static EvalPeriod GetEvalPeriod(this HtmlHelper helper)
+        => helper.ViewContext.HttpContext.GetEvalPeriod();
 
       public static DeclarePeriod GetDeclarePeriod(this HtmlHelper helper) 
          => helper.ViewContext.HttpContext.GetDeclarePeriod();

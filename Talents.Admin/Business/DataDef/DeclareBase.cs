@@ -29,4 +29,11 @@ namespace Business
 
    }
 
+
+   public partial class EvalPeriod
+   {
+      public bool IsInEvalPeriod => DateTime.Now >= AccessBeginDate && DateTime.Now <= AccessEndDate;
+   }
+
+
 }

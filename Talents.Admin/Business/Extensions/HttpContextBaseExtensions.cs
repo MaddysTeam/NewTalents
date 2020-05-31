@@ -11,7 +11,7 @@ namespace System.Web
 
       private readonly static object userProfileInHttpContext = new object();
       private readonly static string declarePeriodInHttpContext = string.Empty;
-
+      private readonly static string evalPeriodInHttpContext = string.Empty;
 
       public static BzUserProfile GetUserProfile(this HttpContextBase httpContext)
       {
@@ -63,6 +63,21 @@ namespace System.Web
          }
 
          return period ?? new DeclarePeriod();
+      }
+
+
+      public static EvalPeriod GetEvalPeriod(this HttpContextBase httpContext)
+      {
+         EvalPeriod period = httpContext.Items[evalPeriodInHttpContext] as EvalPeriod;
+
+         if (period == null)
+         {
+            period = EvalPeriod.GetAll().FirstOrDefault(x => x.IsCurrent);
+
+            httpContext.Items[declarePeriodInHttpContext] = period;
+         }
+
+         return period ?? new EvalPeriod();
       }
 
       public static bool IsRole(this HttpContextBase httpContext, string roleName)

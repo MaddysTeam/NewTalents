@@ -1,7 +1,9 @@
 ﻿@{
 	var up = Html.GetUserProfile();
 	var declarePeriod = Html.GetDeclarePeriod();
+	var evalPeriod = Html.GetEvalPeriod();
 	var isInDeclare = declarePeriod != null && declarePeriod.IsInDeclarePeriod;
+	var isInEval = evalPeriod != null && evalPeriod.IsInEvalPeriod;
 }
 <!-- left sidebar -->
 <div class="col-md-2 left-sidebar">
@@ -41,21 +43,21 @@
 						<div id="treeview-declare"></div>
 					</div>
 				</div>
-		if (up.IsMaster & !isInDeclare)
-			{
+				if (up.IsMaster & !isInDeclare)
+				{
 	<!-- END WIDGET ACTIVITY FEED -->
-				<li>
-					<a href="@Url.Action("Master", "Team")">
-						<i class="fa fa-book fa-fw"></i>
-						<span class="text">团队建设(主持人)</span>
-					</a>
-				</li>
+					<li>
+						<a href="@Url.Action("Master", "Team")">
+							<i class="fa fa-book fa-fw"></i>
+							<span class="text">团队建设(主持人)</span>
+						</a>
+					</li>
 	<!-- WIDGET ACTIVITY FEED -->
-				<div class="widget widget-treeview" style="display:none">
-					<div class="widget-content">
-						<div id="treeview-team-master"></div>
+					<div class="widget widget-treeview" style="display:none">
+						<div class="widget-content">
+							<div id="treeview-team-master"></div>
+						</div>
 					</div>
-				</div>
 	<!-- END WIDGET ACTIVITY FEED -->
 					<li>
 						<a href="@Url.Action("CurrentList", "TeamEval")">
@@ -66,53 +68,37 @@
 				}
 				if (up.IsMember)
 				{
-				<li>
-					<a href="@Url.Action("Member", "Team")">
-						<i class="fa fa-book fa-fw"></i>
-						<span class="text">团队建设(成员)</span>
-					</a>
-				</li>
+					<li>
+						<a href="@Url.Action("Member", "Team")">
+							<i class="fa fa-book fa-fw"></i>
+							<span class="text">团队建设(成员)</span>
+						</a>
+					</li>
 	<!-- WIDGET ACTIVITY FEED -->
-				<div class="widget widget-treeview" style="display:none">
-					<div class="widget-content">
-						<div id="treeview-team-member"></div>
+					<div class="widget widget-treeview" style="display:none">
+						<div class="widget-content">
+							<div id="treeview-team-member"></div>
+						</div>
 					</div>
-				</div>
 	<!-- END WIDGET ACTIVITY FEED -->
-			}
-			if (up.UserId == 11579 && !isInDeclare) //TODO: temp for sepical teacher 
-			{
-				<li>
-					<a href="@Url.Action("TeamList", "TeamManage")">
-						<i class="fa fa-gear fa-fw"></i>
-						<span class="text">团队管理</span>
-					</a>
-				</li>
-
-				<li>
-					<a href="@Url.Action("FillInRecord", "StatisticalManage")">
-						<i class="fa fa-gear fa-fw"></i>
-						<span class="text">填报统计</span>
-					</a>
-				</li>
-			}
-
-			@*<li>
-				<a href="@Url.Action("Overview", "Declare", new { id = up.UserId })" target="_blank">
-					<i class="fa fa-external-link fa-fw"></i>
-					<span class="text">查看材料</span>
-				</a>
-			</li>*@
-			@*if (!isInDeclare)
-			{
-				<li>
-					<a href="@Url.Action("DeclareList", "ShareManage", new {  teacherId = up.UserId })">
-						<i class="fa fa-share-alt-square fa-fw"></i>
-						<span class="text">共享管理</span>
-					</a>
-				</li>
-			}*@
 				}
+				if (up.UserId == 11579 && !isInDeclare) //TODO: temp for sepical teacher
+				{
+					<li>
+						<a href="@Url.Action("TeamList", "TeamManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">团队管理</span>
+						</a>
+					</li>
+
+					<li>
+						<a href="@Url.Action("FillInRecord", "StatisticalManage")">
+							<i class="fa fa-gear fa-fw"></i>
+							<span class="text">填报统计</span>
+						</a>
+					</li>
+				}
+			}
 			@if (up.IsExpert)
 			{
 				if (isInDeclare)
@@ -124,7 +110,7 @@
 						</a>
 					</li>
 				}
-				else
+				if (isInEval)
 				{
 					<li>
 						<a href="@Url.Action("Index", "QualityEval")">

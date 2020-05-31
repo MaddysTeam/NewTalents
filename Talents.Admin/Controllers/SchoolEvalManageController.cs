@@ -276,10 +276,10 @@ namespace TheSite.Controllers
 				  er.Score, er.FullScore, er.ResultId, er.Morality)
 			   .from(d,
 					  u.JoinLeft(u.UserId == d.TeacherId),
-					  er.JoinLeft(er.TeacherId == d.TeacherId),
-					  c.JoinInner(er.CompanyId == c.CompanyId)
+					  er.JoinLeft(er.TeacherId == d.TeacherId & er.PeriodId==periodId),
+					  c.JoinLeft(er.CompanyId == c.CompanyId)
 					 )
-				.where(er.PeriodId == periodId)
+				//.where(er.PeriodId == periodId)
 				.order_by(d.DeclareTargetPKID.Asc)
 				.order_by_add(er.Score.Desc);
 

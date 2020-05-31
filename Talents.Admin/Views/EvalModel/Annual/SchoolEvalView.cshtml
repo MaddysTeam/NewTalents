@@ -73,10 +73,6 @@
 									</button>
 									<a href="@Url.Action("CurrentList", "SchoolEval")" class="btn btn-sm btn-info">返回</a>
 								</div>
-								<ul class="nav nav-tabs pull-right">
-									@*<li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-tag"></i> 校内履职</a></li>*@
-									@*<li><a href="#tab2" data-toggle="tab"><i class="fa fa-tag"></i> 师德</a></li>*@
-								</ul>
 							</div>
 							<div class="widget-content">
 								<div class="tab-content no-padding">
@@ -89,32 +85,29 @@
 												<tr>
 													<th class="table-col-20p">评价指标</th>
 													<th class="table-col-20p">指标说明</th>
-													@*<th class="table-col-30p">指标项</th>*@
 													<th class="table-col-20p">分值/统计标准</th>
 													<th class="table-col-20p">输入分值</th>
 												</tr>
 											</thead>
 											<tbody>
-												<!--工作质量-->
-												<tr>
-													<td>@(declare.TargetId > 5006 ? "校内履职(分值：100)" : "校内履职(分值：100)")</td>
-													<td>@(declare.TargetId > 5006 ? "根据区考核内容，由学校制定考核方案进行学校考核评分" : "建议就工作量、教育教学效果、主持学校学科教研组建设、参与重大项目研究等方面进行校内履职评分")</td>
-													@*<td><label>@Html.RadioButton(EvalSchoolRuleKeys.XiaonLvz_GongzZhil, "A", isChecked: XiaonLvz_GongzZhil.ChooseValue == "A") A：自己足额完成工作任务、达到工作要求，并获得所在单位认可。（须满工作量）</label></td>*@
-													<td>0分 - 100分</td>
-													<td class="flotValue" data-min="0" data-max="100" data-value="" data-hidden="@EvalSchoolRuleKeys.XiaonLvz_GongzZhil_Jeig"></td>
-												</tr>
-
 												<tr>
 													<td rowspan="2">师德</td>
 													<td rowspan="2">坚持师德为先，实行师德失范“一票否决”原则</td>
 													<td>合格</td>
 													<td><label>@Html.RadioButton(EvalSchoolRuleKeys.Shid, "A", isChecked: Shid == "A") A：无违反师德相关规定的言行</label></td>
-													@*<td>合格</td>*@
 												</tr>
 												<tr>
 													<td>不合格</td>
 													<td><label>@Html.RadioButton(EvalSchoolRuleKeys.Shid, "C", isChecked: Shid == "B") B：有违反师德相关规定的言行，应当出梯队</label></td>
 												</tr>
+												<!--工作质量-->
+												<tr>
+													<td>@(declare.TargetId > 5006 ? "校内履职(分值：100)" : "校内履职(分值：100)")</td>
+													<td>@(declare.TargetId > 5006 ? "根据区考核内容，由学校制定考核方案进行学校考核评分" : "建议就工作量、教育教学效果、主持学校学科教研组建设、参与重大项目研究等方面进行校内履职评分")</td>
+													<td>0分 - 100分</td>
+													<td class="flotValue" data-min="0" data-max="100" data-value="" data-hidden="@EvalSchoolRuleKeys.XiaonLvz_GongzZhil_Jeig"></td>
+												</tr>
+												
 											</tbody>
 										</table>
 									</div>
