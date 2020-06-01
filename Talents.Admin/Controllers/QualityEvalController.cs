@@ -256,7 +256,7 @@ namespace TheSite.Controllers
 					target = DeclareBaseHelper.DeclareTarget.GetName(d.DeclareTargetPKID.GetValue(rd)),
 					subject = DeclareBaseHelper.DeclareSubject.GetName(d.DeclareSubjectPKID.GetValue(rd)),
 					stage = DeclareBaseHelper.DeclareStage.GetName(d.DeclareStagePKID.GetValue(rd)),
-					//targetId = d.DeclareTargetPKID.GetValue(rd),
+					targetId = d.DeclareTargetPKID.GetValue(rd),
 				};
 			}).ToList();
 
@@ -278,7 +278,6 @@ namespace TheSite.Controllers
 		public ActionResult Eval(QualityEvalParam param)
 		{
 			param.AccesserId = UserProfile.UserId;
-			param.TargetId = 0;
 
 			var isEvalSubmit = db.EvalQualitySubmitResultDal
 											  .ConditionQueryCount(esr.TeacherId == param.TeacherId & esr.PeriodId == param.PeriodId) > 0;
@@ -307,8 +306,6 @@ namespace TheSite.Controllers
 		[HttpPost]
 		public ActionResult Eval(QualityEvalParam param, FormCollection fc)
 		{
-			param.TargetId = 0;
-
 			var period = db.EvalPeriodDal.PrimaryGet(param.PeriodId);
 
 			var engine = EngineManager.Engines[period.AnalysisType].QualityEvals;

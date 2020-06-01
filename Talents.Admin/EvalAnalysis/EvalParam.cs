@@ -27,10 +27,8 @@ namespace TheSite.EvalAnalysis
 	public class QualityEvalParam : EvalParam
 	{
 		public long GroupId { get; set; }
-		[Obsolete("this property will be discard in 2019")]
 		public long TargetId { get; set; }
 		public long ResultId { get; set; }
-
 	}
 
 

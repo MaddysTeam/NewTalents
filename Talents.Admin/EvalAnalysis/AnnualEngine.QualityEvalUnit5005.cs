@@ -18,6 +18,9 @@ namespace TheSite.EvalAnalysis
 			public override long TargetId
 				=> 5005;
 
+			public override string EvalView => ViewPath + "/QualityEvalView5005";
+			public override string ResultView => ViewPath + "/QualityResultView5005";
+
 			protected override void AnalysisResult(FormCollection fc, EvalQualityResult result, Dictionary<string, EvalQualityResultItem> items)
 			{
 				Analysis_ZisFaz_DusHuod(result, items, fc[EvalQualityRuleKeys.ZisFaz_DusHuod], fc[EvalQualityRuleKeys.ZisFaz_DusHuod_Def]);

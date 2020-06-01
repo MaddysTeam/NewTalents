@@ -19,6 +19,9 @@ namespace TheSite.EvalAnalysis
 			public override long TargetId
 				=> 5002;
 
+			public override string EvalView => ViewPath + "/QualityEvalView5002";
+			public override string ResultView => ViewPath + "/QualityResultView5002";
+
 
 			protected override void AnalysisResult(FormCollection fc, EvalQualityResult result, Dictionary<string, EvalQualityResultItem> items)
 			{

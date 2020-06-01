@@ -30,12 +30,12 @@ namespace TheSite.EvalAnalysis
 			public static double ProportionValue => 0.5;
 
 
-			public override string EvalView
-				=> ViewPath + "/QualityEvalView2019";
+			//public override string EvalView
+			//	=> ViewPath + "/QualityEvalView2019";
 
 
-			public override string ResultView
-				=> ViewPath + "/QualityResultView2019";
+			//public override string ResultView
+			//	=> ViewPath + "/QualityResultView2019";
 
 
 			public override EvalQualitySubmitResult GetSubmitResult(APDBDef db, QualityEvalParam param)

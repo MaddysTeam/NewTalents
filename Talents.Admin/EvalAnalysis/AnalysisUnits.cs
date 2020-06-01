@@ -100,7 +100,6 @@ namespace TheSite.EvalAnalysis
 	public abstract class QualityEvalUnitBase : AnalysisUnit
 	{
 
-		[Obsolete("This property will delete after 2019")]
 		public virtual long TargetId { get; }
 
 		public virtual string SubmitResultView { get; }

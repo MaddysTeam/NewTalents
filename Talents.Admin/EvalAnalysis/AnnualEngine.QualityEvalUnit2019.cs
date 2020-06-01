@@ -16,6 +16,9 @@ namespace TheSite.EvalAnalysis
 
 			private string _zeroScore = "0";
 
+			public override string EvalView => ViewPath + "/QualityEvalView2019";
+			public override string ResultView => ViewPath + "/QualityResultView2019";
+
 			protected override void AnalysisResult(FormCollection fc, EvalQualityResult result, Dictionary<string, EvalQualityResultItem> items)
 			{
 				//三年规划部分

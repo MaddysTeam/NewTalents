@@ -35,8 +35,11 @@ namespace TheSite.EvalAnalysis
 		public override IReadOnlyDictionary<long, QualityEvalUnitBase> QualityEvals { get; }
 		= new List<QualityEvalUnitBase>
 		{
-			// for 2019 eval only 
-			new QualityEvalUnit2019 {ViewPath = ViewPath }
+			new QualityEvalUnit5002 {ViewPath = ViewPath },
+			new QualityEvalUnit5003 {ViewPath = ViewPath },
+			new QualityEvalUnit5004 {ViewPath = ViewPath },
+			new QualityEvalUnit5005 {ViewPath = ViewPath },
+			new QualityEvalUnit5006 {ViewPath = ViewPath }
 		}.ToDictionary(m => m.TargetId);
 
 

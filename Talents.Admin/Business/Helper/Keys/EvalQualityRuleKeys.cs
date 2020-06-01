@@ -92,11 +92,24 @@
 		public const string GerJiH_JutShis_Def = "个人计划.具体实施.得分";
 
 		// for 2020 special 
+
 		public const string TuandKaoh = "团队考核";
 		public const string TuandKaoh_Def = "团队考核.得分";
 
+		public const string KetJiaox = "课堂教学";
+		public const string KetJiaox_Gongkk = "课堂教学.公开课";
+		public const string KetJiaox_Zhidk = "课堂教学.指导课";
+		public const string KaisJiangz = "开设讲座";
+		public const string XiangmYanj = "项目研究";
+		public const string Lunw = "论文";
+		public const string ShijPeixKec = "市级培训课程";
 
-
+		public const string KetJiaox_Gongkk_Def = "课堂教学.公开课.得分";
+		public const string KetJiaox_Zhidk_Def = "课堂教学.指导课.得分";
+		public const string KaisJiangz_Def = "开设讲座.得分";
+		public const string XiangmYanj_Def = "项目研究.得分";
+		public const string Lunw_Def = "论文.得分";
+		public const string ShijPeixKec_Def = "市级培训课程.得分";
 
 	}
 }
