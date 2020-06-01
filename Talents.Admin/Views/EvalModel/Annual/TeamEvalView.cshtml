@@ -3,7 +3,7 @@
 	var pageTitle = ViewBag.Title = "团队考评";
 	var items = ViewBag.ResultItems as Dictionary<string, TeamEvalResultItem>;
 
-	var TuandKaoh = EngineManager.GetTeamEvalResult(items, EvalQualityRuleKeys.TuandKaoh, "1A");
+	var TuandKaoh = EngineManager.GetTeamEvalResult(items, EvalQualityRuleKeys.TuandKaoh);
 
 	var declare = ViewBag.Declare as DeclareModel;
 	var result = ViewBag.Result as TeamEvalResult;
@@ -101,8 +101,8 @@
 													<td>
 														学员出勤率、对团队贡献度<br />
 													</td>
-													<td>0分--100.0分</td>
-													<td class="flotValue" data-min="0" data-max="100.0" data-value="" data-hidden="@EvalQualityRuleKeys.TuandKaoh"></td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.TuandKaoh, "1C", isChecked:true, htmlAttributes: new { @class="hidden"})0分--100.0分</td>
+													<td class="flotValue" data-min="0" data-max="100.0" data-value="" data-hidden="@EvalQualityRuleKeys.TuandKaoh_Def"></td>
 												</tr>
 												
 											</tbody>
@@ -114,7 +114,7 @@
 						</div>
 			<!-- /widget -->
 
-						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.TuandKaoh" name="@EvalQualityRuleKeys.TuandKaoh" value="@TuandKaoh.ResultValue" />
+						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.TuandKaoh" name="@EvalQualityRuleKeys.TuandKaoh_Def" value="@TuandKaoh.ResultValue" />
 					}
 
 

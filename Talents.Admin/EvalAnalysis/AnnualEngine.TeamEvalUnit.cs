@@ -108,7 +108,7 @@ namespace TheSite.EvalAnalysis
 
 			protected virtual void AnalysisResult(FormCollection fc, TeamEvalResult result, Dictionary<string, TeamEvalResultItem> items)
 			{
-				AnalysisResult(result, items, null, fc[EvalQualityRuleKeys.TuandKaoh]);
+				AnalysisResult(result, items, null, fc[EvalQualityRuleKeys.TuandKaoh_Def]);
 			}
 
 			private void AnalysisResult(TeamEvalResult result, Dictionary<string, TeamEvalResultItem> items, string choose, string score)

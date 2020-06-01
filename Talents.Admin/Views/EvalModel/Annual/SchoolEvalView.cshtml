@@ -3,7 +3,7 @@
 	var pageTitle = ViewBag.Title = "校评";
 	var items = ViewBag.ResultItems as Dictionary<string, EvalSchoolResultItem>;
 
-	var XiaonLvz_Gongzl = EngineManager.GetEvalChooseValue(items, EvalSchoolRuleKeys.XiaonLvz_Gongzl);
+	//var XiaonLvz_Gongzl = EngineManager.GetEvalChooseValue(items, EvalSchoolRuleKeys.XiaonLvz_Gongzl,"A");
 	var XiaonLvz_GongzZhil = EngineManager.GetEvalResult(items, EvalSchoolRuleKeys.XiaonLvz_GongzZhil);
 	var Shid = EngineManager.GetEvalChooseValue(items, EvalSchoolRuleKeys.Shid);
 
@@ -102,9 +102,9 @@
 												</tr>
 												<!--工作质量-->
 												<tr>
-													<td>@(declare.TargetId > 5006 ? "校内履职(分值：100)" : "校内履职(分值：100)")</td>
+													<td>@(declare.TargetId > 5006 ? "学校考评(分值：100)" : "校内履职(分值：100)")</td>
 													<td>@(declare.TargetId > 5006 ? "根据区考核内容，由学校制定考核方案进行学校考核评分" : "建议就工作量、教育教学效果、主持学校学科教研组建设、参与重大项目研究等方面进行校内履职评分")</td>
-													<td>0分 - 100分</td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_DusHuod, "1C", isChecked: true,htmlAttributes:new {@class="hidden" }) 0分 - 100分</td>
 													<td class="flotValue" data-min="0" data-max="100" data-value="" data-hidden="@EvalSchoolRuleKeys.XiaonLvz_GongzZhil_Jeig"></td>
 												</tr>
 												

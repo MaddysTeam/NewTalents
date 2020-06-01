@@ -88,7 +88,7 @@
 						var view = row.score == "" ? "" : '<a target="_blank" class="btn btn-warning btn-view" href="@Url.Action("ResultView", "SchoolEval")?TeacherId=' + row.teacherId + '&PeriodId=' + '@periodId' + '"><i class="fa fa-external-link"></i>查看</a>'
 						return '<div class="btn-group btn-group-xs pull-right" data-row-id="' + row.id + '">' +
 								 view +
-								 '<a class="btn btn-success btn-edit" href="@Url.Action("Eval")?periodId=' + @periodId + '&schoolId=' + row.companyId + '&teacherId=' + row.teacherId + '">执行考评</a>' +
+								 '<a  class="btn btn-success btn-edit" href="@Url.Action("Eval")?periodId=' + @periodId + '&schoolId=' + row.companyId + '&teacherId=' + row.teacherId + '">执行考评</a>' +
 								 '</div>';
 					},
 				},
