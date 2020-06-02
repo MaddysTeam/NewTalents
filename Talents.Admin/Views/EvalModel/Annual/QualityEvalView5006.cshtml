@@ -1,6 +1,6 @@
 ﻿@model QualityEvalParam
 @{
-	var pageTitle = ViewBag.Title = "质评";
+	var pageTitle = ViewBag.Title = "专家评审";
 	var items = ViewBag.ResultItems as Dictionary<string, EvalQualityResultItem>;
 
 	var KetJiaox_Gongkk = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.KetJiaox_Gongkk, "C");
@@ -10,6 +10,7 @@
 	var XiangmYanj = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.XiangmYanj, "C");
 	var Lunw = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.Lunw, "C");
 	var ShijPeixKec = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ShijPeixKec, "C");
+	var Tes = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.Tes, "c");
 
 	var declare = ViewBag.Declare as DeclareModel;
 	var result = ViewBag.Result as EvalQualityResult;
@@ -69,7 +70,7 @@
 			<!-- widget -->
 						<div class="widget">
 							<div class="widget-header">
-								<h3>虹口区教育系统教师专业人才梯队 <strong class="red">骨干教师-质评</strong> 考核指标</h3>
+								<h3>虹口区教育系统教师专业人才梯队 <strong class="red">骨干教师-专家评审</strong> 考核指标</h3>
 								<div class="btn-group widget-header-toolbar">
 									<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
 									<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
@@ -373,26 +374,26 @@
 													<td rowspan="3">
 														各类有特色的活动（不包含已填报过的材料）<br />
 													</td>
-													<td>@Html.RadioButton(EvalQualityRuleKeys.ShijPeixKec, "A", isChecked: ShijPeixKec.ChooseValue == "A")A</td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.Tes, "A", isChecked: ShijPeixKec.ChooseValue == "A")A</td>
 													<td>
 														<label>
 															产生市级及以上影响力
 														</label>
 													</td>
 													<td>9分--10分</td>
-													<td class="flotValue" data-min="9" data-max="10" data-value="" data-hidden="@EvalQualityRuleKeys.ShijPeixKec_Def"></td>
+													<td class="flotValue" data-min="9" data-max="10" data-value="" data-hidden="@EvalQualityRuleKeys.Tes_Def"></td>
 												</tr>
 												<tr>
-													<td>@Html.RadioButton(EvalQualityRuleKeys.ShijPeixKec, "B", isChecked: ShijPeixKec.ChooseValue == "B")B</td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.Tes, "B", isChecked: ShijPeixKec.ChooseValue == "B")B</td>
 													<td><label>产生区级影响力</label></td>
 													<td>6分--8.9分</td>
-													<td class="flotValue" data-min="6" data-max="8.9" data-value="" data-hidden="@EvalQualityRuleKeys.ShijPeixKec_Def"></td>
+													<td class="flotValue" data-min="6" data-max="8.9" data-value="" data-hidden="@EvalQualityRuleKeys.Tes_Def"></td>
 												</tr>
 												<tr>
-													<td>@Html.RadioButton(EvalQualityRuleKeys.ShijPeixKec, "C", isChecked: ShijPeixKec.ChooseValue == "C")C</td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.Tes, "C", isChecked: ShijPeixKec.ChooseValue == "C")C</td>
 													<td><label>有一定的影响力或无影响力</label></td>
 													<td>0分--5.9分</td>
-													<td class="flotValue" data-min="0" data-max="5.9" data-value="" data-hidden="@EvalQualityRuleKeys.ShijPeixKec_Def"></td>
+													<td class="flotValue" data-min="0" data-max="5.9" data-value="" data-hidden="@EvalQualityRuleKeys.Tes_Def"></td>
 												</tr>
 
 											</tbody>
@@ -409,7 +410,8 @@
 						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos" name="@EvalQualityRuleKeys.DaijJiaos_Def" value="@DaijJiaos.ResultValue" />
 						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.XiangmYanj" name="@EvalQualityRuleKeys.XiangmYanj_Def" value="@XiangmYanj.ResultValue" />
 						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.Lunw" name="@EvalQualityRuleKeys.Lunw_Def" value="@Lunw.ResultValue" />
-						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ShijPeixKec" name="@EvalQualityRuleKeys.ShijPeixKec_Def" value="@Lunw.ResultValue" />
+						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ShijPeixKec" name="@EvalQualityRuleKeys.ShijPeixKec_Def" value="@ShijPeixKec.ResultValue" />
+						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.Tes" name="@EvalQualityRuleKeys.Tes_Def" value="@Tes.ResultValue" />
 					}
 
 				</div>

@@ -322,8 +322,8 @@
     <Compile Include="EvalAnalysis\AnnualEngine.QualityEvalUnit.cs" />
     <Compile Include="EvalAnalysis\AnnualEngine.QualityEvalUnit5002.cs" />
     <Compile Include="EvalAnalysis\AnnualEngine.QualityEvalUnit5003.cs" />
-    <Compile Include="EvalAnalysis\AnnualEngine.QualityEvalUnit5004.cs" />
     <Compile Include="EvalAnalysis\AnnualEngine.QualityEvalUnit5005.cs" />
+    <Compile Include="EvalAnalysis\AnnualEngine.QualityEvalUnit5004.cs" />
     <Compile Include="EvalAnalysis\AnnualEngine.QualityEvalUnit5006.cs" />
     <Compile Include="EvalAnalysis\AnnualEngine.VolumnEvalUnit5006.cs" />
     <Compile Include="EvalAnalysis\AnnualEngine.VolumnEvalUnit5005.cs" />
@@ -591,8 +591,8 @@
     <Content Include="Views\EvalModel\Annual\_QualityEvalResultList.cshtml" />
     <Content Include="Views\EvalModel\Annual\_SubmitQualityEval.cshtml" />
     <Content Include="Views\EvalModel\Annual\QualityEvalView5003.cshtml" />
-    <Content Include="Views\EvalModel\Annual\QualityEvalView5004.cshtml" />
     <Content Include="Views\EvalModel\Annual\QualityEvalView5005.cshtml" />
+    <Content Include="Views\EvalModel\Annual\QualityEvalView5004.cshtml" />
     <Content Include="Views\EvalModel\Annual\QualityResultView5004.cshtml" />
     <Content Include="Views\EvalModel\Annual\QualityResultView5006.cshtml" />
     <Content Include="Views\EvalModel\Annual\QualityResultView5005.cshtml" />

@@ -1,27 +1,16 @@
-﻿	@model QualityEvalParam
+﻿@model QualityEvalParam
 @{
-	var pageTitle = ViewBag.Title = "质评";
+	var pageTitle = ViewBag.Title = "专家评审";
 	var items = ViewBag.ResultItems as Dictionary<string, EvalQualityResultItem>;
 
-	var ZisFaz_DusHuod = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ZisFaz_DusHuod,"2C");
-	var ZisFaz_KaizShik = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ZisFaz_KaizShik, "2B");
-	var ZisFaz_DanrPingwGongz = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ZisFaz_DanrPingwGongz, "2B");
-	var ZisFaz_PingbHuoj = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ZisFaz_PingbHuoj, "2B");
-	var ZisFaz_FabLunw = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ZisFaz_FabLunw, "2A");
-	var ZisFaz_LixKet = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ZisFaz_LixKet, "2A");
-	var ZisFaz_XiangmYanj = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ZisFaz_XiangmYanj, "2A");
-	var PeixKec_KaisJiaosPeixKec = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.PeixKec_KaisJiaosPeixKec, "2A");
-	var PeixKec_JiangzBaog = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.PeixKec_JiangzBaog, "2A");
-	var PeixKec_KecZiyKaif = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.PeixKec_KecZiyKaif, "2A");
-	var DaijJiaos_XueyShul = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.DaijJiaos_XueyShul, "2B");
-	var DaijJiaos_DaijJih = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.DaijJiaos_DaijJih, "2B");
-	var DaijJiaos_XueyChengzFenx = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.DaijJiaos_XueyChengzFenx, "2B");
-	var DaijJiaos_DaijZhid = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.DaijJiaos_DaijZhid, "2C");
-	var DaijJiaos_KaizShik = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.DaijJiaos_KaizShik, "2B");
-	var DaijJiaos_FablunwHuocYukTiyJiu = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.DaijJiaos_FablunwHuocYukTiyJiu, "2B");
-	var DaijJiaos_JiaoyJiaoxPingb = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.DaijJiaos_JiaoyJiaoxPingb, "2B");
-	var Tes = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.Tes, "2B");
-
+	var KetJiaox_Gongkk = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.KetJiaox_Gongkk, "C");
+	var KetJiaox_Zhidk = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.KetJiaox_Zhidk, "C");
+	var KaisJiangz = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.KaisJiangz, "C");
+	var DaijJiaos = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.DaijJiaos, "C");
+	var XiangmYanj = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.XiangmYanj, "C");
+	var Lunw = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.Lunw, "C");
+	var ShijPeixKec = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ShijPeixKec, "C");
+	var Tes = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.Tes, "c");
 
 	var declare = ViewBag.Declare as DeclareModel;
 	var result = ViewBag.Result as EvalQualityResult;
@@ -45,10 +34,10 @@
 		</div>
 
 		<div class="main-content">
-            <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-9 alert alert-danger errorMessage"></div>
-            </div>
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-9 alert alert-danger errorMessage"></div>
+			</div>
 			<div class="row">
 				<div class="col-md-3">
 
@@ -81,7 +70,7 @@
 			<!-- widget -->
 						<div class="widget">
 							<div class="widget-header">
-								<h3>虹口区教育系统教师专业人才梯队 <strong class="red">学科带头人-质评</strong> 考核指标</h3>
+								<h3>虹口区教育系统教师专业人才梯队 <strong class="red">学科带头人-专家评审</strong> 考核指标</h3>
 								<div class="btn-group widget-header-toolbar">
 									<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
 									<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
@@ -93,753 +82,337 @@
 									@*<a href="#" class="btn btn-sm btn-info">返回</a>*@
 								</div>
 								<ul class="nav nav-tabs pull-right">
-									<li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-tag"></i> 自身发展</a></li>
-									<li><a href="#tab2" data-toggle="tab"><i class="fa fa-tag"></i> 培训课程</a></li>
-									<li><a href="#tab3" data-toggle="tab"><i class="fa fa-tag"></i> 带教教师</a></li>
-									<li><a href="#tab4" data-toggle="tab"><i class="fa fa-tag"></i> 特色</a></li>
-									<li><a href="#tab5" data-toggle="tab"><i class="fa fa-tag"></i> 总评</a></li>
+									<li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-tag"></i> 教育教学</a></li>
+									<li><a href="#tab2" data-toggle="tab"><i class="fa fa-tag"></i> 教育科研</a></li>
+									<li><a href="#tab3" data-toggle="tab"><i class="fa fa-tag"></i> 市区级培训课程</a></li>
+									<li><a href="#tab4" data-toggle="tab"><i class="fa fa-tag"></i> 特色工作</a></li>
 								</ul>
 							</div>
 							<div class="widget-content">
 								<div class="tab-content no-padding">
 
-									<!-- 自身发展 -->
+									<!-- 教育教学 -->
 									<div class="tab-pane fade in active" id="tab1">
 										<table class="table table-bordered table-striped">
 											<thead>
 												<tr>
-													<th class="table-col-10p">评价指标</th>
-													<th class="table-col-10p">指标说明</th>
-													<th class="table-col-20p">任务要求</th>
-													<th class="table-col-10p">考核分类</th>
-													<th class="table-col-20p">指标项</th>
-													<th class="table-col-10p">分值/统计标准</th>
-													<th class="table-col-20p">输入分值</th>
+													<th class="table-col-10p">指标分类</th>
+													<th class="table-col-10p">指标项</th>
+													<th class="table-col-10p">考核内容</th>
+													<th class="table-col-5p">选项</th>
+													<th class="table-col-20p">分值/统计标准</th>
+													<th class="table-col-10p">分值范围</th>
+													<th class="table-col-10p">输入分值</th>
 												</tr>
 											</thead>
-											<!-- 读书活动 -->
+											<!-- 课堂教学.公开课 -->
 											<tbody>
 												<tr>
-													<td rowspan="7">读书活动</td>
-													<td rowspan="7"></td>
-													<td rowspan="7">
-                                                        1.书目类别：专业类、教育类、人文类、科学类、管理类。数量要求：至少2本/年<br />
-                                                        2.撰写读书心得：至少2篇/年（800字以上/篇）<br />
+													<td rowspan="6">一.课堂教学(满分40分)</td>
+													<td rowspan="3">1.公开课(满分20分)</td>
+													<td rowspan="3">
+														一学年指导2节公开课<br />
 													</td>
-													<td rowspan="4">达量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_DusHuod, "1A", isChecked: ZisFaz_DusHuod.ChooseValue == "1A") A：高质量的读书心得，达到在高水准的刊物上发表的水平</label></td>
-													<td>4.5分--5分</td>
-													<td class="flotValue" data-min="4.5" data-max="5" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_DusHuod_Def"></td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.KetJiaox_Gongkk, "A", isChecked: KetJiaox_Gongkk.ChooseValue == "A")A</td>
+													<td>
+														<label>
+															1.	1节市级及以上公开课,1节区级公开课<br /> 2.	由市区级及以上教育行政部门开具证明
+														</label>
+													</td>
+													<td>18分--20分</td>
+													<td class="flotValue" data-min="18" data-max="20" data-value="" data-hidden="@EvalQualityRuleKeys.KetJiaox_Gongkk_Def"></td>
 												</tr>
 												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_DusHuod, "1B", isChecked: ZisFaz_DusHuod.ChooseValue == "1B") B：完成读书要求，读书心得内容质量总体较高，值得向同行推荐、交流</label></td>
-													<td>4.0分--4.5分</td>
-													<td class="flotValue" data-min="4" data-max="4.5" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_DusHuod_Def"></td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.KetJiaox_Gongkk, "B", isChecked: KetJiaox_Gongkk.ChooseValue == "B")B</td>
+													<td><label> 1.	2节区级公开课 <br /> 2.	由区级教育行政部门开具证明</label></td>
+													<td>12分--17.9分</td>
+													<td class="flotValue" data-min="12" data-max="17.9" data-value="" data-hidden="@EvalQualityRuleKeys.KetJiaox_Gongkk_Def"></td>
 												</tr>
 												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_DusHuod, "1C", isChecked: ZisFaz_DusHuod.ChooseValue == "1C") C：完成读书要求，读书心得内容质量总体较好，能看出有价值的内容</label></td>
-													<td>3.5分--4.0分</td>
-													<td class="flotValue" data-min="3.5" data-max="4" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_DusHuod_Def"></td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.KetJiaox_Gongkk, "C", isChecked: KetJiaox_Gongkk.ChooseValue == "C")C</td>
+													<td><label> 其他公开课或无材料</label></td>
+													<td>0分--11.9分</td>
+													<td class="flotValue" data-min="0" data-max="11.9" data-value="" data-hidden="@EvalQualityRuleKeys.KetJiaox_Gongkk_Def"></td>
+												</tr>
+
+												<!-- 课堂教学.指导课 -->
+												<tr>
+													<td rowspan="3">2.指导课(满分20分)</td>
+													<td rowspan="3">
+														或一学年指导4节指导课<br />
+													</td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.KetJiaox_Zhidk, "A", isChecked: KetJiaox_Zhidk.ChooseValue == "A")A</td>
+													<td>
+														<label>
+															1.	4节指导课，有区级及以上指导课，其余校级指导课<br /> 2.	由区级及以上教育行政部门和学校开具证明
+														</label>
+													</td>
+													<td>18分--20分</td>
+													<td class="flotValue" data-min="19" data-max="20" data-value="" data-hidden="@EvalQualityRuleKeys.KetJiaox_Zhidk_Def"></td>
 												</tr>
 												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_DusHuod, "1D", isChecked: ZisFaz_DusHuod.ChooseValue == "1D") D：读书心得内容质量一般，文字量较少（有的篇幅少于800字）</label></td>
-													<td>3.0分--3.5分</td>
-													<td class="flotValue" data-min="3" data-max="3.5" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_DusHuod_Def"></td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.KetJiaox_Zhidk, "B", isChecked: KetJiaox_Zhidk.ChooseValue == "B")B</td>
+													<td><label>1.	4节校级指导课<br /> 2. 由学校开具证明</label></td>
+													<td>12分--17.9分</td>
+													<td class="flotValue" data-min="12" data-max="17.9" data-value="" data-hidden="@EvalQualityRuleKeys.KetJiaox_Zhidk_Def"></td>
 												</tr>
 												<tr>
-													<td rowspan="3">减量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_DusHuod, "2A", isChecked: ZisFaz_DusHuod.ChooseValue == "2A") A：已完成的任务质量较高，值得推荐、发表</label></td>
-													<td>3.0分--3.5分</td>
-													<td class="flotValue" data-min="3" data-max="3.5" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_DusHuod_Def"></td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.KetJiaox_Zhidk, "C", isChecked: KetJiaox_Zhidk.ChooseValue == "C")C</td>
+													<td><label> 其他指导课或无材料</label></td>
+													<td>0分--11.9分</td>
+													<td class="flotValue" data-min="0" data-max="11.9" data-value="" data-hidden="@EvalQualityRuleKeys.KetJiaox_Zhidk_Def"></td>
+												</tr>
+
+												<!-- 开设讲座 -->
+												<tr>
+													<td rowspan="3">二.开设讲座(满分10分)</td>
+													<td rowspan="3">开设讲座</td>
+													<td rowspan="3">
+														一学年进行1次区级及以上主题发言或专题讲座<br />
+													</td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.KaisJiangz, "A", isChecked: KaisJiangz.ChooseValue == "A")A</td>
+													<td>
+														<label>
+															1.	市级及以上主题发言或专题讲座<br /> 2.	由市级及以上教育行政部门出具证明
+
+														</label>
+													</td>
+													<td>9分--10分</td>
+													<td class="flotValue" data-min="9" data-max="10" data-value="" data-hidden="@EvalQualityRuleKeys.KaisJiangz_Def"></td>
 												</tr>
 												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_DusHuod, "2B", isChecked: ZisFaz_DusHuod.ChooseValue == "2B") B：已完成的任务质量一般</label></td>
-													<td>1.5分--2.0分</td>
-													<td class="flotValue" data-min="1.5" data-max="2" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_DusHuod_Def"></td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.KaisJiangz, "B", isChecked: KaisJiangz.ChooseValue == "B")B</td>
+													<td><label>1.	区级主题发言或专题讲座 <br /> 2.	由区级教育行政部门出具证明</label></td>
+													<td>6分--8.9分</td>
+													<td class="flotValue" data-min="6" data-max="8.9" data-value="" data-hidden="@EvalQualityRuleKeys.KaisJiangz_Def"></td>
 												</tr>
 												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_DusHuod, "2C", isChecked: ZisFaz_DusHuod.ChooseValue == "2C")C：没有提交读书心得；或者提交的材料没有价值</label></td>
-													<td>0分</td>
-													<td class="flotValue" data-min="0" data-max="0" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_DusHuod_Def"></td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.KaisJiangz, "C", isChecked: KaisJiangz.ChooseValue == "C")C</td>
+													<td><label> 其他或无材料</label></td>
+													<td>0分--5.9分</td>
+													<td class="flotValue" data-min="0" data-max="5.9" data-value="" data-hidden="@EvalQualityRuleKeys.KaisJiangz_Def"></td>
 												</tr>
-												<!-- 开展示课 -->
+
+
+												<!-- 带教教师 -->
 												<tr>
-													<td rowspan="6">开展示课</td>
-													<td rowspan="18">此三项指标累加，上限不超过描述的最高分</td>
-													<td rowspan="6">至少有1节区级及以上考核学科类的展示课	</td>
-													<td rowspan="4">达量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_KaizShik, "1A", isChecked: ZisFaz_KaizShik.ChooseValue == "1A") A：高质量、高水准、具有示范性的展示课</label></td>
-													<td>18.0分--20.0分</td>
-													<td class="flotValue" data-min="18" data-max="20" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_KaizShik_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_KaizShik, "1B", isChecked: ZisFaz_KaizShik.ChooseValue == "1B") B：质量较高，开设的展示课值得向同行推荐、借鉴</label></td>
-													<td>16.0分--18.0分</td>
-													<td class="flotValue" data-min="16" data-max="18" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_KaizShik_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_KaizShik, "1C", isChecked: ZisFaz_KaizShik.ChooseValue == "1C") C：质量较好，开设的展示课中部分内容值得推荐</label></td>
-													<td>14.0分--16.0分</td>
-													<td class="flotValue" data-min="14" data-max="16" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_KaizShik_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_KaizShik, "1D", isChecked: ZisFaz_KaizShik.ChooseValue == "1D") D：质量一般，完成了规定的任务</label></td>
-													<td>12.0分--14.0分</td>
-													<td class="flotValue" data-min="12" data-max="14" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_KaizShik_Def"></td>
+													<td rowspan="3">三.带教教师(满分10分)</td>
+													<td rowspan="3">带教教师</td>
+													<td rowspan="3">
+														带教团队内教师完成相应任务<br />
+													</td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos, "A", isChecked: DaijJiaos.ChooseValue == "A")A</td>
+													<td>
+														<label>
+															1.	带教成果汇总表中含区级及以上获奖成果<br /> 2.	由区级教育行政部门出具证明
+														</label>
+													</td>
+													<td>9分--10分</td>
+													<td class="flotValue" data-min="9" data-max="10" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_Def"></td>
 												</tr>
 												<tr>
-													<td rowspan="2">减量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_KaizShik, "2A", isChecked: ZisFaz_KaizShik.ChooseValue == "2A") A：高质量的校际间展示课，有可佐证的材料</label></td>
-													<td>8.0分--10.0分</td>
-													<td class="flotValue" data-min="8" data-max="10" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_KaizShik_Def"></td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos, "B", isChecked: DaijJiaos.ChooseValue == "B")B</td>
+													<td><label> 1.	带教成果汇总表中含获奖成果<br /> 2.	有颁奖教育行政部门出具证明</label></td>
+													<td>6分--8.9分</td>
+													<td class="flotValue" data-min="6" data-max="8.9" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_Def"></td>
 												</tr>
 												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_KaizShik, "2B", isChecked: ZisFaz_KaizShik.ChooseValue == "2B") B：没有开课；或者没有区级及以上相应的佐证材料</label></td>
-													<td>0分</td>
-													<td class="flotValue" data-min="0" data-max="0" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_KaizShik_Def"></td>
-												</tr>
-												<!-- 担任评委工作 -->
-												<tr>
-													<td rowspan="6">担任评委工作</td>
-													<td rowspan="6">担任至少1次区级及以上的评委工作</td>
-													<td rowspan="4">达量质考</td>	
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_DanrPingwGongz, "1A", isChecked: ZisFaz_DanrPingwGongz.ChooseValue == "1A") A：专业水平要求很高的市级及以上教育教学评比活动</label></td>
-													<td>18.0分--20.0分</td>
-													<td class="flotValue" data-min="18" data-max="20" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_DanrPingwGongz_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_DanrPingwGongz, "1B", isChecked: ZisFaz_DanrPingwGongz.ChooseValue == "1B") B： 综合性或专业水平要求高的评比活动</label></td>
-													<td>16.0分--18.0分</td>
-													<td class="flotValue" data-min="16" data-max="18" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_DanrPingwGongz_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_DanrPingwGongz, "1C", isChecked: ZisFaz_DanrPingwGongz.ChooseValue == "1C") C：常规性、专业水准要求较高的评比活动</label></td>
-													<td>14.0分--16.0分</td>
-													<td class="flotValue" data-min="14" data-max="16" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_DanrPingwGongz_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_DanrPingwGongz, "1D", isChecked: ZisFaz_DanrPingwGongz.ChooseValue == "1D") D：常规性、专业水准要求一般的评比活动</label></td>
-													<td>12.0分--14.0分</td>
-													<td class="flotValue" data-min="12" data-max="14" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_DanrPingwGongz_Def"></td>
-												</tr>
-												<tr>
-													<td rowspan="2">减量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_DanrPingwGongz, "2A", isChecked: ZisFaz_DanrPingwGongz.ChooseValue == "2A") A：在校际间联合进行的教育教学活动中担任专业评委，有佐证材料</label></td>
-													<td>8.0分--10.0分</td>
-													<td class="flotValue" data-min="8" data-max="10" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_DanrPingwGongz_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_DanrPingwGongz, "2B", isChecked: ZisFaz_DanrPingwGongz.ChooseValue == "2B") B：没有进行此项工作；或者没有区级及以上相应的佐证材料</label></td>
-													<td>0分</td>
-													<td class="flotValue" data-min="0" data-max="0" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_DanrPingwGongz_Def"></td>
-												</tr>
-												<!-- 评比获奖 -->
-												<tr>
-													<td rowspan="6">评比获奖</td>
-													<td rowspan="6">至少1项市级及以上的奖项</td>
-													<td rowspan="4">达量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_PingbHuoj, "1A", isChecked: ZisFaz_PingbHuoj.ChooseValue == "1A") A：负责的重大课题或项目获奖；或其他高水准的大奖</label></td>
-													<td>18.0分--20.0分</td>
-													<td class="flotValue" data-min="18" data-max="20" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_PingbHuoj_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_PingbHuoj, "1B", isChecked: ZisFaz_PingbHuoj.ChooseValue == "1B") B：主持或负责的课题或项目获奖；或其他专业水平高的奖项</label></td>
-													<td>16.0分--18.0分</td>
-													<td class="flotValue" data-min="16" data-max="18" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_PingbHuoj_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_PingbHuoj, "1C", isChecked: ZisFaz_PingbHuoj.ChooseValue == "1C") C：作为主要参与者的课题或项目获奖；或其他专业水平较高的奖项</label></td>
-													<td>14.0分--16.0分</td>
-													<td class="flotValue" data-min="14" data-max="16" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_PingbHuoj_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_PingbHuoj, "1D", isChecked: ZisFaz_PingbHuoj.ChooseValue == "1D") D：参与的课题或项目获奖；或其他较高的奖项</label></td>
-													<td>12.0分--14.0分</td>
-													<td class="flotValue" data-min="12" data-max="14" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_PingbHuoj_Def"></td>
-												</tr>
-												<tr>
-													<td rowspan="2">减量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_PingbHuoj, "2A", isChecked: ZisFaz_PingbHuoj.ChooseValue == "2A") A：获得区际间联合举行的教育教学活动奖项，或者市级多部门（非市级官方组织）联合开展的活动奖项</label></td>
-													<td>8.0分--10.0分</td>
-													<td class="flotValue" data-min="8" data-max="10" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_PingbHuoj_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_PingbHuoj, "2B", isChecked: ZisFaz_PingbHuoj.ChooseValue == "2B") B：没有获奖；或者没有市级及以上相应的佐证材料</label></td>
-													<td>0分</td>
-													<td class="flotValue" data-min="0" data-max="0" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_PingbHuoj_Def"></td>
-												</tr>
-												<!-- 发表论文 -->
-												<tr>
-													<td rowspan="5">发表论文</td>
-													<td rowspan="15">此三项指标累加，上限不超过描述的最高分</td>
-													<td rowspan="5">至少1篇区级及以上的论文</td>
-													<td rowspan="4">达量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_FabLunw, "1A", isChecked: ZisFaz_FabLunw.ChooseValue == "1A") A：高质量的学科论文，具有前沿、引领、指导性</label></td>
-													<td>22.0分--25.0分</td>
-													<td class="flotValue" data-min="22" data-max="25" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_FabLunw_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_FabLunw, "1B", isChecked: ZisFaz_FabLunw.ChooseValue == "1B") B：质量较高的学科论文，有一定的前沿、引领、指导作用</label></td>
-													<td>20.0分--22.0分</td>
-													<td class="flotValue" data-min="20" data-max="22" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_FabLunw_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_FabLunw, "1C", isChecked: ZisFaz_FabLunw.ChooseValue == "1C") C：质量较高的学科论文</label></td>
-													<td>17.0分--20.0分</td>
-													<td class="flotValue" data-min="17" data-max="20" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_FabLunw_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_FabLunw, "1D", isChecked: ZisFaz_FabLunw.ChooseValue == "1D") D：质量较好的学科论文</label></td>
-													<td>15.0分--17.0分</td>
-													<td class="flotValue" data-min="15" data-max="17" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_FabLunw_Def"></td>
-												</tr>
-												<tr>
-													<td rowspan="1">减量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_FabLunw, "2A", isChecked: ZisFaz_FabLunw.ChooseValue == "2A") A：没有发表论文；或者没有区级及以上相应的佐证材料</label></td>
-													<td>0分</td>
-													<td class="flotValue" data-min="0" data-max="0" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_FabLunw_Def"></td>
-												</tr>
-												<!-- 立项课题 -->
-												<tr>
-													<td rowspan="5">立项课题</td>
-													<td rowspan="5">至少参与1项区级及以上的课题成果</td>
-													<td rowspan="4">达量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_LixKet, "1A", isChecked: ZisFaz_LixKet.ChooseValue == "1A") A：主持或负责的高质量的学科类重要课题成果</label></td>
-													<td>22.0分--25.0分</td>
-													<td class="flotValue" data-min="22" data-max="25" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_LixKet_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_LixKet, "1B", isChecked: ZisFaz_LixKet.ChooseValue == "1B") B：主持或负责的质量较高的学科类重点课题成果；或参与的重大课题成果</label></td>
-													<td>20.0分--22.0分</td>
-													<td class="flotValue" data-min="20" data-max="22" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_LixKet_Def"></td>
-												</tr>
-													<tr>
-														<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_LixKet, "1C", isChecked: ZisFaz_LixKet.ChooseValue == "1C") C：主持或负责的学科类课题成果；或参与市级课题成果</label></td>
-														<td>17.0分--20.0分</td>
-														<td class="flotValue" data-min="17" data-max="20" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_LixKet_Def"></td>
-													</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_LixKet, "1D", isChecked: ZisFaz_LixKet.ChooseValue == "1D") D：参与的学科类课题成果</label></td>
-													<td>15.0分--17.0分</td>
-													<td class="flotValue" data-min="15" data-max="17" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_LixKet_Def"></td>
-												</tr>
-												<tr>
-													<td rowspan="1">减量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_LixKet, "2A", isChecked: ZisFaz_LixKet.ChooseValue == "2A") A：没有区级立项课题，或者没有区级及以上相应的佐证材料 </label></td>
-													<td>0分</td>
-													<td class="flotValue" data-min="0" data-max="0" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_LixKet_Def"></td>
-												</tr>
-												<!-- 项目研究 -->
-												<tr>
-													<td rowspan="5">项目研究</td>
-													<td rowspan="5">至少参与1项区级及以上项目研究</td>
-													<td rowspan="4">达量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_XiangmYanj, "1A", isChecked: ZisFaz_XiangmYanj.ChooseValue == "1A") A：主持或负责的高质量的重要项目成果</label></td>
-													<td>22.0分--25.0分</td>
-													<td class="flotValue" data-min="22" data-max="25" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_XiangmYanj_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_XiangmYanj, "1B", isChecked: ZisFaz_XiangmYanj.ChooseValue == "1B") B：主持或负责的质量较高的重点项目成果；或参与的重大项目成果</label></td>
-													<td>20.0分--22.0分</td>
-													<td class="flotValue" data-min="20" data-max="22" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_XiangmYanj_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_XiangmYanj, "1C", isChecked: ZisFaz_XiangmYanj.ChooseValue == "1C") C：主持或负责的质量较好的项目成果；或参与市级项目成果</label></td>
-													<td>17.0分--20.0分</td>
-													<td class="flotValue" data-min="17" data-max="20" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_XiangmYanj_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_XiangmYanj, "1D", isChecked: ZisFaz_XiangmYanj.ChooseValue == "1D") D：参与的项目成果</label></td>
-													<td>15.0分--17.0分</td>
-													<td class="flotValue" data-min="15" data-max="17" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_XiangmYanj_Def"></td>
-												</tr>
-												<tr>
-													<td rowspan="1">减量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.ZisFaz_XiangmYanj, "2A", isChecked: ZisFaz_XiangmYanj.ChooseValue == "2A") A：没有市级项目；或者没有市级及以上相应的佐证材料</label></td>
-													<td>0分</td>
-													<td class="flotValue" data-min="0" data-max="0" data-value="" data-hidden="@EvalQualityRuleKeys.ZisFaz_XiangmYanj_Def"></td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos, "C", isChecked: DaijJiaos.ChooseValue == "C")C</td>
+													<td><label> 有带教协议或无材料</label></td>
+													<td>0分--5.9分</td>
+													<td class="flotValue" data-min="0" data-max="5.9" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_Def"></td>
 												</tr>
 											</tbody>
 										</table>
 									</div>
 
-									<!-- 培训课程 -->
+									<!-- 教育科研 -->
 									<div class="tab-pane fade" id="tab2">
 										<table class="table table-bordered table-striped">
 											<thead>
 												<tr>
-													<th class="table-col-10p">评价指标</th>
-													<th class="table-col-10p">指标说明</th>
-													<th class="table-col-20p">任务要求</th>
-													<th class="table-col-10p">考核分类</th>
-													<th class="table-col-20p">指标项</th>
-													<th class="table-col-10p">分值/统计标准</th>
-													<th class="table-col-20p">输入分值</th>
+													<th class="table-col-10p">指标分类</th>
+													<th class="table-col-10p">指标项</th>
+													<th class="table-col-10p">考核内容</th>
+													<th class="table-col-5p">选项</th>
+													<th class="table-col-20p">分值/统计标准</th>
+													<th class="table-col-10p">分值范围</th>
+													<th class="table-col-10p">输入分值</th>
 												</tr>
 											</thead>
+											<!-- 项目研究 -->
 											<tbody>
-												<!-- 开设教师培训课程 -->
 												<tr>
-													<td rowspan="5">开设教师培训课程</td>
-													<td rowspan="15">此三项指标累加，上限不超过描述的最高分</td>
-													<td rowspan="5">
-                                                        开设1门微课程或1门区级“研训一体”及以上课程
+													<td rowspan="3">一.项目研究(满分10分)</td>
+													<td rowspan="3">项目研究</td>
+													<td rowspan="3">
+														立足教学，三年内完成1个项目研究（第一学年：开题报告）<br />
 													</td>
-													<td rowspan="4">达量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.PeixKec_KaisJiaosPeixKec, "1A", isChecked: PeixKec_KaisJiaosPeixKec.ChooseValue == "1A") A：高质量的学科类培训课程</label></td>
-													<td>27分--30分</td>
-													<td class="flotValue" data-min="27" data-max="30" data-value="" data-hidden="@EvalQualityRuleKeys.PeixKec_KaisJiaosPeixKec_Def"></td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.XiangmYanj, "A", isChecked: XiangmYanj.ChooseValue == "A")A</td>
+													<td>
+														<label>
+															1.	区级及以上课题、项目<br />2.	由区级及以上教育行政部门开具证明
+														</label>
+													</td>
+													<td>9.0分--10分</td>
+													<td class="flotValue" data-min="9.0" data-max="10" data-value="" data-hidden="@EvalQualityRuleKeys.XiangmYanj_Def"></td>
 												</tr>
 												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.PeixKec_KaisJiaosPeixKec, "1B", isChecked: PeixKec_KaisJiaosPeixKec.ChooseValue == "1B") B：质量较高的学科类培训课程</label></td>
-													<td>24分--27分</td>
-													<td class="flotValue" data-min="24" data-max="27" data-value="" data-hidden="@EvalQualityRuleKeys.PeixKec_KaisJiaosPeixKec_Def"></td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.XiangmYanj, "B", isChecked: XiangmYanj.ChooseValue == "B")B</td>
+													<td><label>1.	研修团队课题、项目<br /> 2.	由人才梯队工作小组开具证明</label></td>
+													<td>6分--8.9分</td>
+													<td class="flotValue" data-min="6" data-max="8.9" data-value="" data-hidden="@EvalQualityRuleKeys.XiangmYanj_Def"></td>
 												</tr>
 												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.PeixKec_KaisJiaosPeixKec, "1C", isChecked: PeixKec_KaisJiaosPeixKec.ChooseValue == "1C") C：质量好的学科类培训课程</label></td>
-													<td>21分--24分</td>
-													<td class="flotValue" data-min="21" data-max="24" data-value="" data-hidden="@EvalQualityRuleKeys.PeixKec_KaisJiaosPeixKec_Def"></td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.XiangmYanj, "C", isChecked: XiangmYanj.ChooseValue == "C")C</td>
+													<td><label> 其他课题、项目或无材料</label></td>
+													<td>0分--5.9分</td>
+													<td class="flotValue" data-min="0" data-max="5.9" data-value="" data-hidden="@EvalQualityRuleKeys.XiangmYanj_Def"></td>
+												</tr>
+
+												<!-- 论文 -->
+												<tr>
+													<td rowspan="3">二.论文(满分10分)</td>
+													<td rowspan="3">论文</td>
+													<td rowspan="3">
+														一学年在区级及以上期刊上发表1篇论文<br />
+													</td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.Lunw, "A", isChecked: Lunw.ChooseValue == "A")A</td>
+													<td>
+														<label>
+															1.	市级及以上期刊上发表的论文1篇<br /> 2.	有刊物的封面和目录照片
+														</label>
+													</td>
+													<td>9分--10分</td>
+													<td class="flotValue" data-min="9" data-max="10" data-value="" data-hidden="@EvalQualityRuleKeys.Lunw_Def"></td>
 												</tr>
 												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.PeixKec_KaisJiaosPeixKec, "1D", isChecked: PeixKec_KaisJiaosPeixKec.ChooseValue == "1D") D：质量较好的学科类培训课程</label></td>
-													<td>18分--21分</td>
-													<td class="flotValue" data-min="18" data-max="21" data-value="" data-hidden="@EvalQualityRuleKeys.PeixKec_KaisJiaosPeixKec_Def"></td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.Lunw, "B", isChecked: Lunw.ChooseValue == "B")B</td>
+													<td><label> 1.	区级期刊上发表的论文1篇<br /> 2.	有刊物的封面和目录照片</label></td>
+													<td>6分--8.9分</td>
+													<td class="flotValue" data-min="6" data-max="8.9" data-value="" data-hidden="@EvalQualityRuleKeys.Lunw_Def"></td>
 												</tr>
 												<tr>
-													<td rowspan="1">减量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.PeixKec_KaisJiaosPeixKec, "2A", isChecked: PeixKec_KaisJiaosPeixKec.ChooseValue == "2A") A：没有开设微课程；或者没有区级及以上相应的佐证材料</label></td>
-													<td>0分</td>
-													<td class="flotValue" data-min="0" data-max="0" data-value="" data-hidden="@EvalQualityRuleKeys.PeixKec_KaisJiaosPeixKec_Def"></td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.Lunw, "C", isChecked: Lunw.ChooseValue == "C")C</td>
+													<td><label> 其他论文课或无材料</label></td>
+													<td>0分--5.9分</td>
+													<td class="flotValue" data-min="0" data-max="5.9" data-value="" data-hidden="@EvalQualityRuleKeys.Lunw_Def"></td>
 												</tr>
-												<!-- 讲座、报告（须是学科类） -->
-												<tr>
-													<td rowspan="5">讲座、报告（须是学科类）</td>
-													<td rowspan="5">至少开展1次区级及以上的讲座、报告</td>
-													<td rowspan="4">达量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.PeixKec_JiangzBaog, "1A", isChecked: PeixKec_JiangzBaog.ChooseValue == "1A") A：高质量的学科类讲座</label></td>
-													<td>27分--30分</td>
-													<td class="flotValue" data-min="27" data-max="30" data-value="" data-hidden="@EvalQualityRuleKeys.PeixKec_JiangzBaog_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.PeixKec_JiangzBaog, "1B", isChecked: PeixKec_JiangzBaog.ChooseValue == "1B") B：质量较高的学科类讲座</label></td>
-													<td>24分--27分</td>
-													<td class="flotValue" data-min="24" data-max="27" data-value="" data-hidden="@EvalQualityRuleKeys.PeixKec_JiangzBaog_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.PeixKec_JiangzBaog, "1C", isChecked: PeixKec_JiangzBaog.ChooseValue == "1C") C：质量好的学科类讲座、报告</label></td>
-													<td>21分--24分</td>
-													<td class="flotValue" data-min="21" data-max="24" data-value="" data-hidden="@EvalQualityRuleKeys.PeixKec_JiangzBaog_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.PeixKec_JiangzBaog, "1D", isChecked: PeixKec_JiangzBaog.ChooseValue == "1D") D：质量较好的学科类、报告</label></td>
-													<td>18分--21分</td>
-													<td class="flotValue" data-min="18" data-max="21" data-value="" data-hidden="@EvalQualityRuleKeys.PeixKec_JiangzBaog_Def"></td>
-												</tr>
-												<tr>
-													<td rowspan="1">减量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.PeixKec_JiangzBaog, "2A", isChecked: PeixKec_JiangzBaog.ChooseValue == "2A") A：没有开讲座、报告；或者没有区级及以上相应的佐证材料</label></td>
-													<td>0分</td>
-													<td class="flotValue" data-min="0" data-max="0" data-value="" data-hidden="@EvalQualityRuleKeys.PeixKec_JiangzBaog_Def"></td>
-												</tr>
-												<!-- 课程资源开发 -->
-												<tr>
-													<td rowspan="5">课程资源开发</td>
-													<td rowspan="5">参与市级学科教材编审、修订；或区本学科教材编审、修订；或担任区级及以上教育教学类资源的开发</td>
-													<td rowspan="4">达量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.PeixKec_KecZiyKaif, "1A", isChecked: PeixKec_KecZiyKaif.ChooseValue == "1A") A：担任市级学科教材主编；或在市级学科教材修订中担任主要工作；或在市级学科类教育教学类资源的开发中担任主要工作</label></td>
-													<td>27分--30分</td>
-													<td class="flotValue" data-min="27" data-max="30" data-value="" data-hidden="@EvalQualityRuleKeys.PeixKec_KecZiyKaif_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.PeixKec_KecZiyKaif, "1B", isChecked: PeixKec_KecZiyKaif.ChooseValue == "1B") B：参与市级学科教材编审、修订；或参与高要求的学科类教育教学重要资源的开发</label></td>
-													<td>24分--27分</td>
-													<td class="flotValue" data-min="24" data-max="27" data-value="" data-hidden="@EvalQualityRuleKeys.PeixKec_KecZiyKaif_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.PeixKec_KecZiyKaif, "1B", isChecked: PeixKec_KecZiyKaif.ChooseValue == "1C") C：主持区本学科教材编审、修订；或在区本学科教材编审、修订中承担主要工作；或参与学科类教育教学重要资源的开发</label></td>
-													<td>21分--24分</td>
-													<td class="flotValue" data-min="21" data-max="24" data-value="" data-hidden="@EvalQualityRuleKeys.PeixKec_KecZiyKaif_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.PeixKec_KecZiyKaif, "1B", isChecked: PeixKec_KecZiyKaif.ChooseValue == "1D") D：参与区本学科教材编审、修订；或参与教育教学资源的开发</label></td>
-													<td>18分--21分</td>
-													<td class="flotValue" data-min="18" data-max="21" data-value="" data-hidden="@EvalQualityRuleKeys.PeixKec_KecZiyKaif_Def"></td>
-												</tr>
-												<tr>
-													<td rowspan="1">减量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.PeixKec_KecZiyKaif, "2A", isChecked: PeixKec_KecZiyKaif.ChooseValue == "2A") A：没有材料；或者没有市级佐证材料</label></td>
-													<td>0分</td>
-													<td class="flotValue" data-min="0" data-max="0" data-value="" data-hidden="@EvalQualityRuleKeys.PeixKec_KecZiyKaif_Def"></td>
-												</tr>
+
 											</tbody>
 										</table>
 									</div>
 
-									<!-- 带教教师 -->
+									<!-- 市区级培训课程 -->
 									<div class="tab-pane fade" id="tab3">
 										<table class="table table-bordered table-striped">
 											<thead>
 												<tr>
-													<th class="table-col-10p">评价指标</th>
-													<th class="table-col-10p">指标说明</th>
-													<th class="table-col-20p">任务要求</th>
-													<th class="table-col-10p">考核分类</th>
-													<th class="table-col-20p">指标项</th>
-													<th class="table-col-10p">分值/统计标准</th>
-													<th class="table-col-20p">输入分值</th>
+													<th class="table-col-10p">指标分类</th>
+													<th class="table-col-10p">指标项</th>
+													<th class="table-col-10p">考核内容</th>
+													<th class="table-col-5p">选项</th>
+													<th class="table-col-20p">分值/统计标准</th>
+													<th class="table-col-10p">分值范围</th>
+													<th class="table-col-10p">输入分值</th>
 												</tr>
 											</thead>
+											<!-- 市区级培训课程 -->
 											<tbody>
-												<!-- 学员数量 -->
 												<tr>
-													<td rowspan="4">学员数量</td>
-													<td rowspan="4"></td>
-													<td rowspan="4"></td>
-													<td rowspan="2">达量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_XueyShul, "1A", isChecked: DaijJiaos_XueyShul.ChooseValue == "1A") A：4≤学员人数</label></td>
-													<td>0.9分--1.0分</td>
-													<td class="flotValue" data-min="0.9" data-max="1" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_XueyShul_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_XueyShul, "1B", isChecked: DaijJiaos_XueyShul.ChooseValue == "1B") B：2≤学员人数≤3</label></td>
-													<td>0.8分--0.9分</td>
-													<td class="flotValue" data-min="0.8" data-max="0.9" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_XueyShul_Def"></td>
-												</tr>
-												<tr>
-													<td rowspan="2">减量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_XueyShul, "2A", isChecked: DaijJiaos_XueyShul.ChooseValue == "2A") A：学员人数=1</label></td>
-													<td>0.3分--0.4分</td>
-													<td class="flotValue" data-min="0.3" data-max="0.4" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_XueyShul_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_XueyShul, "2B", isChecked: DaijJiaos_XueyShul.ChooseValue == "2B") B：无学员</label></td>
-													<td>0分</td>
-													<td class="flotValue" data-min="0" data-max="0" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_XueyShul_Def"></td>
-												</tr>
-												<!-- 带教计划（方案）、小结 -->
-												<tr>
-													<td rowspan="5">带教计划（方案）、小结</td>
-													<td rowspan="5"></td>
-													<td rowspan="5">有年度带教实施计划（方案）；有年度小结</td>
-													<td rowspan="3">达量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_DaijJih, "1A", isChecked: DaijJiaos_DaijJih.ChooseValue == "1A") A：计划、小结针对性强，实施效果好</label></td>
-													<td>1.8分--2.0分</td>
-													<td class="flotValue" data-min="1.8" data-max="2" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_DaijJih_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_DaijJih, "1B", isChecked: DaijJiaos_DaijJih.ChooseValue == "1B") B：计划、小结有针对性，总体上实施较好</label></td>
-													<td>1.6分--1.8分</td>
-													<td class="flotValue" data-min="1.6" data-max="1.8" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_DaijJih_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_DaijJih, "1C", isChecked: DaijJiaos_DaijJih.ChooseValue == "1C") C：计划中部分内容进行了实施、小结，无突出的效果</label></td>
-													<td>1.4分--1.6分</td>
-													<td class="flotValue" data-min="1.4" data-max="1.6" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_DaijJih_Def"></td>
-												</tr>
-												<tr>
-													<td rowspan="2">减量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_DaijJih, "2A", isChecked: DaijJiaos_DaijJih.ChooseValue == "2A") A：有计划、无小结；或者无计划、有小结</label></td>
-													<td>0.6分--0.8分</td>
-													<td class="flotValue" data-min="0.6" data-max="0.8" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_DaijJih_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_DaijJih, "2B", isChecked: DaijJiaos_DaijJih.ChooseValue == "2B") B：没有相关的材料</label></td>
-													<td>0分</td>
-													<td class="flotValue" data-min="0" data-max="0" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_DaijJih_Def"></td>
-												</tr>
-												<!-- 学员的成长分析 -->
-												<tr>
-													<td rowspan="5">学员的成长分析</td>
-													<td rowspan="5"></td>
-													<td rowspan="5">有每1位带教学员的年度成长分析</td>
-													<td rowspan="3">达量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_XueyChengzFenx, "1A", isChecked: DaijJiaos_XueyChengzFenx.ChooseValue == "1A") A：针对性强，对学员的成长有非常大的帮助、指导作用</label></td>
-													<td>1.8分--2.0分</td>
-													<td class="flotValue" data-min="1.8" data-max="2" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_XueyChengzFenx_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_XueyChengzFenx, "1B", isChecked: DaijJiaos_XueyChengzFenx.ChooseValue == "1B") B：有针对性，对学员的成长有一定的指导作用</label></td>
-													<td>1.6分--1.8分</td>
-													<td class="flotValue" data-min="1.6" data-max="1.8" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_XueyChengzFenx_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_XueyChengzFenx, "1C", isChecked: DaijJiaos_XueyChengzFenx.ChooseValue == "1C") C：对部分学员的成长有一些指导作用</label></td>
-													<td>1.4分--1.6分</td>
-													<td class="flotValue" data-min="1.4" data-max="1.6" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_XueyChengzFenx_Def"></td>
-												</tr>
-												<tr>
-													<td rowspan="2">减量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_XueyChengzFenx, "2A", isChecked: DaijJiaos_XueyChengzFenx.ChooseValue == "2A") A：有多数学员的成长分析，未达到每位学员都有</label></td>
-													<td>0.6分--0.8分</td>
-													<td class="flotValue" data-min="0.6" data-max="0.8" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_XueyChengzFenx_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_XueyChengzFenx, "2B", isChecked: DaijJiaos_XueyChengzFenx.ChooseValue == "2B") B：没有相关的材料；或者未达到学员数量的一半</label></td>
-													<td>0分</td>
-													<td class="flotValue" data-min="0" data-max="0" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_XueyChengzFenx_Def"></td>
-												</tr>
-												<!-- 带教指导 -->
-												<tr>
-													<td rowspan="7">带教指导</td>
-													<td rowspan="7"></td>
-													<td rowspan="7">
-														1.至少有8份日常共性类指导；<br />
-														2.每位学员必须有4份听课指导；<br />
-														3.每位学员必须有教案类修改指导数量+论文 或者课题修改指导(共2份指导，2种指导各选其一或者其中一项指导数量为2份)；<br />
+													<td rowspan="3">市区级培训课程(满分20分)</td>
+													<td rowspan="3">市区级培训课程</td>
+													<td rowspan="3">
+														三年内完成1门课程开发<br />
 													</td>
-													<td rowspan="4">达量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_DaijZhid, "1A", isChecked: DaijJiaos_DaijZhid.ChooseValue == "1A") A：指导有很高的价值，个别指导对专业提升的作用很强</label></td>
-													<td>6.3分--7分</td>
-													<td class="flotValue" data-min="6.3" data-max="7" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_DaijZhid_Def"></td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.ShijPeixKec, "A", isChecked: ShijPeixKec.ChooseValue == "A")A</td>
+													<td>
+														<label>
+															1.	课程纲要完整 <br />2.	由师训室开具证明
+														</label>
+													</td>
+													<td>27分--30分</td>
+													<td class="flotValue" data-min="27" data-max="30" data-value="" data-hidden="@EvalQualityRuleKeys.ShijPeixKec_Def"></td>
 												</tr>
 												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_DaijZhid, "1B", isChecked: DaijJiaos_DaijZhid.ChooseValue == "1B") B：指导有较高的价值，对部分学员的专业提升的作用很强</label></td>
-													<td>5.6分--6.3分</td>
-													<td class="flotValue" data-min="5.6" data-max="6.3" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_DaijZhid_Def"></td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.ShijPeixKec, "B", isChecked: ShijPeixKec.ChooseValue == "B")B</td>
+													<td><label>1. 2019-2021学年虹口区教育系统教师专业人才梯队培训课程申报意向表，或课程纲要完整<br />2. 由师训室提供汇总表，或由其他市级单位出具证明</label></td>
+													<td>18分--26.9分</td>
+													<td class="flotValue" data-min="18" data-max="26.9" data-value="" data-hidden="@EvalQualityRuleKeys.ShijPeixKec_Def"></td>
 												</tr>
 												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_DaijZhid, "1C", isChecked: DaijJiaos_DaijZhid.ChooseValue == "1C") C：开展的指导工作对学员的专业提升作用较好</label></td>
-													<td>4.9分--5.6分</td>
-													<td class="flotValue" data-min="4.9" data-max="5.6" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_DaijZhid_Def"></td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.ShijPeixKec, "C", isChecked: ShijPeixKec.ChooseValue == "C")C</td>
+													<td><label> 其他课程目或无材料</label></td>
+													<td>0分--17.9分</td>
+													<td class="flotValue" data-min="0" data-max="17.9" data-value="" data-hidden="@EvalQualityRuleKeys.ShijPeixKec_Def"></td>
 												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_DaijZhid, "1D", isChecked: DaijJiaos_DaijZhid.ChooseValue == "1D") D：开展的指导工作对学员的专业提升作用一般</label></td>
-													<td>4.2分--4.9分</td>
-													<td class="flotValue" data-min="4.2" data-max="4.9" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_DaijZhid_Def"></td>
-												</tr>
-												<tr>
-													<td rowspan="3">减量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_DaijZhid, "2A", isChecked: DaijJiaos_DaijZhid.ChooseValue == "2A") A：材料未达到要求的数量（有过半以上），但质量非常好</label></td>
-													<td>2.8分--3.5分</td>
-													<td class="flotValue" data-min="2.8" data-max="3.5" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_DaijZhid_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_DaijZhid, "2B", isChecked: DaijJiaos_DaijZhid.ChooseValue == "2B") B：材料未达到要求的数量（未过半），质量尚可</label></td>
-													<td>1.4分--2.1分</td>
-													<td class="flotValue" data-min="1.4" data-max="2.1" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_DaijZhid_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_DaijZhid, "2C", isChecked: DaijJiaos_DaijZhid.ChooseValue == "2C") C：没有相关的材料</label></td>
-													<td>0分</td>
-													<td class="flotValue" data-min="0" data-max="0" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_DaijZhid_Def"></td>
-												</tr>
-												<!-- 开展示课 -->
-												<tr>
-													<td rowspan="5">开展示课</td>
-													<td rowspan="15">此三项指标累加，但不超过最高二项评分之和</td>
-													<td rowspan="5">	每位学员至少开设1节展示课</td>
-													<td rowspan="3">达量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_KaizShik, "1A", isChecked: DaijJiaos_KaizShik.ChooseValue == "1A") A：展示课总体质量较高</label></td>
-													<td>3.6分--4.0分</td>
-													<td class="flotValue" data-min="3.6" data-max="4" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_KaizShik_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_KaizShik, "1B", isChecked: DaijJiaos_KaizShik.ChooseValue == "1B") B：展示课中有部分质量较高</label></td>
-													<td>3.2分--3.6分</td>
-													<td class="flotValue" data-min="3.2" data-max="3.6" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_KaizShik_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_KaizShik, "1C", isChecked: DaijJiaos_KaizShik.ChooseValue == "1C") C：展示课总体质量较好</label></td>
-													<td>2.8分--3.2分</td>
-													<td class="flotValue" data-min="2.8" data-max="3.2" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_KaizShik_Def"></td>
-												</tr>
-												<tr>
-													<td rowspan="2">减量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_KaizShik, "2A", isChecked: DaijJiaos_KaizShik.ChooseValue == "2A") A：部分学员开设了展示课</label></td>
-													<td>1.2分--1.6分</td>
-													<td class="flotValue" data-min="1.2" data-max="1.6" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_KaizShik_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_KaizShik, "2B", isChecked: DaijJiaos_KaizShik.ChooseValue == "2B") B：无校级及以上的展示课</label></td>
-													<td>0分</td>
-													<td class="flotValue" data-min="0" data-max="0" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_KaizShik_Def"></td>
-												</tr>
-												<!-- 发表论文或参与课题研究 -->
-												<tr>
-													<td rowspan="5">发表论文或参与课题研究</td>
-													<td rowspan="5">每位学员至少发表1篇论文</td>
-													<td rowspan="3">达量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_FablunwHuocYukTiyJiu, "1A", isChecked: DaijJiaos_FablunwHuocYukTiyJiu.ChooseValue == "1A") A：论文或课题成果总体质量较高</label></td>
-													<td>3.6分--4.0分</td>
-													<td class="flotValue" data-min="3.6" data-max="4" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_FablunwHuocYukTiyJiu_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_FablunwHuocYukTiyJiu, "1B", isChecked: DaijJiaos_FablunwHuocYukTiyJiu.ChooseValue == "1B") B：论文或课题成果中有部分质量较高</label></td>
-													<td>3.2分--3.6分</td>
-													<td class="flotValue" data-min="3.2" data-max="3.6" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_FablunwHuocYukTiyJiu_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_FablunwHuocYukTiyJiu, "1C", isChecked: DaijJiaos_FablunwHuocYukTiyJiu.ChooseValue == "1C") C：论文或课题成果总体质量较好</label></td>
-													<td>2.8分--3.2分</td>
-													<td class="flotValue" data-min="2.8" data-max="3.2" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_FablunwHuocYukTiyJiu_Def"></td>
-												</tr>
-												<tr>
-													<td rowspan="2">减量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_FablunwHuocYukTiyJiu, "2A", isChecked: DaijJiaos_FablunwHuocYukTiyJiu.ChooseValue == "2A") A：部分学员有论文、课题成果</label></td>
-													<td>1.2分--1.6分</td>
-													<td class="flotValue" data-min="1.2" data-max="1.6" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_FablunwHuocYukTiyJiu_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_FablunwHuocYukTiyJiu, "2B", isChecked: DaijJiaos_FablunwHuocYukTiyJiu.ChooseValue == "2B") B：无论文或课题成果</label></td>
-													<td>0分</td>
-													<td class="flotValue" data-min="0" data-max="0" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_FablunwHuocYukTiyJiu_Def"></td>
-												</tr>
-												<!-- 教育教学评比 -->
-												<tr>
-													<td rowspan="5">教育教学评比</td>
-													<td rowspan="5">每位学员至少拥有1项评比奖项</td>
-													<td rowspan="3">达量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_JiaoyJiaoxPingb, "1A", isChecked: DaijJiaos_JiaoyJiaoxPingb.ChooseValue == "1A") A：奖项中多数为市区级、总体质量较高</label></td>
-													<td>3.6分--4.0分</td>
-													<td class="flotValue" data-min="3.6" data-max="4" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_JiaoyJiaoxPingb_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_JiaoyJiaoxPingb, "1B", isChecked: DaijJiaos_JiaoyJiaoxPingb.ChooseValue == "1B") B：奖项区级及以上较多</label></td>
-													<td>3.2分--3.6分</td>
-													<td class="flotValue" data-min="3.2" data-max="3.6" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_JiaoyJiaoxPingb_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_JiaoyJiaoxPingb, "1C", isChecked: DaijJiaos_JiaoyJiaoxPingb.ChooseValue == "1C") C：奖项中多数为校级</label></td>
-													<td>2.8分--3.2分</td>
-													<td class="flotValue" data-min="2.8" data-max="3.2" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_JiaoyJiaoxPingb_Def"></td>
-												</tr>
-												<tr>
-													<td rowspan="3">减量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_JiaoyJiaoxPingb, "2A", isChecked: DaijJiaos_JiaoyJiaoxPingb.ChooseValue == "2A") A：部分学员获得奖项</label></td>
-													<td>1.2分--1.6分</td>
-													<td class="flotValue" data-min="1.2" data-max="1.6" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_JiaoyJiaoxPingb_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.DaijJiaos_JiaoyJiaoxPingb, "2B", isChecked: DaijJiaos_JiaoyJiaoxPingb.ChooseValue == "2B") B：无获奖</label></td>
-													<td>0分</td>
-													<td class="flotValue" data-min="0" data-max="0" data-value="" data-hidden="@EvalQualityRuleKeys.DaijJiaos_JiaoyJiaoxPingb_Def"></td>
-												</tr>
+
 											</tbody>
 										</table>
 									</div>
 
-									<!-- 特色 -->
+
+									<!-- 特色工作 -->
 									<div class="tab-pane fade" id="tab4">
 										<table class="table table-bordered table-striped">
 											<thead>
 												<tr>
-													<th class="table-col-10p">评价指标</th>
-													<th class="table-col-10p">指标说明</th>
-													<th class="table-col-20p">任务要求</th>
-													<th class="table-col-10p">考核分类</th>
-													<th class="table-col-20p">指标项</th>
-													<th class="table-col-10p">分值/统计标准</th>
-													<th class="table-col-20p">输入分值</th>
+													<th class="table-col-10p">指标分类</th>
+													<th class="table-col-10p">指标项</th>
+													<th class="table-col-10p">考核内容</th>
+													<th class="table-col-5p">选项</th>
+													<th class="table-col-20p">分值/统计标准</th>
+													<th class="table-col-10p">分值范围</th>
+													<th class="table-col-10p">输入分值</th>
 												</tr>
 											</thead>
+											<!-- 项目研究 -->
 											<tbody>
 												<tr>
-													<!-- 出版专著(合著) -->
-													<td rowspan="2">出版专著(合著)
-													<td rowspan="9">此五项指标取其一，且仅取最高得分项</td>
-													<td rowspan="9">有符合要求的材料就可</td>
-													<td rowspan="7">达量质考</td>
-
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.Tes, "1A", isChecked: Tes.ChooseValue == "1A") A：学科类专著</label></td>
-													<td>4.8分--5分</td>
-													<td class="flotValue" data-min="4.8" data-max="5" data-value="" data-hidden="@EvalQualityRuleKeys.Tes_Def"></td>
-												</tr>
-												<tr>
-													<td>@Html.RadioButton(EvalQualityRuleKeys.Tes, "1B", isChecked: Tes.ChooseValue == "1B") B：学科类合著</td>
-													<td>4分--4.5分</td>
-													<td class="flotValue" data-min="4" data-max="4.5" data-value="" data-hidden="@EvalQualityRuleKeys.Tes_Def"></td>
-												</tr>
-												<!-- 参与市级教材编写 -->
-												<tr>
-													<td rowspan="2">参与市级教材编写</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.Tes, "1C", isChecked: Tes.ChooseValue == "1C") A：担任市级教材编写的主编或副主编</label></td>
-													<td>4.8分--5分</td>
-													<td class="flotValue" data-min="4.8" data-max="5" data-value="" data-hidden="@EvalQualityRuleKeys.Tes_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.Tes, "1D", isChecked: Tes.ChooseValue == "1D") B：参与市级教材的编写、修改、审核</label></td>
-													<td>4分--4.7分</td>
-													<td class="flotValue" data-min="4" data-max="4.7" data-value="" data-hidden="@EvalQualityRuleKeys.Tes_Def"></td>
-												</tr>
-												<!-- 任市重点项目的主要负责人 -->
-												<tr>
-													<td>任市重点项目的主要负责人</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.Tes, "1E", isChecked: Tes.ChooseValue == "1E") A：负责市级重点项目研究</label></td>
-													<td>4.8分--5分</td>
-													<td class="flotValue" data-min="4.8" data-max="5" data-value="" data-hidden="@EvalQualityRuleKeys.Tes_Def"></td>
-												</tr>
-												<!-- 市级基地主持（副主持）人 -->
-												<tr>
-													<td rowspan="2">市级基地主持（副主持）人</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.Tes, "1F", isChecked: Tes.ChooseValue == "1F") A：担任市级名教师培训基地主持（副主持）人</label></td>
-													<td>4.8分--5分</td>
-													<td class="flotValue" data-min="4.8" data-max="5" data-value="" data-hidden="@EvalQualityRuleKeys.Tes_Def"></td>
-												</tr>
-												<tr>
-													<td>@Html.RadioButton(EvalQualityRuleKeys.Tes, "1G", isChecked: Tes.ChooseValue == "1G") B：担任其他市级培训基地主持人</td>
-													<td>4.5分--5分</td>
-													<td class="flotValue" data-min="4.5" data-max="5" data-value="" data-hidden="@EvalQualityRuleKeys.Tes_Def"></td>
-												</tr>
-												<!-- 其他 -->
-												<tr>
-													<td rowspan="2">其他</td>
-													<td rowspan="2">减量质考</td>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.Tes, "2A", isChecked: Tes.ChooseValue == "2A") A：在教学、科研、培训、带教学员方面有特别突出的成绩（需用文字进行说明）</label></td>
-													<td>1.0分--1.5分</td>
-													<td class="flotValue" data-min="1" data-max="1.5" data-value="" data-hidden="@EvalQualityRuleKeys.Tes_Def"></td>
-												</tr>
-												<tr>
-													<td><label>@Html.RadioButton(EvalQualityRuleKeys.Tes, "2B", isChecked: Tes.ChooseValue == "2B") B：无符合可加分的材料</label></td>
-													<td>0分</td>
-													<td class="flotValue" data-min="0" data-max="0" data-value="" data-hidden="@EvalQualityRuleKeys.Tes_Def"></td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-
-									<!-- 总评 -->
-									<div id="tab5" class="tab-pane fade">
-										<table class="table table-bordered table-striped">
-											<thead>
-												<tr>
-													<th>*填写总评</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>
-														@Html.TextArea("Comment", comment, new { @class = "commentValue", @style = " margin:0; padding:0;width:100%; height:160px;" })
+													<td rowspan="3">特色工作(满分10分)</td>
+													<td rowspan="3">特色工作</td>
+													<td rowspan="3">
+														各类有特色的活动（不包含已填报过的材料）<br />
 													</td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.Tes, "A", isChecked: ShijPeixKec.ChooseValue == "A")A</td>
+													<td>
+														<label>
+															产生市级及以上影响力
+														</label>
+													</td>
+													<td>9分--10分</td>
+													<td class="flotValue" data-min="9" data-max="10" data-value="" data-hidden="@EvalQualityRuleKeys.Tes_Def"></td>
 												</tr>
+												<tr>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.Tes, "B", isChecked: ShijPeixKec.ChooseValue == "B")B</td>
+													<td><label>产生区级影响力</label></td>
+													<td>6分--8.9分</td>
+													<td class="flotValue" data-min="6" data-max="8.9" data-value="" data-hidden="@EvalQualityRuleKeys.Tes_Def"></td>
+												</tr>
+												<tr>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.Tes, "C", isChecked: ShijPeixKec.ChooseValue == "C")C</td>
+													<td><label>有一定的影响力或无影响力</label></td>
+													<td>0分--5.9分</td>
+													<td class="flotValue" data-min="0" data-max="5.9" data-value="" data-hidden="@EvalQualityRuleKeys.Tes_Def"></td>
+												</tr>
+
 											</tbody>
 										</table>
 									</div>
+
 								</div>
 							</div>
 						</div>
 			<!-- /widget -->
-                        <input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ZisFaz_DusHuod" name="@EvalQualityRuleKeys.ZisFaz_DusHuod_Def" value="@ZisFaz_DusHuod.ResultValue" />
-                        <input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ZisFaz_KaizShik" name="@EvalQualityRuleKeys.ZisFaz_KaizShik_Def" value="@ZisFaz_KaizShik.ResultValue" />
-                            <input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ZisFaz_DanrPingwGongz" name="@EvalQualityRuleKeys.ZisFaz_DanrPingwGongz_Def" value="@ZisFaz_DanrPingwGongz.ResultValue" />
-                                <input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ZisFaz_PingbHuoj" name="@EvalQualityRuleKeys.ZisFaz_PingbHuoj_Def" value="@ZisFaz_PingbHuoj.ResultValue" />
-                                <input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ZisFaz_FabLunw" name="@EvalQualityRuleKeys.ZisFaz_FabLunw_Def" value="@ZisFaz_FabLunw.ResultValue" />
-                                <input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ZisFaz_LixKet" name="@EvalQualityRuleKeys.ZisFaz_LixKet_Def" value="@ZisFaz_LixKet.ResultValue" />
-                                <input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ZisFaz_XiangmYanj" name="@EvalQualityRuleKeys.ZisFaz_XiangmYanj_Def" value="@ZisFaz_XiangmYanj.ResultValue" />
-
-                                <input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.PeixKec_KaisJiaosPeixKec" name="@EvalQualityRuleKeys.PeixKec_KaisJiaosPeixKec_Def" value="@PeixKec_KaisJiaosPeixKec.ResultValue" />
-                                <input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.PeixKec_JiangzBaog" name="@EvalQualityRuleKeys.PeixKec_JiangzBaog_Def" value="@PeixKec_JiangzBaog.ResultValue" />
-                                <input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.PeixKec_KecZiyKaif" name="@EvalQualityRuleKeys.PeixKec_KecZiyKaif_Def" value="@PeixKec_KecZiyKaif.ResultValue" />
-
-                                <input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos_XueyShul," name="@EvalQualityRuleKeys.DaijJiaos_XueyShul_Def" value="@DaijJiaos_XueyShul.ResultValue" />
-                                <input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos_DaijJih" name="@EvalQualityRuleKeys.DaijJiaos_DaijJih_Def" value="@DaijJiaos_DaijJih.ResultValue" />
-                                <input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos_XueyChengzFenx" name="@EvalQualityRuleKeys.DaijJiaos_XueyChengzFenx_Def" value="@DaijJiaos_XueyChengzFenx.ResultValue" />
-                                <input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos_DaijZhid" name="@EvalQualityRuleKeys.DaijJiaos_DaijZhid_Def" value="@DaijJiaos_DaijZhid.ResultValue" />
-                                <input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos_KaizShik" name="@EvalQualityRuleKeys.DaijJiaos_KaizShik_Def" value="@DaijJiaos_KaizShik.ResultValue" />
-                                <input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos_FablunwHuocYukTiyJiu" name="@EvalQualityRuleKeys.DaijJiaos_FablunwHuocYukTiyJiu_Def" value="@DaijJiaos_FablunwHuocYukTiyJiu.ResultValue" />
-                                <input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos_JiaoyJiaoxPingb" name="@EvalQualityRuleKeys.DaijJiaos_JiaoyJiaoxPingb_Def" value="@DaijJiaos_JiaoyJiaoxPingb.ResultValue" />
-                                <input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.Tes" name="@EvalQualityRuleKeys.Tes_Def" value="@Tes.ResultValue" />
-                    }
-
+						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.KetJiaox_Gongkk" name="@EvalQualityRuleKeys.KetJiaox_Gongkk_Def" value="@KetJiaox_Gongkk.ResultValue" />
+						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.KetJiaox_Zhidk" name="@EvalQualityRuleKeys.KetJiaox_Zhidk_Def" value="@KetJiaox_Zhidk.ResultValue" />
+						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.KaisJiangz" name="@EvalQualityRuleKeys.KaisJiangz_Def" value="@KaisJiangz.ResultValue" />
+						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.DaijJiaos" name="@EvalQualityRuleKeys.DaijJiaos_Def" value="@DaijJiaos.ResultValue" />
+						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.XiangmYanj" name="@EvalQualityRuleKeys.XiangmYanj_Def" value="@XiangmYanj.ResultValue" />
+						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.Lunw" name="@EvalQualityRuleKeys.Lunw_Def" value="@Lunw.ResultValue" />
+						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.ShijPeixKec" name="@EvalQualityRuleKeys.ShijPeixKec_Def" value="@ShijPeixKec.ResultValue" />
+						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.Tes" name="@EvalQualityRuleKeys.Tes_Def" value="@Tes.ResultValue" />
+					}
 
 				</div>
 			</div>

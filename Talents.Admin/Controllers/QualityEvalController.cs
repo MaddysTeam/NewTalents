@@ -444,7 +444,7 @@ namespace TheSite.Controllers
 			model.Period = db.EvalPeriodDal.PrimaryGet(model.PeriodId);
 			model.Declare = model.GetDeclareInfo(db);
 
-			var engine = EngineManager.Engines[model.Period.AnalysisType].QualityEvals[0];
+			var engine = EngineManager.Engines[model.Period.AnalysisType].QualityEvals[param.TargetId];
 
 			model.AnalysisUnit = engine;
 			model.Result = engine.GetResult(db, param);

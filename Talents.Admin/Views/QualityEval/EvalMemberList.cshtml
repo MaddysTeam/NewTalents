@@ -85,7 +85,7 @@
 				formatters: {
 					'commands': function (column, row) {
 						var html = '<div class="btn-group btn-group-xs pull-right" data-row-id="' + row.id + '">';
-						html +=	'<a target="_blank" class="btn btn-warning btn-view" href="@Url.Action("ResultView", "QualityEval")?resultId='+row.resultId+'&teacherId=' + row.id + '&periodId=' +@periodId +'&groupId='+@groupId+'"><i class="fa fa-external-link"></i>查看</a>';
+						html += '<a target="_blank" class="btn btn-warning btn-view" href="@Url.Action("ResultView", "QualityEval")?resultId=' + row.resultId + '&teacherId=' + row.id + '&periodId=' +@periodId +'&groupId=' +@groupId +'&targetId=' + row.targetId + '"><i class="fa fa-external-link"></i>查看</a>';
 						html += '<a class="btn btn-success btn-view" href="@Url.Action("Eval", "QualityEval")?teacherId=' + row.id + '&periodId=' + @periodId + '&targetId=' + row.targetId + '&groupId=' +@groupId +'">执行考评</a>';
 						html += '</div>';
 						return html;
