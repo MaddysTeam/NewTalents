@@ -115,7 +115,7 @@ namespace TheSite.Controllers
 			ThrowNotAjax();
 
 
-			var query = APQuery.select(er.ResultId, er.TeacherId,
+			var query = APQuery.select(er.ResultId, er.TeacherId,er.Score,
 									   er.GroupId, er.FullScore, er.DynamicScore1, 
 									   er.DynamicScore2, er.DynamicScore3,u.RealName,
 									   d.DeclareTargetPKID, d.DeclareSubjectPKID, d.DeclareStagePKID
@@ -162,9 +162,9 @@ namespace TheSite.Controllers
 			var result = query.query(db, r =>
 			{
 				var fullScore = er.FullScore.GetValue(r);
-				var score1 = er.DynamicScore1.GetValue(r);
-				var score2 = er.DynamicScore2.GetValue(r);
-				var score3 = er.DynamicScore3.GetValue(r);
+				//var score1 = er.DynamicScore1.GetValue(r);
+				//var score2 = er.DynamicScore2.GetValue(r);
+				//var score3 = er.DynamicScore3.GetValue(r);
 
 				return new
 				{
@@ -176,9 +176,10 @@ namespace TheSite.Controllers
 					subject = DeclareBaseHelper.DeclareSubject.GetName(d.DeclareSubjectPKID.GetValue(r)),
 					stage = DeclareBaseHelper.DeclareStage.GetName(d.DeclareStagePKID.GetValue(r)),
 					targetId = d.DeclareTargetPKID.GetValue(r),
-					dynamicScore1 = string.Format("{0} / {1}", score1, fullScore),
-					dynamicScore2 = string.Format("{0} / {1}", score2, fullScore),
-					dynamicScore3 = string.Format("{0} / {1}", score3, fullScore),
+               score= string.Format("{0} / {1}", er.Score.GetValue(r), fullScore) 
+					//dynamicScore1 = string.Format("{0} / {1}", score1, fullScore),
+					//dynamicScore2 = string.Format("{0} / {1}", score2, fullScore),
+					//dynamicScore3 = string.Format("{0} / {1}", score3, fullScore),
 				};
 			}).ToList();
 
