@@ -49,7 +49,7 @@
 			}
 			else {
 				if ($hidden.val() == '' && !$hidden.val()) {
-					$hidden.val(max);
+					$hidden.val(min);
 				}
 				if (!$('.flotValue').find(':text').is(':focus')) { // 默认第一个文本框选中状态
 					$text.focus();
@@ -72,7 +72,7 @@
 			});
 			if ($('.commentValue').val() == '') {
 				success = false;
-				err+='必须填写总评'+'</br>'
+				err += '必须填写总评' + '</br>'
 			}
 			if (!success) {
 				$('.errorMessage').html(err).show();

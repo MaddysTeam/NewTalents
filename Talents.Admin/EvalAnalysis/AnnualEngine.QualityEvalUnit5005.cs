@@ -9,22 +9,27 @@ using System.Web.Mvc;
 namespace TheSite.EvalAnalysis
 {
 
-    public partial class AnnualEngine
-    {
+	public partial class AnnualEngine
+	{
 
-        public class QualityEvalUnit5005 : QualityEvalUnit
-        {
+		public class QualityEvalUnit5005 : QualityEvalUnit
+		{
 
-            public override long TargetId
-                => 5005;
+			public override long TargetId
+				=> 5005;
 
 			public override string EvalView => ViewPath + "/QualityEvalView5005";
 			public override string ResultView => ViewPath + "/QualityResultView5005";
 
+			double score = 0, score1 = 0, score2 = 0;
+
 			protected override void AnalysisResult(FormCollection fc, EvalQualityResult result, Dictionary<string, EvalQualityResultItem> items)
 			{
-				Analysis_KetJiaox_Gongkk(result, items, fc[EvalQualityRuleKeys.KetJiaox_Gongkk], fc[EvalQualityRuleKeys.KetJiaox_Gongkk_Def]);
-				Analysis_KetJiaox_Zhidk(result, items, fc[EvalQualityRuleKeys.KetJiaox_Zhidk], fc[EvalQualityRuleKeys.KetJiaox_Zhidk_Def]);
+				score1 = Analysis_KetJiaox_Gongkk(result, items, fc[EvalQualityRuleKeys.KetJiaox_Gongkk], fc[EvalQualityRuleKeys.KetJiaox_Gongkk_Def]);
+				score2 = Analysis_KetJiaox_Zhidk(result, items, fc[EvalQualityRuleKeys.KetJiaox_Zhidk], fc[EvalQualityRuleKeys.KetJiaox_Zhidk_Def]);
+
+				result.Score = new double[] { score1, score2 }.Max();
+
 				Analysis_KaisJiangz(result, items, fc[EvalQualityRuleKeys.KaisJiangz], fc[EvalQualityRuleKeys.KaisJiangz_Def]);
 				Analysis_DaijJiaos(result, items, fc[EvalQualityRuleKeys.DaijJiaos], fc[EvalQualityRuleKeys.DaijJiaos_Def]);
 				Analysis_XiangmYanj(result, items, fc[EvalQualityRuleKeys.XiangmYanj], fc[EvalQualityRuleKeys.XiangmYanj_Def]);
@@ -37,7 +42,7 @@ namespace TheSite.EvalAnalysis
 			#region [ 教育教学 ]
 
 
-			private void Analysis_KetJiaox_Gongkk(EvalQualityResult result, Dictionary<string, EvalQualityResultItem> items, string choose, string score)
+			private double Analysis_KetJiaox_Gongkk(EvalQualityResult result, Dictionary<string, EvalQualityResultItem> items, string choose, string score)
 			{
 				var item = new EvalQualityResultItem
 				{
@@ -62,10 +67,12 @@ namespace TheSite.EvalAnalysis
 				}
 
 				item.ResultValue = scoreValue.ToString();
+
+				return scoreValue;
 			}
 
 
-			private void Analysis_KetJiaox_Zhidk(EvalQualityResult result, Dictionary<string, EvalQualityResultItem> items, string choose, string score)
+			private double Analysis_KetJiaox_Zhidk(EvalQualityResult result, Dictionary<string, EvalQualityResultItem> items, string choose, string score)
 			{
 				var item = new EvalQualityResultItem
 				{
@@ -90,6 +97,8 @@ namespace TheSite.EvalAnalysis
 				}
 
 				item.ResultValue = scoreValue.ToString();
+
+				return scoreValue;
 			}
 
 
