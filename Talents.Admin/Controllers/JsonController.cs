@@ -229,8 +229,8 @@ namespace TheSite.Controllers
 			list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_PeixJiangz_JiaosPeixKec, text = "课程开发", type = json_treenode_types.active });
 			list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_PeixJiangz_ZhuantJiangz, text = "专题讲座", type = json_treenode_types.active });
 			list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_XuesHuod, text = "带教教师", type = json_treenode_types.active });
-			list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_ShiqjHuod, text = "市、区重大活动", type = json_treenode_types.active });
-			list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_ZiwYanx, text = "自我研修", type = json_treenode_types.active });
+			//list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_ShiqjHuod, text = "市、区重大活动", type = json_treenode_types.active });
+			//list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_ZiwYanx, text = "自我研修", type = json_treenode_types.active });
 			list.Add(new json_treenode() { id = DeclareKeys.ZhidJians_YingxlDeGongz, text = "亮点特色", type = json_treenode_types.active });
 
 			#endregion
