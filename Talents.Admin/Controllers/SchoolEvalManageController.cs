@@ -42,11 +42,13 @@ namespace TheSite.Controllers
 				}
 			}
 
+			var subquery = APQuery.select(d.TeacherId).from(d).where(d.DeclareTargetPKID.In(new long[] { 5002, 5003, 5004, 5005, 5006, 5007, 5008 ,5009}));
 
 			var query = APQuery.select(c.CompanyId, c.CompanyName, cd.TeacherId.Count().As("TotalCount"), er.TeacherId.Count().As("EvalCount"))
 							.from(c,
 								cd.JoinLeft(c.CompanyId == cd.CompanyId),
 								er.JoinLeft(c.CompanyId == er.CompanyId & er.TeacherId == cd.TeacherId & er.PeriodId == periodId))
+							.where(cd.TeacherId.In(subquery))
 							.group_by(c.CompanyId, c.CompanyName);
 
 			var result = query.query(db, rd =>
@@ -170,7 +172,7 @@ namespace TheSite.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult NotEvalMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, int periodId, string companyName)
+		public ActionResult NotEvalMemberList(int current, int rowCount, AjaxOrder sort, string searchPhrase, int periodId, long? companyId)
 		{
 			ThrowNotAjax();
 
@@ -190,8 +192,8 @@ namespace TheSite.Controllers
 			   .take(rowCount);
 
 
-			if (!string.IsNullOrEmpty(companyName) && companyName != SelectNames.All)
-				query.where_and(u.CompanyName.Match(companyName) | u.CompanyNameOuter.Match(companyName));
+			if (null!= companyId & companyId>0)
+				query.where_and(cd.CompanyId==companyId.Value);
 
 			//过滤条件
 			//模糊搜索姓名
@@ -274,12 +276,12 @@ namespace TheSite.Controllers
 			APSqlSelectCommand query = APQuery.select(d.TeacherId, u.RealName, c.CompanyName,
 				  d.DeclareTargetPKID, d.DeclareSubjectPKID,
 				  er.Score, er.FullScore, er.ResultId, er.Morality)
-			   .from(d,
-					  u.JoinLeft(u.UserId == d.TeacherId),
-					  er.JoinLeft(er.TeacherId == d.TeacherId & er.PeriodId==periodId),
-					  c.JoinLeft(er.CompanyId == c.CompanyId)
-					 )
-				//.where(er.PeriodId == periodId)
+			   .from(ca,
+						  c.JoinLeft(ca.CompanyId==c.CompanyId),
+						   cd.JoinLeft(ca.CompanyId == cd.CompanyId),
+						   d.JoinLeft(cd.TeacherId == d.TeacherId),
+						   u.JoinLeft(cd.TeacherId == u.UserId),
+						   er.JoinLeft(cd.TeacherId == er.TeacherId & er.PeriodId == periodId))
 				.order_by(d.DeclareTargetPKID.Asc)
 				.order_by_add(er.Score.Desc);
 
@@ -291,7 +293,7 @@ namespace TheSite.Controllers
 			}
 
 			if (UserProfile.IsSchoolAdmin)
-				query.where_and(u.CompanyId == UserProfile.CompanyId);
+				query.where_and(ca.CompanyId == UserProfile.CompanyId);
 			else if (UserProfile.IsSystemAdmin && companyId != null && companyId > 0)
 				query.where_and(u.CompanyId == companyId.Value);
 
@@ -304,7 +306,7 @@ namespace TheSite.Controllers
 				{
 					Id = er.TeacherId.GetValue(r),
 					TeacherName = u.RealName.GetValue(r),
-					DeclareCompany = c.CompanyName.GetValue(r),
+					DeclareCompany = "",//c.CompanyName.GetValue(r),
 					DeclareTarget = DeclareBaseHelper.DeclareTarget.GetName(targetId, "", false),
 					DeclareSubject = DeclareBaseHelper.DeclareSubject.GetName(d.DeclareSubjectPKID.GetValue(r)),
 					Score = shid == "不合格" ? "0" : er.Score.GetValue(r).ToString(),

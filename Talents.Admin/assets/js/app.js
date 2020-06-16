@@ -445,37 +445,6 @@ function ajaxMultipleFileUpload($dropZone,$button,$uploadArea) {
 
 //	删除附件
 
-function delAttachment(e) {
-	var current = $('.btn-delete').index(e);
-
-	var name = $('#AttachmentName').val();
-	var url = $('#AttachmentUrl').val();
-
-	var nameArray = name.split('|');
-	var tempName = '';
-	$.each(nameArray, function (index, item) {
-		if (current != index) {
-			tempName += item + '|';
-		}
-	})
-
-	var urlArray = url.split('|');
-	var tempUrl = '';
-	$.each(urlArray, function (index, item) {
-		if (current != index) {
-			tempUrl += item + '|';
-		}
-	})
-
-	tempName = tempName.length > 0 ? tempName.substring(0, tempName.lastIndexOf('|')) : tempName;
-	tempUrl = tempUrl.length > 0 ? tempUrl.substring(0, tempUrl.lastIndexOf('|')) : tempUrl;
-
-	$('#AttachmentName').val(tempName);
-	$('#AttachmentUrl').val(tempUrl);
-	$('#uploadName p:eq(' + current + ')').remove();
-	$(".progress").remove();
-}
-
 function delAttachment(e, $uploadArea) {
 	var $attachmentName = $uploadArea.find('.AttachmentName');
 	var $attachmentUrl = $uploadArea.find('.AttachmentUrl');
@@ -509,6 +478,37 @@ function delAttachment(e, $uploadArea) {
 	$attachmentUrl.val(tempUrl);
 	$uploadNames.find('p:eq(' + current + ')').remove();
 	$progress.remove();
+}
+
+function delAttachment(e) {
+	var current = $('.btn-delete').index(e);
+
+	var name = $('#AttachmentName').val();
+	var url = $('#AttachmentUrl').val();
+
+	var nameArray = name.split('|');
+	var tempName = '';
+	$.each(nameArray, function (index, item) {
+		if (current != index) {
+			tempName += item + '|';
+		}
+	})
+
+	var urlArray = url.split('|');
+	var tempUrl = '';
+	$.each(urlArray, function (index, item) {
+		if (current != index) {
+			tempUrl += item + '|';
+		}
+	})
+
+	tempName = tempName.length > 0 ? tempName.substring(0, tempName.lastIndexOf('|')) : tempName;
+	tempUrl = tempUrl.length > 0 ? tempUrl.substring(0, tempUrl.lastIndexOf('|')) : tempUrl;
+
+	$('#AttachmentName').val(tempName);
+	$('#AttachmentUrl').val(tempUrl);
+	$('#uploadName p:eq(' + current + ')').remove();
+	$(".progress").remove();
 }
 
 function insureSummernot(selector) {

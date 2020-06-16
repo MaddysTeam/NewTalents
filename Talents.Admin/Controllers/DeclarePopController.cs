@@ -499,7 +499,7 @@ namespace TheSite.Controllers
 					   .where(t.DeclareActiveId == id.Value)
 					   .execute(db);
 
-					AttachmentsExtensions.DeleteAtta(db, id.Value, AttachmentsKeys.ZisFaz_JiaoxHuod_Yantk);
+					AttachmentsExtensions.DeleteAttas(db, id.Value, new string[] { attachmentTypeKey, vertifyTypeKey });
 					atta.JoinId = id.Value;
 					vertAtta.JoinId = id.Value;
 
@@ -2400,7 +2400,7 @@ namespace TheSite.Controllers
 					   .where(t.DeclareActiveId == id.Value)
 					   .execute(db);
 
-					AttachmentsExtensions.DeleteAtta(db, id.Value, AttachmentsKeys.ZisFaz_JiaoxHuod_Yantk);
+					AttachmentsExtensions.DeleteAttas(db, id.Value, new string[] { attachmentTypeKey, vertifyTypeKey });
 					atta.JoinId = id.Value;
 					vertAtta.JoinId = id.Value;
 
