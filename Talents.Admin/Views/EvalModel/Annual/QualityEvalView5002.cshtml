@@ -10,7 +10,7 @@
 	var XiangmYanj = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.XiangmYanj, "C");
 	var Lunw = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.Lunw, "C");
 	var ShijPeixKec = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ShijPeixKec, "C");
-	var Tes = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.Tes, "c");
+	var Tes = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.Tes, "C");
 
 	var declare = ViewBag.Declare as DeclareModel;
 	var result = ViewBag.Result as EvalQualityResult;
@@ -82,7 +82,7 @@
 								</div>
 								<ul class="nav nav-tabs pull-right">
 									<li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-tag"></i> 必做任务</a></li>
-									<li><a href="#tab2" data-toggle="tab"><i class="fa fa-tag"></i> 选做任务</a></li>
+									<li><a href="#tab2" data-toggle="tab"><i class="fa fa-tag"></i> 选做任务(每学年3选1，取最高分计入总分)</a></li>
 									<li><a href="#tab3" data-toggle="tab"><i class="fa fa-tag"></i> 特色工作</a></li>
 								</ul>
 							</div>
@@ -182,7 +182,7 @@
 											<!-- 课堂教学.公开课 -->
 											<tbody>
 												<tr>
-													<td rowspan="6">一.课堂教学(满分40分)</td>
+													<td rowspan="6">一.课堂教学(满分20分)</td>
 													<td rowspan="3">1.公开课(满分20分)</td>
 													<td rowspan="3">
 														一学年完成2节区级及以上公开课<br />
@@ -213,7 +213,7 @@
 												<tr>
 													<td rowspan="3">2.指导课(满分20分)</td>
 													<td rowspan="3">
-														或一学年指导3节区级及以上公开课<br />
+														或一学年指导4节区级及以上公开课<br />
 													</td>
 													<td>@Html.RadioButton(EvalQualityRuleKeys.KetJiaox_Zhidk, "A", isChecked: KetJiaox_Zhidk.ChooseValue == "A")A</td>
 													<td>
@@ -222,7 +222,7 @@
 														</label>
 													</td>
 													<td>18分--20分</td>
-													<td class="flotValue" data-min="19" data-max="20" data-value="" data-hidden="@EvalQualityRuleKeys.KetJiaox_Zhidk_Def"></td>
+													<td class="flotValue" data-min="18" data-max="20" data-value="" data-hidden="@EvalQualityRuleKeys.KetJiaox_Zhidk_Def"></td>
 												</tr>
 												<tr>
 													<td>@Html.RadioButton(EvalQualityRuleKeys.KetJiaox_Zhidk, "B", isChecked: KetJiaox_Zhidk.ChooseValue == "B")B</td>
@@ -242,7 +242,7 @@
 													<td rowspan="3">二.教育科研(满分20分)</td>
 													<td rowspan="3">教育科研</td>
 													<td rowspan="3">
-														在市级及以上期刊上发表1篇论文（或出版1本专著/合著）<br />
+														在教育类核心期刊上发表1篇论文（或出版1本专著/合著）<br />
 													</td>
 													<td>@Html.RadioButton(EvalQualityRuleKeys.Lunw, "A", isChecked: Lunw.ChooseValue == "A")A</td>
 													<td>
@@ -255,7 +255,7 @@
 												</tr>
 												<tr>
 													<td>@Html.RadioButton(EvalQualityRuleKeys.Lunw, "B", isChecked: Lunw.ChooseValue == "B")B</td>
-													<td><label> 1.	市级及以上期刊上发表的论文1篇<br /> 2.	有刊物的封面和目录照片</label></td>
+													<td><label> 1.	教育类核心期刊上发表的论文1篇<br />2.	有刊物的封面和目录照片</label></td>
 													<td>12分--17.9分</td>
 													<td class="flotValue" data-min="12" data-max="17.9" data-value="" data-hidden="@EvalQualityRuleKeys.Lunw_Def"></td>
 												</tr>
@@ -271,12 +271,12 @@
 													<td rowspan="3">三.专题讲座(满分20分)</td>
 													<td rowspan="3">专题讲座</td>
 													<td rowspan="3">
-														一学年进行2次区级及以上主题发言或专题讲座<br />
+														一学年进行1次市级及以上主题发言或专题讲座<br />
 													</td>
 													<td>@Html.RadioButton(EvalQualityRuleKeys.KaisJiangz, "A", isChecked: KaisJiangz.ChooseValue == "A")A</td>
 													<td>
 														<label>
-															1.	1次市级及以上主题发言或专题讲座， 1次区级主题发言或专题讲座<br />2.	由市区级及以上教育行政部门出具证明
+															1.	国家级主题发言或专题讲座<br />2.	由国家级教育行政部门出具证明
 														</label>
 													</td>
 													<td>18分--20分</td>
@@ -284,13 +284,13 @@
 												</tr>
 												<tr>
 													<td>@Html.RadioButton(EvalQualityRuleKeys.KaisJiangz, "B", isChecked: KaisJiangz.ChooseValue == "B")B</td>
-													<td><label> 1.	2次区级主题发言或专题讲座 <br /> 2.	由区级教育行政部门出具证明</label></td>
+													<td><label> 1.	市级主题发言或专题讲座； <br /> 2.	由市级教育行政部门出具证明</label></td>
 													<td>12分--17.9分</td>
 													<td class="flotValue" data-min="12" data-max="17.9" data-value="" data-hidden="@EvalQualityRuleKeys.KaisJiangz_Def"></td>
 												</tr>
 												<tr>
 													<td>@Html.RadioButton(EvalQualityRuleKeys.KaisJiangz, "C", isChecked: KaisJiangz.ChooseValue == "C")C</td>
-													<td><label> 其他或无材料</label></td>
+													<td><label> 其他专题发言或无材料。</label></td>
 													<td>0分--11.9分</td>
 													<td class="flotValue" data-min="0" data-max="11.9" data-value="" data-hidden="@EvalQualityRuleKeys.KaisJiangz_Def"></td>
 												</tr>
@@ -312,7 +312,7 @@
 													<th class="table-col-10p">输入分值</th>
 												</tr>
 											</thead>
-											<!-- 项目研究 -->
+											<!-- 特色工作 -->
 											<tbody>
 												<tr>
 													<td rowspan="3">特色工作(满分20分)</td>
@@ -320,7 +320,7 @@
 													<td rowspan="3">
 														各类有特色的活动（不包含已填报过的材料）<br />
 													</td>
-													<td>@Html.RadioButton(EvalQualityRuleKeys.Tes, "A", isChecked: ShijPeixKec.ChooseValue == "A")A</td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.Tes, "A", isChecked: Tes.ChooseValue == "A")A</td>
 													<td>
 														<label>
 															产生市级及以上影响力
@@ -330,13 +330,13 @@
 													<td class="flotValue" data-min="18" data-max="20" data-value="" data-hidden="@EvalQualityRuleKeys.Tes_Def"></td>
 												</tr>
 												<tr>
-													<td>@Html.RadioButton(EvalQualityRuleKeys.Tes, "B", isChecked: ShijPeixKec.ChooseValue == "B")B</td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.Tes, "B", isChecked: Tes.ChooseValue == "B")B</td>
 													<td><label>产生区级影响力</label></td>
 													<td>12分--17.9分</td>
 													<td class="flotValue" data-min="12" data-max="17.9" data-value="" data-hidden="@EvalQualityRuleKeys.Tes_Def"></td>
 												</tr>
 												<tr>
-													<td>@Html.RadioButton(EvalQualityRuleKeys.Tes, "C", isChecked: ShijPeixKec.ChooseValue == "C")C</td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.Tes, "C", isChecked: Tes.ChooseValue == "C")C</td>
 													<td><label>有一定的影响力或无影响力</label></td>
 													<td>0分--11.9分</td>
 													<td class="flotValue" data-min="0" data-max="11.9" data-value="" data-hidden="@EvalQualityRuleKeys.Tes_Def"></td>

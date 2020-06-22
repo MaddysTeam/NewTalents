@@ -1,5 +1,5 @@
 ﻿@{
-	var pageTitle = ViewBag.Title = "未评主持人列表";
+	var pageTitle = ViewBag.Title = "未评学员列表";
 
 	var groupId = Request["groupId"];
 	var periodId = Request["periodId"];
@@ -24,8 +24,8 @@
 		<div class="main-content">
 			<!-- top action buttons -->
 			<div class="gallery-buttons bottom-30px">
-				<a class="btn btn-md btn-info" href="@Url.Action("EvalMemberList", "QualityEval", new { groupId = groupId, periodId = periodId })"><span>已评主持人</span></a>
-				<a class="btn btn-md btn-info" href="@Url.Action("NotEvalMemberList", "QualityEval", new { groupId = groupId, periodId = periodId })"><span>未评主持人</span></a>
+				<a class="btn btn-md btn-info" href="@Url.Action("EvalMemberList", "QualityEval", new { groupId = groupId, periodId = periodId })"><span>已评学员</span></a>
+				<a class="btn btn-md btn-info" href="@Url.Action("NotEvalMemberList", "QualityEval", new { groupId = groupId, periodId = periodId })"><span>未评学员</span></a>
 			</div>
 			<!-- /top action buttons -->
 

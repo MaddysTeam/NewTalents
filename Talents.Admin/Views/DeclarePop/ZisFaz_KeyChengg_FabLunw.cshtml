@@ -80,7 +80,7 @@
 										foreach (var item in Model.AttachmentName.Split('|'))
 										{
 											<p>
-												<label title="@item">@(item.Length > 40 ? item.Substring(0, 37) + "..." : item)</label> <button type="button" class="btn btn-danger btn-xs btn-delete" onclick="delAttachment(this)">删除</button>
+												<label title="@item">@(item.Length > 40 ? item.Substring(0, 37) + "..." : item)</label> <button type="button" class="btn btn-danger btn-xs btn-delete" onclick="delSingleAttachment(this)">删除</button>
 											</p>
 										}
 									}

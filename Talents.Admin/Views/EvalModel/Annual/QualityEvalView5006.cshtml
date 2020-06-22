@@ -10,7 +10,7 @@
 	var XiangmYanj = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.XiangmYanj, "C");
 	var Lunw = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.Lunw, "C");
 	var ShijPeixKec = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.ShijPeixKec, "C");
-	var Tes = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.Tes, "c");
+	var Tes = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.Tes, "C");
 
 	var declare = ViewBag.Declare as DeclareModel;
 	var result = ViewBag.Result as EvalQualityResult;
@@ -139,12 +139,12 @@
 												<tr>
 													<td rowspan="3">2.指导课(满分20分)</td>
 													<td rowspan="3">
-														一学年完成2节指导课<br />
+														和一学年指导2节公开课<br />
 													</td>
 													<td>@Html.RadioButton(EvalQualityRuleKeys.KetJiaox_Zhidk, "A", isChecked: KetJiaox_Zhidk.ChooseValue == "A")A</td>
 													<td>
 														<label>
-															1. 节区级及以上指导课，1节校级指导课<br /> 2. 由区级及以上教育行政部门和学校开具证明
+															1. 1节区级及以上指导课，1节校级指导课<br /> 2. 由区级及以上教育行政部门和学校开具证明
 														</label>
 													</td>
 													<td>18分--20分</td>
@@ -323,7 +323,7 @@
 													<td rowspan="3">市区级培训课程(满分20分)</td>
 													<td rowspan="3">市区级培训课程</td>
 													<td rowspan="3">
-														三年内完成1门课程开发<br />
+														三年内参与课程开发或三年内完成1门区级微课程开发<br />
 													</td>
 													<td>@Html.RadioButton(EvalQualityRuleKeys.ShijPeixKec, "A", isChecked: ShijPeixKec.ChooseValue == "A")A</td>
 													<td>
@@ -336,13 +336,13 @@
 												</tr>
 												<tr>
 													<td>@Html.RadioButton(EvalQualityRuleKeys.ShijPeixKec, "B", isChecked: ShijPeixKec.ChooseValue == "B")B</td>
-													<td><label>1. 2019-2021学年虹口区教育系统教师专业人才梯队培训课程申报意向表，或课程纲要完整<br />2. 由师训室提供汇总表，或由其他市级单位出具证明</label></td>
+													<td><label>1. 2019-2021学年虹口区教育系统教师专业人才梯队培训课程申报意向表，或参与课程开发<br />2. 由师训室提供汇总表，或由其他市级单位出具证明</label></td>
 													<td>12分--17.9分</td>
 													<td class="flotValue" data-min="12" data-max="17.9" data-value="" data-hidden="@EvalQualityRuleKeys.ShijPeixKec_Def"></td>
 												</tr>
 												<tr>
 													<td>@Html.RadioButton(EvalQualityRuleKeys.ShijPeixKec, "C", isChecked: ShijPeixKec.ChooseValue == "C")C</td>
-													<td><label> 其他课程目或无材料</label></td>
+													<td><label> 其他课程或无材料</label></td>
 													<td>0分--11.9分</td>
 													<td class="flotValue" data-min="0" data-max="11.9" data-value="" data-hidden="@EvalQualityRuleKeys.ShijPeixKec_Def"></td>
 												</tr>
@@ -353,7 +353,7 @@
 
 
 									<!-- 特色工作 -->
-									<div class="tab-pane fade" id="tab3">
+									<div class="tab-pane fade" id="tab4">
 										<table class="table table-bordered table-striped">
 											<thead>
 												<tr>
@@ -374,7 +374,7 @@
 													<td rowspan="3">
 														各类有特色的活动（不包含已填报过的材料）<br />
 													</td>
-													<td>@Html.RadioButton(EvalQualityRuleKeys.Tes, "A", isChecked: ShijPeixKec.ChooseValue == "A")A</td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.Tes, "A", isChecked: Tes.ChooseValue == "A")A</td>
 													<td>
 														<label>
 															产生市级及以上影响力
@@ -384,13 +384,13 @@
 													<td class="flotValue" data-min="9" data-max="10" data-value="" data-hidden="@EvalQualityRuleKeys.Tes_Def"></td>
 												</tr>
 												<tr>
-													<td>@Html.RadioButton(EvalQualityRuleKeys.Tes, "B", isChecked: ShijPeixKec.ChooseValue == "B")B</td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.Tes, "B", isChecked: Tes.ChooseValue == "B")B</td>
 													<td><label>产生区级影响力</label></td>
 													<td>6分--8.9分</td>
 													<td class="flotValue" data-min="6" data-max="8.9" data-value="" data-hidden="@EvalQualityRuleKeys.Tes_Def"></td>
 												</tr>
 												<tr>
-													<td>@Html.RadioButton(EvalQualityRuleKeys.Tes, "C", isChecked: ShijPeixKec.ChooseValue == "C")C</td>
+													<td>@Html.RadioButton(EvalQualityRuleKeys.Tes, "C", isChecked: Tes.ChooseValue == "C")C</td>
 													<td><label>有一定的影响力或无影响力</label></td>
 													<td>0分--5.9分</td>
 													<td class="flotValue" data-min="0" data-max="5.9" data-value="" data-hidden="@EvalQualityRuleKeys.Tes_Def"></td>

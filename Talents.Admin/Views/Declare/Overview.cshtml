@@ -244,14 +244,7 @@
 						<td>@item.Level</td>
 						<td>@PicklistHelper.Dynamic6.GetName(item.Dynamic6)</td>
 						<td>
-							@if (item.Dynamic1.ToUpper() == "TRUE")
-							{
-								<span>主持</span>
-							}
-							else
-							{
-								<span>参与</span>
-							}
+							<span>@item.Dynamic3</span>
 						</td>
 						<td>@item.NameOrTitle</td>
 						<td>@item.Dynamic2</td>
@@ -288,14 +281,6 @@
 						<td>@item.Level</td>
 						<td>
 							@item.Date
-							@*@if (item.Dynamic1.ToUpper() == "TRUE")
-								{
-									<span>主持</span>
-								}
-								else
-								{
-									<span>参与</span>
-								}*@
 						</td>
 						<td>@item.NameOrTitle</td>
 						<td>@item.Dynamic2</td>

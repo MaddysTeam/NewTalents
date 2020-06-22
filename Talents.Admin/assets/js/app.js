@@ -300,7 +300,7 @@ function ajaxBindFileUpload() {
 				$('#AttachmentUrl').val(url + data.url);
 				$('#AttachmentName').val(name + data.filename);
 				var showName = data.filename.length > 40 ? data.filename.substring(0, 37) + "..." : data.filename;
-				$('#uploadName').append('<p><label title="' + data.filename + '">' + showName + '</label> <button type="button" class="btn btn-danger btn-xs btn-delete" onclick="delAttachment(this)">删除</button></p>');
+				$('#uploadName').append('<p><label title="' + data.filename + '">' + showName + '</label> <button type="button" class="btn btn-danger btn-xs btn-delete" onclick="delSingleAttachment(this)">删除</button></p>');
 			});
 			this.on('error', function (file, message) {
 				popupMessage({ result: 'error', msg: message });
@@ -480,7 +480,7 @@ function delAttachment(e, $uploadArea) {
 	$progress.remove();
 }
 
-function delAttachment(e) {
+function delSingleAttachment(e) {
 	var current = $('.btn-delete').index(e);
 
 	var name = $('#AttachmentName').val();

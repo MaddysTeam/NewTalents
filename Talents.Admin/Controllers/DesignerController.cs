@@ -174,7 +174,7 @@ namespace TheSite.Controllers
 		#endregion
 
 
-		public Task<ActionResult> InitEvalGroup()
+		public Task<ActionResult> InitDeclareEvalGroup()
 		{
 			//var dr = APDBDef.DeclareReview;
 			//var df = APDBDef.DeclareProfile;
@@ -245,8 +245,35 @@ namespace TheSite.Controllers
 			return null;
 		}
 
+		public async Task<ActionResult> InitEvalGroup()
+		{
+			//var expertName = "hktdzj";
+			//int index = 1;
+			//var groups = db.ExpGroupDal.ConditionQuery(null, null, null, null);
 
-		private  async Task CreateGroupAndAssign(List<DeclareReview> targets, long[] targetIds, long[] subjectIds, long[] stageIds, string[] accessorNames, long[] groupIds)
+			//try
+			//{
+			//	db.BeginTrans();
+
+			//	foreach (var group in groups)
+			//	{
+			//		await CreateGroupAccesser(string.Format("{0}{1}", expertName, index++), group.GroupId);
+			//		await CreateGroupAccesser(string.Format("{0}{1}", expertName, index++), group.GroupId);
+			//	}
+
+			//	db.Commit();
+			//}
+			//catch
+			//{
+			//	db.Rollback();
+			//}
+
+			return null;
+		}
+
+
+
+		private async Task CreateGroupAndAssign(List<DeclareReview> targets, long[] targetIds, long[] subjectIds, long[] stageIds, string[] accessorNames, long[] groupIds)
 		{
 			var teachers = new List<DeclareReview>();
 			if (stageIds != null)
@@ -254,7 +281,7 @@ namespace TheSite.Controllers
 				teachers = (from t in targets
 							where targetIds.Contains(t.DeclareTargetPKID) &&
 								  subjectIds.Contains(t.DeclareSubjectPKID) &&
-							      stageIds.Contains(t.StageId)
+								  stageIds.Contains(t.StageId)
 							select t).ToList();
 			}
 			else
@@ -266,12 +293,12 @@ namespace TheSite.Controllers
 							select t).ToList();
 			}
 
-			teachers=teachers.Distinct().ToList();
+			teachers = teachers.Distinct().ToList();
 
 			foreach (var gid in groupIds)
 			{
 				var groupName = gid < 10 ? $"201905020_0{gid}" : $"201905020_{gid}";
-				var group = new ExpGroup { Name = groupName,  CreateDate = DateTime.Now };
+				var group = new ExpGroup { Name = groupName, CreateDate = DateTime.Now };
 				db.ExpGroupDal.Insert(group);
 
 				foreach (var item in teachers)
@@ -281,18 +308,18 @@ namespace TheSite.Controllers
 
 				foreach (var name in accessorNames)
 				{
-					await CreateGroupAccesser(name, "unknow@hktd.com", group.GroupId);
+					await CreateGroupAccesser(name, group.GroupId);
 				}
 			}
 
 		}
 
-		private async Task CreateGroupAccesser(string name, string email, long groupId)
+		private async Task CreateGroupAccesser(string name, long groupId)
 		{
 			var account = new BzUser
 			{
 				UserName = name,
-				Email = name +"@hktd.com",
+				Email = name + "@hktd.com",
 				Actived = true,
 			};
 			var profile = new BzUserProfile
