@@ -44,7 +44,7 @@
 
 		public const string ZisFaz_ZiwYanx = "自身发展.自我研修";
 
-		public const string ZisFaz_JiaoxHuod = "自身发展.教学活动";
+		public const string ZisFaz_JiaoxHuod = "自身发展.课堂教学";
 		public const string ZisFaz_JiaoxHuod_JiaoxGongkk = "自身发展.课堂教学.公开课";
 		public const string ZisFaz_JiaoxHuod_Yantk = "自身发展.课堂教学.指导课";
 		public const string ZisFaz_JiaoxHuod_JiaoyJiaoxPingb = "自身发展.教学活动.参加教育教学评比"; // 显示名称

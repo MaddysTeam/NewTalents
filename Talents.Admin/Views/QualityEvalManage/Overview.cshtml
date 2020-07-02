@@ -41,6 +41,7 @@
 								<table id="bootgrid" class="table">
 									<thead>
 										<tr>
+											<th>专家名称</th>
 											<th>专家组名称</th>
 											<th>学员总数量</th>
 											<th>已评学员数量</th>
@@ -50,6 +51,7 @@
 									@foreach (var item in Model)
 									{
 										<tr>
+											<td>@item.Accessor</td>
 											<td>@item.GroupName</td>
 											<td>@item.GroupTargetMemberCount</td>
 											<td>@item.EvalTargetMemberCount</td>

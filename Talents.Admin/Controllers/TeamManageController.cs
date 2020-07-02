@@ -819,10 +819,7 @@ namespace TheSite.Controllers
 							egt.JoinLeft(egt.MemberId == up.UserId),
 							eg.JoinLeft(eg.GroupId == egt.GroupId)
 							)
-				 .where(up.UserType == BzRoleNames.Teacher)
-				 .primary(up.UserId)
-				 .skip((current - 1) * rowCount)
-				 .take(rowCount);
+				 .where(up.UserType == BzRoleNames.Teacher);
 
 
 			//过滤条件
@@ -868,7 +865,7 @@ namespace TheSite.Controllers
 
 			//获得查询的总数量
 
-			var total = db.ExecuteSizeOfSelect(query);
+			//var total = db.ExecuteSizeOfSelect(query);
 
 
 			//查询结果集
@@ -884,11 +881,15 @@ namespace TheSite.Controllers
 					stage = DeclareBaseHelper.DeclareStage.GetName(d.DeclareStagePKID.GetValue(rd)),
 					name = eg.Name.GetValue(rd),
 				};
-			});
+			}).ToList();
+
+
+			var total = result.Count;
+			var results = result.Skip(rowCount * (current - 1)).Take(rowCount).ToList();
 
 			return Json(new
 			{
-				rows = result,
+				rows = results,
 				current,
 				rowCount,
 				total

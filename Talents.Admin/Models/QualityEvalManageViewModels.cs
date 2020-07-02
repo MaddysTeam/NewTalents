@@ -12,6 +12,7 @@ namespace TheSite.Models
 		public int GroupTargetMemberCount { get; set; }
 		public int EvalTargetMemberCount { get; set; }
 		public EvalStatus EvalStatus { get; set; }
+		public string Accessor { get; set; }
 
 	}
 

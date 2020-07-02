@@ -115,19 +115,16 @@ namespace TheSite.Controllers
 			ThrowNotAjax();
 
 
-			var query = APQuery.select(er.ResultId, er.TeacherId,er.Score,
-									   er.GroupId, er.FullScore, er.DynamicScore1, 
-									   er.DynamicScore2, er.DynamicScore3,u.RealName,
+			var query = APQuery.select(er.ResultId, er.TeacherId, er.Score,
+									   er.GroupId, er.FullScore, er.DynamicScore1,
+									   er.DynamicScore2, er.DynamicScore3, u.RealName,
 									   d.DeclareTargetPKID, d.DeclareSubjectPKID, d.DeclareStagePKID
 					)
 				.from(er,
 						 d.JoinInner(er.TeacherId == d.TeacherId),
 						 u.JoinInner(er.TeacherId == u.UserId)
 						)
-				.where(er.GroupId == groupId, er.PeriodId == periodId & er.Accesser == UserProfile.UserId)
-				.primary(er.ResultId)
-				.skip((current - 1) * rowCount)
-				.take(rowCount);
+				.where(er.GroupId == groupId, er.PeriodId == periodId & er.Accesser == UserProfile.UserId);
 
 
 			//过滤条件
@@ -157,7 +154,7 @@ namespace TheSite.Controllers
 				query.order_by(er.DeclareTargetPKID.Asc).order_by_add(er.Score.Desc);
 			}
 
-			var total = db.ExecuteSizeOfSelect(query);
+			//var total = db.ExecuteSizeOfSelect(query);
 
 			var result = query.query(db, r =>
 			{
@@ -176,7 +173,7 @@ namespace TheSite.Controllers
 					subject = DeclareBaseHelper.DeclareSubject.GetName(d.DeclareSubjectPKID.GetValue(r)),
 					stage = DeclareBaseHelper.DeclareStage.GetName(d.DeclareStagePKID.GetValue(r)),
 					targetId = d.DeclareTargetPKID.GetValue(r),
-               score= string.Format("{0} / {1}", er.Score.GetValue(r), fullScore) 
+					score = string.Format("{0} / {1}", er.Score.GetValue(r), fullScore)
 					//dynamicScore1 = string.Format("{0} / {1}", score1, fullScore),
 					//dynamicScore2 = string.Format("{0} / {1}", score2, fullScore),
 					//dynamicScore3 = string.Format("{0} / {1}", score3, fullScore),
@@ -184,9 +181,13 @@ namespace TheSite.Controllers
 			}).ToList();
 
 
+			var total = result.Count;
+			var results = result.Skip(rowCount * (current - 1)).Take(rowCount).ToList();
+
+
 			return Json(new
 			{
-				rows = result,
+				rows = results,
 				current,
 				rowCount,
 				total

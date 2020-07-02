@@ -32,38 +32,38 @@ namespace TheSite.Controllers
 			list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_GerXinx, text = "个人信息", type = json_treenode_types.content });
 			list.Add(new json_treenode() { id = TeamKeys.TuanDGerJh, text = "自我发展规划", type = json_treenode_types.content });
 
-			if (!UserProfile.IsExpert)
-			{
+			//if (!UserProfile.IsExpert)
+			//{
 
-				list.Add(new json_treenode()
-				{
-					id = DeclareKeys.ZisFaz_JiaoxHuod,
-					text = "课堂教学",
-					type = json_treenode_types.database,
-					children = new List<json_treenode>()
+			list.Add(new json_treenode()
+			{
+				id = DeclareKeys.ZisFaz_JiaoxHuod,
+				text = "课堂教学",
+				type = json_treenode_types.database,
+				children = new List<json_treenode>()
 			{
 			  new json_treenode() { id = DeclareKeys.ZisFaz_JiaoxHuod_JiaoxGongkk, text = "公开课", type = json_treenode_types.active },
 			  new json_treenode() { id = DeclareKeys.ZisFaz_JiaoxHuod_Yantk, text = "指导课", type = json_treenode_types.active },
 			   }
-				});
-				list.Add(new json_treenode()
-				{
-					id = DeclareKeys.ZisFaz_KeyChengg,
-					text = "教育科研",
-					type = json_treenode_types.database,
-					children = new List<json_treenode>()
+			});
+			list.Add(new json_treenode()
+			{
+				id = DeclareKeys.ZisFaz_KeyChengg,
+				text = "教育科研",
+				type = json_treenode_types.database,
+				children = new List<json_treenode>()
 			{
 			  new json_treenode() { id = DeclareKeys.ZisFaz_KeyChengg_KetYanj, text="项目研究", type = json_treenode_types.active },
 			  new json_treenode() { id = DeclareKeys.ZisFaz_KeyChengg_FabLunw, text="论文发表", type = json_treenode_types.active },
 			   }
-				});
-				list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_PeixJiangz_JiaosPeixKec, text = "课程开发", type = json_treenode_types.active });
-				list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_PeixJiangz_ZhuantJiangz, text = "专题讲座", type = json_treenode_types.active });
-				list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_XuesHuod, text = "带教教师", type = json_treenode_types.active });
-				//list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_ShiqjHuod, text = "市、区重大活动", type = json_treenode_types.active });
-				//list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_ZiwYanx, text = "自我研修", type = json_treenode_types.active });
-				list.Add(new json_treenode() { id = DeclareKeys.ZhidJians_YingxlDeGongz, text = "亮点特色", type = json_treenode_types.active });
-			}
+			});
+			list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_PeixJiangz_JiaosPeixKec, text = "课程开发", type = json_treenode_types.active });
+			list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_PeixJiangz_ZhuantJiangz, text = "专题讲座", type = json_treenode_types.active });
+			list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_XuesHuod, text = "带教教师", type = json_treenode_types.active });
+			//list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_ShiqjHuod, text = "市、区重大活动", type = json_treenode_types.active });
+			//list.Add(new json_treenode() { id = DeclareKeys.ZisFaz_ZiwYanx, text = "自我研修", type = json_treenode_types.active });
+			list.Add(new json_treenode() { id = DeclareKeys.ZhidJians_YingxlDeGongz, text = "亮点特色", type = json_treenode_types.active });
+			//}
 
 			#endregion
 
@@ -71,33 +71,33 @@ namespace TheSite.Controllers
 			#region [ 梯队信息 ]
 
 
-			if (db.HasTeam(userId))
-			{
-				list.Add(new json_treenode { id = TeamKeys.ZhucDTuand, text = "主持的梯队", type = json_treenode_types.database, children = new List<json_treenode>() });
+			//if (db.HasTeam(userId))
+			//{
+			//	list.Add(new json_treenode { id = TeamKeys.ZhucDTuand, text = "主持的梯队", type = json_treenode_types.database, children = new List<json_treenode>() });
 
-				var Tid = list.Find(m => m.id == TeamKeys.ZhucDTuand);
-		
-				if (Tid != null)
-				{
-					Tid.children.Add(new json_treenode { id = TeamKeys.TuanDXinx, text = "团队信息", type = json_treenode_types.content });
-					Tid.children.Add(new json_treenode { id = TeamKeys.TuanDChengy, text = "团队成员", type = json_treenode_types.content });
-					Tid.children.Add(new json_treenode { id = TeamKeys.TuanDZhidJians, text = "团队规划", type = json_treenode_types.content });
-					Tid.children.Add(new json_treenode { id = TeamKeys.TuanDXiangm, text = "团队项目", type = json_treenode_types.content });
-					Tid.children.Add(new json_treenode { id = TeamKeys.YanxHuod, text = "团队活动", type = json_treenode_types.active });
-				}
-			}
-			else
-			{
-				list.Add(new json_treenode { id = TeamKeys.CanyDTuand, text = "参与的梯队", type = json_treenode_types.database, children = new List<json_treenode>() });
+			//	var Tid = list.Find(m => m.id == TeamKeys.ZhucDTuand);
 
-				var Tid = list.Find(m => m.id == TeamKeys.CanyDTuand);
+			//	if (Tid != null)
+			//	{
+			//		Tid.children.Add(new json_treenode { id = TeamKeys.TuanDXinx, text = "团队信息", type = json_treenode_types.content });
+			//		Tid.children.Add(new json_treenode { id = TeamKeys.TuanDChengy, text = "团队成员", type = json_treenode_types.content });
+			//		Tid.children.Add(new json_treenode { id = TeamKeys.TuanDZhidJians, text = "团队规划", type = json_treenode_types.content });
+			//		Tid.children.Add(new json_treenode { id = TeamKeys.TuanDXiangm, text = "团队项目", type = json_treenode_types.content });
+			//		Tid.children.Add(new json_treenode { id = TeamKeys.YanxHuod, text = "团队活动", type = json_treenode_types.active });
+			//	}
+			//}
+			//else
+			//{
+			//	list.Add(new json_treenode { id = TeamKeys.CanyDTuand, text = "参与的梯队", type = json_treenode_types.database, children = new List<json_treenode>() });
 
-				if (Tid != null)
-				{
-					Tid.children.Add(new json_treenode { id = TeamKeys.TuanDXinx, text = "团队信息", type = json_treenode_types.content });
-					Tid.children.Add(new json_treenode { id = TeamKeys.TuanDZiXiangm, text = "团队子项目", type = json_treenode_types.content });
-				}
-			}
+			//	var Tid = list.Find(m => m.id == TeamKeys.CanyDTuand);
+
+			//	if (Tid != null)
+			//	{
+			//		Tid.children.Add(new json_treenode { id = TeamKeys.TuanDXinx, text = "团队信息", type = json_treenode_types.content });
+			//		Tid.children.Add(new json_treenode { id = TeamKeys.TuanDZiXiangm, text = "团队子项目", type = json_treenode_types.content });
+			//	}
+			//}
 
 
 
@@ -354,8 +354,8 @@ namespace TheSite.Controllers
 					//new json_treenode { }
 				};
 
-				return Json(list, JsonRequestBehavior.AllowGet);
-			}
+			return Json(list, JsonRequestBehavior.AllowGet);
+		}
 
 	}
 

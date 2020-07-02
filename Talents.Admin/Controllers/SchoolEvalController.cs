@@ -65,10 +65,7 @@ namespace TheSite.Controllers
 					query.where(d.DeclareTargetPKID > DeclareTargetIds.GugJiaos) :
 					query.where(d.DeclareTargetPKID <= DeclareTargetIds.GugJiaos);
 
-			query = query.where_and(ca.UserId == UserProfile.UserId)
-				.primary(cd.TeacherId)
-				.skip((current - 1) * rowCount)
-				.take(rowCount);
+			query = query.where_and(ca.UserId == UserProfile.UserId);
 
 
 			//过滤条件
@@ -95,7 +92,7 @@ namespace TheSite.Controllers
 				}
 			}
 
-			var total = db.ExecuteSizeOfSelect(query);
+			//var total = db.ExecuteSizeOfSelect(query);
 
 			var result = query.query(db, rd =>
 			{
@@ -115,9 +112,13 @@ namespace TheSite.Controllers
 			}).ToList();
 
 
+			var total = result.Count;
+			var results = result.Skip(rowCount * (current - 1)).Take(rowCount).ToList();
+
+
 			return Json(new
 			{
-				rows = result,
+				rows = results,
 				current,
 				rowCount,
 				total
