@@ -1,5 +1,6 @@
 ﻿using Business;
 using Business.Helper;
+using Business.Utilities;
 using Symber.Web.Data;
 using System;
 using System.Collections.Generic;
@@ -248,9 +249,56 @@ namespace TheSite.Controllers
 		}
 
 
-		// GET: DeclareEval/EvalSchoolMemberExport
 
-		public ActionResult EvalSchoolMemberExport(int periodId, bool? isLowDeclareLevel)
+      public ActionResult Export(long periodId)
+      {
+
+         var ualias = APDBDef.BzUserProfile.As("ualias");
+         var query = APQuery.select(er.ResultId, er.PeriodId, er.TeacherId, c.CompanyName, u.RealName,d.DeclareTargetPKID,
+            er.AccessDate, er.Score, er.FullScore, ualias.RealName.As("Accesser"))
+            .from(er,
+                  cd.JoinInner(er.TeacherId == cd.TeacherId),
+                  d.JoinInner(d.TeacherId== cd.TeacherId),
+                  c.JoinInner(cd.CompanyId == c.CompanyId),
+                  u.JoinInner(er.TeacherId == u.UserId),
+                  ualias.JoinInner(er.Accesser == ualias.UserId)
+                  )
+            .where(er.PeriodId == periodId);
+
+
+         var total = db.ExecuteSizeOfSelect(query);
+
+         var results = query.query(db, rd =>
+         {
+            var fullScore = er.FullScore.GetValue(rd);
+            var score = er.Score.GetValue(rd);
+
+            return new TheSite.Models.SchoolEvalResultExportModels
+            {
+               ResultId = er.ResultId.GetValue(rd),
+               //EvalTitle = Business.Helper.EvalSchoolRuleKeys.GerJiHx,
+               Company = c.CompanyName.GetValue(rd),
+               TargetName = DeclareBaseHelper.DeclareTarget.GetName(d.DeclareTargetPKID.GetValue(rd)),
+               TeacherName = u.RealName.GetValue(rd),
+               AccessDate = er.AccessDate.GetValue(rd).ToString("yyyy-MM-dd"),
+               Score = string.Format("{0} / {1}", er.Score.GetValue(rd), fullScore)
+            };
+         }).ToDictionary(x => x.ResultId);
+
+         var book = NPOIHelper.CreateBook(results);
+
+         System.IO.MemoryStream ms = new System.IO.MemoryStream();
+         book.Write(ms);
+         ms.Seek(0, System.IO.SeekOrigin.Begin);
+         string dateTime = DateTime.Now.ToString("yyyyMMdd");
+         string fileName = "校考考核汇总表" + dateTime + ".xls";
+         return File(ms, "application/vnd.ms-excel", fileName);
+      }
+
+
+      // GET: DeclareEval/EvalSchoolMemberExport
+
+      public ActionResult EvalSchoolMemberExport(int periodId, bool? isLowDeclareLevel)
 		{
 			var companyId = UserProfile.CompanyId;
 			var results = GetDeclareSchoolEvalResultViewModels(companyId, periodId, isLowDeclareLevel);

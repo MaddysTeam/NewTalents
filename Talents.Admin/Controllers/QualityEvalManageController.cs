@@ -95,18 +95,18 @@ namespace TheSite.Controllers
 
 			var u2 = APDBDef.BzUserProfile.As("accesser");
 
-			var query = APQuery.select(u.RealName, d.DeclareTargetPKID, d.DeclareSubjectPKID, d.DeclareStagePKID, er.Accesser, er.ResultId, er.TeacherId, er.Score, er.FullScore, er.GroupId, er.PeriodId,
-									   er.DynamicScore1, er.DynamicScore2, er.DynamicScore3, er.AccessDate,u2.RealName.As("accesser"))
-				.from(egt,
-						er.JoinInner(er.TeacherId == egt.MemberId),
-						u.JoinInner(egt.MemberId == u.UserId),
-						u2.JoinInner(er.Accesser == u2.UserId),
-						d.JoinInner(d.TeacherId == u.UserId)
-					  )
-				.where(er.PeriodId == periodId)
-				.primary(egt.MemberId)
-				.skip((current - 1) * rowCount)
-				.take(rowCount);
+         var query = APQuery.select(u.RealName, d.DeclareTargetPKID, d.DeclareSubjectPKID, d.DeclareStagePKID, er.Accesser, er.ResultId, er.TeacherId, er.Score, er.FullScore, er.GroupId, er.PeriodId,
+                              er.DynamicScore1, er.DynamicScore2, er.DynamicScore3, er.AccessDate, u2.RealName.As("accesser"))
+            .from(egt,
+                  er.JoinInner(er.TeacherId == egt.MemberId),
+                  u.JoinInner(egt.MemberId == u.UserId),
+                  u2.JoinInner(er.Accesser == u2.UserId),
+                  d.JoinInner(d.TeacherId == u.UserId)
+                 )
+            .where(er.PeriodId == periodId);
+				//.primary(egt.MemberId)
+				//.skip((current - 1) * rowCount)
+				//.take(rowCount);
 
 
 			//过滤条件
@@ -136,7 +136,7 @@ namespace TheSite.Controllers
 				}
 			}
 
-			var total = db.ExecuteSizeOfSelect(query);
+			//var total = db.ExecuteSizeOfSelect(query);
 
 			var result = query.query(db, rd =>
 			{
@@ -158,7 +158,7 @@ namespace TheSite.Controllers
 					targetName = DeclareBaseHelper.DeclareTarget.GetName(d.DeclareTargetPKID.GetValue(rd)),
 					realName = u.RealName.GetValue(rd),
 					accessDate = er.AccessDate.GetValue(rd),
-				    score=er.Score.GetValue(rd),
+				    score=er.Score.GetValue(rd).ToString("0.0"),
 					accesser=u2.RealName.GetValue(rd, "accesser"),
 					
 					//dynamicScore1 = string.Format("{0} / {1}", dynamicScore1, fullScore),
@@ -168,9 +168,13 @@ namespace TheSite.Controllers
 				};
 			}).ToList();
 
-			return Json(new
+
+         var total = result.Count;
+         var results = result.Skip(rowCount * (current - 1)).Take(rowCount).ToList();
+
+         return Json(new
 			{
-				rows = result,
+				rows = results,
 				current,
 				rowCount,
 				total
@@ -258,7 +262,7 @@ namespace TheSite.Controllers
 			var t = APDBDef.TeamMember;
 			var a = APDBDef.BzUserProfile.As("Accessor");
 
-			var query = APQuery.select(u.RealName, d.DeclareTargetPKID, er.Accesser, er.ResultId, er.TeacherId, er.Score, er.FullScore, er.GroupId, er.PeriodId,
+			var query = APQuery.select(u.RealName, d.DeclareTargetPKID, er.Accesser, er.ResultId, er.TeacherId, er.Score, er.FullScore, er.GroupId, er.PeriodId,er.Score,
 									   er.DynamicScore1, er.DynamicScore2, er.DynamicScore3, er.AccessDate, er.DynamicComment1, er.DynamicComment2, er.DynamicComment3,
 									   d.DeclareSubjectPKID, d.DeclareStagePKID, a.RealName.As("AccessorName")
 									   )
@@ -273,9 +277,9 @@ namespace TheSite.Controllers
 
 			var results = query.query(db, rd =>
 			{
-				var dynamicScore1 = er.DynamicScore1.GetValue(rd);
-				var dynamicScore2 = er.DynamicScore2.GetValue(rd);
-				var dynamicScore3 = er.DynamicScore3.GetValue(rd);
+				//var dynamicScore1 = er.DynamicScore1.GetValue(rd);
+				//var dynamicScore2 = er.DynamicScore2.GetValue(rd);
+				//var dynamicScore3 = er.DynamicScore3.GetValue(rd);
 				var leaderSubject = DeclareBaseHelper.DeclareSubject.GetName(d.DeclareSubjectPKID.GetValue(rd));
 				var leaderStage = DeclareBaseHelper.DeclareStage.GetName(d.DeclareStagePKID.GetValue(rd));
 
@@ -288,12 +292,13 @@ namespace TheSite.Controllers
 					TeacherName = u.RealName.GetValue(rd),
 					Accessor=a.RealName.GetValue(rd,"AccessorName"),
 					AccessDate = er.AccessDate.GetValue(rd).ToString("yyyy-MM-dd"),
-					EvalScore1 = string.Format("{0} / {1}", dynamicScore1, fullScore),
-					EvalScore2 = string.Format("{0} / {1}", dynamicScore2, fullScore),
-					EvalScore3 = string.Format("{0} / {1}", dynamicScore3, fullScore),
-					EvalComment1 = er.DynamicComment1.GetValue(rd),
-					EvalComment2 = er.DynamicComment2.GetValue(rd),
-					EvalComment3 = er.DynamicComment3.GetValue(rd),
+               Score=er.Score.GetValue(rd).ToString("0.0")
+					//EvalScore1 = string.Format("{0} / {1}", dynamicScore1, fullScore),
+					//EvalScore2 = string.Format("{0} / {1}", dynamicScore2, fullScore),
+					//EvalScore3 = string.Format("{0} / {1}", dynamicScore3, fullScore),
+					//EvalComment1 = er.DynamicComment1.GetValue(rd),
+					//EvalComment2 = er.DynamicComment2.GetValue(rd),
+					//EvalComment3 = er.DynamicComment3.GetValue(rd),
 				};
 			}).ToDictionary(x => x.ResultId);
 

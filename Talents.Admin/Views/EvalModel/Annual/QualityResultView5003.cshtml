@@ -99,12 +99,12 @@
 					<!--课堂教学.公开课-->
 					<tr>
 						<td colspan="2">课堂教学.公开课</td>
-						@if (KetJiaox_Zhidk.ChooseValue == "A")
+						@if (KetJiaox_Gongkk.ChooseValue == "A")
 						{
 							<td><label>A：1.	1节市级及以上公开课，1节区级公开课<br />2.	由市区级及以上教育行政部门开具证明</label></td>
 									<td><span>@KetJiaox_Gongkk.ResultValue</span>分</td>
 						}
-						else if (KetJiaox_Zhidk.ChooseValue == "B")
+						else if (KetJiaox_Gongkk.ChooseValue == "B")
 						{
 							<td><label> B：1.	2节区级公开课 <br /> 2.	由区级教育行政部门开具证明</label></td>
 									<td><span>@KetJiaox_Gongkk.ResultValue</span>分</td>
@@ -124,12 +124,12 @@
 							<td><label>A：1.	3节指导课，其中有市级及以上指导课，其余为区级指导课<br />2.	由市区级及以上教育行政部门开具证明</label></td>
 							<td><span>@KetJiaox_Zhidk.ResultValue</span>分</td>
 						}
-						else if (KetJiaox_Gongkk.ChooseValue == "B")
+						else if (KetJiaox_Zhidk.ChooseValue == "B")
 						{
 							<td><label>  1.	3节区级指导课 <br /> 2.	由区级教育行政部门开具证明</label></td>
 							<td><span>@KetJiaox_Zhidk.ResultValue</span>分</td>
 						}
-						else if (KetJiaox_Gongkk.ChooseValue == "C")
+						else if (KetJiaox_Zhidk.ChooseValue == "C")
 						{
 							<td><label> C：其他指导课或无材料</label></td>
 							<td><span>@KetJiaox_Zhidk.ResultValue</span>分</td>
