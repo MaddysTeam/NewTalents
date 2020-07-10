@@ -18,8 +18,8 @@
 			</li>
 			@if (up.IsDeclare)
 			{
-				if (!isInDeclare )
-				{
+				if (!isInDeclare || up.TargetId <= DeclareTargetIds.GugJiaos)
+					{
 					<li>
 						<a href="@Url.Action("Index", "Declare")">
 							<i class="fa fa-book fa-fw"></i>
@@ -27,7 +27,8 @@
 						</a>
 					</li>
 				}
-				else
+				//TODO: 20200706
+				else if(up.TargetId > DeclareTargetIds.GugJiaos)
 				{
 					<li>
 						<a href="@Url.Action("Index", "DeclareMaterial")">
@@ -66,7 +67,7 @@
 						</a>
 					</li>
 				}
-				else if (up.IsMember)
+				else if (up.IsMember && up.TargetId <= DeclareTargetIds.GugJiaos)
 				{
 					<li>
 						<a href="@Url.Action("Member", "Team")">

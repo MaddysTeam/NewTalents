@@ -249,21 +249,24 @@ namespace TheSite.Controllers
 
 			List<json_treenode> list = new List<json_treenode>();
 
-			var gaodLisZhang = new json_treenode { id = DeclareKeys.GaodLisz_ZijBiao, text = "学科高地理事长", type = json_treenode_types.database, children = new List<json_treenode>() };
-			var jiDZhucReng = new json_treenode { id = DeclareKeys.JidZhucr_ZijBiao, text = "学科培训基地主持人", type = json_treenode_types.database, children = new List<json_treenode>() };
-			var gongzShiZhucReng = new json_treenode { id = DeclareKeys.GongzsZhucr_Shenb, text = "学科培训工作室主持人", type = json_treenode_types.database, children = new List<json_treenode>() };
-			var xuekDaitReng = new json_treenode { id = DeclareKeys.XuekDaitr, text = "学科带头人", type = json_treenode_types.database, children = new List<json_treenode>() };
-			xuekDaitReng.children.Add(new json_treenode { id = DeclareKeys.XuekDaitr_Shenb, text = "申报" });
-			xuekDaitReng.children.Add(new json_treenode { id = DeclareKeys.XuekDaitr_ZhicPog, text = "职称破格" });
-			xuekDaitReng.children.Add(new json_treenode { id = string.Format("{0}-{1}", DeclareKeys.XuekDaitr_CaiLPog, DeclareTargetIds.XuekDaitr), text = "材料破格" });
-			var gugJiaos = new json_treenode { id = DeclareKeys.GugJiaos, text = "骨干教师", type = json_treenode_types.database, children = new List<json_treenode>() };
-			gugJiaos.children.Add(new json_treenode { id = DeclareKeys.GugJiaos_Shenb, text = "申报" });
-			gugJiaos.children.Add(new json_treenode { id = DeclareKeys.GugJiaos_ZhicPog, text = "职称破格" });
-			gugJiaos.children.Add(new json_treenode { id = string.Format("{0}-{1}", DeclareKeys.GugJiaos_CaiLPog, DeclareTargetIds.GugJiaos), text = "材料破格" });
+			//TODO: 20200706
+
+			//var gaodLisZhang = new json_treenode { id = DeclareKeys.GaodLisz_ZijBiao, text = "学科高地理事长", type = json_treenode_types.database, children = new List<json_treenode>() };
+			//var jiDZhucReng = new json_treenode { id = DeclareKeys.JidZhucr_ZijBiao, text = "学科培训基地主持人", type = json_treenode_types.database, children = new List<json_treenode>() };
+			//var gongzShiZhucReng = new json_treenode { id = DeclareKeys.GongzsZhucr_Shenb, text = "学科培训工作室主持人", type = json_treenode_types.database, children = new List<json_treenode>() };
+			//var xuekDaitReng = new json_treenode { id = DeclareKeys.XuekDaitr, text = "学科带头人", type = json_treenode_types.database, children = new List<json_treenode>() };
+			//xuekDaitReng.children.Add(new json_treenode { id = DeclareKeys.XuekDaitr_Shenb, text = "申报" });
+			//xuekDaitReng.children.Add(new json_treenode { id = DeclareKeys.XuekDaitr_ZhicPog, text = "职称破格" });
+			//xuekDaitReng.children.Add(new json_treenode { id = string.Format("{0}-{1}", DeclareKeys.XuekDaitr_CaiLPog, DeclareTargetIds.XuekDaitr), text = "材料破格" });
+			//var gugJiaos = new json_treenode { id = DeclareKeys.GugJiaos, text = "骨干教师", type = json_treenode_types.database, children = new List<json_treenode>() };
+			//gugJiaos.children.Add(new json_treenode { id = DeclareKeys.GugJiaos_Shenb, text = "申报" });
+			//gugJiaos.children.Add(new json_treenode { id = DeclareKeys.GugJiaos_ZhicPog, text = "职称破格" });
+			//gugJiaos.children.Add(new json_treenode { id = string.Format("{0}-{1}", DeclareKeys.GugJiaos_CaiLPog, DeclareTargetIds.GugJiaos), text = "材料破格" });
 			var jiaoxNengs = new json_treenode { id = DeclareKeys.JiaoxNengs, text = "教学能手", type = json_treenode_types.database, children = new List<json_treenode>() };
-			jiaoxNengs.children.Add(new json_treenode { id = DeclareKeys.JiaoxNengs_Shenb, text = "申报" });
-			jiaoxNengs.children.Add(new json_treenode { id = DeclareKeys.JiaoxNengs_ZhicPog, text = "职称破格" });
-			jiaoxNengs.children.Add(new json_treenode { id = string.Format("{0}-{1}", DeclareKeys.JiaoxNengs_CaiLPog, DeclareTargetIds.JiaoxNengs), text = "材料破格" });
+			var jiaoxNengs_clpg = new json_treenode { id = string.Format("{0}-{1}", DeclareKeys.JiaoxNengs_CaiLPog, DeclareTargetIds.JiaoxNengs), text = DeclareKeys.JiaoxNengs_CaiLPog,type= json_treenode_types.database };
+			//jiaoxNengs.children.Add(new json_treenode { id = DeclareKeys.JiaoxNengs_Shenb, text = "申报" });
+			//jiaoxNengs.children.Add(new json_treenode { id = DeclareKeys.JiaoxNengs_ZhicPog, text = "职称破格" });
+			//jiaoxNengs.children.Add(new json_treenode { id = string.Format("{0}-{1}", DeclareKeys.JiaoxNengs_CaiLPog, DeclareTargetIds.JiaoxNengs), text = "材料破格" });
 			var jiaoxXinx = new json_treenode { id = DeclareKeys.JiaoxXinx, text = "教学新秀", type = json_treenode_types.database, children = new List<json_treenode>() };
 
 
@@ -278,12 +281,13 @@ namespace TheSite.Controllers
 			}
 			else
 			{
-				list.Add(gaodLisZhang);
-				list.Add(jiDZhucReng);
-				list.Add(gongzShiZhucReng);
-				list.Add(xuekDaitReng);
-				list.Add(gugJiaos);
+				//list.Add(gaodLisZhang);
+				//list.Add(jiDZhucReng);
+				//list.Add(gongzShiZhucReng);
+				//list.Add(xuekDaitReng);
+				//list.Add(gugJiaos);
 				list.Add(jiaoxNengs);
+				list.Add(jiaoxNengs_clpg);
 				list.Add(jiaoxXinx);
 			}
 

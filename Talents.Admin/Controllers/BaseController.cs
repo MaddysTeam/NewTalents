@@ -57,7 +57,7 @@ namespace TheSite.Controllers
 		{
 			get
 			{
-				if (_period == null)
+				if (_evalPeriod == null)
 					_evalPeriod = db.GetCurrentPeriod();
 				return _evalPeriod;
 			}
