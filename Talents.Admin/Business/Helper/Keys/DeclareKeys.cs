@@ -146,8 +146,8 @@
       public const string GugJiaos_CaiLPog = "骨干教师.材料破格";
       public const string JiaoxNengs = "教学能手";
       public const string JiaoxNengs_Shenb = "教学能手.申报";
-      public const string JiaoxNengs_ZhicPog = "教学能手.职称破格";
-      public const string JiaoxNengs_CaiLPog = "教学能手.材料破格";
+      public const string JiaoxNengs_ZhicPog = "职称破格";
+      public const string JiaoxNengs_CaiLPog = "材料破格";
       public const string JiaoxXinx = "教学新秀";
       public const string JiaoxXinx_Shenb = "教学新秀.申报";
       public const string GaofJihZhucRen = "高峰计划主持人";

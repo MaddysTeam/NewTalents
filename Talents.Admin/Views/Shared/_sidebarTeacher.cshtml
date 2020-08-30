@@ -18,8 +18,14 @@
 			</li>
 			@if (up.IsDeclare)
 			{
-				if (!isInDeclare || up.TargetId <= DeclareTargetIds.GugJiaos)
-					{
+				if (up.TargetId < DeclareTargetIds.PutLaos)
+				{
+					<li>
+						<a target="_blank" href="@Url.Action("Overview", "Declare",new {id =up.UserId })">
+							<i class="fa fa-book fa-fw"></i>
+							<span class="text">个人资料查看</span>
+						</a>
+					</li>
 					<li>
 						<a href="@Url.Action("Index", "Declare")">
 							<i class="fa fa-book fa-fw"></i>
@@ -28,12 +34,12 @@
 					</li>
 				}
 				//TODO: 20200714
-				else if(up.TargetId == DeclareTargetIds.PutLaos)
+				else if (up.TargetId == DeclareTargetIds.PutLaos)
 				{
 					<li>
 						<a href="@Url.Action("Index", "DeclareMaterial")">
 							<i class="fa fa-book fa-fw"></i>
-							<span class="text">教师申报</span>
+							<span class="text">学前增补申报</span>
 						</a>
 					</li>
 				}
@@ -44,44 +50,45 @@
 						<div id="treeview-declare"></div>
 					</div>
 				</div>
+
 				if (up.IsMaster )
 				{
 	<!-- END WIDGET ACTIVITY FEED -->
-					@*<li>
+					<li>
 						<a href="@Url.Action("Master", "Team")">
 							<i class="fa fa-book fa-fw"></i>
 							<span class="text">团队建设(主持人)</span>
-						</a>
-					</li>*@
-	<!-- WIDGET ACTIVITY FEED -->
-					@*<div class="widget widget-treeview" style="display:none">
-						<div class="widget-content">
-							<div id="treeview-team-master"></div>
-						</div>
-					</div>*@
-	<!-- END WIDGET ACTIVITY FEED -->
-					<li>
-						<a href="@Url.Action("CurrentList", "TeamEval")">
-							<i class="fa fa-book fa-fw"></i>
-							<span class="text">团队考核</span>
-						</a>
-					</li>
-				}
-				else if (up.IsMember && up.TargetId <= DeclareTargetIds.GugJiaos)
-				{
-					<li>
-						<a href="@Url.Action("Member", "Team")">
-							<i class="fa fa-book fa-fw"></i>
-							<span class="text">团队建设(成员)</span>
 						</a>
 					</li>
 	<!-- WIDGET ACTIVITY FEED -->
 					<div class="widget widget-treeview" style="display:none">
 						<div class="widget-content">
-							<div id="treeview-team-member"></div>
+							<div id="treeview-team-master"></div>
 						</div>
 					</div>
 	<!-- END WIDGET ACTIVITY FEED -->
+					@*<li>
+						<a href="@Url.Action("CurrentList", "TeamEval")">
+							<i class="fa fa-book fa-fw"></i>
+							<span class="text">团队考核</span>
+						</a>
+					</li>*@
+				}
+				else if (up.IsMember && up.TargetId <= DeclareTargetIds.GugJiaos)
+				{
+					@*<li>
+						<a href="@Url.Action("Member", "Team")">
+							<i class="fa fa-book fa-fw"></i>
+							<span class="text">团队建设(成员)</span>
+						</a>
+					</li>
+
+					<div class="widget widget-treeview" style="display:none">
+						<div class="widget-content">
+							<div id="treeview-team-member"></div>
+						</div>
+					</div>*@
+
 				}
 				if (up.UserId == 11579 && !isInDeclare) //TODO: temp for sepical teacher
 				{
