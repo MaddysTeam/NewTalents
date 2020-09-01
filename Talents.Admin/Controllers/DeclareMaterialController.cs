@@ -665,7 +665,8 @@ namespace TheSite.Controllers
             df.TypeKey == param.TypeKey.Replace(poge, ".申报"), null, null, null).FirstOrDefault();
 
          // 如果review 表数据为空（没点保存按钮）则：职称破格和申报公用一张表 所以要用form IsBrokenRoles 和 param.TypeKey 一起判断，否则绑定IsBrokRoles字段
-         model.IsBrokRoles = review == null ? string.IsNullOrEmpty(param.TypeKey) ? false : param.TypeKey.IndexOf(poge) > 0 : review.IsBrokenRoles;
+         model.IsBrokRoles = review == null ? string.IsNullOrEmpty(param.TypeKey) ? false : poge.IndexOf(param.TypeKey) >= 0 : review.IsBrokenRoles;
+         model.IsAllowDownGrade = review==null ? true : review.AllowFlowToDowngrade; //TODO
 
          review = review ?? new DeclareReview();
 
@@ -714,7 +715,7 @@ namespace TheSite.Controllers
          model.Is5008 = profile.Dynamic4.IndexOf(DeclareTargetIds.JiaoxXinx.ToString()) >= 0;
          model.Is6000 = profile.Dynamic4.IndexOf(DeclareTargetIds.GaodJiaoSYanxBanXuey.ToString()) >= 0;
          model.Comment1 = profile.Dynamic5;
-         model.IsAllowDownGrade = poge.IndexOf(param.TypeKey) >= 0 ? true : review.AllowFlowToDowngrade; //TODO
+        // model.IsAllowDownGrade = poge.IndexOf(param.TypeKey) >= 0 ? true : review.AllowFlowToDowngrade; //TODO
          model.IsAllowdFlow = review.AllowFlowToSchool;
          model.DeclareActies = declareActives;
          model.DeclareAchievements = declareAchievement;
