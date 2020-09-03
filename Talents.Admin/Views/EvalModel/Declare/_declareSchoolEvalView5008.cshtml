@@ -117,11 +117,13 @@
 													<td colspan="4" rowspan="4">
 														由所在学校就工作量、教育教学效果、参与学校学科教研组建设、参与重大项目研究进行考评
 													</td>
-													<td><label>@Html.RadioButton(EvalDeclareRuleKeys.XiaonLvz, "A", isChecked: XiaonLvz.ChooseValue == "A") A：总体情况优秀</label></td>
-													<td>63分--70分</td>
-													<td class="flotValue" data-min="63.0" data-max="70.0" data-value="" data-hidden="@EvalDeclareRuleKeys.XiaonLvz_Def"></td>
+													<td>
+													<label>@Html.RadioButton(EvalDeclareRuleKeys.XiaonLvz, "A", isChecked: XiaonLvz.ChooseValue == "A") </label>
+													</td>
+													<td>0分--100分</td>
+													<td class="flotValue" data-min="0" data-max="100" data-value="" data-hidden="@EvalDeclareRuleKeys.XiaonLvz_Def"></td>
 												</tr>
-												<tr>
+												@*<tr>
 													<td>
 														<label>@Html.RadioButton(EvalDeclareRuleKeys.XiaonLvz, "B", isChecked: XiaonLvz.ChooseValue == "B") B：总体情况良好</label>
 													</td>
@@ -134,7 +136,7 @@
 													</td>
 													<td>42分--51.9分</td>
 													<td class="flotValue" data-min="42.0" data-max="51.9" data-value="" data-hidden="@EvalDeclareRuleKeys.XiaonLvz_Def"></td>
-												</tr>
+												</tr>*@
 
 											</tbody>
 										</table>

@@ -17,9 +17,9 @@ namespace TheSite.EvalAnalysis
 
 			public override long TargetId => 5008;
 
-			public override double FullScroe => 70;
+			public override double FullScroe => 100;
 
-			public override double CompanyFullScore => 70;
+			public override double CompanyFullScore => 100;
 
 			public override double ExpertFullScore => 0;
 
@@ -58,14 +58,14 @@ namespace TheSite.EvalAnalysis
 				switch (choose)
 				{
 					case "A":
-						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 63, 70);
+						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 0, 100);
 						break;
-					case "B":
-						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 52, 62.9);
-						break;
-					case "C":
-						result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 42, 51.9);
-						break;
+					//case "B":
+					//	result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 52, 62.9);
+					//	break;
+					//case "C":
+					//	result.Score += EvalHelper.EnsureScoreInRange(scoreValue, 42, 51.9);
+					//	break;
 				}
 
 				item.ResultValue = scoreValue.ToString();
