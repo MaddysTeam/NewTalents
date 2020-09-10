@@ -65,5 +65,8 @@ namespace Business.Config
 
 		// 管理员id
 		public const int AdminId = 1;
+
+		// TODO:2020-09-09
+		public const string DefaultEvalChooseValue = "A";
 	}
 }

@@ -44,10 +44,10 @@
 			  	$hidden.val(scoreValue)
 			  });
 			// 默认选中按钮，如果不是选中状态则禁用文本框
-			if ($radio.attr('checked') != 'checked') {
-				$text.attr('disabled', 'disabled')
-			}
-			else {
+			//if ($radio.attr('checked') != 'checked') {
+			//	$text.attr('disabled', 'disabled')
+			//}
+			//else {
 				if ($hidden.val() == '' && !$hidden.val()) {
 					$hidden.val(min);
 				}
@@ -56,7 +56,7 @@
 				}
 				$this.data('value', $hidden.val());// 保存默认值，用户在来回切换radio后还能看到先前的数值
 				$text.val($hidden.val());
-			}
+			//}
 		});
 		// 提交按钮
 		$('.btn_submit').click(function () {

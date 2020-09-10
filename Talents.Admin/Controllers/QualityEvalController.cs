@@ -160,8 +160,8 @@ namespace TheSite.Controllers
 			{
 				var fullScore = er.FullScore.GetValue(r);
 				//var score1 = er.DynamicScore1.GetValue(r);
-				//var score2 = er.DynamicScore2.GetValue(r);
-				//var score3 = er.DynamicScore3.GetValue(r);
+				var score2 = er.DynamicScore2.GetValue(r);
+				var score3 = er.DynamicScore3.GetValue(r);
 
 				return new
 				{
@@ -173,10 +173,10 @@ namespace TheSite.Controllers
 					subject = DeclareBaseHelper.DeclareSubject.GetName(d.DeclareSubjectPKID.GetValue(r)),
 					stage = DeclareBaseHelper.DeclareStage.GetName(d.DeclareStagePKID.GetValue(r)),
 					targetId = d.DeclareTargetPKID.GetValue(r),
-					score = string.Format("{0} / {1}", er.Score.GetValue(r), fullScore)
+					//score = string.Format("{0} / {1}", er.Score.GetValue(r), fullScore)
 					//dynamicScore1 = string.Format("{0} / {1}", score1, fullScore),
-					//dynamicScore2 = string.Format("{0} / {1}", score2, fullScore),
-					//dynamicScore3 = string.Format("{0} / {1}", score3, fullScore),
+					dynamicScore2 = string.Format("{0} / {1}", score2, fullScore),
+					dynamicScore3 = string.Format("{0} / {1}", score3, fullScore),
 				};
 			}).ToList();
 
@@ -279,6 +279,8 @@ namespace TheSite.Controllers
 		[NoCache]
 		public ActionResult Eval(QualityEvalParam param)
 		{
+			//TODO: will delete later
+			param.TargetId = 0;
 			param.AccesserId = UserProfile.UserId;
 
 			var isEvalSubmit = db.EvalQualitySubmitResultDal
@@ -308,6 +310,9 @@ namespace TheSite.Controllers
 		[HttpPost]
 		public ActionResult Eval(QualityEvalParam param, FormCollection fc)
 		{
+			//TODO: will delete later
+			param.TargetId = 0;
+
 			var period = db.EvalPeriodDal.PrimaryGet(param.PeriodId);
 
 			var engine = EngineManager.Engines[period.AnalysisType].QualityEvals;
@@ -439,6 +444,8 @@ namespace TheSite.Controllers
 		//[HttpPost]
 		public ActionResult ResultView(QualityEvalParam param)
 		{
+			//TODO: will delete later
+			param.TargetId = 0;
 			//ThrowNotAjax();
 
 			QualityEvalPeriodModel model = new QualityEvalPeriodModel(param);

@@ -83,9 +83,7 @@
 
 				formatters: {
 					'commands': function (column, row) {
-						var view = row.score == "" ? "" : '<a target="_blank" class="btn btn-warning btn-view" href="@Url.Action("ResultView", "TeamEval")?teamId='+ row.teamId+'&TeacherId=' + row.id + '&PeriodId=' + '@periodId' + '"><i class="fa fa-external-link"></i>查看</a>'
 						return '<div class="btn-group btn-group-xs pull-right" data-row-id="' + row.id + '">' +
-								 view +
 								 '<a class="btn btn-info btn-edit" href="@Url.Action("Eval")?periodId=' + @periodId + '&TeamId=' + row.teamId + '&teacherId=' + row.id + '">继续考评</a>' +
 								 '</div>';
 					},

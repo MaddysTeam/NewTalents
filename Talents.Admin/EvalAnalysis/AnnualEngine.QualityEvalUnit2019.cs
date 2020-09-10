@@ -1,5 +1,6 @@
 ﻿using Business;
 using Business.BasicExtinsions;
+using Business.Config;
 using Business.Helper;
 using System;
 using System.Collections.Generic;
@@ -23,11 +24,11 @@ namespace TheSite.EvalAnalysis
 			{
 				//三年规划部分
 
-				Analysis_SannGuih_ZhidSix(result, items, fc[EvalQualityRuleKeys.SannGuih_ZhidSix], fc[EvalQualityRuleKeys.SannGuih_ZhidSix_Def]);
-				Analysis_SannGuih_XianzFenx(result, items, fc[EvalQualityRuleKeys.GerJiH_ZiwFengx], fc[EvalQualityRuleKeys.GerJiH_ZiwFengx_Def]);
-				Analysis_SanGuih_FazMub(result, items, fc[EvalQualityRuleKeys.SanGuih_FazMub], fc[EvalQualityRuleKeys.SanGuih_FazMub_Def]);
-				Analysis_SanGuih_JutShisCuos(result, items, fc[EvalQualityRuleKeys.SanGuih_JutShisCuos], fc[EvalQualityRuleKeys.SanGuih_JutShisCuo_Def]);
-				Analysis_SanGuih_GuanlBaoz(result, items, fc[EvalQualityRuleKeys.SanGuih_GuanlBaoz], fc[EvalQualityRuleKeys.SanGuih_GuanlBaoz_Def]);
+				//Analysis_SannGuih_ZhidSix(result, items, fc[EvalQualityRuleKeys.SannGuih_ZhidSix], fc[EvalQualityRuleKeys.SannGuih_ZhidSix_Def]);
+				//Analysis_SannGuih_XianzFenx(result, items, fc[EvalQualityRuleKeys.GerJiH_ZiwFengx], fc[EvalQualityRuleKeys.GerJiH_ZiwFengx_Def]);
+				//Analysis_SanGuih_FazMub(result, items, fc[EvalQualityRuleKeys.SanGuih_FazMub], fc[EvalQualityRuleKeys.SanGuih_FazMub_Def]);
+				//Analysis_SanGuih_JutShisCuos(result, items, fc[EvalQualityRuleKeys.SanGuih_JutShisCuos], fc[EvalQualityRuleKeys.SanGuih_JutShisCuo_Def]);
+				//Analysis_SanGuih_GuanlBaoz(result, items, fc[EvalQualityRuleKeys.SanGuih_GuanlBaoz], fc[EvalQualityRuleKeys.SanGuih_GuanlBaoz_Def]);
 
 				//团队计划部分
 
@@ -152,7 +153,7 @@ namespace TheSite.EvalAnalysis
 			{
 				var item = new EvalQualityResultItem
 				{
-					ChooseValue = choose,
+					ChooseValue = choose?? ThisApp.DefaultEvalChooseValue,
 					EvalItemKey = EvalQualityRuleKeys.TuandJih_ZhidSix,
 				};
 				items.Add(item.EvalItemKey, item);
@@ -171,7 +172,7 @@ namespace TheSite.EvalAnalysis
 			{
 				var item = new EvalQualityResultItem
 				{
-					ChooseValue = choose,
+					ChooseValue = choose ?? ThisApp.DefaultEvalChooseValue,
 					EvalItemKey = EvalQualityRuleKeys.TuandJih_XueqMub,
 				};
 				items.Add(item.EvalItemKey, item);
@@ -179,8 +180,8 @@ namespace TheSite.EvalAnalysis
 
 				score = string.IsNullOrEmpty(score) || string.IsNullOrWhiteSpace(score) ? _zeroScore : score.Trim();
 				var scoreValue = Convert.ToDouble(score);
-				result.Score += scoreValue.EnsureInRange(0, 20);
-				result.DynamicScore2 += scoreValue.EnsureInRange(0, 20);
+				result.Score += scoreValue.EnsureInRange(0, 25);
+				result.DynamicScore2 += scoreValue.EnsureInRange(0, 25);
 
 				item.ResultValue = scoreValue.ToString();
 			}
@@ -190,7 +191,7 @@ namespace TheSite.EvalAnalysis
 			{
 				var item = new EvalQualityResultItem
 				{
-					ChooseValue = choose,
+					ChooseValue = choose ?? ThisApp.DefaultEvalChooseValue,
 					EvalItemKey = EvalQualityRuleKeys.TuandJih_JutAnp,
 				};
 				items.Add(item.EvalItemKey, item);
@@ -198,8 +199,8 @@ namespace TheSite.EvalAnalysis
 
 				score = string.IsNullOrEmpty(score) || string.IsNullOrWhiteSpace(score) ? _zeroScore : score.Trim();
 				var scoreValue = Convert.ToDouble(score);
-				result.Score += scoreValue.EnsureInRange(0, 40);
-				result.DynamicScore2 += scoreValue.EnsureInRange(0, 40);
+				result.Score += scoreValue.EnsureInRange(0, 30);
+				result.DynamicScore2 += scoreValue.EnsureInRange(0, 30);
 
 				item.ResultValue = scoreValue.ToString();
 			}
@@ -209,7 +210,7 @@ namespace TheSite.EvalAnalysis
 			{
 				var item = new EvalQualityResultItem
 				{
-					ChooseValue = choose,
+					ChooseValue = choose ?? ThisApp.DefaultEvalChooseValue,
 					EvalItemKey = EvalQualityRuleKeys.TuandJih_KaohPingj,
 				};
 				items.Add(item.EvalItemKey, item);
@@ -217,8 +218,8 @@ namespace TheSite.EvalAnalysis
 
 				score = string.IsNullOrEmpty(score) || string.IsNullOrWhiteSpace(score) ? _zeroScore : score.Trim();
 				var scoreValue = Convert.ToDouble(score);
-				result.Score += scoreValue.EnsureInRange(0, 20);
-				result.DynamicScore2 += scoreValue.EnsureInRange(0, 20);
+				result.Score += scoreValue.EnsureInRange(0, 25);
+				result.DynamicScore2 += scoreValue.EnsureInRange(0, 25);
 
 				item.ResultValue = scoreValue.ToString();
 			}

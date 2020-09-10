@@ -1,4 +1,5 @@
 ﻿using Business;
+using Business.Config;
 using System.Collections.Generic;
 
 namespace TheSite.EvalAnalysis
@@ -38,7 +39,7 @@ namespace TheSite.EvalAnalysis
 			return defaultResult;
 		}
 
-		public static EvalQualityResultItem GetEvalResult(Dictionary<string, EvalQualityResultItem> exist, string key, string defaultValue = "1A")
+		public static EvalQualityResultItem GetEvalResult(Dictionary<string, EvalQualityResultItem> exist, string key, string defaultValue = ThisApp.DefaultEvalChooseValue)
 		{
 			var defaultResult = new EvalQualityResultItem { ChooseValue = defaultValue, ResultValue = string.Empty };
 			if (exist == null)

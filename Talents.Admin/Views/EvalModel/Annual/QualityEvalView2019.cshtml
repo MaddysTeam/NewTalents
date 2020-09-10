@@ -3,20 +3,20 @@
 	var pageTitle = ViewBag.Title = "《2019学年第二学期学科研修团队》评审评分表";
 	var items = ViewBag.ResultItems as Dictionary<string, EvalQualityResultItem>;
 
-	var SannGuih_ZhidSix = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.SannGuih_ZhidSix, "1A");
-	var SannGuih_XianzFenx = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.SannGuih_XianzFenx, "1A");
-	var SanGuih_FazMub = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.SanGuih_FazMub, "1A");
-	var SanGuih_JutShisCuos = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.SanGuih_JutShisCuos, "1A");
-	var SanGuih_GuanlBaoz = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.SanGuih_GuanlBaoz, "1A");
+	//var SannGuih_ZhidSix = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.SannGuih_ZhidSix, "1A");
+	//var SannGuih_XianzFenx = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.SannGuih_XianzFenx, "1A");
+	//var SanGuih_FazMub = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.SanGuih_FazMub, "1A");
+	//var SanGuih_JutShisCuos = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.SanGuih_JutShisCuos, "1A");
+	//var SanGuih_GuanlBaoz = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.SanGuih_GuanlBaoz, "1A");
 
-	var TuandJih_ZhidSix = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.TuandJih_ZhidSix, "1A");
-	var TuandJih_XueqMub = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.TuandJih_XueqMub, "1A");
-	var TuandJih_JutAnp = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.TuandJih_JutAnp, "1A");
-	var TuandJih_KaohPingj = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.TuandJih_KaohPingj, "1A");
+	var TuandJih_ZhidSix = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.TuandJih_ZhidSix, ThisApp.DefaultEvalChooseValue);
+	var TuandJih_XueqMub = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.TuandJih_XueqMub, ThisApp.DefaultEvalChooseValue);
+	var TuandJih_JutAnp = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.TuandJih_JutAnp, ThisApp.DefaultEvalChooseValue);
+	var TuandJih_KaohPingj = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.TuandJih_KaohPingj, ThisApp.DefaultEvalChooseValue);
 
-	var GerJiH_JutShis = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.GerJiH_JutShis, "1A");
-	var GerJiH_FazMub = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.GerJiH_FazMub, "1A");
-	var GerJiH_ZiwFengx = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.GerJiH_ZiwFengx, "1A");
+	var GerJiH_JutShis = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.GerJiH_JutShis, ThisApp.DefaultEvalChooseValue);
+	var GerJiH_FazMub = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.GerJiH_FazMub, ThisApp.DefaultEvalChooseValue);
+	var GerJiH_ZiwFengx = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.GerJiH_ZiwFengx, ThisApp.DefaultEvalChooseValue);
 
 
 	var declare = ViewBag.Declare as DeclareModel;
@@ -86,8 +86,8 @@
 								</div>
 								<ul class="nav nav-tabs pull-right">
 									<li class="hide"><a href="#tab1" data-toggle="tab"><i class="fa fa-tag"></i> 三年规划</a></li>
-									<li class="active"><a href="#tab2" data-toggle="tab"><i class="fa fa-tag"></i> 第二学期学科研修团队学期计划</a></li>
-									<li class="hide"><a href="#tab3" data-toggle="tab"><i class="fa fa-tag"></i> 主持人个人计划</a></li>
+									<li class="active"><a href="#tab2" data-toggle="tab"><i class="fa fa-tag"></i> 2020学年第一学期学科研修团队计划</a></li>
+									<li><a href="#tab3" data-toggle="tab"><i class="fa fa-tag"></i> 主持人个人计划</a></li>
 								</ul>
 							</div>
 							<div class="widget-content">
@@ -150,7 +150,7 @@
 												<tr>
 													<td>评审意见</td>
 													<td colspan="3">
-														@Html.TextArea("DynamicComment1", result?.DynamicComment1, new { @class = "commentValue", @style = " margin:0; padding:0;width:100%; height:160px;" })
+														@*@Html.TextArea("DynamicComment1", result?.DynamicComment1, new { @class = "commentValue", @style = " margin:0; padding:0;width:100%; height:160px;" })*@
 													</td>
 												</tr>
 											</tbody>
@@ -185,22 +185,22 @@
 												<tr>
 													<td>学期目标</td>
 													<td>学期目标从项目研究、课程开发、课堂教学、教师带教等方面制定；总目标方向明确、重点突出；学期分目标任务明确、操作性强。</td>
-													<td>0分--20.0分</td>
-													<td class="flotValue" data-min="0" data-max="20.0" data-value="" data-hidden="@EvalQualityRuleKeys.TuandJih_XueqMub_Def"></td>
+													<td>0分--25.0分</td>
+													<td class="flotValue" data-min="0" data-max="25.0" data-value="" data-hidden="@EvalQualityRuleKeys.TuandJih_XueqMub_Def"></td>
 												</tr>
 												<!-- 具体安排 -->
 												<tr>
 													<td>具体安排</td>
 													<td>（见学科研修团队活动安排表）本学期活动至少7次，时间地点信息具体；活动开展围绕学期目标，内容丰富、形式多样。 </td>
-													<td>0分--40.0分</td>
-													<td class="flotValue" data-min="0" data-max="40.0" data-value="" data-hidden="@EvalQualityRuleKeys.TuandJih_JutAnp_Def"></td>
+													<td>0分--30.0分</td>
+													<td class="flotValue" data-min="0" data-max="30.0" data-value="" data-hidden="@EvalQualityRuleKeys.TuandJih_JutAnp_Def"></td>
 												</tr>
 												<!-- 具体安排 -->
 												<tr>
 													<td>考核评价</td>
 													<td>考核全面、客观、公正，能有效促进团队建设和教师发展。</td>
-													<td>0分--20.0分</td>
-													<td class="flotValue" data-min="0" data-max="20.0" data-value="" data-hidden="@EvalQualityRuleKeys.TuandJih_KaohPingj_Def"></td>
+													<td>0分--25.0分</td>
+													<td class="flotValue" data-min="0" data-max="25.0" data-value="" data-hidden="@EvalQualityRuleKeys.TuandJih_KaohPingj_Def"></td>
 												</tr>
 												<tr>
 													<td>评审意见</td>
@@ -254,7 +254,7 @@
 												<tr>
 													<td>评审意见</td>
 													<td colspan="3">
-														@Html.TextArea("DynamicComment3", result?.DynamicComment3, new { @class = "commentValue", @style = " margin:0; padding:0;width:100%; height:160px;" })
+														@*@Html.TextArea("DynamicComment3", result?.DynamicComment3, new { @class = "commentValue", @style = " margin:0; padding:0;width:100%; height:160px;" })*@
 													</td>
 												</tr>
 
@@ -274,11 +274,11 @@
 
 						<!-- /widget -->
 
-						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.SannGuih_ZhidSix" name="@EvalQualityRuleKeys.SannGuih_ZhidSix_Def" value="@SannGuih_ZhidSix.ResultValue" />
+						@*<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.SannGuih_ZhidSix" name="@EvalQualityRuleKeys.SannGuih_ZhidSix_Def" value="@SannGuih_ZhidSix.ResultValue" />
 						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.SannGuih_XianzFenx" name="@EvalQualityRuleKeys.SannGuih_XianzFenx_Def" value="@SannGuih_XianzFenx.ResultValue" />
 						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.SanGuih_FazMub" name="@EvalQualityRuleKeys.SanGuih_FazMub_Def" value="@SanGuih_FazMub.ResultValue" />
 						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.SanGuih_JutShisCuos" name="@EvalQualityRuleKeys.SanGuih_JutShisCuo_Def" value="@SanGuih_JutShisCuos.ResultValue" />
-						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.SanGuih_GuanlBaoz" name="@EvalQualityRuleKeys.SanGuih_GuanlBaoz_Def" value="@SanGuih_GuanlBaoz.ResultValue" />
+						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.SanGuih_GuanlBaoz" name="@EvalQualityRuleKeys.SanGuih_GuanlBaoz_Def" value="@SanGuih_GuanlBaoz.ResultValue" />*@
 
 
 						<input type="hidden" class="hiddenValue" data-error="@EvalQualityRuleKeys.TuandJih_ZhidSix" name="@EvalQualityRuleKeys.TuandJih_ZhidSix_Def" value="@TuandJih_ZhidSix.ResultValue" />
