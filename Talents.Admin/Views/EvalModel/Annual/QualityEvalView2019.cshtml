@@ -1,6 +1,6 @@
 ﻿@model QualityEvalParam
 @{
-	var pageTitle = ViewBag.Title = "《2019学年第二学期学科研修团队》评审评分表";
+	var pageTitle = ViewBag.Title = "《2020学年第一学期学科研修团队计划、个人计划》评审评分表";
 	var items = ViewBag.ResultItems as Dictionary<string, EvalQualityResultItem>;
 
 	//var SannGuih_ZhidSix = EngineManager.GetEvalResult(items, EvalQualityRuleKeys.SannGuih_ZhidSix, "1A");
@@ -184,14 +184,14 @@
 												<!-- 学期目标 -->
 												<tr>
 													<td>学期目标</td>
-													<td>学期目标从项目研究、课程开发、课堂教学、教师带教等方面制定；总目标方向明确、重点突出；学期分目标任务明确、操作性强。</td>
+													<td>目标指向项目引领、研修一体、分层分类培养；学期分目标任务明确、操作性强。</td>
 													<td>0分--25.0分</td>
 													<td class="flotValue" data-min="0" data-max="25.0" data-value="" data-hidden="@EvalQualityRuleKeys.TuandJih_XueqMub_Def"></td>
 												</tr>
 												<!-- 具体安排 -->
 												<tr>
 													<td>具体安排</td>
-													<td>（见学科研修团队活动安排表）本学期活动至少7次，时间地点信息具体；活动开展围绕学期目标，内容丰富、形式多样。 </td>
+													<td>（见团队研修活动安排表）本学期活动至少8次，时间地点信息具体；活动开展围绕项目研究，内容丰富、形式多样。 </td>
 													<td>0分--30.0分</td>
 													<td class="flotValue" data-min="0" data-max="30.0" data-value="" data-hidden="@EvalQualityRuleKeys.TuandJih_JutAnp_Def"></td>
 												</tr>
@@ -254,7 +254,7 @@
 												<tr>
 													<td>评审意见</td>
 													<td colspan="3">
-														@*@Html.TextArea("DynamicComment3", result?.DynamicComment3, new { @class = "commentValue", @style = " margin:0; padding:0;width:100%; height:160px;" })*@
+														@Html.TextArea("DynamicComment3", result?.DynamicComment3, new { @class = "commentValue", @style = " margin:0; padding:0;width:100%; height:160px;" })
 													</td>
 												</tr>
 
