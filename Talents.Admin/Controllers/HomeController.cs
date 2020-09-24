@@ -449,8 +449,35 @@ namespace TheSite.Controllers
 		}
 
 
+
+
+		[HttpPost]
+		public ActionResult GetTempScore()
+		{
+			var sql = @"select userId,isnull(totalScore,0) as totalScore from tempScore";
+
+			TempScore score = new TempScore();
+			var results = DapperHelper.QueryBySQL<TempScore>(sql);
+			if (results.Count > 0)
+			{
+				score = results.Find(x => x.userId == UserProfile.UserId);
+			}
+
+			return Json(new {
+				data=score
+			});
+		}
+
+
 		#endregion
 
 	}
+
+	public class TempScore
+	{
+		public long userId { get; set; }
+		public long totalScore { get; set; }
+	}
+
 
 }

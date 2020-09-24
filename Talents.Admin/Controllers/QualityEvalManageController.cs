@@ -129,8 +129,8 @@ namespace TheSite.Controllers
 					case "realName": query.order_by(sort.OrderBy(u.RealName)); break;
 					//case "score": query.order_by(sort.OrderBy(er.Score)); break;
 					//case "dynamicScore1": query.order_by(sort.OrderBy(er.DynamicScore1)); break;
-					//case "dynamicScore2": query.order_by(sort.OrderBy(er.DynamicScore2)); break;
-					//case "dynamicScore3": query.order_by(sort.OrderBy(er.DynamicScore3)); break;
+					case "dynamicScore2": query.order_by(sort.OrderBy(er.DynamicScore2)); break;
+					case "dynamicScore3": query.order_by(sort.OrderBy(er.DynamicScore3)); break;
 
 					case "accessDate": query.order_by(sort.OrderBy(er.AccessDate)); break;
 				}
@@ -141,8 +141,8 @@ namespace TheSite.Controllers
 			var result = query.query(db, rd =>
 			{
 				//var dynamicScore1 = er.DynamicScore1.GetValue(rd);
-				//var dynamicScore2 = er.DynamicScore2.GetValue(rd);
-				//var dynamicScore3 = er.DynamicScore3.GetValue(rd);
+				var dynamicScore2 = er.DynamicScore2.GetValue(rd);
+				var dynamicScore3 = er.DynamicScore3.GetValue(rd);
 				var leaderSubject = DeclareBaseHelper.DeclareSubject.GetName(d.DeclareSubjectPKID.GetValue(rd));
 				var leaderStage = DeclareBaseHelper.DeclareStage.GetName(d.DeclareStagePKID.GetValue(rd));
 
@@ -158,12 +158,12 @@ namespace TheSite.Controllers
 					targetName = DeclareBaseHelper.DeclareTarget.GetName(d.DeclareTargetPKID.GetValue(rd)),
 					realName = u.RealName.GetValue(rd),
 					accessDate = er.AccessDate.GetValue(rd),
-				    score=er.Score.GetValue(rd).ToString("0.0"),
+				    //score=er.Score.GetValue(rd).ToString("0.0"),
 					accesser=u2.RealName.GetValue(rd, "accesser"),
 					
 					//dynamicScore1 = string.Format("{0} / {1}", dynamicScore1, fullScore),
-					//dynamicScore2 = string.Format("{0} / {1}", dynamicScore2, fullScore),
-					//dynamicScore3 = string.Format("{0} / {1}", dynamicScore3, fullScore),
+					dynamicScore2 = string.Format("{0} / {1}", dynamicScore2, fullScore),
+					dynamicScore3 = string.Format("{0} / {1}", dynamicScore3, fullScore),
 					targetId = d.DeclareTargetPKID.GetValue(rd)
 				};
 			}).ToList();
@@ -278,8 +278,8 @@ namespace TheSite.Controllers
 			var results = query.query(db, rd =>
 			{
 				//var dynamicScore1 = er.DynamicScore1.GetValue(rd);
-				//var dynamicScore2 = er.DynamicScore2.GetValue(rd);
-				//var dynamicScore3 = er.DynamicScore3.GetValue(rd);
+				var dynamicScore2 = er.DynamicScore2.GetValue(rd);
+				var dynamicScore3 = er.DynamicScore3.GetValue(rd);
 				var leaderSubject = DeclareBaseHelper.DeclareSubject.GetName(d.DeclareSubjectPKID.GetValue(rd));
 				var leaderStage = DeclareBaseHelper.DeclareStage.GetName(d.DeclareStagePKID.GetValue(rd));
 
@@ -292,13 +292,13 @@ namespace TheSite.Controllers
 					TeacherName = u.RealName.GetValue(rd),
 					Accessor=a.RealName.GetValue(rd,"AccessorName"),
 					AccessDate = er.AccessDate.GetValue(rd).ToString("yyyy-MM-dd"),
-               Score=er.Score.GetValue(rd).ToString("0.0")
+					//Score=er.Score.GetValue(rd).ToString("0.0")
 					//EvalScore1 = string.Format("{0} / {1}", dynamicScore1, fullScore),
-					//EvalScore2 = string.Format("{0} / {1}", dynamicScore2, fullScore),
-					//EvalScore3 = string.Format("{0} / {1}", dynamicScore3, fullScore),
+					EvalScore2 = string.Format("{0} / {1}", dynamicScore2, fullScore),
+					EvalScore3 = string.Format("{0} / {1}", dynamicScore3, fullScore),
 					//EvalComment1 = er.DynamicComment1.GetValue(rd),
-					//EvalComment2 = er.DynamicComment2.GetValue(rd),
-					//EvalComment3 = er.DynamicComment3.GetValue(rd),
+					EvalComment2 = er.DynamicComment2.GetValue(rd),
+					EvalComment3 = er.DynamicComment3.GetValue(rd),
 				};
 			}).ToDictionary(x => x.ResultId);
 
