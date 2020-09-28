@@ -95,6 +95,12 @@
 
 					</div>
 
+					<hr />
+
+					<div id="evalResult2">
+
+					</div>
+
 					<div id="declareActiveTotal"></div>
 
 					<div id="joinTeam"></div>
@@ -164,20 +170,20 @@
 
 				});*@
 
-				@*if (isLeader) {
+				if (isLeader) {
 					$.get('@Url.Action("QualityEvalResult", "Home")', function (data) {
 
-						$('#evalResult').html(data);
+						$('#evalResult2').html(data);
 
 					});
 				}
 				else {
-					$.get('@Url.Action("TeamEvalResult", "Home")', function (data) {
+					@*$.get('@Url.Action("TeamEvalResult", "Home")', function (data) {
 
 						$('#evalResult').html(data);
 
-					});
-				}*@
+					});*@
+				}
 
 				$.post('@Url.Action("GetTempScore", "Home")', function (data) {
 					var score = data.data.totalScore;

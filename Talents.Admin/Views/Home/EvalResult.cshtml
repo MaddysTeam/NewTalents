@@ -4,7 +4,7 @@
 
 		<div class="widget">
 			<div class="widget-header">
-				<h3><i class="fa fa-tasks"></i> 考核得分</h3>
+				<h3><i class="fa fa-tasks"></i> 2020学年度第一学期团队计划、个人计划考评结果</h3>
 			</div>
 			<div class="widget-content">
 
@@ -12,33 +12,19 @@
 					<thead>
 					</thead>
 					<tbody>
-						@{int index = 1;
-							foreach (var item in Model)
+							@foreach (var item in Model)
 							{
-								//TODO: will delete later
-								if (item.EvalTitle.IndexOf("学期计划") >= 0)
-								{
 									<tr>
-										<td><strong> 考核指标： 2019学年第二学期学科研修团队学期计划</strong></td>
-									</tr>
-									<tr>
-										<td><strong> 考核总分： @item.FullScore</strong></td>
-									</tr>
-									<tr>
-										<td><strong> 考核得分： @item.Score</strong></td>
+										<td><strong> @item.EvalTitle： @item.Score</strong></td>
 									</tr>
 									<tr>
 										<td><strong> 评审意见： @item.EvalComment </strong></td>
 									</tr>
+								<tr>
+									<td><p>&nbsp;</p></td>
+								</tr>
 
-									index++;
-
-									<tr>
-										<td><p>&nbsp;</p></td>
-									</tr>
-								}
-							}
-						}
+							}		
 					</tbody>
 				</table>
 

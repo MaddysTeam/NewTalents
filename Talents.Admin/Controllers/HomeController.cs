@@ -343,14 +343,14 @@ namespace TheSite.Controllers
 
 			list = new List<EvalCommentAndScoreViewModel>();
 
-			for (int i = 0; i < 3 & result != null; i++)
+			for (int i = 0; i < 2 & result != null; i++)
 			{
 				list.Add(new EvalCommentAndScoreViewModel
 				{
 					EvalResultId = result.ResultId,
-					Score = i == 0 ? result.DynamicScore1 : i == 1 ? result.DynamicScore2 : result.DynamicScore3,
-					EvalTitle = i == 0 ? EvalQualityRuleKeys.SannGuih : i == 1 ? EvalQualityRuleKeys.TuandJih : EvalQualityRuleKeys.GerJiHx,
-					EvalComment = i == 0 ? result.DynamicComment1 : i == 1 ? result.DynamicComment2 : result.DynamicComment3,
+					Score = i == 0 ? result.DynamicScore2 : result.DynamicScore3,
+               EvalTitle = i == 0 ? EvalQualityRuleKeys.TuandJih : EvalQualityRuleKeys.GerJiHx,
+					EvalComment = i == 0 ? result.DynamicComment2 : result.DynamicComment3,
 					FullScore = result.FullScore
 				});
 			}
