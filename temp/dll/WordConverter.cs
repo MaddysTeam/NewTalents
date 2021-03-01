@@ -25,11 +25,18 @@ namespace Util.ThirdParty.Aspose
       }
 
 
-      public static void ConvertoHtml(string source, string destPath)
+      public static void ConvertoDocx(string source, string destPath)
       {
          if (source == null) throw new ArgumentNullException("source stream can not be null");
 
-         new Document(source).Save(destPath, SaveFormat.Html);
+         new Document(source).Save(destPath, SaveFormat.Docx);
+      }
+
+      public static void ConvertoDoc(string source, string destPath)
+      {
+         if (source == null) throw new ArgumentNullException("source stream can not be null");
+
+         new Document(source).Save(destPath, SaveFormat.Doc);
       }
 
 
