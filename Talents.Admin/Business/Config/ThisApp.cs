@@ -68,5 +68,6 @@ namespace Business.Config
 
 		// TODO:2020-09-09
 		public const string DefaultEvalChooseValue = "A";
+
 	}
 }
