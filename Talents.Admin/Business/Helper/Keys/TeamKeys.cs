@@ -39,6 +39,8 @@
 		public const string TuanDGerJh = "个人三年计划"; //TODO will change later
 		public const string TuanDZiXiangm = "团队子项目";
 
-	}
+      public const string TuanDYueJianb = "团队月简报";
+
+   }
 
 }

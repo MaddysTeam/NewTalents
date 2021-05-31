@@ -113,7 +113,10 @@ namespace TheSite.Controllers
 					return TuanDGerJih();
 				case TeamKeys.TuanDZiXiangm:
 					return TuanDZiXiangm();
-			}
+
+            case TeamKeys.TuanDYueJianb:
+               return TuanDYueJianb(teamId);
+         }
 
 			return Content("该项目无效");
 		}
@@ -821,12 +824,95 @@ namespace TheSite.Controllers
 		}
 
 
-		#endregion
+      #endregion
 
 
-		#region [ 团队项目 ]
+      #region [ 团队月简报 ]
 
-		public ActionResult TuanDXinagm(long teamId)
+
+      public ActionResult TuanDYueJianb(long id)
+      {
+         var allAts = AttachmentsExtensions.GetAttachmentList(db, id);
+         var ats1 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_Jianb);
+
+         var at1 = AttachmentsExtensions.GetAttachment(ats1);
+
+         return PartialView("TuanDYueJianb", new TuandJianbViewModel() {
+            BulletinAttachmentName1 = at1.Name,
+            BulletinAttachmentUrl1=at1.Url
+         });
+      }
+
+      [HttpPost]
+      public ActionResult TuanDYueJianb(TuandJianbViewModel model)
+      {
+         ThrowNotAjax();
+
+         #region [ attachment models ]
+
+         var atta1 = new AttachmentsDataModel()
+         {
+            Type = AttachmentsKeys.Tuand_Jianb,
+            Name = model.BulletinAttachmentName1,
+            Url = model.BulletinAttachmentUrl1,
+            UserId = UserProfile.UserId,
+            JoinId = UserProfile.UserId,
+         };
+
+         #endregion
+
+
+         db.BeginTrans();
+
+         try
+         {
+            AttachmentsExtensions.DeleteAttas(db, UserProfile.UserId, new string[] {
+               AttachmentsKeys.Tuand_Jianb,
+               //AttachmentsKeys.Tuand_SannGuih,
+               //AttachmentsKeys.Tuand_XueqJih,
+               //AttachmentsKeys.Tuand_XueqJih2,
+               //AttachmentsKeys.Tuand_XueqJih3,
+               //AttachmentsKeys.Tuand_XueqJih4,
+               //AttachmentsKeys.Tuand_XueqJih5,
+               //AttachmentsKeys.Tuand_XueqJih6,
+
+               //AttachmentsKeys.Tuand_XueqHuodAnp,
+               //AttachmentsKeys.Tuand_XueqHuodAnp2,
+               //AttachmentsKeys.Tuand_XueqHuodAnp3,
+               //AttachmentsKeys.Tuand_XueqHuodAnp4,
+               //AttachmentsKeys.Tuand_XueqHuodAnp5,
+               //AttachmentsKeys.Tuand_XueqHuodAnp6,
+       });
+
+            AttachmentsExtensions.InsertAttas(db, new AttachmentsDataModel[] { atta1 });
+
+            db.Commit();
+         }
+         catch (Exception ex)
+         {
+            db.Rollback();
+
+            return Json(new
+            {
+               result = AjaxResults.Error,
+               msg = ex.Message
+            });
+         }
+
+
+         return Json(new
+         {
+            result = AjaxResults.Success,
+            msg = "信息已保存!"
+         });
+      }
+
+      #endregion
+
+
+      #region [ 团队项目 ]
+
+      public ActionResult TuanDXinagm(long teamId)
 		{
 			var tp = APDBDef.TeamProject;
 			var model = new TuandXiangmViewModel();

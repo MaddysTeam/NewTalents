@@ -1,0 +1,121 @@
+﻿@model TuandJianbViewModel
+@{
+	var pageTitle = ViewBag.Title = TeamKeys.TuanDYueJianb;
+}
+
+<!-- widget -->
+<div class="widget">
+	<div class="widget-header">
+		<h3><i class="fa fa-paperclip"></i>@pageTitle</h3>
+		<div class="btn-group widget-header-toolbar">
+			<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+			<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+		</div>
+	</div>
+	<div class="widget-content">
+
+		@using (Html.BeginForm("TuanDYueJianb", "Team", FormMethod.Post, new { @class = "form-horizontal", data_after_success = "afterDialogSuccess()" }))
+		{
+			<div class="row">
+				<div class="red">&nbsp;&nbsp;&nbsp;*文件类型支持文本类型，图片和压缩包，文件不大于50M</div>
+
+				<fieldset class="col-md-12"><p><hr /></p></fieldset>
+
+				<fieldset class="col-md-12"><p><h4><strong>团队月简报</strong></h4></p></fieldset>
+
+				<fieldset class="col-md-6">
+
+					<div class="form-group">
+						@Html.LabelFor(m => m.BulletinAttachmentName1, new { @class = "control-label col-md-12" })
+						<div class="col-md-9">
+							@Html.HiddenFor(m => m.BulletinAttachmentUrl1)
+							@Html.TextBoxFor(m => m.BulletinAttachmentName1, new { @style = "visibility:hidden;" })
+							<div class="input-group">
+								<div id="simpleUploadName1" class="form-control simpleUploadName">
+									@Html.Label("", Model.BulletinAttachmentName1)
+								</div>
+								<span class="input-group-btn">
+									<button class="btn btn-danger btn-upload" type="button" id="btn-upload1">文件上传</button>
+									<button class="btn btn-warning btn-delete" type="button">删除</button>
+								</span>
+							</div>
+
+							@Html.ValidationMessageFor(m => m.BulletinAttachmentName1)
+						</div>
+					</div>
+
+				</fieldset>
+
+				@*<fieldset class="col-md-6">
+					<div class="form-group">
+						@Html.LabelFor(m => m.SemesterAttachmentName2, new { @class = "control-label col-md-12" })
+						<div class="col-md-9">
+							@Html.HiddenFor(m => m.SemesterAttachmentUrl2)
+							@Html.TextBoxFor(m => m.SemesterAttachmentName2, new { @style = "visibility:hidden;" })
+							<div class="input-group">
+								<div id="simpleUploadName4" class="form-control simpleUploadName">
+									@Html.Label("", Model.SemesterAttachmentName2)
+								</div>
+								<span class="input-group-btn">
+									<button class="btn btn-danger btn-upload" type="button" id="btn-upload4">文件上传</button>
+									<button class="btn btn-warning btn-delete" type="button">删除</button>
+								</span>
+							</div>
+
+							@Html.ValidationMessageFor(m => m.SemesterAttachmentName2)
+						</div>
+					</div>
+				</fieldset>*@
+
+				<div class="form-group">
+					<div class="col-sm-9 col-lg-offset-3">
+						<button type="submit" class="btn btn-primary btn-block-half btn-submit"><i class="fa fa-check-circle"></i> 保存</button>
+					</div>
+				</div>
+			</div>
+		}
+
+	</div>
+</div>
+<!-- end widget -->
+
+@for (int i = 1; i < 2; i++)
+{
+	<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone hidden" id="@("dropzone"+i)"></form>
+}
+
+<script>
+	$(function () {
+
+		for (var i = 1; i < 2; i++) {
+			(function (j) {
+				var attachmentUrl = 'BulletinAttachmentUrl' + j; //j > 8 ? 'SemesterActiveAttachmentUrl' + (j - 8) : j > 2 && j < 9 ? 'SemesterAttachmentUrl' + (j - 2) : 'AttachmentUrl' + j;
+				var attachmentName = 'BulletinAttachmentName' + j;//j > 8 ? 'SemesterActiveAttachmentName' + (j - 8) : j > 2 && j < 9 ? 'SemesterAttachmentName' + (j - 2) : 'AttachmentName' + j;
+
+				console.log(attachmentName);
+				var sigleUploadName = 'simpleUploadName' + j;
+				ajaxSimpleFileUpload('dropzone' + j, 'btn-upload' + j, function (file, data) {
+					alert(attachmentUrl + ':' + data.filename);
+					$('#' + attachmentUrl).val(data.url);
+					$('#' + attachmentName).val(data.filename);
+					$('#' + sigleUploadName).html(data.filename);
+				},
+				 function (file, message) {
+				 	popupMessage({ result: 'error', msg: message });
+				 });
+			})(i);
+		}
+
+
+		//TODO: for temp
+		$('.btn-delete').on('click', function () {
+			var $uploadContainer = $(this).parent().parent().parent();
+			$uploadContainer.find('input[type="hidden"]').val('');
+			$uploadContainer.find('input[type="text"]').val('');
+			$uploadContainer.find('.simpleUploadName').html('');
+			$('.btn-submit').click();
+		});
+
+		ajaxSubmitForm($('form'));
+	});
+</script>
