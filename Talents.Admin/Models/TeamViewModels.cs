@@ -299,6 +299,7 @@ namespace TheSite.Models
 
 	#endregion
 
+
 	#region [  团队项目  201910 ]
 
 	public class TuandXiangmViewModel
@@ -323,7 +324,7 @@ namespace TheSite.Models
 		[Required()]
 		public DateTime Date { get; set; } = DateTime.Now;
 
-		[Display(Name= "主持或参与")]
+		[Display(Name = "主持或参与")]
 		[Required()]
 		public string Dynamic1 { get; set; }
 
@@ -348,6 +349,7 @@ namespace TheSite.Models
 	}
 
 	#endregion
+
 
 	#region [  团队个人计划  201910 ]
 
@@ -381,19 +383,67 @@ namespace TheSite.Models
 	#endregion
 
 
-   public class TuandJianbViewModel
-   {
-      [Display(Name = "2020学年第一学期一期")]
+	public class TuandJianbViewModel
+	{
+		[Display(Name = "2020学年第一学期一期")]
 		public string BulletinAttachmentName1 { get; set; }
 
-      [Display(Name = "附件路径")]
-      public string BulletinAttachmentUrl1 { get; set; }
+		[Display(Name = "附件路径")]
+		public string BulletinAttachmentUrl1 { get; set; }
 
-      //[Display(Name = "2020学年第一学期二期")]
-      //public string BulletinAttachmentName2 { get; set; }
+		[Display(Name = "2020学年第一学期二期")]
+		public string BulletinAttachmentName2 { get; set; }
 
-      //[Display(Name = "附件路径")]
-      //public string BulletinAttachmentUrl2 { get; set; }
+		[Display(Name = "附件路径")]
+		public string BulletinAttachmentUrl2 { get; set; }
 
-   }
+		[Display(Name = "2020学年第二学期一期")]
+		public string BulletinAttachmentName3 { get; set; }
+
+		[Display(Name = "附件路径")]
+		public string BulletinAttachmentUrl3 { get; set; }
+
+		[Display(Name = "2020学年第二学期二期")]
+		public string BulletinAttachmentName4 { get; set; }
+
+		[Display(Name = "附件路径")]
+		public string BulletinAttachmentUrl4 { get; set; }
+
+
+		[Display(Name = "2021学年第一学期一期")]
+		public string BulletinAttachmentName5 { get; set; }
+
+		[Display(Name = "附件路径")]
+		public string BulletinAttachmentUrl5 { get; set; }
+
+		[Display(Name = "2021学年第一学期二期")]
+		public string BulletinAttachmentName6 { get; set; }
+
+		[Display(Name = "附件路径")]
+		public string BulletinAttachmentUrl6 { get; set; }
+
+		[Display(Name = "2021学年第二学期一期")]
+		public string BulletinAttachmentName7 { get; set; }
+
+		[Display(Name = "附件路径")]
+		public string BulletinAttachmentUrl7 { get; set; }
+
+		[Display(Name = "2021学年第二学期二期")]
+		public string BulletinAttachmentName8 { get; set; }
+
+		[Display(Name = "附件路径")]
+		public string BulletinAttachmentUrl8 { get; set; }
+
+	}
+
+
+	public class TuandYanxXuexYuZongj
+	{
+		[Display(Name = "附件名称")]
+		public string AttachmentName { get; set; }
+
+		[Display(Name = "附件路径")]
+		public string AttachmentUrl { get; set; }
+	}
+
 }

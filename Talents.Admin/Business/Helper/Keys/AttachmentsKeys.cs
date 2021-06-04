@@ -87,8 +87,8 @@
 		public const string Tuand_XueqJih5 = "团队.学期计划.第五学期";
 		public const string Tuand_XueqJih6 = "团队.学期计划.第六学期";
 
-		public const string XueqHuodAnp= "学期活动安排";
-		public const string Tuand_XueqHuodAnp  = "团队.学期活动安排.第一学期";
+		public const string XueqHuodAnp = "学期活动安排";
+		public const string Tuand_XueqHuodAnp = "团队.学期活动安排.第一学期";
 		public const string Tuand_XueqHuodAnp2 = "团队.学期活动安排.第二学期";
 		public const string Tuand_XueqHuodAnp3 = "团队.学期活动安排.第三学期";
 		public const string Tuand_XueqHuodAnp4 = "团队.学期活动安排.第四学期";
@@ -105,16 +105,18 @@
 		public const string Tuand_GrJih2 = "团队.个人计划.第二年";
 		public const string Tuand_GrJih3 = "团队.个人计划.第三年";
 
-      public const string Jianb = "团队简报";
-      public const string Tuand_Jianb = "团队.团队简报.2020学年第一学期一期";
-     // public const string Tuand_Jianb2 = " 团队.团队简报.2020学年第一学期二期";
-      //public const string Tuand_Jianb3 = "团队.学期计划.第三学期";
-      //public const string Tuand_Jianb4 = "团队.学期计划.第四学期";
-      //public const string Tuand_Jianb5 = "团队.学期计划.第五学期";
-      //public const string Tuand_Jianb6 = "团队.学期计划.第六学期";
-      //public const string Tuand_Jianb7 = "团队.学期计划.第五学期";
-      //public const string Tuand_Jianb8 = "团队.学期计划.第六学期";
+		public const string Jianb = "团队简报";
+		public const string Tuand_Jianb = "团队.团队简报.2020学年第一学期一期";
+		public const string Tuand_Jianb2 = " 团队.团队简报.2020学年第一学期二期";
+		public const string Tuand_Jianb3 = " 团队.团队简报.2020学年第二学期一期";
+		public const string Tuand_Jianb4 = " 团队.团队简报.2020学年第二学期二期";
+		public const string Tuand_Jianb5 = " 团队.团队简报.2021学年第一学期一期";
+		public const string Tuand_Jianb6 = " 团队.团队简报.2021学年第一学期二期";
+		public const string Tuand_Jianb7 = " 团队.团队简报.2021学年第二学期一期";
+		public const string Tuand_Jianb8 = " 团队.团队简报.2021学年第二学期二期";
 
-   }
+		public const string Tuand_YanxGusYuZongj = "团队.研修故事与总结";
+
+	}
 
 }

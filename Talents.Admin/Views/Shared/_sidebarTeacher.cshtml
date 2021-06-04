@@ -74,9 +74,10 @@
 						</a>
 					</li>
 				}
-				else if (up.IsMember && up.TargetId <= DeclareTargetIds.GugJiaos)
+				//TODO:else if (up.IsMember && up.TargetId <= DeclareTargetIds.GugJiaos)
+				else if (up.IsMember)
 				{
-					@*<li>
+					<li>
 						<a href="@Url.Action("Member", "Team")">
 							<i class="fa fa-book fa-fw"></i>
 							<span class="text">团队建设(成员)</span>
@@ -87,7 +88,7 @@
 						<div class="widget-content">
 							<div id="treeview-team-member"></div>
 						</div>
-					</div>*@
+					</div>
 
 				}
 				if (up.UserId == 11579 && !isInDeclare) //TODO: temp for sepical teacher

@@ -307,7 +307,7 @@ namespace TheSite.Controllers
 
 			if (isLowDeclareLevel != null)
 			{
-				string subTitle = isLowDeclareLevel.Value ? "2019学年度教学能手，教学新秀，特招学员" : "2019学年度骨干及以上层级";
+				string subTitle = isLowDeclareLevel.Value ? "学年度教学能手，教学新秀，特招学员" : "学年度骨干及以上层级";
 				companyName = string.Format("{0}{1}", companyName, subTitle);
 			}
 			var viewModel = new ExpertDeclareSchoolViewModel { CompanyName = companyName, Results = results };

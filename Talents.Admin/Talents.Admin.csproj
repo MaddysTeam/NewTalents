@@ -1480,6 +1480,7 @@
     <Content Include="Views\Team\TuanDGerXinx.cshtml" />
     <Content Include="Views\StatisticalManage\FillInRecord.cshtml" />
     <Content Include="Views\Team\TuanDYueJianb.cshtml" />
+    <Content Include="Views\Team\TuanDYanxGusYuZongj.cshtml" />
     <None Include="xml.schema.definition\apgen.xsd">
       <SubType>Designer</SubType>
     </None>

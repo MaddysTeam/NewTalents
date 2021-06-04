@@ -114,9 +114,11 @@ namespace TheSite.Controllers
 				case TeamKeys.TuanDZiXiangm:
 					return TuanDZiXiangm();
 
-            case TeamKeys.TuanDYueJianb:
-               return TuanDYueJianb(teamId);
-         }
+				case TeamKeys.TuanDYueJianb:
+					return TuanDYueJianb();
+				case TeamKeys.TuanDYanxGusYuZongj:
+					return TuanDYanxGusYZongj();
+			}
 
 			return Content("该项目无效");
 		}
@@ -824,95 +826,249 @@ namespace TheSite.Controllers
 		}
 
 
-      #endregion
+		#endregion
 
 
-      #region [ 团队月简报 ]
+		#region [ 团队月简报 ]
+
+		public ActionResult TuanDYueJianb()
+		{
+			var useId = UserProfile.UserId;
+			var allAts = AttachmentsExtensions.GetAttachmentList(db, useId);
+			var ats1 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_Jianb);
+			var ats2 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_Jianb2);
+			var ats3 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_Jianb3);
+			var ats4 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_Jianb4);
+
+			var ats5 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_Jianb5);
+			var ats6 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_Jianb6);
+			var ats7 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_Jianb7);
+			var ats8 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_Jianb8);
+
+			var at1 = AttachmentsExtensions.GetAttachment(ats1);
+			var at2 = AttachmentsExtensions.GetAttachment(ats2);
+			var at3 = AttachmentsExtensions.GetAttachment(ats3);
+			var at4 = AttachmentsExtensions.GetAttachment(ats4);
+
+			var at5 = AttachmentsExtensions.GetAttachment(ats5);
+			var at6 = AttachmentsExtensions.GetAttachment(ats6);
+			var at7 = AttachmentsExtensions.GetAttachment(ats7);
+			var at8 = AttachmentsExtensions.GetAttachment(ats8);
+
+			return PartialView("TuanDYueJianb", new TuandJianbViewModel()
+			{
+				BulletinAttachmentName1 = at1.Name,
+				BulletinAttachmentUrl1 = at1.Url,
+				BulletinAttachmentName2 = at2.Name,
+				BulletinAttachmentUrl2 = at2.Url,
+				BulletinAttachmentName3 = at3.Name,
+				BulletinAttachmentUrl3 = at3.Url,
+				BulletinAttachmentName4 = at4.Name,
+				BulletinAttachmentUrl4 = at4.Url,
+
+				BulletinAttachmentName5 = at5.Name,
+				BulletinAttachmentUrl5 = at5.Url,
+				BulletinAttachmentName6 = at6.Name,
+				BulletinAttachmentUrl6 = at6.Url,
+				BulletinAttachmentName7 = at7.Name,
+				BulletinAttachmentUrl7 = at7.Url,
+				BulletinAttachmentName8 = at8.Name,
+				BulletinAttachmentUrl8 = at8.Url
+			});
+		}
+
+		[HttpPost]
+		public ActionResult TuanDYueJianb(TuandJianbViewModel model)
+		{
+			ThrowNotAjax();
+
+			#region [ attachment models ]
+
+			var atta1 = new AttachmentsDataModel()
+			{
+				Type = AttachmentsKeys.Tuand_Jianb,
+				Name = model.BulletinAttachmentName1,
+				Url = model.BulletinAttachmentUrl1,
+				UserId = UserProfile.UserId,
+				JoinId = UserProfile.UserId,
+			};
+
+			var atta2 = new AttachmentsDataModel()
+			{
+				Type = AttachmentsKeys.Tuand_Jianb2,
+				Name = model.BulletinAttachmentName2,
+				Url = model.BulletinAttachmentUrl2,
+				UserId = UserProfile.UserId,
+				JoinId = UserProfile.UserId,
+			};
+
+			var atta3 = new AttachmentsDataModel()
+			{
+				Type = AttachmentsKeys.Tuand_Jianb3,
+				Name = model.BulletinAttachmentName3,
+				Url = model.BulletinAttachmentUrl3,
+				UserId = UserProfile.UserId,
+				JoinId = UserProfile.UserId,
+			};
+
+			var atta4 = new AttachmentsDataModel()
+			{
+				Type = AttachmentsKeys.Tuand_Jianb4,
+				Name = model.BulletinAttachmentName4,
+				Url = model.BulletinAttachmentUrl4,
+				UserId = UserProfile.UserId,
+				JoinId = UserProfile.UserId,
+			};
+
+			var atta5 = new AttachmentsDataModel()
+			{
+				Type = AttachmentsKeys.Tuand_Jianb5,
+				Name = model.BulletinAttachmentName5,
+				Url = model.BulletinAttachmentUrl5,
+				UserId = UserProfile.UserId,
+				JoinId = UserProfile.UserId,
+			};
+
+			var atta6 = new AttachmentsDataModel()
+			{
+				Type = AttachmentsKeys.Tuand_Jianb6,
+				Name = model.BulletinAttachmentName6,
+				Url = model.BulletinAttachmentUrl6,
+				UserId = UserProfile.UserId,
+				JoinId = UserProfile.UserId,
+			};
+
+			var atta7 = new AttachmentsDataModel()
+			{
+				Type = AttachmentsKeys.Tuand_Jianb7,
+				Name = model.BulletinAttachmentName7,
+				Url = model.BulletinAttachmentUrl7,
+				UserId = UserProfile.UserId,
+				JoinId = UserProfile.UserId,
+			};
+
+			var atta8 = new AttachmentsDataModel()
+			{
+				Type = AttachmentsKeys.Tuand_Jianb8,
+				Name = model.BulletinAttachmentName8,
+				Url = model.BulletinAttachmentUrl8,
+				UserId = UserProfile.UserId,
+				JoinId = UserProfile.UserId,
+			};
 
 
-      public ActionResult TuanDYueJianb(long id)
-      {
-         var allAts = AttachmentsExtensions.GetAttachmentList(db, id);
-         var ats1 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_Jianb);
-
-         var at1 = AttachmentsExtensions.GetAttachment(ats1);
-
-         return PartialView("TuanDYueJianb", new TuandJianbViewModel() {
-            BulletinAttachmentName1 = at1.Name,
-            BulletinAttachmentUrl1=at1.Url
-         });
-      }
-
-      [HttpPost]
-      public ActionResult TuanDYueJianb(TuandJianbViewModel model)
-      {
-         ThrowNotAjax();
-
-         #region [ attachment models ]
-
-         var atta1 = new AttachmentsDataModel()
-         {
-            Type = AttachmentsKeys.Tuand_Jianb,
-            Name = model.BulletinAttachmentName1,
-            Url = model.BulletinAttachmentUrl1,
-            UserId = UserProfile.UserId,
-            JoinId = UserProfile.UserId,
-         };
-
-         #endregion
+			#endregion
 
 
-         db.BeginTrans();
+			db.BeginTrans();
 
-         try
-         {
-            AttachmentsExtensions.DeleteAttas(db, UserProfile.UserId, new string[] {
-               AttachmentsKeys.Tuand_Jianb,
-               //AttachmentsKeys.Tuand_SannGuih,
-               //AttachmentsKeys.Tuand_XueqJih,
-               //AttachmentsKeys.Tuand_XueqJih2,
-               //AttachmentsKeys.Tuand_XueqJih3,
-               //AttachmentsKeys.Tuand_XueqJih4,
-               //AttachmentsKeys.Tuand_XueqJih5,
-               //AttachmentsKeys.Tuand_XueqJih6,
-
-               //AttachmentsKeys.Tuand_XueqHuodAnp,
-               //AttachmentsKeys.Tuand_XueqHuodAnp2,
-               //AttachmentsKeys.Tuand_XueqHuodAnp3,
-               //AttachmentsKeys.Tuand_XueqHuodAnp4,
-               //AttachmentsKeys.Tuand_XueqHuodAnp5,
-               //AttachmentsKeys.Tuand_XueqHuodAnp6,
+			try
+			{
+			   AttachmentsExtensions.DeleteAttas(db, UserProfile.UserId, new string[] {
+				   AttachmentsKeys.Tuand_Jianb,
+				   AttachmentsKeys.Tuand_Jianb2,
+				   AttachmentsKeys.Tuand_Jianb3,
+				   AttachmentsKeys.Tuand_Jianb4,
+				   AttachmentsKeys.Tuand_Jianb5,
+				   AttachmentsKeys.Tuand_Jianb6,
+				   AttachmentsKeys.Tuand_Jianb7,
+				   AttachmentsKeys.Tuand_Jianb8
        });
 
-            AttachmentsExtensions.InsertAttas(db, new AttachmentsDataModel[] { atta1 });
+				AttachmentsExtensions.InsertAttas(db, new AttachmentsDataModel[] { atta1, atta2, atta3, atta4, atta5, atta6, atta7, atta8 });
 
-            db.Commit();
-         }
-         catch (Exception ex)
-         {
-            db.Rollback();
+				db.Commit();
+			}
+			catch (Exception ex)
+			{
+				db.Rollback();
 
-            return Json(new
-            {
-               result = AjaxResults.Error,
-               msg = ex.Message
-            });
-         }
-
-
-         return Json(new
-         {
-            result = AjaxResults.Success,
-            msg = "信息已保存!"
-         });
-      }
-
-      #endregion
+				return Json(new
+				{
+					result = AjaxResults.Error,
+					msg = ex.Message
+				});
+			}
 
 
-      #region [ 团队项目 ]
+			return Json(new
+			{
+				result = AjaxResults.Success,
+				msg = "信息已保存!"
+			});
+		}
 
-      public ActionResult TuanDXinagm(long teamId)
+		#endregion
+
+
+		#region [ 研修故事于总结 ]
+
+		public ActionResult TuanDYanxGusYZongj()
+		{
+			var useId = UserProfile.UserId;
+			var allAts = AttachmentsExtensions.GetAttachmentList(db, useId);
+			var ats1 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_YanxGusYuZongj);
+
+			var at1 = AttachmentsExtensions.GetAttachment(ats1);
+
+			return PartialView("TuanDYanxGusYuZongj", new TuandYanxXuexYuZongj()
+			{
+				AttachmentName = at1.Name,
+				AttachmentUrl = at1.Url
+			});
+		}
+
+		[HttpPost]
+		public ActionResult TuanDYanxGusYZongj(TuandYanxXuexYuZongj model)
+		{
+			ThrowNotAjax();
+
+			var atta1 = new AttachmentsDataModel()
+			{
+				Type = AttachmentsKeys.Tuand_YanxGusYuZongj,
+				Name = model.AttachmentName,
+				Url = model.AttachmentUrl,
+				UserId = UserProfile.UserId,
+				JoinId = UserProfile.UserId,
+			};
+
+			db.BeginTrans();
+
+
+			try
+			{
+				AttachmentsExtensions.DeleteAttas(db, UserProfile.UserId, new string[] { AttachmentsKeys.Tuand_YanxGusYuZongj });
+
+				AttachmentsExtensions.InsertAttas(db, new AttachmentsDataModel[] { atta1 });
+
+				db.Commit();
+			}
+			catch (Exception ex)
+			{
+				db.Rollback();
+
+				return Json(new
+				{
+					result = AjaxResults.Error,
+					msg = ex.Message
+				});
+			}
+
+
+			return Json(new
+			{
+				result = AjaxResults.Success,
+				msg = "信息已保存!"
+			});
+
+		}
+
+		#endregion
+
+
+		#region [ 团队项目 ]
+
+		public ActionResult TuanDXinagm(long teamId)
 		{
 			var tp = APDBDef.TeamProject;
 			var model = new TuandXiangmViewModel();

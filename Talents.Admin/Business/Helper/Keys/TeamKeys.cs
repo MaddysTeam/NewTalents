@@ -40,7 +40,7 @@
 		public const string TuanDZiXiangm = "团队子项目";
 
       public const string TuanDYueJianb = "团队月简报";
-
-   }
+		public const string TuanDYanxGusYuZongj = "研修故事与总结";
+	}
 
 }

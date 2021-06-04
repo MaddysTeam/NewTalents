@@ -1,0 +1,80 @@
+﻿@model TuandYanxXuexYuZongj
+@{
+	var pageTitle = ViewBag.Title = TeamKeys.TuanDYanxGusYuZongj;
+}
+<!-- WIDGET TABBED CONTENT -->
+<div class="widget">
+	<div class="widget-header">
+		<h3><i class="fa fa-paperclip"></i> @pageTitle</h3>
+		<div class="btn-group widget-header-toolbar">
+			<a href="javascript:;" title="焦点" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+			<a href="javascript:;" title="全屏" class="btn-borderless btn-expand"><i class="fa fa-expand"></i></a>
+		</div>
+	</div>
+	<div class="widget-content">
+
+		@using (Html.BeginForm("TuanDYanxGusYZongj", "Team", FormMethod.Post, new { @class = "form-horizontal", data_after_success = "afterDialogSuccess()" }))
+		{
+			<div class="form-horizontal form-group-sm">
+				<div class="row">
+					<div class="red">&nbsp;&nbsp;&nbsp;*文件类型支持文本类型，图片和压缩包，文件不大于50M</div>
+					<fieldset class="col-md-12"><p><hr /></p></fieldset>
+					<fieldset class="col-md-9">
+
+						<div class="form-group">
+							@Html.LabelFor(m => m.AttachmentName, new { @class = "control-label col-md-2" })
+							<div class="col-md-9 uploadArea" id="uploadArea1">
+								@Html.HiddenFor(m => m.AttachmentUrl, new { @class = "AttachmentUrl" })
+								@Html.TextAreaFor(m => m.AttachmentName, 5, 5, new { @class = "AttachmentName", @style = "visibility:hidden;position:absolute;" })
+								<div class="input-group">
+									<div class="form-control oversize upload-control uploadItem">
+
+										@if (Model.AttachmentName != null && Model.AttachmentName != "")
+										{
+											foreach (var item in Model.AttachmentName.Split('|'))
+											{
+												<p>
+													<label title="@item">@(item.Length > 40 ? item.Substring(0, 37) + "..." : item)</label> <button type="button" class="btn btn-danger btn-xs btn-delete" onclick="delAttachment(this, $('#uploadArea1'))">删除</button>
+												</p>
+											}
+										}
+									</div>
+									<span class="input-group-btn">
+										<button class="btn btn-danger btn-mulit-upload" type="button" id="btn-start1">附件上传</button>
+									</span>
+								</div>
+								@*<div class="red">*支持多文件上传<br />*文件类型支持文本类型，图片和压缩包，每个文件不大于20M, <br /> *单个文件上传进度为100%表示上传成功</div>*@
+								@Html.ValidationMessageFor(m => m.AttachmentName)
+							</div>
+						</div>
+
+					<div class="form-group">
+						<div class="col-sm-9 col-lg-offset-2">
+							<button type="submit" class="btn btn-primary btn-block-half"><i class="fa fa-check-circle"></i> 保存</button>
+						</div>
+					</div>
+					</fieldset>
+
+				</div>
+			</div>
+		}
+	</div>
+</div>
+<!-- END WIDGET TABBED CONTENT -->
+
+<form action="@Url.Action("UploadFile", "Attachment")" class="dropzone1 hidden"></form>
+
+<script>
+
+	function afterDialogSuccess(){}
+
+	$(function () {
+
+		ajaxSubmitForm($('.widget-content form'));
+
+		//多文件上传
+		ajaxMultipleFileUpload($('.dropzone1'), $('#btn-start1'), $('#uploadArea1'));
+
+	});
+
+</script>

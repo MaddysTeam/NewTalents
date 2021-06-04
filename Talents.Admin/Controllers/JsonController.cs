@@ -312,9 +312,10 @@ namespace TheSite.Controllers
 				list.Add(new json_treenode { id = TeamKeys.TuanDZhidJians, text = "团队制度建设和规划", type = json_treenode_types.content });
 				list.Add(new json_treenode { id = TeamKeys.TuanDXiangm, text = "团队项目", type = json_treenode_types.content });
 				list.Add(new json_treenode { id = TeamKeys.YanxHuod, text = "团队活动", type = json_treenode_types.active });
-            list.Add(new json_treenode { id = TeamKeys.TuanDYueJianb, text = "团队月简报", type = json_treenode_types.content });
-            //list.Add(new json_treenode { id = TeamKeys.YanxHuod, text = "团队活动", type = json_treenode_types.active });
-         }
+				list.Add(new json_treenode { id = TeamKeys.TuanDYueJianb, text = "团队月简报", type = json_treenode_types.content });
+				list.Add(new json_treenode { id = TeamKeys.TuanDYanxGusYuZongj, text = "研修故事与总结", type = json_treenode_types.content });
+				//list.Add(new json_treenode { id = TeamKeys.YanxHuod, text = "团队活动", type = json_treenode_types.active });
+			}
 
 
 			return Json(list, JsonRequestBehavior.AllowGet);
@@ -343,8 +344,9 @@ namespace TheSite.Controllers
 				list.Add(new json_treenode { id = TeamKeys.TuanDGerJh, text = "成员个人计划", type = json_treenode_types.content });
 				list.Add(new json_treenode { id = TeamKeys.TuanDZiXiangm, text = "团队子项目", type = json_treenode_types.content });
 				list.Add(new json_treenode { id = TeamKeys.YanxHuod, text = "团队活动", type = json_treenode_types.active });
-            list.Add(new json_treenode { id = TeamKeys.TuanDYueJianb, text = "团队月简报", type = json_treenode_types.content });
-         }
+				//list.Add(new json_treenode { id = TeamKeys.TuanDYueJianb, text = "团队月简报", type = json_treenode_types.content });
+				list.Add(new json_treenode { id = TeamKeys.TuanDYanxGusYuZongj, text = "研修故事与总结", type = json_treenode_types.content });
+			}
 
 			return Json(list, JsonRequestBehavior.AllowGet);
 		}
