@@ -85,9 +85,11 @@ namespace TheSite.EvalAnalysis
 
 				//AnalysisResult(fc, result, items);
 
-				Analysis_GerJiH_ZiwFengx(result, items, fc[TeamEvalRuleKeys.GerJiH_ZiwFengx], fc[TeamEvalRuleKeys.GerJiH_ZiwFengx_Def]);
-				Analysis_GerJiH_FazMub(result, items, fc[TeamEvalRuleKeys.GerJiH_FazMub], fc[TeamEvalRuleKeys.GerJiH_FazMub_Def]);
-				Analysis_GerJiH_JutShis(result, items, fc[TeamEvalRuleKeys.GerJiH_JutShis], fc[TeamEvalRuleKeys.GerJiH_JutShis_Def]);
+				//Analysis_GerJiH_ZiwFengx(result, items, fc[TeamEvalRuleKeys.GerJiH_ZiwFengx], fc[TeamEvalRuleKeys.GerJiH_ZiwFengx_Def]);
+				//Analysis_GerJiH_FazMub(result, items, fc[TeamEvalRuleKeys.GerJiH_FazMub], fc[TeamEvalRuleKeys.GerJiH_FazMub_Def]);
+				//Analysis_GerJiH_JutShis(result, items, fc[TeamEvalRuleKeys.GerJiH_JutShis], fc[TeamEvalRuleKeys.GerJiH_JutShis_Def]);
+
+				Analysis_ChuqLv(result, items, fc[EvalQualityRuleKeys.TuandKaoh], fc[EvalQualityRuleKeys.TuandKaoh_Def]);
 
 				if (eval != null)
 				{
@@ -182,6 +184,25 @@ namespace TheSite.EvalAnalysis
 				score = string.IsNullOrEmpty(score) || string.IsNullOrWhiteSpace(score) ? _zeroScore : score.Trim();
 				var scoreValue = Convert.ToDouble(score);
 				result.Score += scoreValue.EnsureInRange(0, 50);
+				//result.DynamicScore3 += scoreValue.EnsureInRange(0, 50);
+
+				item.ResultValue = scoreValue.ToString();
+			}
+
+
+			private void Analysis_ChuqLv(TeamEvalResult result, Dictionary<string, TeamEvalResultItem> items, string choose, string score)
+			{
+				var item = new TeamEvalResultItem
+				{
+					ChooseValue = choose,
+					EvalItemKey = EvalQualityRuleKeys.TuandKaoh,
+				};
+				items.Add(item.EvalItemKey, item);
+
+
+				score = string.IsNullOrEmpty(score) || string.IsNullOrWhiteSpace(score) ? _zeroScore : score.Trim();
+				var scoreValue = Convert.ToDouble(score);
+				result.Score += scoreValue.EnsureInRange(0, 100);
 				//result.DynamicScore3 += scoreValue.EnsureInRange(0, 50);
 
 				item.ResultValue = scoreValue.ToString();

@@ -84,7 +84,7 @@
 					'commands': function (column, row) {
 						return '<div class="btn-group btn-group-xs pull-right" data-row-id="' + row.id + '">' +
 								 '<a class="btn btn-success btn-edit" href="@Url.Action("Eval")?periodId=' + @periodId + '&TeamId=' + row.teamId + '&schoolId=' + row.companyId + '&teacherId=' + row.teacherId + '">执行考评</a>' +
-								 '<a target="_blank" class="btn btn-info" href="@Url.Action("Overview","Declare")?id=' + row.teacherId + '">查看材料</a>' +
+								 @*'<a target="_blank" class="btn btn-info" href="@Url.Action("Overview","Declare")?id=' + row.teacherId + '">查看材料</a>' +*@
 								 '</div>';
 					},
 				},

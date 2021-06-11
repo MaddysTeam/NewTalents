@@ -62,7 +62,7 @@ namespace TheSite.Controllers
 						   er.JoinLeft(cd.TeacherId == er.TeacherId & er.PeriodId == periodId));
 
 			query = isLowDeclareLevel ?
-					query.where(d.DeclareTargetPKID > DeclareTargetIds.GugJiaos) :
+					query.where(d.DeclareTargetPKID > DeclareTargetIds.GugJiaos & d.DeclareTargetPKID < DeclareTargetIds.PutLaos) :
 					query.where(d.DeclareTargetPKID <= DeclareTargetIds.GugJiaos);
 
 			query = query.where_and(ca.UserId == UserProfile.UserId);
@@ -153,7 +153,7 @@ namespace TheSite.Controllers
 						d.JoinInner(cd.TeacherId == d.TeacherId),
 						u.JoinInner(cd.TeacherId == u.UserId),
 				  v.JoinLeft(u.UserId == v.TeacherId & v.PeriodId == periodId))
-			.where(ca.UserId == UserProfile.UserId & d.TeacherId.NotIn(subquery))
+			.where(ca.UserId == UserProfile.UserId & d.TeacherId.NotIn(subquery) & d.DeclareTargetPKID < DeclareTargetIds.PutLaos)
 				.primary(u.UserId)
 				.skip((current - 1) * rowCount)
 				.take(rowCount);

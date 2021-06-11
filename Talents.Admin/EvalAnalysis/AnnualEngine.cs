@@ -48,7 +48,7 @@ namespace TheSite.EvalAnalysis
 		public override IReadOnlyDictionary<long, TeamEvalUnitBase> TeamEvals { get; }
 		= new List<TeamEvalUnitBase>
 		{
-			new TeamEvalUnit { ViewPath=ViewPath },
+			//new TeamEvalUnit { ViewPath=ViewPath },
 			new TeamEvalUnitSpecial { ViewPath=ViewPath }
 		}.ToDictionary(m => m.TargetId);
 

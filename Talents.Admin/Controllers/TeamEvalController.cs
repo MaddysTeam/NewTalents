@@ -208,7 +208,7 @@ namespace TheSite.Controllers
 		public ActionResult Eval(TeamEvalParam param)
 		{
 			//TODO: 为特别专家制定 2 代表特殊专家（主持人） 1 表示普通主持人 
-			var targetId = UserProfile.UserId == 12011 ? 2 : 1;
+			var targetId = 2;// UserProfile.UserId == 12011 ? 2 : 1;
 
 			var period = db.EvalPeriodDal.PrimaryGet(param.PeriodId);
 
@@ -226,7 +226,7 @@ namespace TheSite.Controllers
 		{
 
 			//TODO: 为特别专家制定 2 代表特殊专家（主持人） 1 表示普通主持人 
-			var targetId = UserProfile.UserId == 12011 ? 2 : 1;
+			var targetId = 2;// UserProfile.UserId == 12011 ? 2 : 1;
 
 			var period = db.EvalPeriodDal.PrimaryGet(param.PeriodId);
 
@@ -256,7 +256,7 @@ namespace TheSite.Controllers
 		public ActionResult ResultView(TeamEvalParam param)
 		{
 			//TODO: 为特别专家制定 2 代表特殊专家（主持人） 1 表示普通主持人 
-			var targetId = UserProfile.UserId == 12011 ? 2 : 1;
+			var targetId = 2; //UserProfile.UserId == 12011 ? 2 : 1;
 
 			TeamEvalPeiodModel model = new TeamEvalPeiodModel(param);
 			model.Period = db.EvalPeriodDal.PrimaryGet(model.PeriodId);

@@ -96,9 +96,10 @@ namespace TheSite.Controllers
 						cd.JoinInner(er.TeacherId == cd.TeacherId),
 						c.JoinInner(cd.CompanyId == c.CompanyId),
 						u.JoinInner(er.TeacherId == u.UserId),
+						d.JoinInner(er.TeacherId==d.TeacherId),
 						ualias.JoinInner(er.Accesser == ualias.UserId)
 						)
-				.where(er.PeriodId == periodId)
+				.where(er.PeriodId == periodId & d.DeclareTargetPKID < DeclareTargetIds.PutLaos)
 				.primary(er.TeacherId)
 			.skip((current - 1) * rowCount)
 				.take(rowCount);
@@ -181,12 +182,12 @@ namespace TheSite.Controllers
 				.from(er)
 				.where(er.PeriodId == periodId);
 
-			var query = APQuery.select(d.TeacherId, u.RealName, c.CompanyName)
+			var query = APQuery.select(d.TeacherId, u.RealName, c.CompanyName, d.DeclareTargetPKID)
 			   .from(d,
 					 u.JoinInner(d.TeacherId == u.UserId),
 					 cd.JoinInner(cd.TeacherId == u.UserId),
 					 c.JoinInner(c.CompanyId == cd.CompanyId))
-			   .where(d.TeacherId.NotIn(subquery))
+			   .where(d.TeacherId.NotIn(subquery) & d.DeclareTargetPKID < DeclareTargetIds.PutLaos)
 			   .primary(d.TeacherId)
 			   .order_by(c.CompanyName.Asc)
 			   .skip((current - 1) * rowCount)
@@ -307,7 +308,7 @@ namespace TheSite.Controllers
 
 			if (isLowDeclareLevel != null)
 			{
-				string subTitle = isLowDeclareLevel.Value ? "学年度教学能手，教学新秀，特招学员" : "学年度骨干及以上层级";
+				string subTitle = isLowDeclareLevel.Value ? "2020学年度教学能手，教学新秀，特招学员" : "学年度骨干及以上层级";
 				companyName = string.Format("{0}{1}", companyName, subTitle);
 			}
 			var viewModel = new ExpertDeclareSchoolViewModel { CompanyName = companyName, Results = results };
@@ -336,7 +337,7 @@ namespace TheSite.Controllers
 			if (isLowDeclareLevel != null)
 			{
 				query = isLowDeclareLevel.Value ?
-					query.where_and(d.DeclareTargetPKID > DeclareTargetIds.GugJiaos) :
+					query.where_and(d.DeclareTargetPKID > DeclareTargetIds.GugJiaos & d.DeclareTargetPKID < DeclareTargetIds.PutLaos) :
 					query.where_and(d.DeclareTargetPKID <= DeclareTargetIds.GugJiaos);
 			}
 
