@@ -2234,7 +2234,9 @@ namespace TheSite.Controllers
 
 			ViewBag.TeamActive = GetTeamActiveList(id, currentPeriod);
 
-			var subQuery = APQuery.select(tm.MemberId).from(tm).where(tm.TeamId == id);
+         //ViewBag.TeawmMonthReport = GetTeamMonthReport(id, currentPeriod);
+
+         var subQuery = APQuery.select(tm.MemberId).from(tm).where(tm.TeamId == id);
 			var memberDaList = APQuery.select(da.Asterisk, dcl.DeclareTargetPKID)
 			   .from(da, dcl.JoinInner(da.TeacherId == dcl.TeacherId))
 			   .where(
@@ -2569,6 +2571,64 @@ namespace TheSite.Controllers
 		 => db.TeamProjectDal.ConditionQuery(
 			 tp.TeamId==teamId | tp.Creator== userId,
 			  null, null, null).FirstOrDefault();
+
+
+      private TuandJianbViewModel GetTeamMonthReport(long teamId, EvalPeriod current)
+      {
+         var useId = UserProfile.UserId;
+         var allAts = AttachmentsExtensions.GetAttachmentList(db, teamId);
+         var ats1 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_Jianb);
+         var ats2 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_Jianb2);
+         var ats3 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_Jianb3);
+         var ats4 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_Jianb4);
+
+         var ats5 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_Jianb5);
+         var ats6 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_Jianb6);
+         var ats7 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_Jianb7);
+         var ats8 = allAts.FindAll(a => a.Type == AttachmentsKeys.Tuand_Jianb8);
+
+         var at1 = AttachmentsExtensions.GetAttachment(ats1);
+         var at2 = AttachmentsExtensions.GetAttachment(ats2);
+         var at3 = AttachmentsExtensions.GetAttachment(ats3);
+         var at4 = AttachmentsExtensions.GetAttachment(ats4);
+
+         var at5 = AttachmentsExtensions.GetAttachment(ats5);
+         var at6 = AttachmentsExtensions.GetAttachment(ats6);
+         var at7 = AttachmentsExtensions.GetAttachment(ats7);
+         var at8 = AttachmentsExtensions.GetAttachment(ats8);
+
+
+         //List<AttachmentsViewModel> result = new List<AttachmentsViewModel>();
+         //result.Add(at1);
+         //result.Add(at2);
+         //result.Add(at3);
+         //result.Add(at4);
+         //result.Add(at5);
+         //result.Add(at6);
+         //result.Add(at7);
+         //result.Add(at8);
+
+         return new TuandJianbViewModel()
+         {
+            BulletinAttachmentName1 = at1.Name,
+            BulletinAttachmentUrl1 = at1.Url,
+            BulletinAttachmentName2 = at2.Name,
+            BulletinAttachmentUrl2 = at2.Url,
+            BulletinAttachmentName3 = at3.Name,
+            BulletinAttachmentUrl3 = at3.Url,
+            BulletinAttachmentName4 = at4.Name,
+            BulletinAttachmentUrl4 = at4.Url,
+
+            BulletinAttachmentName5 = at5.Name,
+            BulletinAttachmentUrl5 = at5.Url,
+            BulletinAttachmentName6 = at6.Name,
+            BulletinAttachmentUrl6 = at6.Url,
+            BulletinAttachmentName7 = at7.Name,
+            BulletinAttachmentUrl7 = at7.Url,
+            BulletinAttachmentName8 = at8.Name,
+            BulletinAttachmentUrl8 = at8.Url
+         };
+      }
 
 
 
